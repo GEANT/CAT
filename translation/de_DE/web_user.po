@@ -1,24 +1,26 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduroam_devel <stefan.winter@restena.lu>, 2018-2019, 2020.
-# stefanwinter <stefan.winter@gmail.com>, 2015.
-# Steffen Klemer <klemer@dfn.de>, 2018.
+# eduroam_devel <stefan.winter@restena.lu>, 2020
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2020
+# stefanwinter <stefan.winter@gmail.com>, 2015
+# Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 10:51+0100\n"
-"PO-Revision-Date: 2020-12-08 11:06+0100\n"
-"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German <cat-devel@lists.geant.org>\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:26+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
+"language/de_DE/)\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:36
@@ -459,7 +461,7 @@ msgstr ""
 "(aus rechtlichen Gründen stehen die Nutzungsbedingungen nur auf Englisch zur "
 "Verfügung)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:106
 #, php-format
 msgid "Welcome to %s"
 msgstr "Willkommen zu %s"
@@ -517,17 +519,17 @@ msgstr ""
 "die Sie mit großen Augen anstarrt. Ihr Fehler? Unser Bug? Wer weiß! "
 "Vielleicht gehen Sie am besten zurück zur <a href='%s'>Startseite</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:291
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Datenschutzerklärung"
 
-#: web/lib/user/TextTemplates.php:83
+#: web/lib/user/TextTemplates.php:84
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Willkommen in der %s Nutzergemeinde!"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:85
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -536,12 +538,12 @@ msgstr ""
 "Bei Problemen mit dem automatischen Herunterladen nutzen Sie bitte diesen <a "
 "href=''>Link</a>."
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Sehr geehrter %s Nutzer,"
 
-#: web/lib/user/TextTemplates.php:86
+#: web/lib/user/TextTemplates.php:87
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -554,7 +556,7 @@ msgstr ""
 "Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort oder "
 "Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
 
-#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -566,11 +568,25 @@ msgstr ""
 "das Problem diagnostizieren und Ihnen helfen. Die Kontaktdaten finden Sie "
 "weiter oben auf dieser Seite."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:51
+#: web/lib/user/TextTemplates.php:100
+#, php-format
+msgid ""
+"When connecting to %s hotspots, the following <a href='%s'>Terms and "
+"Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
+msgstr ""
+"Beim Verbinden mit %s Hotspots gelten diese <a "
+"href='%s'>Nutzungsbedingungen</a> und <a href='%s'>Datenschutzhinweise</a>."
+
+#. this would actually be a checkbox which grays out the actual download button until ACKed
+#: web/lib/user/TextTemplates.php:103
+msgid "I agree to be bound by these Terms and Conditions."
+msgstr "Ich stimme den Nutzungsbedingungen zu."
+
+#: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Zurück zum Herunterladen"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -583,26 +599,26 @@ msgstr ""
 "tausenden Universitäten, Forschungszentren und anderen Orten überall auf der "
 "Welt nutzen. Und das völlig kostenfrei!"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:107
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Verbinden Sie Ihr Gerät mit %s"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s Installation leicht gemacht:"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:109
 msgid "Custom built for your organisation"
 msgstr "Maßgeschneidert für Ihre Organisation"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:110
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Klicken Sie hier, um Ihr %s Installationsprogramm herunterzuladen"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:111
 #, php-format
 msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
@@ -611,28 +627,28 @@ msgstr ""
 "%s ermöglicht Zugang zu tausenden Wi-Fi Hotspots weltweit, und das "
 "kostenlos. <a href='%s'>Mehr erfahren</a>"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:112
 msgid "Select the user group"
 msgstr "Bitte wählen Sie Ihre Benutzergruppe aus"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:113
 msgid "select another"
 msgstr "andere auswählen"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:114
 msgid "Choose another installer to download"
 msgstr "Einen anderen Installer auswählen"
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:115
 msgid "All platforms"
 msgstr "Alle Plattformen"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid "Download your %s installer"
 msgstr "%s Installationsprogramm herunterladen"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:117
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -642,19 +658,19 @@ msgstr ""
 "Seite weitergeleitet werden sollen.<br>Wenn Sie auf <b>Weiter</b> klicken, "
 "wird diese Seite in einem neuen Fenster oder Tab geöffnet."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:118
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:318
 #: web/skins/modern/user/js/cat_js.php:326
 msgid "Continue"
 msgstr "Weiter"
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:119
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digital signiert von der Organisation, die %s koordiniert."
 
-#: web/lib/user/TextTemplates.php:104
+#: web/lib/user/TextTemplates.php:120
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -663,7 +679,7 @@ msgstr ""
 "Sie können Ihr %s Installationsprogramm über einen persönlichen Einladungs-"
 "Link erhalten. Bitte wenden Sie sich hierfür an Ihren lokalen IT-Service."
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:121
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -672,11 +688,11 @@ msgstr ""
 "Dieser Dienst bietet %s Installationsprogramme für viele Organisation an. "
 "Klicken Sie hier um zu sehen ob Ihre Organisation gelistet ist."
 
-#: web/lib/user/TextTemplates.php:106
+#: web/lib/user/TextTemplates.php:122
 msgid "Custom built for you"
 msgstr "Maßgeschneidert für Sie"
 
-#: web/lib/user/TextTemplates.php:108
+#: web/lib/user/TextTemplates.php:124
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digital signiert von der Organisation, die %s:%s koordiniert."
@@ -704,20 +720,6 @@ msgstr ""
 "müssen Sie sich nur noch in die Nähe eines eduroam® Hotspots begeben und "
 "Ihre Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort "
 "oder Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
-
-#: web/skins/modern/div_user_welcome.php:44
-#, php-format
-msgid ""
-"When connecting to %s hotspots, these <a href='%s'>Terms and Conditions</a> "
-"apply.</p>"
-msgstr ""
-"Beim Verbinden mit %s Hotspots gelten diese <a href='%s'>Nutzungsbedingungen<"
-"/a></p>"
-
-#. this would actually be a checkbox which grays out the actual download button until ACKed
-#: web/skins/modern/div_user_welcome.php:47
-msgid "I agree to be bound by these Terms and Conditions."
-msgstr "Ich stimme den Nutzungsbedingungen zu."
 
 #: web/skins/modern/index.php:78 web/skins/modern/test.php:80
 msgid "Authenticating"

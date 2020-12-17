@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-08-30 21:34+0000\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
@@ -43,15 +43,14 @@ msgid "Windows RT"
 msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
-#, fuzzy
-msgid "Apple macOS Catalina"
-msgstr "Apple macOS Sierra"
+msgid "Apple device"
+msgstr ""
 
-#: devices/Devices-template.php:199 devices/Devices-template.php:214
-#: devices/Devices-template.php:229 devices/Devices-template.php:243
-#: devices/Devices-template.php:257 devices/Devices-template.php:271
-#: devices/Devices-template.php:285 devices/Devices-template.php:299
-#: devices/Devices-template.php:313
+#: devices/Devices-template.php:199 devices/Devices-template.php:215
+#: devices/Devices-template.php:231 devices/Devices-template.php:247
+#: devices/Devices-template.php:262 devices/Devices-template.php:277
+#: devices/Devices-template.php:292 devices/Devices-template.php:307
+#: devices/Devices-template.php:322 devices/Devices-template.php:337
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -60,42 +59,46 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:204
+msgid "Apple macOS Catalina"
+msgstr ""
+
+#: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
 msgstr ""
 
-#: devices/Devices-template.php:219
+#: devices/Devices-template.php:236
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:234
+#: devices/Devices-template.php:252
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:248
+#: devices/Devices-template.php:267
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:262
+#: devices/Devices-template.php:282
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:276
+#: devices/Devices-template.php:297
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:290
+#: devices/Devices-template.php:312
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:304
+#: devices/Devices-template.php:327
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:318
-msgid "Apple iOS mobile devices"
-msgstr "Apple iOS mobil cihazlar"
+#: devices/Devices-template.php:342
+msgid "Apple iOS mobile device (iOS 7-11)"
+msgstr ""
 
-#: devices/Devices-template.php:327 devices/Devices-template.php:341
+#: devices/Devices-template.php:352
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -103,23 +106,19 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: devices/Devices-template.php:332
-msgid "Apple iOS mobile devices (iOS 7-11)"
+#: devices/Devices-template.php:357
+msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr ""
 
-#: devices/Devices-template.php:346
-msgid "Apple iOS mobile devices (iOS 5 and 6)"
-msgstr "Apple iOS mobil araçları (iOS 5 ve 6)"
-
-#: devices/Devices-template.php:359
+#: devices/Devices-template.php:371
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:381
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:375
+#: devices/Devices-template.php:387
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -133,81 +132,100 @@ msgstr ""
 "sessizce gerçekleşecektir. Yeni ağ tanımlamalarınız 'tercih edilen ağlar' "
 "kısmına eklenecektir."
 
-#: devices/Devices-template.php:380
-msgid "Android 10.0 Q"
+#: devices/Devices-template.php:392
+msgid "Android 11 and higher"
 msgstr ""
 
-#: devices/Devices-template.php:386 devices/Devices-template.php:401
-#: devices/Devices-template.php:416 devices/Devices-template.php:431
-#: devices/Devices-template.php:446 devices/Devices-template.php:461
-#: devices/Devices-template.php:476 devices/Devices-template.php:491
+#: devices/Devices-template.php:398 devices/Devices-template.php:412
+#: devices/Devices-template.php:425 devices/Devices-template.php:440
+#: devices/Devices-template.php:454 devices/Devices-template.php:468
+#: devices/Devices-template.php:482 devices/Devices-template.php:496
+#: devices/Devices-template.php:510 devices/Devices-template.php:524
+#: devices/Devices-template.php:538
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
 "that you have installed the %s application. This application is available "
-"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
-"Android işletim sistemine kuruluma devam etmeden önce, %s uygulamasını "
-"kurduğunuzdan emin olun. Bu uygulama %s, %s ve %s üzerinden temin "
-"edilebilir, ve gerekli ayarları yapmak için CAT üzerinden indirdiğiniz "
-"yapılandırmayı kullanacaktır."
 
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450 devices/Devices-template.php:465
-#: devices/Devices-template.php:480 devices/Devices-template.php:495
+#: devices/Devices-template.php:400 devices/Devices-template.php:414
+#: devices/Devices-template.php:427 devices/Devices-template.php:442
+#: devices/Devices-template.php:456 devices/Devices-template.php:470
+#: devices/Devices-template.php:484 devices/Devices-template.php:498
+#: devices/Devices-template.php:512 devices/Devices-template.php:526
+#: devices/Devices-template.php:540
 msgid "as local download"
 msgstr "yerel indirme olarak"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:406
+msgid "Android 8 to 10"
+msgstr ""
+
+#: devices/Devices-template.php:419
+msgid "Android 4.3 to 7"
+msgstr ""
+
+#: devices/Devices-template.php:433
+msgid "Android 10.0 Q"
+msgstr ""
+
+#: devices/Devices-template.php:447
 msgid "Android 9.0 Pie"
 msgstr ""
 
-#: devices/Devices-template.php:410
+#: devices/Devices-template.php:461
 msgid "Android 8.0 Oreo"
 msgstr ""
 
-#: devices/Devices-template.php:425
+#: devices/Devices-template.php:475
 msgid "Android 7.0 Nougat"
 msgstr ""
 
-#: devices/Devices-template.php:440
+#: devices/Devices-template.php:489
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:455
+#: devices/Devices-template.php:503
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:517
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:485
+#: devices/Devices-template.php:531
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:500
+#: devices/Devices-template.php:545
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:510
+#: devices/Devices-template.php:555
 msgid "EAP config"
 msgstr "EAP ayarları"
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:560
+#, php-format
+msgid ""
+"This option provides an EAP config XML file, which can be consumed by the "
+"eduroamCAT app for Android."
+msgstr ""
+
+#: devices/Devices-template.php:565
+msgid "EAP generic"
+msgstr ""
+
+#: devices/Devices-template.php:570
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
+"the GetEduroam applications."
 msgstr ""
-"Bu seçenek, Android ve Linux için eduroamCAT uygulaması tarafından "
-"kullanılabilecek, jenerik bir EAP XML konfigürasyon dosyası oluşturur. Bu "
-"halen deneysel durumda bir özelliktir."
 
-#: devices/Devices-template.php:520
+#: devices/Devices-template.php:576
 msgid "Test"
 msgstr "Test"
 
@@ -215,7 +233,7 @@ msgstr "Test"
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Bu aygıt HTTPS önbellekleme ayarlarını zorlamayı desteklememektedir."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:64
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:67
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
@@ -225,24 +243,31 @@ msgstr ""
 "eğer 'Kullanım Kuralları' ayarlanmadı ise, yükleyici ilgili ipucunu "
 "kullanıcıya gösterecektir."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:84
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr ""
 " '%s' den '%s' nin ağ yapılandırma profili - %s tarafından sağlanmıştır"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:94
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr ""
 "'%s' Kimlik Sağlayıcısı için %s yapılandırması  - %s tarafından sağlanmıştır."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:139
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
-msgid "Important Notice: your username must end with @%s!"
-msgstr "Önemli Uyarı: kullanıcı adınız @%s! ile bitmelidir"
+msgid "Important Notice: your username MUST end exactly with '...@%s' !"
+msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:143
+#. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
+#, php-format
+msgid ""
+"Important Notice: your username MUST contain an '@' and end with ...%s !"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -252,15 +277,15 @@ msgstr ""
 "Kimlik Sağlayıcınızı tanımlayan bir sonektir. Lütfen burada ne "
 "kullanacağınızı öğrenin ve kullanıcı adını doğru biçimde girin."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:168
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:182
 msgid "Unnamed Organisation"
 msgstr "İsimsiz Kurum"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:169
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:183
 msgid "Unnamed Profile"
 msgstr "İsimsiz Profil"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:234
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:249
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -268,7 +293,7 @@ msgstr ""
 "En iyi şekilde sonuçlandırmak için konfigürasyon dosyasını işletim "
 "sisteminizin kendi web tarayıcısını (Safari'yi) kullanınız."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:236
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:251
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -276,83 +301,89 @@ msgstr ""
 "Profil düğmeyi tıkladıktan (veya dokunduktan) sonra kendiliğinden "
 "yüklenecektir. Bazı noktalarda onaylama/girdi için sorular sorulacaktır:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:253
 msgid "to install the profile"
 msgstr "profili yüklemek için"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:239
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:254
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "sunucu sertifika otoritesini kabul etmek için"
 msgstr[1] "sunucu sertifika otoritelerini kabul etmek için"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:256
 #, php-format
 msgid "(%d times)"
 msgstr "(%d adet)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:244
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:259
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr "kurumunuzun vermiş olduğu kullanıcı adı ve şifreyi girmek için"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:246
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:261
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(herbiri için %d kez, çünkü %d adet SSID için %s yüklendi)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:448
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:449
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s adlı ağ için %s yapılandırması"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:460
 msgid "Wired Network"
 msgstr "Kablolu Ağ"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:461
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "kablolu ağ için %s yapılandırılması"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
-msgid "Hotspot 2.0 Settings"
-msgstr "HotSpot 2.0 Ayarları"
+#. a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
+#: devices/ms/Device_W8_10.php:99
+msgid "Roaming Partner"
+msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
-#, php-format
-msgid "%s Hotspot 2.0 configuration"
-msgstr "%s Hotspot 2.0 konfigürasyonu"
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "%s nin yeniden açılmasından sonra bu SSID kullanılmamalıdır."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:547
 msgid "Disabled WiFi network"
 msgstr "Kablosuz Ağ (WiFi) devre dışı"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
 msgid "eduroam user certificate"
 msgstr "eduroam kullanıcı sertifikası"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:703
 #, php-format
 msgid "The %s Certification Authority"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#. / example: "Identity Provider CA #1 (Root)"
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
-msgid "%s CA"
+msgid "%s CA #%d (%s)"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Root"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Intermediate"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:337
@@ -386,7 +417,7 @@ msgstr ""
 "<strong>%s</strong> nin yanısıra, yükleyici aşağıda belirtilen ağlar için "
 "erişim yapılandırmasını gerçekleştirecektir:"
 
-#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:252
+#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:262
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -422,7 +453,7 @@ msgstr ""
 "kopyalanacaktır."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:262
+#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:272
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
@@ -511,7 +542,7 @@ msgstr "H"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "kişisel sertifika dosysı (p12 ya da pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1131
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1133
 msgid "All files"
 msgstr "Bütün dosyalar"
 
@@ -529,8 +560,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Dosyaya yaz"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1277
-#: devices/ms/Files/common.inc:1297 devices/ms/Files/common.inc:1348
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1279
+#: devices/ms/Files/common.inc:1299 devices/ms/Files/common.inc:1350
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -592,7 +623,7 @@ msgstr ""
 "bunun yerine kullanıcıya ait kullanıcı adı girdisinin son ekinden elde "
 "edilen kimliği kullanırlar."
 
-#: devices/ms/WindowsCommon.php:249
+#: devices/ms/WindowsCommon.php:259
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -606,7 +637,7 @@ msgstr ""
 "kaydedilecektir. Yükleyiciyi yapılandıracağınız makineye kopyalayarak "
 "çalıştırınız."
 
-#: devices/ms/WindowsCommon.php:258
+#: devices/ms/WindowsCommon.php:268
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -620,7 +651,7 @@ msgstr ""
 "dosyaları parola korumalıdır. Yükleme işlemi sırasında hem dosya hem de "
 "parolanın bulunması gerekir."
 
-#: devices/ms/WindowsCommon.php:266
+#: devices/ms/WindowsCommon.php:276
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -632,13 +663,13 @@ msgstr ""
 "yeniden bağlandığınızda bu bilgiler kullanılarak ağa bağlantı "
 "gerçekleştirilecektir."
 
-#: devices/ms/WindowsCommon.php:269
+#: devices/ms/WindowsCommon.php:279
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured networks:"
 msgstr ""
 
-#: devices/ms/WindowsCommon.php:422 devices/ms/WindowsCommon.php:423
+#: devices/ms/WindowsCommon.php:450 devices/ms/WindowsCommon.php:451
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s için %s yükleyici"
@@ -660,7 +691,7 @@ msgid ""
 "called with %d SSIDs to configure."
 msgstr ""
 
-#: devices/xml/Device_XML.php:70
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -690,7 +721,7 @@ msgstr "Sisteminiz hazır."
 msgid "Network installation had errors."
 msgstr "Ağ kurulumunda hatalar oluştu."
 
-#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:951
 msgid "Please contact ${SUPPORT}."
 msgstr "Lütfen ${SUPPORT} ile irtibata geçin."
 
@@ -878,84 +909,84 @@ msgstr "$R1 profili siliniyor"
 msgid "installing profile $R1"
 msgstr "$R1 profili yükleniyor"
 
-#: devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:951
 msgid "Profile installation error for $R1."
 msgstr "$R1 için profil kurulum hatası."
 
-#: devices/ms/Files/common.inc:974
+#: devices/ms/Files/common.inc:976
 msgid "installing credentials for wired"
 msgstr "Kablolu ağ için kimlik bilgileri kuruluyor"
 
-#: devices/ms/Files/common.inc:980
+#: devices/ms/Files/common.inc:982
 msgid "installing credentials TLS"
 msgstr "TLS kimlik bilgileri yükleniyor"
 
-#: devices/ms/Files/common.inc:1096
+#: devices/ms/Files/common.inc:1098
 msgid "installing credentials for profile $R1"
 msgstr "$R1 profili için kimlik bilgileri yükleniyor"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/geant_link.inc:126
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/geant_link.inc:126
 msgid "Credentials installation problem"
 msgstr "Kimlik bilgileri kurulum problemi"
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 #, php-format
 msgid "%s installer for"
 msgstr "%s için yükleyici"
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 msgid "Install personal certificate"
 msgstr "Kişisel sertifika yükle"
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Preparing to install personal certificate."
 msgstr "Kişisel sertifika kurulumu için hazırlanıyor."
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Click OK to continue"
 msgstr "Devam etmek için 'Tamam' ı tıklayın"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*.p12)"
 msgstr "Sertifika dosyaları (*.p12)"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*pfx)"
 msgstr "Sertifika dosyaları (*.pfx)"
 
-#: devices/ms/Files/common.inc:1134
+#: devices/ms/Files/common.inc:1136
 msgid "certificate password:"
 msgstr "sertikifa parolası:"
 
-#: devices/ms/Files/common.inc:1136 devices/ms/Files/common.inc:1399
+#: devices/ms/Files/common.inc:1138 devices/ms/Files/common.inc:1401
 msgid "Username:"
 msgstr "Kullanıcı Adı:"
 
-#: devices/ms/Files/common.inc:1140
+#: devices/ms/Files/common.inc:1142
 msgid "Selected file: $Cert_file"
 msgstr "Seçilen dosyalar: $Cert_file"
 
-#: devices/ms/Files/common.inc:1142
+#: devices/ms/Files/common.inc:1144
 msgid "import password:"
 msgstr "içe aktarma parolası:"
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1179
 msgid "No certificate file selected"
 msgstr "Sertifika dosyası seçilmedi"
 
-#: devices/ms/Files/common.inc:1181
+#: devices/ms/Files/common.inc:1183
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr " Yanlış içe aktarma parolası\\$r$\\n yeniden girin"
 
-#: devices/ms/Files/common.inc:1183
+#: devices/ms/Files/common.inc:1185
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Yanlış sertifika parolası\\$r$\\n yeniden girin"
 
-#: devices/ms/Files/common.inc:1257
+#: devices/ms/Files/common.inc:1259
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1292
+#: devices/ms/Files/common.inc:1294
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -963,7 +994,7 @@ msgstr ""
 "Hata: kullanıcı adınız 'xxx@${REALM}' biçiminde olmalı. Lütfen kullanıcı "
 "adını doğru biçimde girin."
 
-#: devices/ms/Files/common.inc:1294
+#: devices/ms/Files/common.inc:1296
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -971,38 +1002,38 @@ msgstr ""
 "Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '${REALM}' ile "
 "bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
 
-#: devices/ms/Files/common.inc:1395
+#: devices/ms/Files/common.inc:1397
 msgid "User credentials"
 msgstr "Kullanıcı kimlik bilgileri"
 
-#: devices/ms/Files/common.inc:1402
+#: devices/ms/Files/common.inc:1404
 msgid "Password:"
 msgstr "Parola:"
 
-#: devices/ms/Files/common.inc:1405
+#: devices/ms/Files/common.inc:1407
 msgid "Repeat password:"
 msgstr "Parol Tekrarı:"
 
-#: devices/ms/Files/common.inc:1420
+#: devices/ms/Files/common.inc:1422
 msgid "Missing username"
 msgstr "Kullanıcı adı eksik"
 
-#: devices/ms/Files/common.inc:1432
+#: devices/ms/Files/common.inc:1434
 msgid "Missing password"
 msgstr "Eksik parola"
 
-#: devices/ms/Files/common.inc:1438
+#: devices/ms/Files/common.inc:1440
 msgid "Password mismatch"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1531 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1533 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:44
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Kurulum"
 
-#: devices/ms/Files/common.inc:1531
+#: devices/ms/Files/common.inc:1533
 msgid "Checking for existing wireless profiles"
 msgstr "Varolan kablosuz ağ profilleri kontrol ediliyor."
 

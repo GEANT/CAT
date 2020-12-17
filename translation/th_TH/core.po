@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
 "PO-Revision-Date: 2019-04-18 09:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Thai (Thailand) (http://www.transifex.com/eduroam_devel/cat/"
@@ -284,21 +284,21 @@ msgstr ""
 msgid "South Africa"
 msgstr ""
 
-#: core/CAT.php:467 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:113
 msgid "Unnamed Entity"
-msgstr ""
-
-#: core/DeviceConfig.php:229
-#, php-format
-msgid "your local %s support"
 msgstr ""
 
 #: core/DeviceConfig.php:230
 #, php-format
+msgid "your local %s support"
+msgstr ""
+
+#: core/DeviceConfig.php:231
+#, php-format
 msgid "your local %s support page"
 msgstr ""
 
-#: core/DeviceConfig.php:266
+#: core/DeviceConfig.php:267
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
@@ -334,7 +334,7 @@ msgstr ""
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:258
+#: core/IdP.php:269
 #, php-format
 msgid ""
 "Hi,\n"
@@ -348,7 +348,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/IdP.php:267
+#: core/IdP.php:278
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -406,31 +406,31 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#: core/common/EAP.php:380
+#: core/common/EAP.php:357
 msgid "PEAP-MSCHAPv2"
 msgstr ""
 
-#: core/common/EAP.php:381
+#: core/common/EAP.php:358
 msgid "TLS"
 msgstr ""
 
-#: core/common/EAP.php:382
+#: core/common/EAP.php:359
 msgid "TTLS-PAP"
 msgstr ""
 
-#: core/common/EAP.php:383
+#: core/common/EAP.php:360
 msgid "TTLS-MSCHAPv2"
 msgstr ""
 
-#: core/common/EAP.php:384
+#: core/common/EAP.php:361
 msgid "TTLS-GTC"
 msgstr ""
 
-#: core/common/EAP.php:385
+#: core/common/EAP.php:362
 msgid "FAST-GTC"
 msgstr ""
 
-#: core/common/EAP.php:386
+#: core/common/EAP.php:363
 msgid "EAP-pwd"
 msgstr ""
 

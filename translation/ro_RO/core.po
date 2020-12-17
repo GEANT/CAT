@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Valeriu Vraciu <valeriu@roedu.net>, 2016,2018
+# Raul Opruta <raul.opruta@roedu.net>, 2020
+# Valeriu Vraciu <valeriu@roedu.net>, 2016,2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-04-18 09:31+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-02-27 15:18+0000\n"
+"Last-Translator: Raul Opruta <raul.opruta@roedu.net>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -23,12 +24,12 @@ msgstr ""
 #: core/CAT.php:109
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Revizie Git %s nepublicată"
 
 #: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Versiunea <a href='%s'>%s</a>"
 
 #: core/CAT.php:128
 msgid "Andorra"
@@ -286,21 +287,21 @@ msgstr "Taiwan"
 msgid "South Africa"
 msgstr "Africa de Sud"
 
-#: core/CAT.php:467 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:113
 msgid "Unnamed Entity"
 msgstr "Entitate nedefinită"
 
-#: core/DeviceConfig.php:229
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support"
 msgstr "echipa locală de suport %s"
 
-#: core/DeviceConfig.php:230
+#: core/DeviceConfig.php:231
 #, php-format
 msgid "your local %s support page"
 msgstr "pagina locală de suport %s"
 
-#: core/DeviceConfig.php:266
+#: core/DeviceConfig.php:267
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Ne pare rău, acest lucru nu ar trebui să se întâmple - nu există informații "
@@ -310,7 +311,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(întrerupt/încetat) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -332,13 +333,23 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Bună ziua,\n"
+"\n"
+"Invitația pentru noul %s %s în federația dumneavoastră %s  %s a fost "
+"utilizată iar IdP-ul a fost creat în %s.\n"
+"\n"
+"Probabil este bine de știut\n"
+"\n"
+"Cu bine,\n"
+"\n"
+"%s"
 
 #: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "%s a fost creat în federaţia dumenavoastră"
 
-#: core/IdP.php:258
+#: core/IdP.php:269
 #, php-format
 msgid ""
 "Hi,\n"
@@ -351,20 +362,29 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Bună ziua,\n"
+"\n"
+"%s %s din federația dumneavoastră %s %s a fost șters din %s.\n"
+"\n"
+"Probabil este bine de știut.\n"
+"\n"
+"Cu bine,\n"
+"\n"
+"%s"
 
-#: core/IdP.php:267
+#: core/IdP.php:278
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s a fost șters din federația dumeneavoastră"
 
 #: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Accesul dumenavoastră la %s este pregătit"
 
 #: core/SilverbulletInvitation.php:248
 msgid "Hello!"
-msgstr ""
+msgstr "Bună ziua,"
 
 #: core/SilverbulletInvitation.php:250
 #, php-format
@@ -372,6 +392,8 @@ msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
+"Administratorul dumneavoastră de rețea a creat credențiale de acces noi "
+"pentru%s ."
 
 #: core/SilverbulletInvitation.php:252
 #, php-format
@@ -380,6 +402,10 @@ msgid ""
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
+"Vă rugăm să folosiți următorul link folosind dispozitivul pe care doriți să-"
+"l activați pentru %s pentru a primi o/un %s program de instalare "
+"personalizat. Puteți da click pe link-ul oferit, copia adresa într-un "
+"program de navigare sau să scanați codul QR atașat."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:254
@@ -389,6 +415,9 @@ msgid ""
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
+"Păstrați acest mesaj pentru utilizare ulterioară. După ce preluați programul "
+"de instalare a %s , puteți utiliza același link pentru a verifica "
+"informațiile de stare ale contului dumneavoastră %s."
 
 #: core/SilverbulletInvitation.php:256
 msgid "Regards,"
@@ -400,6 +429,8 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
+"Accesul dumneavoastră %s este gata ! Apăsați aici: %s (pentru Android, "
+"instalați mai întâi aplicația '%s'!)"
 
 #: core/SilverbulletInvitation.php:327
 #, php-format
@@ -410,31 +441,31 @@ msgstr "%sSistem de Invitare"
 msgid "Feedback"
 msgstr "Părere"
 
-#: core/common/EAP.php:380
+#: core/common/EAP.php:357
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: core/common/EAP.php:381
+#: core/common/EAP.php:358
 msgid "TLS"
 msgstr "TLS"
 
-#: core/common/EAP.php:382
+#: core/common/EAP.php:359
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: core/common/EAP.php:383
+#: core/common/EAP.php:360
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: core/common/EAP.php:384
+#: core/common/EAP.php:361
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: core/common/EAP.php:385
+#: core/common/EAP.php:362
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: core/common/EAP.php:386
+#: core/common/EAP.php:363
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
@@ -461,22 +492,22 @@ msgstr "Furnizor de Informații despre Identitate"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "un %s de la %s %s \"%s\" v-a invitat să administrați %s împreună."
 
 #: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "un %s %s v-a invitat să administrați viitoarea %s  \"%s\" (%s)."
 
 #: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "un %s %s v-a invitat să administrați %s  \"%s\"."
 
 #: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Invitația este valabila 24 de ore de acum, adică până la %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:273
@@ -494,7 +525,7 @@ msgstr ""
 #: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr "mesaj suplimentar de la administratorul %sdumneavaostră"
+msgstr "mesaj suplimentar de la administratorul %sdumneavoastră"
 
 #: core/common/OutsideComm.php:289
 #, php-format
@@ -523,8 +554,8 @@ msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
-"Dacă referința nu funcționează, pentru a ajunge la interfața Administrtor %s "
-"încercați "
+"Dacă referința nu funcționează, pentru a ajunge la interfața Administrator "
+"%s încercați "
 
 #: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
@@ -541,7 +572,7 @@ msgstr ""
 #: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Vă dorim distracție plăcută cu %s."
 
 #: core/common/OutsideComm.php:305
 #, php-format
@@ -557,7 +588,7 @@ msgstr ""
 #: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr "%s> a'i fost invitat pentru a administra un/o %s"
+msgstr "%s> aţi fost invitat pentru a administra un/o %s"
 
 #: web/lib/common/InputValidation.php:40
 msgid "Input validation error: "

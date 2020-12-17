@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-09-02 08:27+0000\n"
-"Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:00+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -67,6 +67,94 @@ msgstr ""
 "href='overview_user.php'>страницата с Вашия профил</a>."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/action_req_certificate.php:41
+#: web/admin/overview_certificates.php:41
+#, php-format
+msgid "%s: RADIUS/TLS certificate management for %s"
+msgstr ""
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/action_req_certificate.php:56
+#: web/admin/overview_certificates.php:56
+#, php-format
+msgid "RADIUS/TLS certificate management for %s"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:66
+#: web/admin/overview_certificates.php:66
+msgid ""
+"You do not have the necessary privileges to request server certificates."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:107
+msgid "Requesting a certificate with the following properties"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:109
+msgid "Policy OIDs: "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:110
+msgid "Distinguished Name: "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:111
+msgid ""
+"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
+"&lt;someone@somewhere.xy&gt;')."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:127
+msgid "The certificate was requested."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:130
+msgid "Back to Certificate Overview"
+msgstr ""
+
+#. if we did not get a SAVE button, display UI for a fresh request instead
+#: web/admin/action_req_certificate.php:139
+msgid "1. Certificate Holder Details"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:141
+#: web/admin/action_req_certificate.php:162
+#, php-format
+msgid "Certificate for %s role"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:150
+#: web/admin/action_req_certificate.php:164
+msgid "---PLEASE CHOOSE---"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:179
+msgid "2. CSR generation"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:180
+msgid ""
+"One way to generate an acceptable certificate request is via this openssl "
+"one-liner:"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:182
+msgid "3. Submission"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:183
+msgid "Please paste your CSR here:"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:184
+msgid "Send request"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:187
+msgid "Back to Overview Page"
+msgstr ""
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -84,25 +172,25 @@ msgid "%s Properties"
 msgstr "%s Свойства"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:227
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
 msgstr "Държава:"
 
 #: web/admin/edit_federation.php:84 web/admin/edit_idp.php:119
 #: web/admin/edit_idp.php:175 web/admin/edit_idp.php:200
-#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:474
+#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:484
 #: web/admin/edit_user.php:56 web/admin/inc/toggleRedirect.inc.php:134
 msgid "Add new option"
 msgstr "Добавете нова опция"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:61
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:61
 #: web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Запазете данните"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:64
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:64
 msgid "Discard changes"
 msgstr "Откажете промените"
 
@@ -117,8 +205,8 @@ msgstr "%s: %s Персонализиране (предаването е зав�
 msgid "Submitted attributes for %s '%s'"
 msgstr "Предадени свойства за %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
-#: web/admin/edit_profile_result.php:246
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:175
+#: web/admin/edit_profile_result.php:258
 msgid "Continue to dashboard"
 msgstr "Продължете към таблото"
 
@@ -199,7 +287,7 @@ msgstr ""
 "като резервен, ако системата няма име на езика, който потребителя иска да "
 "изтегли."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:241
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
 msgstr "Свойства на средата"
 
@@ -384,43 +472,86 @@ msgstr ""
 "Когато сте сигурни, че всичко е коректно, моля кликнете върху %sContinue ..."
 "%s"
 
-#: web/admin/edit_idp_result.php:59
+#. send a notification/alert mail to someone we know is in charge
+#: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
+msgid "To whom it may concern,"
+msgstr ""
+
+#: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
+msgid ""
+"This mail is merely a cross-check because these changes can be security-"
+"relevant. If the change was expected, you do not need to take any action."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
+msgid "Greetings, "
+msgstr ""
+
+#: web/admin/edit_idp_result.php:61
+#, php-format
+msgid ""
+"the %s %s / %s / (previously known as) '%s' has deleted all properties and "
+"is starting over freshly. This means that its not recognisable by its name "
+"any more, and it may assume a different name in the future. You will get "
+"another mail if and when the name change happens."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
+#: web/admin/edit_profile_result.php:249
+#, php-format
+msgid "%s: Significant Changes made to %s"
+msgstr ""
+
+#: web/admin/edit_idp_result.php:73
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr "%s: IdP съветник за вписване (стъпка 2 завърши)"
 
-#: web/admin/edit_idp_result.php:75
+#: web/admin/edit_idp_result.php:80
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Изпратете атрибутите за IdP '%s'"
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
+#. send a notification/alert mail to someone we know is in charge
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_idp_result.php:101
+#, php-format
+msgid ""
+"significant changes were made to the %s %s / %s / (previously known as) '%s'."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:103
+#, php-format
+msgid "The %s has changed its name. The details are below:"
+msgstr ""
+
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES и WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:128
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Вашите инсталатори ще конфигурират следните SSIDs: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 msgid "SSIDs configured"
 msgstr "SSID-тата са конфигурирани"
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Вашите инсталатори ще конфигурират жичните интерфейси."
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 msgid "Wired configured"
 msgstr "Кабелните интерфейси са конфигурирани"
 
-#: web/admin/edit_idp_result.php:126
+#: web/admin/edit_idp_result.php:145
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -428,12 +559,12 @@ msgstr ""
 "Не може да се инсталира, защото не са избрани нито безжични SSIDs, нито "
 "кабелни интерфейси."
 
-#: web/admin/edit_idp_result.php:145
+#: web/admin/edit_idp_result.php:164
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Продължете до %s свойства"
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -444,11 +575,11 @@ msgstr ""
 "таблото и редактирайте настройките на Вашия отдел за помощ, така че да "
 "включват и-мейл адреса му. "
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 msgid "No support e-mail!"
 msgstr "Не поддържа и-мейл!"
 
-#: web/admin/edit_idp_result.php:153
+#: web/admin/edit_idp_result.php:172
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Продължете до RADIUS/EAP дефиниране на профила"
 
@@ -567,29 +698,35 @@ msgstr ""
 "полезно да предоставя информация кои от тези (външни ID) потребителски имена "
 "можем да използваме за тестване. "
 
-#: web/admin/edit_profile.php:220
-msgid "Verify user input to contain realm suffix:"
-msgstr "Проверете дали потребителският вход съдържа суфикса на областта:"
-
-#: web/admin/edit_profile.php:234
-msgid "Prefill user input with realm suffix:"
+#: web/admin/edit_profile.php:217
+msgid "Outer Identity Handling"
 msgstr ""
-"Поле за въвеждане от потребител, предварително попълнено със суфикс на "
-"областта:"
 
-#: web/admin/edit_profile.php:244
+#: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Разрешаване на анонимна външна идентичност"
 
-#: web/admin/edit_profile.php:263
+#: web/admin/edit_profile.php:241
 msgid "Use special Outer Identity for realm checks:"
 msgstr "Използвайте специална външна идентичност за проверка на областта:"
 
+#: web/admin/edit_profile.php:256
+msgid "Inner Identity (Username) Handling"
+msgstr ""
+
+#: web/admin/edit_profile.php:262
+msgid "Enforce realm suffix in username"
+msgstr ""
+
 #: web/admin/edit_profile.php:280
+msgid "Enforce exact realm in username"
+msgstr ""
+
+#: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
 msgstr "Местоположение за изтегляне на инсталатор"
 
-#: web/admin/edit_profile.php:284
+#: web/admin/edit_profile.php:294
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -606,15 +743,15 @@ msgstr ""
 "като администратор все още можете да изтеглите профилите, да ги поставите на "
 "тази страница (виж бутона \"Матрица на съвместимост\" на таблото)."
 
-#: web/admin/edit_profile.php:290
+#: web/admin/edit_profile.php:300
 msgid "Redirect end users to own web page:"
 msgstr "Пренасочване на крайните потребители към Ваша собствена веб страница:"
 
-#: web/admin/edit_profile.php:303
+#: web/admin/edit_profile.php:313
 msgid "Supported EAP types"
 msgstr "Поддържани EAP типове"
 
-#: web/admin/edit_profile.php:306
+#: web/admin/edit_profile.php:316
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -628,20 +765,20 @@ msgstr ""
 "типа с най-висок приоритет; само ако устройството на потребителя не може да "
 "използва този EAP тип, ще използваме следващ EAP тип от списъка по-долу."
 
-#: web/admin/edit_profile.php:351
+#: web/admin/edit_profile.php:361
 msgid "EAP options inherited from Global level:"
 msgstr "EAP опции, наследени от общото ниво:"
 
-#: web/admin/edit_profile.php:356
+#: web/admin/edit_profile.php:366
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:384
+#: web/admin/edit_profile.php:394
 msgid "Supported EAP types for this profile"
 msgstr "Поддържани EAP типове за този профил."
 
-#: web/admin/edit_profile.php:398
+#: web/admin/edit_profile.php:408
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -651,23 +788,23 @@ msgstr ""
 "на поддържаната (зелена) област. Приоритизацията се извършва автоматично в "
 "зависимост от това къде сте \"завлачили\" метода."
 
-#: web/admin/edit_profile.php:406
+#: web/admin/edit_profile.php:416
 msgid "Unsupported EAP types"
 msgstr "Неподдържани EAP типове"
 
-#: web/admin/edit_profile.php:459
+#: web/admin/edit_profile.php:469
 msgid "Helpdesk Details for this profile"
 msgstr "Helpdesk детайли за този профил"
 
-#: web/admin/edit_profile.php:460
+#: web/admin/edit_profile.php:470
 msgid "EAP Details for this profile"
 msgstr "EAP детайли за този профил"
 
-#: web/admin/edit_profile.php:461
+#: web/admin/edit_profile.php:471
 msgid "Media Properties for this profile"
 msgstr "Свойства на средата за този профил"
 
-#: web/admin/edit_profile.php:469
+#: web/admin/edit_profile.php:479
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -682,7 +819,7 @@ msgstr[1] ""
 "Опциите %s вече са дефинирали IdP-широк. Ако ги поставите тук на ниво "
 "профил, тези настройки ще припокрият IdP-широк такъв."
 
-#: web/admin/edit_profile.php:479
+#: web/admin/edit_profile.php:489
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -690,30 +827,26 @@ msgstr ""
 "Когато сте сигурни, че всичко е коректно, моля натиснете \"Съхрани данните\" "
 "и ще бъдете отведени на Вашата IdP страница."
 
-#: web/admin/edit_profile_result.php:43
+#: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
 msgstr "%s: Съветник за профил (стъпка 3 завърши)"
 
-#: web/admin/edit_profile_result.php:123
-msgid "Darn! Could not get a proper profile handle!"
-msgstr "Не можахте да получите подходящо управление на профила!"
-
-#: web/admin/edit_profile_result.php:127
+#: web/admin/edit_profile_result.php:115
 msgid "Submitted attributes for this profile"
 msgstr "Изпратени атрибути за този профил"
 
-#: web/admin/edit_profile_result.php:134
+#: web/admin/edit_profile_result.php:122
 #, php-format
 msgid "Realm: <strong>%s</strong>"
 msgstr "Област: <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:141
+#: web/admin/edit_profile_result.php:129
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
 msgstr ""
 "Анонимната външна идентификация не може да бъде включена: липсва област!"
 
-#: web/admin/edit_profile_result.php:144
+#: web/admin/edit_profile_result.php:132
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
@@ -722,26 +855,38 @@ msgstr ""
 "Поддръжката на анонимна идентичност е <strong>%s</strong>, анонимната външна "
 "идентичност е <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:144 web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:132 web/admin/edit_profile_result.php:147
 msgid "ON"
 msgstr "Включване"
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
 msgstr "Поддръжката на анонимна идентичност е <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 msgid "OFF"
 msgstr "Изключване"
 
-#: web/admin/edit_profile_result.php:153 web/admin/edit_profile_result.php:165
+#. no anon outer ID, and no realm suffix verification? Bad idea!
+#: web/admin/edit_profile_result.php:138
+msgid ""
+"Without Anoymous Identity, the actual username will be used as outer "
+"identity and be the basis for request routing. For that to work, the "
+"username must have a correct realm suffix. Yet, realm suffix verification "
+"has been turned OFF. Supplicants will not verify that usernames contain a "
+"realm, and errors such as username 'johndoe' which will not work in roaming "
+"scenarios will not be prohibited. Consider checking the box 'Enforce realm "
+"suffix in username'!"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr ""
 "Не може да бъде конфигурирано потребителско име за проверка на областта: "
 "областта липсва!"
 
-#: web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:147
 #, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
@@ -750,35 +895,37 @@ msgstr ""
 "Специалното потребителско име за проверка на областта е <strong>%s</strong>, "
 "стойността е <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:160
+#: web/admin/edit_profile_result.php:151
 msgid "No special username for realm checks is configured."
 msgstr ""
 "Никакво специално потребителско име за проверка на областта не е "
 "конфигурирано ."
 
-#: web/admin/edit_profile_result.php:169
+#: web/admin/edit_profile_result.php:159
 #, php-format
-msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
+msgid "The realm portion MUST be exactly '...@%s'."
 msgstr ""
-"и полето за въвеждане ще бъде предварително попълнено с '<strong>@%s</"
-"strong>'."
 
-#: web/admin/edit_profile_result.php:173
+#: web/admin/edit_profile_result.php:161
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
+"The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
+"'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
-"Където е възможно, въвежданото потребителско име ще бъде <strong>проверявано "
-"дали завършва с @%s</strong>%s"
 
-#: web/admin/edit_profile_result.php:183
+#: web/admin/edit_profile_result.php:164
+msgid ""
+"Where possible, supplicants will verify that username inputs contain a "
+"syntactically correct realm."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 "Пренасочването не може да бъде активирано - не сте специфицирали целевото "
 "местоположение!"
 
-#: web/admin/edit_profile_result.php:185
+#: web/admin/edit_profile_result.php:175
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
@@ -786,7 +933,7 @@ msgstr ""
 "Пренасочването не може да бъде активирано - обектът трябва да бъде пълен "
 "URL, започващ с http:// или https:// ! "
 
-#: web/admin/edit_profile_result.php:197
+#: web/admin/edit_profile_result.php:187
 #, php-format
 msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
@@ -795,27 +942,27 @@ msgstr ""
 "Пренасочването е настроено към <strong>%s</strong>, но ще бъде игнорирано, "
 "защото има пренасочване на ниво устройство. "
 
-#: web/admin/edit_profile_result.php:199
+#: web/admin/edit_profile_result.php:189
 #, php-format
 msgid "Redirection set to <strong>%s</strong>"
 msgstr "Пренасочването е настроено към <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:203
+#: web/admin/edit_profile_result.php:193
 msgid "Redirection is <strong>OFF</strong>"
 msgstr "Пренасочването е <strong>ИЗКЛЮЧЕНО</strong>"
 
-#: web/admin/edit_profile_result.php:227
+#: web/admin/edit_profile_result.php:210
 msgid "Supported EAP Type: "
 msgstr "Поддържан EAP тип:"
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
 msgstr ""
 "Поддържан EAP тип: <strong>%s</strong> е липсваща изисквана информация %s !"
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
@@ -823,7 +970,33 @@ msgstr ""
 "EAP типът беше добавен към профила, но е необходимо да допълните липсващата "
 "информация, преди да можем да Ви предоставим инсталатори."
 
-#: web/admin/edit_profile_result.php:251
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_profile_result.php:230
+#, php-format
+msgid ""
+"significant changes were made to a RADIUS deployment profile of the %s %s / "
+"%s / '%s'."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:232
+msgid ""
+"WARNING! A new trusted root CA was added, and it has the exact same name as "
+"a previously existing root CA. This may (but does not necessarily) mean that "
+"this is an attempt to insert an unauthorised trust root by disguising as the "
+"genuine one. The details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:236
+msgid "A new trusted root CA was added. The details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:240
+msgid ""
+"A new acceptable server name for the authentication server was added. The "
+"details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Продължете към фина настройска на инсталатора и изтегляне"
 
@@ -1236,6 +1409,15 @@ msgstr ""
 "Не можахме да Ви изключим от всички Ваши сесии. За да сте напълно сигурен, "
 "че сте излезли, трябва да затворите Вашия веб браузер."
 
+#: web/admin/overview_certificates.php:73
+#, php-format
+msgid "Certificate Information for %s %s"
+msgstr ""
+
+#: web/admin/overview_certificates.php:92
+msgid "Request new Certificate"
+msgstr ""
+
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
@@ -1386,7 +1568,7 @@ msgstr "Deployment Status"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
 msgstr "%s Име"
@@ -1552,7 +1734,7 @@ msgstr "Изтегляне от потребител"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP типове</strong> (по реда на предпочитанията):"
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:413
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "ОК"
 
@@ -1793,7 +1975,7 @@ msgstr ""
 "Вие сте %s администратор. Може да каните нови администратори, които на свой "
 "ред да назначават следващи администратори. "
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:106
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
 msgstr "%s администратор"
@@ -2254,36 +2436,56 @@ msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
 "through a content filter of your own is a significant invasion of user self-"
 "determination. It also has technical issues. Please throughly read the "
-"discussion at %s before specifying a proxy with this option."
+"discussion at %s before specifying a proxy with this option. This feature is "
+"currently experimental and only has an effect in Apple installers."
 msgstr ""
-"Формата на тази опция е: IPv4|IPv6|hostname:port . Принудителната проверка "
-"на потребителското съдържание с Ваш собствен филтър е значителна намеса в "
-"свободата на потребителя. Това също така има технически последствия. Моля "
-"внимателно прочетете дискусията на %s, преди да специфицирате прокси с тази "
-"опция."
 
-#: web/lib/admin/OptionDisplay.php:275
+#: web/lib/admin/OptionDisplay.php:188
+#, php-format
+msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:190
+#, php-format
+msgid ""
+"Note that your requirement to inform users about the OpenRoaming End User "
+"Terms and Conditions is fulfilled when directing your end users to the %s "
+"download portal for installer download. Any other means of providing the "
+"installers needs to present this information via its own channel."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:192
+msgid ""
+"You are also aware that for best technical interoperability, you need to add "
+"a DNS entry into the DNS zone of your RADIUS realm."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:194
+msgid "Read the instructions in the wiki."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
 msgstr "изберете език"
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:157
+#: web/lib/admin/OptionDisplay.php:284 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
 msgstr "по подразбиране/други езици"
 
-#: web/lib/admin/OptionDisplay.php:356
+#: web/lib/admin/OptionDisplay.php:364
 msgid "(default/other languages)"
 msgstr "(по подразбиране/други езици)"
 
-#: web/lib/admin/OptionDisplay.php:391
+#: web/lib/admin/OptionDisplay.php:399
 msgid "file content"
 msgstr "съдържание на файла"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "on"
 msgstr "включване"
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "off"
 msgstr "изключване"
 
@@ -2479,117 +2681,121 @@ msgstr "Описание на профил"
 msgid "Custom Installer Name Suffix"
 msgstr "Персонализирано име на суфикса на инсталатора"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:106
+msgid "Opt-In to OpenRoaming"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:108
 msgid "Real Name"
 msgstr "Действително име"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:109
 msgid "E-Mail Address"
 msgstr "Е-мейл адрес"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:110
 msgid "Remove/Disable SSID"
 msgstr "Премахни/Забрани SSID"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:111
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Задължително прокси, филтриращо съдържанието "
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:112
 msgid "Custom CSS file for User Area"
 msgstr "Персонализиран CSS файл за потребителската област"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "%s Logo"
 msgstr "%s лого"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
 msgstr "Предпочитан слой за потребителската област"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Включва %s брандирането в инсталаторите"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Начална страница"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Персонализиран текст в поканите на %s"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "Enable %s"
 msgstr "Разрешете %s"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Не прекратявайте EAP"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: максимум потребители на профил"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:122
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Много %s с Доставчик на Удостоверителни Услуги при създаване"
 
-#: web/lib/admin/UIElements.php:223
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
 msgstr "Основни %s детайли"
 
-#: web/lib/admin/UIElements.php:241
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
 msgstr "Общи детейли на Helpdesk "
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:338
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Имаше грешка, докато сертификатът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:347
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Имаше грешка при обработването на сертификата!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Има<strong>СЪРВЪРЕН</strong> сертификат!"
 
-#: web/lib/admin/UIElements.php:374
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Предварителен преглед на лого файла."
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:390
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Имаше грешка, докато файлът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
 msgstr "Файлът съществува"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
 msgstr "Предварителен преглед"
 
-#: web/lib/admin/UIElements.php:414
+#: web/lib/admin/UIElements.php:415
 msgid "Remark"
 msgstr "Забележка"
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:416
 msgid "Warning!"
 msgstr "Предупреждение!"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Грешка!"

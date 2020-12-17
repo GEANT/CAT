@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2019\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -23,62 +23,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/diag/AbstractTest.php:302
+#: core/diag/AbstractTest.php:318
 msgid "Completed"
 msgstr "Завършен"
 
-#: core/diag/AbstractTest.php:309
+#: core/diag/AbstractTest.php:325
 msgid "Product is not configured to run this check."
 msgstr "Продуктът не е конфигуриран да стартира тази проверка."
 
-#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
-#: web/diag/action_realmcheck.php:558
+#: core/diag/AbstractTest.php:331 web/diag/action_realmcheck.php:553
+#: web/diag/action_realmcheck.php:569
 msgid "This check was skipped."
 msgstr "Тази проверка беше пропусната."
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:338
 msgid "There were errors during the test."
 msgstr "Имаше грешки по време на теста."
 
-#: core/diag/AbstractTest.php:330
+#: core/diag/AbstractTest.php:346
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Изобщо нямаше отговор от RADIUS сървъра."
 
-#: core/diag/AbstractTest.php:337
+#: core/diag/AbstractTest.php:353
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
 "Имаше двупосочна комуникация с RADIUS сървъра, но тя приключи наполовина."
 
-#: core/diag/AbstractTest.php:344
+#: core/diag/AbstractTest.php:360
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
 "С първия отговор RADIUS сървърът отхвърли незабавно заявката за аутентикация."
 
-#: core/diag/AbstractTest.php:351
+#: core/diag/AbstractTest.php:367
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr "RADIUS сървърът отхвърли заявката за аутентикация след EAP разговор."
 
-#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:374 web/diag/action_realmcheck.php:127
 msgid "Connection refused"
 msgstr "Връзката е отхвърлена."
 
-#: core/diag/AbstractTest.php:365
+#: core/diag/AbstractTest.php:381
 msgid "Not enough data provided to perform an authentication"
 msgstr "Не са предоставени достатъчно данни, за да се извърши аутентикация."
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:388
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "Паролата на сертификата, която сте подали, не съвпада с файла на сертификата."
 
-#: core/diag/AbstractTest.php:380
+#: core/diag/AbstractTest.php:396
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -88,15 +88,15 @@ msgstr ""
 "никаква полезна цел, а увеличава обмена на пакети, който води до по-бавна "
 "аутентикация."
 
-#: core/diag/AbstractTest.php:387
+#: core/diag/AbstractTest.php:403
 msgid "There is more than one server certificate in the chain."
 msgstr "Във веригата има повече от един сертификат на сървър."
 
-#: core/diag/AbstractTest.php:394
+#: core/diag/AbstractTest.php:410
 msgid "There is no server certificate in the chain."
 msgstr "Във веригата няма сертификат на сървър."
 
-#: core/diag/AbstractTest.php:401
+#: core/diag/AbstractTest.php:417
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -106,7 +106,7 @@ msgstr ""
 "операционни системи, включвайки Apple iOS, ще се провалят при валидиране на "
 "сертификата."
 
-#: core/diag/AbstractTest.php:408
+#: core/diag/AbstractTest.php:424
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -116,7 +116,7 @@ msgstr ""
 "операционни системи, включително Apple iOS, няма да ратифицират този "
 "сертификат."
 
-#: core/diag/AbstractTest.php:415
+#: core/diag/AbstractTest.php:431
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -126,7 +126,7 @@ msgstr ""
 "бита. Много съвременни операционни системи считат това за неприемливо и ще "
 "се провалят при валидиране сертификата на сървъра. "
 
-#: core/diag/AbstractTest.php:422
+#: core/diag/AbstractTest.php:438
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -136,7 +136,7 @@ msgstr ""
 "Authentication'. Повечето операционни ситеми на Майкрософт ще се провалят "
 "при валидиране на сертификата."
 
-#: core/diag/AbstractTest.php:429
+#: core/diag/AbstractTest.php:445
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -144,7 +144,7 @@ msgstr ""
 "Сертификатът на сървъра не включва CRL Distribution Point, което създава "
 "проблеми със съвместимостта с Windows Phone 8."
 
-#: core/diag/AbstractTest.php:436
+#: core/diag/AbstractTest.php:452
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -156,7 +156,7 @@ msgstr ""
 "валидирне на сертификата. Проверката на валидността на сертификата на "
 "сървъра в CRL няма да бъде възможна."
 
-#: core/diag/AbstractTest.php:443
+#: core/diag/AbstractTest.php:459
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -170,11 +170,11 @@ msgstr ""
 "на сертификата ще се провали. Проверката на валидността на сертификата на "
 "сървъра срещу CRL няма да бъде възможна."
 
-#: core/diag/AbstractTest.php:450
+#: core/diag/AbstractTest.php:466
 msgid "The server certificate was revoked by the CA!"
 msgstr "Сертификатът на сървъра беше анулиран от CA!"
 
-#: core/diag/AbstractTest.php:457
+#: core/diag/AbstractTest.php:473
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -187,7 +187,7 @@ msgstr ""
 "само за конфигурация на вашите клиенти, тогава със сигурност може да "
 "игнорирате  това съобщение."
 
-#: core/diag/AbstractTest.php:464
+#: core/diag/AbstractTest.php:480
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -200,7 +200,7 @@ msgstr ""
 "и имена, които са без wildcard, и Вие ги използвате само за конфигурация на "
 "вашите клиенти, тогава  със сигурност може да игнорирате това съобщение."
 
-#: core/diag/AbstractTest.php:471
+#: core/diag/AbstractTest.php:487
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -208,7 +208,7 @@ msgstr ""
 "Поне един сертификат е извън срока си на валидност (все още невалиден или "
 "вече изтекъл)!"
 
-#: core/diag/AbstractTest.php:478
+#: core/diag/AbstractTest.php:494
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -221,7 +221,7 @@ msgstr ""
 "беше използван за валидаия на сървъра. Помислете за премахването му от "
 "вашата %s конфигурация."
 
-#: core/diag/AbstractTest.php:485
+#: core/diag/AbstractTest.php:501
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -229,7 +229,7 @@ msgstr ""
 "Сертификатът на сървъра не може да бъде проверен до главния CA, конфигуриран "
 "във Вашия профил."
 
-#: core/diag/AbstractTest.php:489
+#: core/diag/AbstractTest.php:505
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -241,7 +241,7 @@ msgstr ""
 "проверен, използвайки междинни CAs във Вашия профил. Добре е да обмислите "
 "изпращането на изискваните междинни CAs в EAP разговора."
 
-#: core/diag/AbstractTest.php:495
+#: core/diag/AbstractTest.php:511
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -249,7 +249,7 @@ msgstr ""
 "Името на EAP сървъра не съвпада с никое от конфигурираните във Вашия профил "
 "имена!"
 
-#: core/diag/AbstractTest.php:502
+#: core/diag/AbstractTest.php:518
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -259,7 +259,7 @@ msgstr ""
 "на входящия сертификат; най-добрата практика в момента е, че сертификатът е "
 "добре да съдържа името на ДВЕТЕ места."
 
-#: core/diag/AbstractTest.php:509
+#: core/diag/AbstractTest.php:525
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -270,31 +270,31 @@ msgstr ""
 "го прави неясно дали е CA сертификат или краен сертификат. Поне Mac OS X "
 "10.8 (Mountain Lion) няма да валидира този сертификат за EAP цели!"
 
-#: core/diag/AbstractTest.php:516
+#: core/diag/AbstractTest.php:532
 msgid "The server presented a certificate from an unknown authority."
 msgstr "Сървърът представи сертификат от неизвестно ауторити."
 
-#: core/diag/AbstractTest.php:523
+#: core/diag/AbstractTest.php:539
 msgid "The server accepted the INVALID client certificate."
 msgstr "Сървърът прие НЕВАЛИДЕН клиентски сертификат."
 
-#: core/diag/AbstractTest.php:530
+#: core/diag/AbstractTest.php:546
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Сървърът отхвърли клиентския сертификат, въпреки че беше валиден."
 
-#: core/diag/AbstractTest.php:537
+#: core/diag/AbstractTest.php:553
 msgid "The server rejected the client certificate as expected."
 msgstr "Както се очакваше, сървърът отхвърли клиентския сертификат."
 
-#: core/diag/AbstractTest.php:544
+#: core/diag/AbstractTest.php:560
 msgid "The CRL of a certificate could not be found."
 msgstr "CRL на сертификата не можа да бъде намерен."
 
-#: core/diag/AbstractTest.php:551
+#: core/diag/AbstractTest.php:567
 msgid "EAP method negotiation failed!"
 msgstr "Договарянето на EAP метод се провали!"
 
-#: core/diag/AbstractTest.php:558
+#: core/diag/AbstractTest.php:574
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -304,7 +304,7 @@ msgstr ""
 "бита. Mac OS X 10.11 'El Capitan' е известна с това, че отхвърля TLS връзки "
 "при тези обстоятелства."
 
-#: core/diag/AbstractTest.php:565
+#: core/diag/AbstractTest.php:581
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -312,7 +312,7 @@ msgstr ""
 "Сертификатът съдържа повече от едно поле CommonName (CN). Според сведенията "
 "това е проблематично за много клиенти."
 
-#: core/diag/AbstractTest.php:572
+#: core/diag/AbstractTest.php:588
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
@@ -320,9 +320,28 @@ msgstr ""
 "Алгоритъмът за публичния ключ на сертификата е неизвестен на системата. Моля "
 "представете примерен сертификат на разработчиците."
 
-#: core/diag/AbstractTest.php:579
+#: core/diag/AbstractTest.php:595
 msgid "No certificate at all was sent by the server."
 msgstr "Въобще никакъв сертификат не е бил изпращан от сървъра."
+
+#: core/diag/AbstractTest.php:602
+msgid ""
+"It was not possible to determine the TLS version that was used in the EAP "
+"exchange."
+msgstr ""
+
+#: core/diag/AbstractTest.php:609
+msgid ""
+"The server does not support the contemporary TLS versions TLSv1.2 or "
+"TLSv1.3. Modern client operating systems may refuse to authenticate against "
+"the server!"
+msgstr ""
+
+#: core/diag/AbstractTest.php:613
+msgid ""
+"The expected server name as per SRV record does not match any server name in "
+"the certificate of the server that was reached!"
+msgstr ""
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -386,12 +405,12 @@ msgstr ""
 "диагностика/инструкции, защото в базата данни няма точки за контакт за този "
 "IdP."
 
-#: core/diag/RADIUSTests.php:1161
+#: core/diag/RADIUSTests.php:1254
 #, php-format
 msgid "Connected to %s."
 msgstr "Свързване към %s."
 
-#: core/diag/RADIUSTests.php:1166 web/diag/radius_tests.php:217
+#: core/diag/RADIUSTests.php:1259 web/diag/radius_tests.php:217
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -400,7 +419,7 @@ msgstr ""
 "<strong>Тестът е успешен</strong>: двупосочната RADIUS комуникация с "
 "множество round-trips се проведе и завърши с Access-Reject както е планирано."
 
-#: core/diag/RADIUSTests.php:1171
+#: core/diag/RADIUSTests.php:1264
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -412,71 +431,71 @@ msgstr ""
 "планирано. Някои свойства на опита за връзка бяха неоптимални; списъкът е по-"
 "долу."
 
-#: core/diag/RFC6614Tests.php:79
+#: core/diag/RFC6614Tests.php:88
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/diag/RFC6614Tests.php:80
+#: core/diag/RFC6614Tests.php:89
 msgid "Nicolaus Copernicus University"
 msgstr "Университет Николай Коперник"
 
-#: core/diag/RFC6614Tests.php:81
+#: core/diag/RFC6614Tests.php:90
 msgid "accredited"
 msgstr "акредитиран"
 
-#: core/diag/RFC6614Tests.php:82
+#: core/diag/RFC6614Tests.php:91
 msgid "non-accredited"
 msgstr "неакредитиран"
 
-#: core/diag/RFC6614Tests.php:83
+#: core/diag/RFC6614Tests.php:92
 msgid "correct certificate"
 msgstr "правилен сертификат"
 
-#: core/diag/RFC6614Tests.php:84
+#: core/diag/RFC6614Tests.php:93
 msgid "certificate with wrong policy OID"
 msgstr "сертификат с грешна OID политика "
 
-#: core/diag/RFC6614Tests.php:85
+#: core/diag/RFC6614Tests.php:94
 msgid "expired certificate"
 msgstr "изтекъл сертификат"
 
-#: core/diag/RFC6614Tests.php:86
+#: core/diag/RFC6614Tests.php:95
 msgid "revoked certificate"
 msgstr "анулиран сертификат"
 
-#: core/diag/RFC6614Tests.php:87
+#: core/diag/RFC6614Tests.php:96
 msgid "pass"
 msgstr "премина"
 
-#: core/diag/RFC6614Tests.php:88
+#: core/diag/RFC6614Tests.php:97
 msgid "fail"
 msgstr "провали се"
 
-#: core/diag/RFC6614Tests.php:89
+#: core/diag/RFC6614Tests.php:98
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "eduroam-акредитиран CA (в момента само за тестове)"
 
-#: core/diag/RFC6614Tests.php:268
+#: core/diag/RFC6614Tests.php:318
 msgid "No TLS connection established: Connection refused"
 msgstr "Никаква TLS  връзка не е установена: Връзката е отхвърлена"
 
-#: core/diag/RFC6614Tests.php:270
+#: core/diag/RFC6614Tests.php:320
 msgid "certificate expired"
 msgstr "сертификатът е изтекъл"
 
-#: core/diag/RFC6614Tests.php:272
+#: core/diag/RFC6614Tests.php:322
 msgid "certificate was revoked"
 msgstr "сертификатът беше анулиран"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:324
 msgid "bad policy"
 msgstr "лоша политика"
 
-#: core/diag/RFC6614Tests.php:276
+#: core/diag/RFC6614Tests.php:326
 msgid "unknown authority"
 msgstr "неизвестно ауторити"
 
-#: core/diag/RFC6614Tests.php:279
+#: core/diag/RFC6614Tests.php:329
 msgid "unknown authority or no certificate policy or another problem"
 msgstr "неизвестно ауторити или няма политика на сертификат, или друг проблем"
 
@@ -484,7 +503,7 @@ msgstr "неизвестно ауторити или няма политика �
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:510
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:521
 msgid "This realm has no NAPTR records."
 msgstr "Тази област няма NAPTR записи."
 
@@ -826,7 +845,7 @@ msgstr "Средства за администратори на eduroam"
 msgid "Which problem are you reporting?"
 msgstr "Кой проблем докладвате?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:959
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP контактува с IdP поради технически проблеми или злоупотреба"
 
@@ -954,15 +973,15 @@ msgstr "Проблемът е в RADIUS сървъра на Вашата инс�
 msgid "This realm does not exist"
 msgstr "Областта не съществува"
 
-#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
+#: web/skins/modern/diag/diag.php:476 web/skins/modern/diag/diag.php:539
 msgid "Fetching institutions list"
 msgstr "Изведете списъка с институциите"
 
-#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
+#: web/skins/modern/diag/diag.php:494 web/skins/modern/diag/diag.php:557
 msgid "Select institution:"
 msgstr "Изберете институция:"
 
-#: web/skins/modern/diag/diag.php:510
+#: web/skins/modern/diag/diag.php:515
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -971,118 +990,118 @@ msgstr ""
 "Базата данни не съдържа информация, която да Ви помогне за избраната за тази "
 "държава област . Трябва да посочите областта, която Ви интересува."
 
-#: web/skins/modern/diag/diag.php:519
+#: web/skins/modern/diag/diag.php:524
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr "Не може да търси в базата данни. Не може да търси в базата данни. "
 
-#: web/skins/modern/diag/diag.php:575
+#: web/skins/modern/diag/diag.php:580
 msgid "Other location"
 msgstr "Друго местоположение"
 
-#: web/skins/modern/diag/diag.php:609
+#: web/skins/modern/diag/diag.php:614
 msgid "Fetching realms list"
 msgstr "Изведете списъка с областите"
 
-#: web/skins/modern/diag/diag.php:621
+#: web/skins/modern/diag/diag.php:626
 msgid "Check realm(s):"
 msgstr "Проверете областта(ите):"
 
-#: web/skins/modern/diag/diag.php:633
+#: web/skins/modern/diag/diag.php:638
 msgid "Realm:"
 msgstr "Област:"
 
-#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:693 web/skins/modern/diag/diag.php:761
+#: web/skins/modern/diag/diag.php:885
 msgid "Running realm tests"
 msgstr "Областта се тества"
 
-#: web/skins/modern/diag/diag.php:732
+#: web/skins/modern/diag/diag.php:737
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Областта не е регистрирана в базата данни на eduroam:"
 
-#: web/skins/modern/diag/diag.php:804
+#: web/skins/modern/diag/diag.php:809
 msgid "Diagnostics results for selected realms"
 msgstr "Резултатите от диагностичните тестове за избраните области"
 
-#: web/skins/modern/diag/diag.php:805
+#: web/skins/modern/diag/diag.php:810
 msgid "An unknown problem occured"
 msgstr "Възникна неизвестен проблем "
 
-#: web/skins/modern/diag/diag.php:808
+#: web/skins/modern/diag/diag.php:813
 msgid "This test includes checking of the following realm"
 msgstr "Този тест включва проверка на следната област "
 
-#: web/skins/modern/diag/diag.php:810
+#: web/skins/modern/diag/diag.php:815
 msgid "This test includes checking of the following realms"
 msgstr "Този тест включва проверка на следните области"
 
-#: web/skins/modern/diag/diag.php:820
+#: web/skins/modern/diag/diag.php:825
 msgid "You should report this to"
 msgstr "Вие трябва да докладвате това на"
 
-#: web/skins/modern/diag/diag.php:951
+#: web/skins/modern/diag/diag.php:956
 msgid "eduroam admin report submission"
 msgstr "eduroam администратора подава отчета си"
 
-#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:971
 msgid "Reason"
 msgstr "Причина"
 
-#: web/skins/modern/diag/diag.php:957
+#: web/skins/modern/diag/diag.php:962
 msgid "SP email"
 msgstr "SP е-мейл"
 
-#: web/skins/modern/diag/diag.php:958
+#: web/skins/modern/diag/diag.php:963
 msgid "IdP email(s)"
 msgstr "IdP е-мейл(и)"
 
-#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
+#: web/skins/modern/diag/diag.php:964 web/skins/modern/diag/diag.php:975
 msgid "Event's timestamp"
 msgstr "Време на събитието"
 
-#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
+#: web/skins/modern/diag/diag.php:965 web/skins/modern/diag/diag.php:976
 msgid "Calling-Station-Id"
 msgstr "Идентификатор на повикващата станция"
 
-#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
+#: web/skins/modern/diag/diag.php:966 web/skins/modern/diag/diag.php:977
 msgid "Additional description"
 msgstr "Допълнително описание"
 
-#: web/skins/modern/diag/diag.php:964
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP се свързва със SP, поради технически проблеми или злоупотреба"
 
-#: web/skins/modern/diag/diag.php:967
+#: web/skins/modern/diag/diag.php:972
 msgid "SP's Operator-Name"
 msgstr "Operator-Name на SP"
 
-#: web/skins/modern/diag/diag.php:968
+#: web/skins/modern/diag/diag.php:973
 msgid "User's outer ID"
 msgstr "Външен ID на потребителя"
 
-#: web/skins/modern/diag/diag.php:969
+#: web/skins/modern/diag/diag.php:974
 msgid "IdP email"
 msgstr "IdP е-мейл"
 
-#: web/skins/modern/diag/diag.php:973
+#: web/skins/modern/diag/diag.php:978
 msgid "How to contact the user"
 msgstr "Как да се свържете с потребителя"
 
-#: web/skins/modern/diag/diag.php:990
+#: web/skins/modern/diag/diag.php:995
 msgid "MAC address is incomplete"
 msgstr "MAC адресът е непълен"
 
-#: web/skins/modern/diag/diag.php:999
+#: web/skins/modern/diag/diag.php:1004
 msgid "Wrong format of email"
 msgstr "Грешен формат на е-мейл"
 
-#: web/skins/modern/diag/diag.php:1008
+#: web/skins/modern/diag/diag.php:1013
 msgid "Wrong format of outer ID"
 msgstr "Грешен формат на външен ID"
 
-#: web/skins/modern/diag/diag.php:1017
+#: web/skins/modern/diag/diag.php:1022
 msgid "Wrong string given as OperatorName"
 msgstr "Грешен символен низ е даден като OperatorName"
 
@@ -1091,211 +1110,211 @@ msgstr "Грешен символен низ е даден като OperatorName
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Проверка за динамично откриване на области."
 
-#: web/diag/action_realmcheck.php:58
+#: web/diag/action_realmcheck.php:68
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Вие сте задали проверка на области, но ние не знаем област за този профил!"
 
-#: web/diag/action_realmcheck.php:67
+#: web/diag/action_realmcheck.php:77
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr ""
 "Не е дадено валидно име на област, не могат да се изпълнят никакви проверки!"
 
-#: web/diag/action_realmcheck.php:71
+#: web/diag/action_realmcheck.php:81
 msgid "STATIC"
 msgstr "СТАТИЧЕН"
 
-#: web/diag/action_realmcheck.php:72
+#: web/diag/action_realmcheck.php:82
 msgid "DYNAMIC"
 msgstr "ДИНАМИЧЕН"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:110
 msgid "PASS"
 msgstr "УСПЕХ"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:111
 msgid "FAIL"
 msgstr "НЕУСПЕХ"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:112
 msgid "Client certificate:"
 msgstr "Клиентски сертификат:"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:113
 msgid "expected result: "
 msgstr "очакван резултат:"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:114
 msgid "Server accepted this client certificate"
 msgstr "Сървърът прие клиентския сертификат."
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:115
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Сървърът прие клиентския сертификат, но не трябваше да го приема."
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:116
 msgid "Server did not accept this client certificate"
 msgstr "Сървърът не прие клиентския сертификат."
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:117
 msgid "Server did not accept this client certificate - reason"
 msgstr "Сървърът не прие клиентския сертификат - причина."
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:118
 msgid "Rest of tests for this CA skipped"
 msgstr "Останалите тестове за това CA са пропуснати."
 
-#: web/diag/action_realmcheck.php:109
+#: web/diag/action_realmcheck.php:119
 msgid "You should update your list of accredited CAs"
 msgstr "Вие трябва да актуализирате Вашия списък с акредитирани CA."
 
-#: web/diag/action_realmcheck.php:110
+#: web/diag/action_realmcheck.php:120
 msgid "Get it from here."
 msgstr "Вземете ги оттук."
 
-#: web/diag/action_realmcheck.php:112
+#: web/diag/action_realmcheck.php:122
 msgid "more"
 msgstr "още"
 
-#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:659
+#: web/diag/action_realmcheck.php:124 web/diag/action_realmcheck.php:671
 msgid "Show detailed information for all tests"
 msgstr "Покажи подробна информация за всички тестове."
 
-#: web/diag/action_realmcheck.php:119
+#: web/diag/action_realmcheck.php:129
 msgid "All tests passed."
 msgstr "Всички тестове минаха."
 
-#: web/diag/action_realmcheck.php:120
+#: web/diag/action_realmcheck.php:130
 msgid "There were some warnings."
 msgstr "Имаше някои предупреждения."
 
-#: web/diag/action_realmcheck.php:121
+#: web/diag/action_realmcheck.php:131
 msgid "There were some errors."
 msgstr "Имаше някои грешки."
 
-#: web/diag/action_realmcheck.php:122
+#: web/diag/action_realmcheck.php:132
 msgid "There were some remarks."
 msgstr "Имаше някои забележки."
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:139
 msgid "Server certificate"
 msgstr "Сертификат на сървър"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:140
 msgid "Subject"
 msgstr "Предмет"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:141
 msgid "Issuer"
 msgstr "Издател"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:142
 msgid "SubjectAltName"
 msgstr "Алтернативно име на предмета"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:143
 msgid "Certificate policies"
 msgstr "Сертификатиционни политики"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:144
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:135
+#: web/diag/action_realmcheck.php:145
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:136
+#: web/diag/action_realmcheck.php:146
 msgid "Hide detailed information for all tests"
 msgstr "Скрий подробната информация за всички тестове."
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:150
 msgid "Subject:"
 msgstr "Предмет:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:151
 msgid "Issuer:"
 msgstr "Издател:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:152
 msgid "Valid from:"
 msgstr "Валидно от:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:153
 msgid "Valid to:"
 msgstr "Валидно до:"
 
-#: web/diag/action_realmcheck.php:144
+#: web/diag/action_realmcheck.php:154
 msgid "Serial number:"
 msgstr "Сериен номер:"
 
-#: web/diag/action_realmcheck.php:145
+#: web/diag/action_realmcheck.php:155
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 fingerprint:"
 
-#: web/diag/action_realmcheck.php:146
+#: web/diag/action_realmcheck.php:156
 msgid "Connected to undetermined server"
 msgstr "Свързан към неопределен сървър"
 
-#: web/diag/action_realmcheck.php:198
+#: web/diag/action_realmcheck.php:208
 msgid "Some required input is missing!"
 msgstr "Липсват някои изисквани входни данни."
 
-#: web/diag/action_realmcheck.php:249 web/diag/action_realmcheck.php:330
-#: web/diag/action_realmcheck.php:350 web/diag/action_realmcheck.php:408
+#: web/diag/action_realmcheck.php:259 web/diag/action_realmcheck.php:341
+#: web/diag/action_realmcheck.php:361 web/diag/action_realmcheck.php:419
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "Изтекло време: %sms."
 
-#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:398
+#: web/diag/action_realmcheck.php:352 web/diag/action_realmcheck.php:409
 msgid "Extensions"
 msgstr "Разширения"
 
-#: web/diag/action_realmcheck.php:342
+#: web/diag/action_realmcheck.php:353
 msgid "show server certificate details"
 msgstr "Покажи подробно сертификата на сървъра."
 
-#: web/diag/action_realmcheck.php:366 web/diag/action_realmcheck.php:371
+#: web/diag/action_realmcheck.php:377 web/diag/action_realmcheck.php:382
 msgid "See the appropriate tab for details."
 msgstr "Вижте подходящия таб за подробности."
 
-#: web/diag/action_realmcheck.php:385
+#: web/diag/action_realmcheck.php:396
 msgid "Server certificate details:"
 msgstr "Детайли на сертификата на сървъра"
 
-#: web/diag/action_realmcheck.php:485
+#: web/diag/action_realmcheck.php:496
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Тестване на област за: %s"
 
-#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:498
+#: web/diag/action_realmcheck.php:501 web/diag/action_realmcheck.php:509
 msgid "Overview"
 msgstr "Преглед"
 
-#: web/diag/action_realmcheck.php:491 web/diag/action_realmcheck.php:605
+#: web/diag/action_realmcheck.php:502 web/diag/action_realmcheck.php:617
 msgid "Static connectivity tests"
 msgstr "Тестове на статичната свързаност."
 
-#: web/diag/action_realmcheck.php:492 web/diag/action_realmcheck.php:610
+#: web/diag/action_realmcheck.php:503 web/diag/action_realmcheck.php:622
 msgid "Dynamic connectivity tests"
 msgstr "Тестове на динамичната свързаност."
 
-#: web/diag/action_realmcheck.php:493
+#: web/diag/action_realmcheck.php:504
 msgid "Live login tests"
 msgstr "Тестове по време на влизане."
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:502
+#: web/diag/action_realmcheck.php:513
 msgid "DNS chekcs"
 msgstr "DNS проверки"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:507
+#: web/diag/action_realmcheck.php:518
 msgid "Checking NAPTR existence:"
 msgstr "Проверяване за наличие на NAPTR."
 
-#: web/diag/action_realmcheck.php:513
+#: web/diag/action_realmcheck.php:524
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1304,64 +1323,64 @@ msgstr ""
 "роуминг консорциум."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:516
+#: web/diag/action_realmcheck.php:527
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Тази област има %d NAPTR записи, отнасящи се до този роуминг консорциум."
 
-#: web/diag/action_realmcheck.php:522
+#: web/diag/action_realmcheck.php:533
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Проверка за NAPTR съответствие (flag = S и regex = {empty}):"
 
-#: web/diag/action_realmcheck.php:526
+#: web/diag/action_realmcheck.php:537
 msgid "No issues found."
 msgstr "Няма намерени изходи."
 
-#: web/diag/action_realmcheck.php:529 web/diag/action_realmcheck.php:545
+#: web/diag/action_realmcheck.php:540 web/diag/action_realmcheck.php:556
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Намерен е поне един NAPTR с невалидно съдържание!"
 
-#: web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:550
 msgid "Checking SRVs:"
 msgstr "Проверяване на SRV записите:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:548
+#: web/diag/action_realmcheck.php:559
 #, php-format
 msgid "%d host names discovered."
 msgstr "Открити са имена на %d хостове."
 
-#: web/diag/action_realmcheck.php:555
+#: web/diag/action_realmcheck.php:566
 msgid "Checking IP address resolution:"
 msgstr "Проверяване разпределението на IP адреси:"
 
-#: web/diag/action_realmcheck.php:561
+#: web/diag/action_realmcheck.php:572
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Поне един хост не можа да бъде намерен!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:564
+#: web/diag/action_realmcheck.php:575
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP адреси са намерени."
 
-#: web/diag/action_realmcheck.php:571 web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:582 web/diag/action_realmcheck.php:584
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Област е <strong>%s</strong>."
 
-#: web/diag/action_realmcheck.php:571
+#: web/diag/action_realmcheck.php:582
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "Никакви DNS грешки не са открити. Поздравления!"
 
-#: web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:584
 msgid "but there were DNS errors! Check them!"
 msgstr "но имаше DNS грешки! Проверете ги!"
 
-#: web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:584
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1370,19 +1389,19 @@ msgstr ""
 "могат да бъдат открити още грешки. Точните причини за грешка са изброени по-"
 "долу."
 
-#: web/diag/action_realmcheck.php:603
+#: web/diag/action_realmcheck.php:615
 msgid "Dynamic discovery test is not configured"
 msgstr "Тест за динамично откриване не е конфигуриран."
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:633
 msgid "Repeat static connectivity tests"
 msgstr "Повторете тестовете за статичната свързаност."
 
-#: web/diag/action_realmcheck.php:624
+#: web/diag/action_realmcheck.php:636
 msgid "STATIC connectivity tests"
 msgstr "Тестове за СТАТИЧНАТА свързаност."
 
-#: web/diag/action_realmcheck.php:626
+#: web/diag/action_realmcheck.php:638
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1399,41 +1418,41 @@ msgstr ""
 "успешно - така че очакваният резултат е да получим Access-Reject след "
 "приключване на EAP разговора. "
 
-#: web/diag/action_realmcheck.php:630 web/diag/action_realmcheck.php:742
+#: web/diag/action_realmcheck.php:642 web/diag/action_realmcheck.php:754
 #, php-format
 msgid "Testing from: %s"
 msgstr "Тестване от: %s"
 
-#: web/diag/action_realmcheck.php:635 web/diag/action_realmcheck.php:668
-#: web/diag/action_realmcheck.php:681
+#: web/diag/action_realmcheck.php:647 web/diag/action_realmcheck.php:680
+#: web/diag/action_realmcheck.php:693
 msgid "testing..."
 msgstr "тестване ..."
 
-#: web/diag/action_realmcheck.php:650
+#: web/diag/action_realmcheck.php:662
 msgid "Repeat dynamic connectivity tests"
 msgstr "Повторете тестовете за динамичната свързаност."
 
-#: web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:666
 msgid "DYNAMIC connectivity tests"
 msgstr "Тестове за ДИНАМИЧНА свързаност"
 
-#: web/diag/action_realmcheck.php:658
+#: web/diag/action_realmcheck.php:670
 msgid "Some errors were found during the tests, see below"
 msgstr "По време на тестовете бяха открити някои грешки, вижте по-долу."
 
-#: web/diag/action_realmcheck.php:658
+#: web/diag/action_realmcheck.php:670
 msgid "All tests passed, congratulations!"
 msgstr "Всички тестове са преминати, поздравления!"
 
-#: web/diag/action_realmcheck.php:659
+#: web/diag/action_realmcheck.php:671
 msgid "Checking server handshake..."
 msgstr "Проверяване на server handshake..."
 
-#: web/diag/action_realmcheck.php:689
+#: web/diag/action_realmcheck.php:701
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Проверяване дали сертификатите от CAs са приети ..."
 
-#: web/diag/action_realmcheck.php:689
+#: web/diag/action_realmcheck.php:701
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1441,11 +1460,11 @@ msgstr ""
 "Няколко клиентски сертификата ще бъдат тествани, за да се провери дали "
 "сървърите са устойчиви на някои сертификационни проблеми."
 
-#: web/diag/action_realmcheck.php:703
+#: web/diag/action_realmcheck.php:715
 msgid "Live login test"
 msgstr "Тест по време на влизане."
 
-#: web/diag/action_realmcheck.php:716
+#: web/diag/action_realmcheck.php:728
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1453,7 +1472,7 @@ msgstr ""
 "Ако тук въведете съществуваща самоличност, може да тествате действителната "
 "аутентикация от различни точки за влизане по целия свят."
 
-#: web/diag/action_realmcheck.php:717
+#: web/diag/action_realmcheck.php:729
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1465,7 +1484,7 @@ msgstr ""
 "се, дали влизане с тези лични данни и даденият EAP тип действително работи. "
 "Ако сте настроили анонимно външно ID, тестът ще го използва."
 
-#: web/diag/action_realmcheck.php:718
+#: web/diag/action_realmcheck.php:730
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1477,43 +1496,43 @@ msgstr ""
 "използвайте само <strong>временни тестови акаунти</strong> тук; постоянно "
 "валидни тестови акаунти се считат за вредни!"
 
-#: web/diag/action_realmcheck.php:726
+#: web/diag/action_realmcheck.php:738
 msgid "Password-based EAP types"
 msgstr "Password-based EAP типове"
 
-#: web/diag/action_realmcheck.php:727
+#: web/diag/action_realmcheck.php:739
 msgid "Real (inner) username:"
 msgstr "Реални (вътрешни) потребителски имена:"
 
-#: web/diag/action_realmcheck.php:728
+#: web/diag/action_realmcheck.php:740
 msgid "Anonymous outer ID (optional):"
 msgstr "Анонимен външен ID (опция):"
 
-#: web/diag/action_realmcheck.php:729
+#: web/diag/action_realmcheck.php:741
 msgid "Password:"
 msgstr "Парола:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:745
 msgid "Certificate-based EAP types"
 msgstr "Сертификат-базирани EAP типове"
 
-#: web/diag/action_realmcheck.php:734
+#: web/diag/action_realmcheck.php:746
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Файл на сертификат (.p12 или .pfx):"
 
-#: web/diag/action_realmcheck.php:735
+#: web/diag/action_realmcheck.php:747
 msgid "Certificate password, if any:"
 msgstr "Парола за сертификат, ако има:"
 
-#: web/diag/action_realmcheck.php:736
+#: web/diag/action_realmcheck.php:748
 msgid "Username, if different from certificate Subject:"
 msgstr "Потребителско име, ако се различава от Subject полето на сертификата:"
 
-#: web/diag/action_realmcheck.php:738
+#: web/diag/action_realmcheck.php:750
 msgid "Submit credentials"
 msgstr "Изпратете личните данни"
 
-#: web/diag/action_realmcheck.php:760
+#: web/diag/action_realmcheck.php:772
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Върнете се към %s администраторска област"
@@ -1622,13 +1641,13 @@ msgstr ""
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Моля посочете и-мейл адрес, на който SP може да се свърже с Вас "
 
-#: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
+#: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr "Някои свойства на опита за връзка бяха неоптимални; спиъкът е по-долу."
 
-#: web/diag/radius_tests.php:35
+#: web/diag/radius_tests.php:36
 msgid "Some configuration errors were observed; the list is below."
 msgstr "Бяха наблюдавани някои конфигурационни грешки; списъкът е по-долу."
 
@@ -1718,7 +1737,12 @@ msgstr ""
 msgid "unhandled error"
 msgstr "необработена гершка"
 
-#: web/diag/radius_tests.php:252
+#: web/diag/radius_tests.php:255
+#, php-format
+msgid "elapsed time: %d"
+msgstr "изтекло време: %d"
+
+#: web/diag/radius_tests.php:257
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1726,7 +1750,8 @@ msgstr ""
 "<strong>ГРЕШКА</strong>: сървърът е представил сертификат от недостоверен "
 "източник!"
 
-#: web/diag/radius_tests.php:252 web/diag/radius_tests.php:258
-#, php-format
-msgid "elapsed time: %d"
-msgstr "изтекло време: %d"
+#: web/diag/radius_tests.php:267
+msgid ""
+"<strong>WARNING</strong>: the server name as discovered in the SRV record "
+"does not match any name in the server certificate!"
+msgstr ""

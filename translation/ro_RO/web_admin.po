@@ -3,12 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
+# Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
+# Raul Opruta <raul.opruta@roedu.net>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-08-30 20:31+0000\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:00+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
@@ -22,17 +25,19 @@ msgstr ""
 #: web/admin/action_enrollment.php:52 web/admin/action_enrollment.php:78
 #: web/admin/action_enrollment.php:79
 msgid "Error creating new IdP binding!"
-msgstr ""
+msgstr "Eroare la crearea unei noi legături IdP!"
 
 #: web/admin/action_enrollment.php:59
 msgid "This page needs to be called with a valid invitation token!"
-msgstr ""
+msgstr "Această pagină trebuie accesată cu o invitație validă!"
 
 #: web/admin/action_enrollment.php:63
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
 msgstr ""
+"Ați încercat să vă înregistrați de unul singur, dar această implementare nu "
+"vă permite înregistrarea de unul singur."
 
 #: web/admin/action_enrollment.php:82
 #, php-format
@@ -41,6 +46,9 @@ msgid ""
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
+"Scuze... acest jeton este deja folosit. %s este deja creat. Dacă ați primit "
+"invitația printr-un mail, probabil altcineva a folosit jetonul înaintea "
+"dumneavoastră. "
 
 #: web/admin/action_enrollment.php:85
 #, php-format
@@ -48,6 +56,8 @@ msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
+"Scuze... acest jeton a expirat. Jetonul este valabil pentru 24 de ore. %s "
+"administratorul poate crea unul nou pentru dumneavoastră."
 
 #: web/admin/action_enrollment.php:88
 msgid ""
@@ -55,86 +65,177 @@ msgid ""
 "a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
 msgstr ""
+"Ne pare rau... ați venit la pagina de înregistrare fără un token valid. "
+"Sunteți o persoană rea? Dacă nu, atunci ar trebui să mergeți la <a "
+"href='overview_user.php'>pagina profilului dumneavoastră</a>."
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/action_req_certificate.php:41
+#: web/admin/overview_certificates.php:41
+#, php-format
+msgid "%s: RADIUS/TLS certificate management for %s"
+msgstr ""
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/action_req_certificate.php:56
+#: web/admin/overview_certificates.php:56
+#, php-format
+msgid "RADIUS/TLS certificate management for %s"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:66
+#: web/admin/overview_certificates.php:66
+msgid ""
+"You do not have the necessary privileges to request server certificates."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:107
+msgid "Requesting a certificate with the following properties"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:109
+msgid "Policy OIDs: "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:110
+msgid "Distinguished Name: "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:111
+msgid ""
+"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
+"&lt;someone@somewhere.xy&gt;')."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:127
+msgid "The certificate was requested."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:130
+msgid "Back to Certificate Overview"
+msgstr ""
+
+#. if we did not get a SAVE button, display UI for a fresh request instead
+#: web/admin/action_req_certificate.php:139
+msgid "1. Certificate Holder Details"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:141
+#: web/admin/action_req_certificate.php:162
+#, php-format
+msgid "Certificate for %s role"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:150
+#: web/admin/action_req_certificate.php:164
+msgid "---PLEASE CHOOSE---"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:179
+msgid "2. CSR generation"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:180
+msgid ""
+"One way to generate an acceptable certificate request is via this openssl "
+"one-liner:"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:182
+msgid "3. Submission"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:183
+msgid "Please paste your CSR here:"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:184
+msgid "Send request"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:187
+msgid "Back to Overview Page"
+msgstr ""
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
 #, php-format
 msgid "%s: Editing %s '%s'"
-msgstr ""
+msgstr "%s:Editare %s '%s'"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/edit_federation.php:60
 #, php-format
 msgid "Editing %s information for '%s'"
-msgstr ""
+msgstr "Editați %s informațiile pentru '%s'"
 
 #: web/admin/edit_federation.php:64 web/admin/edit_federation.php:79
 #, php-format
 msgid "%s Properties"
-msgstr ""
+msgstr "%s Proprietăți"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:227
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
-msgstr ""
+msgstr "Țara:"
 
 #: web/admin/edit_federation.php:84 web/admin/edit_idp.php:119
 #: web/admin/edit_idp.php:175 web/admin/edit_idp.php:200
-#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:474
+#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:484
 #: web/admin/edit_user.php:56 web/admin/inc/toggleRedirect.inc.php:134
 msgid "Add new option"
-msgstr ""
+msgstr "Adăugați o nouă opțiune"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:61
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:61
 #: web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
-msgstr ""
+msgstr "Salvați datele "
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:64
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:64
 msgid "Discard changes"
-msgstr ""
+msgstr "Opriți schimbările"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:39
 #, php-format
 msgid "%s: %s Customisation (submission completed)"
-msgstr ""
+msgstr "%s:%s Personalizare (schimbări complete)"
 
 #: web/admin/edit_federation_result.php:43
 #, php-format
 msgid "Submitted attributes for %s '%s'"
-msgstr ""
+msgstr "Atribute trimise pentru %s'%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
-#: web/admin/edit_profile_result.php:246
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:175
+#: web/admin/edit_profile_result.php:258
 msgid "Continue to dashboard"
-msgstr ""
+msgstr "Continuați către dashboard"
 
 #: web/admin/edit_idp.php:42
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2)"
-msgstr ""
+msgstr "%s: Program de înregistrare pentru furnizor de identitate (etapa 2)"
 
 #: web/admin/edit_idp.php:44
 #, php-format
 msgid "%s: Editing IdP '%s'"
-msgstr ""
+msgstr "%s:Editați IdP '%s'"
 
 #: web/admin/edit_idp.php:76
 msgid "Step 2: General Information about your IdP"
-msgstr ""
+msgstr "Pasul 2: Informații generale despre IdP-ul dumnevoastră"
 
 #: web/admin/edit_idp.php:78
 #, php-format
 msgid "Editing IdP information for '%s'"
-msgstr ""
+msgstr "Editați informațiile pentru '%s'"
 
 #: web/admin/edit_idp.php:83
 #, php-format
 msgid "%s general properties"
-msgstr ""
+msgstr "%s proprietăți generale"
 
 #: web/admin/edit_idp.php:102
 #, php-format
@@ -144,10 +245,15 @@ msgid ""
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
+"Bună. nou venitule. %s sunt nou veniți. Acest ghid de instalare o sa vă "
+"întrebe anumite întrebări, ca să vă putem genera profilul în final. Toate "
+"informațiile de mai jos sunt opționale, dar este important să completați cât "
+"mai multe câmpuri posibile pentru beneficiul dumneavoastră de utilizator "
+"final."
 
 #: web/admin/edit_idp.php:107
 msgid "General Information"
-msgstr ""
+msgstr "Informații generale"
 
 #: web/admin/edit_idp.php:111
 msgid ""
@@ -155,6 +261,9 @@ msgid ""
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
+"Unele proprietăți sunt valide pentru toate profilurile deja implementate. "
+"Acesta este locul unde poți descrie aceste proprietăți într-un mod mai "
+"detaliat. Informațiile solicitate sunt utilizate după cum urmează:"
 
 #: web/admin/edit_idp.php:113
 msgid ""
@@ -163,6 +272,11 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
+"<strong>Logo</strong>: Atunci cănd vei trimite un logo, o sa îl încorporăm "
+"în toate câmpurile unde este posibilă adăugarea acestuia. Acceptăm orice "
+"format de imagine, dar pentru a obține cele mai bune rezultate, sugeram SVG. "
+"Dacă nu încărcați nici un logo, o sa folosim un logo generic (vezi colțul "
+"din dreapta al paginii)."
 
 #: web/admin/edit_idp.php:114
 #, php-format
@@ -172,10 +286,14 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
+"<strong>Nume</strong>:%s poate avea mai multe nume in diferite limbi. Este "
+"recomandat ca întotdeauna să completați toate câmpurile chiar și cele 'de "
+"baza/alte limbi, este folosit ca și o rezervă dacă sistemul nu are un nume "
+"exact în limba în care utlizatorul cere."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:241
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
-msgstr ""
+msgstr "Proprietăți media"
 
 #: web/admin/edit_idp.php:129
 #, php-format
@@ -183,28 +301,32 @@ msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
 msgstr ""
+"În această secțiune vei defini pe ce suport %s ar trebuii să fie configurate "
+"dispozitivele utilizatorilor."
 
 #: web/admin/edit_idp.php:132
 msgid "Additional SSIDs:"
-msgstr ""
+msgstr "SSID-uri adiționale:"
 
 #: web/admin/edit_idp.php:132
 msgid "SSIDs:"
-msgstr ""
+msgstr "SSID-uri:"
 
 #: web/admin/edit_idp.php:139
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Acest SSID va fi mereu configurat pentru acces WPA2/AES: %s."
+msgstr[1] "Aceste SSID-uri vor fi mereu configurate pentru acces WPA2/AES: %s."
+msgstr[2] "Aceste SSID-uri vor fi mereu configurate pentru acces WPA2/AES: %s."
 
 #: web/admin/edit_idp.php:141
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
 msgstr ""
+"Acestea vor fi configurate de asemenea pentru WPA/TKIP dacă dispozitivul "
+"suportă multiple tipuri de criptare."
 
 #: web/admin/edit_idp.php:143
 #, php-format
@@ -212,10 +334,14 @@ msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
 msgstr ""
+"Este de asemenea posibil să se definească SSID-uri personalizate adiționale "
+"cu opțiunile '%s' și '%s' mai jos."
 
 #: web/admin/edit_idp.php:145
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr ""
+"Vă rog să specificați care SSID-uri ar trebui configurate în programele de "
+"instalare."
 
 #: web/admin/edit_idp.php:147
 msgid ""
@@ -223,22 +349,30 @@ msgid ""
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
+"Implicit, o să configurăm SSID-urile cu criptare WPA2/AES. Prin folosirea "
+"opțiunii '(cu WPA/TKIP)' puteți specifica că ar trebui să includem suport "
+"pentru WPA/TKIP unde este posibil."
 
 #: web/admin/edit_idp.php:151
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Punct de acces 2.0 adițional / Consorțiu de trecere:"
 
 #: web/admin/edit_idp.php:151
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Punct de acces 2.0 / Consorțiu de trecere:"
 
 #: web/admin/edit_idp.php:158
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] ""
+"Acest consorțiu de identificatori de organizație va fi mereu configurat: %s."
 msgstr[1] ""
+"Aceste consorții de identificatori de organizație vor fi mereu configurate: "
+"%s."
 msgstr[2] ""
+"Aceste consorții de identificatori de organizație vor fi mereu configurate: "
+"%s."
 
 #: web/admin/edit_idp.php:160
 #, php-format
@@ -246,15 +380,19 @@ msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
 msgstr ""
+"Este de asemenea posibil să definiți adițional identificatori de organizație "
+"personalizate cu opțiunea '%s' de mai jos."
 
 #: web/admin/edit_idp.php:162
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
+"Vă rugăm să specificați care consorțiu de identificatori de organizație ar "
+"trebui configurat în programele de instalare."
 
 #: web/admin/edit_idp.php:165
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "Suport pentru conexiunile IEEE 802.1X cu fir:"
 
 #: web/admin/edit_idp.php:166
 msgid ""
@@ -264,10 +402,16 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
+"Dacă doriți să configurați dispozitivele utilizatorilor cu suport IEEE "
+"802.1X pentru conexiune cu fir, vă rugăm să marcați căsuța corespunzătoare. "
+"Țineți cont că acest lucru va face procesul de instalare mai dificil pe "
+"unele platforme (Windows: necesită privilegii de administrator; Apple: "
+"încercarea de a instala un profil care să suporte conexiunea cu fir pe un "
+"dispozitiv fără o placă de rețea cu fir activă o să eșueze)."
 
 #: web/admin/edit_idp.php:168
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "Înlăturarea SSID-urilor de inițializare:"
 
 #: web/admin/edit_idp.php:169
 msgid ""
@@ -275,16 +419,23 @@ msgid ""
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
+"Dacă folosiți un portal pentru a distribui configurații, este posibil să "
+"doriți să dezactivați acel SSID după terminarea procesului. Cu această "
+"opțiune, SSID-ul fie va fi șters, fie va fi redefinit ca 'Doar conectare "
+"manuală'."
 
 #: web/admin/edit_idp.php:178
 msgid "Helpdesk Details for all users"
-msgstr ""
+msgstr "Detalii suport tehnic pentru toți utilizatorii"
 
 #: web/admin/edit_idp.php:181
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
 msgstr ""
+"Această secție poate să fie folosită pentru a încărca termenii de utilizare "
+"pentru utilizatori pentru a afișa detaliile necesare ca utilizatorii "
+"dumneavoastră să ajungă la primul ghid de ajutor."
 
 #: web/admin/edit_idp.php:186
 #, php-format
@@ -292,6 +443,8 @@ msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
+"Furnizați servicii de suport pentru utilizatorii dumneavoastră? Dacă da, "
+"atunci ar fi de ajutor să menționați calea către acele servicii de suport."
 
 #: web/admin/edit_idp.php:188
 msgid ""
@@ -301,108 +454,169 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
+"Dacă introduceți o valoare aici, aceasta o să fie adăugată tuturor "
+"programelor de instalare a tuturor utilizatorilor, și o să fie afișate pe "
+"pagina de descărcare. Dacă operați cu servicii de suport tehnic separate "
+"pentru diferite grupuri de utilizatori (o să numim acest lucru 'profil') "
+"specificați pentru fiecare profil în parte informațiile pentru suport tehnic "
+"în acest program de configurare. Dacă nu operați nici un fel de suport "
+"tehnic, atunci lăsați aceste câmpuri necompletate."
 
 #: web/admin/edit_idp.php:190
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
 msgstr ""
+"Pentru %s implementări, furnizarea unei singure adrese locale de e-mail este "
+"necesară"
 
 #: web/admin/edit_idp.php:190 web/admin/edit_idp.php:193
 msgid "This is the contact point for your end users' level 1 support."
 msgstr ""
+"Acesta este punctul de contact pentru asistența de nivel 1 al utilizatorilor "
+"finali."
 
 #: web/admin/edit_idp.php:193
 msgid "Providing at least a local support e-mail contact is required."
-msgstr ""
+msgstr "Furnizarea unei adrese locale de e-mail este necesară."
 
 #: web/admin/edit_idp.php:203
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
+msgstr "Când sunteți sigur că totul este corect, click pe %s Continuare...%s"
+
+#. send a notification/alert mail to someone we know is in charge
+#: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
+msgid "To whom it may concern,"
 msgstr ""
 
-#: web/admin/edit_idp_result.php:59
+#: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
+msgid ""
+"This mail is merely a cross-check because these changes can be security-"
+"relevant. If the change was expected, you do not need to take any action."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
+msgid "Greetings, "
+msgstr ""
+
+#: web/admin/edit_idp_result.php:61
+#, php-format
+msgid ""
+"the %s %s / %s / (previously known as) '%s' has deleted all properties and "
+"is starting over freshly. This means that its not recognisable by its name "
+"any more, and it may assume a different name in the future. You will get "
+"another mail if and when the name change happens."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
+#: web/admin/edit_profile_result.php:249
+#, php-format
+msgid "%s: Significant Changes made to %s"
+msgstr ""
+
+#: web/admin/edit_idp_result.php:73
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr ""
+"%s: Program de înregistrare pentru furnizor de identitate (etapa 2 terminată)"
 
-#: web/admin/edit_idp_result.php:75
+#: web/admin/edit_idp_result.php:80
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
+msgstr "Atributele pentru furnizorul de identitate '%s' au fost trimise"
+
+#. send a notification/alert mail to someone we know is in charge
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_idp_result.php:101
+#, php-format
+msgid ""
+"significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
+#: web/admin/edit_idp_result.php:103
+#, php-format
+msgid "The %s has changed its name. The details are below:"
+msgstr ""
+
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
-msgstr ""
+msgstr "(WPA2/AES și WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:128
 msgid "(WPA2/AES)"
-msgstr ""
+msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
+"Installer-ul dumneavoastră o sa configureze SSID-urile: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 msgid "SSIDs configured"
-msgstr ""
+msgstr "SSIDS-ul este configurat "
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr ""
+msgstr "Installer-ul dumneavoastră o să configureze interfața cu fir."
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 msgid "Wired configured"
-msgstr ""
+msgstr "Cablu configurat"
 
-#: web/admin/edit_idp_result.php:126
+#: web/admin/edit_idp_result.php:145
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
+"Nu putem genera programe de instalare încât nici SSID-uri ale rețelelor "
+"wireless, nici interfețe cu fir nu au fost selectate drept țintă."
 
-#: web/admin/edit_idp_result.php:145
+#: web/admin/edit_idp_result.php:164
 #, php-format
 msgid "Continue to %s properties"
-msgstr ""
+msgstr "Continuați cu %s proprietățile  "
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
+"Nu ați introdus o adresă de e-mail. Acest lucru este necesar pentru %s. Vă "
+"rugăm să mergeti la panoul %s și să vă editați setările de suport tehnic ca "
+"acestea să includă o adresă de e-mail pentru suportul tehnic."
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 msgid "No support e-mail!"
-msgstr ""
+msgstr "Nu suportă adresa de e-mail!"
 
-#: web/admin/edit_idp_result.php:153
+#: web/admin/edit_idp_result.php:172
 msgid "Continue to RADIUS/EAP profile definition"
-msgstr ""
+msgstr "Continuați către definirea profilului RADIUS/EAP "
 
 #: web/admin/edit_profile.php:36
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: Program de înregistrare pentru furnizor de identitate (etapa 3)"
 
 #: web/admin/edit_profile.php:121
 msgid "Step 3: Defining a user group profile"
-msgstr ""
+msgstr "Pasul 3: Definirea unui profil de grup de utilizatori"
 
 #: web/admin/edit_profile.php:123
 #, php-format
 msgid "Edit profile '%s' ..."
-msgstr ""
+msgstr "Editați profilul '%s' ..."
 
 #: web/admin/edit_profile.php:136
 msgid "General Profile properties"
-msgstr ""
+msgstr "Generați proprietățile Profilurilor"
 
 #: web/admin/edit_profile.php:140
 msgid ""
@@ -411,10 +625,14 @@ msgid ""
 "page. After we are done, the wizard is finished and you will be taken to the "
 "main IdP administration page."
 msgstr ""
+"O să definim un profil pentru grupul (grupurile) dumneavoastră de "
+"utilizatori. Puteți să adăugați câte profiluri doriți alegând butonul corect "
+"de la sfârșitul paginii. După ce am terminat, ghidul de instalare este "
+"terminat și o să te ducă către pagina principală de administrare IdP."
 
 #: web/admin/edit_profile.php:143
 msgid "Profile Name and RADIUS realm"
-msgstr ""
+msgstr "Numele Profilului și câmpul RADIUS."
 
 #: web/admin/edit_profile.php:146
 msgid ""
@@ -422,6 +640,9 @@ msgid ""
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
 msgstr ""
+"În primul rând o sa avem nevoie de un nume de profil. Aceasta o sa fie pus "
+"la finalul utilizatorului, ca să vă puteți alege un nume descriptiv ca "
+"'Profesor', 'Student al Facultații de Bioinginerie', etc."
 
 #: web/admin/edit_profile.php:147
 msgid ""
@@ -429,10 +650,13 @@ msgid ""
 "is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
+"Obțional, puteți adăuga o descriere mai lungă în legătură cu scopul "
+"contului. Dacă o specificați, o să fie afișat pe pagina de download după ce "
+"utilizatorul a ales numele profilului din listă."
 
 #: web/admin/edit_profile.php:148
 msgid "You can also tell us your RADIUS realm. "
-msgstr ""
+msgstr "Puteți să ne spuneți de asemenea domeniul RADIUS al dumneavoastră."
 
 #: web/admin/edit_profile.php:150
 #, php-format
@@ -440,20 +664,25 @@ msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
+"Acest lucru este util dacă doriți să folosiți modulul de testare mai târziu, "
+"care testează distanțele unde poate să ajungă domeniul dumneavoastră în "
+"infrastructura %s."
 
 #: web/admin/edit_profile.php:152
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
+"Este necesar să introduceți numele domeniului dacă doriți să funcționeze "
+"identități externe anonime (citiți mai jos)."
 
 #: web/admin/edit_profile.php:165
 msgid "Realm:"
-msgstr ""
+msgstr "Câmpuri:"
 
 #: web/admin/edit_profile.php:202
 msgid "Realm Options"
-msgstr ""
+msgstr "Câmpuri obționale "
 
 #: web/admin/edit_profile.php:206
 #, php-format
@@ -461,12 +690,18 @@ msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
+"Unele programe de instalare permit o opțiune numită 'Identitate externă "
+"anonimă'. Dacă nu știți ce este aceasta, vă rugăm să citiți <a "
+"href='%s'>acest articol</a>."
 
 #: web/admin/edit_profile.php:207
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
+"Pe unele platforme, programele de instalare pot sugera elemente de sfârșit "
+"de nume de utilizator și/sau să verifice numele de utilizator introdus dacă "
+"acesta conține sufixul domeniului."
 
 #: web/admin/edit_profile.php:208
 msgid ""
@@ -475,28 +710,42 @@ msgid ""
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
+"Această verificare de domeniu necesită să cunoască un ID extern care "
+"reușește să se conecteze. Dacă serverul dumneavoastră RADIUS permite "
+"trecerea doar a anumitor nume de utilizatori, ar trebui să specificați care "
+"dintre acele nume de utilizator (ale ID-urilor externe) le putem folosi "
+"pentru testare."
 
-#: web/admin/edit_profile.php:220
-msgid "Verify user input to contain realm suffix:"
+#: web/admin/edit_profile.php:217
+msgid "Outer Identity Handling"
 msgstr ""
 
-#: web/admin/edit_profile.php:234
-msgid "Prefill user input with realm suffix:"
-msgstr ""
-
-#: web/admin/edit_profile.php:244
+#: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
+msgstr "Permite Identitate Externă Anonimă:"
+
+#: web/admin/edit_profile.php:241
+msgid "Use special Outer Identity for realm checks:"
+msgstr ""
+"Folosește Identitate Externă specială pentru verificări ale domeniului:"
+
+#: web/admin/edit_profile.php:256
+msgid "Inner Identity (Username) Handling"
 msgstr ""
 
-#: web/admin/edit_profile.php:263
-msgid "Use special Outer Identity for realm checks:"
+#: web/admin/edit_profile.php:262
+msgid "Enforce realm suffix in username"
 msgstr ""
 
 #: web/admin/edit_profile.php:280
-msgid "Installer Download Location"
+msgid "Enforce exact realm in username"
 msgstr ""
 
-#: web/admin/edit_profile.php:284
+#: web/admin/edit_profile.php:290
+msgid "Installer Download Location"
+msgstr "Locația de descărcare a programului de instalare "
+
+#: web/admin/edit_profile.php:294
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -506,16 +755,24 @@ msgid ""
 "profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
+"CAT-ul conține o zonă de descărcare pentru utilizatori. Acolo, de exemplu, "
+"ei o să învețe despre legăturile către suport pe care le-ați introdus mai "
+"devreme. CAT-ul de asemenea poate oferi imediat programele de instalare "
+"pentru profile pentru a le descărca. Dacă nu doriți acest lucru, puteți "
+"introduce în schimb o locație web unde doriți să fie redirecționați "
+"utilizatorii. Tu, ca administrator, încă poți descărca profilele pentru a le "
+"amplasa pe acea pagină (vezi butonul 'Matricea compatibilității' pe "
+"dashboard)."
 
-#: web/admin/edit_profile.php:290
+#: web/admin/edit_profile.php:300
 msgid "Redirect end users to own web page:"
-msgstr ""
+msgstr "Redirectează utilizatorii către pagina web:"
 
-#: web/admin/edit_profile.php:303
+#: web/admin/edit_profile.php:313
 msgid "Supported EAP types"
-msgstr ""
+msgstr "Tipuri EAP suportate"
 
-#: web/admin/edit_profile.php:306
+#: web/admin/edit_profile.php:316
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -523,44 +780,53 @@ msgid ""
 "highest priority; only if the user's device can't use that EAP type, we will "
 "use an EAP type further down in the list."
 msgstr ""
+"Acum trebuie să știm care sunt tipurile EAP suportate de furnizorul "
+"dumneavoastră de identitate. Dacă suportați multiple tipuri EAP, puteți "
+"atribui fiecărui tip un nivel de prioritate (1 = cel mai prioritar). Această "
+"unealtă o să genereze mereu un program de instalare automat pentru tipul EAP "
+"cu cea mai mare prioritate; doar dacă dispozitivul utilizatorului nu este "
+"compatibil cu acel tip EAP, atunci se va utiliza un alt tip EAP din listă."
 
-#: web/admin/edit_profile.php:351
+#: web/admin/edit_profile.php:361
 msgid "EAP options inherited from Global level:"
-msgstr ""
+msgstr "Opțiuni EAP moștenite de la nivel Global:"
 
-#: web/admin/edit_profile.php:356
+#: web/admin/edit_profile.php:366
 #, php-format
 msgid "(%dx) %s"
-msgstr ""
+msgstr "(%d x) %s"
 
-#: web/admin/edit_profile.php:384
+#: web/admin/edit_profile.php:394
 msgid "Supported EAP types for this profile"
-msgstr ""
+msgstr "Tipuri EAP suportate pentru acest profil "
 
-#: web/admin/edit_profile.php:398
+#: web/admin/edit_profile.php:408
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
+"Folosește \"drag & drop\" pentru a marca o metodă EAP și pentru a o muta "
+"către zona care îi permite accesul (zona verde). Prioritatea se setează "
+"automat, depinzând de unde ați 'plasat' metoda."
 
-#: web/admin/edit_profile.php:406
+#: web/admin/edit_profile.php:416
 msgid "Unsupported EAP types"
-msgstr ""
-
-#: web/admin/edit_profile.php:459
-msgid "Helpdesk Details for this profile"
-msgstr ""
-
-#: web/admin/edit_profile.php:460
-msgid "EAP Details for this profile"
-msgstr ""
-
-#: web/admin/edit_profile.php:461
-msgid "Media Properties for this profile"
-msgstr ""
+msgstr "Tipuri EAP nesuportate"
 
 #: web/admin/edit_profile.php:469
+msgid "Helpdesk Details for this profile"
+msgstr "Detalii suport tehnic pentru acest profil"
+
+#: web/admin/edit_profile.php:470
+msgid "EAP Details for this profile"
+msgstr "Detalii EAP pentru acest profil"
+
+#: web/admin/edit_profile.php:471
+msgid "Media Properties for this profile"
+msgstr "Proprietăți media pentru acest profil"
+
+#: web/admin/edit_profile.php:479
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -569,133 +835,204 @@ msgid_plural ""
 "The options %s are already defined IdP-wide. If you set them here on profile "
 "level, these settings will override the IdP-wide ones."
 msgstr[0] ""
+"Opțiunea %s este deja definită în tot jurul furnizorului de identitate. Dacă "
+"o setați aici pe nivel de profil, această setare o să o suprascrie pe cea a "
+"furnizorului de identitate. "
 msgstr[1] ""
+"Opțiunile %s sunt deja definite în tot jurul furnizorului de identitate. "
+"Dacă le setați aici pe nivel de profil, aceste setări o să le suprascrie pe "
+"cele ale furnizorului de identitate. "
 msgstr[2] ""
+"Opțiunile %s sunt deja definite în tot jurul furnizorului de identitate. "
+"Dacă le setați aici pe nivel de profil, aceste setări o să le suprascrie pe "
+"cele ale furnizorului de identitate. "
 
-#: web/admin/edit_profile.php:479
+#: web/admin/edit_profile.php:489
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
+"Când sunteți sigur că totul este corect, vă rugăm apăsați pe 'Save data' "
+"după care veți fi trimis către pagina dashboard a furnizorului dumneavoastră "
+"de identitate. "
 
-#: web/admin/edit_profile_result.php:43
+#: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
 msgstr ""
+"%s: Program de înregistrare pentru furnizor de identitate (etapa 3 terminată)"
 
-#: web/admin/edit_profile_result.php:123
-msgid "Darn! Could not get a proper profile handle!"
-msgstr ""
-
-#: web/admin/edit_profile_result.php:127
+#: web/admin/edit_profile_result.php:115
 msgid "Submitted attributes for this profile"
-msgstr ""
+msgstr "Atribute pentru acest profil trimise"
 
-#: web/admin/edit_profile_result.php:134
+#: web/admin/edit_profile_result.php:122
 #, php-format
 msgid "Realm: <strong>%s</strong>"
-msgstr ""
+msgstr "Câmpuri: <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:141
+#: web/admin/edit_profile_result.php:129
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
-msgstr ""
+msgstr "Identitățile anonime externe nu pot fi autorizate: domeniul lipsește!"
 
-#: web/admin/edit_profile_result.php:144
+#: web/admin/edit_profile_result.php:132
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
 msgstr ""
+"Suportul pentru identități anonime este <strong>%s</strong>, identitatea "
+"anonimă externă este <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:144 web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:132 web/admin/edit_profile_result.php:147
 msgid "ON"
-msgstr ""
+msgstr "Deschis "
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
-msgstr ""
+msgstr "Suportul de identitate anonimă este <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 msgid "OFF"
+msgstr "Închis"
+
+#. no anon outer ID, and no realm suffix verification? Bad idea!
+#: web/admin/edit_profile_result.php:138
+msgid ""
+"Without Anoymous Identity, the actual username will be used as outer "
+"identity and be the basis for request routing. For that to work, the "
+"username must have a correct realm suffix. Yet, realm suffix verification "
+"has been turned OFF. Supplicants will not verify that usernames contain a "
+"realm, and errors such as username 'johndoe' which will not work in roaming "
+"scenarios will not be prohibited. Consider checking the box 'Enforce realm "
+"suffix in username'!"
 msgstr ""
 
-#: web/admin/edit_profile_result.php:153 web/admin/edit_profile_result.php:165
+#: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr ""
+"Verificarea domeniului din numele de utilizator nu poate fi configurată: "
+"domeniul lipsește!"
 
-#: web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:147
 #, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
+"Numele de utilizator special pentru verificarea domeniului este <strong>%s</"
+"strong>, valoarea este <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:160
+#: web/admin/edit_profile_result.php:151
 msgid "No special username for realm checks is configured."
 msgstr ""
+"Nu este configurat nici un nume de utilizator special pentru verificări de "
+"domeniu."
 
-#: web/admin/edit_profile_result.php:169
+#: web/admin/edit_profile_result.php:159
 #, php-format
-msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
+msgid "The realm portion MUST be exactly '...@%s'."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:161
+#, php-format
+msgid ""
+"The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
+"'user@%s' and 'user@<...>.%s' are both acceptable)."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:164
+msgid ""
+"Where possible, supplicants will verify that username inputs contain a "
+"syntactically correct realm."
 msgstr ""
 
 #: web/admin/edit_profile_result.php:173
-#, php-format
-msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
-msgstr ""
-
-#: web/admin/edit_profile_result.php:183
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
+"Redirecționarea nu poate fi activată - nu ați specificat o locație "
+"destinație!"
 
-#: web/admin/edit_profile_result.php:185
+#: web/admin/edit_profile_result.php:175
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
 msgstr ""
+"Redirecționarea nu poate fi activată! - destinația trebuie să fie un URL "
+"complet, începând cu http:// sau https://  !"
 
-#: web/admin/edit_profile_result.php:197
+#: web/admin/edit_profile_result.php:187
 #, php-format
 msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
 "device-level redirect."
 msgstr ""
+"Redirecționarea setată către <strong>%s</strong>, dar o să fie ignorată "
+"deoarece există deja redirecționare la nivel de dispozitiv."
 
-#: web/admin/edit_profile_result.php:199
+#: web/admin/edit_profile_result.php:189
 #, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr ""
+msgstr "Redirecționarea este către <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:203
+#: web/admin/edit_profile_result.php:193
 msgid "Redirection is <strong>OFF</strong>"
-msgstr ""
+msgstr "Redirecționarea este <strong>ÎNCHIS</strong>"
 
-#: web/admin/edit_profile_result.php:227
+#: web/admin/edit_profile_result.php:210
 msgid "Supported EAP Type: "
-msgstr ""
+msgstr "Tip EAP suportat: "
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
 msgstr ""
+"Tip EAP suportat: <strong>%s</strong> îi lipsește informația necesară %s !"
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
 msgstr ""
+"Acest tip EAP a fost adăugat în profil, dar trebuie să completați "
+"informațiile lipsă ca să putem produce programe de instalare pentru "
+"dumneavoastră."
 
-#: web/admin/edit_profile_result.php:251
-msgid "Continue to Installer Fine-Tuning and Download"
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_profile_result.php:230
+#, php-format
+msgid ""
+"significant changes were made to a RADIUS deployment profile of the %s %s / "
+"%s / '%s'."
 msgstr ""
+
+#: web/admin/edit_profile_result.php:232
+msgid ""
+"WARNING! A new trusted root CA was added, and it has the exact same name as "
+"a previously existing root CA. This may (but does not necessarily) mean that "
+"this is an attempt to insert an unauthorised trust root by disguising as the "
+"genuine one. The details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:236
+msgid "A new trusted root CA was added. The details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:240
+msgid ""
+"A new acceptable server name for the authentication server was added. The "
+"details are below:"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:263
+msgid "Continue to Installer Fine-Tuning and Download"
+msgstr "Continuă către descărcarea și configurarea programului de instalare"
 
 #: web/admin/edit_silverbullet.php:239
 msgid "Insecure mail domain!"
-msgstr ""
+msgstr "Domeniu de poștă electronică nesecurizat!"
 
 #: web/admin/edit_silverbullet.php:240
 #, php-format
@@ -704,148 +1041,153 @@ msgid ""
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
 msgstr ""
+"Domeniul de poștă electronică a adresei de e-mail <strong>%s</strong> nu "
+"este securizată: câteva sau toate serverele ale poștei nu acceptă conexiuni "
+"criptate (nu au suport continuu pentru STARTTLS)."
 
 #: web/admin/edit_silverbullet.php:241
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
+"Invitația ar trebui să fie trimisă în text pe toată calea străbătută pe "
+"internet, și ar putea fi citită și abuzată de oricine se află pe acea rută."
 
 #: web/admin/edit_silverbullet.php:242
 msgid "Do you want the system to send this mail anyway?"
-msgstr ""
+msgstr "Doriți ca sistemul să trimită acest mail?"
 
 #: web/admin/edit_silverbullet.php:244
 msgid "DO NOT SEND"
-msgstr ""
+msgstr "NU TRIMITE "
 
 #: web/admin/edit_silverbullet.php:251
 msgid "Send anyway."
-msgstr ""
+msgstr "Trimite oricum."
 
 #: web/admin/edit_silverbullet.php:301
 #, php-format
 msgid "Managing %s users"
-msgstr ""
+msgstr "Administrând %s utilizatori"
 
 #: web/admin/edit_silverbullet.php:338
 #, php-format
 msgid "Current %s users"
-msgstr ""
+msgstr "În acest moment sunt %s utilizatori "
 
 #: web/admin/edit_silverbullet.php:341
 msgid "Assigned Realm"
-msgstr ""
+msgstr "Domeniu atribuit"
 
 #: web/admin/edit_silverbullet.php:344
 msgid "Total number of active users allowed"
-msgstr ""
+msgstr "Număr total de utilizatori activi permiși"
 
 #: web/admin/edit_silverbullet.php:347
 msgid "Number of active users"
-msgstr ""
+msgstr "Numărul de membri activi"
 
 #: web/admin/edit_silverbullet.php:350
 msgid "Number of inactive users"
-msgstr ""
+msgstr "Numărul de membri inactivi"
 
 #: web/admin/edit_silverbullet.php:361
 msgid "The e-mail was sent successfully."
-msgstr ""
+msgstr "E-mail-ul a fost trimis cu succes."
 
 #: web/admin/edit_silverbullet.php:361
 msgid "E-mail OK."
-msgstr ""
+msgstr "E-mail-ul este OK."
 
 #: web/admin/edit_silverbullet.php:364
 msgid "The e-mail was NOT sent."
-msgstr ""
+msgstr "E-mail-ul nu a fost trimis "
 
 #: web/admin/edit_silverbullet.php:364
 msgid "E-mail not OK."
-msgstr ""
+msgstr "E-mail-ul nu este OK."
 
 #: web/admin/edit_silverbullet.php:367
 msgid "The SMS was sent successfully."
-msgstr ""
+msgstr "SMS-ul a fost trimis cu succes."
 
 #: web/admin/edit_silverbullet.php:367
 msgid "SMS OK."
-msgstr ""
+msgstr "SMS OK."
 
 #: web/admin/edit_silverbullet.php:370
 msgid "The SMS was NOT sent."
-msgstr ""
+msgstr "SMS-ul nu a fost trimis."
 
 #: web/admin/edit_silverbullet.php:370
 msgid "SMS not OK."
-msgstr ""
+msgstr "SMS-ul nu este OK."
 
 #: web/admin/edit_silverbullet.php:373
 msgid "Only a fragment of the SMS was sent. You should re-send it."
-msgstr ""
+msgstr "Doar un fragment din SMS  a fost trimis. Ar trebuii să îl retrimiteți."
 
 #: web/admin/edit_silverbullet.php:373
 msgid "SMS Fragment."
-msgstr ""
+msgstr "Fragment din SMS."
 
 #: web/admin/edit_silverbullet.php:380
 #, php-format
 msgid "Manage %s users"
-msgstr ""
+msgstr "Administrează %s utilizatori"
 
 #: web/admin/edit_silverbullet.php:386 web/admin/edit_silverbullet.php:393
 #: web/admin/overview_federation.php:127
 msgid "User"
-msgstr ""
+msgstr "Utilizator"
 
 #: web/admin/edit_silverbullet.php:387
 msgid "Token/Certificate details"
-msgstr ""
+msgstr "Detalii jeton/certificat"
 
 #: web/admin/edit_silverbullet.php:388
 msgid "User/Token Expiry"
-msgstr ""
+msgstr "Utilizator/jeton expirat "
 
 #: web/admin/edit_silverbullet.php:389 web/admin/edit_silverbullet.php:396
 msgid "Actions"
-msgstr ""
+msgstr "Acțiune"
 
 #: web/admin/edit_silverbullet.php:394
 msgid "Certificate details"
-msgstr ""
+msgstr "Detalii certificat"
 
 #: web/admin/edit_silverbullet.php:395
 msgid "User Expiry"
-msgstr ""
+msgstr "Utilizator expirat"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
-msgstr ""
+msgstr "REVOCAT"
 
 #: web/admin/edit_silverbullet.php:441
 msgid "EXPIRED"
-msgstr ""
+msgstr "EXPIRAT "
 
 #: web/admin/edit_silverbullet.php:452
 msgid "Device:"
-msgstr ""
+msgstr "Dispozitiv:"
 
 #: web/admin/edit_silverbullet.php:453
 msgid "Serial Number:"
-msgstr ""
+msgstr "Numărul de serie:"
 
 #: web/admin/edit_silverbullet.php:454
 msgid "CN:"
-msgstr ""
+msgstr "CN:"
 
 #: web/admin/edit_silverbullet.php:455
 msgid "Expiry:"
-msgstr ""
+msgstr "Expirat:"
 
 #: web/admin/edit_silverbullet.php:456
 msgid "Issued:"
-msgstr ""
+msgstr "Problemă:"
 
 #: web/admin/edit_silverbullet.php:468
 #, php-format
@@ -853,80 +1195,82 @@ msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"Dispozitivul în cauză nu va mai funcționa cu %s. Revocarea nu poate fi "
+"anulată. Ești sigur că vrei să faci acest lucru?"
 
 #: web/admin/edit_silverbullet.php:469 web/admin/edit_silverbullet.php:541
 msgid "Revoke"
-msgstr ""
+msgstr "Revocat "
 
 #: web/admin/edit_silverbullet.php:493
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "(arată %d certificat respins)"
+msgstr[1] "(arată %d certificate respinse)"
+msgstr[2] "(arată %d certificate respinse)"
 
 #: web/admin/edit_silverbullet.php:496
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "(arată %d certificat expirat)"
+msgstr[1] "(arată %d certificate expirate)"
+msgstr[2] "(arată %d certificate expirate)"
 
 #: web/admin/edit_silverbullet.php:510
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
-msgstr ""
+msgstr "Invitația %s este gata de a fi trimisă! Alegeți o metodă de expediere:"
 
 #: web/admin/edit_silverbullet.php:512
 msgid "E-Mail:"
-msgstr ""
+msgstr "E-Mail-ul:"
 
 #: web/admin/edit_silverbullet.php:516
 msgid "Local mail client"
-msgstr ""
+msgstr "Aplicație locală de poștă electronică"
 
 #: web/admin/edit_silverbullet.php:517
 msgid "Send with CAT"
-msgstr ""
+msgstr "Trimite alături de CAT"
 
 #: web/admin/edit_silverbullet.php:520
 msgid "SMS:"
-msgstr ""
+msgstr "SMS:"
 
 #: web/admin/edit_silverbullet.php:524
 msgid "Send in SMS..."
-msgstr ""
+msgstr "Trimite in SMS..."
 
 #: web/admin/edit_silverbullet.php:527
 msgid "Manual:"
-msgstr ""
+msgstr "Manual:"
 
 #: web/admin/edit_silverbullet.php:528
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copiază în clipboard"
 
 #: web/admin/edit_silverbullet.php:531
 msgid "Display QR code"
-msgstr ""
+msgstr "Arată codul QR"
 
 #: web/admin/edit_silverbullet.php:537
 msgid "Expiry Date:"
-msgstr ""
+msgstr "Data expirării:"
 
 #: web/admin/edit_silverbullet.php:537
 msgid "Activations remaining:"
-msgstr ""
+msgstr "Activări rămase:"
 
 #: web/admin/edit_silverbullet.php:537
 #, php-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d din %d"
 
 #: web/admin/edit_silverbullet.php:560
 msgid "Update"
-msgstr ""
+msgstr "Actualizare"
 
 #: web/admin/edit_silverbullet.php:567
 #, php-format
@@ -936,36 +1280,40 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"Toate dispozitivele active în acest moment o să înceteze să funcționeze cu "
+"%s. Acest lucru este permanent, nemaiputând fi modificat. Chiar dacă "
+"utilizatorul poate fi reactivat mai târziu, trebuie să fie provizionați din "
+"nou cu invitații. Sunteți sigur că doriți să faceți asta?"
 
 #: web/admin/edit_silverbullet.php:576
 msgid "Deactivate User"
-msgstr ""
+msgstr "Dezactivare utilizator "
 
 #: web/admin/edit_silverbullet.php:581
 msgid "Show Authentication Records"
-msgstr ""
+msgstr "Arată arhiva autentificărilor"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
 msgid "New Invitation"
-msgstr ""
+msgstr "Invitații noi"
 
 #: web/admin/edit_silverbullet.php:587
 msgid "Activations:"
-msgstr ""
+msgstr "Activări:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
 msgid "Delete User"
-msgstr ""
+msgstr "Șterge utilizator"
 
 #: web/admin/edit_silverbullet.php:610
 msgid "Current Users"
-msgstr ""
+msgstr "Utilizator curent "
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
-msgstr ""
+msgstr "Utilizator precedent"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:622
@@ -977,49 +1325,59 @@ msgid ""
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
+"Trebuie să țineți cont că timp de %s zile conturile create încă mai sunt "
+"valide. Dacă toate conturile afișate drept active sunt într-adevar încă "
+"valide, vă rugăm să marcați căsuța de mai jos și să apăsați butonul 'Save'. "
+"Dacă oricare dintre conturi sunt neutilizate, vă rugăm să le dezactivați "
+"prin apăsarea butonului corespunzător înainte de a face acest lucru. "
 
 #: web/admin/edit_silverbullet.php:630
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
+"Am verificat că toti utilizatorii configurați sunt încă eligibili pentru %s."
 
 #: web/admin/edit_silverbullet.php:632
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: web/admin/edit_silverbullet.php:642 web/admin/edit_silverbullet.php:657
 msgid "Add new user"
-msgstr ""
+msgstr "Adaugă utilizator nou"
 
 #: web/admin/edit_silverbullet.php:645
 msgid "Import users from CSV file"
-msgstr ""
+msgstr "Utilizatori importanți din fișierul CSV "
 
 #: web/admin/edit_silverbullet.php:652
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
+"Vă rog să introduceți un utilizator la alegere și data de expirare ca să "
+"puteți crea un nou utilizator:"
 
 #: web/admin/edit_silverbullet.php:666
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
+"Valorile separate prin virgulă ar trebui introduse în fișierul CSV: nume de "
+"utilizator, data expirării 'aaaa-ll-zz', număr de tokeni (opțional):"
 
 #: web/admin/edit_silverbullet.php:670
 msgid "Import users"
-msgstr ""
+msgstr "Utilizatori importanți "
 
 #. Appending terms of use popup
 #: web/admin/edit_silverbullet.php:686
 #, php-format
 msgid "%s - Terms of Use"
-msgstr ""
+msgstr "%s - Termeni de utilizare"
 
 #: web/admin/edit_silverbullet.php:693
 msgid "I have read and agree to the terms."
-msgstr ""
+msgstr "Am citit și sunt de acord cu termnii de utlizare."
 
 #: web/admin/edit_silverbullet.php:695
 msgid "Continue"
@@ -1027,170 +1385,190 @@ msgstr "Continuare"
 
 #: web/admin/edit_silverbullet.php:696
 msgid "Abort"
-msgstr ""
+msgstr "Abandonați"
 
 #: web/admin/edit_silverbullet.php:709
 #, php-format
 msgid "Back to %s page"
-msgstr ""
+msgstr "Înapoi către pagina %s"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
-msgstr ""
+msgstr "Editarea atributelor utilizatorului"
 
 #: web/admin/edit_user.php:40
 msgid "Current User Attributes"
-msgstr ""
+msgstr "Atributele utilizatorului curent"
 
 #: web/admin/edit_user.php:49
 msgid "Your attributes"
-msgstr ""
+msgstr "Atributele dumneavoastră"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr ""
+msgstr "Atribute utilizator - Sumarul datelor trimise"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
 msgstr ""
+"Pagina a fost accesată cu date insuficiente. Vă rugăm să raportați acest "
+"lucru drept o eroare."
 
 #: web/admin/edit_user_result.php:38
 msgid "Submitted attributes"
-msgstr ""
+msgstr "Atribute trimise"
 
 #: web/admin/edit_user_result.php:81
 msgid "Continue to user overview page"
-msgstr ""
+msgstr "Continuați către pagina de prezentare a utilizatorului"
 
 #. Logout failed. Tell the user to close the browser.
 #: web/admin/logout_check.php:47
 msgid "Incomplete Logout"
-msgstr ""
+msgstr "Deconectare incompletă"
 
 #: web/admin/logout_check.php:48
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
+"Nu am reușit să vă deconectăm din toate sesiunile. Pentru a fi complet sigur "
+"că v-ați deconectat, trebuie să închideți navigatorul web."
+
+#: web/admin/overview_certificates.php:73
+#, php-format
+msgid "Certificate Information for %s %s"
+msgstr ""
+
+#: web/admin/overview_certificates.php:92
+msgid "Request new Certificate"
+msgstr ""
 
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
-msgstr ""
+msgstr "%s: %s Administrare"
 
 #: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
 #, php-format
 msgid "%s Overview"
-msgstr ""
+msgstr "%s Prezentare generală"
 
 #: web/admin/overview_federation.php:45 web/admin/overview_user.php:49
 msgid "Your Personal Information"
-msgstr ""
+msgstr "Datele dumneavoastră personale"
 
 #: web/admin/overview_federation.php:50 web/admin/overview_user.php:54
 msgid "Unique Identifier"
-msgstr ""
+msgstr "Identificator unic"
 
 #: web/admin/overview_federation.php:55 web/admin/overview_user.php:59
 msgid "click to display"
-msgstr ""
+msgstr "Click pe display "
 
 #: web/admin/overview_federation.php:65
 #, php-format
 msgid "You are not a %s manager."
-msgstr ""
+msgstr "Dumneavoastră nu sunteți un manager %s"
 
 #: web/admin/overview_federation.php:76
 #, php-format
 msgid "%s Properties: %s"
-msgstr ""
+msgstr "%s Proprietăți: %s"
 
 #: web/admin/overview_federation.php:82
 msgid "Country"
-msgstr ""
+msgstr "Țara"
 
 #: web/admin/overview_federation.php:106
 #, php-format
 msgid "%s Statistics: %s"
-msgstr ""
+msgstr "%s Statistică %s"
 
 #: web/admin/overview_federation.php:111
 msgid "IdPs Total"
-msgstr ""
+msgstr "Număr total furnizori de identitate"
 
 #: web/admin/overview_federation.php:112
 msgid "Public Download"
-msgstr ""
+msgstr "Descărcări Publice "
 
 #: web/admin/overview_federation.php:124
 msgid "Downloads"
-msgstr ""
+msgstr "Descărcări"
 
 #: web/admin/overview_federation.php:125
 msgid "Admin"
-msgstr ""
+msgstr "Administrator"
 
 #: web/admin/overview_federation.php:152 web/admin/inc/manageAdmins.inc.php:110
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "A fost trimis prin transport securizat (criptare)"
+msgstr[1] "Au fost trimise prin transport securizat (criptare)"
+msgstr[2] "Au fost trimise prin transport securizat (criptare)"
 
 #: web/admin/overview_federation.php:155 web/admin/inc/manageAdmins.inc.php:113
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "A fost trimis prin text lizibil (fără criptare)"
+msgstr[1] "Au fost trimise prin text lizibil (fără criptare)"
+msgstr[2] "Au fost trimise prin text lizibil (fără criptare)"
 
 #: web/admin/overview_federation.php:158 web/admin/inc/manageAdmins.inc.php:116
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
+"O parte din e-mail-uri au fost trimise prin transport securizat, iar "
+"celelalte sub formă de text lizibil."
 
 #: web/admin/overview_federation.php:163 web/admin/inc/manageAdmins.inc.php:121
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "E-mail-ul de invitare a fost trimis cu succes."
+msgstr[1] "Toate e-mail-urile de invitare au fost trimise cu succes."
+msgstr[2] "Toate e-mail-urile de invitare au fost trimise cu succes."
 
 #: web/admin/overview_federation.php:163 web/admin/inc/manageAdmins.inc.php:121
 msgid "Sent successfully."
-msgstr ""
+msgstr "Trimis cu succes."
 
 #: web/admin/overview_federation.php:166 web/admin/inc/manageAdmins.inc.php:124
 msgid "No invitation email could be sent!"
-msgstr ""
+msgstr "Nici un e-mail de invitare nu a putut fi trimis!"
 
 #: web/admin/overview_federation.php:166 web/admin/inc/manageAdmins.inc.php:124
 msgid "Sending failure!"
-msgstr ""
+msgstr "Trimiterea eșuată!"
 
 #: web/admin/overview_federation.php:172 web/admin/inc/manageAdmins.inc.php:130
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Cea cu succes a fost trimisă prin transport securizat (criptat)."
+msgstr[1] "Cele cu succes au fost trimise prin transport securizat (criptat)."
+msgstr[2] "Cele cu succes au fost trimise prin transport securizat (criptat)."
 
 #: web/admin/overview_federation.php:175 web/admin/inc/manageAdmins.inc.php:133
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] ""
+"Cea cu succes a fost trimisă sub formă de text lizibil (fără criptare)."
 msgstr[1] ""
+"Cele cu succes au fost trimise sub formă de text lizibil (fără criptare)."
 msgstr[2] ""
+"Cele cu succes au fost trimise sub formă de text lizibil (fără criptare)."
 
 #: web/admin/overview_federation.php:178 web/admin/inc/manageAdmins.inc.php:136
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
+"Un set al e-mail-urilor trimise cu succes a fost trimis prin transport "
+"securizat, restul în text lizibil."
 
 #: web/admin/overview_federation.php:183 web/admin/inc/manageAdmins.inc.php:141
 #, php-format
@@ -1198,108 +1576,112 @@ msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
+"Câteva e-mail-uri de invitare au fost trimise cu succes (%s în total), "
+"restul au eșuat."
 
 #: web/admin/overview_federation.php:183 web/admin/inc/manageAdmins.inc.php:141
 msgid "Partial success."
-msgstr ""
+msgstr "Succes parțial."
 
 #: web/admin/overview_federation.php:186 web/admin/inc/manageAdmins.inc.php:144
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
+"Adresa de e-mail de invitare a fost scrisă eronat, nici o invitație nu a "
+"fost expediată!"
 
 #: web/admin/overview_federation.php:189 web/admin/inc/manageAdmins.inc.php:147
 msgid "Error: unknown result code of invitation!?!"
-msgstr ""
+msgstr "Eroare: cod rezultat al invitației este necunoscut!?!"
 
 #: web/admin/overview_federation.php:189 web/admin/inc/manageAdmins.inc.php:147
 msgid "Unknown result!"
-msgstr ""
+msgstr "Rezultat necunoscut!"
 
 #: web/admin/overview_federation.php:194
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
-msgstr ""
+msgstr "Aveți nevoie de ajutor? Referitor la <a href='%s'>%smanual</a>"
 
 #: web/admin/overview_federation.php:201
 msgid "Deployment Status"
-msgstr ""
+msgstr "Statusul implementării"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
-msgstr ""
+msgstr "%s Nume"
 
 #: web/admin/overview_federation.php:208
 #, php-format
 msgid "%s Database Sync Status"
-msgstr ""
+msgstr "%s status de sincronizare a bazei de date"
 
 #: web/admin/overview_federation.php:214 web/admin/overview_user.php:117
 msgid "Administrator Management"
-msgstr ""
+msgstr "Managementul administratorului"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
 #: web/admin/overview_federation.php:223
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "Următoarele %s sunt în %s%s:"
 
 #: web/admin/overview_federation.php:269
 msgid "Manage DB Link"
-msgstr ""
+msgstr "Administrează legătura BD"
 
 #: web/admin/overview_federation.php:275
 msgid "Linked"
-msgstr ""
+msgstr "Conectat"
 
 #: web/admin/overview_federation.php:278
 msgid "NOT linked"
-msgstr ""
+msgstr "Neconectat"
 
 #: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
 msgid "Add/Remove Administrators"
-msgstr ""
+msgstr "Adaugă/Șterge Administratori"
 
 #: web/admin/overview_federation.php:306
 #, php-format
 msgid "Pending invitations in the %s:"
-msgstr ""
+msgstr "Invitații în curs de așteptare în %s: "
 
 #: web/admin/overview_federation.php:323
 msgid "Revoke Invitation"
-msgstr ""
+msgstr "Revocare invitațite"
 
 #: web/admin/overview_federation.php:324 web/admin/inc/manageAdmins.inc.php:208
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(expirat %s)"
 
 #: web/admin/overview_federation.php:343
 #, php-format
 msgid "Register a new %s!"
-msgstr ""
+msgstr "Înregistrați un nou %s!"
 
 #: web/admin/overview_idp.php:48
 #, php-format
 msgid "%s: IdP Dashboard"
-msgstr ""
+msgstr "%s: Pagina principalală a furnizorului de identitate"
 
 #: web/admin/overview_idp.php:72
 #, php-format
 msgid "%s general settings"
-msgstr ""
+msgstr "setări generale %s"
 
 #: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
-msgstr ""
+msgstr "%s zona de descărcare cod QR"
 
 #: web/admin/overview_idp.php:111
 #, php-format
 msgid "Edit general %s details"
-msgstr ""
+msgstr "Editați detaliile generale %s"
 
 #: web/admin/overview_idp.php:116
 #, php-format
@@ -1307,16 +1689,18 @@ msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
 msgstr ""
+"După ștergerea %s, nu puteți să îl recreați dumneavoastră - trebuie un token "
+"nou de invitare de la administratorul %s!"
 
 #: web/admin/overview_idp.php:116
 #, php-format
 msgid "Do you really want to delete your %s %s?"
-msgstr ""
+msgstr "Chiar vrei sa ștergi %s%s?"
 
 #: web/admin/overview_idp.php:116
 #, php-format
 msgid "Delete %s"
-msgstr ""
+msgstr "Șterge %s"
 
 #: web/admin/overview_idp.php:122
 #, php-format
@@ -1325,46 +1709,49 @@ msgid ""
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
+"Această acțiune va șterge toate proprietățile ale %s și o să înceapă din nou "
+"configurarea de la capăt. Sunteți sigur că doriți să resetați toate setările "
+"ale %s%s?"
 
 #: web/admin/overview_idp.php:122
 #, php-format
 msgid "Reset all %s settings"
-msgstr ""
+msgstr "Resetați toate setările%s"
 
 #: web/admin/overview_idp.php:132
 msgid "Available Support actions"
-msgstr ""
+msgstr "Acțiuni disponibile de suport"
 
 #: web/admin/overview_idp.php:137
 msgid "Check another realm's reachability"
-msgstr ""
+msgstr "Verifică accesibilitatea altui domeniu"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
 #: web/admin/overview_user.php:171
 msgid "Go!"
-msgstr ""
+msgstr "Mergi!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:148
 #, php-format
 msgid "Check %s server status"
-msgstr ""
+msgstr "Verifică statusul serverului %s"
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:162
 #, php-format
 msgid "There are not yet any profiles for your %s."
-msgstr ""
+msgstr "Nu există încă nici un profil pentru %s."
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:165
 #, php-format
 msgid "Profiles for this %s"
-msgstr ""
+msgstr "Profile pentru acest %s"
 
 #: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
 msgid "Information needed!"
-msgstr ""
+msgstr "Necesită informații!"
 
 #: web/admin/overview_idp.php:196
 #, php-format
@@ -1372,43 +1759,45 @@ msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
 "%s</strong>."
 msgstr ""
+"Puteți crea până la %d utilizatori. Credențialele acestora vor purta numele "
+"<strong>%s</strong>."
 
 #: web/admin/overview_idp.php:205
 msgid "Manage User Base"
-msgstr ""
+msgstr "Administrează baza de utilizatori"
 
 #: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
 msgid "User Downloads"
-msgstr ""
+msgstr "Descărcări ale utilizatorilor"
 
 #: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr ""
+msgstr "<strong>Tipuri EAP</strong> (în ordinea preferințelor):"
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:413
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "De acord"
 
 #: web/admin/overview_idp.php:263
 msgid "Options on EAP Method/Device level are in effect."
-msgstr ""
+msgstr "Opțiunile la nivel de Metoda EAP/Dispozitiv sunt activate."
 
 #: web/admin/overview_idp.php:268
 #, php-format
 msgid "Profile: %s"
-msgstr ""
+msgstr "Profilul: %s"
 
 #: web/admin/overview_idp.php:273
 msgid "Option override on profile level is in effect."
-msgstr ""
+msgstr "Suprascrierea opțiunilor la nivel de profil este activată."
 
 #: web/admin/overview_idp.php:276
 msgid "The information in this profile is incomplete."
-msgstr ""
+msgstr "Informațiile din acest profil sunt incomplete."
 
 #: web/admin/overview_idp.php:280
 msgid "This profile is shown on the user download interface."
-msgstr ""
+msgstr "Acest profil este afișat pe interfața de descărcare a utilizatorului."
 
 #: web/admin/overview_idp.php:283
 #, php-format
@@ -1417,69 +1806,72 @@ msgid ""
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
 msgstr ""
+"Acest profil NU este afișat pe interfața de descărcare a utilizatorului, "
+"chiar dacă avem destule informații de afișat. Pentru a activa acest profil, "
+"adăugați atributul \"%s\" și bifați căsuța corespunzătoare."
 
 #: web/admin/overview_idp.php:304
 msgid "The realm can only be checked if you configure the realm!"
-msgstr ""
+msgstr "Domeniul poate fi verificat doar dacă configurați domeniul!"
 
 #: web/admin/overview_idp.php:305
 msgid "Check realm reachability"
-msgstr ""
+msgstr "Verifică accesibilitatea domeniului"
 
 #: web/admin/overview_idp.php:310
 msgid "You have not fully configured any supported EAP types!"
-msgstr ""
+msgstr "Nu ați configurat complet nici un tip EAP suportat!"
 
 #: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "Descărcarea și configurarea fină a instalatorului"
 
 #: web/admin/overview_idp.php:320
 msgid "Edit"
-msgstr ""
+msgstr "Editare"
 
 #: web/admin/overview_idp.php:323
 #, php-format
 msgid "Do you really want to delete the profile %s?"
-msgstr ""
+msgstr "Doriți sa ștergeți acest profil %s?"
 
 #: web/admin/overview_idp.php:324
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: web/admin/overview_idp.php:333
 msgid "User Download Link"
-msgstr ""
+msgstr "Link de descărcare pentru utilizator"
 
 #: web/admin/overview_idp.php:379
 #, php-format
 msgid "Add %s profile ..."
-msgstr ""
+msgstr "Adaugă profil %s"
 
 #: web/admin/overview_idp.php:392
 msgid "Add new RADIUS/EAP profile ..."
-msgstr ""
+msgstr "Adaugă profil nou  RADIUS/EAP ..."
 
 #: web/admin/overview_installers.php:27
 msgid "Device Compatibility matrix"
-msgstr ""
+msgstr "Matricea compatibilității dispozitivelor"
 
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
-msgstr ""
+msgstr "Matricea compatibilității dispozitivului pentru %s al %s"
 
 #: web/admin/overview_installers.php:51
 msgid "Device"
-msgstr ""
+msgstr "Dispozitiv"
 
 #: web/admin/overview_installers.php:59
 msgid "EAP-Type-specific options..."
-msgstr ""
+msgstr "Opțiuni specifice tipului EAP"
 
 #: web/admin/overview_installers.php:78
 msgid "Device-specific options..."
-msgstr ""
+msgstr "Opțiuni specifice dispozitivului"
 
 #: web/admin/overview_installers.php:90
 msgid "Download"
@@ -1487,116 +1879,122 @@ msgstr "Descărcare"
 
 #: web/admin/overview_installers.php:151
 msgid "Legend:"
-msgstr ""
+msgstr "Legendă:"
 
 #: web/admin/overview_installers.php:153
 msgid "redirection is set"
-msgstr ""
+msgstr "redirecționarea este setată"
 
 #: web/admin/overview_installers.php:154
 msgid "will be offered on download site"
-msgstr ""
+msgstr "o să fie oferit pe pagina de descărcare"
 
 #: web/admin/overview_installers.php:155
 msgid "configured, but not preferred EAP type"
-msgstr ""
+msgstr "configurat, dar nu este tipul EAP preferat"
 
 #: web/admin/overview_installers.php:156
 msgid "incomplete configuration"
-msgstr ""
+msgstr "configurare incompletă"
 
 #: web/admin/overview_installers.php:157
 msgid "not supported by CAT"
-msgstr ""
+msgstr "nesuportat de către CAT"
 
 #: web/admin/overview_installers.php:161
 msgid "Footnotes:"
-msgstr ""
+msgstr "Note de subsol:"
 
 #: web/admin/overview_installers.php:170
 msgid "Return to dashboard"
-msgstr ""
+msgstr "Întoarceți-vă la panoul de control"
 
 #: web/admin/overview_user.php:30
 #, php-format
 msgid "%s: User Management"
-msgstr ""
+msgstr "Managementul utilizatorului: %s"
 
 #: web/admin/overview_user.php:46
 msgid "User Overview"
-msgstr ""
+msgstr "Prezentare generală a utilizatorului"
 
 #: web/admin/overview_user.php:67
 msgid "Edit User Details"
-msgstr ""
+msgstr "Editați detaliile utilizatorului"
 
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "Click here for %s management tasks"
-msgstr ""
+msgstr "Apasă aici pentru %s a vă organiza sarcinile"
 
 #: web/admin/overview_user.php:74
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "Apasă aici pentru a accesa pagina superadmin"
 
 #: web/admin/overview_user.php:86
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
+"Ai nevoie de ajutor?  Referitor la <a href='%s'>%s manualul "
+"administratorului </a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:95
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Administrezi următorul <span style='display:none'>%d</span>%s:"
+msgstr[1] "Administrați următoarele <strong>%d</strong>%s:"
+msgstr[2] "Administrați următoarele<strong>%d</strong>%s:"
 
 #: web/admin/overview_user.php:117
 #, php-format
 msgid "Other admins of this %s"
-msgstr ""
+msgstr "Alți administratori din acest %s"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:120
 #, php-format
 msgid "%s %s: %s list"
-msgstr ""
+msgstr "%s%s:%s listă"
 
 #: web/admin/overview_user.php:149
 #, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d alt utilizator"
+msgstr[1] "%d alți utilizatori"
+msgstr[2] "%d alți utilizatori"
 
 #: web/admin/overview_user.php:160
 #, php-format
 msgid "You are not managing any %s."
-msgstr ""
+msgstr "Nu administrezi nici un %s."
 
 #: web/admin/overview_user.php:164
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
+"Vă rog să vă intrebați %s administratorul pentru a vă invita ca să deveniți "
+"%s administrator."
 
 #: web/admin/overview_user.php:168
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
+"Ați primit un jeton de invitație pentru a gestiona un %s? Vă rugăm să-l "
+"adăugați aici: "
 
 #: web/admin/overview_user.php:180
 #, php-format
 msgid "New %s Registration"
-msgstr ""
+msgstr "Înregistrare nouă %s"
 
 #: web/admin/inc/displayQRcode.inc.php:42
 msgid "Invitation Token QR Code"
-msgstr ""
+msgstr "Token de invitație Cod QR"
 
 #: web/admin/inc/manageAdmins.inc.php:57
 #, php-format
@@ -1604,11 +2002,13 @@ msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
 "In fact, you shouldn't have come this far!"
 msgstr ""
+"Nu aveți privilegiile necesare pentru a modifica administratorii %s. De "
+"fapt, nu ar fi trebuit să ajungeți atât de departe!"
 
 #: web/admin/inc/manageAdmins.inc.php:95
 #, php-format
 msgid "Administrators for IdP '%s'"
-msgstr ""
+msgstr "Administratori pentru furnizorul de identitate '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:154
 #, php-format
@@ -1616,11 +2016,13 @@ msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
+"Sunteți %s administratorul. Puteți invita noi administratori, care, la "
+"rândul lor, pot numi administratori pe cont propriu."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:106
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
-msgstr ""
+msgstr "Administrator %s"
 
 #: web/admin/inc/manageAdmins.inc.php:160
 #, php-format
@@ -1629,50 +2031,54 @@ msgid ""
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
+"Sunteți un administrator care a fost numit direct de către %sadministrator. "
+"Puteți numi mai mulți administratori, dar aceștia nu pot, la rândul lor, să "
+"mai numească administratori."
 
 #: web/admin/inc/manageAdmins.inc.php:160
 msgid "Directly Appointed Administrator"
-msgstr ""
+msgstr "Administrator direct numit"
 
 #: web/admin/inc/manageAdmins.inc.php:173
 msgid "User without name"
-msgstr ""
+msgstr "Utilizator fără nume"
 
 #: web/admin/inc/manageAdmins.inc.php:182
 #, php-format
 msgid "(originally invited as %s)"
-msgstr ""
+msgstr "(inițial invitat de către %s)"
 
 #: web/admin/inc/manageAdmins.inc.php:184
 msgid "(self-appointed)"
-msgstr ""
+msgstr "(de sine însuși numit)"
 
 #: web/admin/inc/manageAdmins.inc.php:191
 msgid "Delete Administrator"
-msgstr ""
+msgstr "Ștergeți administrator"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "Pending invitations for this IdP"
-msgstr ""
+msgstr "Invitații în curs de așteptare pentru acest furnizor de identitate"
 
 #: web/admin/inc/manageAdmins.inc.php:216
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
+"Adresa(ele) de e-mail ale administratorului nou (separate prin virgulă):"
 
 #: web/admin/inc/manageAdmins.inc.php:216
 msgid "Invite new administrator"
-msgstr ""
+msgstr "Invitați un nou administrator"
 
 #: web/admin/inc/manageAdmins.inc.php:230
 #, php-format
 msgid "Take control of this %s"
-msgstr ""
+msgstr "Luați control asupra %s"
 
 #: web/admin/inc/manageAdmins.inc.php:237
 #: web/admin/inc/manageDBLink.inc.php:204
 #: web/admin/inc/manageNewInst.inc.php:127
 msgid "Close"
-msgstr ""
+msgstr "Închide"
 
 #: web/admin/inc/manageDBLink.inc.php:54
 #, php-format
@@ -1680,75 +2086,84 @@ msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
 msgstr ""
+"Nu aveți permisiunile necesare pentru a administra starea legăturii bazei de "
+"date %s a acestui %s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
 msgstr ""
+"%s Statusul legăturii cu baza de date pentru furnizorul de identitate '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr ""
+msgstr "Acesta %s este adresa către %s baza de date."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
 msgstr ""
+"Următoarele informații despre furnizorul de identitate sunt stocate în baza "
+"de date %s și în baza de date %s:"
 
 #: web/admin/inc/manageDBLink.inc.php:97
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
-msgstr ""
+msgstr "Informații în <strong>%s Baza de date</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:109
 #: web/admin/inc/manageDBLink.inc.php:135
 #, php-format
 msgid "%s Name (%s)"
-msgstr ""
+msgstr "%sNume (%s)"
 
 #: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:73
 msgid "Unnamed User"
-msgstr ""
+msgstr "Utilizator fară nume"
 
 #: web/admin/inc/manageDBLink.inc.php:120
 msgid "Administrator [invited as]"
-msgstr ""
+msgstr "Administrator [invitată de către]"
 
 #: web/admin/inc/manageDBLink.inc.php:138
 msgid "Administrator email"
-msgstr ""
+msgstr "E-mail-ul administratorului"
 
 #: web/admin/inc/manageDBLink.inc.php:143
 msgid "If this mapping is not correct any more, you can remove the link:"
-msgstr ""
+msgstr "Dacă această mapare nu mai este corectă, puteți elimina linkul:"
 
 #: web/admin/inc/manageDBLink.inc.php:145
 msgid "Unlink"
-msgstr ""
+msgstr "deconectare "
 
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr ""
+msgstr "Această %s nu este încă legată de %s baza de date."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
 msgstr ""
+"Aceasta înseamnă că profilurile sale nu sunt disponibile pe pagina de "
+"descărcare a utilizatorului."
 
 #: web/admin/inc/manageDBLink.inc.php:151
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr ""
+msgstr "Îl puteți conecta la baza de date %s de mai jos."
 
 #: web/admin/inc/manageDBLink.inc.php:154
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
 msgstr ""
+"Vă rugăm să selectați o entitate din baza de date %s care îi corespunde CAT-"
+"ului: %s."
 
 #: web/admin/inc/manageDBLink.inc.php:156
 #, php-format
@@ -1756,33 +2171,36 @@ msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
 msgstr ""
+"Intrări promițătoare în mod particular (numele din CAT și baza de date %s se "
+"potrivesc 100%%) sunt în vârful listei."
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Link to this entity?"
-msgstr ""
+msgstr "Legătură către această entitate?"
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Administrators"
-msgstr ""
+msgstr "Administratori "
 
 #: web/admin/inc/manageDBLink.inc.php:193
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
 msgstr ""
+"Nu există nici un singur %s nemapat în baza de date externă pentru acest %s! "
 
 #: web/admin/inc/manageDBLink.inc.php:195
 msgid "Create Link"
-msgstr ""
+msgstr "Creați conexiunea"
 
 #: web/admin/inc/manageNewInst.inc.php:48
 #, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr ""
+msgstr "Nu aveți privilegiile necesare pentru a înregistra  %s s-uri noi"
 
 #: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid "%s - Register new %s"
-msgstr ""
+msgstr "%s-Înregistreaza-te acum%s"
 
 #: web/admin/inc/manageNewInst.inc.php:58
 #, php-format
@@ -1790,6 +2208,9 @@ msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
+"Pe această pagină, puteți adăuga un nou %s pe %s.\n"
+"Vă rog să completați formularul de mai jos pentru a trimite o nouă invitație "
+"către noul administrator %s."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 #, php-format
@@ -1797,6 +2218,8 @@ msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
+"Puteți fie să înregistrați un cunoscut %s (așa cum este definit în baza de "
+"date %s) sau să creați un %s complet nou."
 
 #: web/admin/inc/manageNewInst.inc.php:61
 #, php-format
@@ -1804,30 +2227,32 @@ msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
+"Ultima este de obicei pentru un %s care se află încă într-o fază de testare "
+"și așadar nu apare încă în baza de date %s."
 
 #: web/admin/inc/manageNewInst.inc.php:71
 msgid "Existing IdP:"
-msgstr ""
+msgstr "Furnizori de identitate existenți:"
 
 #: web/admin/inc/manageNewInst.inc.php:76
 msgid "--- select IdP here ---"
-msgstr ""
+msgstr "-- selectați furnizorul de identitate aici --"
 
 #: web/admin/inc/manageNewInst.inc.php:94
 msgid "New IdP"
-msgstr ""
+msgstr "Furnizor de identitate nou"
 
 #: web/admin/inc/manageNewInst.inc.php:97
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: web/admin/inc/manageNewInst.inc.php:118
 msgid "Administrator's E-Mail:"
-msgstr ""
+msgstr "E-Mail-ul administratorului:"
 
 #: web/admin/inc/manageNewInst.inc.php:123
 msgid "Send invitation"
-msgstr ""
+msgstr "Trimiteți invitații"
 
 #.
 #. * *****************************************************************************
@@ -1850,19 +2275,19 @@ msgstr ""
 #.
 #: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
 msgid "No email address provided"
-msgstr ""
+msgstr "Nici o adresă de e-mail primită"
 
 #: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
 msgid "Invitation sent to:"
-msgstr ""
+msgstr "Invitația trimisă catre:"
 
 #: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
 msgid "The invitation email could not be sent!"
-msgstr ""
+msgstr "Mesajul de invitație nu a putut fi trimis!"
 
 #: web/admin/inc/overview_js.php:94
 msgid "Mail address to invite:"
-msgstr ""
+msgstr "Adresa de e-mail pentru a invita"
 
 #: web/admin/inc/sendinvite.inc.php:114
 #, php-format
@@ -1870,76 +2295,82 @@ msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
 "belongs to!"
 msgstr ""
+"Ceva a mers greșit... dumneavoastră sunteți un administrator %s, dar nu "
+"pentru ceea ce se solicitați %s, cererea apartine lui %s! "
 
 #: web/admin/inc/toggleRedirect.inc.php:100
 #, php-format
 msgid "device <strong>%s</strong>"
-msgstr ""
+msgstr "Dispozitivul <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:110
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr ""
+msgstr "Tip-EAP <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:117
 msgid "Fine-tuning options for "
-msgstr ""
+msgstr "Opțiuni configurare fină pentru"
 
 #: web/admin/inc/userStats.inc.php:31
 msgid "User Authentication Records"
-msgstr ""
+msgstr "Înregistrări de autentificare a utilizatorului"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Notează asta:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "Înregistrările de autentificare sunt șterse după șase luni de păstrare"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Domeniul operator este bazat pe atributul RADIUS 'Nume-operator' și nu este "
+"trimis de toate punctele de acces"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Adrese MAC diferite la un credențial pot apărea în urma alegerii aleatorii a "
+"adresei MAC în sistemele de operare recente"
 
 #: web/admin/inc/userStats.inc.php:40
 msgid "Timestamp"
-msgstr ""
+msgstr "Marcajul de timp"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Credential"
-msgstr ""
+msgstr "Credențial"
 
 #: web/admin/inc/userStats.inc.php:42
 msgid "MAC Address"
-msgstr ""
+msgstr "Adresa MAC"
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
-msgstr ""
+msgstr "Rezultatul"
 
 #: web/admin/inc/userStats.inc.php:44
 msgid "Operator Domain"
-msgstr ""
+msgstr "Domeniu Operator"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Failure"
-msgstr ""
+msgstr "Eroare"
 
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
-msgstr ""
+msgstr "Locația"
 
 #: web/lib/admin/AbstractMap.php:128
 msgid ""
@@ -1947,6 +2378,10 @@ msgid ""
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
 msgstr ""
+"Intefața de descărcare pentru utilizator (vezi <a href='../'>aici</a>), "
+"folosește geolocația pentru a sugera utilizatorului posibili furnizori de "
+"identitate căruia i se potrivesc. Cu cât mai precis definiți locația aici, "
+"cu atât mai ușor veți fi găsiți de către utilizatori."
 
 #: web/lib/admin/AbstractMap.php:131
 msgid ""
@@ -1954,59 +2389,67 @@ msgid ""
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
 msgstr ""
+"<li>Poziționați ținta pe hartă pe locul în care vă aflați, sau</li>\n"
+"<li>introduceți adresa străzii în câmpul de mai jos pentru căutare, sau</"
+"li>\n"
+"<li>folosiți butonul 'Localizați-mă!'</li> "
 
 #: web/lib/admin/AbstractMap.php:136
 msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
+msgstr "Vom folosi coordonatele indicate de către țintă pentru geolocație."
 
 #: web/lib/admin/AbstractMap.php:140
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
+"Puteți introduce o locație <strong>în plus</strong> aici. Puteți vedea "
+"locațiile deja definite în câmpul 'Informații generale'."
 
 #: web/lib/admin/AbstractMap.php:154
 msgid "Latitude:"
-msgstr ""
+msgstr "Latitudine:"
 
 #: web/lib/admin/AbstractMap.php:154
 msgid "Longitude:"
-msgstr ""
+msgstr "Longitudine:"
 
 #: web/lib/admin/MapGoogle.php:133
 msgid "This is location "
-msgstr ""
+msgstr "Aceasta este locația"
 
 #: web/lib/admin/MapGoogle.php:212 web/lib/admin/MapOpenLayers.php:232
 msgid "nothing entered in the address field"
-msgstr ""
+msgstr "Nu s-a introdus nimic în câmpul de adresa"
 
 #: web/lib/admin/MapGoogle.php:232 web/lib/admin/MapOpenLayers.php:88
 msgid "locating"
-msgstr ""
+msgstr "Localizare"
 
 #: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
-msgstr ""
+msgstr "Click pentru a vizualiza locația"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
-msgstr ""
+msgstr "Adresa:"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
-msgstr ""
+msgstr "Găsiți adresa"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
 #: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
-msgstr ""
+msgstr "Localizează-mă!"
 
 #: web/lib/admin/MapOpenLayers.php:239
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
 msgstr ""
+"Adresa nu a fost gasită, încercați o alta formă, de exemplu să puneți numele "
+"unei adrese in față."
 
 #: web/lib/admin/OptionDisplay.php:183
 #, php-format
@@ -2024,6 +2467,19 @@ msgid ""
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
 msgstr ""
+"Acest atribut poate fi setat dacă doriți să configurați un SSID adițional pe "
+"lângă SSID-ul implicit pentru %s. Este mereu o idee rea să nu folosești SSID-"
+"ul implicit. Singura excepție este dacă ai premisele că semnalul radio se "
+"suprapune cu un alt %s punct de acces. Concepțiile greșite frecvente despre "
+"SSID-uri adiționale includ: Vreau să am un SSID local pentru utilizatorii "
+"mei. Este mult mai bine să folosești SSID-ul implicit și să separi grupurile "
+"de utilizatori prin VLAN-uri. Această abordare are două avantaje: 1) "
+"utilizatorii dumneavoastră o să configureze %s corespunzător pentru că este "
+"SSID-ul lor utilizat zilnic; 2) dacă folosești un nume particular și îl "
+"promovezi pe acesta ca fiind extra securizat, utilizatorii tăi ar putea la "
+"un moment dat să ajungă în altă locație în care să existe un SSID cu același "
+"nume. Ei ar putea crede greșit că se conectează la o rețea extra securizată "
+"ceea ce nu este adevărat."
 
 #: web/lib/admin/OptionDisplay.php:185
 #, php-format
@@ -2031,40 +2487,65 @@ msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
 "through a content filter of your own is a significant invasion of user self-"
 "determination. It also has technical issues. Please throughly read the "
-"discussion at %s before specifying a proxy with this option."
+"discussion at %s before specifying a proxy with this option. This feature is "
+"currently experimental and only has an effect in Apple installers."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:275
+#: web/lib/admin/OptionDisplay.php:188
+#, php-format
+msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:190
+#, php-format
+msgid ""
+"Note that your requirement to inform users about the OpenRoaming End User "
+"Terms and Conditions is fulfilled when directing your end users to the %s "
+"download portal for installer download. Any other means of providing the "
+"installers needs to present this information via its own channel."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:192
+msgid ""
+"You are also aware that for best technical interoperability, you need to add "
+"a DNS entry into the DNS zone of your RADIUS realm."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:194
+msgid "Read the instructions in the wiki."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
-msgstr ""
+msgstr "Selectați limba "
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:157
+#: web/lib/admin/OptionDisplay.php:284 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
-msgstr ""
+msgstr "Limba de bază/altă limbă "
 
-#: web/lib/admin/OptionDisplay.php:356
+#: web/lib/admin/OptionDisplay.php:364
 msgid "(default/other languages)"
-msgstr ""
+msgstr "(Limba de bază/alta limbă)"
 
-#: web/lib/admin/OptionDisplay.php:391
+#: web/lib/admin/OptionDisplay.php:399
 msgid "file content"
-msgstr ""
+msgstr "conținutul fișierului "
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "on"
-msgstr ""
+msgstr "Pornit"
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "off"
-msgstr ""
+msgstr "Inchis"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
 #: web/lib/admin/OptionParser.php:214 web/lib/admin/OptionParser.php:219
 #, php-format
 msgid "%dx %s"
-msgstr ""
+msgstr "%dx%s"
 
 #: web/lib/admin/OptionParser.php:224
 #, php-format
@@ -2074,291 +2555,300 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
+"Nu ați setat o valoare 'limbă implicită' pentru %s. Asta înseamnă că noi "
+"putem doar să afișăm acest șir pentru programe de instalare care sunt "
+"<strong>doar</strong> în limba pe care ați configurat-o. Pentru a respecta "
+"celelalte limbi, ați putea să editați profilul din nou și să completați "
+"câmpul 'implicit/altă' limbă."
 
 #: web/lib/admin/PageDecoration.php:52
 msgid "You are:"
-msgstr ""
+msgstr "Tu ești:"
 
 #: web/lib/admin/PageDecoration.php:55
 msgid "Go to your Profile page"
-msgstr ""
+msgstr "Du-te la pagina ta de profil "
 
 #: web/lib/admin/PageDecoration.php:56
 msgid "Logout"
-msgstr ""
+msgstr "Deconectare"
 
 #: web/lib/admin/PageDecoration.php:58
 msgid "Start page"
-msgstr ""
+msgstr "Porniți pagina "
 
 #: web/lib/admin/PageDecoration.php:82
 msgid "View this page in"
-msgstr ""
+msgstr "Vizualizați pagina în"
 
 #: web/lib/admin/PageDecoration.php:143
 #, php-format
 msgid "Administrator Interface - %s"
-msgstr ""
+msgstr "Interfața administratorului - %s"
 
 #: web/lib/admin/PageDecoration.php:146
 #, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr ""
+msgstr "Interfața administratorului - %s managementul utlizatorului "
 
 #: web/lib/admin/PageDecoration.php:149
 msgid "Administrator Interface"
-msgstr ""
+msgstr "Interfața administratorului"
 
 #: web/lib/admin/PageDecoration.php:152
 msgid "Management of User Details"
-msgstr ""
+msgstr "Administrarea Detaliilor Utilizator"
 
 #: web/lib/admin/PageDecoration.php:155
 #, php-format
 msgid "Administrator Interface - %s Management"
-msgstr ""
+msgstr "Interfața Administrator - %s Administrare"
 
 #: web/lib/admin/PageDecoration.php:158
 #, php-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Bine ai venit la %s"
 
 #: web/lib/admin/PageDecoration.php:163
 msgid "CIC"
-msgstr ""
+msgstr "CIC"
 
 #: web/lib/admin/PageDecoration.php:166
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnosticare"
 
 #: web/lib/admin/PageDecoration.php:250
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "Note private %s"
 
 #: web/lib/admin/UIElements.php:70
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: web/lib/admin/UIElements.php:71
 msgid "SSID (with WPA/TKIP)"
-msgstr ""
+msgstr "SSID (cu WPA/TKIP)"
 
 #: web/lib/admin/UIElements.php:72
 msgid "HS20 Consortium OI"
-msgstr ""
+msgstr "Consorțiul HS20 de identificatori de organizație"
 
 #: web/lib/admin/UIElements.php:75
 msgid "Additional SSID"
-msgstr ""
+msgstr "SSID Adițional"
 
 #: web/lib/admin/UIElements.php:76
 msgid "Additional SSID (with WPA/TKIP)"
-msgstr ""
+msgstr "SSID Adițional (cu WPA/TKIP)"
 
 #: web/lib/admin/UIElements.php:79
 msgid "Additional HS20 Consortium OI"
-msgstr ""
+msgstr "Consorțiul HS20 de identificatori de organizație adițional"
 
 #: web/lib/admin/UIElements.php:82
 msgid "Support: Web"
-msgstr ""
+msgstr "Suport: Web"
 
 #: web/lib/admin/UIElements.php:83
 msgid "Support: EAP Types"
-msgstr ""
+msgstr "Support: Tipuri EAP"
 
 #: web/lib/admin/UIElements.php:84
 msgid "Support: Phone"
-msgstr ""
+msgstr "Suport: Telefon "
 
 #: web/lib/admin/UIElements.php:85
 msgid "Support: E-Mail"
-msgstr ""
+msgstr "Suport: E-Mail"
 
 #: web/lib/admin/UIElements.php:88
 msgid "Logo URL"
-msgstr ""
+msgstr "URL către Logo"
 
 #: web/lib/admin/UIElements.php:89
 msgid "Logo image"
-msgstr ""
+msgstr "Imagine Logo"
 
 #: web/lib/admin/UIElements.php:90
 msgid "Configure Wired Ethernet"
-msgstr ""
+msgstr "Configurează Ethernet-ul cu fir"
 
 #: web/lib/admin/UIElements.php:91
 msgid "Name (CN) of Authentication Server"
-msgstr ""
+msgstr "Numele (CN) Serverului de Autentificare"
 
 #: web/lib/admin/UIElements.php:92
 msgid "Enable device assessment"
-msgstr ""
+msgstr "Activează evaluarea dispozitivului"
 
 #: web/lib/admin/UIElements.php:93
 msgid "Terms of Use"
-msgstr ""
+msgstr "Termeni de utilizare"
 
 #: web/lib/admin/UIElements.php:94
 msgid "CA Certificate URL"
-msgstr ""
+msgstr "URL-ul Certificatului CA"
 
 #: web/lib/admin/UIElements.php:95
 msgid "CA Certificate File"
-msgstr ""
+msgstr "Fișierul Certificatului CA"
 
 #: web/lib/admin/UIElements.php:96
 msgid "Profile Display Name"
-msgstr ""
+msgstr "Numele profilului afișat"
 
 #: web/lib/admin/UIElements.php:97
 msgid "Production-Ready"
-msgstr ""
+msgstr "Pregătit de producție"
 
 #: web/lib/admin/UIElements.php:98
 msgid "Admin Accepted Terms of Use"
-msgstr ""
+msgstr "Administratorul a acceptat termenii de utilizare"
 
 #: web/lib/admin/UIElements.php:99
 msgid "Extra text on downloadpage for device"
-msgstr ""
+msgstr "Text extra pe pagina de descărcare pentru dispozitiv"
 
 #: web/lib/admin/UIElements.php:100
 msgid "Redirection Target"
-msgstr ""
+msgstr "Ținta redirecționării"
 
 #: web/lib/admin/UIElements.php:101
 msgid "Extra text on downloadpage for EAP method"
-msgstr ""
+msgstr "Text extra pe pagina de descărcare pentru metoda EAP"
 
 #: web/lib/admin/UIElements.php:102
 msgid "Turn on selection of EAP-TLS User-Name"
-msgstr ""
+msgstr "Activează selecția Numelui de utilizator EAP-TLS"
 
 #: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr ""
+msgstr "Foloselte GEANTlink pentru TTLS (Windows 8 și 10)"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
-msgstr ""
+msgstr "Descrierea profilului"
 
 #: web/lib/admin/UIElements.php:105
 msgid "Custom Installer Name Suffix"
-msgstr ""
+msgstr "Nume sufix particular a programului de instalare"
 
-#: web/lib/admin/UIElements.php:107
-msgid "Real Name"
+#: web/lib/admin/UIElements.php:106
+msgid "Opt-In to OpenRoaming"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:108
-msgid "E-Mail Address"
-msgstr ""
+msgid "Real Name"
+msgstr "Nume Real"
 
 #: web/lib/admin/UIElements.php:109
-msgid "Remove/Disable SSID"
-msgstr ""
+msgid "E-Mail Address"
+msgstr "Adresa de E-mail"
 
 #: web/lib/admin/UIElements.php:110
-msgid "Mandatory Content Filtering Proxy"
-msgstr ""
+msgid "Remove/Disable SSID"
+msgstr "Șterge/Dezactivează SSID"
 
 #: web/lib/admin/UIElements.php:111
-msgid "Custom CSS file for User Area"
-msgstr ""
+msgid "Mandatory Content Filtering Proxy"
+msgstr "Proxy de filtrare conținut obligatoriu"
 
 #: web/lib/admin/UIElements.php:112
-#, php-format
-msgid "%s Logo"
-msgstr ""
+msgid "Custom CSS file for User Area"
+msgstr "Fișier CSS particular pentru Zona Utilizator"
 
 #: web/lib/admin/UIElements.php:113
-msgid "Preferred Skin for User Area"
-msgstr ""
+#, php-format
+msgid "%s Logo"
+msgstr "Logo %s"
 
 #: web/lib/admin/UIElements.php:114
+msgid "Preferred Skin for User Area"
+msgstr "Interfață preferată pentru Zona Utilizator"
+
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:116
-#, php-format
-msgid "%s Homepage"
-msgstr ""
+msgstr "Include %s marca în programele de instalare "
 
 #: web/lib/admin/UIElements.php:117
 #, php-format
-msgid "Custom text in %s Invitations"
-msgstr ""
+msgid "%s Homepage"
+msgstr "%s Pagina acasă"
 
 #: web/lib/admin/UIElements.php:118
 #, php-format
-msgid "Enable %s"
-msgstr ""
+msgid "Custom text in %s Invitations"
+msgstr "Text personalizat în %s Invitații "
 
 #: web/lib/admin/UIElements.php:119
 #, php-format
-msgid "%s: Do not terminate EAP"
-msgstr ""
+msgid "Enable %s"
+msgstr "Permitere %s"
 
 #: web/lib/admin/UIElements.php:120
 #, php-format
-msgid "%s: max users per profile"
-msgstr ""
+msgid "%s: Do not terminate EAP"
+msgstr "%s: Nu eliminați EAP"
 
 #: web/lib/admin/UIElements.php:121
 #, php-format
-msgid "Mint %s with CA on creation"
-msgstr ""
+msgid "%s: max users per profile"
+msgstr "Numărul maxim de utilizatori pe profil: %s"
 
-#: web/lib/admin/UIElements.php:223
+#: web/lib/admin/UIElements.php:122
+#, php-format
+msgid "Mint %s with CA on creation"
+msgstr "Mint %s cu CA la creare"
+
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
-msgstr ""
+msgstr "Detalii generale %s"
 
-#: web/lib/admin/UIElements.php:241
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
-msgstr ""
+msgstr "Detalii suport tehnic global"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:338
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr ""
+msgstr "A apărut o eroare la extragerea certificatului din baza de date!"
 
-#: web/lib/admin/UIElements.php:347
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
-msgstr ""
+msgstr "A apărut o eroare la procesarea certificatului!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "Aceasta este un <strong>SERVER</strong>certificat!"
 
-#: web/lib/admin/UIElements.php:374
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
-msgstr ""
+msgstr "Previzualizare fișier logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:390
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
-msgstr ""
+msgstr "A apărut o eroare la extragerea fișierului din baza de date!"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
-msgstr ""
+msgstr "Fișierul există"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:414
-msgid "Remark"
-msgstr ""
+msgstr "Previzualizare"
 
 #: web/lib/admin/UIElements.php:415
-msgid "Warning!"
-msgstr ""
+msgid "Remark"
+msgstr "Observație"
 
 #: web/lib/admin/UIElements.php:416
+msgid "Warning!"
+msgstr "Atenție!"
+
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
-msgstr ""
+msgstr "Eroare!"

@@ -1,24 +1,25 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduroam_devel <stefan.winter@restena.lu>, 2018-2020.
-# stefanwinter <stefan.winter@gmail.com>, 2012.
-# Steffen Klemer <klemer@dfn.de>, 2018.
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2020
+# stefanwinter <stefan.winter@gmail.com>, 2012
+# Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 10:51+0100\n"
-"PO-Revision-Date: 2020-12-08 11:52+0100\n"
-"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German <cat-devel@lists.geant.org>\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:09+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
+"language/de_DE/)\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
 
 #: web/admin/action_enrollment.php:52 web/admin/action_enrollment.php:78
 #: web/admin/action_enrollment.php:79
@@ -88,8 +89,8 @@ msgstr "RADIUS/TLS Zertifikatsmanagement für %s"
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr ""
-"Sie haben nicht die erforderliche Berechtigung um RADIUS/TLS Zertifikate zu"
-" beantragen."
+"Sie haben nicht die erforderliche Berechtigung um RADIUS/TLS Zertifikate zu "
+"beantragen."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
@@ -108,8 +109,8 @@ msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
-"Kontaktdetails des Beantragenden: kommen aus der eduroam DB (momentan wird"
-" 'Someone, &lt;someone@somewhere.xy&gt;' benutzt)."
+"Kontaktdetails des Beantragenden: kommen aus der eduroam DB (momentan wird "
+"'Someone, &lt;someone@somewhere.xy&gt;' benutzt)."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
@@ -144,8 +145,8 @@ msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
-"Eine Möglichkeit, einen akzeptablen Zertifikatsantrag zu erzeugen ist diese"
-" openssl-Kommandozeile:"
+"Eine Möglichkeit, einen akzeptablen Zertifikatsantrag zu erzeugen ist diese "
+"openssl-Kommandozeile:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
@@ -496,9 +497,9 @@ msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
-"Diese Mail ist lediglich informativer Natur denn diese Änderungen können"
-" sicherheitsrelevant sein. Wenn diese Änderung erwartet war, brauchen Sie"
-" keine weiteren Schritte zu unternehmen."
+"Diese Mail ist lediglich informativer Natur denn diese Änderungen können "
+"sicherheitsrelevant sein. Wenn diese Änderung erwartet war, brauchen Sie "
+"keine weiteren Schritte zu unternehmen."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
@@ -513,9 +514,9 @@ msgid ""
 "another mail if and when the name change happens."
 msgstr ""
 "the %s %s / %s / (vorher bekannt als) '%s' hat alle Eigenschaften gelöscht "
-"und fängt von Null an. Das bedeutet, dass der ursprüngliche Name weg ist "
-"und nun ein neuer, gänzlich anderer, Name vergeben werden könnte. Im "
-"Falle einer tatsächlichen Namensänderung bekommen Sie eine weitere Mail."
+"und fängt von Null an. Das bedeutet, dass der ursprüngliche Name weg ist und "
+"nun ein neuer, gänzlich anderer, Name vergeben werden könnte. Im Falle einer "
+"tatsächlichen Namensänderung bekommen Sie eine weitere Mail."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
@@ -540,8 +541,8 @@ msgstr "Übermittelte Attribute für Identitätsprovider '%s'"
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
-"An dem %s %s / %s / (bisher bezeichnet als %s) wurden erhebliche Änderungen"
-" vorgenommen."
+"An dem %s %s / %s / (bisher bezeichnet als %s) wurden erhebliche Änderungen "
+"vorgenommen."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
@@ -915,12 +916,11 @@ msgstr ""
 "äußere Identität und damit für das Routen der Anfrage benutzt. Damit dies "
 "funktioniert, muss der Benutzername den RADIUS Realm korrekt enthalten. "
 "Trotzdem wurde die zugehörige Suffix-Validierung des Benutzernamens "
-"AUSgeschaltet. Die Installationsprogramme werden nicht überprüfen dass "
-"der eingegebene Benutzername den RADIUS Realm enthält, und Fehleingaben "
-"des Nutzers wie 'maxmustermann' werden dazu führen, dass die Nutzung im "
-"Roaming nicht funktioniert. Sie sollten in Erwägung ziehen, die Option"
-" 'Suffix mit RADIUS Realm im Benutzernamen forcieren' "
-"einzuschalten."
+"AUSgeschaltet. Die Installationsprogramme werden nicht überprüfen dass der "
+"eingegebene Benutzername den RADIUS Realm enthält, und Fehleingaben des "
+"Nutzers wie 'maxmustermann' werden dazu führen, dass die Nutzung im Roaming "
+"nicht funktioniert. Sie sollten in Erwägung ziehen, die Option 'Suffix mit "
+"RADIUS Realm im Benutzernamen forcieren' einzuschalten."
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -952,8 +952,8 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
-"Der Realm Teil des Benutzernamens MUSS auf  '%s' enden, aber Sub-Realms "
-"sind akzeptabel (erlaubt sind also 'user@%s' ebenso wie 'user@<...>.%s')."
+"Der Realm Teil des Benutzernamens MUSS auf  '%s' enden, aber Sub-Realms sind "
+"akzeptabel (erlaubt sind also 'user@%s' ebenso wie 'user@<...>.%s')."
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
@@ -1022,8 +1022,8 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
-"Es wurden erhebliche Änderungen vorgenommen an einem RADIUS Profil des %s %s"
-" / %s / '%s'."
+"Es wurden erhebliche Änderungen vorgenommen an einem RADIUS Profil des %s "
+"%s / %s / '%s'."
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -1033,24 +1033,22 @@ msgid ""
 "genuine one. The details are below:"
 msgstr ""
 "WARNUNG! Eine neue Wurzel-CA wurde hinzugefügt, und der Name der CA ist "
-"exakt identisch zu der bestehenden. Dies könnte heißen (muss aber nicht),"
-" dass "
-"hier versucht wird, eine unautorisierte Wurzel-CA einzuschleusen die sich als "
-"die originale ausgibt. Die Details folgen:"
+"exakt identisch zu der bestehenden. Dies könnte heißen (muss aber nicht), "
+"dass hier versucht wird, eine unautorisierte Wurzel-CA einzuschleusen die "
+"sich als die originale ausgibt. Die Details folgen:"
 
 #: web/admin/edit_profile_result.php:236
-msgid ""
-"A new trusted root CA was added. The details are below:\n"
-"\n"
-msgstr "Eine neue Wurzel-CA wurde hinzugefügt. Die Details folgen:"
+msgid "A new trusted root CA was added. The details are below:"
+msgstr ""
+"Ein neues CA-Wurzelzertifikat wurde hinzugefügt. Die Details sind wie folgt:"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
-"Ein neuer erwarteter Servername für den Authentifizierungsserver wurde"
-" hinzugefügt. Die Details folgen:"
+"Ein neuer erwarteter Servername für den Authentifizierungsserver wurde "
+"hinzugefügt. Die Details folgen:"
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -2526,40 +2524,36 @@ msgstr ""
 "Lesen Sie die Diskussion bei %s bevor Sie diese Option verwenden. Diese "
 "Option ist derzeit experimentell und hat nur auf Apple Geräten Wirkung."
 
-#: web/lib/admin/OptionDisplay.php:191
+#: web/lib/admin/OptionDisplay.php:188
 #, php-format
-msgid "By opting in to OpenRoaming, you agree to be bound by the '%s'."
-msgstr ""
-"Mit der Bestätigung der Teilnahme an OpenRoaming stimmen Sie den '%s' zu."
+msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
+msgstr "Beim Optieren für OpenRoaming stimmen Sie den %s zu."
 
-#: web/lib/admin/OptionDisplay.php:193
+#: web/lib/admin/OptionDisplay.php:190
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
-"Terms & Conditions is fulfilled when directing your end users to the %s "
+"Terms and Conditions is fulfilled when directing your end users to the %s "
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
-"Beachten Sie bitte dass Ihre Pflicht, die Nutzer über die OpenRoaming"
-" Endnutzer Nutzungsbedingungen zu informieren "
-"erfüllt ist, wenn Sie die Endnutzer die Installationsprogramme über das"
-" Downloadportal von %s herunterladen lassen. "
-"Wenn Installationsprogramme über einen anderen Weg bereitgestellt werden"
-" müssen Sie diese Verpflichtung anderweitig "
-"einlösen."
+"Beachten Sie, dass die Notwendigkeit die Endnutzer über die OpenRoaming "
+"Endnutzer Nutzungsbedingen zu informieren erfüllt ist, wenn Sie die "
+"Endnutzer Installationsprogramme bei der %s Downloadseite herunterladen "
+"lassen. Wenn die Installationsprogramme anderweitig verteilt werden, müssen "
+"Sie diese Informationspflicht über den entprechenden Kanal selbst erfüllen."
 
-#: web/lib/admin/OptionDisplay.php:195
+#: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
-"a DNS entry into your realm's DNS zone."
+"a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
-"Ihnen ist auch bewusst, dass für das vollständige Funktionieren auf"
-" technischer Ebene ein DNS Eintrag in der Zone Ihres RADIUS Realms nötig ist."
+"Ihnen ist auch bewusst, dass für die technische Interoperabilität ein DNS "
+"Eintrag in der DNS-Zone Ihres RADIUS Realms erfolgen muss."
 
-#: web/lib/admin/OptionDisplay.php:197
-#, php-format
-msgid "Read <a href='%s'>these instructions</a>."
-msgstr "Lesen Sie <a href='%s'>diese Anweisungen</a>."
+#: web/lib/admin/OptionDisplay.php:194
+msgid "Read the instructions in the wiki."
+msgstr "Lesen Sie die Anweisungen im Wiki."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2900,22 +2894,3 @@ msgstr "Warnung!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Fehler!"
-
-#~ msgid "Verify user input to contain realm suffix:"
-#~ msgstr "Realm Suffix bei Nutzereingabe validieren:"
-
-#~ msgid "Prefill user input with realm suffix:"
-#~ msgstr "Realm Suffix bei Nutzereingabe vorausfüllen:"
-
-#~ msgid "Darn! Could not get a proper profile handle!"
-#~ msgstr "Mist! Konnte keinen gültigen Handler auf ein Profil bekommen!"
-
-#~ msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
-#~ msgstr "und das Eingabefeld wird vorausgefüllt mit '<strong>@%s</strong>'."
-
-#~ msgid ""
-#~ "Where possible, username inputs will be <strong>verified to end with @%s</"
-#~ "strong>%s"
-#~ msgstr ""
-#~ "Wo möglich, wird bei Nutzereingaben <strong> validiert dass sie mit @%s</"
-#~ "strong>%s enden"

@@ -1,25 +1,27 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Stefan Winter, 2011.
-# eduroam_devel <stefan.winter@restena.lu>, 2018-2019, 2020.
-# stefanwinter <stefan.winter@gmail.com>, 2012.
-# Steffen Klemer <klemer@dfn.de>, 2018.
+# eduroam_devel <stefan.winter@restena.lu>, 2020
+# Stefan Winter, 2011
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2020
+# stefanwinter <stefan.winter@gmail.com>, 2012
+# Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 10:51+0100\n"
-"PO-Revision-Date: 2020-12-08 11:02+0100\n"
-"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German <cat-devel@lists.geant.org>\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:25+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
+"language/de_DE/)\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
 
 #: devices/Devices-template.php:125
 msgid "MS Windows 10"
@@ -42,14 +44,14 @@ msgid "Windows RT"
 msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
-msgid "Apple macOS Catalina"
-msgstr "Apple macOS Catalina"
+msgid "Apple device"
+msgstr "Apple Gerät"
 
-#: devices/Devices-template.php:199 devices/Devices-template.php:214
-#: devices/Devices-template.php:229 devices/Devices-template.php:243
-#: devices/Devices-template.php:257 devices/Devices-template.php:271
-#: devices/Devices-template.php:285 devices/Devices-template.php:299
-#: devices/Devices-template.php:313
+#: devices/Devices-template.php:199 devices/Devices-template.php:215
+#: devices/Devices-template.php:231 devices/Devices-template.php:247
+#: devices/Devices-template.php:262 devices/Devices-template.php:277
+#: devices/Devices-template.php:292 devices/Devices-template.php:307
+#: devices/Devices-template.php:322 devices/Devices-template.php:337
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -63,42 +65,46 @@ msgstr ""
 "Stelle müssen Sie dann Ihr normales Rechnerpasswort eingeben."
 
 #: devices/Devices-template.php:204
+msgid "Apple macOS Catalina"
+msgstr "Apple macOS Catalina"
+
+#: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
 msgstr "Apple macOS Mojave"
 
-#: devices/Devices-template.php:219
+#: devices/Devices-template.php:236
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:234
+#: devices/Devices-template.php:252
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:248
+#: devices/Devices-template.php:267
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:262
+#: devices/Devices-template.php:282
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:276
+#: devices/Devices-template.php:297
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:290
+#: devices/Devices-template.php:312
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:304
+#: devices/Devices-template.php:327
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:318
-msgid "Apple iOS mobile devices"
-msgstr "Apple iOS Mobilgeräte"
+#: devices/Devices-template.php:342
+msgid "Apple iOS mobile device (iOS 7-11)"
+msgstr "Apple Mobilgerät (iOS 7 bis 11)"
 
-#: devices/Devices-template.php:327 devices/Devices-template.php:341
+#: devices/Devices-template.php:352
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -111,23 +117,19 @@ msgstr ""
 "Zertifikat gefragt. An dieser Stelle müssen Sie die Import PIN eingeben die "
 "hier auf der Seite angezeigt wird."
 
-#: devices/Devices-template.php:332
-msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple Mobilgeräte (iOS 7 bis 11)"
+#: devices/Devices-template.php:357
+msgid "Apple iOS mobile device (iOS 5 and 6)"
+msgstr "Apple Mobilgerät (iOS 5 und 6)"
 
-#: devices/Devices-template.php:346
-msgid "Apple iOS mobile devices (iOS 5 and 6)"
-msgstr "Apple Mobilgeräte (iOS 5 und 6)"
-
-#: devices/Devices-template.php:359
+#: devices/Devices-template.php:371
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:381
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:375
+#: devices/Devices-template.php:387
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -142,92 +144,108 @@ msgstr ""
 "vonstatten; das neue Netzwerk taucht nach Abschluss in Ihrer "
 "Gerätekonfiguration auf."
 
-#: devices/Devices-template.php:380
-msgid "Android 10.0 Q"
-msgstr "Android 10.0 Q"
+#: devices/Devices-template.php:392
+msgid "Android 11 and higher"
+msgstr "Android 11 und höher"
 
-#: devices/Devices-template.php:386 devices/Devices-template.php:401
-#: devices/Devices-template.php:416 devices/Devices-template.php:431
-#: devices/Devices-template.php:446 devices/Devices-template.php:461
-#: devices/Devices-template.php:476 devices/Devices-template.php:491
+#: devices/Devices-template.php:398 devices/Devices-template.php:412
+#: devices/Devices-template.php:425 devices/Devices-template.php:440
+#: devices/Devices-template.php:454 devices/Devices-template.php:468
+#: devices/Devices-template.php:482 devices/Devices-template.php:496
+#: devices/Devices-template.php:510 devices/Devices-template.php:524
+#: devices/Devices-template.php:538
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
 "that you have installed the %s application. This application is available "
-"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
-"Bevor Sie mit der Installation fortfahren, stellen Sie bitte sicher, dass "
-"Sie die %s App installiert haben. Diese App gibt es bei %s, %s und %s. Sie "
-"kann die Konfigurationsdatei, die Sie hier herunterladen, verarbeiten und "
-"macht dann alle nötigen Einstellungen."
+"Bevor Sie mit der Installation fortfahren , stellen Sie bitte sicher dass "
+"Sie die %s App installiert haben. Diese App gibt es hier: %s. Die App kann "
+"die hier heruntergeladene Konfigurationsdatei verarbeiten und alle nötigen "
+"Einstellungen machen."
 
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450 devices/Devices-template.php:465
-#: devices/Devices-template.php:480 devices/Devices-template.php:495
+#: devices/Devices-template.php:400 devices/Devices-template.php:414
+#: devices/Devices-template.php:427 devices/Devices-template.php:442
+#: devices/Devices-template.php:456 devices/Devices-template.php:470
+#: devices/Devices-template.php:484 devices/Devices-template.php:498
+#: devices/Devices-template.php:512 devices/Devices-template.php:526
+#: devices/Devices-template.php:540
 msgid "as local download"
 msgstr "direkt hier zum Herunterladen"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:406
+msgid "Android 8 to 10"
+msgstr "Android 8 bis 10"
+
+#: devices/Devices-template.php:419
+msgid "Android 4.3 to 7"
+msgstr "Android 4.3 bis 7"
+
+#: devices/Devices-template.php:433
+msgid "Android 10.0 Q"
+msgstr "Android 10.0 Q"
+
+#: devices/Devices-template.php:447
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:410
+#: devices/Devices-template.php:461
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:425
+#: devices/Devices-template.php:475
 msgid "Android 7.0 Nougat"
 msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:440
+#: devices/Devices-template.php:489
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:455
+#: devices/Devices-template.php:503
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:517
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:485
+#: devices/Devices-template.php:531
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:500
+#: devices/Devices-template.php:545
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:510
+#: devices/Devices-template.php:555
 msgid "EAP config"
 msgstr "EAP Konfiguration"
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:560
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
-"Diese Option erstellt eine EAP Konfigurationsdatei in XML, die von der"
-" eduroamCAT Android App verarbeitet wird."
+"Diese Option erstellt eine EAP Konfigurationsdatei in XML, die von der "
+"eduroamCAT Android App verarbeitet wird."
 
-#: devices/Devices-template.php:520
+#: devices/Devices-template.php:565
 msgid "EAP generic"
 msgstr "EAP Allgemein"
 
-#: devices/Devices-template.php:525
+#: devices/Devices-template.php:570
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
-"Diese Option erstellt eine EAP Konfigurationsdatei in XML, die von der"
-" getEduroam Android App verarbeitet wird."
+"Diese Option erstellt eine EAP Konfigurationsdatei in XML, die von der "
+"getEduroam Android App verarbeitet wird."
 
-#: devices/Devices-template.php:531
+#: devices/Devices-template.php:576
 msgid "Test"
 msgstr "Test"
 
@@ -1147,12 +1165,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "Fehler bei der Installation von EAP-pwd. Bitte versuchen Sie es erneut oder "
 "wenden Sie sich an Ihr IT-Service-Center."
-
-#~ msgid "Hotspot 2.0 Settings"
-#~ msgstr "Hotspot 2.0 Konfiguration"
-
-#~ msgid "%s Hotspot 2.0 configuration"
-#~ msgstr "%s Hotspot 2.0 Konfiguration"
-
-#~ msgid "%s CA"
-#~ msgstr "%s CA"

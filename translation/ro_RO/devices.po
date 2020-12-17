@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
+# Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
+# Raul Opruta <raul.opruta@roedu.net>, 2020
 # Valeriu Vraciu <valeriu@roedu.net>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-08-30 21:34+0000\n"
+"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"PO-Revision-Date: 2020-12-17 09:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
@@ -41,83 +44,91 @@ msgid "Windows RT"
 msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
-#, fuzzy
-msgid "Apple macOS Catalina"
-msgstr "Apple OS X El Capitan"
+msgid "Apple device"
+msgstr ""
 
-#: devices/Devices-template.php:199 devices/Devices-template.php:214
-#: devices/Devices-template.php:229 devices/Devices-template.php:243
-#: devices/Devices-template.php:257 devices/Devices-template.php:271
-#: devices/Devices-template.php:285 devices/Devices-template.php:299
-#: devices/Devices-template.php:313
+#: devices/Devices-template.php:199 devices/Devices-template.php:215
+#: devices/Devices-template.php:231 devices/Devices-template.php:247
+#: devices/Devices-template.php:262 devices/Devices-template.php:277
+#: devices/Devices-template.php:292 devices/Devices-template.php:307
+#: devices/Devices-template.php:322 devices/Devices-template.php:337
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
+"În timpul instalării vi se va cere mai întai sa introduceți setările pentru "
+"certificare și trebuie să introduceți codul PIN de import afișat pe această "
+"pagină. Mai târziu o să fiți solicitați să introduceți parola ca să puteți "
+"face schimbări la profilul dumneavoastră, de data aceasta o sa fie parola "
+"calculatorului dumneavoastră."
 
 #: devices/Devices-template.php:204
+msgid "Apple macOS Catalina"
+msgstr "Apple MAC OS Catalina"
+
+#: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
-msgstr ""
+msgstr "Apple MAC OS Mojave"
 
-#: devices/Devices-template.php:219
+#: devices/Devices-template.php:236
 msgid "Apple macOS High Sierra"
-msgstr ""
+msgstr "Apple MAC OS High Sierra"
 
-#: devices/Devices-template.php:234
+#: devices/Devices-template.php:252
 msgid "Apple macOS Sierra"
-msgstr ""
+msgstr "Apple MAC OS Sierra"
 
-#: devices/Devices-template.php:248
+#: devices/Devices-template.php:267
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:262
+#: devices/Devices-template.php:282
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:276
+#: devices/Devices-template.php:297
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:290
+#: devices/Devices-template.php:312
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:304
+#: devices/Devices-template.php:327
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:318
-msgid "Apple iOS mobile devices"
+#: devices/Devices-template.php:342
+msgid "Apple iOS mobile device (iOS 7-11)"
 msgstr ""
 
-#: devices/Devices-template.php:327 devices/Devices-template.php:341
+#: devices/Devices-template.php:352
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
 "password to the certificate and there you need to enter the import PIN shown "
 "on this page."
 msgstr ""
+"În timpul instalării o să vi se ceară prima dată parola - acesta este codul "
+"de securitate al dispozitivului! Mai târziu vi se va solicita parola la "
+"certificat si trebuie sa introduceti codul PIN de import afișat pe această "
+"pagină."
 
-#: devices/Devices-template.php:332
-msgid "Apple iOS mobile devices (iOS 7-11)"
+#: devices/Devices-template.php:357
+msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr ""
 
-#: devices/Devices-template.php:346
-msgid "Apple iOS mobile devices (iOS 5 and 6)"
-msgstr "Dispozitive mobile Apple cu iOS 5 și 6"
-
-#: devices/Devices-template.php:359
+#: devices/Devices-template.php:371
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:381
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:375
+#: devices/Devices-template.php:387
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -131,135 +142,168 @@ msgstr ""
 "butonul 'Import ONC'. Operațiunea de importare este transparentă, noile "
 "definiții de rețea vor fi adăugate la cele preferate."
 
-#: devices/Devices-template.php:380
-msgid "Android 10.0 Q"
+#: devices/Devices-template.php:392
+msgid "Android 11 and higher"
 msgstr ""
 
-#: devices/Devices-template.php:386 devices/Devices-template.php:401
-#: devices/Devices-template.php:416 devices/Devices-template.php:431
-#: devices/Devices-template.php:446 devices/Devices-template.php:461
-#: devices/Devices-template.php:476 devices/Devices-template.php:491
+#: devices/Devices-template.php:398 devices/Devices-template.php:412
+#: devices/Devices-template.php:425 devices/Devices-template.php:440
+#: devices/Devices-template.php:454 devices/Devices-template.php:468
+#: devices/Devices-template.php:482 devices/Devices-template.php:496
+#: devices/Devices-template.php:510 devices/Devices-template.php:524
+#: devices/Devices-template.php:538
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
 "that you have installed the %s application. This application is available "
-"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
-"Înainte de a continua instalarea pe sistemele cu Android, verificați dacă "
-"ați instalat aplicația %s. Această aplicație este disponibilă la %s, %s și "
-"%s, și va utiliza fișierul de configurare descărcat de la CAT pentru crearea "
-"tuturor setărilor necesare."
 
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450 devices/Devices-template.php:465
-#: devices/Devices-template.php:480 devices/Devices-template.php:495
+#: devices/Devices-template.php:400 devices/Devices-template.php:414
+#: devices/Devices-template.php:427 devices/Devices-template.php:442
+#: devices/Devices-template.php:456 devices/Devices-template.php:470
+#: devices/Devices-template.php:484 devices/Devices-template.php:498
+#: devices/Devices-template.php:512 devices/Devices-template.php:526
+#: devices/Devices-template.php:540
 msgid "as local download"
 msgstr "ca transfer local"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:406
+msgid "Android 8 to 10"
+msgstr ""
+
+#: devices/Devices-template.php:419
+msgid "Android 4.3 to 7"
+msgstr ""
+
+#: devices/Devices-template.php:433
+msgid "Android 10.0 Q"
+msgstr "Android 10.0 Q"
+
+#: devices/Devices-template.php:447
 msgid "Android 9.0 Pie"
-msgstr ""
+msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:410
+#: devices/Devices-template.php:461
 msgid "Android 8.0 Oreo"
-msgstr ""
+msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:425
+#: devices/Devices-template.php:475
 msgid "Android 7.0 Nougat"
-msgstr ""
+msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:440
+#: devices/Devices-template.php:489
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:455
+#: devices/Devices-template.php:503
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:517
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:485
+#: devices/Devices-template.php:531
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:500
+#: devices/Devices-template.php:545
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:510
+#: devices/Devices-template.php:555
 msgid "EAP config"
 msgstr "configurare EAP"
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:560
+#, php-format
+msgid ""
+"This option provides an EAP config XML file, which can be consumed by the "
+"eduroamCAT app for Android."
+msgstr ""
+
+#: devices/Devices-template.php:565
+msgid "EAP generic"
+msgstr ""
+
+#: devices/Devices-template.php:570
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
+"the GetEduroam applications."
 msgstr ""
-"Această opțiune furnizează un fișier XML generic de configurare a EAP, care "
-"poate fi utilizat de aplicații dedicate, cum ar fi eduroamCAT pentru "
-"platforme Android și Linux. Această facilitate este deocamdată in stadiu "
-"experimental."
 
-#: devices/Devices-template.php:520
+#: devices/Devices-template.php:576
 msgid "Test"
 msgstr "Test"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
-msgstr ""
+msgstr "Acest dispozitiv nu suportă setarea forțată a unui proxy HTTPS."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:64
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:67
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
 msgstr ""
+"Nu este posibilă verificarea activă a intrării utilizatorului pentru "
+"potrivirea sufixului; dar dacă nu este configurat ceva din „Termenii de "
+"utilizare”, instalatorul va afișa în schimb un indiciu corespunzător "
+"utilizatorului. "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:84
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Profil de configurare a rețelei '%s' din '%s' - furnizat de %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:94
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
-msgstr ""
+msgstr " %s configuraţie pentru IdP '%s' - oferit de %s "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:139
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
-msgid "Important Notice: your username must end with @%s!"
+msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:143
+#. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
+#, php-format
+msgid ""
+"Important Notice: your username MUST contain an '@' and end with ...%s !"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
 "to use there and enter the username in the correct format."
 msgstr ""
+"Anunț important: numele dumneavoastră de utilizator TREBUIE sa fie în "
+"formatul xxx@yyy unde yyy este sufixul comun care identifică Furnizorul "
+"dumneavoastră de indentitate. Vă rog să aflați ce o să folosiți si să "
+"introduceți corect numele dumneavoastră de utilizator. "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:168
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:182
 msgid "Unnamed Organisation"
-msgstr ""
+msgstr "Organizaţie fară nume"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:169
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:183
 msgid "Unnamed Profile"
-msgstr ""
+msgstr "Profil neidentificat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:234
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:249
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
 msgstr ""
-"Pentru rezultate optime, vă rugăm capentru deschiderea fișierului de "
+"Pentru rezultate optime, vă rugăm ca pentru deschiderea fișierului de "
 "configurare să folosiți programul de navigare implicit (Safari)."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:236
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:251
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -267,84 +311,92 @@ msgstr ""
 "Profilul va fi instalat după ce apăsați (sau ”atingeți”) butonul. Vor fi "
 "necesare câteva confirmări și informații:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:253
 msgid "to install the profile"
 msgstr "pentru instalarea profilului"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:239
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:254
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] " să accepte autoritatea de certificare a serverului"
+msgstr[1] "să accepte autoritatea de certificare a serverului"
+msgstr[2] "să accepte autorităţile de certificare a serverului"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:256
 #, php-format
 msgid "(%d times)"
 msgstr "(de %d ori)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:244
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:259
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
+"să introduceți numele de utilizator și parola date de instituția "
+"dumneavoastră"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:246
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:261
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(de %d ori fiecare, pentru că %s este instalat pentru %d SSIDs)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:448
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:449
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "Configurarea %s pentru rețeaua denumită %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:460
 msgid "Wired Network"
 msgstr "Rețea cablată"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:461
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "configurarea %s pentru rețea cablată"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
-msgid "Hotspot 2.0 Settings"
-msgstr "Configurare Hotspot 2.0"
+#. a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
+#: devices/ms/Device_W8_10.php:99
+msgid "Roaming Partner"
+msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
-#, php-format
-msgid "%s Hotspot 2.0 configuration"
-msgstr "Configurare Hotspot 2.0 %s"
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
-msgstr "Acest SSID nu ar mai trebui utilizat după faza de ănceput a %s"
+msgstr "Acest SSID nu ar mai trebui utilizat după faza de început a %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:547
 msgid "Disabled WiFi network"
 msgstr "Rețea WiFi dezactivată"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
 msgid "eduroam user certificate"
-msgstr ""
+msgstr "Certificat de user eduroam "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:703
 #, php-format
 msgid "The %s Certification Authority"
+msgstr "Autoritatea de certificare %s"
+
+#. / example: "Identity Provider CA #1 (Root)"
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
+#, php-format
+msgid "%s CA #%d (%s)"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
-#, php-format
-msgid "%s CA"
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Root"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Intermediate"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:337
@@ -355,6 +407,12 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"Programul de instalare este un fișier cu extensia '.onc'. Vă rugăm să îl "
+"descărcați, deschideți programul de navigare Chrome și intrați pe adresa "
+"următoare:<a href='chrome://net-internals/#chromeos'>chrome://net-internals/"
+"#chromeos</a>. Apoi, apăsați pe butonul 'Importă fișier ONC'. Operațiunea de "
+"importare este transparentă, noile definiții de rețea vor fi adăugate la "
+"cele preferate."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -364,6 +422,10 @@ msgid ""
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
+"Programul de instalare este un script Python. O să încerce să configureze "
+"%ssub NetworkManager și în cazul în care acesta nu este potrivit pentru "
+"sistemul dumneavoastră sau dacă versiunea dumneavoastră NetworkManager este "
+"prea veche, atunci un fișier de configurare wpa_suplicant va fi creat. "
 
 #: devices/linux/Device_Linux.php:86
 #, php-format
@@ -374,7 +436,7 @@ msgstr ""
 "În plus față de <strong>%s</strong>, programul de instalare va configura și "
 "accesul la următoarele rețele:"
 
-#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:252
+#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:262
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -383,8 +445,14 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
+"În plus la <strong> %s </strong>  programul de instalare va configura și "
+"accesul la următoarele rețele:"
 msgstr[1] ""
+"În plus la 1 1 %s 1 programul de instalare va configura și accesul la "
+"următoarele rețele:"
 msgstr[2] ""
+"În plus la  <strong> %s </strong>programul de instalare va configura și "
+"accesul la următoarele rețele:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -392,7 +460,7 @@ msgid ""
 "directory and will copy your server certificates there."
 msgstr ""
 "Programul de instalare va crea sub-directorul .cat_installer în directorul "
-"dumenavoastră de utilizator și va copia acolo certificatele serverului "
+"dumneavoastră de utilizator și va copia acolo certificatele serverului "
 "dumneavoastră."
 
 #: devices/linux/Device_Linux.php:104
@@ -404,15 +472,24 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
+"Ca să vă puteți conecta la internet o sa aveți nevoie de un certificat "
+"digital personal de forma unui fișier p12. Trebuie să puteți obține acest "
+"certificat de la instituția dumnevoastră. Consultați pagina de suport in "
+"vederea obținerii acestui certificat. Acest tip de certificat suportă "
+"parolă. Trebuie să aveți fișierul și parola disponibile în timpul procesului "
+"de instalare. "
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:262
+#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:272
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
+"Pentru a vă conecta la rețea, aveți nevoie de un cont de la instituția "
+"dumneavoastră. Ar trebui să citiți pagina de support pentru a putea afla cum "
+"puteți obține acel cont. Este foarte posibil să aveți deja un cont activat. "
 
 #: devices/linux/Device_Linux.php:108
 msgid ""
@@ -426,7 +503,7 @@ msgstr ""
 
 #: devices/linux/Device_Linux.php:139
 msgid "Really quit?"
-msgstr "Sigur ?"
+msgstr "Sigur ieşiti ?"
 
 #: devices/linux/Device_Linux.php:140
 msgid "enter your userid"
@@ -434,15 +511,15 @@ msgstr "introduceți identificatorul de utilizator"
 
 #: devices/linux/Device_Linux.php:141
 msgid "enter password"
-msgstr ""
+msgstr "Introduceți parola"
 
 #: devices/linux/Device_Linux.php:142
 msgid "enter your import password"
-msgstr ""
+msgstr "Introduceți parola dumneavoastră."
 
 #: devices/linux/Device_Linux.php:143
 msgid "incorrect password"
-msgstr ""
+msgstr "Parola incorectă"
 
 #: devices/linux/Device_Linux.php:144
 msgid "repeat your password"
@@ -459,26 +536,27 @@ msgstr "Instalare cu succes"
 #: devices/linux/Device_Linux.php:147
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr ""
+"Folderul {} există deja; fișierele din folderul respectiv pot fi rescrise. "
 
 #: devices/linux/Device_Linux.php:148
 msgid "Continue?"
-msgstr ""
+msgstr "Continuați?"
 
 #: devices/linux/Device_Linux.php:149
 msgid "This NetworkManager version is not supported"
-msgstr ""
+msgstr "Această versiune de NetworkManager nu este suportată"
 
 #: devices/linux/Device_Linux.php:150
 msgid "Certificate file not found, looks like a CAT error"
-msgstr ""
+msgstr "Fișierul certificat nu a fost găsit, pare a fi o eroare CAT"
 
 #: devices/linux/Device_Linux.php:151
 msgid "Unknown version"
-msgstr ""
+msgstr "Versiune necunoscută"
 
 #: devices/linux/Device_Linux.php:152
 msgid "DBus connection problem, a sudo might help"
-msgstr ""
+msgstr "Problemă la conexiunea DBus, comanda sudo vă poate ajuta. "
 
 #: devices/linux/Device_Linux.php:153
 msgid "Y"
@@ -492,7 +570,7 @@ msgstr "Nu"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "fișierul cu certificatul personal (p12 sau pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1131
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1133
 msgid "All files"
 msgstr "Toate fișierele"
 
@@ -502,37 +580,47 @@ msgid ""
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
+"Configurarea NetworkManager nu a reușit, dar putem genera un fișier de "
+"configurare wpa_supplicant dacă doriți. Vă avertizăm că parola de conectare "
+"va fi stocată în acel fișisier sub forma vizibilă"
 
 #: devices/linux/Device_Linux.php:159
 msgid "Write the file"
 msgstr "Scrie fișierul nou"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1277
-#: devices/ms/Files/common.inc:1297 devices/ms/Files/common.inc:1348
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1279
+#: devices/ms/Files/common.inc:1299 devices/ms/Files/common.inc:1350
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
 msgstr ""
+"Eroare: numele de utilizator trebuie să fie de forma 'xxx@IDinstituție'. De "
+"exemplu: 'john@example.net'!"
 
 #: devices/linux/Device_Linux.php:161
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
 msgstr ""
+"Eroare: numele de utilizator trebuie să fie de forma 'xxx@{}'. Vă rugăm să "
+"introduceți numele de utilizator în formă corectă."
 
 #: devices/linux/Device_Linux.php:162
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
 msgstr ""
+"Eroare: numele de utilizator trebuie să fie de forma 'xxx@IDinstituție' și "
+"să se termine cu '${REALM}'. Vă rugăm să introduceți numele de utilizator în "
+"forma corectă."
 
 #: devices/linux/Device_Linux.php:163
 msgid "personal certificate file not found"
-msgstr ""
+msgstr "Certificatul personal nu poate fi găsit."
 
 #: devices/linux/Device_Linux.php:348
 msgid "This installer has been prepared for {0}"
-msgstr ""
+msgstr "Acest program de instalare a fost pregătit pentru {0}"
 
 #: devices/linux/Device_Linux.php:348 devices/ms/Files/common.inc:477
 #: devices/ms/Files/common.inc:484
@@ -548,10 +636,12 @@ msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
 msgstr ""
+"Programul de instalare funcționează corect dacă sunteți membru în {0} și "
+"faceți parte din grupul: {1}."
 
 #: devices/linux/Device_Linux.php:379
 msgid "This installer will only work properly if you are a member of {0}."
-msgstr ""
+msgstr "Programul de instalare va funcționa corect dacă sunteți membru în {0}."
 
 #: devices/ms/Device_Vista7.php:47 devices/ms/Device_W8_10.php:50
 msgid ""
@@ -559,9 +649,9 @@ msgid ""
 "is derived from the suffix of the user's username input instead."
 msgstr ""
 "Identitățile anonime nu folosesc realm așa cum este specificat în profil, în "
-"schimb  acesta este dedus din sufixul numelui de utilziator introdus."
+"schimb  acesta este dedus din sufixul numelui de utilizator introdus."
 
-#: devices/ms/WindowsCommon.php:249
+#: devices/ms/WindowsCommon.php:259
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -575,7 +665,7 @@ msgstr ""
 "instalare va fi salvat. Copiați acest fișier pe dispozitivul care doriți să-"
 "l configurați și executați-l."
 
-#: devices/ms/WindowsCommon.php:258
+#: devices/ms/WindowsCommon.php:268
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -583,8 +673,14 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
 msgstr ""
+"Ca să vă puteți conecta la internet o să aveți nevoie de un certificat "
+"personal de forma unui fișier p12. Trebuie să puteți obține acest certificat "
+"de la instituția dumnevoastră. Consultați pagina de suport în vederea "
+"obținerii acestui certificat. Acest tip de certificat suportă parolă. "
+"Trebuie să aveți fișierul și parola disponibile în timpul procesului de "
+"instalare. "
 
-#: devices/ms/WindowsCommon.php:266
+#: devices/ms/WindowsCommon.php:276
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -593,17 +689,19 @@ msgid ""
 msgstr ""
 "La prima conectare la rețea. sistemul de operare Windows va afișa o "
 "fereastră pentru logare în care va trebui să introduceți numele de "
-"utilziator și parola dumneavoastră. Această informație va fi salvată astfel "
+"utilizator și parola dumneavoastră. Această informație va fi salvată astfel "
 "că următoarele conectări la aceeași rețea vor fi realizate automat, de "
 "fiecare dată când este disponibilă."
 
-#: devices/ms/WindowsCommon.php:269
+#: devices/ms/WindowsCommon.php:279
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured networks:"
 msgstr ""
+"Este necesar să introduceți aceleași credențiale pentru fiecare dintre "
+"următoarele rețele configurate:"
 
-#: devices/ms/WindowsCommon.php:422 devices/ms/WindowsCommon.php:423
+#: devices/ms/WindowsCommon.php:450 devices/ms/WindowsCommon.php:451
 #, php-format
 msgid "%s installer for %s"
 msgstr "program de instalare %s pentru %s"
@@ -613,7 +711,7 @@ msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
 msgstr ""
-"DEocamdata acest dispozitiv nu este suportat de CAT, dar administratorul "
+"Deocamdata acest dispozitiv nu este suportat de CAT, dar administratorul "
 "dumneavoastră local a adăugat o referință către instrucțiuni de instalare "
 "specifice."
 
@@ -625,14 +723,19 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
+"Acest program de instalare este un exemplu. Programul va avea ca rezultat un "
+"fișier ZIP care va conține certificatele furnizorului de servicii, fișiere "
+"cu informații, logo-uri (dacă au fost definite de administratorul "
+"furnizorului de identitate) și toate atributele disponibile. Programul de "
+"instalare primește %dSSID-uri de configurat."
 
-#: devices/xml/Device_XML.php:70
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
 msgstr ""
-"cesta este un fișier de configurare generic în format IETF <a href='%s'>EAP "
+"acesta este un fișier de configurare generic în format IETF <a href='%s'>EAP "
 "Metadata -00</a> XML."
 
 #: devices/ms/Files/common.inc:139
@@ -656,7 +759,7 @@ msgstr "Sistemul dumneavoastră este pregătit."
 msgid "Network installation had errors."
 msgstr "Procesul de instalare a rețelei a generat erori."
 
-#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:951
 msgid "Please contact ${SUPPORT}."
 msgstr "Vă rugăm să contactați ${SUPPORT}."
 
@@ -669,7 +772,7 @@ msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
 msgstr ""
-"Dac[ sunteți de acord cu condițiile vă rugăm să apăsați Accept și continuați "
+"Dacă sunteți de acord cu condițiile vă rugăm să apăsați Accept și continuați "
 "instalarea."
 
 #: devices/ms/Files/common.inc:157
@@ -692,7 +795,7 @@ msgstr "certificatul nu a putut fi instalat"
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
-"Profile TKIP trebuiesc evitate. Folosiți TKIP doar în cazul în care nu aveți "
+"Profile TKIP trebuie evitate. Folosiți TKIP doar în cazul în care nu aveți "
 "alte opțiuni."
 
 #: devices/ms/Files/common.inc:467
@@ -719,18 +822,27 @@ msgid ""
 "problems accessing network. We suggest that you quit this installation, "
 "update your Windows and try again"
 msgstr ""
+"Sistemul de operare Windows 10 nu a fost actualizat ceea ce poate produce "
+"probleme la accesarea rețelei. Vă recomandăm să opriți această instalare, să "
+"vă actualizați sistemul de operare Windows și să încercați din nou."
 
 #: devices/ms/Files/common.inc:583
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
 msgstr ""
+"Utilizați Windows $WindowsName dar acest kit de instalare este doar pentru "
+"Windows 10 și versiuni mai noi. Vă rugăm să descărcați kit-ul de instalare "
+"corect și să încercați din nou."
 
 #: devices/ms/Files/common.inc:591 devices/ms/Files/common.inc:598
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
 msgstr ""
+"Utilizați Windows $WindowsName dar acest kit de instalare este doar pentru "
+"Windows 8 și Windows 8.1. Vă rugăm să descărcați kit-ul de instalare corect "
+"și să încercați din nou."
 
 #: devices/ms/Files/common.inc:607
 msgid ""
@@ -804,6 +916,8 @@ msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
+"Va rugăm să citiți informațiile adiționale de la ${ORGANISATION} care vor fi "
+"afișate în câteva momente."
 
 #: devices/ms/Files/common.inc:833
 #, php-format
@@ -818,7 +932,7 @@ msgid ""
 "It will install the profiles. You will need to login to %s with your "
 "username and password."
 msgstr ""
-"Vă rugăm să citiți acest mesaj, este important. $\\r$\\nProblemel de "
+"Vă rugăm să citiți acest mesaj, este important. $\\r$\\nProblemele de "
 "instalare pot fi cauzate de Symantec Endpoint Protection instalat pe "
 "echipamentul dumneavoastră. $\\r$\\nAceastă problemă a produsului Symantec "
 "este binecunoscută, programul de instalare nu poate face nimic, dar există o "
@@ -831,11 +945,11 @@ msgstr ""
 #: devices/ms/Files/common.inc:843
 msgid "Please restart your system after installation finishes."
 msgstr ""
-"Vă rugăm să reporniți sistemul după finalziarea procesului de instalare."
+"Vă rugăm să reporniți sistemul după finalizarea procesului de instalare."
 
 #: devices/ms/Files/common.inc:867
 msgid "installing wired profile"
-msgstr "Se instaleaza profilul pentru rețele cablate"
+msgstr "Se instalează profilul pentru rețele cablate"
 
 #: devices/ms/Files/common.inc:908 devices/ms/Files/common.inc:927
 msgid "deleting profile $R1"
@@ -845,127 +959,132 @@ msgstr "se șterge profilul $R1"
 msgid "installing profile $R1"
 msgstr "se instalează profilul $R1"
 
-#: devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:951
 msgid "Profile installation error for $R1."
 msgstr "Eroare la instalarea profilului $R1."
 
-#: devices/ms/Files/common.inc:974
+#: devices/ms/Files/common.inc:976
 msgid "installing credentials for wired"
-msgstr "se instalează credențialele pentru reșeaua cablată"
+msgstr "se instalează credențialele pentru reţeaua cablată"
 
-#: devices/ms/Files/common.inc:980
+#: devices/ms/Files/common.inc:982
 msgid "installing credentials TLS"
-msgstr ""
+msgstr "se instalează credențialele TLS"
 
-#: devices/ms/Files/common.inc:1096
+#: devices/ms/Files/common.inc:1098
 msgid "installing credentials for profile $R1"
 msgstr "se instalează credențialele pentru profilul $R1"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/geant_link.inc:126
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/geant_link.inc:126
 msgid "Credentials installation problem"
 msgstr "Problemă la instalarea credențialelor."
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 #, php-format
 msgid "%s installer for"
 msgstr "program de instalare %s pentru"
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 msgid "Install personal certificate"
 msgstr "Instalarea certificatului personal"
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Preparing to install personal certificate."
 msgstr "Se pregătește instalarea certificatului personal"
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Click OK to continue"
 msgstr "Apăsați OK pentru a continua"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*.p12)"
 msgstr "Fișierele cu certificat (*.p12)"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*pfx)"
 msgstr "Fișierele cu certificat (*.pfx)"
 
-#: devices/ms/Files/common.inc:1134
+#: devices/ms/Files/common.inc:1136
 msgid "certificate password:"
 msgstr "parola certificatului:"
 
-#: devices/ms/Files/common.inc:1136 devices/ms/Files/common.inc:1399
+#: devices/ms/Files/common.inc:1138 devices/ms/Files/common.inc:1401
 msgid "Username:"
 msgstr "Numele de utilizator:"
 
-#: devices/ms/Files/common.inc:1140
-msgid "Selected file: $Cert_file"
-msgstr "Fșier selectat: $Cert_file"
-
 #: devices/ms/Files/common.inc:1142
-msgid "import password:"
-msgstr ""
+msgid "Selected file: $Cert_file"
+msgstr "Fișier selectat: $Cert_file"
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1144
+msgid "import password:"
+msgstr "importă parola:"
+
+#: devices/ms/Files/common.inc:1179
 msgid "No certificate file selected"
 msgstr "Nu a fost selectat niciun certificat"
 
-#: devices/ms/Files/common.inc:1181
-msgid "Incorrect import password$\\r$\\nenter again"
-msgstr ""
-
 #: devices/ms/Files/common.inc:1183
+msgid "Incorrect import password$\\r$\\nenter again"
+msgstr "Parola importată incorectă$\\r$\\nintroduceţi din nou"
+
+#: devices/ms/Files/common.inc:1185
 msgid "Incorrect certificate password$\\r$\\nenter again"
-msgstr "Parola de la certificat este incorectă$\\r$\\nîncercți din nou"
+msgstr "Parola de la certificat este incorectă$\\r$\\nîntroduceţi din nou"
 
-#: devices/ms/Files/common.inc:1257
+#: devices/ms/Files/common.inc:1259
 msgid "Username contained some trailing spaces which were removed."
-msgstr ""
+msgstr "Numele de utilizator conține spații goale care au fost înlăturate."
 
-#: devices/ms/Files/common.inc:1292
+#: devices/ms/Files/common.inc:1294
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
 msgstr ""
+"Eroare: numele de utilizator trebuie să fie de forma 'xxx@${REALM}'. Vă "
+"rugăm introduceți numele de utilizator în forma corectă."
 
-#: devices/ms/Files/common.inc:1294
+#: devices/ms/Files/common.inc:1296
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
+"Eroare: numele de utilizator trebuie să fie de forma 'xxx@IDinstituție' și "
+"să se termine cu '${REALM}'. Vă rugăm introduceți numele de utilizator în "
+"forma corectă."
 
-#: devices/ms/Files/common.inc:1395
+#: devices/ms/Files/common.inc:1397
 msgid "User credentials"
 msgstr "Credențialele utilizatorului"
 
-#: devices/ms/Files/common.inc:1402
+#: devices/ms/Files/common.inc:1404
 msgid "Password:"
 msgstr "Parola:"
 
-#: devices/ms/Files/common.inc:1405
+#: devices/ms/Files/common.inc:1407
 msgid "Repeat password:"
 msgstr "Repetați parola:"
 
-#: devices/ms/Files/common.inc:1420
+#: devices/ms/Files/common.inc:1422
 msgid "Missing username"
 msgstr "Lipsește numele de utilizator"
 
-#: devices/ms/Files/common.inc:1432
+#: devices/ms/Files/common.inc:1434
 msgid "Missing password"
 msgstr "Lipsește parola"
 
-#: devices/ms/Files/common.inc:1438
+#: devices/ms/Files/common.inc:1440
 msgid "Password mismatch"
-msgstr ""
+msgstr "Parola incorectă"
 
-#: devices/ms/Files/common.inc:1531 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1533 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:44
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Instalare"
 
-#: devices/ms/Files/common.inc:1531
+#: devices/ms/Files/common.inc:1533
 msgid "Checking for existing wireless profiles"
 msgstr "Se verifică profile wireless existente"
 
@@ -1010,9 +1129,9 @@ msgid ""
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
 msgstr ""
-"Este necesară instalarea unei componente software suplimentare 'GEANTlink'. "
-"Această instalare necesită frepturi de Administrator; veți fi întrebat de "
-"persmisiune pentru această acțiune."
+"Este necesară instalarea unei componente software suplimentare 'GEANT link'. "
+"Această instalare necesită drepturi de Administrator; veți fi întrebat de "
+"permisiune pentru această acțiune."
 
 #: devices/ms/Files/geant_link.inc:108
 msgid ""
@@ -1029,3 +1148,5 @@ msgstr "instalare credențiale pentru ${PROVIDERID}"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
+"Eroare la instalarea EAP-pwd. Vă rugăm încercați din nou sau contactați "
+"serviciul Support."
