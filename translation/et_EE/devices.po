@@ -4,16 +4,16 @@
 #
 # Translators:
 # Anne M <anne@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2018-2019
-# Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2019
+# Anne M <anne@eenet.ee>, 2018-2019,2021
+# Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2019,2021
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-05 10:02+0000\n"
+"Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -44,7 +44,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Apple'i seade"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -100,7 +100,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Apple'i iOSiga mobiilseade (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -115,7 +115,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Apple'i iOSiga mobiilseade (iOS 5 ja 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 ja uuem"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -155,6 +155,9 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Enne Androidi süsteemis paigaldusega jätkamist veendu, et oleks paigaldatud "
+"rakendus %s. Rakenduse leiad: %s.  See rakendus kasutab CAT lehelt alla "
+"laaditud faili vajalike seadistuste tegemiseks."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -167,11 +170,11 @@ msgstr "kui kohalik allalaadimine"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 kuni 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 kuni 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -219,10 +222,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"See suvand annab üldise EAP XML seadistusfaili, mida saab kasutada "
+"eduroamCAT rakenduses Androidi jaoks."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP generic"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -230,6 +235,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"See suvand annab üldise EAP XML seadistusfaili, mida saab kasutada "
+"GetEduroam rakendustes."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -246,7 +253,7 @@ msgid ""
 "corresponding hint to the user instead."
 msgstr ""
 "Ei ole võimalik aktiivselt tuvastada kasutaja sisestust järelliite "
-"võrdlemiseks. Kui kasutustingimusi ei ole seadistatud, näitab "
+"võrdlemiseks. Kui Kasutustingimusi ei ole seadistatud, näitab "
 "paigaldusprogramm selle asemel kasutajale vastavat vihjet."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
@@ -262,7 +269,7 @@ msgstr "%s identiteedipakkuja '%s' seadistus - tehtud %s poolt"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
-msgstr ""
+msgstr "NB! Sinu kasutajanime lõpus peab kindlasti olema  '...@%s'!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
@@ -270,6 +277,7 @@ msgstr ""
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
+"NB! Sinu kasutajanimi peab sisaldama @-märki ja selle lõpus peab olema %s!"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -351,7 +359,7 @@ msgstr "%s seadistus traadiga võrgule"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Rändluspartner"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -378,15 +386,15 @@ msgstr "%s, sertifitseerimiskeskus"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s CA #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "Juur"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Vahesertifikaat"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""
@@ -1011,8 +1019,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
-"Viga: kasutajanimi peab olema kujul 'xxx@asutuseID' ja peab lõppema "
-"'${REALM}' domeeniga. Palun sisesta kasutajanimi korrektsel kujul."
+"Viga: kasutajanimi peab olema kujul 'xxx@asutuseID' ja lõppema '${REALM}' "
+"domeeniga. Palun sisesta kasutajanimi korrektsel kujul."
 
 #: devices/ms/Files/common.inc:1397
 msgid "User credentials"

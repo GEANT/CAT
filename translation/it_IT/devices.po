@@ -3,10 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daniele Albrizio <dalbrizio@gmail.com>, 2020
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
-# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018
+# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018,2020
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2013
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-21 13:27+0000\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -48,7 +49,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Dispositivo Apple"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -68,7 +69,7 @@ msgstr ""
 
 #: devices/Devices-template.php:204
 msgid "Apple macOS Catalina"
-msgstr ""
+msgstr "Apple macOS Catalina"
 
 #: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
@@ -104,7 +105,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Dispositivo mobile Apple (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -120,7 +121,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Dispositivo mobile Apple iOS (iOS 5 and 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -146,7 +147,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 e successivi"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -161,6 +162,10 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Prima di procedere con l'installazione su sistemi Android, assicurati di "
+"aver installato l'applicazione%s . Questa applicazione è disponibile da "
+"questi siti: %s e utilizzerà il file di configurazione scaricato da CAT per "
+"creare tutte le impostazioni necessarie."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -173,11 +178,11 @@ msgstr "come scaricamento locale"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 to 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 to 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -225,10 +230,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Questa opzione fornisce un file XML di configurazione EAP, che può essere "
+"utilizzato dall'app eduroamCAT per Android."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP generico"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -236,6 +243,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Questa opzione fornisce un file XML di configurazione EAP generico, che può "
+"essere utilizzato dalle applicazioni GetEduroam."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -271,6 +280,7 @@ msgstr "%s configurazione per l'IdP '%s' - fornito da %s"
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
+"Avviso importante: il tuo nome utente DEVE finire esattamente con '... @%s'!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
@@ -278,6 +288,8 @@ msgstr ""
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
+"Avviso importante: il tuo nome utente DEVE contenere un \"@\" e terminare "
+"con ...%s!"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -364,7 +376,7 @@ msgstr "%s configurazione per la rete cablata"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Roaming Partner"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -391,15 +403,15 @@ msgstr "L'autorità di certificazione %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s Certificatio Autority #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermedia"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""
@@ -817,6 +829,9 @@ msgid ""
 "problems accessing network. We suggest that you quit this installation, "
 "update your Windows and try again"
 msgstr ""
+"Il tuo Windows 10 non è stato aggiornato, il che significa che potresti "
+"avere problemi di accesso alla rete. Ti suggeriamo di uscire da questa "
+"installazione, aggiornare il tuo Windows e riprovare"
 
 #: devices/ms/Files/common.inc:583
 msgid ""

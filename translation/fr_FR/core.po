@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2020
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2012
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:10+0000\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-04 13:10+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -338,8 +338,8 @@ msgid ""
 msgstr ""
 "Bonjour,\n"
 "\n"
-"L'invitation pour le %s de %s de votre fédération %s  %s a été consommée et "
-"le fournisseur d'identité a été créé dans %s.\n"
+"L'invitation pour le nouveau %s %s de votre fédération %s %s a été consommée "
+"et le fournisseur d'identité a été créé dans %s.\n"
 "\n"
 "Nous pensons que cette information est intéressante pour vous.\n"
 "\n"
@@ -558,7 +558,7 @@ msgid ""
 "Interface at"
 msgstr ""
 "Si le lien ne fonctionne pas, vous pouvez vous rendre sur l'interface "
-"d'administration %s a"
+"d'administration %s"
 
 #: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
@@ -575,7 +575,7 @@ msgstr ""
 #: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr "Nous vous souhaitons beaucoup de plaisir avec le %s."
+msgstr "Nous vous souhaitons beaucoup de plaisir avec %s."
 
 #: core/common/OutsideComm.php:305
 #, php-format
@@ -607,11 +607,11 @@ msgstr "Le nom de domaine contient un @ !"
 
 #: web/lib/common/InputValidation.php:226
 msgid "Realm begins with a . (dot)!"
-msgstr "Le nom de domaine commence par un .(point) !"
+msgstr "Le nom de domaine commence par un . (point) !"
 
 #: web/lib/common/InputValidation.php:227
 msgid "Realm ends with a . (dot)!"
-msgstr "Le nom de domaine se termine par un .(point) !"
+msgstr "Le nom de domaine se termine par un . (point) !"
 
 #: web/lib/common/InputValidation.php:228
 msgid "Realm contains spaces!"
@@ -619,4 +619,4 @@ msgstr "Le nom de domaine contient des espaces !"
 
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
-msgstr "Le nom de domaine ne contient pas de .(point) !"
+msgstr "Le nom de domaine ne contient pas de . (point) !"

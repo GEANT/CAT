@@ -5,16 +5,16 @@
 #
 # Translators:
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2019
+# Anne M <anne@eenet.ee>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>, 2019\n"
+"Last-Translator: Anne M <anne@eenet.ee>, 2021\n"
 "Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/et_EE/)\n"
 "Language: et_EE\n"
@@ -322,7 +322,7 @@ msgstr "Ühtegi sertifikaati serveri poolt ei saadetud."
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
-msgstr ""
+msgstr "EAP vahetamisel kasutatud TLS versiooni ei õnnestunud tuvastada."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -330,12 +330,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Server ei toeta TLS versioone TLSv1.2 ja TLSv1.3. Uuemate "
+"operatsioonisüsteemidega klientidel võib autentimine serveri vastu "
+"ebaõnnestuda!"
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"SRV kirjes sisalduv serveri nimi ei vasta ühelegi nimele selle serveri "
+"sertifikaadis, mille poole pöörduti!"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1727,3 +1732,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>HOIATUS</strong>: SRV kirjest leitud serveri nimi ei vasta ühelegi "
+"nimele serverisertifikaadis!"

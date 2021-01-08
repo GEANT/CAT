@@ -4,14 +4,14 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2019
-# University of Ruse <support@uni-ruse.bg>, 2014-2019
+# University of Ruse <support@uni-ruse.bg>, 2014-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-21 12:58+0000\n"
+"Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -42,7 +42,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Apple устройство"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -99,7 +99,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Мобилно устройство Apple iOS (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -115,7 +115,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Мобилно устройство Apple iOS (iOS 5 и 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 и по-висока версия"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -155,6 +155,10 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Преди да пристъпите към инсталация върху Андроид системи, моля уверете се, "
+"че имате инсталирано приложение %s. То е налично от тези сайтове: %s и ще "
+"използва конфигурационния файл, изтеглен от CAT, за да направи всички "
+"необходими настройки."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -167,11 +171,11 @@ msgstr "като локално изтегляне"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 до 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 до 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -219,10 +223,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Тази опция предлага EAP конфигурационен XML файл, който може да се използва "
+"от eduroamCAT приложение за Android."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP стандартен"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -230,6 +236,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Тази опция предлага стандартен EAP конфигурационен XML файл, който може да "
+"се използва от GetEduroam приложения."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -263,6 +271,8 @@ msgstr "%s конфигурация за IdP '%s' - предоставена о�
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
+"Важно съобщение: Вашето потребителско име ТРЯБВА да завършва точно с '...@"
+"%s'!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
@@ -270,6 +280,8 @@ msgstr ""
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
+"Важно съобщение: Вашето потребителско име ТРЯБВА да съдържа '@' и да "
+"завършва с ...%s !"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -356,7 +368,7 @@ msgstr "%s конфигурация за кабелна мрежа"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Роуминг партньор"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -383,15 +395,15 @@ msgstr "%sДоставчик на Удостоверителни Услуги "
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s Доставчик на Удостоверителни Услуги #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "В основата"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Междинен"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""

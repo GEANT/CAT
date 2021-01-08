@@ -6,16 +6,16 @@
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
 # José Manuel Macías, 2019
-# Alberto Martínez Setién, 2019
+# Alberto Martínez Setién, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Alberto Martínez Setién, 2019\n"
+"Last-Translator: Alberto Martínez Setién, 2020\n"
 "Language-Team: Spanish (Spain) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/es_ES/)\n"
 "Language: es_ES\n"
@@ -335,6 +335,8 @@ msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr ""
+"No ha sido posible determinar la versión TLS que se utilizó en el "
+"intercambio EAP."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -342,12 +344,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"El servidor no soporta las versiones TLS más modernas TLSv1.2 o TLSv1.3. Los "
+"sistemas operativos de los clientes modernos pueden rechazar autentificarse "
+"contra el servidor."
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"El nombre de servidor esperado según el registro SRV no coincide con ningún "
+"nombre de servidor en el certificado del servidor con el que se contactó."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1806,3 +1813,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>AVISO</strong>: el nombre de servidor tal y como se encontró en el "
+"registro SRV no coincide con ningún nombre en el certificado del servidor."

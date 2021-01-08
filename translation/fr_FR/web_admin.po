@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:27+0000\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-31 16:04+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -68,7 +68,7 @@ msgid ""
 "The %s administrator can create a new one for you."
 msgstr ""
 "Désolé ... ce jeton a expiré. Les jetons d'invitation sont valables 24 "
-"heures. Le  administrateur de %s peut en créer un nouveau pour vous."
+"heures. L'administrateur de %s peut en créer un nouveau pour vous."
 
 #: web/admin/action_enrollment.php:88
 msgid ""
@@ -86,38 +86,42 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: Gestion des certificats RADIUS/TLS pour %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Gestion des certificats RADIUS/TLS pour %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr ""
+"Vous n'avez pas le niveau d'accréditation requis pour demander des "
+"certificats de serveurs."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Demander un certificat avec les propriétés suivantes"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "OIDs de stratégie :"
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr "Distinguished Name: "
+msgstr "Nom distinctif:"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Coordonnées du demandeur : proviendra de la base de données eduroam (en "
+"utilisant la syntaxe 'Someone, &lt;someone@somewhere.xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
@@ -130,13 +134,13 @@ msgstr "Retour au résumé du certificat"
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Détails du titulaire du certificat"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Certificat pour le rôle %s"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
@@ -145,29 +149,31 @@ msgstr "---SVP CHOISIR---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. Génération de la CSR"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
+"Une façon de générer une demande de certificat acceptable est d'utiliser la "
+"commande openssl:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Soumission"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Merci de coller la CSR ici:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Requête envoyée"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Retour à la page de présentation"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -207,7 +213,7 @@ msgstr "Sauvegarder les données"
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
 #: web/admin/edit_profile.php:491 web/admin/edit_user.php:64
 msgid "Discard changes"
-msgstr "Annuler les changement"
+msgstr "Annuler les changements"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:39
@@ -275,7 +281,7 @@ msgid ""
 msgstr ""
 "Certaines propriétés sont valides dans tous les profils de déploiement. Vous "
 "pouvez décrire ces propriétés d'une manière fine ici. Les informations "
-"sollicitées sont utilisées de la façon suivante :"
+"demandées sont utilisées de la façon suivante :"
 
 #: web/admin/edit_idp.php:113
 msgid ""
@@ -288,8 +294,8 @@ msgstr ""
 "dans tous les installateurs pour lesquels un logo personnalisé est possible. "
 "Nous acceptons n'importe quel format d'image ; mais pour un meilleur "
 "résultat, nous suggérons le format SVG. Si vous ne téléversez pas de logo, "
-"nous utiliserons le logo générique à la place (cf. le coin droit du haut de "
-"la page)."
+"nous utiliserons le logo générique à la place (cf. le coin droit en haut de "
+"cette page)."
 
 #: web/admin/edit_idp.php:114
 #, php-format
@@ -307,7 +313,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
-msgstr "Propriétés du média"
+msgstr "Propriétés réseau"
 
 #: web/admin/edit_idp.php:129
 #, php-format
@@ -362,7 +368,7 @@ msgid ""
 "legacy support for WPA/TKIP where possible."
 msgstr ""
 "Par défaut, le SSID est configuré avec la méthode de chiffrement WPA2/AES. "
-"En utilisant l'option \"avec WPA/TKIP\" vous pouvez ajouter le support du "
+"En utilisant l'option '(avec WPA/TKIP)' vous pouvez ajouter le support du "
 "WPA/TKIP où cela est disponible."
 
 #: web/admin/edit_idp.php:151
@@ -433,7 +439,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:178
 msgid "Helpdesk Details for all users"
-msgstr "Détails de l'assistance Helpdesk pour tout les utilisateurs"
+msgstr "Détails du service d'assistance pour tous les utilisateurs"
 
 #: web/admin/edit_idp.php:181
 msgid ""
@@ -501,17 +507,20 @@ msgstr ""
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "A qui de droit,"
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Ce courrier est simplement une vérification croisée car ces changements "
+"peuvent avoir une incidence sur la sécurité. Si le changement était attendu, "
+"vous n'avez aucune action à effectuer."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Félicitations,"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -521,12 +530,17 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"le %s %s / %s / (précédemment connu sous le nom de) '%s' a supprimé toutes "
+"les propriétés et recommence à zéro. Cela signifie qu'il n'est plus "
+"reconnaissable par son nom et qu'il peut prendre un autre nom à l'avenir. "
+"Vous recevrez un autre courrier électronique si et quand le changement de "
+"nom aura lieu."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Changements significatifs apportés à %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -546,11 +560,13 @@ msgstr "Caractéristiques soumises pour le fournisseur d'identité \"%s\""
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
+"des modifications importantes ont été apportées à %s %s / %s / (précédemment "
+"connu sous le nom de) '%s'."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%s a changé son nom. Les détails sont indiqués ci-dessous :"
 
 #: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
@@ -563,7 +579,8 @@ msgstr "(WPA2/AES)"
 #: web/admin/edit_idp_result.php:138
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
-msgstr "L'installateur va configurer les SSIDs suivant : <strong>%s</strong>"
+msgstr ""
+"Vos installateurs configureront les SSIDs suivants : <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:138
 msgid "SSIDs configured"
@@ -572,7 +589,7 @@ msgstr "SSIDs configurés"
 #: web/admin/edit_idp_result.php:142
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr "Votre installateur va configurer les interfaces filaires."
+msgstr "Vos installateurs configureront les interfaces filaires."
 
 #: web/admin/edit_idp_result.php:142
 msgid "Wired configured"
@@ -604,7 +621,7 @@ msgstr ""
 
 #: web/admin/edit_idp_result.php:167
 msgid "No support e-mail!"
-msgstr "Aucune adresse de support !"
+msgstr "Aucune adresse e-mail de support !"
 
 #: web/admin/edit_idp_result.php:172
 msgid "Continue to RADIUS/EAP profile definition"
@@ -617,7 +634,7 @@ msgstr "%s : Assistant d'ajout d'un IdP (étape 3)"
 
 #: web/admin/edit_profile.php:121
 msgid "Step 3: Defining a user group profile"
-msgstr "Étape 3 : "
+msgstr "Étape 3 : Définir le profil d'un groupe d'utilisateurs"
 
 #: web/admin/edit_profile.php:123
 #, php-format
@@ -667,7 +684,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:148
 msgid "You can also tell us your RADIUS realm. "
-msgstr "Vous pouvez également donner votre domaine RADIUS"
+msgstr "Vous pouvez également donner votre domaine RADIUS."
 
 #: web/admin/edit_profile.php:150
 #, php-format
@@ -675,16 +692,16 @@ msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
-"Le module de validation pourrait vous être utile pour vérifier "
-"l'accessibilité de votre domaine dans l'infrastructure %s"
+"Cela est utile si vous souhaitez utiliser plus tard le module de validation "
+"pour vérifier l'accessibilité de votre domaine dans l'infrastructure %s."
 
 #: web/admin/edit_profile.php:152
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
-"Il est nécessaire d'entrer le nom du domaine si vous désirez supporter "
-"l'identité externe anonyme (voir ci-dessous)."
+"Il est nécessaire d'entrer le nom du domaine si vous souhaitez supporter des "
+"identités externes anonymes (voir ci-dessous)."
 
 #: web/admin/edit_profile.php:165
 msgid "Realm:"
@@ -726,7 +743,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:217
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Traitement de l'identité externe"
 
 #: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
@@ -739,11 +756,11 @@ msgstr ""
 
 #: web/admin/edit_profile.php:256
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Traitement de l'identité interne (identifiant) "
 
 #: web/admin/edit_profile.php:262
 msgid "Enforce realm suffix in username"
-msgstr "Forcer le domaine en suffixe de l'identifiant"
+msgstr "Imposer le domaine en suffixe de l'identifiant"
 
 #: web/admin/edit_profile.php:280
 msgid "Enforce exact realm in username"
@@ -763,10 +780,14 @@ msgid ""
 "profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
-"CAT propose aux utilisateurs finaux une section de téléchargement "
-"d'installateurs de profils. Vous pouvez cependant choisir de rediriger les "
-"utilisateurs vers une page web où vous pouvez proposer ces installateurs "
-"(voir la matrice de compatibilité dans le tableau de bord)."
+"CAT dispose d'une zone de téléchargement pour les utilisateurs finaux. Ils y "
+"trouveront, par exemple, des informations sur les pointeurs de support que "
+"vous avez saisis précédemment. CAT peut également proposer au téléchargement "
+"les installateurs de profils. Si vous ne  souhaitez pas cette "
+"fonctionnalité, vous pouvez choisir de rediriger vos utilisateurs vers une "
+"page web. En tant qu'administrateur, vous pourrez toujours télécharger les "
+"profils pour les placer sur cette page (voir le bouton \"Matrice de "
+"compatibilité\" sur le tableau de bord)."
 
 #: web/admin/edit_profile.php:300
 msgid "Redirect end users to own web page:"
@@ -774,7 +795,7 @@ msgstr "Rediriger les utilisateurs sur votre propre page web :"
 
 #: web/admin/edit_profile.php:313
 msgid "Supported EAP types"
-msgstr "Types EAP supportés"
+msgstr "Méthodes EAP supportées"
 
 #: web/admin/edit_profile.php:316
 msgid ""
@@ -784,11 +805,12 @@ msgid ""
 "highest priority; only if the user's device can't use that EAP type, we will "
 "use an EAP type further down in the list."
 msgstr ""
-"Précisez maintenant quels types EAP votre fournisseur d'identité supporte. "
-"Si vous supportez plusieurs types EAP, vous pouvez leurs donner une priorité "
-"(1=la plus haute). Cet outil créera toujours un installateur automatique "
-"pour le type EAP de priorité la plus forte ; si l'appareil utilisateur ne "
-"supporte pas ce type EAP, un type EAP de priorité plus basse sera utilisé."
+"Précisez maintenant quelles méthodes EAP votre fournisseur d'identité "
+"supporte. Si vous supportez plusieurs méthodes EAP, vous pouvez leurs donner "
+"une priorité (1=la plus haute). Cet outil créera toujours un installateur "
+"automatique pour la méthode EAP de priorité la plus forte ; si l'appareil de "
+"l'utilisateur ne supporte pas cette méthode EAP, une méthode  EAP de "
+"priorité plus basse sera utilisée."
 
 #: web/admin/edit_profile.php:361
 msgid "EAP options inherited from Global level:"
@@ -801,7 +823,7 @@ msgstr "(%dx) %s"
 
 #: web/admin/edit_profile.php:394
 msgid "Supported EAP types for this profile"
-msgstr "Types EAP supportés pour ce profil"
+msgstr "Méthodes EAP supportées pour ce profil"
 
 #: web/admin/edit_profile.php:408
 msgid ""
@@ -815,7 +837,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:416
 msgid "Unsupported EAP types"
-msgstr "Types EAP non supportés"
+msgstr "Méthodes EAP non supportées"
 
 #: web/admin/edit_profile.php:469
 msgid "Helpdesk Details for this profile"
@@ -827,7 +849,7 @@ msgstr "Détails EAP pour ce profil"
 
 #: web/admin/edit_profile.php:471
 msgid "Media Properties for this profile"
-msgstr "Propriétés du support pour ce profil"
+msgstr "Propriétés réseau pour ce profil"
 
 #: web/admin/edit_profile.php:479
 #, php-format
@@ -850,8 +872,8 @@ msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
-"Lorsque vous serez sûr que tout est correct, cliquez sur \"Sauvegarder les "
-"données\" et vous serez renvoyé sur le tableau de bord de votre fournisseur "
+"Lorsque vous êtes sûr que tout est correct, cliquez sur \"Sauvegarder les "
+"données\" et vous serez redirigé sur le tableau de bord de votre fournisseur "
 "d'identité"
 
 #: web/admin/edit_profile_result.php:52
@@ -907,6 +929,14 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Sans identité anonyme, l'identifiant utilisateur sera utilisé comme identité "
+"externe pour acheminer les requêtes. Pour que cela fonctionne, l'identifiant "
+"doit utiliser un domaine comme suffixe. Cependant, la vérification du "
+"suffixe de domaine ayant été désactivée, les supplicants ne vont pas "
+"vérifier que l'identifiant contienne bien un domaine et des erreurs avec un "
+"identifiant type 'johndoe' qui ne fonctionnera pas en mobilité ne seront pas "
+"signalées. Pensez à cocher la case \"Appliquer le domaine en suffixe de "
+"l'identifiant\" !"
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -931,7 +961,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "La partie domaine DOIT être exactement '...@%s'."
 
 #: web/admin/edit_profile_result.php:161
 #, php-format
@@ -939,12 +969,17 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"La partie domaine DOIT se terminer par '%s' mais les sous-domaines sont "
+"autorisés (c'est à dire que 'utilsateur@%s' et 'utilsateur@<...>.%s' sont "
+"tous les deux acceptés)"
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Dans la mesure du possible, les supplicants vérifieront que l'identifiant "
+"contiend un domaine syntaxiquement correct."
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -966,7 +1001,7 @@ msgid ""
 "device-level redirect."
 msgstr ""
 "Redirection paramétrée vers <strong>%s</strong>, mais qui sera ignorée à "
-"cause d'une redirection au niveau de l'appareil."
+"cause d'une redirection existante au niveau de l'appareil."
 
 #: web/admin/edit_profile_result.php:189
 #, php-format
@@ -979,14 +1014,14 @@ msgstr "La redirection est <strong>OFF</strong>"
 
 #: web/admin/edit_profile_result.php:210
 msgid "Supported EAP Type: "
-msgstr "Types EAP pris en charge :"
+msgstr "Méthodes EAP prises en charge :"
 
 #: web/admin/edit_profile_result.php:218
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
 msgstr ""
-"Type EAP supporté : <strong>%s</strong> des informations requises sont "
+"Méthode EAP supportée : <strong>%s</strong> des informations requises sont "
 "manquantes %s !"
 
 #: web/admin/edit_profile_result.php:218
@@ -994,8 +1029,8 @@ msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
 msgstr ""
-"Le type EAP a bien été ajouté à votre profil, mais vous devez compléter les "
-"informations manquantes pour que nous puissions créer les installateurs."
+"La méthode EAP a bien été ajouté à votre profil, mais vous devez compléter "
+"les informations manquantes pour que nous puissions créer les installateurs."
 
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
 #: web/admin/edit_profile_result.php:230
@@ -1004,6 +1039,8 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"des modifications importantes ont été apportées à un profil de déploiement "
+"RADIUS de la %s %s / %s /'%s'."
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -1012,16 +1049,25 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"ATTENTION ! Une nouvelle AC racine de confiance a été ajoutée et elle porte "
+"exactement le même nom qu'une AC racine déjà existante. Cela peut (mais pas "
+"nécessairement) signifier qu'il s'agit d'une tentative d'insérer une racine "
+"de confiance non autorisée en la déguisant en racine authentique. Les "
+"détails sont indiqués ci-dessous :"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
 msgstr ""
+"Une nouvelle AC racine de confiance a été ajoutée. Les détails sont indiqués "
+"ci-dessous :"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"Un nouveau nom de serveur acceptable pour le serveur d'authentification a "
+"été ajouté. Les détails sont indiqués ci-dessous :"
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1441,11 +1487,11 @@ msgstr ""
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Informations sur le certificat pour %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Demander un nouveau certificat"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1712,7 +1758,7 @@ msgstr ""
 #: web/admin/overview_idp.php:122
 #, php-format
 msgid "Reset all %s settings"
-msgstr "Réinitialise tous les paramètres pour %s"
+msgstr "Réinitialiser tous les paramètres pour %s"
 
 #: web/admin/overview_idp.php:132
 msgid "Available Support actions"
@@ -1768,7 +1814,7 @@ msgstr "Téléchargements utilisateurs"
 
 #: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr "<strong>Types EAP</strong> (par ordre de préférence) :"
+msgstr "<strong>Méthodes EAP</strong> (par ordre de préférence) :"
 
 #: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
@@ -1820,7 +1866,8 @@ msgstr "Vérifier l'accessibilité du domaine"
 
 #: web/admin/overview_idp.php:310
 msgid "You have not fully configured any supported EAP types!"
-msgstr "Vous n'avez complètement configuré aucun type EAP supporté!"
+msgstr ""
+"Vous n'avez pas entièrement configuré les méthodes EAP pris en charge !"
 
 #: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
@@ -1867,7 +1914,7 @@ msgstr "Appareil"
 
 #: web/admin/overview_installers.php:59
 msgid "EAP-Type-specific options..."
-msgstr "Options spécifique de type EAP..."
+msgstr "Options spécifiques à la méthode EAP..."
 
 #: web/admin/overview_installers.php:78
 msgid "Device-specific options..."
@@ -1891,7 +1938,7 @@ msgstr "sera proposé sur le site de téléchargement"
 
 #: web/admin/overview_installers.php:155
 msgid "configured, but not preferred EAP type"
-msgstr "type EAP configuré mais non préféré"
+msgstr "configuré, mais pas de méthode EAP préférée"
 
 #: web/admin/overview_installers.php:156
 msgid "incomplete configuration"
@@ -2310,11 +2357,11 @@ msgstr "appareil <strong>%s</strong>"
 #: web/admin/inc/toggleRedirect.inc.php:110
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr "Type EAP <strong>%s</strong>"
+msgstr "Méthode EAP <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:117
 msgid "Fine-tuning options for "
-msgstr "Paramètres avancés pour"
+msgstr "Paramètres avancés pour "
 
 #: web/admin/inc/userStats.inc.php:31
 msgid "User Authentication Records"
@@ -2336,7 +2383,7 @@ msgid ""
 "sent by all hotspots"
 msgstr ""
 "Le domaine de l'opérateur  est basé sur l'attribut RADIUS 'Operator-Name' et "
-"n'est pas fourni par tous les ponts d'accès"
+"n'est pas fourni par tous les points d'accès"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
@@ -2498,11 +2545,19 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Le format de cette option est : IPv4|IPv6|hostname:port . Obliger vos "
+"utilisateurs à passer par votre filtre de contenu est une atteinte "
+"importante à l'autodétermination des utilisateurs. Cela pose également des "
+"problèmes techniques. Veuillez lire attentivement la discussion à %s avant "
+"de spécifier un proxy avec cette option. Cette fonctionnalité est "
+"actuellement expérimentale et n'a d'effet que dans les installateurs Apple."
 
 #: web/lib/admin/OptionDisplay.php:188
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
+"En choisissant de participer à OpenRoaming, vous acceptez d'être lié par le "
+"%s."
 
 #: web/lib/admin/OptionDisplay.php:190
 #, php-format
@@ -2512,16 +2567,24 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Notez que votre devez informer les utilisateurs que les conditions générales "
+"d'utilisation OpenRoaming sont remplies lorsque vos utilisateurs finaux "
+"utilisent le portail de téléchargement %s pour  télécharger l'installateur. "
+"Tout autre moyen de fournir les installateurs doit présenter cette "
+"information via son propre canal."
 
 #: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Vous êtes également conscient que pour une meilleure interopérabilité "
+"technique, vous devez ajouter une entrée DNS dans la zone DNS de votre "
+"domaine RADIUS."
 
 #: web/lib/admin/OptionDisplay.php:194
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Lisez les instructions dans le wiki."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2660,7 +2723,7 @@ msgstr "Support : Web"
 
 #: web/lib/admin/UIElements.php:83
 msgid "Support: EAP Types"
-msgstr "Support : Types EAP"
+msgstr "Support : Méthodes EAP"
 
 #: web/lib/admin/UIElements.php:84
 msgid "Support: Phone"
@@ -2740,11 +2803,11 @@ msgstr "Description du Profil"
 
 #: web/lib/admin/UIElements.php:105
 msgid "Custom Installer Name Suffix"
-msgstr "Suffixe pour le nom de l'installateur personnalisé"
+msgstr "Suffixe du nom de l'installateur personnalisé"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgstr "Participation à OpenRoaming"
 
 #: web/lib/admin/UIElements.php:108
 msgid "Real Name"
@@ -2813,7 +2876,7 @@ msgstr "Intégrer %s avec l'AC à la création"
 #: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
-msgstr "Détails généraux pour %s"
+msgstr "Informations générales pour %s"
 
 #: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"

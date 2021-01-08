@@ -6,16 +6,16 @@
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
 # dsafar <dsafar@srce.hr>, 2018
-# Dubravko Penezic <dpenezic@gmail.com>, 2019
+# Dubravko Penezic <dpenezic@gmail.com>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2019\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2020\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -316,7 +316,7 @@ msgstr "Server ne koristi certifikat."
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
-msgstr ""
+msgstr "Nije moguće TLS verziju koja je korištena kod EAP-a."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -324,12 +324,16 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Poslužitelj ne podržava trenutnu TLS verziju TLSv1.2 ili TLSv1.3. Suvremeni "
+"klijentski operativni sustavi mogli bi odbiti autentikaciju!"
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Očekivani naziv poslužitelja prema SRV zapisu ne odgovara ni jednom nazivu "
+"poslužitelja u certifikatu kontaktiranog poslužitelja!"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1735,3 +1739,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>UPOZORENJE</strong>: naziv poslužitelja iz SRV zapisa ne odgovara ni "
+"jednom nazivu u certifikatu poslužitelja!"

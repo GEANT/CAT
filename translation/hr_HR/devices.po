@@ -10,13 +10,14 @@
 # dsafar <dsafar@srce.hr>, 2012
 # Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2020
 # eduroam_devel <stefan.winter@restena.lu>, 2019
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-03 19:37+0000\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -48,7 +49,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Apple uređaj"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -104,7 +105,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Apple iOS mobilni uređaj (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -119,7 +120,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Apple iOS mobilni uređaj (iOS 5 i 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -144,7 +145,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 i noviji"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -159,6 +160,10 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Prije nego nastavite s instalacijom na Android sustavu, molimo Vas da "
+"provjerite jeste li instalirali %s aplikaciju.Ova aplikacija dostupna je na: "
+"%s i za konfiguriranje uređaja koristiti će konfiguracijsku datoteku "
+"preuzetu s CAT-a."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -171,11 +176,11 @@ msgstr "kao lokalni download"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8-10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 - 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -223,10 +228,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Ova opcija pruža EAP XML konfiguracijsku datoteku, koju može koristiti "
+"eduroamCAT Android aplikacija."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP opći/generički"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -234,6 +241,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Ova opcija pruža opću/generičku EAP XML konfiguracijsku datoteku, koju može "
+"koristiti GetEduroam aplikacija."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -266,14 +275,14 @@ msgstr "%s konfiguracija ia IdP '%s' - koju pruža %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
-msgstr ""
+msgstr "Važna napomena: Vaše korisničko ime MORA završavati sa '...@%s' !"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
-msgstr ""
+msgstr "Vaše korisničko ime MORA sadržavati '@' i završavati sa ...%s !"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -358,7 +367,7 @@ msgstr "%s konfiguracija za žičnu mrežu"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Roaming partner"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -379,21 +388,21 @@ msgstr "certifikat eduroam korisnika"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:703
 #, php-format
 msgid "The %s Certification Authority"
-msgstr "%s Certification Authority"
+msgstr "%s izdavatelj certifikata"
 
 #. / example: "Identity Provider CA #1 (Root)"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s CA #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Srednji"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""
@@ -403,10 +412,11 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"The installer is a file with the extension '.onc'. Please download it, open "
-"Chrome, and navigate to the URL chrome://net-internals/#chromeos. Then, use "
-"the 'Import ONC file' button. The import is silent; the new network "
-"definitions will be added to the preferred networks."
+"Installer je datoteka s ekstenzijom '.onc'. Molimo preuzmite ga, otvorite "
+"Chrome, i dođite do URL-a <a href='chrome://net-internals/"
+"#chromeos'>chrome://net-internals/#chromeos</a>. Zatim, kliknite na 'Import "
+"ONC file' gumb. Slijedi uvoz konfiguracije; Nove mrežne postavke bit će "
+"dodane."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -910,15 +920,14 @@ msgid ""
 "It will install the profiles. You will need to login to %s with your "
 "username and password."
 msgstr ""
-"Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
-"be due to the fact that Symantec Endpoint Protection is installed on your "
-"machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a workaround.$\\r$"
-"\\nWhen you close this window the installer will exit and an explorer window "
-"will be started (it could appear underneath already opened windows). In this "
-"window you should see a script named inst_cat. Start it by double-clicking, "
-"It will install the profiles. You will need to login to %s with your "
-"username and password."
+"Molimo PROČITAJTE ovu važnu poruku.$\\r$\\nProblemi s instalacijom mogu biti "
+"povezani s činjenicom da je Symantec Endpoint zaštita instalirana na Vaše "
+"računalo.$\\r$\\Kako je ovo poznat bug Symantec proizvoda, zbog kojeg je "
+"installer u nemogućnosti išta napraviti, postoji rješenje.$\\r$\\nKada "
+"zatvorite ovaj prozor installer će se ugasiti i pokrenut će se explorer "
+"(moguće u pozadini već otvorenih prozora). U tom prozoru trebali bi vidjeti "
+"skriptu inst_cat. Pokrenite ju duplim klikom, i instalirati će profile. Bit "
+"će potrebno prijaviti se na %s sa Vašim korisničkim imenom i lozinkom."
 
 #: devices/ms/Files/common.inc:843
 msgid "Please restart your system after installation finishes."

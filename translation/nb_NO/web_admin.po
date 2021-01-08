@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tom Ivar Myren <tom.myren@uninett.no>, 2019
+# Tom Ivar Myren <tom.myren@uninett.no>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:00+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-17 14:24+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -71,88 +71,90 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: RADIUS/TLS sertifikat administrasjon for %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "RADIUS/TLS sertifikat administrasjon for %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "Du har ikke de nødvendige rettighetene til å be om tjenersertifikater."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Ber om et sertifikat med følgende egenskaper"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "Policy OIDs: "
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Distinguished Name: "
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Requester Contact Details: vil hentes fra eduroam DB (using stub 'Someone, "
+"&lt;someone@somewhere.xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Sertifikat forespørsel ble sendt"
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Tilbake til Sertifikat Oversikt"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Sertifikatinnehaverdetaljer "
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Sertifikat for %s rolle"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "---VENNLIGST VELG---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. CSR generering"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
-msgstr ""
+msgstr "En måte å generere en sertifikatforespørsel er via openssl: "
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Innlevering"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Vennligst lim inn CSR her:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Send forespørsel"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Tilbake til Oversiktssiden"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -469,17 +471,19 @@ msgstr "Når du er sikker på at alt er korrekt, klikk på %s Fortsett ...%s"
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "Til den det måtte angå, "
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Denne e-posten er kun en dobbel-sjekk da disse endringene kan være "
+"sikkerhets relatert. Om endringen var ventet trenger du ikke gjøre noe."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Hei,"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -489,12 +493,16 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"%s%s / %s/ (tidligere kjent som) '%s' har fått alle egenskaper slettet og "
+"starter helt på nytt. Det betyr at den ikke gjenkjennes ved navn lengre og "
+"den kan få at annet navn ved en senere anledning. Du vil motta en ny e-post "
+"om og når det skjer en navneendring."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Vesentlige endringer i %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -512,12 +520,12 @@ msgstr "Innsendte attributter for IdP '%s'"
 #, php-format
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
-msgstr ""
+msgstr "vesentlige endringer i %s %s / %s/ (tidligere kjent som) '%s'."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%shar endret navn. Detaljene vises under:"
 
 #: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
@@ -689,7 +697,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:217
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Outer Identity håndtering"
 
 #: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
@@ -701,15 +709,15 @@ msgstr "Bruk egen ytre ID for realm sjekk:"
 
 #: web/admin/edit_profile.php:256
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Inner Identity (Brukernavn) håndtering"
 
 #: web/admin/edit_profile.php:262
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "Tving realm suffiks i brukernavn"
 
 #: web/admin/edit_profile.php:280
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Tving eksakt realm i brukernavn"
 
 #: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
@@ -867,6 +875,13 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Uten Anonym identitet vil det faktiske brukernavnet bli brukt som ytre "
+"identitet og som basis for ruting av forespørsel. For at det skal fungere mp "
+"brukernavnet ha korrekt realm suffiks. Realm suffiks verifikasjon er slått "
+"AV. Supplikanter (klienter) vil ikke verifisere at brukernavn inneholder et "
+"realm, og feil som kun brukernavn 'olanormann' som ikke vil fungere ved "
+"roaming vil ikke bli forhindret. Vurder å huke av boksen 'Tving realm "
+"suffiks i brukernavn'!"
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -888,7 +903,7 @@ msgstr "Et eget brukernavn for realm sjekk er ikke konfigurert"
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "Realm delen MÅ være '...@%s'."
 
 #: web/admin/edit_profile_result.php:161
 #, php-format
@@ -896,12 +911,16 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"Realm delen MÅ slutte med '%s', men sub-realm er tillatt (dvs både 'bruker@"
+"%s' og 'bruker@<...>.%s' blir akseptert)."
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Når mulig vil supplikant (klient) verifisere at brukernavn inneholder et "
+"syntaktisk korrekt realm."
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -959,6 +978,7 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"Vesentlige endringer ble gjort i en RADIUS profil for %s %s / %s / '%s'."
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -967,16 +987,22 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"ADVARSEL! Et nytt trusted root CA ble lagt til, og det har eksakt samme navn "
+"som et eksisterende root CA. Dette kan (men ikke nødvendigvis) bety et "
+"forsøk på å legge til en uautorisert trust root ved å utgi seg som det ekte. "
+"Detaljene vises under:"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "En ny trusted root CA ble lagt til. Detaljene vises under:"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"Et nytt tjenernavn for autentiseringstjeneren ble lagt til. Detaljene vises "
+"under: "
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1386,11 +1412,11 @@ msgstr ""
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Sertifikat informasjon for %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Forespør om nytt sertifikat"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -2407,11 +2433,16 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Formatet for denne opsjonen er: IPv4|IPv6|hostname:port. Å tvinge brukerne "
+"gjennom et eget innholdsfilter er en betydelig invasjon av brukerens "
+"selvbestemmelse. Det har også tekniske utfordringer. Les gjennom diskusjonen "
+"på %s før du angir en proxy via dette alternativet. Denne funksjonen er for "
+"øyeblikket eksperimentell og har bare effekt for Apple profiler."
 
 #: web/lib/admin/OptionDisplay.php:188
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
-msgstr ""
+msgstr "Ved å delta i OpenRoaming godtar du %s."
 
 #: web/lib/admin/OptionDisplay.php:190
 #, php-format
@@ -2421,16 +2452,22 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Merk at kravet om å informere brukere om OpenRoaming sluttbruker vilkår er "
+"oppfylt når du peker sluttbrukerne til %snedlastingsportal for nedlasting av "
+"profiler. Alle andre måter å tilby profiler må presentere denne "
+"informasjonen via sin egen kanal."
 
 #: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Du må også være klar over at for best teknisk interoperabilitet må det "
+"legges til en DNS record i DNS sonen for ditt RADIUS realm."
 
 #: web/lib/admin/OptionDisplay.php:194
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Les instruksjonene på wiki'en."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2652,7 +2689,7 @@ msgstr "Custom Installer Name Suffix"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgstr "Opt-In to OpenRoaming"
 
 #: web/lib/admin/UIElements.php:108
 msgid "Real Name"

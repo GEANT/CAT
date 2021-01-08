@@ -8,14 +8,14 @@
 # dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2019
+# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-30 08:58+0000\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -553,11 +553,13 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Kod povezivanja %s pristupnim točkama, primjenjuju se sljedeći <a "
+"href='%s'>Uvjeti i Odredbe</a> i <a href='%s'>Obavijest o privatnosti</a>."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Pristajem na obvezu prema ovim Uvjetima i odredbama."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
@@ -600,8 +602,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
-" %s provides access to thousands of Wi-Fi hotspots around the world, free of "
-"charge. <a href='%s'>Learn more</a>"
+" %s omogućuje pristup internetu putem tisuća pristupnih točaka diljem "
+"svijeta, besplatno. <a href='%s'>Više informacija</a>"
 
 #: web/lib/user/TextTemplates.php:112
 msgid "Select the user group"
@@ -609,7 +611,7 @@ msgstr "Odaberite korisničku grupu"
 
 #: web/lib/user/TextTemplates.php:113
 msgid "select another"
-msgstr "odaberite dodatnu"
+msgstr "odaberite drugu matičnu ustanovu"
 
 #: web/lib/user/TextTemplates.php:114
 msgid "Choose another installer to download"

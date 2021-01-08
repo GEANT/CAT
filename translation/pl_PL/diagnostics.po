@@ -6,16 +6,16 @@
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2019
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2019
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2019\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2020\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -330,7 +330,7 @@ msgstr "Serwer nie wysłał żadnego certyfikatu."
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
-msgstr ""
+msgstr "Nie było możliwe określenie wersji TLS stosowanej w wymianie EAP."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -338,12 +338,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Serwer nie wspiera zalecanych wersji TLS: TLSv1.2 lub TLSv1.3. Nowoczesne "
+"systemy operacyjne klienta mogą odmówić uwierzytelnienia za pomocą takiego "
+"serwera."
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Oczekiwana na podstawie rekordu SRV nazwa serwera nie zgadza się z żadną "
+"nazwą zawartą w certyfikacie tego serwera!"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1775,3 +1780,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>OSTRZEŻENIE</strong>: nazwa serwera pobrana z rekordu SRV nie zgadza "
+"się z żadną nazwą w certyfikacie serwera!"

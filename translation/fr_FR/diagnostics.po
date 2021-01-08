@@ -11,17 +11,17 @@
 # Jonathan CHATRIOT <jonathan.chatriot@ac-lille.fr>, 2019
 # Emmanuel Halbwachs <emmanuel.halbwachs@obspm.fr>, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019
 # dominique.launay <dominique.launay@renater.fr>, 2019
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: dominique.launay <dominique.launay@renater.fr>, 2019\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2020\n"
 "Language-Team: French (France) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -354,6 +354,8 @@ msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr ""
+"Il n'a pas été possible de déterminer la version TLS qui a été utilisée dans "
+"l'échange EAP."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -361,12 +363,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Le serveur ne prend pas en charge les versions TLS contemporaines TLSv1.2 ou "
+"TLSv1.3. Les systèmes d'exploitation clients modernes peuvent refuser de "
+"s'authentifier auprès du serveur !"
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Le nom de serveur attendu selon l'enregistrement SRV ne correspond à aucun "
+"nom de serveur dans le certificat du serveur qui a été atteint !"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -585,10 +592,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
-"Le système n'a trouvé aucune information sur le fournisseur d'identité (IdP) "
-"que vous indiquez.\n"
-"Il est probable que cette institution ne participe pas à eduroam\n"
-"et donc que le compte que vous tentez d'utiliser n'existe pas."
+"Le système n'a trouvé aucune information sur le fournisseur d'identité que "
+"vous indiquez. Il est probable que cet établissement ne participe pas à "
+"eduroam et donc que le compte que vous tentez d'utiliser n'existe pas."
 
 #: core/diag/Sociopath.php:59
 msgid ""
@@ -1465,9 +1471,9 @@ msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
-"Vous devriez ré-exécuter les tests après avoir corrigé les sources d'erreur "
-"(vous risquez cependant de rencontrer de nouvelles erreurs à ce moment là). "
-"Les erreurs rencontrés jusqu'à présent sont listées ci dessous."
+"Vous devriez ré-exécuter les tests après avoir corrigé les erreurs ; vous "
+"risquez cependant de rencontrer de nouvelles erreurs à ce moment là. Les "
+"erreurs rencontrés jusqu'à présent sont listées ci dessous."
 
 #: web/diag/action_realmcheck.php:615
 msgid "Dynamic discovery test is not configured"
@@ -1559,10 +1565,10 @@ msgid ""
 "the login with these credentials and the given EAP type actually worked. If "
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
-"Le test exploitera tous les types EAP que vous avez renseigné dans vos "
-"informations de profil afin de vérifier si les bonnes AC et les bons noms de "
-"serveurs sont utilisés, et bien sûr si l'authentification avec ces "
-"identifiants et types EAP fournis fonctionne. Si vous avez indiqué une "
+"Le test utilisera toutes les méthodes EAP que vous avez renseigné dans les "
+"informations de votre profil pour vérifier si les bonnes CA et les bons noms "
+"de serveurs sont utilisés, et bien sûr si l'authentification avec ces "
+"identifiants et méthodes EAP fournis fonctionne. Si vous avez indiqué une "
 "identité externe anonyme, le test l'utilisera."
 
 #: web/diag/action_realmcheck.php:730
@@ -1580,7 +1586,7 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:738
 msgid "Password-based EAP types"
-msgstr "Types EAP reposant sur des mots de passe "
+msgstr "Méthodes EAP basées sur des mots de passe "
 
 #: web/diag/action_realmcheck.php:739
 msgid "Real (inner) username:"
@@ -1596,7 +1602,7 @@ msgstr "Mot de passe :"
 
 #: web/diag/action_realmcheck.php:745
 msgid "Certificate-based EAP types"
-msgstr "Types EAP reposant sur des certificats"
+msgstr "Méthodes EAP basées sur des certificats"
 
 #: web/diag/action_realmcheck.php:746
 msgid "Certificate file (.p12 or .pfx):"
@@ -1856,3 +1862,6 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>ATTENTION</strong>: le nom du serveur tel que découvert dans "
+"l'enregistrement SRV ne correspond à aucun nom présent dans le certificat du "
+"serveur !"

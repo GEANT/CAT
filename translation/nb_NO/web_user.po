@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jørn Åne <yorn@uninett.no>, 2015
-# Tom Ivar Myren <tom.myren@uninett.no>, 2018-2019
+# Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-17 13:25+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -547,11 +547,13 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Når man kobler til %shotspots, gjelder følgende <a href='%s'>Vilkår og "
+"betingelser</a> og <a href='%s'>Personvernerklæring</a>"
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Jeg godtar disse Vilkår og betingelser."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
@@ -989,7 +991,7 @@ msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
 msgstr ""
-"Du mp ha mottatt en invitasjon fra din %s%s før du kan administrere din %s. "
+"Du må ha mottatt en invitasjon fra din %s%s før du kan administrere din %s. "
 "Om så er tilfelle, vennligst fortsett til pålogging."
 
 #: web/skins/modern/user/cat_info.php:101

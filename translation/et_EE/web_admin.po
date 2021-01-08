@@ -4,15 +4,15 @@
 #
 # Translators:
 # Anne M <anne@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2018-2019
-# Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2020
+# Anne M <anne@eenet.ee>, 2018-2019,2021
+# Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:00+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-05 10:02+0000\n"
+"Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -72,88 +72,90 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s'i RADIUS/TLS sertifikaadihaldus:  %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "RADIUS/TLS sertifikaadihaldus: %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "Sul ei ole piisavalt õiguse serverisertifikaatide taotlemiseks."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Sertifikaadi taotlemine järgmiste atribuutidega"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "Poliitika OID-d: "
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Eristusnimi:"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Taotleja kontaktandmed: tulenevad eduroami andmebaasist (kujul 'Keegi, &lt;"
+"keegi@kusagil.xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Sertifikaat taotletud."
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Tagasi sertifikaadi ülevaatele"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Sertifikaadiomaniku andmed"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Sertifikaat %s'i rollile"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "---PALUN VALI---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. CSR loomine"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
-msgstr ""
+msgstr "openssl'iga saab genereerida korrektse sertifikaadinõude:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Esitamine"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Palun sisesta siia oma CSR:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Saada päring"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Tagasi ülevaatelehele"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -460,17 +462,19 @@ msgstr "Kui oled kindel, kõik on korrektne, klõpsa palun %sJätka...%s"
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "Asjasthuvitatutele"
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"See e-kiri on saadetud kontrollieesmärgil, kuna muudatused võivad mõjutada "
+"turvalisust. Kui muudatus oli soovikohane, ei ole vaja Sul midagi teha."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Tervitused"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -480,12 +484,15 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"%s %s / %s / (varem tuntud kui) '%s' kustutas kõik atribuudid ja alustab "
+"uuesti. See tähendab, et selline nimi ei ole edaspidi äratuntav ja tulevikus "
+"võib olla teine nimi. Saad veel ühe e-kirja, kui nimemuutus toimub."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Olulised muudatused tehtud: %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -503,12 +510,12 @@ msgstr "'%s' IdP Sisestatud atribuudid"
 #, php-format
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
-msgstr ""
+msgstr "tehti olulisi muudatusi: %s %s / %s / (varem tuntud kui  '%s')."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%s muutis oma nime. Üksikasjad:"
 
 #: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
@@ -683,7 +690,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:217
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Väline identiteedikäitlus"
 
 #: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
@@ -695,15 +702,15 @@ msgstr "Kasuta spetsiaalset välist identiteeti domeenikontrolliks"
 
 #: web/admin/edit_profile.php:256
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Sisemine identiteedikäitlus (kasutajanimi)"
 
 #: web/admin/edit_profile.php:262
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "Nõua kasutajanimes domeeni"
 
 #: web/admin/edit_profile.php:280
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Nõua kasutajanimes täpset domeeni"
 
 #: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
@@ -861,6 +868,12 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Ilma anonüümse identiteedita kasutakse välise identiteedina taotluse "
+"suunamisel tegelikku kasutajanime. Et see toimiks, peab kasutajanimi lõppema "
+"õige domeeniga. Praegu on domeenikontroll välja lülitatud (OFF).  Programmid "
+"ei kontrolli, et kasutajanimed sisaldaksid domeeni, ja selliseid rändluses "
+"mittetoimivaid kasutajanimesid nagu 'johndoe' ei tõkestata. Kaaluge "
+"valikukasti 'Nõua kasutajanimes täpset domeeni' linnutamist."
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -882,7 +895,7 @@ msgstr "Spetsiaalset kasutajanime domeeni kontrollimiseks ei ole seadistatud."
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "Domeeniosa peab kindlasti olema '...@%s'."
 
 #: web/admin/edit_profile_result.php:161
 #, php-format
@@ -890,12 +903,16 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"Domeeniosa peab lõppema '%s'-ga, kuid lubatud on alamdomeenid (näiteks on "
+"lubatud nii 'user@%s' kui 'user@<...>.%s')."
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Võimalusel kontrollivad programmid sisestatud kasutajanimedes süntaktiliselt "
+"korrektse domeeni olemasolu."
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -952,7 +969,7 @@ msgstr ""
 msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
-msgstr ""
+msgstr "RADIUSe rakendusprofiilis %s tehti olulisi muudatusi: %s / %s / '%s' "
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -961,16 +978,19 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"HOIATUS! Lisati uus usaldatav juur-CA, millele on sama nimi nagu senisel "
+"juur-CA-l. See võib (kuid ei pruugi) viidata katsele sisestada "
+"autoriseerimata usaldatavat juurt õige asemel. Täpsemalt allpool:"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "Lisati uus juur-CA. Üksikasjad:"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
-msgstr ""
+msgstr "Autentimisserverile lisati uus lubatav serverinimi. Üksikasjad:"
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1380,11 +1400,11 @@ msgstr ""
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Sertifikaaditeave: %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Taotle uut sertifikaati"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -2395,11 +2415,16 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Selle suvandi formaat on: IPv4|IPv6|hostname:port . Kui sunnid oma "
+"kasutajaid läbima enda määratud sisufiltrit, on see kasutajate "
+"enesemääramise oluline rikkumine. Lisaks on sel ka tehnilisi küsitavusi. "
+"Enne selle suvandiga proksi määramist palun loe läbi arutelu: %s. Erisus on "
+"eksperimentaalne ja rakendub ainult Apple paigaldusprogrammide puhul."
 
 #: web/lib/admin/OptionDisplay.php:188
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
-msgstr ""
+msgstr "Nõustudes OpenRoaming'uga kohustud täitma: %s."
 
 #: web/lib/admin/OptionDisplay.php:190
 #, php-format
@@ -2409,16 +2434,23 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Nõue teavitada kasutajaid OpenRoaming'u Kasutustingimustest lõppkasutajale "
+"on täidetud, kui suunad oma lõppkasutajad paigaldusprogrammi allalaadimiseks "
+"%s'i allalaadimisportaali. \n"
+"Paigaldusprogrammi muudmoodi kättesaadavaks tegemisel tuleb see teave "
+"esitada oma kanali kaudu."
 
 #: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Oled teadlik, et tehniliseks koostalitluseks pead lisama DNS-kirje oma "
+"RADIUSe domeeni DNS-tsooni."
 
 #: web/lib/admin/OptionDisplay.php:194
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Loe juhendeid vikis."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2640,7 +2672,7 @@ msgstr "Kohandatud paigaldusprogrammi nime järelliide (sufiks)"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgstr "Nõustumine OpenRoaming'uga"
 
 #: web/lib/admin/UIElements.php:108
 msgid "Real Name"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2019
+# University of Ruse <support@uni-ruse.bg>, 2014-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-21 12:07+0000\n"
+"Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -539,7 +539,7 @@ msgstr ""
 "Сега, когато сте изтеглили и инсталирали клиентския конфигуратор, всичко "
 "което трябва да направите е да намерите %s точка за интернет достъп близо до "
 "Вас и да въведете удостоверението си за самоличност (това са Вашите "
-"\"потребителско име и парола\" или \"персонален сертификат\") - и да бъдете "
+"\"потребителско име и парола\" или \"персонален сертификат\") - и ще бъдете "
 "на линия!"
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:38
@@ -559,11 +559,14 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Когато се свържете с %s точки за интернет достъп, ще се приложат следните <a "
+"href='%s'> Правила и условия </a> и <a href='%s'> Известие за поверителност "
+"</a>."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Съгласен съм с Правилата и условията."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"

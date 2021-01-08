@@ -8,14 +8,14 @@
 # Juha Hopia <juha.hopia@csc.fi>, 2012
 # Tomi Salmi, 2013-2018
 # tuukka, 2014
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-05 14:21+0000\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -550,11 +550,13 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Kun käytät %s, seuraavat <a href='%s'>käyttöehdot</a>ja seuraava<a "
+"href='%s'>tietosuojailmoitus</a>sovelletaan."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Hyväksyn käyttöehdot."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"

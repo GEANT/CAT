@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2018
+# Daniele Albrizio <dalbrizio@gmail.com>, 2018,2020
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2016,2018-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
-# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017
+# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017,2020
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2013
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:00+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-21 13:54+0000\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -79,88 +79,93 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: gestione del certificato RADIUS/TLS per %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "gestione del certificato RADIUS/TLS per %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr ""
+"Non disponi dei privilegi necessari per richiedere i certificati del server."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Richiesta di un certificato con le seguenti proprietà"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "Policy OIDs: "
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Distinguished Name: "
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Dettagli di contatto del richiedente: proverrà da eduroam DB (utilizzando lo "
+"stub 'Qualcuno, &lt;qualcuno@daqualcheparte.xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Il certificato è stato richiesto"
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "torna al Certificate Overview"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Dettagli del titolare del certificato"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Certificato per il ruolo %s"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "---SCEGLIERE---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. generazione del CSR"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
+"Un modo per generare una richiesta di certificato accettabile è tramite "
+"questo comando openssl su una linea:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Sottomissione"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Incolla qui il tuo CSR:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Invia Richiesta"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Torna alla pagina Panoramica"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -483,17 +488,20 @@ msgstr "Quando sei sicuro che sia tutto corretto, clicca su %sContinua ...%s"
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "A chi può interessare,"
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Questa mail è solo un controllo incrociato perché queste modifiche possono "
+"essere rilevanti per la sicurezza. Se la modifica era prevista, non è "
+"necessario intraprendere alcuna azione."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Salve,"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -503,12 +511,16 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"il  %s %s / %s / (precedentemente noto come) '%s' ha cancellato tutte le "
+"proprietà e sta ricominciando da capo. Ciò significa che non è più "
+"riconoscibile con il suo nome e potrebbe assumere un nome diverso in futuro. "
+"Riceverai un'altra mail se e quando il cambio di nome avverrà."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Modifiche significative fatte a %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -890,6 +902,14 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Senza identità anonima, il nome utente effettivo verrà utilizzato come "
+"identità esterna e sarà la base per il routing delle richieste. Perché "
+"funzioni, il nome utente deve avere un suffisso realm corretto. Tuttavia, la "
+"verifica del suffisso è stata disattivata. I supplicant non verificheranno "
+"che i nomi utente contengano un realm e gli errori come il nome utente "
+"\"johndoe\" che non funzionerà negli scenari di roaming non saranno "
+"proibiti. Considera la possibilità di selezionare la casella \"Forza "
+"suffisso realm nel nome utente\"!"
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -996,6 +1016,10 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"ATTENZIONE! È stata aggiunta una nuova CA radice attendibile e ha il nome "
+"identico a una CA radice preesistente. Ciò può (non necessariamente) "
+"significare che si tratta di un tentativo di inserire una radice di fiducia "
+"non autorizzata facendola passare come autentica. I dettagli di seguito:"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
@@ -1138,11 +1162,11 @@ msgstr "Azioni"
 
 #: web/admin/edit_silverbullet.php:394
 msgid "Certificate details"
-msgstr ""
+msgstr "Dettagli del certificato"
 
 #: web/admin/edit_silverbullet.php:395
 msgid "User Expiry"
-msgstr ""
+msgstr "User Expiry"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"

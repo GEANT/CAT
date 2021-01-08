@@ -4,15 +4,15 @@
 #
 # Translators:
 # Anne M <anne@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2018-2019
+# Anne M <anne@eenet.ee>, 2018-2019,2021
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2021-01-05 10:02+0000\n"
+"Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -101,7 +101,7 @@ msgid_plural ""
 msgstr[0] ""
 "<li><b>%s</b>(OSCP vastaja asutuse sertifikaatidele), lisaks TCP/80</li> "
 msgstr[1] ""
-"<li><b>%s</b>  (OSCP vastaja asutuse sertifikaatidele), lisaks TCP/80</li>"
+"<li><b>%s</b>   (OSCP vastaja asutuse sertifikaatidele), lisaks TCP/80</li>"
 
 #: web/user/about_cat.inc.php:98
 #, php-format
@@ -545,11 +545,13 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+" %s'i juurdepääsupunktidega ühendumisel kehtivad järgmised <a "
+"href='%s'>Kasutustingimused</a> ja <a href='%s'>Privaatsusteatis</a>."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Kohustun neid Kasutustingimusi täitma."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"

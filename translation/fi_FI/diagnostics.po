@@ -7,16 +7,16 @@
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2018
 # tuukka, 2018
 # Tomi Salmi, 2018
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2020
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2020\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2021\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -323,7 +323,7 @@ msgstr "Varmennetta ei lähetetty palvelimelle."
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
-msgstr ""
+msgstr "EAP-kättelyssä käytettyä TLS-versiota ei voitu määritellä."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -331,12 +331,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Palvelin ei tue nykyisiä TLS-versioita TLSv1.2 ja TLSv1.3. Modernien "
+"päätelaitteiden käyttöjärjestelmät eivät välttämättä pysty autentikoimaan "
+"palvelinta vastaan!"
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"SRV tiettueessa oleva nimi palvelimelle ei vastaa saavutetun palvelimen "
+"varmenteessa olevaa nimeä!"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1739,3 +1744,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>VAROITUS </strong>: SRV tiettueessa oleva palvelimen nimi ei vastaa "
+"palvelimen varmenteessa olevaa nimeä!"

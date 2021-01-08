@@ -4,20 +4,20 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2018
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2018
 # Daniele Albrizio <daniele@albrizio.it>, 2019
+# Daniele Albrizio <dalbrizio@gmail.com>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Daniele Albrizio <daniele@albrizio.it>, 2019\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2020\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/it_IT/)\n"
 "Language: it_IT\n"
@@ -340,6 +340,8 @@ msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr ""
+"Non è stato possibile determinare la versione TLS utilizzata nello scambio "
+"EAP."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -347,12 +349,16 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Il server non supporta le versioni TLS attuali TLSv1.2 o TLSv1.3. I moderni "
+"sistemi operativi client potrebbero rifiutarsi di autenticarsi sul server!"
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Il nome del server previsto come da record SRV non corrisponde ad alcun nome "
+"del server nel certificato del server che è stato raggiunto!"
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1015,12 +1021,17 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Il database non contiene le informazioni necessarie per aiutarti nella "
+"selezione dei realm per questo paese. Devi fornire il realm a cui sei "
+"interessato."
 
 #: web/skins/modern/diag/diag.php:524
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Impossibile eseguire la ricerca nel database. Devi fornire il realm a cui "
+"sei interessato."
 
 #: web/skins/modern/diag/diag.php:580
 msgid "Other location"
@@ -1790,3 +1801,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>ATTENZIONE</strong>: il nome del server così come scoperto del "
+"record SRV non corrisponde ad alcun nome nel certificato del server!"

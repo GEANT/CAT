@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2020
 # Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-30 13:33+0000\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -237,9 +237,9 @@ msgid ""
 "their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
-"Contactez les administrateurs %s de votre établissement et demandez qu'ils "
-"l'ajoutent au système. Cela prendra au plus une heure de leur temps pour le "
-"faire."
+"Contactez les administrateurs %s de votre établissement et demandez leurs "
+"qu'ils l'ajoutent au système. Cela prendra au plus une heure de leur temps "
+"pour le faire."
 
 #: web/user/faq.inc.php:38 web/user/faq.php:35
 #, php-format
@@ -584,11 +584,14 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"En se connectant aux hotspots %s, <a href='%s'>les conditions générales</a> "
+"et <a href='%s'>la déclaration de confidentialité</a> s'appliquent."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
 msgstr ""
+"J’accepte sans limitation ni réserve ces conditions générales d'utilisation."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
@@ -624,7 +627,7 @@ msgstr "Installateur personnalisé pour votre établissement"
 #: web/lib/user/TextTemplates.php:110
 #, php-format
 msgid "Click here to download your %s installer"
-msgstr "Cliquer ici pour télécharger votre installateur %s"
+msgstr "Cliquez ici pour télécharger votre installateur %s"
 
 #: web/lib/user/TextTemplates.php:111
 #, php-format
@@ -632,7 +635,7 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
-"%spermet d'accéder gratuitement à des milliers de points d'accès Wi-Fi dans "
+"%s permet d'accéder gratuitement à des milliers de points d'accès Wi-Fi dans "
 "le monde entier. <a href='%s'>En savoir plus</a>"
 
 #: web/lib/user/TextTemplates.php:112
@@ -641,7 +644,7 @@ msgstr "Sélectionnez le groupe d'utilisateur"
 
 #: web/lib/user/TextTemplates.php:113
 msgid "select another"
-msgstr "choisissez une autre"
+msgstr "choisissez un autre établissement"
 
 #: web/lib/user/TextTemplates.php:114
 msgid "Choose another installer to download"
@@ -793,7 +796,7 @@ msgstr "Accès administrateur %s"
 #: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin:<br>manage your IdP"
-msgstr "administrateurs %s : gérer  votre IdP"
+msgstr "administrateurs %s : <br> gérer  votre IdP"
 
 #: web/skins/modern/Menu.php:74 web/skins/modern/Menu.php:75
 msgid "Become a CAT developer"
@@ -827,7 +830,7 @@ msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] ""
 "Vous avez actuellement <strong>%d</strong> identifiant(s) valide(s) pour %s."
 msgstr[1] ""
-"Vous avez  <strong>%d</strong> identifiants actuellement valides pour %s."
+"Vous avez <strong>%d</strong> identifiants actuellement valides pour %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:100
 #, php-format
@@ -926,7 +929,7 @@ msgstr "Code PIN d'import : %s"
 #: web/skins/modern/accountstatus/accountstatus.php:147
 #, php-format
 msgid "Click here to download your %s installer!"
-msgstr "Cliquer ici pour télécharger votre installateur %s ."
+msgstr "Cliquer ici pour télécharger votre installateur %s !"
 
 #: web/skins/modern/accountstatus/accountstatus.php:152
 #, php-format

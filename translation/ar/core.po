@@ -1,0 +1,611 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Raiya Al Rashdi <raiya@omren.om>, 2020
+# eduroam_devel <stefan.winter@restena.lu>, 2018
+# Warda Al Habsi <warda@omren.om>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-02-05 09:50+0000\n"
+"Last-Translator: Warda Al Habsi <warda@omren.om>\n"
+"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"ar/)\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
+msgstr "لم يحرر %s سيتم مراجعتها"
+
+#: core/CAT.php:119
+#, php-format
+msgid "Release <a href='%s'>%s</a>"
+msgstr "يحرر <a href='%s'>%s</a>"
+
+#: core/CAT.php:128
+msgid "Andorra"
+msgstr "أندورا"
+
+#: core/CAT.php:129
+msgid "Austria"
+msgstr "النمسا"
+
+#: core/CAT.php:130
+msgid "Belgium"
+msgstr "بلجيكا"
+
+#: core/CAT.php:131
+msgid "Bulgaria"
+msgstr "بلغاريا"
+
+#: core/CAT.php:132
+msgid "Cyprus"
+msgstr "قبرص"
+
+#: core/CAT.php:133
+msgid "Czech Republic"
+msgstr "جمهورية التشيك"
+
+#: core/CAT.php:134
+msgid "Denmark"
+msgstr "الدنمارك"
+
+#: core/CAT.php:135
+msgid "Estonia"
+msgstr "استونيا"
+
+#: core/CAT.php:136
+msgid "Finland"
+msgstr "فنلندا"
+
+#: core/CAT.php:137
+msgid "France"
+msgstr "فرنسا"
+
+#: core/CAT.php:138
+msgid "Germany"
+msgstr "ألمانيا"
+
+#: core/CAT.php:139
+msgid "Greece"
+msgstr "اليونان"
+
+#: core/CAT.php:140
+msgid "Croatia"
+msgstr "كرواتيا"
+
+#: core/CAT.php:141
+msgid "Ireland"
+msgstr "أيرلندا"
+
+#: core/CAT.php:142
+msgid "Iceland"
+msgstr "أيسلندا"
+
+#: core/CAT.php:143
+msgid "Italy"
+msgstr "إيطاليا"
+
+#: core/CAT.php:144
+msgid "Hungary"
+msgstr "هنغاريا"
+
+#: core/CAT.php:145
+msgid "Luxembourg"
+msgstr "لوكسمبورغ"
+
+#: core/CAT.php:146
+msgid "Latvia"
+msgstr "لاتفيا"
+
+#: core/CAT.php:147
+msgid "Lithuania"
+msgstr "ليتوانيا"
+
+#: core/CAT.php:148
+msgid "Macedonia"
+msgstr "مقدونيا"
+
+#: core/CAT.php:149
+msgid "Serbia"
+msgstr "صربيا"
+
+#: core/CAT.php:150
+msgid "Netherlands"
+msgstr "هولندا"
+
+#: core/CAT.php:151
+msgid "Norway"
+msgstr "النرويج"
+
+#: core/CAT.php:152
+msgid "Poland"
+msgstr "بولندا"
+
+#: core/CAT.php:153
+msgid "Portugal"
+msgstr "البرتغال"
+
+#: core/CAT.php:154
+msgid "Romania"
+msgstr "رومانيا"
+
+#: core/CAT.php:155
+msgid "Slovenia"
+msgstr "سلوفينيا"
+
+#: core/CAT.php:156
+msgid "Spain"
+msgstr "إسبانيا"
+
+#: core/CAT.php:157
+msgid "Sweden"
+msgstr "السويد"
+
+#: core/CAT.php:158
+msgid "Slovakia"
+msgstr "سلوفاكيا"
+
+#: core/CAT.php:159
+msgid "Switzerland"
+msgstr "سويسرا"
+
+#: core/CAT.php:160
+msgid "Turkey"
+msgstr "تركيا"
+
+#: core/CAT.php:161
+msgid "United Kingdom"
+msgstr "المملكة المتحدة"
+
+#: core/CAT.php:163
+msgid "Australia"
+msgstr "أستراليا"
+
+#: core/CAT.php:164
+msgid "Canada"
+msgstr "كندا"
+
+#: core/CAT.php:165
+msgid "Israel"
+msgstr "إسرائيل"
+
+#: core/CAT.php:166
+msgid "Japan"
+msgstr "اليابان"
+
+#: core/CAT.php:167
+msgid "New Zealand"
+msgstr "نيوزيلاندا"
+
+#: core/CAT.php:168
+msgid "U.S.A."
+msgstr "الولايات المتحدة الأمريكية"
+
+#: core/CAT.php:169
+msgid "Brazil"
+msgstr "البرازيل"
+
+#: core/CAT.php:170
+msgid "Chile"
+msgstr "تشيلي"
+
+#: core/CAT.php:171
+msgid "Peru"
+msgstr "بيرو"
+
+#: core/CAT.php:172
+msgid "Venezuela"
+msgstr "فنزويلا"
+
+#: core/CAT.php:173
+msgid "Default"
+msgstr "إفتراضي"
+
+#: core/CAT.php:174
+msgid "Armenia"
+msgstr "أرمينيا"
+
+#: core/CAT.php:175
+msgid "Azerbaijan"
+msgstr "أذربيجان"
+
+#: core/CAT.php:176
+msgid "Belarus"
+msgstr "روسيا البيضاء"
+
+#: core/CAT.php:177
+msgid "Ecuador"
+msgstr "الإكوادور"
+
+#: core/CAT.php:178
+msgid "Hong Kong"
+msgstr "هونج كونج"
+
+#: core/CAT.php:179
+msgid "Kenya"
+msgstr "كينيا"
+
+#: core/CAT.php:180
+msgid "Kyrgyzstan"
+msgstr "قرغيزستان"
+
+#: core/CAT.php:181
+msgid "Korea"
+msgstr "كوريا"
+
+#: core/CAT.php:182
+msgid "Kazakhstan"
+msgstr "كازاخستان"
+
+#: core/CAT.php:183
+msgid "Morocco"
+msgstr "المغرب"
+
+#: core/CAT.php:184
+msgid "Moldova"
+msgstr "مولدوفا"
+
+#: core/CAT.php:185
+msgid "Montenegro"
+msgstr "الجبل الأسود"
+
+#: core/CAT.php:186
+msgid "Macau"
+msgstr "ماكاو"
+
+#: core/CAT.php:187
+msgid "Malta"
+msgstr "مالطا"
+
+#: core/CAT.php:188
+msgid "Russia"
+msgstr "روسيا"
+
+#: core/CAT.php:189
+msgid "Singapore"
+msgstr "سنغافورة"
+
+#: core/CAT.php:190
+msgid "Thailand"
+msgstr "تايلاند"
+
+#: core/CAT.php:191
+msgid "Taiwan"
+msgstr "تايوان"
+
+#: core/CAT.php:192
+msgid "South Africa"
+msgstr "جنوب أفريقيا"
+
+#: core/CAT.php:467 core/IdPlist.php:113
+msgid "Unnamed Entity"
+msgstr "حقل غير معرف"
+
+#: core/DeviceConfig.php:230
+#, php-format
+msgid "your local %s support"
+msgstr "الدعم %s المحلي "
+
+#: core/DeviceConfig.php:231
+#, php-format
+msgid "your local %s support page"
+msgstr "صفحة الدعم %s المحلية"
+
+#: core/DeviceConfig.php:267
+msgid "Sorry, this should not happen - no additional information is available"
+msgstr "عذرًا ، يجب ألا يحدث هذا - لا تتوفر معلومات إضافية"
+
+#. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
+#: core/Federation.php:90
+#, php-format
+msgid "(discontinued) %s"
+msgstr "(منتهي) %s"
+
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:256
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"مرحبا،\n"
+"\n"
+"الدعوة الجديدة الى %s%s في %s نظام الدخول الموحد الخاص بك %sتم استخدامه في "
+"انشاء مزود هوية في %s.\n"
+"\n"
+"نعتقد بأنك تود الإطلاع على هذه المعلومة.\n"
+"\n"
+"خالص التحية،\n"
+"\n"
+"%s"
+
+#: core/Federation.php:265
+#, php-format
+msgid "%s in your federation was created"
+msgstr "%s  تم انشائه في نظام الدخول الموحد الخاص بمؤسستك"
+
+#: core/IdP.php:269
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the %s %s in your %s federation %s has been deleted from %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"مرحبا، \n"
+"\n"
+"%s%s في %sنظام الدخول الموحد الخاص بك %s تم حذفه من %s\n"
+"\n"
+"نعتقد بأنك تود الإطلاع على هذه المعلومة.\n"
+"\n"
+"خالص التحية،\n"
+"\n"
+"%s"
+
+#: core/IdP.php:278
+#, php-format
+msgid "%s in your federation was deleted"
+msgstr "%s  تم حذفه من نظام الدخول الموحد الخاص بمؤسستك"
+
+#: core/SilverbulletInvitation.php:236
+#, php-format
+msgid "Your %s access is ready"
+msgstr "دخولك %s  أصبح جاهز"
+
+#: core/SilverbulletInvitation.php:248
+msgid "Hello!"
+msgstr "مرحبا !"
+
+#: core/SilverbulletInvitation.php:250
+#, php-format
+msgid ""
+"A new %s access credential has been created for you by your network "
+"administrator."
+msgstr "تم إنشاء بيانات جديدة لك للدخول %s معتمدة من قبل مدير الشبكة."
+
+#: core/SilverbulletInvitation.php:252
+#, php-format
+msgid ""
+"Please follow the following link with the device you want to enable for %s "
+"to get a custom %s installation program just for you. You can click on the "
+"link, copy and paste it into a browser or scan the attached QR code."
+msgstr ""
+"يرجى اتباع الرابط التالي في الجهاز الذي تريد تمكينه لـ %s للحصول على برنامج "
+"تثبيت %sالخاص بك فقط.  يمكنك النقر على الرابط ، نسخه ولصقه في المتصفح أو مسح "
+"شفرة QR المرفقة."
+
+#. gets replaced with the token value by getBody()
+#: core/SilverbulletInvitation.php:254
+#, php-format
+msgid ""
+"Please keep this email or bookmark this link for future use. After picking "
+"up your %s installation program, you can use the same link to get status "
+"information about your %s account."
+msgstr ""
+"يرجى الاحتفاظ بهذا البريد الإلكتروني أو وضع إشارة مرجعية على هذا الرابط "
+"لإستخدامه في المستقبل. بعد حصولك على برنامج التثبيت %s ، يمكنك استخدام نفس "
+"الرابط للحصول على معلومات الحالة عن حسابك %s."
+
+#: core/SilverbulletInvitation.php:256
+msgid "Regards,"
+msgstr "خالص التحية،"
+
+#: core/SilverbulletInvitation.php:305
+#, php-format
+msgid ""
+"Your %s access is ready! Click here: %s (on Android, first install the app "
+"'%s'!)"
+msgstr ""
+"دخولك %s أصبح جاهز! يرجى النقر على: %s (على الأندرويد، أولا قم بتنصيب '%s'!) "
+
+#: core/SilverbulletInvitation.php:327
+#, php-format
+msgid "%s Invitation System"
+msgstr "نظام إرسال الدعوات %s"
+
+#: core/User.php:158
+msgid "Feedback"
+msgstr "الأراء"
+
+#: core/common/EAP.php:357
+msgid "PEAP-MSCHAPv2"
+msgstr "PEAP-MSCHAPv2"
+
+#: core/common/EAP.php:358
+msgid "TLS"
+msgstr "TLS"
+
+#: core/common/EAP.php:359
+msgid "TTLS-PAP"
+msgstr "TTLS-PAP"
+
+#: core/common/EAP.php:360
+msgid "TTLS-MSCHAPv2"
+msgstr "TTLS-MSCHAPv2"
+
+#: core/common/EAP.php:361
+msgid "TTLS-GTC"
+msgstr "TTLS-GTC"
+
+#: core/common/EAP.php:362
+msgid "FAST-GTC"
+msgstr "FAST-GTC"
+
+#: core/common/EAP.php:363
+msgid "EAP-pwd"
+msgstr "EAP-pwd"
+
+#. some config elements are displayable. We need some dummies to
+#. translate the common values for them. If a deployment chooses a
+#. different wording, no translation, sorry
+#: core/common/Entity.php:104
+msgid "National Roaming Operator"
+msgstr "مشغل التجوال الوطني"
+
+#: core/common/Entity.php:105
+msgid "identity provider"
+msgstr "مزود هوية"
+
+#: core/common/Entity.php:106
+msgid "organisation"
+msgstr "مؤسسة"
+
+#: core/common/Entity.php:107
+msgid "Identity Provider"
+msgstr "مزود هوية"
+
+#: core/common/OutsideComm.php:261
+#, php-format
+msgid ""
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+msgstr "%s من %s %s \"%s\" دعاك لإدارة %s معه."
+
+#: core/common/OutsideComm.php:262
+#, php-format
+msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+msgstr "%s %sدعاك لإدارة %s  \"%s\" (%s) المستقبلية."
+
+#: core/common/OutsideComm.php:263
+#, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\"."
+msgstr "%s %s دعاك لإدارة %s \"%s\" ."
+
+#: core/common/OutsideComm.php:265
+#, php-format
+msgid "This invitation is valid for 24 hours from now, i.e. until %s."
+msgstr "هذه الدعوة صالحة لمدة 24 ساعة من الآن ، أي حتى %s ."
+
+#. then, send out the mail
+#: core/common/OutsideComm.php:273
+msgid "Hello,"
+msgstr "مرحبا،"
+
+#. default means we don't have a Reply-To.
+#: core/common/OutsideComm.php:275
+msgid ""
+"manually. Please do not reply to this mail; this is a send-only address."
+msgstr ""
+"بشكل غير تلقائي . الرجاء عدم الرد على هذا البريد الإلكتروني؛ هذا العنوان "
+"للإرسال فقط."
+
+#: core/common/OutsideComm.php:281
+#, php-format
+msgid "Additional message from your %s administrator:"
+msgstr "رسالة إضافية من مدير%s :"
+
+#: core/common/OutsideComm.php:289
+#, php-format
+msgid "%s administrator"
+msgstr "مدير %s"
+
+#: core/common/OutsideComm.php:292
+#, php-format
+msgid ""
+"manually. If you reply to this mail, you will reach your %s administrators."
+msgstr ""
+"بشكل غير تلقائي. إذا قمت بالرد على هذا البريد الإلكتروني، ستتواصل مع مدراء "
+"%s "
+
+#: core/common/OutsideComm.php:297
+#, php-format
+msgid ""
+"To enlist as an administrator for that %s, please click on the following "
+"link:"
+msgstr "للإنضمام كمدير  ل%s ، يرجى النقر على الرابط التالي:"
+
+#: core/common/OutsideComm.php:299
+#, php-format
+msgid ""
+"If clicking the link doesn't work, you can also go to the %s Administrator "
+"Interface at"
+msgstr "إذا كان الرابط لا يعمل، فيمكنك أيضًا الانتقال إلى%s واجهة المدير  على"
+
+#: core/common/OutsideComm.php:301
+msgid "and enter the invitation token"
+msgstr "وأدخل الرمز الخاص بالدعوة"
+
+#: core/common/OutsideComm.php:303
+msgid ""
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+"لا تقم بإعادة توجيه البريد الإلكتروني قبل انتهاء صلاحية الرمز الخاص. حتى لا "
+"يتمكن المستلم من استخدام الرمز نيابة عنك!"
+
+#: core/common/OutsideComm.php:304
+#, php-format
+msgid "We wish you a lot of fun with the %s."
+msgstr "نتمنى لك المزيد من المتعة مع %s."
+
+#: core/common/OutsideComm.php:305
+#, php-format
+msgid ""
+"Sincerely,\n"
+"\n"
+"Your friendly folks from %s Operations"
+msgstr ""
+"بإخلاص،\n"
+"\n"
+" أصدقائك مشغلي %s"
+
+#: core/common/OutsideComm.php:341
+#, php-format
+msgid "%s: you have been invited to manage an %s"
+msgstr "%s: أنت مدعو لإدارة %s"
+
+#: web/lib/common/InputValidation.php:40
+msgid "Input validation error: "
+msgstr "خطأ في صحة المدخلات:"
+
+#: web/lib/common/InputValidation.php:216
+msgid "Realm is empty!"
+msgstr "نطاق الخدمة غير متوفر!"
+
+#: web/lib/common/InputValidation.php:225
+msgid "Realm contains an @ sign!"
+msgstr "نطاق الخدمة يحتوي على علامة @"
+
+#: web/lib/common/InputValidation.php:226
+msgid "Realm begins with a . (dot)!"
+msgstr "نطاق الخدمة يبدأ ب . (نقطة)!"
+
+#: web/lib/common/InputValidation.php:227
+msgid "Realm ends with a . (dot)!"
+msgstr "نطاق الخدمة ينتهي ب . (نقطة)!"
+
+#: web/lib/common/InputValidation.php:228
+msgid "Realm contains spaces!"
+msgstr "نطاق الخدمة يحتوي على مسافات بيضاء!"
+
+#: web/lib/common/InputValidation.php:241
+msgid "Realm does not contain at least one . (dot)!"
+msgstr "نطاق الخدمة لا يحتوي على الأقل . واحدة  (نقطة)!"

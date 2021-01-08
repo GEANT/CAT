@@ -4,16 +4,16 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2018
-# Alberto Martínez Setién, 2019
+# Alberto Martínez Setién, 2019-2020
 # José Manuel Macías, 2012-2013,2015
 # José Manuel Macías, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-17 10:37+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -567,11 +567,14 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Cuando se conecte con los puntos de acceso de %s, se aplican los siguientes "
+"<a href='%s'>Términos y Condiciones</a> y el <a href='%s'>Aviso de "
+"Privacidad</a>."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Estoy de acuerdo en comprometerme con estos Términos y Condiciones."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"

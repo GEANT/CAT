@@ -5,14 +5,14 @@
 # Translators:
 # Jørn Åne <yorn@uninett.no>, 2015
 # eduroam_devel <stefan.winter@restena.lu>, 2019
-# Tom Ivar Myren <tom.myren@uninett.no>, 2019
+# Tom Ivar Myren <tom.myren@uninett.no>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-17 13:07+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -43,7 +43,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Apple enhet"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -63,7 +63,7 @@ msgstr ""
 
 #: devices/Devices-template.php:204
 msgid "Apple macOS Catalina"
-msgstr ""
+msgstr "Apple macOS Catalina"
 
 #: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
@@ -99,7 +99,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Apple iOS mobil enhet (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -114,7 +114,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Apple iOS mobil enhet (iOS 5 and 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 og nyere"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -154,6 +154,10 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Før du setter i gang med installasjon på Android enheter må du sørge for at "
+"%sapplikasjonen er installert. Denne applikasjonen er tilgjengelig på: %s og "
+"bruker konfigurasjonsfil som er lastet ned fra CAT til å gjøre alle "
+"nødvendige innstillinger."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -166,11 +170,11 @@ msgstr "lokal nedlasting"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 til 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 til 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -218,10 +222,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Dette valget lager en EAP XML konfigurasjonsfil, som kan brukes at "
+"eduroamCAT app'en for Android."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "Generisk EAP"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -229,6 +235,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Dette valget lager er generisk EAP XML konfigurasjonsfil, som kan brukes av "
+"geteduroam app'en."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -261,14 +269,14 @@ msgstr "%s konfigurasjon for IdP '%s' - levert av %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
-msgstr ""
+msgstr "Viktig: Brukernavnet ditt MÅ slutte med '...@%s' !"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
-msgstr ""
+msgstr "Viktig: Brukernavnet ditt MÅ inneholde en '@' og slutte med ...%s !"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -352,7 +360,7 @@ msgstr "%s konfigurasjon for kablet nettverk"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Roaming Partner"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -379,15 +387,15 @@ msgstr "%s Certification Authority"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s CA #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermediate"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""

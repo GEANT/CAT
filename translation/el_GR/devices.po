@@ -9,13 +9,14 @@
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 # Vicky Kons <vickyk@admin.grnet.gr>, 2016
 # Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018-2020
+# Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-29 11:50+0000\n"
+"Last-Translator: Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -46,7 +47,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple device"
-msgstr ""
+msgstr "Συσκευή Apple"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:215
 #: devices/Devices-template.php:231 devices/Devices-template.php:247
@@ -103,7 +104,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Apple iOS κινητή συσκευή (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -119,7 +120,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Apple iOS κινητή συσκευή (iOS 5 and 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -145,7 +146,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 και ψηλότερη "
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -160,6 +161,11 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Πριν προχωρήσετε με την εγκατάσταση σε συστήματα Android, παρακαλούμε "
+"σιγουρευτείτε ότι έχετε εγκαταστήσει την εφαρμογή  %s . Η εφαρμογή αυτή "
+"είναι διαθέσιμη στα παρακάτω sites: %s και θα χρησιμοποιήσει το "
+"configuration file που κατέβηκε από το CAT για να φτιάξει όλες τις "
+"απαραίτητες ρυθμίσεις."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -172,11 +178,11 @@ msgstr "ως τοπική λήψη"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 σε 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 σε 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"

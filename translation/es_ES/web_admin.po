@@ -4,16 +4,16 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2013,2015-2016,2018
-# Alberto Martínez Setién, 2018-2019
+# Alberto Martínez Setién, 2018-2020
 # José Manuel Macías, 2012-2013,2015
 # José Manuel Macías, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 10:28+0100\n"
-"PO-Revision-Date: 2020-12-17 09:00+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"PO-Revision-Date: 2020-12-17 12:03+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -74,88 +74,93 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: Administración del certificado RADIUS/TLS para %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Administración del certificado RADIUS/TLS para %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "No tienes los permisos necesarios para pedir certificados de servidor."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Pidiendo un certificado con las siguientes propiedades"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "OIDs de políticas:"
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Nombre distinguido (DN):"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Detalles de contacto del peticionario: provendrán de la base de datos de "
+"eduroam (utilizando el texto provisional Someone, &lt;someone@somewhere."
+"xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Se ha pedido el certificado."
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Volver a la vista general de certificado"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Detalles del dueño del certificado"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Certificado para el rol %s"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "--- ELIGE, POR FAVOR ---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. Generación del CSR"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
+"Una manera de generar una petición de certificado aceptable es a través de "
+"este comando openssl:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Envío"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Por favor, copia aquí tu CSR:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Enviar petición"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Volver a la página de vista general"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -486,17 +491,20 @@ msgstr ""
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "A quien corresponda."
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Este email es tan solo una comprobación debido a que estos cambios pueden "
+"ser relevantes en cuanto a la seguridad. Si el cambio era esperado no "
+"necesitas llevar a cabo ninguna acción."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Saludos,"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -506,12 +514,16 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"El %s %s / %s / (anteriormente conocido como) '%s' ha eliminado todas sus "
+"propiedades y está comenzando de nuevo desde limpio. Esto significa que no "
+"será ya reconocible por su nombre y puede asumir un nombre distinto en el "
+"futuro. Recibirás otro correo si y cuando el cambio de nombre ocurra."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Se han hecho cambios significativos a %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -530,11 +542,13 @@ msgstr "Atributos enviados para el IdP '%s'"
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
+"se han realizado cambios significativos al %s %s / %s / (anteriormente "
+"conocido como) '%s'."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "El %s ha cambiado de nombre. Estos son los detalles:"
 
 #: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
@@ -712,7 +726,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:217
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Gestión de la identidad anónima"
 
 #: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
@@ -724,15 +738,15 @@ msgstr "Usa una identidad externa especial para las comprobaciones de dominio:"
 
 #: web/admin/edit_profile.php:256
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Gestión de la identidad real (nombre de usuario)"
 
 #: web/admin/edit_profile.php:262
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "Forzar el sufijo de dominio en el nombre de usuario"
 
 #: web/admin/edit_profile.php:280
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Forzar el dominio exacto en el nombre de usuario"
 
 #: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
@@ -892,6 +906,15 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Sin identidad anónima, el nombre de usuario real se utilizará como identidad "
+"externa y será la base para el enrutamiento de las peticiones de "
+"autentificación. Para que funcione, el nombre de usuario debe tener el "
+"sufijo de dominio correcto. Aún así, la verificación del sufijo de dominio "
+"está DESACTIVADA. Los clientes de red no verificarán que los nombres de "
+"usuario contengan un dominio, y errores como el nombre de usuario "
+"'juanperez', que no va a funcionar en escenarios de roaming, serán "
+"permitidos. Considera habilitar la opción 'Forzar el sufijo de dominio en el "
+"nombre de usuario'."
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -917,7 +940,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "La parte del dominio DEBE ser exactamente '...@%s'."
 
 #: web/admin/edit_profile_result.php:161
 #, php-format
@@ -925,12 +948,16 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"La parte del dominio DEBE terminar en '%s' pero se permiten subdominios (p. "
+"ej.: 'usuario@%s' y 'usuario@<...>.%s' son aceptables)."
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Donde sea posible, los clientes de red verificarán que los nombre de usuario "
+"introducidos contengan un dominio sintácticamente correcto."
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -990,6 +1017,8 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"se han realizado cambios significativos al perfil de despliegue RADIUS del "
+"%s %s / %s / '%s'."
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -998,16 +1027,22 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"¡AVISO! Se ha añadido una nueva CA raíz de confianza, y tiene exactamente el "
+"mismo nombre que una CA raíz existente. Esto puede significar (pero no "
+"necesariamente) que este es un intento de insertar una raíz de confianza no "
+"autorizada, disfrazada como la genuina. Estos son los detalles:"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "Se ha añadido una nueva CA raíz de confianza. Estos son los detalles:"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"Se ha añadido un nuevo nombre de servidor aceptable para el servidor de "
+"autentificación. Estos son los detalles:"
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1422,11 +1457,11 @@ msgstr ""
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Información del certificado del %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Pedir un nuevo certificado"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -2463,11 +2498,17 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"El formato de esta opción es: IPv4 || IPv6 || hostname:puerto. Forzar a que "
+"tus usuarios pasen por un filtro de contenido propio es una invasión "
+"importante en la privacidad del usuario. También puede tener problemas "
+"técnicos. Por favor, lee con detenimiento la discusión en %s antes de "
+"especificar un proxy con esta opción. Esta característica es experimental y "
+"sólo tiene efecto en instaladores para Apple."
 
 #: web/lib/admin/OptionDisplay.php:188
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
-msgstr ""
+msgstr "Al optar por OpenRoaming, aceptas estar conforme con %s."
 
 #: web/lib/admin/OptionDisplay.php:190
 #, php-format
@@ -2477,16 +2518,23 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Ten en cuenta que tu requisito de informar a los usuarios acerca de los "
+"Términos de Uso para el usuario final de OpenRoaming se cumplirá al dirigir "
+"a tus usuarios al portal de descarga de instaladores de %s. Cualquier otra "
+"manera de proveer de los instaladores necesita presentar esta información en "
+"su propio canal."
 
 #: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Sé consciente de que, para tener la mejor interoperabilidad técnica, "
+"necesitas añadir un registro DNS en la zona DNS de tu dominio RADIUS."
 
 #: web/lib/admin/OptionDisplay.php:194
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Lee las instrucciones en la wiki."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2709,7 +2757,7 @@ msgstr "Sufijo a medida del nombre del instalador"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgstr "Optar por OpenRoaming"
 
 #: web/lib/admin/UIElements.php:108
 msgid "Real Name"
