@@ -97,7 +97,7 @@ class TextTemplates extends \core\common\Entity {
                       "PRIV" => "https://wballiance.com/openroaming/privacy-policy-2020/",
                     ]
             ] as $consortium => $terms) {
-            $this->templates[WELCOME_ABOARD_TERMS] .= sprintf("<p>" . _("When connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply." . "</p>"), $consortium, $terms['TOU'], $terms['PRIV']);
+            $this->templates[WELCOME_ABOARD_TERMS] .= sprintf("<p>" . _("When connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply.") . "</p>", $consortium, $terms['TOU'], $terms['PRIV']);
         }
         // this would actually be a checkbox which grays out the actual download button until ACKed
         $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
