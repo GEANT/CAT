@@ -199,6 +199,7 @@ const CONFIG = [
 //
 // Contact the authors if you want to know the current state of translation of these languages.
 //
+//      'ro' => ['display' => 'Română',      'locale' => 'ro_RO.utf8',    'latin_based' => TRUE],
 //      'nl' => ['display' => 'Nederlands',  'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
 //      'sv' => ['display' => 'Svenska',     'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
 //      'cy' => ['display' => 'Cymraeg',     'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
