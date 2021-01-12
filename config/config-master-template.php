@@ -187,6 +187,7 @@ const CONFIG = [
       'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
       'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
       'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
+      'ro' => ['display' => 'Română',      'locale' => 'ro_RO.utf8',    'latin_based' => TRUE],
       'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
       'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
       'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
@@ -199,7 +200,6 @@ const CONFIG = [
 //
 // Contact the authors if you want to know the current state of translation of these languages.
 //
-//      'ro' => ['display' => 'Română',      'locale' => 'ro_RO.utf8',    'latin_based' => TRUE],
 //      'nl' => ['display' => 'Nederlands',  'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
 //      'sv' => ['display' => 'Svenska',     'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
 //      'cy' => ['display' => 'Cymraeg',     'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
