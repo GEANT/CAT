@@ -6,13 +6,14 @@
 # Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
 # Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
 # Raul Opruta <raul.opruta@roedu.net>, 2020
+# Valeriu Vraciu <valeriu@roedu.net>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 15:09+0100\n"
-"PO-Revision-Date: 2020-12-17 09:00+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"PO-Revision-Date: 2021-01-12 05:55+0000\n"
+"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -74,88 +75,92 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%sAdministrarea certificatelor RADIUS/TLS pentru %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Administrarea certificatelor RADIUS/TLS pentru %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "Nu aveți drepturile necesare pentru a solicita certificate de server."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Se solicită un certificat cu următoarele proprietăți"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "OID-uri de policy:"
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Nume specific DN:"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Date de contact ale solicitantului: vor fi completate din baza de date "
+"eduroam (folosind 'Utilizator, &lt;utilizator@domeniu.xy&gt;')."
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Certificatul a fost solicitat."
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Înapoi la Certificate"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Detalii despre deținătorul certificatului"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Certificat pentru rolul %s"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "---ALEGEȚI---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. Generare CSR"
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
+"Una din variantele acceptabile pentru a genera o cerere pentru certificat "
+"este folosind următoarea comandă:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Trimitere"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Copiați aici CSR-ul:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Trimiteți cererea"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Înapoi la pagina principală"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
@@ -490,17 +495,20 @@ msgstr "Când sunteți sigur că totul este corect, click pe %s Continuare...%s"
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "În atenția celor interesați,"
 
 #: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Acest mesaj e-mail reprezintă o verificare întrucât modificările pot fi "
+"relevante din punctul de vedere al securității. Dacă această modificare este "
+"legitimă, nu trebuie făcut nimic."
 
 #: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
 msgid "Greetings, "
-msgstr ""
+msgstr "Buna ziua,"
 
 #: web/admin/edit_idp_result.php:61
 #, php-format
@@ -510,12 +518,16 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"%s%s / %s / (anterior cunoscut ca) '%s' a șters toate proprietățile și reia "
+"de la zero. Asta înseamnă că nu mai poate fi recunoscut după nume și poate "
+"va avea ulterior alt nume. Dacă numele va fi într-adevăr modificat, veți "
+"primi un alt mesaj."
 
 #: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
 #: web/admin/edit_profile_result.php:249
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Modificări semnificative realizate la %s"
 
 #: web/admin/edit_idp_result.php:73
 #, php-format
@@ -535,11 +547,13 @@ msgstr "Atributele pentru furnizorul de identitate '%s' au fost trimise"
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
+"au fost făcute modificări semnificative la %s %s / %s / (cunoscut anterior "
+"ca) '%s'."
 
 #: web/admin/edit_idp_result.php:103
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%s și-a modificat numele. Detaliile pot fi regăsite mai jos:"
 
 #: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
@@ -718,7 +732,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:217
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Tratarea identității externe"
 
 #: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
@@ -731,15 +745,16 @@ msgstr ""
 
 #: web/admin/edit_profile.php:256
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Tratarea identității interne (nume de utilizator)"
 
 #: web/admin/edit_profile.php:262
 msgid "Enforce realm suffix in username"
 msgstr ""
+"Impunerea utilizării ca sufix în numele de utilizator a domeniului/realm"
 
 #: web/admin/edit_profile.php:280
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Impunerea domeniului/realm exact în numele utilizatorului"
 
 #: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
@@ -908,6 +923,13 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Dacă nu se folosește identitate anonimă, numele de utilizator va fi utilizat "
+"ca identitate externă și va sta la baza rutării cererii. În acest caz numele "
+"de utilizator trebuie sa conțină ca sufix domeniul / realm corect. Totuși, "
+"verificarea realm a fost dezafectată. Programele de tip supplicant nu for "
+"verifica dacă numele de utilizator conțin realm iar erorile de utilizare în "
+"cazul roaming-ului nu vor fi interzise. Luați în considerare bifarea "
+"opțiunii 'Impunerea domeniului / realm ca sufix al numelui de utilizator' !"
 
 #: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -933,7 +955,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "Partea de domeniu / realm trebuie să fie exact '...@%s'."
 
 #: web/admin/edit_profile_result.php:161
 #, php-format
@@ -941,12 +963,16 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"Zona de realm trebuie să se termine cu '%s' dar este permisă și utilizrea de "
+"subdomenii (adică vor fi acceptate atât 'nume@%s' cât și 'nume@<...>.%s')."
 
 #: web/admin/edit_profile_result.php:164
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"În cazul în care va fi posibil, programele de tip supplicant vor verifica "
+"sintactic dacă numele de utilizator conține domeniul / realm."
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -1007,6 +1033,8 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"au fost făcute modificări semnificative la un profil RADIUS pentru %s %s / "
+"%s / '%s'."
 
 #: web/admin/edit_profile_result.php:232
 msgid ""
@@ -1015,16 +1043,21 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"ATENȚIE ! A fost adăugat un nou root CA considerat de încredere și care are "
+"același nume cu un alt root CA existent. Asta poate fi (dar nu neapărat) o "
+"încercare de a adăuga un CA neautorizat. Detaliile sunt prezentate mai jos:"
 
 #: web/admin/edit_profile_result.php:236
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "A fost adăugat un nou root CA. Detaliile pot fi vizualizate mai jos:"
 
 #: web/admin/edit_profile_result.php:240
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"A fost adăugat un nou nume acceptabil pentru serverul de autentificare. "
+"Detalii mai jos:"
 
 #: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1440,11 +1473,11 @@ msgstr ""
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Informații despre certificatul pentru %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Cerere pentru certificat nou"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -2490,11 +2523,19 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Formatul pentru această opțiune este: IPv4|IPv6|hostname:port. Trecerea "
+"forțată a utilizatorilor printr-un filtru de conținut poate fi considerată "
+"ca fiind o violare a autodeterminării utilizatorilor. De asemenea, această "
+"acțiune prezintă probleme tehnice. Înainte de a specifica prin această "
+"opțiune un proxy, vă rugăm să consultați cu atenție discuția de la %s. "
+"Opțiunea este experimentală și poate avea efect numai asupra produselor "
+"Apple."
 
 #: web/lib/admin/OptionDisplay.php:188
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
+"Prin alegerea opțiunii de OpenRoaming, sunteți de acord sa respectați %s."
 
 #: web/lib/admin/OptionDisplay.php:190
 #, php-format
@@ -2504,16 +2545,25 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Rețineți faptul că cerința dumneavoastră de a informa utilizatorii despre "
+"Termenii și condițiile pentru utilizatorul final OpenRoaming este "
+"îndeplinită atunci când vă direcționați utilizatorii finali către portalul "
+"pentru descărcarea programului de instalare de la %s. Orice alt mijloc de "
+"furnizare a programelor de isntalare trebuie să prezinte aceste informații "
+"prin propriul canal."
 
 #: web/lib/admin/OptionDisplay.php:192
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"De asemenea, sunteți conștient de faptul că pentru cea mai bună "
+"interoperabilitate tehnică, trebuie să adăugați o înregistrare DNS în zona "
+"DNS a domeniului dumneavoastră RADIUS."
 
 #: web/lib/admin/OptionDisplay.php:194
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Citiți instrucțiunile prezentate pe wiki."
 
 #: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
@@ -2736,7 +2786,7 @@ msgstr "Nume sufix particular a programului de instalare"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgstr "Optați pentru OpenRoaming"
 
 #: web/lib/admin/UIElements.php:108
 msgid "Real Name"

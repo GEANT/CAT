@@ -8,15 +8,16 @@
 # Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
 # Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
 # Raul Opruta <raul.opruta@roedu.net>, 2020
+# Valeriu Vraciu <valeriu@roedu.net>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 15:09+0100\n"
+"POT-Creation-Date: 2021-01-12 08:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Raul Opruta <raul.opruta@roedu.net>, 2020\n"
+"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -339,6 +340,8 @@ msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr ""
+"Nu a fost posibilă determinarea versiunii de TLS utilizată în schimbul de "
+"mesaje EAP."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
@@ -346,12 +349,18 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Serverul nu suportă versiunile actuale de TLS: TLSv1.2 sau TLSv1.3. Este "
+"posibil ca versiunile moderne de sisteme de operare să refuze autentificarea "
+"folosind acest server."
 
 #: core/diag/AbstractTest.php:613
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Numele de server preconizat, așa cum reiese din înregistrarea DNS de tip "
+"SRV, nu corespunde cu niciun nume de server din certificatul furnizat de "
+"serverul accesat."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -1808,3 +1817,5 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>ATENȚIE</strong>: numele de server descoperit din înregistrarea DNS "
+"de tip SRV nu corespunde cu niciun nume din certificatul de server !"

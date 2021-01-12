@@ -7,14 +7,14 @@
 # Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
 # Gheorghita Butnaru <gbutnaru@tuiasi.ro>, 2020
 # Raul Opruta <raul.opruta@roedu.net>, 2020
-# Valeriu Vraciu <valeriu@roedu.net>, 2016
+# Valeriu Vraciu <valeriu@roedu.net>, 2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 15:09+0100\n"
-"PO-Revision-Date: 2020-12-17 11:10+0000\n"
-"Last-Translator: Gheorghita Butnaru <gbutnaru@tuiasi.ro>\n"
+"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"PO-Revision-Date: 2021-01-12 05:32+0000\n"
+"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -103,7 +103,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/Devices-template.php:342
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Dispozitiv mobil Apple (iOS 7-11)"
 
 #: devices/Devices-template.php:352
 msgid ""
@@ -119,7 +119,7 @@ msgstr ""
 
 #: devices/Devices-template.php:357
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Dispozitiv mobil Apple (iOS 5 sau 6)"
 
 #: devices/Devices-template.php:371
 msgid "Linux"
@@ -145,7 +145,7 @@ msgstr ""
 
 #: devices/Devices-template.php:392
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 sau mai nou"
 
 #: devices/Devices-template.php:398 devices/Devices-template.php:412
 #: devices/Devices-template.php:425 devices/Devices-template.php:440
@@ -160,6 +160,10 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Înainte de a continua instalarea pe sistemele Android, verificați dacă aveți "
+"instalată aplicația %s. Această aplicație este disponibilă pe următoarele "
+"situri: %s și va utiliza fișierul de configurare descărcat de pe situl CAT "
+"pentru a crea configurația necesară."
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -172,11 +176,11 @@ msgstr "ca transfer local"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 până la 10"
 
 #: devices/Devices-template.php:419
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 până la 7"
 
 #: devices/Devices-template.php:433
 msgid "Android 10.0 Q"
@@ -224,10 +228,12 @@ msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Această opțiune furnizează un fișier de configurare XML pentru EAP, care va "
+"fi utilizat de aplicația eduroamCAT pentru Android."
 
 #: devices/Devices-template.php:565
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP generic"
 
 #: devices/Devices-template.php:570
 #, php-format
@@ -235,6 +241,8 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Această opțiune furnizează un fișier de configurare XML pentru EAP generic, "
+"care va fi utilizat de aplicațiile GetEduroam."
 
 #: devices/Devices-template.php:576
 msgid "Test"
@@ -269,6 +277,7 @@ msgstr " %s configuraţie pentru IdP '%s' - oferit de %s "
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
+"Important: numele de utilizator trebuie să se termine exact cu '...@%s' !"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
@@ -276,6 +285,8 @@ msgstr ""
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
+"Important: numele de utilizator trebuie să conțină un '@' și să fie terminat "
+"cu ...%s !"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
@@ -363,7 +374,7 @@ msgstr "configurarea %s pentru rețea cablată"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
 #: devices/ms/Device_W8_10.php:99
 msgid "Roaming Partner"
-msgstr ""
+msgstr "Partener roaming"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
@@ -390,15 +401,15 @@ msgstr "Autoritatea de certificare %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%sCA #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermediar"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""

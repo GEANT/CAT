@@ -5,13 +5,14 @@
 # Translators:
 # Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
 # Raul Opruta <raul.opruta@roedu.net>, 2020
+# Valeriu Vraciu <valeriu@roedu.net>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 15:09+0100\n"
-"PO-Revision-Date: 2020-12-17 09:24+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"PO-Revision-Date: 2021-01-12 05:55+0000\n"
+"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -575,11 +576,14 @@ msgid ""
 "When connecting to %s hotspots, the following <a href='%s'>Terms and "
 "Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Când vă conectați la hostspot-urile %s, se aplică următorii <a "
+"href='%s'>Termeni și condiții</a> și <a href='%s'>Notă de confidențialitate</"
+"a>."
 
 #. this would actually be a checkbox which grays out the actual download button until ACKed
 #: web/lib/user/TextTemplates.php:103
 msgid "I agree to be bound by these Terms and Conditions."
-msgstr ""
+msgstr "Sunt de acord să respect acești Termeni și condiții de utilizare."
 
 #: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
