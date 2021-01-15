@@ -149,9 +149,11 @@ require_once "inc/click_button_js.php";
                     echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount),$otherAdminCount);
                 }
                 echo "</td><td>";
+                $isAdminMgmtAvailable = FALSE;
                 if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
-                    echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                    $isAdminMgmtAvailable = TRUE;
                 }
+                echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit' ". ($isAdminMgmtAvailable ? "" : "disabled") .">" . _("Add/Remove Administrators") . "</button></form></div>";
                 echo "</td></tr>";
             }
         }
