@@ -33,6 +33,7 @@ are available via the CAT list calls.
 
 List of available actions
 -------------------------
+* listLanguages
 * listCountries
 * listAllIdentityProviders
 * listIdentityProviders
