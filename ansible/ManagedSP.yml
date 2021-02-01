@@ -3,7 +3,6 @@
       radius_sp_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
       radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] }}"
       radius_sp_name: "{{ ansible_facts['nodename'] }}"
-      access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
       eduroam_db: "managed_sp_radius"
       eduroam_user: "eduroam_db_user"
@@ -119,7 +118,6 @@
       mysql_user:
         user: "root"
         password: "{{ mysql_pass }}" 
-        host: "{{ access_host }}"
     - name: Create Apache site.conf
       template:
         src: "ManagedSP/templates/configuration/site.conf.j2"
@@ -179,7 +177,8 @@
     - name: Copy daemon scripts
       copy: 
         src: ManagedSP/templates/daemon/{{ item }} 
-        dest: /opt/FR/scripts mode=0755
+        dest: /opt/FR/scripts
+        mode: 0755
       loop:
         - fr_restart.py
         - fr_tools.sh
