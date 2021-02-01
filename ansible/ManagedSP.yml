@@ -1,37 +1,28 @@
- hosts: radius_sp
+- hosts: radius_sp
   vars:
-      radius_sp_ip: "deploying-radius-sp-ip"
-      radius_sp_ipv6: "deploying-radius-sp-ipv6"
-      radius_sp_name: "deploying-radius-sp-fqdn"
+      radius_sp_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
+      radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] }}"
+      radius_sp_name: "{{ ansible_facts['nodename'] }}"
       access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
-      eduroam_db: "eduroam-db-name"
-      eduroam_user: "eduroam-db-user"
-      eduroam_pass: "eduroam-db-password"
-      cat_ip: "CAT-server-ip"
+      eduroam_db: "managed_sp_radius"
+      eduroam_user: "eduroam_db_user"
+      eduroam_pass: "eduroam_db_password"
+      cat_ip: "{{ groups['main_web'][0] }}"
       fr_ports: "1999:65535"
       newline1: "local0.*                       /var/log/radsecproxy/rp.log"
       newline2: "local2.*                       /var/log/radsecproxy/fticks.log"
   tasks:
     - name: Populate service facts
       service_facts:
-    - name: To check SELinux status
-      shell: getenforce
-      register: selinux
     - name: remove dhclient
-      dnf:
-        name: dhclient
+      package:
+        name: 
+                - dhclient
+                - dhcp-libs
         state: absent
-    - name: remove dhcp-libs
-      dnf:
-        name: dhcp-libs
-        state: absent
-    - name: all packages are up to date
-      dnf:
-        name: '*'
-        state: latest
     - name: Install required packages
-      dnf:
+      package:
         name:
                 - telnet
                 - bind-utils
@@ -45,11 +36,21 @@
                 - mariadb-server
                 - python3
                 - python3-dbus
+                - python3-PyMySQL
                 - php
                 - iptables-services
+                - libselinux-utils
+                - apr
+                - apr-util
+                - initscripts
         state: present
-    - name: Adds Python MySQL support on RedHat/CentOS
-      dnf: name=python3-PyMySQL state=present
+    - name: all packages are up to date
+      package:
+        name: '*'
+        state: latest
+    - name: To check SELinux status
+      shell: getenforce
+      register: selinux
     - name: enable sysv mariadb.service service
       service: 
         name: mariadb.service
@@ -134,7 +135,7 @@
         group: apache
         mode: 0775
         recurse: yes
-      with_items:
+      loop:
         - /var/www/html/sp
         - /opt/Socket
         - /opt/Socket/CAT_requests
@@ -143,8 +144,10 @@
         src: "ManagedSP/templates/web/index.php.j2"
         dest: "/var/www/html/sp/index.php"
     - name: Copy web files
-      copy: src=ManagedSP/templates/web/{{ item }} dest=/var/www/html/sp/
-      with_items:
+      copy: 
+        src: ManagedSP/templates/web/{{ item }} 
+        dest: /var/www/html/sp/
+      loop:
         - lib.inc
     - name: enable sysv httpd service
       service: name=httpd.service enabled=yes daemon_reload=yes
@@ -158,7 +161,7 @@
         group: root
         mode: 0775
         recurse: yes
-      with_items:
+      loop:
         - /opt/FR
         - /opt/FR/scripts
         - /opt/FR/scripts/logs
@@ -174,8 +177,10 @@
       command: restorecon -irv /opt/Socket
       when: selinux.stdout == "Enforcing"
     - name: Copy daemon scripts
-      copy: src=ManagedSP/templates/daemon/{{ item }} dest=/opt/FR/scripts mode=0755
-      with_items:
+      copy: 
+        src: ManagedSP/templates/daemon/{{ item }} 
+        dest: /opt/FR/scripts mode=0755
+      loop:
         - fr_restart.py
         - fr_tools.sh
         - posix_ipc.sh
@@ -232,15 +237,15 @@
         mode: '0644'
     - name: create eduroam DB
       mysql_db:
-        name: "eduroam"
+        name: "{{ eduroam_db }}"
         state: present
     - name: check if DB table exists
-      shell: mysql -e 'SHOW TABLES;' eduroam | grep cui
+      shell: mysql -e 'SHOW TABLES;' {{ eduroam_db }} | grep cui
       register: dbstatus
       failed_when: dbstatus.rc == 2
     - name: import eduroam DB
       mysql_db:
-        name: "eduroam"
+        name: "{{ eduroam_db }}"
         target: "/opt/FR/templates/cui.sql"
         state: import
       when: dbstatus.rc == 1
@@ -318,26 +323,33 @@
       package_facts:
         manager: "auto"
     - name: stop and disable avahi-daemon
-      service: name=avahi-daemon.service state=stopped enabled=no daemon_reload=yes
+      service: 
+        name='{{item}}' 
+        state=stopped 
+        enabled=no 
+        daemon_reload=yes
+      loop: 
+        - avahi-daemon.service
+        - avahi-daemon.socket
       when: "'avahi' in ansible_facts.packages"
-    - name: stop-avahi-daemon.socket
-      service: name=avahi-daemon.socket state=stopped enabled=no daemon_reload=yes
-      when: "'avahi' in ansible_facts.packages"
-    - name: install rhel sysv radiusd
-      copy: src=ManagedSP/templates/FreeRADIUS/radiusd.service dest=/usr/lib/systemd/system/radiusd.service owner=root group=root mode=0644
-    - name: enable sysv radiusd.service service
-      service: name=radiusd.service enabled=yes daemon_reload=yes
-    - name: start radiusd
-      service: name=radiusd.service state=started
-    - name: install rhel sysv radsecproxy.service
-      copy: src=ManagedSP/templates/radsecproxy/radsecproxy.service dest=/usr/lib/systemd/system/radsecproxy.service owner=root group=root mode=0644
-    - name: enable sysv radsecproxy.service service
-      service: name=radsecproxy.service enabled=yes daemon_reload=yes
-    - name: start radsecproxy
-      service: name=radsecproxy.service state=started
-    - name: install rhel sysv radius-cfg
-      copy: src=ManagedSP/templates/daemon/radius-cfg.service dest=/usr/lib/systemd/system/radius-cfg.service owner=root group=root mode=0644
-    - name: enable sysv radius-cfg.service service
-      service: name=radius-cfg.service enabled=yes daemon_reload=yes
-    - name: start radius-cfg
-      service: name=radius-cfg.service state=started
+    - name: install systemd services
+      copy: 
+        src='{{item}}'
+        dest=/usr/lib/systemd/system
+        owner=root
+        group=root
+        mode=0644
+      loop:
+        - ManagedSP/templates/FreeRADIUS/radiusd.service
+        - ManagedSP/templates/radsecproxy/radsecproxy.service
+        - ManagedSP/templates/daemon/radius-cfg.service
+    - name: enable and start services
+      service: 
+        name='{{item}}'
+        enabled=yes 
+        daemon_reload=yes
+        state=started
+      loop: 
+        - radiusd.service
+        - radsecproxy.service
+        - radius-cfg.service
