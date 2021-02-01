@@ -183,6 +183,7 @@
         - fr_restart.py
         - fr_tools.sh
         - posix_ipc.sh
+        - check_posix_ipc.py
     - name: Copy and set up fr_configuration daemon
       template:
         src: "ManagedSP/templates/daemon/fr_configuration.py.j2"
