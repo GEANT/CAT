@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2020-12-18 08:10+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1674,7 +1674,7 @@ msgstr "Powiązane"
 msgid "NOT linked"
 msgstr "Nie powiązane"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
 msgid "Add/Remove Administrators"
 msgstr "Dodaj/Usuń Administratorów"
 
@@ -1760,7 +1760,7 @@ msgid "Check another realm's reachability"
 msgstr "Sprawdzenie, czy realm jest osiągalny"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
+#: web/admin/overview_user.php:173
 msgid "Go!"
 msgstr "Przejdź!"
 
@@ -2000,12 +2000,12 @@ msgstr[1] "inni użytkownicy %d"
 msgstr[2] "inni użytkownicy %d"
 msgstr[3] "inni użytkownicy %d"
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:162
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Nie zarządzasz żadną instytucją %s."
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:166
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2013,7 +2013,7 @@ msgstr ""
 "Musisz poprosić swojego administratora %s o przysłanie zaproszenia, byś "
 "został administratorem %s."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:170
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
@@ -2021,7 +2021,7 @@ msgstr ""
 "Czy otrzymałeś zaproszenie do zarządzania tą instytucją %s? Jeżeli tak, to "
 "wklej przesłany token tutaj: "
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "New %s Registration"
 msgstr "Nowa rejestracja %s"

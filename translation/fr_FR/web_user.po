@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2020
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
 # Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
-"PO-Revision-Date: 2020-12-30 13:33+0000\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-01-22 07:58+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -49,15 +49,15 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"Les administrateurs locaux %s saisissent leurs détails de configuration %s "
-"et, sur cette base, <span class='edu_cat'>%s</span>construit des programmes "
-"d'installation personnalisés pour un certain nombre de plates-formes "
-"populaires. Un programme d'installation préparé pour une organisation ne "
-"fonctionnera pas pour les utilisateurs d'une autre. Par conséquent, si votre "
-"organisation ne figure pas dans la liste, vous ne pouvez pas utiliser ce "
-"système. Veuillez contacter vos administrateurs locaux et essayez de les "
-"influencer pour qu'ils ajoutent votre configuration %sà <span "
-"class='edu_cat'>%s</span>."
+"Les administrateurs d'établissement %s renseignent les détails de leur "
+"configuration %s et, sur cette base, <span class='edu_cat'>%s</span> "
+"construit des programmes d'installation personnalisés pour un certain nombre "
+"de plates-formes populaires. Un programme d'installation préparé pour un "
+"établissement ne fonctionnera pas pour les utilisateurs d'un autre. Par "
+"conséquent, si votre établissement ne figure pas dans la liste, vous ne "
+"pouvez pas utiliser ce système. Veuillez contacter vos administrateurs "
+"d'établissement et essayez de les influencer pour qu'ils ajoutent votre "
+"configuration %sà <span class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:45
 #, php-format
@@ -140,15 +140,16 @@ msgstr ""
 "li><li><b>android.clients.google.com</b> (Google Play access for Android "
 "App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
 "li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
-"ul><b><u>RECOMMANDÉ</u></b> pour pleine fonctionnalité de Google Play  "
-"(sinon, Play Store semblera cassé aux utilisateurs et/ou certaines "
-"fonctionnalités non essentielles ne seront pas disponibles)<ul><li><b>photos-"
-"ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax."
-"googleapis.com</b></li><li><b>play.google-apis.com</b></li><li><b>googleapis."
-"l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></"
-"li><li><b>www.google-analytics.com</b></li><li><b>wallet.google.com</b></"
-"li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></"
-"li><li><b>*.gvt1.com</li></ul>"
+"ul><b><u>RECOMMANDÉ</u></b> pour avoir une  fonctionnalité complète de "
+"Google Play  (sinon, Play Store semblera cassé aux utilisateurs et/ou "
+"certaines fonctionnalités non essentielles ne seront pas "
+"disponibles)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
+"li></ul>"
 
 #.
 #. * *****************************************************************************
@@ -224,7 +225,7 @@ msgstr ""
 "appareil détectera que vous vous apprêtez à transmettre votre nom "
 "d'utilisateur et votre mot de passe à un serveur non autorisé et interrompra "
 "la connexion. L'utilisation d'un installateur d'un établissement différent "
-"est <i> garanti de ne pas marcher</i>!"
+"est <i>garanti de ne pas fonctionner</i> !"
 
 #: web/user/faq.inc.php:33 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
@@ -245,7 +246,8 @@ msgstr ""
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr ""
-"Mon appareil n'est pas présent! Cela signifie que je ne peut pas utiliser %s?"
+"Mon appareil n'est pas présent ! Cela signifie que je ne peut pas utiliser "
+"%s ?"
 
 #: web/user/faq.inc.php:39 web/user/faq.php:36
 #, php-format
@@ -281,13 +283,13 @@ msgstr ""
 "Lorsque vous vous connectez depuis un appareil non configuré, votre sécurité "
 "n'est pas assurée. Le but de la pré-configuration est d'assurer cette "
 "sécurité. Lorsque cela est fait, votre appareil va d'abord s'assurer qu'il "
-"communiquer bien avec un serveur d’authentification  valider et n'enverra "
-"jamais votre mot de passe à un serveur non valide."
+"communique bien avec le bon serveur d’authentification et n'enverra jamais "
+"votre mot de passe à un serveur non valide."
 
 #: web/user/faq.inc.php:47 web/user/faq.php:52
 #, php-format
 msgid "Is it safe to use %s installers?"
-msgstr "Est-il sûr d'utiliser les installateurs %s?"
+msgstr "Est-il sûr d'utiliser les installateurs %s ?"
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
@@ -366,15 +368,14 @@ msgid ""
 "be able to trace your connections."
 msgstr ""
 "Il peut y avoir de nombreuses raisons différentes. Le réseau que vous voyez "
-"peut ne pas être un authentique réseau %s et votre appareil refuser "
+"peut ne pas être un authentique réseau %s et votre appareil refuse "
 "silencieusement la connexion. Il peut y avoir un mauvais paramètre dans la "
 "configuration du réseau ; votre compte peut avoir expiré ; il peut y avoir "
 "un problème de connexion avec le serveur d'authentification de votre "
 "établissement ; vous pouvez ne pas respecter la réglementation d'utilisation "
-"du réseau que vous utilisez et avoir été refusé en conséquence.\n"
-" Vous devriez contacter votre établissement d'origine et signaler le "
-"problème, les administrateurs devraient être en mesure de tracer votre "
-"connexion."
+"du réseau que vous utilisez et avoir été refusé en conséquence. Vous devriez "
+"contacter votre établissement d'origine et signaler le problème, les "
+"administrateurs devraient être en mesure de tracer votre connexion."
 
 #: web/user/faq.inc.php:62 web/user/faq.php:77
 #, php-format
@@ -459,7 +460,7 @@ msgstr ""
 #.
 #: web/user/faq.php:95 web/skins/modern/user/cat_info.php:79
 msgid "Frequently Asked Questions"
-msgstr "Questions Fréquentes"
+msgstr "Questions fréquentes"
 
 #: web/user/tou.inc.php:23 web/user/tou.php:23
 msgid "Terms of Use"
@@ -537,7 +538,7 @@ msgstr "Avis concernant la confidentialité %s"
 #: web/lib/user/TextTemplates.php:84
 #, php-format
 msgid "Welcome aboard the %s user community!"
-msgstr "Bienvenue dans la communauté d'utilisateurs %s !"
+msgstr "Bienvenue dans la communauté des utilisateurs %s !"
 
 #: web/lib/user/TextTemplates.php:85
 msgid ""
@@ -550,7 +551,7 @@ msgstr ""
 #: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
-msgstr "Cher utilisateur de %s,"
+msgstr "Cher·e utilisateur·rice %s,"
 
 #: web/lib/user/TextTemplates.php:87
 #, php-format
@@ -573,10 +574,10 @@ msgid ""
 "reach them via the means shown above."
 msgstr ""
 "Quel que soit le problème que vous pourriez éventuellement rencontrer, ou "
-"pour tout autre renseignement, veuillez contacter le centre de support de "
-"%s. Ils diagnostiqueront le problème ou vous apporteront toute autre aide "
-"qui pourrait être nécessaire. Vous pouvez les joindre en utilisant l'un des "
-"moyens décrits ci dessus."
+"pour tout autre renseignement, veuillez contacter le centre de support %s. "
+"Ils diagnostiqueront le problème ou vous apporteront toute autre aide qui "
+"pourrait être nécessaire. Vous pouvez les joindre en utilisant l'un des "
+"moyens décrits ci-dessus."
 
 #: web/lib/user/TextTemplates.php:100
 #, php-format
@@ -605,7 +606,7 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
-"nous aimerions vous souhaiter la bienvenue parmi les millions d'utilisateurs "
+"Nous aimerions vous souhaiter la bienvenue parmi les millions d'utilisateurs "
 "de %s ! À partir de maintenant vous êtes en mesure d'utiliser les ressources "
 "d'accès à Internet de milliers d'universités, de centres de recherche et "
 "d'autres organismes tout autour du globe. Tout cela gratuitement !"
@@ -796,7 +797,7 @@ msgstr "Accès administrateur %s"
 #: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin:<br>manage your IdP"
-msgstr "administrateurs %s : <br> gérer  votre IdP"
+msgstr "Administrateur %s : <br> gérez votre IdP"
 
 #: web/skins/modern/Menu.php:74 web/skins/modern/Menu.php:75
 msgid "Become a CAT developer"
@@ -1073,7 +1074,7 @@ msgstr ""
 
 #: web/skins/modern/user/cat_info.php:108
 msgid "Get IdP Reminder"
-msgstr "Obtenir un rappel du fournisseurs d'identité"
+msgstr "Obtenir un rappel du fournisseur d'identité"
 
 #: web/skins/modern/user/js/cat_js.php:48
 msgid ""

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2020
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
 # Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2018-2019
@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
-"PO-Revision-Date: 2020-12-30 13:12+0000\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-01-21 15:15+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -165,8 +165,8 @@ msgid ""
 msgstr ""
 "Avant de continuer avec l'installation sur un système Android, merci de vous "
 "assurer que vous avez installé l'application %s. Cette application est "
-"disponible depuis ces sites: %s et elle utilisera les fichiers de "
-"configuration disponibles sur CAT pour créer votre profil. "
+"disponible depuis ces sites : %s et elle utilisera la configuration "
+"disponible sur CAT pour paramétrer votre connexion. "
 
 #: devices/Devices-template.php:400 devices/Devices-template.php:414
 #: devices/Devices-template.php:427 devices/Devices-template.php:442
@@ -175,7 +175,7 @@ msgstr ""
 #: devices/Devices-template.php:512 devices/Devices-template.php:526
 #: devices/Devices-template.php:540
 msgid "as local download"
-msgstr "comme téléchargement local"
+msgstr "en téléchargement local"
 
 #: devices/Devices-template.php:406
 msgid "Android 8 to 10"
@@ -471,7 +471,7 @@ msgid ""
 "directory and will copy your server certificates there."
 msgstr ""
 "L'installateur va créer un sous-dossier '.cat_installer'  dans votre dossier "
-"utilisateur puis y copier votre certificat serveur."
+"utilisateur puis y copier votre certificat serveur. "
 
 #: devices/linux/Device_Linux.php:104
 msgid ""
@@ -509,7 +509,7 @@ msgid ""
 "the network automatically each time you are in the range."
 msgstr ""
 "Lors de l'installation, il vous sera demandé de renseigner vos informations "
-"de connexion. Ces informations seront sauvegardée afin de vous reconnecter "
+"de connexion. Ces informations seront sauvegardées afin de vous reconnecter "
 "automatiquement dès que le réseau sera à votre portée."
 
 #: devices/linux/Device_Linux.php:139
@@ -727,7 +727,7 @@ msgid ""
 msgstr ""
 "Cet équipement n'est pas encore supporté par CAT, mais votre administrateur "
 "local a créé une redirection vers des instructions d'installation propres à "
-"votre institution."
+"votre établissement."
 
 #: devices/test_module/Device_TestModule.php:129
 #, php-format

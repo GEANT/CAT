@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2020
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
 # Christian Claveleira <christian.claveleira@renater.fr>, 2019
 # dominique.launay <dominique.launay@renater.fr>, 2012-2013,2015,2019
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2019
@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
-"PO-Revision-Date: 2020-12-31 16:04+0000\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-01-21 14:54+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -680,11 +680,11 @@ msgid ""
 msgstr ""
 "Éventuellement, vous pouvez fournir une description de la cible de ce "
 "profil. Cette description sera alors affichée sur la page de téléchargement "
-"après que l'utilisateur a choisi le profil dans la liste."
+"après que l'utilisateur ai choisi le profil dans la liste."
 
 #: web/admin/edit_profile.php:148
 msgid "You can also tell us your RADIUS realm. "
-msgstr "Vous pouvez également donner votre domaine RADIUS."
+msgstr "Vous pouvez également renseigner votre domaine RADIUS. "
 
 #: web/admin/edit_profile.php:150
 #, php-format
@@ -693,15 +693,15 @@ msgid ""
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
 "Cela est utile si vous souhaitez utiliser plus tard le module de validation "
-"pour vérifier l'accessibilité de votre domaine dans l'infrastructure %s."
+"pour vérifier l'accessibilité de votre domaine dans l'infrastructure %s. "
 
 #: web/admin/edit_profile.php:152
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
-"Il est nécessaire d'entrer le nom du domaine si vous souhaitez supporter des "
-"identités externes anonymes (voir ci-dessous)."
+"Il est nécessaire de renseigner le nom du domaine si vous souhaitez "
+"supporter des identités externes anonymes (voir ci-dessous)."
 
 #: web/admin/edit_profile.php:165
 msgid "Realm:"
@@ -1681,7 +1681,7 @@ msgstr "Lié"
 msgid "NOT linked"
 msgstr "NON lié"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
 msgid "Add/Remove Administrators"
 msgstr "Ajouter/supprimer des administrateurs"
 
@@ -1717,7 +1717,7 @@ msgstr "Paramètres généraux pour %s"
 #: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
-msgstr "%s télécharge le QR code"
+msgstr " QR code de l'espace de téléchargement du %s"
 
 #: web/admin/overview_idp.php:111
 #, php-format
@@ -1769,7 +1769,7 @@ msgid "Check another realm's reachability"
 msgstr "Vérifier l'accessibilité d'un autre domaine"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
+#: web/admin/overview_user.php:173
 msgid "Go!"
 msgstr "C'est parti !"
 
@@ -2014,12 +2014,12 @@ msgid_plural "%d other users"
 msgstr[0] "%d autres utilisateurs"
 msgstr[1] "%d autres utilisateurs"
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:162
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Vous ne gérez aucun autre %s."
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:166
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2027,14 +2027,14 @@ msgstr ""
 "Adressez-vous SVP à votre administrateur de %s pour qu'il vous invite à être "
 "administrateur de %s."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:170
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
 "Avez-vous reçu un jeton d'invitation pour gérer un %s ? Collez-le SVP ici :"
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "New %s Registration"
 msgstr "Nouvel enregistrement pour %s"
@@ -2743,11 +2743,11 @@ msgstr "Image du logo"
 
 #: web/lib/admin/UIElements.php:90
 msgid "Configure Wired Ethernet"
-msgstr "Configurer Ethernet filaire"
+msgstr "Configurer l'ethernet filaire"
 
 #: web/lib/admin/UIElements.php:91
 msgid "Name (CN) of Authentication Server"
-msgstr "Nom du serveur d'Authentification (CN)"
+msgstr "Nom du serveur d'authentification (CN)"
 
 #: web/lib/admin/UIElements.php:92
 msgid "Enable device assessment"
@@ -2767,7 +2767,7 @@ msgstr "Fichier de certificat d'AC"
 
 #: web/lib/admin/UIElements.php:96
 msgid "Profile Display Name"
-msgstr "Nom affiché pour le Profil"
+msgstr "Nom affiché pour le profil"
 
 #: web/lib/admin/UIElements.php:97
 msgid "Production-Ready"
@@ -2799,11 +2799,11 @@ msgstr "Utiliser le supplicant TTLS GEANTlink  (Windows 8 et 10)"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
-msgstr "Description du Profil"
+msgstr "Description du profil"
 
 #: web/lib/admin/UIElements.php:105
 msgid "Custom Installer Name Suffix"
-msgstr "Suffixe du nom de l'installateur personnalisé"
+msgstr "Suffixe pour le nom de l'installateur personnalisé"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Opt-In to OpenRoaming"

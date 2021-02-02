@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2020-12-17 14:24+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
@@ -1599,7 +1599,7 @@ msgstr "Linket"
 msgid "NOT linked"
 msgstr "IKKE tilknyttet"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
 msgid "Add/Remove Administrators"
 msgstr "Legge til / fjerne administratorer"
 
@@ -1685,7 +1685,7 @@ msgid "Check another realm's reachability"
 msgstr "Sjekk et annet realm's tilgjengelighet"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
+#: web/admin/overview_user.php:173
 msgid "Go!"
 msgstr "Gå!"
 
@@ -1921,12 +1921,12 @@ msgid_plural "%d other users"
 msgstr[0] "%d andre brukere"
 msgstr[1] "%d andre brukere"
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:162
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Du administrerer ingen %s."
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:166
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -1934,14 +1934,14 @@ msgstr ""
 "Vennligst spør din %s administrator om å invitere deg til å bli en %s "
 "administrator."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:170
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
 "Mottok du et invitasjonstoken for å administrere en %s? Lim det inn her:"
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "New %s Registration"
 msgstr "Ny %s registrering"

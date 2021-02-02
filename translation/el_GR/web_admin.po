@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2020-12-29 11:44+0000\n"
 "Last-Translator: Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1658,7 +1658,7 @@ msgstr "Συνδέθηκε"
 msgid "NOT linked"
 msgstr "ΧΩΡΙΣ σύνδεση"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
 msgid "Add/Remove Administrators"
 msgstr "Προσθήκη/Αφαίρεση Διαχειριστών"
 
@@ -1745,7 +1745,7 @@ msgid "Check another realm's reachability"
 msgstr "Έλεγχος προσβασιμότητας άλλου τομέα"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
+#: web/admin/overview_user.php:173
 msgid "Go!"
 msgstr "Πάμε!"
 
@@ -1982,12 +1982,12 @@ msgid_plural "%d other users"
 msgstr[0] "%d άλλος χρήστης"
 msgstr[1] "%d άλλοι χρήστες "
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:162
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Δε διαχειρίζεστε κανένα %s."
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:166
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -1995,7 +1995,7 @@ msgstr ""
 "Παρακαλώ ζητήστε από το διαχειριστή %s σας να σας προσκαλέσει ώστε να γίνετε "
 "ένας διαχειριστής %s."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:170
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
@@ -2003,7 +2003,7 @@ msgstr ""
 "Λάβατε ένα κουπόνι πρόσκλησης για να διαχειριστείτε ένα %s; Παρακαλώ "
 "επικολλήστε το εδώ:"
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "New %s Registration"
 msgstr "Νέα Εγγραφή %s"

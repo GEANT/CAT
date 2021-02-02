@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2021-01-05 10:02+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
@@ -1585,7 +1585,7 @@ msgstr "Lingitud"
 msgid "NOT linked"
 msgstr "EI ole lingitud"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
 msgid "Add/Remove Administrators"
 msgstr "Lisa/Eemalda administraatoreid"
 
@@ -1671,7 +1671,7 @@ msgid "Check another realm's reachability"
 msgstr "Kontrolli mõne teise domeeni kättesaadavust"
 
 #: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
+#: web/admin/overview_user.php:173
 msgid "Go!"
 msgstr "Jätka!"
 
@@ -1906,12 +1906,12 @@ msgid_plural "%d other users"
 msgstr[0] "%d kasutaja"
 msgstr[1] "%d kasutajat"
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:162
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Ükski %s ei ole Sinu halduses."
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:166
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -1919,13 +1919,13 @@ msgstr ""
 "Palun lase oma %s administraatoril saata kutse %s administraatoriks "
 "saamiseks."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:170
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr "Kas Sa said %s haldamiseks kutse koodi? Palun sisesta see siia: "
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "New %s Registration"
 msgstr "Uue %s registreerimine"

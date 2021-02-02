@@ -10,14 +10,14 @@
 # dsafar <dsafar@srce.hr>, 2012
 # Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2020
 # eduroam_devel <stefan.winter@restena.lu>, 2019
-# eduroam_devel <stefan.winter@restena.lu>, 2019
+# eduroam_devel <stefan.winter@restena.lu>, 2019,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 08:57+0100\n"
-"PO-Revision-Date: 2021-01-03 19:37+0000\n"
-"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-02-01 15:16+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -1123,8 +1123,8 @@ msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
 msgstr ""
-"Greška pri instalaciji GEANTLink -a.$\n"
-"Pridruženi instaler nije završio uspiješno."
+"Greška pri instalaciji GEANTLink -a.$\\nPridruženi instaler nije završio "
+"uspiješno."
 
 #: devices/ms/Files/geant_link.inc:118
 msgid "installing credentials for ${PROVIDERID}"
