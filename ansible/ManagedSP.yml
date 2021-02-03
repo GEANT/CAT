@@ -251,7 +251,7 @@
       when: dbstatus.rc == 1
     - name: Extract radsecproxy archive
       unarchive:
-        src: ManagedSP/templates/radsecproxy/CentOS8/radsecproxy.tar.gz
+        src: ManagedSP/templates/radsecproxy/CentOS/radsecproxy.tar.gz
         dest: /opt/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
@@ -259,6 +259,39 @@
         src: "ManagedSP/templates/radsecproxy/radsecproxy.conf.j2"
         dest: "/opt/radsecproxy/etc/radsecproxy.conf"
         mode: '0644'
+    - name: Create CSR and private key for dynamic discovery, if none exist
+      command:
+        chdir: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/
+        creates: clientcert.key
+        argv: 
+          - openssl
+          - req
+          - -new
+          - -newkey
+          - rsa:4096
+          - -out
+          - clientcert.csr
+          - -keyout
+          - clientcert.key
+          - -subj
+          - /DC=net/DC=geant/DC=eduroam/C=HR/L=Zagreb/O=University Computing Centre/CN={{ radius_sp_name }}
+          - -nodes
+    - name: Create self-signed certificate to get going, unless real cert is already installed
+      command:
+        chdir: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/
+        creates: clientcert.pem
+        argv:
+          - openssl
+          - x509
+          - -req
+          - -in
+          - clientcert.csr
+          - -out
+          - clientcert.pem
+          - -signkey
+          - clientcert.key
+          - -days
+          - 365
     - name: disable firewalld.service
       service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
       when: "'firewalld.service' in ansible_facts.services"
