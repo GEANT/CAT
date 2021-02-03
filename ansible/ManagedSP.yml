@@ -250,10 +250,15 @@
         target: "/opt/FR/templates/cui.sql"
         state: import
       when: dbstatus.rc == 1
-    - name: Extract radsecproxy archive
+    - name: Extract radsecproxy binaries archive
       unarchive:
         src: "ManagedSP/templates/radsecproxy/{{ os_dist }}/radsecproxy.tar.gz"
         dest: /opt/
+        owner: "root"
+    - name: Extract radsecproxy configuration archive
+      unarchive:
+        src: "ManagedSP/templates/radsecproxy/radsecproxy-config.tar.gz"
+        dest: /opt/radsecproxy/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
       template:
