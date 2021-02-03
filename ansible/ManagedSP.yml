@@ -3,6 +3,7 @@
       radius_sp_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
       radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] }}"
       radius_sp_name: "{{ ansible_facts['nodename'] }}"
+      os_dist: "{{ ansible_facts['distribution'] }}{{ ansible_facts['distribution_major_version'] }}"
       mysql_pass: "mysql-root-password"
       eduroam_db: "managed_sp_radius"
       eduroam_user: "eduroam_db_user"
@@ -217,7 +218,7 @@
         shell: /bin/nologin
     - name: Extract FreeRADIUS archive
       unarchive:
-        src: ManagedSP/templates/FreeRADIUS/CentOS8/HostedSP.tar.gz
+        src: "ManagedSP/templates/FreeRADIUS/{{ os_dist }}/HostedSP.tar.gz"
         dest: /opt/FR/
         owner: "radius"
     - name: Copy and set up site_1999
@@ -251,7 +252,7 @@
       when: dbstatus.rc == 1
     - name: Extract radsecproxy archive
       unarchive:
-        src: ManagedSP/templates/radsecproxy/CentOS/radsecproxy.tar.gz
+        src: "ManagedSP/templates/radsecproxy/{{ os_dist }}/radsecproxy.tar.gz"
         dest: /opt/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
