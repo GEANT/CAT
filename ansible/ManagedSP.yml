@@ -216,9 +216,14 @@
       user:
         name: radius
         shell: /bin/nologin
-    - name: Extract FreeRADIUS archive
+    - name: Extract FreeRADIUS binaries archive
       unarchive:
         src: "ManagedSP/templates/FreeRADIUS/{{ os_dist }}/HostedSP.tar.gz"
+        dest: /opt/FR/
+        owner: "radius"
+    - name: Extract FreeRADIUS configuration archive
+      unarchive:
+        src: "ManagedSP/templates/FreeRADIUS/HostedSP-config.tar.gz"
         dest: /opt/FR/
         owner: "radius"
     - name: Copy and set up site_1999
