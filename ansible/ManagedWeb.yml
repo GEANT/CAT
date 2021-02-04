@@ -3,9 +3,9 @@
 - hosts: main_web
   vars:
     app_user: "apache"
-    http_host: "exmachina.eduroam.lu"
-    ocsp_host: "ocsp.exmachina.eduroam.lu"
-    http_conf: "exmachina.eduroam.lu.conf"
+    http_host: "{{ ansible_facts['fqdn'] }}"
+    ocsp_host: "{{ groups['ocsp_responder'][0] }}"
+    http_conf: "{{ ansible_facts['fqdn'] }}.conf"
     http_logdir: "/var/log/httpd/"
     db_root_pw: "new_password"
     consortium: "Roaming Ex Machina"
