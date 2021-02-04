@@ -136,7 +136,6 @@
         recurse: yes
       loop:
         - /var/www/html/sp
-        - /opt/Socket
         - /opt/Socket/CAT_requests
     - name: Create web index.php
       template:
@@ -161,8 +160,6 @@
         mode: 0775
         recurse: yes
       loop:
-        - /opt/FR
-        - /opt/FR/scripts
         - /opt/FR/scripts/logs
         - /opt/FR/scripts/tmp
         - /opt/install
@@ -292,6 +289,7 @@
         src: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/clientcert.csr
         dest: local/{{ radius_sp_name }}.csr
         fail_on_missing: yes
+        flat: yes
     - name: Create self-signed certificate to get going, unless real cert is already installed
       command:
         chdir: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/
