@@ -260,9 +260,9 @@
         src: "ManagedSP/templates/radsecproxy/{{ os_dist }}/radsecproxy.tar.gz"
         dest: /opt/
         owner: "root"
-    - name: Extract radsecproxy configuration archive
-      unarchive:
-        src: "ManagedSP/templates/radsecproxy/radsecproxy-config.tar.gz"
+    - name: Copy radsecproxy configuration
+      copy:
+        src: "ManagedSP/templates/radsecproxy/etc"
         dest: /opt/radsecproxy/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
@@ -287,6 +287,11 @@
           - -subj
           - /DC=net/DC=geant/DC=eduroam/C=HR/O=Srce University of Zagreb University Computing Centre/CN={{ radius_sp_name }}
           - -nodes
+    - name: Extract generated CSR to Ansible node for CA issuance
+      fetch:
+        src: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/clientcert.csr
+        dest: local/{{ radius_sp_name }}.csr
+        fail_on_missing: yes
     - name: Create self-signed certificate to get going, unless real cert is already installed
       command:
         chdir: /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/
