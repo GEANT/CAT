@@ -13,10 +13,39 @@
     interm_dn: "/DC=net/DC=enterprise-wifi/O={{ consortium }}/OU=Client Certificates/CN={{ consortium }} Client Issuing CA Gen 1"
   remote_user: root
   tasks:
-      - name: "install needed packages"
-        yum: 
-          name: "{{ ['httpd', 'php', 'php-mysql', 'git', 'php-gettext', 'php-openssl', 'php-pecl-imagick', 'php-bcmath', 'php-gd', 'zip', 'openssl', 'composer', 'haveged', 'python2-PyMySQL', 'wpa_supplicant'] }}"
+      - name: enable PowerTools repo
+        command:
+          cmd: dnf config-manager --set-enabled powertools
+      - name: "make sure EPEL repo is available"
+        package: 
+          name: "{{ ['epel-release'] }}"
           state: latest
+      - name: all packages are up to date
+        package:
+          name: '*'
+          state: latest
+      - name: install packages
+        package:
+          name: "{{ ['httpd', 'php', 'php-mysqlnd', 'git', 'php-gettext', 'php-openssl', 'php-devel', 'php-pear', 'php-bcmath', 'php-gd', 'php-json', 'php-mbstring', 'zip', 'openssl', 'haveged', 'python3-PyMySQL', 'wpa_supplicant', 'ImageMagick', 'ImageMagick-devel', 'make', 'mariadb-server', 'certbot', 'python3-certbot-apache'] }}"
+      - name: "install composer"
+        shell:
+          chdir: /usr/local/bin
+          cmd: curl -s https://getcomposer.org/installer | php
+          creates: /usr/local/bin/composer.phar
+      - name: get php-imagick
+        community.general.pear:
+          name: pecl/imagick
+          state: present
+      - name: Create directories if they don't exist
+        file:
+          path: "{{ item }}"
+          state: directory
+          owner: apache
+          group: apache
+          mode: 0775
+          recurse: yes
+        loop:
+          - /var/log/CAT
       - name: Start httpd
         service:
           name: httpd
@@ -38,7 +67,7 @@
         notify:
           - restart Apache
       - name: Get an HTTPS certificate from LetsEncrypt
-        shell: "certbot run -n --apache --domains {{ http_host }}"
+        shell: "certbot run -n --apache --domains {{ http_host }} --agree-tos --email root@{{ http_host }}"
       - name: download CA management scripts
         git:
           repo: https://github.com/GEANT/RADIUS.git
@@ -54,6 +83,7 @@
           src: /dev/urandom
           state: link
           path: /dev/hwrng
+          force: yes
       - name: adapt CRL location in openssl.conf/RSA
         lineinfile:
           path: "/CA_MGMT/Client Certificates CA Hierarchy/settings/openssl-rsa.cnf"
@@ -107,7 +137,7 @@
         become: yes
         become_user: apache
       - name: composer update the CAT dependencies
-        shell: "composer --working-dir=/var/www/{{ http_host }}/cat/ update --no-dev"
+        shell: "/usr/local/bin/composer.phar --working-dir=/var/www/{{ http_host }}/cat/ update --no-dev"
         become: yes
         become_user: apache
       - name: create default config files (1/4)
@@ -197,19 +227,23 @@
       - name: make sure user exists
         mysql_user:
             login_user: "root"
-            login_password: "{{ db_root_pw }}"
             host: "localhost"
             name: "kitty"
             update_password: "always"
             password: "somepass"
             priv: "cat_ansible.*:ALL"
+      - name: check if DB exists
+        shell: mysql -e 'SHOW DATABASES;' | grep cat_ansible
+        register: dbstatus
+        failed_when: dbstatus.rc == 2
       - name: install DB schema
         mysql_db:
           login_user: "kitty"
           login_password: "somepass"
           name: "cat_ansible"
           target: "/var/www/{{ http_host }}/cat/schema/schema.sql"
-          state: present
+          state: import
+        when: dbstatus.rc == 1
       - name: adapt CAT config - database name
         replace:
           path: "/var/www/{{ http_host }}/cat/config/Master.php"
@@ -231,26 +265,28 @@
         command:
           cmd: "cp /CA_MGMT/Client\\ Certificates\\ CA\\ Hierarchy/ROOT-RSA/certs/INTERMEDIATE/cert-rsa.pem /var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-RSA.pem"
           creates: "/var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-RSA.pem"
-        become: yes
-        become_user: apache
       - name: establish unprotected private key for intermediate CA in config (RSA)
         command: 
           cmd: "openssl rsa -in /CA_MGMT/Client\\ Certificates\\ CA\\ Hierarchy/ROOT-RSA/certs/INTERMEDIATE/cert-srv-key.pem -passin pass:intermed4321 -out /var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-RSA.key"
           creates: "/var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-RSA.key"         
-        become: yes
-        become_user: apache
       - name: copy client cert intermediate CA to its config location (ECDSA)
         command:
           cmd: "cp /CA_MGMT/Client\\ Certificates\\ CA\\ Hierarchy/ROOT-ECDSA/certs/INTERMEDIATE/cert-ecdsa.pem /var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-ECDSA.pem"
           creates: "/var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-ECDSA.pem"
-        become: yes
-        become_user: apache
       - name: establish unprotected private key for intermediate CA in config (ECDSA)
         command: 
           cmd: "openssl ec -in /CA_MGMT/Client\\ Certificates\\ CA\\ Hierarchy/ROOT-ECDSA/certs/INTERMEDIATE/cert-ecsrv-key.pem -passin pass:intermed4321 -out /var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-ECDSA.key"
           creates: "/var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/real-ECDSA.key"         
-        become: yes
-        become_user: apache
+      - name: fix ownership of certificate files
+        file:
+          owner: apache
+          group: apache
+          path: "/var/www/{{ http_host }}/cat/config/SilverbulletClientCerts/{{ item }}"
+        loop: 
+          - real-RSA.pem
+          - real-RSA.key
+          - real-ECDSA.pem
+          - real-ECDSA.key
 
   handlers:
     - name: reload Apache
