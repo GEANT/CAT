@@ -1151,10 +1151,15 @@ network={
         $testresults['time_millisec'] = $runtime_results['time'];
         $packetflow_orig = $runtime_results['output'];
         $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
-        $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
-        $testresults['negotiated_eaptype'] = $negotiatedEapType;
-        $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
-        $testresults['tls_version_eap'] = $negotiatedTlsVersion;
+        // if the RADIUS conversation was immediately rejected, it is trivially
+        // true that no EAP type was negotiated, and that TLS didn't negotiate
+        // a version. Don't get excited about that then.
+        if ($radiusResult != RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+            $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
+            $testresults['negotiated_eaptype'] = $negotiatedEapType;
+            $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
+            $testresults['tls_version_eap'] = $negotiatedTlsVersion;
+        }
         // now let's look at the server cert+chain, if we got a cert at all
         // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
         // all
