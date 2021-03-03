@@ -314,6 +314,11 @@ abstract class Device_XML extends \core\DeviceConfig {
             return $out;
         }
         
+        if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
+            $out['METHOD'] = \core\common\EAP::NE_PAP;
+            return $out;
+        }
+        
         if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $out['METHOD'] = \core\common\EAP::NONE;
             return $out;           
