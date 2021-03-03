@@ -194,7 +194,8 @@ switch ($_POST['submitbutton']) {
             }
 
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
-
+            // reload the profile to ingest new CA and server names if any; before checking EAP completeness
+            $reloadedProfileNr1 = \core\ProfileFactory::instantiate($profile->identifier);
             foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
                 if ($a->getIntegerRep() == \core\common\EAP::INTEGER_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
                     continue;
@@ -202,10 +203,10 @@ switch ($_POST['submitbutton']) {
                 if (isset($_POST[$a->getPrintableRep()]) && isset($_POST[$a->getPrintableRep() . "-priority"]) && is_numeric($_POST[$a->getPrintableRep() . "-priority"])) {
                     $priority = (int) $_POST[$a->getPrintableRep() . "-priority"];
                     // add EAP type to profile as requested, but ...
-                    $profile->addSupportedEapMethod($a, $priority);
-                    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
+                    $reloadedProfileNr1->addSupportedEapMethod($a, $priority);
+                    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $reloadedProfileNr1->identifier . " - supported EAP types changed");
                     // see if we can enable the EAP type, or if info is missing
-                    $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
+                    $eapcompleteness = $reloadedProfileNr1->isEapTypeDefinitionComplete($a);
                     if ($eapcompleteness === true) {
                         echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $a->getPrintableRep() . "</strong>");
                     } else {
@@ -219,9 +220,10 @@ switch ($_POST['submitbutton']) {
                     }
                 }
             }
-            // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-            $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
-            $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfile);
+            // re-instantiate $profile again, we need to do final checks on the
+            // full set of new information
+            $reloadedProfileNr2 = \core\ProfileFactory::instantiate($profile->identifier);
+            $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfileNr2);
             if (count($significantChanges) > 0) {
                 $myInstOriginal = new \core\IdP($profile->institution);
                 // send a notification/alert mail to someone we know is in charge
@@ -250,7 +252,7 @@ switch ($_POST['submitbutton']) {
                 }
             }
 
-            $reloadedProfile->prepShowtime();
+            $reloadedProfileNr2->prepShowtime();
             ?>
         </table>
         <br/>
@@ -258,8 +260,8 @@ switch ($_POST['submitbutton']) {
             <button type='submit'><?php echo _("Continue to dashboard"); ?></button>
         </form>
         <?php
-        if (count($reloadedProfile->getEapMethodsinOrderOfPreference(1)) > 0) {
-            echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$reloadedProfile->identifier' accept-charset='UTF-8'>
+        if (count($reloadedProfileNr2->getEapMethodsinOrderOfPreference(1)) > 0) {
+            echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$reloadedProfileNr2->identifier' accept-charset='UTF-8'>
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
         }
