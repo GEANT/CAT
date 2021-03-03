@@ -1154,6 +1154,7 @@ network={
         // if the RADIUS conversation was immediately rejected, it is trivially
         // true that no EAP type was negotiated, and that TLS didn't negotiate
         // a version. Don't get excited about that then.
+        $negotiatedEapType = FALSE;
         if ($radiusResult != RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
             $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
             $testresults['negotiated_eaptype'] = $negotiatedEapType;
