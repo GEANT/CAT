@@ -889,7 +889,9 @@ network={
             throw new Exception("The output of an exec() call really can't be NULL!");
         }
         $time_stop = microtime(true);
-        $this->loggerInstance->debug(5, print_r($this->redact($password, $pflow), TRUE));
+        $output = print_r($this->redact($password, $pflow), TRUE);
+        file_put_contents($tmpDir . "/eapol_test_output_redacted_$probeindex.txt", $output);
+        $this->loggerInstance->debug(5, "eapol_test output saved to eapol_test_output_redacted_$probeindex.txt\n", TRUE);
         return [
             "time" => ($time_stop - $time_start) * 1000,
             "output" => $pflow,
