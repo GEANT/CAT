@@ -420,9 +420,11 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
+        // if an instshortname is set, base on that, otherwise, the normal instname
+        $attribToUse = (isset($this->attributes['general:instshortname']) ? 'general:instshortname' : 'general:instname');
         $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
-        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
-        $inst = $this->customTranslit($this->attributes['general:instname'][$lang_pointer]);
+        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes[$attribToUse][$lang_pointer] . "\n");
+        $inst = $this->customTranslit($this->attributes[$attribToUse][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
         if (count($Inst_a) > 2) {

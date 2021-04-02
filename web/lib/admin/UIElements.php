@@ -84,6 +84,7 @@ class UIElements extends \core\common\Entity {
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
             sprintf(_("%s Name"), $this->nomenclatureInst) => "general:instname",
+            sprintf(_("%s Acronym"), $this->nomenclatureParticipant) => "general:instshortname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
