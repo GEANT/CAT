@@ -178,7 +178,19 @@ class UserNetAPI extends UserAPI {
         }
         echo $this->returnJSON($returnArray, 1, $otherData);
     }
-
+    
+    /**
+     * outputs a full list of IdPs containing the fllowing data:
+     * institution_is, institution name in all available languages,
+     * list of production profiles.
+     * For eache profile the profile identifier, profile name in all languages
+     * and redirect values (empty rediret value means that no redirect has been
+     * set).
+     */
+    public function JSON_listIdentityProvidersWithProfiles() {
+        echo $this->returnJSON($this->listIdentityProvidersWithProfiles());
+    }
+    
     /**
      * outputs the list of devices available for the given profile
      *
