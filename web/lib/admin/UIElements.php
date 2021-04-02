@@ -354,12 +354,13 @@ class UIElements extends \core\common\Entity {
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
+        $certTooltip = ( $details['root'] == 1 ? "Root CA" : "Intermediate CA");
         if ($details['ca'] == 0 && $details['root'] != 1) {
             $retval = "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
