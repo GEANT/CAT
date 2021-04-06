@@ -35,6 +35,7 @@ const LISTOFACTIONS = [
     'listCountries',
     'listIdentityProviders',
     'listAllIdentityProviders',
+    'listIdentityProvidersWithProfiles',
     'listProfiles', // needs $idp set - abort if not
     'listDevices',
     'generateInstaller', // needs $device and $profile set
@@ -92,6 +93,9 @@ switch ($action) {
         break;
     case 'listAllIdentityProviders':
         $API->jsonListIdentityProvidersForDisco();
+        break;
+        case 'listIdentityProvidersWithProfiles':
+        $API->JSON_ListIdentityProvidersWithProfiles();
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {

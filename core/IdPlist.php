@@ -145,6 +145,134 @@ class IdPlist extends common\Entity
         common\Entity::outOfThePotatoes();
         return $returnarray;
     }
+    
+   /**
+     * outputs a full list of IdPs containing the fllowing data:
+     * institution_is, institution name in all available languages,
+     * list of production profiles.
+     * For eache profile the profile identifier, profile name in all languages
+     * and redirect values (empty rediret value means that no redirect has been
+     * set).
+     * 
+     * @return array of identity providers with attributes
+     */
+    public static function listIdentityProvidersWithProfiles() {
+        $handle = DBConnection::handle("INST");
+        $handle->exec("SET SESSION group_concat_max_len=10000");
+        $idpQuery = "SELECT distinct institution.inst_id AS inst_id,
+            institution.country AS country,
+            group_concat(concat_ws('===',institution_option.option_name,
+                LEFT(institution_option.option_value,200),
+                institution_option.option_lang) separator '---') AS options
+            FROM institution
+            JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id 
+            JOIN institution_option ON institution.inst_id = institution_option.institution_id
+            WHERE (institution_option.option_name = 'general:instname'
+                OR institution_option.option_name = 'general:geo_coordinates'
+                OR institution_option.option_name = 'general:logo_file')
+            GROUP BY institution.inst_id";
+        
+        $allIDPs = $handle->exec($idpQuery);
+        $idpArray = [];
+        while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
+            $institutionOptions = explode('---', $queryResult->options);
+            $oneInstitutionResult = [];
+            $geo = [];
+            $names = [];
+            $oneInstitutionResult['country'] = strtoupper($queryResult->country);
+            $oneInstitutionResult['entityID'] = (int)$queryResult->inst_id;
+            
+            foreach ($institutionOptions as $institutionOption) {
+                $opt = explode('===', $institutionOption);
+                switch ($opt[0]) {
+                    case 'general:logo_file':
+                        $oneInstitutionResult['icon'] = $queryResult->inst_id;
+                        break;
+                    case 'general:geo_coordinates':
+                        $at1 = json_decode($opt[1], true);
+                        $geo[] = $at1;
+                        break;
+                    case 'general:instname':
+                        $names[] = [
+                            'lang' => $opt[2],
+                            'value' => $opt[1]
+                        ];
+                        break;
+                    default:
+                        break;
+                }
+            }
+            $oneInstitutionResult['names'] = $names;
+            if (count($geo) > 0) {
+                $geoArray=[];
+                foreach ($geo as $coords) {
+                    $geoArray[] = ['lon' => (float)$coords['lon'],
+                        'lat' => (float)$coords['lat']];
+                }
+                $oneInstitutionResult['geo'] = $geoArray;
+            }              
+            $idpArray[$queryResult->inst_id] = $oneInstitutionResult;
+        }
+        
+        $profileQuery = "SELECT profile.inst_id AS inst_id,
+            profile.profile_id,
+            group_concat(concat_ws('===',profile_option.option_name, 
+                LEFT(profile_option.option_value, 200),
+                profile_option.option_lang) separator '---') AS profile_options
+            FROM profile
+            JOIN profile_option ON profile.profile_id = profile_option.profile_id
+            WHERE profile.sufficient_config = 1
+                AND profile_option.eap_method_id = 0
+                AND (profile_option.option_name = 'profile:name'
+                OR (profile_option.option_name = 'device-specific:redirect'
+                    AND isnull(profile_option.device_id))
+                OR profile_option.option_name = 'profile:production')        
+            GROUP BY profile.profile_id ORDER BY inst_id";
+
+        $allProfiles = $handle->exec($profileQuery);
+        while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
+            $productionProfile = false;
+            $profileOptions = explode('---', $queryResult->profile_options);
+            $idpId = $queryResult->inst_id;
+            if (empty($idpArray[$idpId])) {
+                continue;
+            }
+            if (empty($idpArray[$idpId]['profiles'])) {
+                $idpArray[$idpId]['profiles'] = [];
+            }
+            $profileNames = [];
+            $redirect = '';
+            foreach ($profileOptions as $profileOption) {
+                $opt = explode('===', $profileOption);
+                switch ($opt[0]) {
+                    case 'profile:production':
+                        if ($opt[1] = 'on') {
+                            $productionProfile = true;
+                        }
+                        break;
+                    case 'device-specific:redirect':
+                            $redirect = $opt[1] . ':' . $queryResult->device_id;
+                       
+                        break;
+                    case 'profile:name': 
+                        $profileNames[] = [
+                            'lang' => $opt[2],
+                            'value' => $opt[1]
+                        ];
+                        break;
+                    default:
+                        break; 
+                }
+            }
+            if ($productionProfile) {
+                $idpArray[$idpId]['profiles'][] =
+                        ['id'=> (int)$queryResult->profile_id,
+                            'names'=> $profileNames,
+                            'redirect'=>$redirect];
+            }
+        }       
+        return $idpArray;
+    }
 
     /**
      * sets the current location
