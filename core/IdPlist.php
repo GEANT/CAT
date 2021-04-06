@@ -151,9 +151,9 @@ class IdPlist extends common\Entity {
      * and redirect values (empty rediret value means that no redirect has been
      * set).
      * 
-     * @return array of identity providers with attriutes
+     * @return array of identity providers with attributes
      */
-    public function listIdentityProvidersWithProfiles() {
+    public static function listIdentityProvidersWithProfiles() {
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $idpQuery = "SELECT distinct institution.inst_id AS inst_id,

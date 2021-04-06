@@ -186,6 +186,7 @@ class UserNetAPI extends UserAPI {
      * For eache profile the profile identifier, profile name in all languages
      * and redirect values (empty rediret value means that no redirect has been
      * set).
+     * @return array of identity providers with attributes
      */
     public function JSON_listIdentityProvidersWithProfiles() {
         echo $this->returnJSON($this->listIdentityProvidersWithProfiles());

@@ -470,6 +470,8 @@ class UserAPI extends CAT
      * For eache profile the profile identifier, profile name in all languages
      * and redirect values (empty rediret value means that no redirect has been
      * set).
+     * 
+     * @return array of identity providers with attributes
      */
     public function listIdentityProvidersWithProfiles() {
         return IdPlist::listIdentityProvidersWithProfiles();
