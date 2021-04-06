@@ -78,9 +78,9 @@ class IdPlist extends common\Entity
                 $name = $langObject->getLocalisedValue($options['names']);
             }          
             $oneInstitutionResult['title'] = $name;
-            $keywords = IdPlist::setKeywords($options['names']);
-            if (!empty($keywords)) {
-                $oneInstitutionResult['keywords'] = $keywords;
+            $idpKeywords = IdPlist::setKeywords($options['names']);
+            if (!empty($idpKeywords)) {
+                $oneInstitutionResult['keywords'] = $idpKeywords;
             }        
             if (count($options['geo']) > 0) {
                 $oneInstitutionResult['geo'] = $options['geo'];
@@ -222,7 +222,7 @@ class IdPlist extends common\Entity
             $query .= "JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id ";
         }
         $query .= 
-           "JOIN institution_option ON institution.inst_id = institution_option.institution_id
+            "JOIN institution_option ON institution.inst_id = institution_option.institution_id
             WHERE (institution_option.option_name = 'general:instname' 
                 OR institution_option.option_name = 'general:geo_coordinates'
                 OR institution_option.option_name = 'general:logo_file') ";
@@ -336,6 +336,7 @@ class IdPlist extends common\Entity
             return null;
         }
         $keywords = [];
+        $returnArray = [];
         foreach ($names as $keyword) {
             $value = $keyword['value'];
             $keywords[$keyword['lang']] = $keyword['value'];
@@ -344,7 +345,6 @@ class IdPlist extends common\Entity
         }
         $keywords_final = array_unique($keywords);
         if (!empty($keywords_final)) {
-            $returnArray = [];
             foreach (array_keys($keywords_final) as $key) {
             $returnArray[] = [$keywords_final[$key]];
             }
