@@ -40,7 +40,7 @@ class IdPlist extends common\Entity
         foreach ($idps as $idp) {
             $idpTitle[$idp['entityID']] = $idp['title'];
             $d = self::getIdpDistance($idp, $here);
-            $resultSet[$idp['entityID']] = $d . " " . $idp['title'];
+            $resultSet[$idp['entityID']] = $d." ".$idp['title'];
         }
         asort($resultSet);
         $outarray = [];
@@ -64,81 +64,29 @@ class IdPlist extends common\Entity
         common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
-        $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
-                     group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200), institution_option.option_lang) separator '---') AS options
-                     FROM institution ";
-        if ($activeOnly == 1) {
-            $query .= "JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id ";
-        }
-        $query .= "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
-        $query .= "WHERE (institution_option.option_name = 'general:instname' 
-                          OR institution_option.option_name = 'general:geo_coordinates'
-                          OR institution_option.option_name = 'general:logo_file') ";
-
-        $query .= ($country != "" ? "AND institution.country = ? " : "");
-
-        $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-
+        $query = IdPlist::setAllIdentyProvidersQuery($activeOnly, $country);
         $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
-        // SELECTs never return a booleans, always an object
-        $i=0;
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
-            $i++;
-            $institutionOptions = explode('---', $queryResult->options);
+            $options = IdPlist::setIdentityProviderAttributes($queryResult);
             $oneInstitutionResult = [];
-            $geo = [];
-            $names = [];
-
             $oneInstitutionResult['entityID'] = $queryResult->inst_id;
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
-            foreach ($institutionOptions as $institutionOption) {
-                $opt = explode('===', $institutionOption);
-                switch ($opt[0]) {
-                    case 'general:logo_file':
-                        $oneInstitutionResult['icon'] = $queryResult->inst_id;
-                        break;
-                    case 'general:geo_coordinates':
-                        $at1 = json_decode($opt[1], true);
-                        $geo[] = $at1;
-                        break;
-                    case 'general:instname':
-                        $names[] = [
-                            'lang' => $opt[2],
-                            'value' => $opt[1]
-                        ];
-                        break;
-                    default:
-                        break;
-                }
-            }
-
             $name = _("Unnamed Entity");
-            if (count($names) != 0) {
+            if (count($options['names']) != 0) {
                 $langObject = new \core\common\Language();
-                $name = $langObject->getLocalisedValue($names);
-            }
+                $name = $langObject->getLocalisedValue($options['names']);
+            }          
             $oneInstitutionResult['title'] = $name;
-            $keywords = [];
-            foreach ($names as $keyword) {
-                $value = $keyword['value'];
-                $keywords[$keyword['lang']] = $keyword['value'];
-                $keywords[$keyword['lang'].'_7'] =
-                        iconv('UTF-8', 'ASCII//TRANSLIT', $value);
-            }
-
-            if (\config\ConfAssistant::USE_KEYWORDS) {
-                $keywords_final = array_unique($keywords);
-
-                if (!empty($keywords_final)) {
-                    $oneInstitutionResult['keywords'] = [];
-                    foreach (array_keys($keywords_final) as $key) {
-                    $oneInstitutionResult['keywords'][] = [$keywords_final[$key]];
-                    }
-                }
-            }
-            if (count($geo) > 0) {
-                $oneInstitutionResult['geo'] = $geo;
+            $keywords = IdPlist::setKeywords($options['names']);
+            if (!empty($keywords)) {
+                $oneInstitutionResult['keywords'] = $keywords;
+            }        
+            if (count($options['geo']) > 0) {
+                $oneInstitutionResult['geo'] = $options['geo'];
+            }            
+            if ($options['icon'] > 0) {
+                $oneInstitutionResult['icon'] = $options['icon'];
             }
             $returnarray[] = $oneInstitutionResult;
         }
@@ -146,7 +94,7 @@ class IdPlist extends common\Entity
         return $returnarray;
     }
     
-   /**
+    /**
      * outputs a full list of IdPs containing the fllowing data:
      * institution_is, institution name in all available languages,
      * list of production profiles.
@@ -159,80 +107,33 @@ class IdPlist extends common\Entity
     public static function listIdentityProvidersWithProfiles() {
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
-        $idpQuery = "SELECT distinct institution.inst_id AS inst_id,
-            institution.country AS country,
-            group_concat(concat_ws('===',institution_option.option_name,
-                LEFT(institution_option.option_value,200),
-                institution_option.option_lang) separator '---') AS options
-            FROM institution
-            JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id 
-            JOIN institution_option ON institution.inst_id = institution_option.institution_id
-            WHERE (institution_option.option_name = 'general:instname'
-                OR institution_option.option_name = 'general:geo_coordinates'
-                OR institution_option.option_name = 'general:logo_file')
-            GROUP BY institution.inst_id";
-        
+        $idpQuery = IdPlist::setAllIdentyProvidersQuery(1);
         $allIDPs = $handle->exec($idpQuery);
         $idpArray = [];
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
-            $institutionOptions = explode('---', $queryResult->options);
+            $options = IdPlist::setIdentityProviderAttributes($queryResult);
             $oneInstitutionResult = [];
-            $geo = [];
-            $names = [];
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
-            $oneInstitutionResult['entityID'] = (int)$queryResult->inst_id;
-            
-            foreach ($institutionOptions as $institutionOption) {
-                $opt = explode('===', $institutionOption);
-                switch ($opt[0]) {
-                    case 'general:logo_file':
-                        $oneInstitutionResult['icon'] = $queryResult->inst_id;
-                        break;
-                    case 'general:geo_coordinates':
-                        $at1 = json_decode($opt[1], true);
-                        $geo[] = $at1;
-                        break;
-                    case 'general:instname':
-                        $names[] = [
-                            'lang' => $opt[2],
-                            'value' => $opt[1]
-                        ];
-                        break;
-                    default:
-                        break;
-                }
-            }
-            $oneInstitutionResult['names'] = $names;
-            if (count($geo) > 0) {
-                $geoArray=[];
-                foreach ($geo as $coords) {
-                    $geoArray[] = ['lon' => (float)$coords['lon'],
-                        'lat' => (float)$coords['lat']];
+            $oneInstitutionResult['entityID'] = (int) $queryResult->inst_id; 
+            $oneInstitutionResult['names'] = $options['names'];
+            if (count($options['geo']) > 0) {
+                $geoArray = [];
+                foreach ($options['geo'] as $coords) {
+                    $geoArray[] = ['lon' => (float) $coords['lon'],
+                        'lat' => (float) $coords['lat']];
                 }
                 $oneInstitutionResult['geo'] = $geoArray;
-            }              
+            }
+            if ($options['icon'] > 0) {
+                $oneInstitutionResult['icon'] = $options['icon'];
+            }
             $idpArray[$queryResult->inst_id] = $oneInstitutionResult;
         }
         
-        $profileQuery = "SELECT profile.inst_id AS inst_id,
-            profile.profile_id,
-            group_concat(concat_ws('===',profile_option.option_name, 
-                LEFT(profile_option.option_value, 200),
-                profile_option.option_lang) separator '---') AS profile_options
-            FROM profile
-            JOIN profile_option ON profile.profile_id = profile_option.profile_id
-            WHERE profile.sufficient_config = 1
-                AND profile_option.eap_method_id = 0
-                AND (profile_option.option_name = 'profile:name'
-                OR (profile_option.option_name = 'device-specific:redirect'
-                    AND isnull(profile_option.device_id))
-                OR profile_option.option_name = 'profile:production')        
-            GROUP BY profile.profile_id ORDER BY inst_id";
-
+        $profileQuery = IdPlist::setAllProfileQuery();
         $allProfiles = $handle->exec($profileQuery);
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
-            $productionProfile = false;
-            $profileOptions = explode('---', $queryResult->profile_options);
+            $profileOptions = IdPlist::setProfileAttribtes($queryResult);
             $idpId = $queryResult->inst_id;
             if (empty($idpArray[$idpId])) {
                 continue;
@@ -240,36 +141,14 @@ class IdPlist extends common\Entity
             if (empty($idpArray[$idpId]['profiles'])) {
                 $idpArray[$idpId]['profiles'] = [];
             }
-            $profileNames = [];
-            $redirect = '';
-            foreach ($profileOptions as $profileOption) {
-                $opt = explode('===', $profileOption);
-                switch ($opt[0]) {
-                    case 'profile:production':
-                        if ($opt[1] = 'on') {
-                            $productionProfile = true;
-                        }
-                        break;
-                    case 'device-specific:redirect':
-                            $redirect = $opt[1] . ':' . $queryResult->device_id;
-                       
-                        break;
-                    case 'profile:name': 
-                        $profileNames[] = [
-                            'lang' => $opt[2],
-                            'value' => $opt[1]
-                        ];
-                        break;
-                    default:
-                        break; 
-                }
+            if (!$profileOptions['production']) {
+                continue;
             }
-            if ($productionProfile) {
-                $idpArray[$idpId]['profiles'][] =
-                        ['id'=> (int)$queryResult->profile_id,
-                            'names'=> $profileNames,
-                            'redirect'=>$redirect];
-            }
+            $idpArray[$idpId]['profiles'][] = [
+                'id'=> (int) $queryResult->profile_id,
+                'names'=> $profileOptions['profileNames'],
+                'redirect'=>$profileOptions['redirect']
+                ];
         }       
         return $idpArray;
     }
@@ -321,6 +200,156 @@ class IdPlist extends common\Entity
             $dist = 10000;
         }
         return(sprintf("%06d", $dist));
+    }
+    
+    /**
+     * set the IdP query string for listAllIdentityProviders and 
+     * listIdentityProvidersWithProfiles
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
+     * 
+     * @return string the query
+     */
+    private static function setAllIdentyProvidersQuery($activeOnly = 0, $country = "")
+    {
+        $query = "SELECT distinct institution.inst_id AS inst_id,
+            institution.country AS country,
+            group_concat(concat_ws('===',institution_option.option_name,
+                LEFT(institution_option.option_value,200),
+                institution_option.option_lang) separator '---') AS options
+            FROM institution ";
+        if ($activeOnly == 1) {
+            $query .= "JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id ";
+        }
+        $query .= 
+           "JOIN institution_option ON institution.inst_id = institution_option.institution_id
+            WHERE (institution_option.option_name = 'general:instname' 
+                OR institution_option.option_name = 'general:geo_coordinates'
+                OR institution_option.option_name = 'general:logo_file') ";
+
+        $query .= ($country != "" ? "AND institution.country = ? " : "");
+
+        $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
+        return $query;
+    }
+
+    /**
+     * set the Profile query string for listIdentityProvidersWithProfiles
+     * 
+     * @return string query
+     */
+    private static function setAllProfileQuery() {
+        $query = "SELECT profile.inst_id AS inst_id,
+            profile.profile_id,
+            group_concat(concat_ws('===',profile_option.option_name, 
+                LEFT(profile_option.option_value, 200),
+                profile_option.option_lang) separator '---') AS profile_options
+            FROM profile
+            JOIN profile_option ON profile.profile_id = profile_option.profile_id
+            WHERE profile.sufficient_config = 1
+                AND profile_option.eap_method_id = 0
+                AND (profile_option.option_name = 'profile:name'
+                OR (profile_option.option_name = 'device-specific:redirect'
+                    AND isnull(profile_option.device_id))
+                OR profile_option.option_name = 'profile:production')        
+            GROUP BY profile.profile_id ORDER BY inst_id";
+        return $query;
+    }
+    
+    /**
+     * Extract IdP attributes for listAllIdentityProviders and 
+     * listIdentityProvidersWithProfiles
+     * @param  $idp object - the row object returned by the IdP search
+     * @return array the IdP attributes
+     */
+    private static function setIdentityProviderAttributes($idp) {
+        $options = explode('---', $idp->options);
+        $names = [];
+        $geo = [];
+        $icon = 0;
+        foreach ($options as $option) {
+            $opt = explode('===', $option);
+            switch ($opt[0]) {
+                case 'general:logo_file':
+                    $icon = $idp->inst_id;
+                    break;
+                case 'general:geo_coordinates':
+                    $at1 = json_decode($opt[1], true);
+                    $geo[] = $at1;
+                    break;
+                case 'general:instname':
+                    $names[] = [
+                        'lang' => $opt[2],
+                        'value' => $opt[1]
+                    ];
+                    break;
+                default:
+                    break;
+            }
+        }
+        return ['names' => $names, 'geo' => $geo, 'icon' => $icon];
+        
+    }
+    
+    /**
+     * Extract Profie attributes for listIdentityProvidersWithProfiles
+     * 
+     * @param object $profile - the row object returned by the profile search
+     * @return array the profile attributes
+     */
+    private static function setProfileAttribtes($profile)
+    {
+        $profileOptions = explode('---', $profile->profile_options);
+        $productionProfile = false;
+        $profileNames = [];
+        $redirect = '';
+
+        foreach ($profileOptions as $profileOption) {
+            $opt = explode('===', $profileOption);
+            switch ($opt[0]) {
+                case 'profile:production':
+                    if ($opt[1] = 'on') {
+                        $productionProfile = true;
+                    }
+                    break;
+                case 'device-specific:redirect':
+                        $redirect = $opt[1].':'.$profile->device_id;
+                    break;
+                case 'profile:name': 
+                    $profileNames[] = [
+                        'lang' => $opt[2],
+                        'value' => $opt[1]
+                    ];
+                    break;
+                default:
+                    break; 
+            }
+        }
+        return ['production' => $productionProfile,
+            'profileNames' => $profileNames,
+            'redirect' => $redirect];
+    }
+    
+    private static function setKeywords($names)
+    {
+        if (!\config\ConfAssistant::USE_KEYWORDS) {
+            return null;
+        }
+        $keywords = [];
+        foreach ($names as $keyword) {
+            $value = $keyword['value'];
+            $keywords[$keyword['lang']] = $keyword['value'];
+            $keywords[$keyword['lang'].'_7'] =
+                    iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+        }
+        $keywords_final = array_unique($keywords);
+        if (!empty($keywords_final)) {
+            $returnArray = [];
+            foreach (array_keys($keywords_final) as $key) {
+            $returnArray[] = [$keywords_final[$key]];
+            }
+        }
+        return $returnArray;
     }
 
     /**
