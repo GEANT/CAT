@@ -243,7 +243,7 @@ class IdPlist extends common\Entity {
                 $opt = explode('===', $profileOption);
                 switch ($opt[0]) {
                     case 'profile:production':
-                        if ($opt[1] = 'on') {
+                        if ($opt[1] == 'on') {
                             $productionProfile = true;
                         }
                         break;
