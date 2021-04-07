@@ -72,6 +72,9 @@ class IdPlist extends common\Entity
             $oneInstitutionResult = [];
             $oneInstitutionResult['entityID'] = $queryResult->inst_id;
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
+            if ($options['icon'] > 0) {
+                $oneInstitutionResult['icon'] = $options['icon'];
+            }
             $name = _("Unnamed Entity");
             if (count($options['names']) != 0) {
                 $langObject = new \core\common\Language();
@@ -85,9 +88,6 @@ class IdPlist extends common\Entity
             if (count($options['geo']) > 0) {
                 $oneInstitutionResult['geo'] = $options['geo'];
             }            
-            if ($options['icon'] > 0) {
-                $oneInstitutionResult['icon'] = $options['icon'];
-            }
             $returnarray[] = $oneInstitutionResult;
         }
         common\Entity::outOfThePotatoes();
@@ -114,7 +114,10 @@ class IdPlist extends common\Entity
             $options = IdPlist::setIdentityProviderAttributes($queryResult);
             $oneInstitutionResult = [];
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
-            $oneInstitutionResult['entityID'] = (int) $queryResult->inst_id; 
+            $oneInstitutionResult['entityID'] = (int) $queryResult->inst_id;
+            if ($options['icon'] > 0) {
+                $oneInstitutionResult['icon'] = $options['icon'];
+            }
             $oneInstitutionResult['names'] = $options['names'];
             if (count($options['geo']) > 0) {
                 $geoArray = [];
@@ -124,9 +127,7 @@ class IdPlist extends common\Entity
                 }
                 $oneInstitutionResult['geo'] = $geoArray;
             }
-            if ($options['icon'] > 0) {
-                $oneInstitutionResult['icon'] = $options['icon'];
-            }
+
             $idpArray[$queryResult->inst_id] = $oneInstitutionResult;
         }
         
@@ -287,8 +288,7 @@ class IdPlist extends common\Entity
                     break;
             }
         }
-        return ['names' => $names, 'geo' => $geo, 'icon' => $icon];
-        
+        return ['names' => $names, 'geo' => $geo, 'icon' => $icon];       
     }
     
     /**
@@ -308,7 +308,7 @@ class IdPlist extends common\Entity
             $opt = explode('===', $profileOption);
             switch ($opt[0]) {
                 case 'profile:production':
-                    if ($opt[1] = 'on') {
+                    if ($opt[1] == 'on') {
                         $productionProfile = true;
                     }
                     break;
@@ -363,7 +363,7 @@ class IdPlist extends common\Entity
     {
 
         $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
-                cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
+            cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
         $dist = rad2deg(acos($distIntermediate)) * 60 * 1.1852;
         return(round($dist));
     }
