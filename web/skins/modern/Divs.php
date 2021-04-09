@@ -106,6 +106,7 @@ class Divs {
     </p>
     <p>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_USAGE] . "
     <p>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_PROBLEMS] . "
+    <p>" . (false ? $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_TERMS] : "") . "
     </p>
     <p>
     <a href='javascript:back_to_downloads()'><strong>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_BACKTODOWNLOADS] . "</strong></a>

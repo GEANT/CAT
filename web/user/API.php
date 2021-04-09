@@ -97,6 +97,9 @@ switch ($action) {
         case 'listIdentityProvidersWithProfiles':
         $API->JSON_ListIdentityProvidersWithProfiles();
         break;
+        case 'listIdentityProvidersWithProfiles':
+        $API->JSON_ListIdentityProvidersWithProfiles();
+        break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {
             $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;

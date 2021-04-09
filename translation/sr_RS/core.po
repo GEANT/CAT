@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2019-04-18 09:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
@@ -288,21 +288,21 @@ msgstr "Tajvan"
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#: core/CAT.php:467 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:113
 msgid "Unnamed Entity"
 msgstr "Neimenovan entitet"
 
-#: core/DeviceConfig.php:229
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support"
 msgstr "vaša lokalna %s podrška"
 
-#: core/DeviceConfig.php:230
+#: core/DeviceConfig.php:231
 #, php-format
 msgid "your local %s support page"
 msgstr "vaša lokalna %s stranica za podršku"
 
-#: core/DeviceConfig.php:266
+#: core/DeviceConfig.php:267
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Izvinite, ovo ne bi trebalo da se desi - dodatne informacije nisu dostupne"
@@ -339,7 +339,7 @@ msgstr ""
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:258
+#: core/IdP.php:269
 #, php-format
 msgid ""
 "Hi,\n"
@@ -353,7 +353,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/IdP.php:267
+#: core/IdP.php:278
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -420,31 +420,31 @@ msgstr "%s sistem pozivanja"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: core/common/EAP.php:380
+#: core/common/EAP.php:357
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: core/common/EAP.php:381
+#: core/common/EAP.php:358
 msgid "TLS"
 msgstr "TLS"
 
-#: core/common/EAP.php:382
+#: core/common/EAP.php:359
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: core/common/EAP.php:383
+#: core/common/EAP.php:360
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: core/common/EAP.php:384
+#: core/common/EAP.php:361
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: core/common/EAP.php:385
+#: core/common/EAP.php:362
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: core/common/EAP.php:386
+#: core/common/EAP.php:363
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 

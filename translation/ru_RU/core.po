@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Vasiliy Porkhachev <porhachev@runnet.ru>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-04-18 09:31+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2020-09-25 13:15+0000\n"
+"Last-Translator: Vasiliy Porkhachev <porhachev@runnet.ru>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ru_RU/)\n"
 "Language: ru_RU\n"
@@ -32,283 +33,284 @@ msgstr ""
 
 #: core/CAT.php:128
 msgid "Andorra"
-msgstr ""
+msgstr "Андорра"
 
 #: core/CAT.php:129
 msgid "Austria"
-msgstr ""
+msgstr "Австрия"
 
 #: core/CAT.php:130
 msgid "Belgium"
-msgstr ""
+msgstr "Бельгия"
 
 #: core/CAT.php:131
 msgid "Bulgaria"
-msgstr ""
+msgstr "Болгария"
 
 #: core/CAT.php:132
 msgid "Cyprus"
-msgstr ""
+msgstr "Кипр"
 
 #: core/CAT.php:133
 msgid "Czech Republic"
-msgstr ""
+msgstr "Чешская Республика"
 
 #: core/CAT.php:134
 msgid "Denmark"
-msgstr ""
+msgstr "Дания"
 
 #: core/CAT.php:135
 msgid "Estonia"
-msgstr ""
+msgstr "Эстония"
 
 #: core/CAT.php:136
 msgid "Finland"
-msgstr ""
+msgstr "Финляндия"
 
 #: core/CAT.php:137
 msgid "France"
-msgstr ""
+msgstr "Франция"
 
 #: core/CAT.php:138
 msgid "Germany"
-msgstr ""
+msgstr "Германия"
 
 #: core/CAT.php:139
 msgid "Greece"
-msgstr ""
+msgstr "Греция"
 
 #: core/CAT.php:140
 msgid "Croatia"
-msgstr ""
+msgstr "Хорватия"
 
 #: core/CAT.php:141
 msgid "Ireland"
-msgstr ""
+msgstr "Ирландия"
 
 #: core/CAT.php:142
 msgid "Iceland"
-msgstr ""
+msgstr "Исландия"
 
 #: core/CAT.php:143
 msgid "Italy"
-msgstr ""
+msgstr "Италия"
 
 #: core/CAT.php:144
 msgid "Hungary"
-msgstr ""
+msgstr "Венгрия"
 
 #: core/CAT.php:145
 msgid "Luxembourg"
-msgstr ""
+msgstr "Люксембург"
 
 #: core/CAT.php:146
 msgid "Latvia"
-msgstr ""
+msgstr "Латвия"
 
 #: core/CAT.php:147
 msgid "Lithuania"
-msgstr ""
+msgstr "Литва"
 
 #: core/CAT.php:148
 msgid "Macedonia"
-msgstr ""
+msgstr "Македония"
 
 #: core/CAT.php:149
 msgid "Serbia"
-msgstr ""
+msgstr "Сербия"
 
 #: core/CAT.php:150
 msgid "Netherlands"
-msgstr ""
+msgstr "Нидерланды"
 
 #: core/CAT.php:151
 msgid "Norway"
-msgstr ""
+msgstr "Норвегия"
 
 #: core/CAT.php:152
 msgid "Poland"
-msgstr ""
+msgstr "Польша"
 
 #: core/CAT.php:153
 msgid "Portugal"
-msgstr ""
+msgstr "Португалия"
 
 #: core/CAT.php:154
 msgid "Romania"
-msgstr ""
+msgstr "Румыния"
 
 #: core/CAT.php:155
 msgid "Slovenia"
-msgstr ""
+msgstr "Словения"
 
 #: core/CAT.php:156
 msgid "Spain"
-msgstr ""
+msgstr "Испания"
 
 #: core/CAT.php:157
 msgid "Sweden"
-msgstr ""
+msgstr "Швеция"
 
 #: core/CAT.php:158
 msgid "Slovakia"
-msgstr ""
+msgstr "Словакия"
 
 #: core/CAT.php:159
 msgid "Switzerland"
-msgstr ""
+msgstr "Швейцария"
 
 #: core/CAT.php:160
 msgid "Turkey"
-msgstr ""
+msgstr "Турция"
 
 #: core/CAT.php:161
 msgid "United Kingdom"
-msgstr ""
+msgstr "Великобритания"
 
 #: core/CAT.php:163
 msgid "Australia"
-msgstr ""
+msgstr "Австралия"
 
 #: core/CAT.php:164
 msgid "Canada"
-msgstr ""
+msgstr "Канада"
 
 #: core/CAT.php:165
 msgid "Israel"
-msgstr ""
+msgstr "Израиль"
 
 #: core/CAT.php:166
 msgid "Japan"
-msgstr ""
+msgstr "Япония"
 
 #: core/CAT.php:167
 msgid "New Zealand"
-msgstr ""
+msgstr "Новая Зеландия"
 
 #: core/CAT.php:168
 msgid "U.S.A."
-msgstr ""
+msgstr "США"
 
 #: core/CAT.php:169
 msgid "Brazil"
-msgstr ""
+msgstr "Бразилия"
 
 #: core/CAT.php:170
 msgid "Chile"
-msgstr ""
+msgstr "Чили"
 
 #: core/CAT.php:171
 msgid "Peru"
-msgstr ""
+msgstr "Перу"
 
 #: core/CAT.php:172
 msgid "Venezuela"
-msgstr ""
+msgstr "Венесуэла"
 
 #: core/CAT.php:173
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: core/CAT.php:174
 msgid "Armenia"
-msgstr ""
+msgstr "Армения"
 
 #: core/CAT.php:175
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Азербайджан"
 
 #: core/CAT.php:176
 msgid "Belarus"
-msgstr ""
+msgstr "Белоруссия"
 
 #: core/CAT.php:177
 msgid "Ecuador"
-msgstr ""
+msgstr "Эквадор"
 
 #: core/CAT.php:178
 msgid "Hong Kong"
-msgstr ""
+msgstr "Гонконг"
 
 #: core/CAT.php:179
 msgid "Kenya"
-msgstr ""
+msgstr "Кения"
 
 #: core/CAT.php:180
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Киргизия"
 
 #: core/CAT.php:181
 msgid "Korea"
-msgstr ""
+msgstr "Корея"
 
 #: core/CAT.php:182
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Казахстан"
 
 #: core/CAT.php:183
 msgid "Morocco"
-msgstr ""
+msgstr "Морокко"
 
 #: core/CAT.php:184
 msgid "Moldova"
-msgstr ""
+msgstr "Молдова"
 
 #: core/CAT.php:185
 msgid "Montenegro"
-msgstr ""
+msgstr "Черногория"
 
 #: core/CAT.php:186
 msgid "Macau"
-msgstr ""
+msgstr "Макао"
 
 #: core/CAT.php:187
 msgid "Malta"
-msgstr ""
+msgstr "Мальта"
 
 #: core/CAT.php:188
 msgid "Russia"
-msgstr ""
+msgstr "Россия"
 
 #: core/CAT.php:189
 msgid "Singapore"
-msgstr ""
+msgstr "Сингапур"
 
 #: core/CAT.php:190
 msgid "Thailand"
-msgstr ""
+msgstr "Таиланд"
 
 #: core/CAT.php:191
 msgid "Taiwan"
-msgstr ""
+msgstr "Тайвань"
 
 #: core/CAT.php:192
 msgid "South Africa"
-msgstr ""
+msgstr "ЮАР"
 
-#: core/CAT.php:467 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:113
 msgid "Unnamed Entity"
-msgstr ""
-
-#: core/DeviceConfig.php:229
-#, php-format
-msgid "your local %s support"
-msgstr ""
+msgstr "Организация без названия"
 
 #: core/DeviceConfig.php:230
 #, php-format
-msgid "your local %s support page"
-msgstr ""
+msgid "your local %s support"
+msgstr "ваша местная %s поддержка"
 
-#: core/DeviceConfig.php:266
+#: core/DeviceConfig.php:231
+#, php-format
+msgid "your local %s support page"
+msgstr "страница вашей местной %s поддержки"
+
+#: core/DeviceConfig.php:267
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
+"Извините, незапланированная ошибка - дополнительная информация отсутствует"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(прекращено) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -330,13 +332,23 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Здравствуйте,\n"
+"\n"
+"Приглашение нового участника %s %sв вашей %s федерации %s было использовано "
+"и IdP был создан в %s.\n"
+"\n"
+"Мы думаем , эта информация вам нужна.\n"
+"\n"
+"С наилучшими пожеланиями,\n"
+"\n"
+"%s"
 
 #: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "В вашей федерации был создан %s "
 
-#: core/IdP.php:258
+#: core/IdP.php:269
 #, php-format
 msgid ""
 "Hi,\n"
@@ -350,7 +362,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/IdP.php:267
+#: core/IdP.php:278
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -408,31 +420,31 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#: core/common/EAP.php:380
+#: core/common/EAP.php:357
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: core/common/EAP.php:381
+#: core/common/EAP.php:358
 msgid "TLS"
 msgstr "TLS"
 
-#: core/common/EAP.php:382
+#: core/common/EAP.php:359
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: core/common/EAP.php:383
+#: core/common/EAP.php:360
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: core/common/EAP.php:384
+#: core/common/EAP.php:361
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: core/common/EAP.php:385
+#: core/common/EAP.php:362
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: core/common/EAP.php:386
+#: core/common/EAP.php:363
 msgid "EAP-pwd"
 msgstr ""
 

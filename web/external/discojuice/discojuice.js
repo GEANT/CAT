@@ -818,27 +818,35 @@ DiscoJuice.Control = {
         var that = this;
         if (this.data)
             return;
-        var metadataurl = this.parent.Utils.options.get('metadata');
-        var parameters = {};
-
-        this.parent.Utils.log('metadataurl is ' + metadataurl);
-        if (!metadataurl)
-            return;
-
         // If SP EntityID is set in configuration make sure it is sent as a parameter
         // to the feed endpoint.
+        var parameters = {};
         var discosettings = this.parent.Utils.options.get('disco');
+        var metadataPreloaded = this.parent.Utils.options.get('metadataPreloaded');
         if (discosettings) {
             parameters.entityID = discosettings.spentityid;
         }
-
-        $.getJSON(metadataurl, parameters, function (data) {
-            that.data = data;
-            that.parent.Utils.log('Successfully loaded metadata (' + data.length + ')');
-            that.postLoad();
-        });
-
-
+        var metadataurl = this.parent.Utils.options.get('metadata');
+        if (metadataPreloaded) {
+            this.data = metadataurl;
+            this.postLoad();
+        } else {
+            var parameters = {};
+            this.parent.Utils.log('metadataurl is ' + metadataurl);
+            if (!metadataurl)
+                return;
+            // If SP EntityID is set in configuration make sure it is sent as a parameter
+            // to the feed endpoint.
+            var discosettings = this.parent.Utils.options.get('disco');
+            if (discosettings) {
+                parameters.entityID = discosettings.spentityid;
+            }
+            $.getJSON(metadataurl, parameters, function (data) {
+                that.data = data;
+                that.parent.Utils.log('Successfully loaded metadata (' + data.length + ')');
+                that.postLoad();
+            });
+        }
     },
 
     "postLoad": function () {

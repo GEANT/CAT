@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2012
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-05-06 09:47+0000\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-01-04 13:10+0000\n"
 "Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -290,21 +290,21 @@ msgstr "Taïwan"
 msgid "South Africa"
 msgstr "Afrique du Sud"
 
-#: core/CAT.php:467 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:113
 msgid "Unnamed Entity"
 msgstr "Entité sans nom"
 
-#: core/DeviceConfig.php:229
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support"
 msgstr "votre support local %s"
 
-#: core/DeviceConfig.php:230
+#: core/DeviceConfig.php:231
 #, php-format
 msgid "your local %s support page"
 msgstr "votre page de support local %s"
 
-#: core/DeviceConfig.php:266
+#: core/DeviceConfig.php:267
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Désolé, cela ne devrait pas arriver - pas d'information complémentaire "
@@ -314,7 +314,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr "(plus produit) %s"
+msgstr "(abandonné) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -338,8 +338,8 @@ msgid ""
 msgstr ""
 "Bonjour,\n"
 "\n"
-"L'invitation pour le %s de %s de votre fédération %s  %s a été consommée et "
-"le fournisseur d'identité a été créé dans %s.\n"
+"L'invitation pour le nouveau %s %s de votre fédération %s %s a été consommée "
+"et le fournisseur d'identité a été créé dans %s.\n"
 "\n"
 "Nous pensons que cette information est intéressante pour vous.\n"
 "\n"
@@ -351,7 +351,7 @@ msgstr ""
 msgid "%s in your federation was created"
 msgstr "%s dans votre fédération a été crée"
 
-#: core/IdP.php:258
+#: core/IdP.php:269
 #, php-format
 msgid ""
 "Hi,\n"
@@ -374,7 +374,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:267
+#: core/IdP.php:278
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s dans votre fédération a été supprimé"
@@ -443,31 +443,31 @@ msgstr "Système d'invitation %s"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: core/common/EAP.php:380
+#: core/common/EAP.php:357
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: core/common/EAP.php:381
+#: core/common/EAP.php:358
 msgid "TLS"
 msgstr "TLS"
 
-#: core/common/EAP.php:382
+#: core/common/EAP.php:359
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: core/common/EAP.php:383
+#: core/common/EAP.php:360
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: core/common/EAP.php:384
+#: core/common/EAP.php:361
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: core/common/EAP.php:385
+#: core/common/EAP.php:362
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: core/common/EAP.php:386
+#: core/common/EAP.php:363
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
@@ -476,7 +476,7 @@ msgstr "EAP-pwd"
 #. different wording, no translation, sorry
 #: core/common/Entity.php:104
 msgid "National Roaming Operator"
-msgstr "Opérateur national de mobilité"
+msgstr "opérateur national de mobilité"
 
 #: core/common/Entity.php:105
 msgid "identity provider"
@@ -484,7 +484,7 @@ msgstr "fournisseur d'identité"
 
 #: core/common/Entity.php:106
 msgid "organisation"
-msgstr "organisation"
+msgstr "établissement"
 
 #: core/common/Entity.php:107
 msgid "Identity Provider"
@@ -558,7 +558,7 @@ msgid ""
 "Interface at"
 msgstr ""
 "Si le lien ne fonctionne pas, vous pouvez vous rendre sur l'interface "
-"d'administration %s a"
+"d'administration %s"
 
 #: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
@@ -575,7 +575,7 @@ msgstr ""
 #: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr "Nous vous souhaitons beaucoup de plaisir avec le %s."
+msgstr "Nous vous souhaitons beaucoup de plaisir avec %s."
 
 #: core/common/OutsideComm.php:305
 #, php-format
@@ -599,7 +599,7 @@ msgstr "erreur de validation de l'entrée:"
 
 #: web/lib/common/InputValidation.php:216
 msgid "Realm is empty!"
-msgstr "Le domaine est vide"
+msgstr "Le domaine est vide !"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm contains an @ sign!"
@@ -607,11 +607,11 @@ msgstr "Le nom de domaine contient un @ !"
 
 #: web/lib/common/InputValidation.php:226
 msgid "Realm begins with a . (dot)!"
-msgstr "Le nom de domaine commence par un .(point) !"
+msgstr "Le nom de domaine commence par un . (point) !"
 
 #: web/lib/common/InputValidation.php:227
 msgid "Realm ends with a . (dot)!"
-msgstr "Le nom de domaine se termine par un .(point) !"
+msgstr "Le nom de domaine se termine par un . (point) !"
 
 #: web/lib/common/InputValidation.php:228
 msgid "Realm contains spaces!"
@@ -619,4 +619,4 @@ msgstr "Le nom de domaine contient des espaces !"
 
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
-msgstr "Le nom de domaine ne contient pas de .(point) !"
+msgstr "Le nom de domaine ne contient pas de . (point) !"

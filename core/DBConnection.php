@@ -288,7 +288,13 @@ class DBConnection
             $this->readOnly = \config\ConfAssistant::DB[$databaseCapitalised]['readonly'];
         }
         if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
-            $this->connection->query("SET NAMES 'latin1'");
+        // it does not matter for internal time calculations with TIMESTAMPs but
+        // sometimes we operate on date/time strings. Since MySQL returns those
+        // in "local timezone" but doesn't tell what timezone that is, the result
+        // is ambiguous. Resolve the ambiguity by telling MySQL to always operate
+        // in UTC time.
+        $this->connection->query("SET SESSION time_zone='+00:00'");
+        $this->connection->query("SET NAMES 'latin1'");
         }
     }
 

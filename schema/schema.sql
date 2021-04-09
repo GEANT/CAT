@@ -228,6 +228,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('eap:server_name','name of authorized RADIUS server','string',NULL),
 ('general:geo_coordinates','geographical coordinates of the institution or a campus','coordinates',NULL),
 ('general:instname','name of the institution in multiple languages','string','ML'),
+('general:instshortname','short name of the institution (acronym etc) in multiple languages','string','ML'),
 ('general:logo_file','file data containing institution logo','file',NULL),
 ('media:SSID','additional SSID to configure, WPA2/AES only','string',NULL),
 ('media:wired','should wired interfaces be configured','boolean',NULL),

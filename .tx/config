@@ -35,3 +35,4 @@ minimum_perc = 0
 source_file = translation/web_admin.pot
 source_lang = en
 type = PO
+

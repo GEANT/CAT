@@ -733,24 +733,17 @@ class WpaConf(object):
         ca_cert=\"""" + get_config_path() + """/cat_installer/ca.pem\"
         identity=\"""" + user_data.username + """\"
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
-        phase2=\"auth=""" + Config.eap_inner + """\"
-        """
-
-        if Config.eap_outer == "TLS" and user_data.pfx_file:
-            interface += """
-            private_key=\"""" + user_data.pfx_file + """\"
-            private_key_passwd=\"""" + user_data.password + """\"
-            """
-        else:
-            interface += """
+        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+            phase2=\"auth=""" + Config.eap_inner + """\"
             password=\"""" + user_data.password + """\"
-            """
-
-        interface += """
-        anonymous_identity=\"""" + Config.anonymous_identity + """\"
-        }
-        """
-        return interface
+            if Config.anonymous_identity != '':
+                anonymous_identity=\"""" + Config.anonymous_identity + """\"
+        if Config.eap_outer == 'TLS':
+            private_key_passwd=\"""" + user_data.password + """\"
+            private_key=\"""" + os.environ.get('HOME') + """/.cat_installer/user.p12\"
+}
+    """
+        return out
 
     def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""

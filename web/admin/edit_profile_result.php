@@ -134,6 +134,9 @@ switch ($_POST['submitbutton']) {
             } else {
                 $profile->setAnonymousIDSupport(false);
                 echo $uiElements->boxOkay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
+                if ($verify === FALSE) { // no anon outer ID, and no realm suffix verification? Bad idea!
+                    echo $uiElements->boxWarning(_("Without Anoymous Identity, the actual username will be used as outer identity and be the basis for request routing. For that to work, the username must have a correct realm suffix. Yet, realm suffix verification has been turned OFF. Supplicants will not verify that usernames contain a realm, and errors such as username 'johndoe' which will not work in roaming scenarios will not be prohibited. Consider checking the box 'Enforce realm suffix in username'!"));
+                }
             }
 
             if ($checkuser !== FALSE) {
@@ -149,17 +152,16 @@ switch ($_POST['submitbutton']) {
             }
 
             if ($verify !== FALSE) {
-                if ($realm === FALSE) {
-                    echo $uiElements->boxError(_("Realm check username cannot be configured: realm is missing!"));
-                } else {
-                    $profile->setInputVerificationPreference($verify, $hint);
+                $profile->setInputVerificationPreference($verify, $hint);
+                $extratext = "";
+                if (!empty($realm)) {
                     if ($hint !== FALSE) {
-                        $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
+                        $extratext = " " . sprintf(_("The realm portion MUST be exactly '...@%s'."), $realm);
                     } else {
-                        $extratext = ".";
+                        $extratext = " " . sprintf(_("The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. 'user@%s' and 'user@<...>.%s' are both acceptable)."), $realm, $realm, $realm);
                     }
-                    echo $uiElements->boxOkay(sprintf(_("Where possible, username inputs will be <strong>verified to end with @%s</strong>%s"), $realm, $extratext));
                 }
+                echo $uiElements->boxOkay(_("Where possible, supplicants will verify that username inputs contain a syntactically correct realm.") . $extratext);
             } else {
                 $profile->setInputVerificationPreference(false, false);
             }
@@ -192,7 +194,8 @@ switch ($_POST['submitbutton']) {
             }
 
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
-
+            // reload the profile to ingest new CA and server names if any; before checking EAP completeness
+            $reloadedProfileNr1 = \core\ProfileFactory::instantiate($profile->identifier);
             foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
                 if ($a->getIntegerRep() == \core\common\EAP::INTEGER_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
                     continue;
@@ -200,13 +203,27 @@ switch ($_POST['submitbutton']) {
                 if (isset($_POST[$a->getPrintableRep()]) && isset($_POST[$a->getPrintableRep() . "-priority"]) && is_numeric($_POST[$a->getPrintableRep() . "-priority"])) {
                     $priority = (int) $_POST[$a->getPrintableRep() . "-priority"];
                     // add EAP type to profile as requested, but ...
-                    $profile->addSupportedEapMethod($a, $priority);
-                    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
+                    $reloadedProfileNr1->addSupportedEapMethod($a, $priority);
+                    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $reloadedProfileNr1->identifier . " - supported EAP types changed");
+                    // see if we can enable the EAP type, or if info is missing
+                    $eapcompleteness = $reloadedProfileNr1->isEapTypeDefinitionComplete($a);
+                    if ($eapcompleteness === true) {
+                        echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $a->getPrintableRep() . "</strong>");
+                    } else {
+                        $warntext = "";
+                        if (is_array($eapcompleteness)) {
+                            foreach ($eapcompleteness as $item) {
+                                $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
+                            }
+                        }
+                        echo $uiElements->boxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $a->getPrintableRep(), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
+                    }
                 }
             }
-            // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-            $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
-            $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfile);
+            // re-instantiate $profile again, we need to do final checks on the
+            // full set of new information
+            $reloadedProfileNr2 = \core\ProfileFactory::instantiate($profile->identifier);
+            $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfileNr2);
             if (count($significantChanges) > 0) {
                 $myInstOriginal = new \core\IdP($profile->institution);
                 // send a notification/alert mail to someone we know is in charge
@@ -218,7 +235,7 @@ switch ($_POST['submitbutton']) {
                     $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::CA_ADDED])) {
-                    $text .= _("A new trusted root CA was added. The details are below:\n\n");
+                    $text .= _("A new trusted root CA was added. The details are below:")."\n\n";
                     $text .= $significantChanges[\core\AbstractProfile::CA_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::SERVERNAME_ADDED])) {
@@ -234,27 +251,7 @@ switch ($_POST['submitbutton']) {
                     $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
                 }
             }
-            foreach ($reloadedProfile->getEapMethodsinOrderOfPreference() as $oneEap) {
-                // see if we can enable the EAP type, or if info is missing
-                    $eapcompleteness = $reloadedProfile->isEapTypeDefinitionComplete($oneEap);
-                    if ($eapcompleteness === true) {
-                        echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $oneEap->getPrintableRep() . "</strong>");
-                    } else {
-                        
-                        if (is_array($eapcompleteness)) {
-                            $number = count($eapcompleteness);
-                            $iterator = 0;
-                            $warntext = "<strong>";
-                            foreach ($eapcompleteness as $item) {
-                                $iterator = $iterator + 1;
-                                $warntext .= $uiElements->displayName($item) . "</strong>".($iterator < $number ? ", " : "")."<strong>";
-                            }
-                            $warntext .= "</strong>";
-                        }
-                        echo $uiElements->boxWarning(sprintf(_("Supported EAP Type <strong>%s</strong> is missing required information: %s !"), $oneEap->getPrintableRep(), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
-                    }
-            }
-            $reloadedProfile->prepShowtime();
+            $reloadedProfileNr2->prepShowtime();
             ?>
         </table>
         <br/>
@@ -262,8 +259,8 @@ switch ($_POST['submitbutton']) {
             <button type='submit'><?php echo _("Continue to dashboard"); ?></button>
         </form>
         <?php
-        if (count($reloadedProfile->getEapMethodsinOrderOfPreference(1)) > 0) {
-            echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$reloadedProfile->identifier' accept-charset='UTF-8'>
+        if (count($reloadedProfileNr2->getEapMethodsinOrderOfPreference(1)) > 0) {
+            echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$reloadedProfileNr2->identifier' accept-charset='UTF-8'>
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
         }

@@ -21,7 +21,7 @@
 
 namespace devices\xml;
 
-class DeviceXMLAll extends DeviceXML {
+class Device_Generic extends Device_XML {
 
     /**
      * construct the device
@@ -38,6 +38,7 @@ class DeviceXMLAll extends DeviceXML {
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;
+        $this->eduroamCATcompatibility = FALSE;
     }
 
 }

@@ -15,9 +15,6 @@
         <ignore>vendor/*</ignore>
 	<ignore>core/GeoIP2/*</ignore>
     </files>
-    <plugins>
-        <plugin path="Core" />
-    </plugins>
     <transformations>
         <template name="clean" />
     </transformations>

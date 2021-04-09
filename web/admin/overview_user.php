@@ -225,6 +225,17 @@ require_once "inc/click_button_js.php";
                     <?php
                     echo "</td></tr>";
                 }
+                $otherAdminCount = count($admins); // only the unnamed remain
+                if ($otherAdminCount > 0) {
+                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount),$otherAdminCount);
+                }
+                echo "</td><td>";
+                $isAdminMgmtAvailable = FALSE;
+                if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
+                    $isAdminMgmtAvailable = TRUE;
+                }
+                echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit' ". ($isAdminMgmtAvailable ? "" : "disabled") .">" . _("Add/Remove Administrators") . "</button></form></div>";
+                echo "</td></tr>";
             }
             ?>
         </table>

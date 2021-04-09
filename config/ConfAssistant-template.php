@@ -160,7 +160,7 @@ class ConfAssistant
         'password' => '...',
     ];
     
-            /**
+    /**
      * Lists the RADIUS servers. They have a built-in DB to log auth requests.
      * We need to query those to get auth stats for silverbullet admins
      *
@@ -182,4 +182,18 @@ class ConfAssistant
             'pass' => 'somepass',
             'readonly' => TRUE,],
     ];
+
+    /**
+     * Determines if DiscoJuice keywords should be used in the discovery service
+     * The keywords contain other language variants of the IdP name making it
+     * easier to kollow keyboard serach. Turning this oprion on will add
+     * about 40% size to the IdP list
+     */
+    const USE_KEYWORDS = true;
+    /**
+     * Determines if the IdP list for DiscoJouce shuld be preloaded in the background
+     * at the main page load
+     */
+    const PRELOAD_IDPS = true;
+
 }

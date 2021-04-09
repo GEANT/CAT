@@ -16,3 +16,7 @@
 /feddetails.json
 /fed.output
 /ansible/local/
+/.tx/
+/translation/de_DE/index.lokalize
+/translation/de_DE/main.lqa
+/translation/de_DE/lokalize-scripts/

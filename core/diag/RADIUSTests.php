@@ -762,7 +762,8 @@ network={
         $verifyResultAllcerts = [];
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
-        if (filesize("$tmpDir/serverchain.pem") > 10) {
+// serverchain.pem is the output from eapol_test; incomingserver.pem is written by extractIncomingCertsfromEAP() if there was at least one server cert.
+        if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
             exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
             $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
@@ -770,7 +771,6 @@ network={
             $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
         }
-
 
 // now we do certificate verification against the collected parents
 // this is done first for the server and then for each of the intermediate CAs
@@ -892,7 +892,9 @@ network={
             throw new Exception("The output of an exec() call really can't be NULL!");
         }
         $time_stop = microtime(true);
-        $this->loggerInstance->debug(5, print_r($this->redact($password, $pflow), TRUE));
+        $output = print_r($this->redact($password, $pflow), TRUE);
+        file_put_contents($tmpDir . "/eapol_test_output_redacted_$probeindex.txt", $output);
+        $this->loggerInstance->debug(5, "eapol_test output saved to eapol_test_output_redacted_$probeindex.txt\n");
         return [
             "time" => ($time_stop - $time_start) * 1000,
             "output" => $pflow,
@@ -1154,10 +1156,16 @@ network={
         $testresults['time_millisec'] = $runtime_results['time'];
         $packetflow_orig = $runtime_results['output'];
         $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
-        $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
-        $testresults['negotiated_eaptype'] = $negotiatedEapType;
-        $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
-        $testresults['tls_version_eap'] = $negotiatedTlsVersion;
+        // if the RADIUS conversation was immediately rejected, it is trivially
+        // true that no EAP type was negotiated, and that TLS didn't negotiate
+        // a version. Don't get excited about that then.
+        $negotiatedEapType = FALSE;
+        if ($radiusResult != RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+            $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
+            $testresults['negotiated_eaptype'] = $negotiatedEapType;
+            $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
+            $testresults['tls_version_eap'] = $negotiatedTlsVersion;
+        }
         // now let's look at the server cert+chain, if we got a cert at all
         // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
         // all

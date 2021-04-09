@@ -67,8 +67,11 @@ class IdPlist extends common\Entity
         $query = IdPlist::setAllIdentyProvidersQuery($activeOnly, $country);
         $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
+        // SELECTs never return a booleans, always an object
+        $i=0;
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
-            $options = IdPlist::setIdentityProviderAttributes($queryResult);
+            $i++;
+            $institutionOptions = explode('---', $queryResult->options);
             $oneInstitutionResult = [];
             $oneInstitutionResult['entityID'] = $queryResult->inst_id;
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
@@ -81,13 +84,27 @@ class IdPlist extends common\Entity
                 $name = $langObject->getLocalisedValue($options['names']);
             }          
             $oneInstitutionResult['title'] = $name;
-            $idpKeywords = IdPlist::setKeywords($options['names']);
-            if (!empty($idpKeywords)) {
-                $oneInstitutionResult['keywords'] = $idpKeywords;
-            }        
-            if (count($options['geo']) > 0) {
-                $oneInstitutionResult['geo'] = $options['geo'];
-            }            
+            $keywords = [];
+            foreach ($names as $keyword) {
+                $value = $keyword['value'];
+                $keywords[$keyword['lang']] = $keyword['value'];
+                $keywords[$keyword['lang'].'_7'] =
+                        iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+            }
+            
+            if (\config\ConfAssistant::USE_KEYWORDS) {
+                $keywords_final = array_unique($keywords);
+
+                if (!empty($keywords_final)) {
+                    $oneInstitutionResult['keywords'] = [];
+                    foreach (array_keys($keywords_final) as $key) {
+                    $oneInstitutionResult['keywords'][] = [$keywords_final[$key]];
+                    }
+                }
+            }
+            if (count($geo) > 0) {
+                $oneInstitutionResult['geo'] = $geo;
+            }
             $returnarray[] = $oneInstitutionResult;
         }
         common\Entity::outOfThePotatoes();

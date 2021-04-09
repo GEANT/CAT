@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015-2019
+# eduki <ecercos@xtec.cat>, 2013,2015-2019,2021
 # eduki <ecercos@xtec.cat>, 2012
 # jmontane, 2019
 # José Manuel Macías, 2015
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-09-04 08:04+0000\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
+"PO-Revision-Date: 2021-01-04 07:40+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -44,15 +44,14 @@ msgid "Windows RT"
 msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
-#, fuzzy
-msgid "Apple macOS Catalina"
-msgstr "Apple macOS Sierra"
+msgid "Apple device"
+msgstr "Dispositiu Apple"
 
-#: devices/Devices-template.php:199 devices/Devices-template.php:214
-#: devices/Devices-template.php:229 devices/Devices-template.php:243
-#: devices/Devices-template.php:257 devices/Devices-template.php:271
-#: devices/Devices-template.php:285 devices/Devices-template.php:299
-#: devices/Devices-template.php:313
+#: devices/Devices-template.php:199 devices/Devices-template.php:215
+#: devices/Devices-template.php:231 devices/Devices-template.php:247
+#: devices/Devices-template.php:262 devices/Devices-template.php:277
+#: devices/Devices-template.php:292 devices/Devices-template.php:307
+#: devices/Devices-template.php:322 devices/Devices-template.php:337
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -66,42 +65,46 @@ msgstr ""
 "ordinador."
 
 #: devices/Devices-template.php:204
+msgid "Apple macOS Catalina"
+msgstr "Apple macOS Catalina"
+
+#: devices/Devices-template.php:220
 msgid "Apple macOS Mojave"
 msgstr "Apple macOS Mojave"
 
-#: devices/Devices-template.php:219
+#: devices/Devices-template.php:236
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:234
+#: devices/Devices-template.php:252
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:248
+#: devices/Devices-template.php:267
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:262
+#: devices/Devices-template.php:282
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:276
+#: devices/Devices-template.php:297
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:290
+#: devices/Devices-template.php:312
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:304
+#: devices/Devices-template.php:327
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:318
-msgid "Apple iOS mobile devices"
-msgstr "Dispositius mòbils amb Apple iOS"
+#: devices/Devices-template.php:342
+msgid "Apple iOS mobile device (iOS 7-11)"
+msgstr "Dispositiu mòbil Apple iOS (iOS 7-11)"
 
-#: devices/Devices-template.php:327 devices/Devices-template.php:341
+#: devices/Devices-template.php:352
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -112,23 +115,19 @@ msgstr ""
 "un codi del vostre dispositiu! Després se us demanarà la contrasenya del "
 "certificat i aquí necessitareu introduir el PIN mostrat en aquesta pàgina."
 
-#: devices/Devices-template.php:332
-msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Dispositius mòbils Apple iOS (iOS 7-11)"
+#: devices/Devices-template.php:357
+msgid "Apple iOS mobile device (iOS 5 and 6)"
+msgstr "Dispositiu mòbil Apple (iOS 5 i 6)"
 
-#: devices/Devices-template.php:346
-msgid "Apple iOS mobile devices (iOS 5 and 6)"
-msgstr "Dispositius Apple (iOS 5 i 6)"
-
-#: devices/Devices-template.php:359
+#: devices/Devices-template.php:371
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:381
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:375
+#: devices/Devices-template.php:387
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -141,81 +140,108 @@ msgstr ""
 "a>.  Després feu servir el botó 'Importeu el fitxer ONC'. La importació és "
 "immediata i les noves definicions de xarxa s'afegeixen a les xarxes desades."
 
-#: devices/Devices-template.php:380
-msgid "Android 10.0 Q"
-msgstr "Android 10.0 Q"
+#: devices/Devices-template.php:392
+msgid "Android 11 and higher"
+msgstr "Android 11 i superior"
 
-#: devices/Devices-template.php:386 devices/Devices-template.php:401
-#: devices/Devices-template.php:416 devices/Devices-template.php:431
-#: devices/Devices-template.php:446 devices/Devices-template.php:461
-#: devices/Devices-template.php:476 devices/Devices-template.php:491
+#: devices/Devices-template.php:398 devices/Devices-template.php:412
+#: devices/Devices-template.php:425 devices/Devices-template.php:440
+#: devices/Devices-template.php:454 devices/Devices-template.php:468
+#: devices/Devices-template.php:482 devices/Devices-template.php:496
+#: devices/Devices-template.php:510 devices/Devices-template.php:524
+#: devices/Devices-template.php:538
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
 "that you have installed the %s application. This application is available "
-"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
-"Abans de seguir amb la instal·lació en sistemes Android, assegureu-vos "
-"d'haver instal·lat l'aplicació %s. Aquesta app és disponible a %s, %s i a "
-"%s, i utilitzarà el fitxer de configuració baixat des de CAT per a crear la "
-"configuració necessària."
+"Abans de procedir a la instal·lació en sistemes Android, assegureu-vos que "
+"heu instal·lat l'aplicació %s. Aquesta aplicació és disponible a %s i "
+"utilitzarà el fitxer de configuració descarregat des de CAT per a crear els "
+"ajustos necessaris."
 
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450 devices/Devices-template.php:465
-#: devices/Devices-template.php:480 devices/Devices-template.php:495
+#: devices/Devices-template.php:400 devices/Devices-template.php:414
+#: devices/Devices-template.php:427 devices/Devices-template.php:442
+#: devices/Devices-template.php:456 devices/Devices-template.php:470
+#: devices/Devices-template.php:484 devices/Devices-template.php:498
+#: devices/Devices-template.php:512 devices/Devices-template.php:526
+#: devices/Devices-template.php:540
 msgid "as local download"
 msgstr "com a baixada local"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:406
+msgid "Android 8 to 10"
+msgstr "Android 8 fins al 10"
+
+#: devices/Devices-template.php:419
+msgid "Android 4.3 to 7"
+msgstr "Android 4.3 fins al 7"
+
+#: devices/Devices-template.php:433
+msgid "Android 10.0 Q"
+msgstr "Android 10.0 Q"
+
+#: devices/Devices-template.php:447
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:410
+#: devices/Devices-template.php:461
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:425
+#: devices/Devices-template.php:475
 msgid "Android 7.0 Nougat"
 msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:440
+#: devices/Devices-template.php:489
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:455
+#: devices/Devices-template.php:503
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:517
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:485
+#: devices/Devices-template.php:531
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:500
+#: devices/Devices-template.php:545
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:510
+#: devices/Devices-template.php:555
 msgid "EAP config"
 msgstr "Configuració EAP"
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:560
+#, php-format
+msgid ""
+"This option provides an EAP config XML file, which can be consumed by the "
+"eduroamCAT app for Android."
+msgstr ""
+"Aquesta opció genera un fitxer XML amb una configuració EAP, que l'aplicació "
+"eduroamCAT per Android pot fer servir."
+
+#: devices/Devices-template.php:565
+msgid "EAP generic"
+msgstr "Generic EAP"
+
+#: devices/Devices-template.php:570
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
+"the GetEduroam applications."
 msgstr ""
-"Aquesta opció genera un fitxer XML amb una configuració EAP genèrica, que es "
-"pot utilitzar per aplicacions dedicades com eduroamCAT per a plataformes "
-"Android i Linux. Encara és una característica experimental."
+"Aquesta opció genera un fitxer XML amb una configuració EAP, que les "
+"aplicacions GetEduroam poden fer servir."
 
-#: devices/Devices-template.php:520
+#: devices/Devices-template.php:576
 msgid "Test"
 msgstr "Prova"
 
@@ -223,7 +249,7 @@ msgstr "Prova"
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Aquest dispositiu no permet configurar un proxy HTTPS obligatori."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:64
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:67
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
@@ -233,22 +259,33 @@ msgstr ""
 "no hi ha configurades 'Condicions d'Ús',  l'instal·lador mostrarà en el seu "
 "lloc un suggeriment relacionat."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:84
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Perfil de configuració de xarxa '%s' de '%s' - proveït per %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:94
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "Configuració d'%s per a l'IdP '%s' - proveït per %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:139
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:145
 #, php-format
-msgid "Important Notice: your username must end with @%s!"
-msgstr "Avís important: el vostre identificador ha de finalitzar en @%s!"
+msgid "Important Notice: your username MUST end exactly with '...@%s' !"
+msgstr ""
+"Avís important: el vostre identificador HA DE finalitzar EXACTAMENT amb '...@"
+"%s' !"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:143
+#. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
+#, php-format
+msgid ""
+"Important Notice: your username MUST contain an '@' and end with ...%s !"
+msgstr ""
+"Avís important: el vostre identificador HA DE contenir una '@' i acabar "
+"en ...%s !"
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:155
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -258,15 +295,15 @@ msgstr ""
 "yy és el sufix que identifica el vostre proveïdor d'identitat. Esbrineu el "
 "que heu de fer servir i introduïu-lo en el format correcte."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:168
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:182
 msgid "Unnamed Organisation"
 msgstr "Organització sense nom"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:169
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:183
 msgid "Unnamed Profile"
 msgstr "Perfil sense nom"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:234
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:249
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -274,7 +311,7 @@ msgstr ""
 "Per als millors resultats, feu servir el navegador preinstal·lat (Safari) "
 "per a obrir el fitxer de configuració."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:236
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:251
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -282,87 +319,93 @@ msgstr ""
 "El perfil s'instal·larà un cop cliqueu el botó. Se us demanarà confirmació "
 "en diferents punts:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:253
 msgid "to install the profile"
 msgstr "per a instal·lar el perfil"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:239
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:254
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "per a acceptar l'autoritat de certificació del servidor"
 msgstr[1] "per a acceptar les autoritats de certificació del servidor"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:256
 #, php-format
 msgid "(%d times)"
 msgstr "(%d vegades)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:244
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:259
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 "per a entrar l'identificador i contrasenya facilitats per la vostra "
 "institució"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:246
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:261
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d vegades cada un, perquè %s s'ha instal·lat per a %d SSIDs)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:448
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:449
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s configuració per a la xarxa %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:460
 msgid "Wired Network"
 msgstr "Xarxa de Cable"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:461
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Configuració de %s per a una xarxa de cable"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
-msgid "Hotspot 2.0 Settings"
-msgstr "Configuració Hotspot 2.0"
+#. a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:477
+#: devices/ms/Device_W8_10.php:99
+msgid "Roaming Partner"
+msgstr "Patró de roaming"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
-#, php-format
-msgid "%s Hotspot 2.0 configuration"
-msgstr "Configuració de %s Hotspot 2.0"
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:545
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Aquest SSID no s'hauria de fer servir un cop configurada l'arrencada de %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:547
 msgid "Disabled WiFi network"
 msgstr "Xarxa WiFi inhabilitada"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
 msgid "eduroam user certificate"
 msgstr "certificat d'usuari eduroam"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:703
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "L'autoritat de certificació %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#. / example: "Identity Provider CA #1 (Root)"
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:707
 #, php-format
-msgid "%s CA"
-msgstr "CA %s"
+msgid "%s CA #%d (%s)"
+msgstr "%s CA #%d (%s)"
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Root"
+msgstr "Root"
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:710
+msgid "Intermediate"
+msgstr "Intermèdia"
 
 #: devices/chromebook/Device_chromebook.php:337
 msgid ""
@@ -400,7 +443,7 @@ msgstr ""
 "A més de <strong>%s</strong>, l'instal·lador configurarà l'accés a les "
 "següents xarxes:"
 
-#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:252
+#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:262
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -438,7 +481,7 @@ msgstr ""
 "fitxer p12 també es copiarà a la carpeta .cat_installer."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:262
+#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:272
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
@@ -527,7 +570,7 @@ msgstr "N"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "arxiu del certificat personal (p12 o pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1131
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1133
 msgid "All files"
 msgstr "Tots els fitxers"
 
@@ -545,8 +588,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Escriu el fitxer"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1277
-#: devices/ms/Files/common.inc:1297 devices/ms/Files/common.inc:1348
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1279
+#: devices/ms/Files/common.inc:1299 devices/ms/Files/common.inc:1350
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -608,7 +651,7 @@ msgstr ""
 "Les identitats anònimes no utilitzen el domini especificat en el perfil. En "
 "el seu lloc s'infereix del sufixe proporcionat pels usuaris."
 
-#: devices/ms/WindowsCommon.php:249
+#: devices/ms/WindowsCommon.php:259
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -616,12 +659,12 @@ msgid ""
 "download button, the installer will be saved by your browser. Copy it to the "
 "machine you want to configure and execute."
 msgstr ""
-"L'instal·lador de %s es troba en un fitxer EXE. Configurarà %s en el vostre "
+"L'instal·lador d'%s és un fitxer EXE. Configurarà %s en el vostre "
 "dispositiu, creant els perfils de xarxa sense fils. <p>Quan cliqueu el botó "
 "de baixada, l'instal·lador es desarà en local. Copieu-lo a la màquina que "
 "vulgueu configurar i executeu-lo."
 
-#: devices/ms/WindowsCommon.php:258
+#: devices/ms/WindowsCommon.php:268
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -635,7 +678,7 @@ msgstr ""
 "protegits per contrasenya. Necessitareu l'arxiu i la contrasenya durant la "
 "instal·lació."
 
-#: devices/ms/WindowsCommon.php:266
+#: devices/ms/WindowsCommon.php:276
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -647,7 +690,7 @@ msgstr ""
 "informació es desarà de manera que us reconnecteu automàticament a la xarxa "
 "cada cop que us hi acosteu."
 
-#: devices/ms/WindowsCommon.php:269
+#: devices/ms/WindowsCommon.php:279
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured networks:"
@@ -655,7 +698,7 @@ msgstr ""
 "Haureu d'introduir les mateixes credencials per cada una de les següents "
 "xarxes configurades:"
 
-#: devices/ms/WindowsCommon.php:422 devices/ms/WindowsCommon.php:423
+#: devices/ms/WindowsCommon.php:450 devices/ms/WindowsCommon.php:451
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instal·lador %s per a %s"
@@ -681,7 +724,7 @@ msgstr ""
 "ha definit) i un bolcat dels atributs disponibles. L'instal·lador ha de "
 "configurar %dSSIDs."
 
-#: devices/xml/Device_XML.php:70
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -711,7 +754,7 @@ msgstr "El vostre sistema està preparat."
 msgid "Network installation had errors."
 msgstr "La instal·lació de xarxa ha donat errors."
 
-#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:142 devices/ms/Files/common.inc:951
 msgid "Please contact ${SUPPORT}."
 msgstr "Contacteu a ${SUPPORT}."
 
@@ -907,84 +950,84 @@ msgstr "esborrant el perfil $R1"
 msgid "installing profile $R1"
 msgstr "instal·lant el perfil $R1"
 
-#: devices/ms/Files/common.inc:949
+#: devices/ms/Files/common.inc:951
 msgid "Profile installation error for $R1."
 msgstr "Error d'instal·lació de perfil per a $R1."
 
-#: devices/ms/Files/common.inc:974
+#: devices/ms/Files/common.inc:976
 msgid "installing credentials for wired"
 msgstr "instal·lant credencials per a LAN"
 
-#: devices/ms/Files/common.inc:980
+#: devices/ms/Files/common.inc:982
 msgid "installing credentials TLS"
 msgstr "instal·lant credencials TLS"
 
-#: devices/ms/Files/common.inc:1096
+#: devices/ms/Files/common.inc:1098
 msgid "installing credentials for profile $R1"
 msgstr "instal·lant credencials per al perfil $R1"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/geant_link.inc:126
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/geant_link.inc:126
 msgid "Credentials installation problem"
 msgstr "Problema en la instal·lació de credencials"
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 #, php-format
 msgid "%s installer for"
 msgstr "Instal·lador %s per a "
 
-#: devices/ms/Files/common.inc:1122
+#: devices/ms/Files/common.inc:1124
 msgid "Install personal certificate"
 msgstr "Instal·leu un certificat personal"
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Preparing to install personal certificate."
 msgstr "Preparant-se per a instal·lar un certificat personal."
 
-#: devices/ms/Files/common.inc:1125
+#: devices/ms/Files/common.inc:1127
 msgid "Click OK to continue"
 msgstr "Cliqueu OK per a continuar"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*.p12)"
 msgstr "Arxius de certificat (*.p12)"
 
-#: devices/ms/Files/common.inc:1131
+#: devices/ms/Files/common.inc:1133
 msgid "Certificate files (*pfx)"
 msgstr "Arxius de certificat (*.pfx)"
 
-#: devices/ms/Files/common.inc:1134
+#: devices/ms/Files/common.inc:1136
 msgid "certificate password:"
 msgstr "contrasenya del certificat:"
 
-#: devices/ms/Files/common.inc:1136 devices/ms/Files/common.inc:1399
+#: devices/ms/Files/common.inc:1138 devices/ms/Files/common.inc:1401
 msgid "Username:"
 msgstr "Identificador:"
 
-#: devices/ms/Files/common.inc:1140
+#: devices/ms/Files/common.inc:1142
 msgid "Selected file: $Cert_file"
 msgstr "Arxiu selecciona: $Cert_file"
 
-#: devices/ms/Files/common.inc:1142
+#: devices/ms/Files/common.inc:1144
 msgid "import password:"
 msgstr "contrasenya d'importació:"
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1179
 msgid "No certificate file selected"
 msgstr "No s'ha seleccionat cap arxiu de certificat"
 
-#: devices/ms/Files/common.inc:1181
+#: devices/ms/Files/common.inc:1183
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Contrasenya incorrecta$\\r$\\ntorneu-ho a provar"
 
-#: devices/ms/Files/common.inc:1183
+#: devices/ms/Files/common.inc:1185
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Contrasenya del certificat incorrecte$\\r$\\nentreu-la de nou"
 
-#: devices/ms/Files/common.inc:1257
+#: devices/ms/Files/common.inc:1259
 msgid "Username contained some trailing spaces which were removed."
 msgstr "L'identificador contenia espais en blanc que s'han eliminat"
 
-#: devices/ms/Files/common.inc:1292
+#: devices/ms/Files/common.inc:1294
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -992,7 +1035,7 @@ msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@${REALM}'. "
 "Introduïu-lo en el format correcte."
 
-#: devices/ms/Files/common.inc:1294
+#: devices/ms/Files/common.inc:1296
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -1000,38 +1043,38 @@ msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@IDinstitució' i "
 "acabar en '${REALM}'. Introduïu-lo en el format correcte."
 
-#: devices/ms/Files/common.inc:1395
+#: devices/ms/Files/common.inc:1397
 msgid "User credentials"
 msgstr "Credencials d'usuari"
 
-#: devices/ms/Files/common.inc:1402
+#: devices/ms/Files/common.inc:1404
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: devices/ms/Files/common.inc:1405
+#: devices/ms/Files/common.inc:1407
 msgid "Repeat password:"
 msgstr "Repetir contrasenya:"
 
-#: devices/ms/Files/common.inc:1420
+#: devices/ms/Files/common.inc:1422
 msgid "Missing username"
 msgstr "Manca usuari"
 
-#: devices/ms/Files/common.inc:1432
+#: devices/ms/Files/common.inc:1434
 msgid "Missing password"
 msgstr "Manca contrasenya"
 
-#: devices/ms/Files/common.inc:1438
+#: devices/ms/Files/common.inc:1440
 msgid "Password mismatch"
 msgstr "La contrasenya no coincideix"
 
-#: devices/ms/Files/common.inc:1531 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1533 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:44
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Instal·lació"
 
-#: devices/ms/Files/common.inc:1531
+#: devices/ms/Files/common.inc:1533
 msgid "Checking for existing wireless profiles"
 msgstr "Cercant perfils wireless existents"
 

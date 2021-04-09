@@ -98,6 +98,7 @@ class UIElements extends \core\common\Entity {
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
             sprintf(_("%s Name"), $this->nomenclatureParticipant) => "general:instname",
+            sprintf(_("%s Acronym"), $this->nomenclatureParticipant) => "general:instshortname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
@@ -117,6 +118,7 @@ class UIElements extends \core\common\Entity {
             _("Use GEANTlink for TTLS (Windows 8 and 10)") => "device-specific:geantlink",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
+            _("Opt-In to OpenRoaming") => "media:openroaming",
             sprintf(_("%s Administrator"), $this->nomenclatureFed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
@@ -350,12 +352,13 @@ class UIElements extends \core\common\Entity {
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
+        $certTooltip = ( $details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
         if ($details['ca'] == 0 && $details['root'] != 1) {
             $retval = "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }

@@ -191,9 +191,17 @@ class OptionDisplay extends \core\common\Entity {
         if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         }
-        $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
+        $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
         $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
         \core\common\Entity::outOfThePotatoes();
+        $descriptions["media:openroaming"] = 
+                sprintf(_("By opting in to OpenRoaming, you agree to be bound by the %s."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
+                " ".
+                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms and Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."),CONFIG['APPEARANCE']['product_name']).
+                " ".
+                _("You are also aware that for best technical interoperability, you need to add a DNS entry into the DNS zone of your RADIUS realm.").
+                " ".
+                _("Read the instructions in the wiki.");
         if (!isset($descriptions[$input])) {
             return "";
         }

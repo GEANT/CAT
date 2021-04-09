@@ -390,6 +390,47 @@ class Devices extends \core\common\Entity {
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
                 ],
             ],
+            'android_recent' => [
+                'group' => "android",
+                'display' => _("Android 11 and higher"),
+                'match' => 'Android 1[1-9]',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "geteduroam",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],            
+            
+            'android_8_10' => [
+                'group' => "android",
+                'display' => _("Android 8 to 10"),
+                'match' => 'Android ([89]|10)',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "geteduroam",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],  
+            'android_4_7' => [
+                'group' => "android",
+                'display' => _("Android 4.3 to 7"),
+                'match' => 'Android [4-7]',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],            
+            
             'android_q' => [
                 'group' => "android",
                 'display' => _("Android 10.0 Q"),
@@ -397,12 +438,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_pie' => [
@@ -412,12 +452,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_oreo' => [
@@ -427,12 +466,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_nougat' => [
@@ -442,12 +480,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_marshmallow' => [
@@ -457,12 +494,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_lollipop' => [
@@ -472,12 +508,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_kitkat' => [
@@ -487,12 +522,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'KitKat',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_43' => [
@@ -502,12 +536,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'KitKat',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_legacy' => [
@@ -527,7 +560,18 @@ class Devices extends \core\common\Entity {
                 'module' => 'XMLAll',
                 'options' => [
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
+                    'message' => sprintf(_("This option provides an EAP config XML file, which can be consumed by the eduroamCAT app for Android.")),
+                ],
+            ],
+            'eap-generic' => [
+                'group' => "eap-config",
+                'display' => _("EAP generic"),
+                'directory' => 'xml',
+                'module' => 'Generic',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by the GetEduroam applications.")),
+                    'hidden' => 1,
                 ],
             ],
             'test' => [

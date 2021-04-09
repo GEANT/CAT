@@ -5,15 +5,19 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
+# Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
+# Florin Bohotineanu <florin.bohotineanu@tuiasi.ro>, 2020
+# Raul Opruta <raul.opruta@roedu.net>, 2020
+# Valeriu Vraciu <valeriu@roedu.net>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"POT-Creation-Date: 2021-02-02 08:26+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
+"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -23,28 +27,28 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-#: core/diag/AbstractTest.php:302
+#: core/diag/AbstractTest.php:318
 msgid "Completed"
 msgstr "Terminat"
 
-#: core/diag/AbstractTest.php:309
+#: core/diag/AbstractTest.php:325
 msgid "Product is not configured to run this check."
-msgstr ""
+msgstr "Produsul nu este configurat să ruleze această verificare."
 
-#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
-#: web/diag/action_realmcheck.php:558
+#: core/diag/AbstractTest.php:331 web/diag/action_realmcheck.php:553
+#: web/diag/action_realmcheck.php:569
 msgid "This check was skipped."
-msgstr "Această verificare a fost sărită"
+msgstr "Această verificare a fost omisă"
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:338
 msgid "There were errors during the test."
 msgstr "Au apărut erori la testare"
 
-#: core/diag/AbstractTest.php:330
+#: core/diag/AbstractTest.php:346
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Serverul RADIUS nu răspunde."
 
-#: core/diag/AbstractTest.php:337
+#: core/diag/AbstractTest.php:353
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -52,7 +56,7 @@ msgstr ""
 "A fost realizată o comunicare bidirecționalaă cu serverul RADIUS, dar s-a "
 "terminat la jumătatea drumului."
 
-#: core/diag/AbstractTest.php:344
+#: core/diag/AbstractTest.php:360
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -60,29 +64,29 @@ msgstr ""
 "Serverul RADIUS a respins imediat cererea de autentificare în primul său "
 "răspuns."
 
-#: core/diag/AbstractTest.php:351
+#: core/diag/AbstractTest.php:367
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr ""
 "Serverul RADIUS a respins cererea de autentificare dupa o conversație EAP."
 
-#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:374 web/diag/action_realmcheck.php:127
 msgid "Connection refused"
 msgstr "Conexiune refuzată"
 
-#: core/diag/AbstractTest.php:365
+#: core/diag/AbstractTest.php:381
 msgid "Not enough data provided to perform an authentication"
 msgstr "Nu există date suficiente pentru a realiza autentificarea."
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:388
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "Parola de la certificat furnizată de dumneavoastră nu se potrivește cu "
 "certificatul."
 
-#: core/diag/AbstractTest.php:380
+#: core/diag/AbstractTest.php:396
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -92,39 +96,45 @@ msgstr ""
 "conduce la creșterea timpilor de răspuns în cadrul procesului de "
 "autentificare."
 
-#: core/diag/AbstractTest.php:387
+#: core/diag/AbstractTest.php:403
 msgid "There is more than one server certificate in the chain."
 msgstr "Există mai multe certificate în lanțul de certificate."
 
-#: core/diag/AbstractTest.php:394
+#: core/diag/AbstractTest.php:410
 msgid "There is no server certificate in the chain."
-msgstr "Nu există certificate în lanțul de certificate."
+msgstr "Nu există certificate în lanțul de certificare."
 
-#: core/diag/AbstractTest.php:401
+#: core/diag/AbstractTest.php:417
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Cel puțin unul din certificatele din lanțul de certificate este semnat cu "
+"Cel puțin unul din certificatele din lanțul de certificare este semnat cu "
 "algoritm MD5. Mai multe sisteme de operare, inclusiv Apple iOS, nu vor putea "
 "valida acest certificat."
 
-#: core/diag/AbstractTest.php:408
+#: core/diag/AbstractTest.php:424
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
+"Cel puțin unul din certificatele din lanțul de certificare este semnat cu "
+"algoritm SHA-1. Mai multe sisteme de operare, inclusiv Apple iOS, nu vor "
+"putea valida acest certificat."
 
-#: core/diag/AbstractTest.php:415
+#: core/diag/AbstractTest.php:431
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
+"Cel puțin un certificat din lanțul de certificare are cheia publică mai mică "
+"de 2048 de biți. Sistemele de operare moderne nu vor putea valida acest "
+"certificat."
 
-#: core/diag/AbstractTest.php:422
+#: core/diag/AbstractTest.php:438
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -134,26 +144,26 @@ msgstr ""
 "Server Authentication'. Majoritatea suistemelor de operare moderne nu vor "
 "putea valida acest certificat."
 
-#: core/diag/AbstractTest.php:429
+#: core/diag/AbstractTest.php:445
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
 msgstr ""
-"Acest certificat de server nu conșine un punct de distribuție CRL și crează "
+"Acest certificat de server nu conține un punct de distribuție CRL și crează "
 "probleme de compatibilitate cu Windows Phone 8."
 
-#: core/diag/AbstractTest.php:436
+#: core/diag/AbstractTest.php:452
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"Extensiaa 'punct de distribuție CRL' a certificatului serverului nu "
-"prezintăo adresa HTTP/HTTPS. Unele sisteme de operare pot să nu valideze "
-"acest certificat. Verificarea certificatului cu CRL nu va putea fi realizată."
+"Extensia 'punct de distribuție CRL' a certificatului serverului nu prezintă "
+"o adresa HTTP/HTTPS. Unele sisteme de operare pot să nu valideze acest "
+"certificat. Verificarea certificatului cu CRL nu va putea fi realizată."
 
-#: core/diag/AbstractTest.php:443
+#: core/diag/AbstractTest.php:459
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -161,12 +171,17 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
+"Extensia 'punct de distribuție CRL' a certificatului serverului trimite "
+"către o locație unde nu există un CLR DER-codat. Unele sisteme de operare "
+"verifică dacă certificatul este valid prin verificarea CRL-ului și așadar "
+"validarea o să eșueze. Verificarea certificatului serverului cu CRL nu va "
+"putea fi realizată."
 
-#: core/diag/AbstractTest.php:450
+#: core/diag/AbstractTest.php:466
 msgid "The server certificate was revoked by the CA!"
 msgstr "Certificatul serverului a fost revocat de CA !"
 
-#: core/diag/AbstractTest.php:457
+#: core/diag/AbstractTest.php:473
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -179,7 +194,7 @@ msgstr ""
 "acestea sunt folosite numai pentru configurarea programelor ajutătoare de "
 "autentificare, puteți ignora această notă."
 
-#: core/diag/AbstractTest.php:464
+#: core/diag/AbstractTest.php:480
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -193,7 +208,7 @@ msgstr ""
 "numai pentru configurarea programelor ajutătoare de autentificare, puteți "
 "ignora această notă."
 
-#: core/diag/AbstractTest.php:471
+#: core/diag/AbstractTest.php:487
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -201,7 +216,7 @@ msgstr ""
 "Cel puțin unul din certificate nu se află în perioada sa de valabilitate (nu "
 "este valid încă sau a expirat) !"
 
-#: core/diag/AbstractTest.php:478
+#: core/diag/AbstractTest.php:494
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -214,7 +229,7 @@ msgstr ""
 "certificat nu a fost folosit pentru validarea serverului, luați în "
 "considerare ștergerea acestui certificat din configurarea %s."
 
-#: core/diag/AbstractTest.php:485
+#: core/diag/AbstractTest.php:501
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -222,38 +237,38 @@ msgstr ""
 "Acest certificat de server nu poate fi verificat cu CA-ul configurat în "
 "profilul dumneavoastră."
 
-#: core/diag/AbstractTest.php:489
+#: core/diag/AbstractTest.php:505
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
-"Lanțul de certificate primit în EAP nu este suficient pentru verificarea "
-"certificatului cu CA-ul din profilul dumenavoastră. Cu toate acestea, "
+"Lanțul de certificare primit în EAP nu este suficient pentru verificarea "
+"certificatului cu CA-ul din profilul dumneavoastră. Cu toate acestea, "
 "certificatul a fost verificat cu CA-urile intermediare din profilul "
 "dumneavoastră. Ar trebui să trimiteți certificatele intermediare necesare în "
 "cadrul conversației EAP."
 
-#: core/diag/AbstractTest.php:495
+#: core/diag/AbstractTest.php:511
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr ""
-"Numele serverului EAP nu corespunde niciunul din numele configurate în "
+"Numele serverului EAP nu corespunde niciunui din numele configurate în "
 "profilul dumneavoastră !"
 
-#: core/diag/AbstractTest.php:502
+#: core/diag/AbstractTest.php:518
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
-"Numele configurat al serverului EAP corespune fie cu CN sau cu unul din "
+"Numele configurat al serverului EAP corespunde fie cu CN sau cu unul din "
 "subjectAltName:DNS din certificatul primit; cele mai bune practici arată că "
 "certificatul ar trebui să conțină numele respectiv în ambele părți."
 
-#: core/diag/AbstractTest.php:509
+#: core/diag/AbstractTest.php:525
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -265,32 +280,32 @@ msgstr ""
 "Apple Mac OS X 10.8 (Mountain Lion) nu va considera valid pentru EAP acest "
 "certificat !"
 
-#: core/diag/AbstractTest.php:516
+#: core/diag/AbstractTest.php:532
 msgid "The server presented a certificate from an unknown authority."
 msgstr "Serverul a prezentat un certificat de la o autoritate necunoscută."
 
-#: core/diag/AbstractTest.php:523
+#: core/diag/AbstractTest.php:539
 msgid "The server accepted the INVALID client certificate."
 msgstr "Serverul a acceptat certificatul NEVALID al clientului."
 
-#: core/diag/AbstractTest.php:530
+#: core/diag/AbstractTest.php:546
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr ""
 "Acest server a respins certificatul de client, cu toate că acesta este valid."
 
-#: core/diag/AbstractTest.php:537
+#: core/diag/AbstractTest.php:553
 msgid "The server rejected the client certificate as expected."
 msgstr "Serverul a respins certificatul, așa cum era de așteptat."
 
-#: core/diag/AbstractTest.php:544
+#: core/diag/AbstractTest.php:560
 msgid "The CRL of a certificate could not be found."
 msgstr "Nu a fost găsit un CRL pentru certificat."
 
-#: core/diag/AbstractTest.php:551
+#: core/diag/AbstractTest.php:567
 msgid "EAP method negotiation failed!"
 msgstr "Negocierea EAP a eșuat !"
 
-#: core/diag/AbstractTest.php:558
+#: core/diag/AbstractTest.php:574
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -300,25 +315,56 @@ msgstr ""
 "Sistemul de operare MacOS X 10.11 'El Capitan' refuză conexiuni TLS în "
 "astfel de circumstanțe !"
 
-#: core/diag/AbstractTest.php:565
+#: core/diag/AbstractTest.php:581
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"Acest certificat conține mai mult de un câmp NumeComun (CN). Această "
+"situație a fost raportată drept problematică de mai mulți furnizori. "
 
-#: core/diag/AbstractTest.php:572
+#: core/diag/AbstractTest.php:588
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"Cheia publică a algoritmului de decodare a certificatului este necunoscută "
+"de către sistem. Vă rugăm să trimiteți certificatul către dezvoltatori. "
 
-#: core/diag/AbstractTest.php:579
+#: core/diag/AbstractTest.php:595
 msgid "No certificate at all was sent by the server."
+msgstr "Nici un certificat nu a fost trimis de către server."
+
+#: core/diag/AbstractTest.php:602
+msgid ""
+"It was not possible to determine the TLS version that was used in the EAP "
+"exchange."
 msgstr ""
+"Nu a fost posibilă determinarea versiunii de TLS utilizată în schimbul de "
+"mesaje EAP."
+
+#: core/diag/AbstractTest.php:609
+msgid ""
+"The server does not support the contemporary TLS versions TLSv1.2 or "
+"TLSv1.3. Modern client operating systems may refuse to authenticate against "
+"the server!"
+msgstr ""
+"Serverul nu suportă versiunile actuale de TLS: TLSv1.2 sau TLSv1.3. Este "
+"posibil ca versiunile moderne de sisteme de operare să refuze autentificarea "
+"folosind acest server."
+
+#: core/diag/AbstractTest.php:613
+msgid ""
+"The expected server name as per SRV record does not match any server name in "
+"the certificate of the server that was reached!"
+msgstr ""
+"Numele de server preconizat, așa cum reiese din înregistrarea DNS de tip "
+"SRV, nu corespunde cu niciun nume de server din certificatul furnizat de "
+"serverul accesat."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[Diagnostic eduroam]"
 
 #: core/diag/Logopath.php:109
 msgid ""
@@ -327,22 +373,29 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Acest serviciu este în stagiul de testare). Ne cerem scuze dacă aceasta "
+"este o alarmă falsă. Dacă este cazul , vă rugam sa trimiteți un raport pe "
+"mail la adresa cat-devel@lists.geant.org, expediați întregul mesaj (inclusiv "
+"'SUSPECTUL' și 'EVIDENȚA' date la sfarșit) și explicați de ce aceasta este "
+"fals pozitiv."
 
 #: core/diag/Logopath.php:111
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Cu sinceritate,"
 
 #: core/diag/Logopath.php:113
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr ""
+msgstr "Ed U. Roam, algoritmul de diagnosticare eduroam."
 
 #: core/diag/Logopath.php:121
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[Încălcarea politicii naționale] Furnizorul de identitate nu există în baza "
+"de date eduroam."
 
 #: core/diag/Logopath.php:122
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "Stimate administrator, NRO"
 
 #: core/diag/Logopath.php:124
 #, php-format
@@ -351,12 +404,17 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"Utilizatorul final solicită diagnosticare pentru câmpurile %s. "
+"Conectivitatea în timp real determină dacă există acel câmp, dar este "
+"imposibil să găsim un IdP cu câmpurile în baza de date eduroam."
 
 #: core/diag/Logopath.php:126
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"Prin faptul că nu enumerați IdPs în baza de date eduroam, încălcați politica "
+"eduroam."
 
 #: core/diag/Logopath.php:128
 msgid ""
@@ -364,92 +422,102 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"În plus, acesta creează probleme operaționale. În particular, nu suntem în "
+"măsură să direcționăm utilizatorii finali către IdP-ul lor pentru  pentru că "
+"nu există puncte de contact pentru acel IdP în baza de date."
 
-#: core/diag/RADIUSTests.php:1161
+#: core/diag/RADIUSTests.php:1254
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "Conectat la %s."
 
-#: core/diag/RADIUSTests.php:1166 web/diag/radius_tests.php:217
+#: core/diag/RADIUSTests.php:1259 web/diag/radius_tests.php:217
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>Test reușit</strong>a avut loc o conversație bidirecțională RADIUS "
+"cu multiple destinații , a fost rezolvat , și terminat într-un Acces-"
+"Respingere conform planului."
 
-#: core/diag/RADIUSTests.php:1171
+#: core/diag/RADIUSTests.php:1264
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
+"<strong>Test parțial reușit</strong>: a avut loc o conversație "
+"bidirecțională RADIUS cu multiple destinații,  a fost rezolvat, și terminat "
+"într-un Acces-Respingere conform planului. Unele proprietăți ale conexiunii  "
+"tind să nu fie optime, lista finală este mai jos."
 
-#: core/diag/RFC6614Tests.php:79
+#: core/diag/RFC6614Tests.php:88
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/diag/RFC6614Tests.php:80
+#: core/diag/RFC6614Tests.php:89
 msgid "Nicolaus Copernicus University"
 msgstr "Universitatea Nicolaus Copernicus"
 
-#: core/diag/RFC6614Tests.php:81
+#: core/diag/RFC6614Tests.php:90
 msgid "accredited"
 msgstr "acreditat"
 
-#: core/diag/RFC6614Tests.php:82
+#: core/diag/RFC6614Tests.php:91
 msgid "non-accredited"
 msgstr "ne-acreditat"
 
-#: core/diag/RFC6614Tests.php:83
+#: core/diag/RFC6614Tests.php:92
 msgid "correct certificate"
 msgstr "certificat corect"
 
-#: core/diag/RFC6614Tests.php:84
+#: core/diag/RFC6614Tests.php:93
 msgid "certificate with wrong policy OID"
-msgstr "certifica cu OID greșit"
+msgstr "certificat cu OID greșit"
 
-#: core/diag/RFC6614Tests.php:85
+#: core/diag/RFC6614Tests.php:94
 msgid "expired certificate"
 msgstr "certificat expirat"
 
-#: core/diag/RFC6614Tests.php:86
+#: core/diag/RFC6614Tests.php:95
 msgid "revoked certificate"
 msgstr "certificat revocat"
 
-#: core/diag/RFC6614Tests.php:87
+#: core/diag/RFC6614Tests.php:96
 msgid "pass"
 msgstr "corect"
 
-#: core/diag/RFC6614Tests.php:88
+#: core/diag/RFC6614Tests.php:97
 msgid "fail"
 msgstr "incorect"
 
-#: core/diag/RFC6614Tests.php:89
+#: core/diag/RFC6614Tests.php:98
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "CA acreditat pentru eduroam (numai pentru teste)"
 
-#: core/diag/RFC6614Tests.php:268
+#: core/diag/RFC6614Tests.php:318
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "Nu a fost stabilită conexiunea TLS: conexiunea refuzată."
 
-#: core/diag/RFC6614Tests.php:270
+#: core/diag/RFC6614Tests.php:320
 msgid "certificate expired"
 msgstr "certificat expirat"
 
-#: core/diag/RFC6614Tests.php:272
+#: core/diag/RFC6614Tests.php:322
 msgid "certificate was revoked"
 msgstr "certificatul a fost revocat"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:324
 msgid "bad policy"
 msgstr "politică greșită"
 
-#: core/diag/RFC6614Tests.php:276
+#: core/diag/RFC6614Tests.php:326
 msgid "unknown authority"
 msgstr "autoritate necunoscută"
 
-#: core/diag/RFC6614Tests.php:279
+#: core/diag/RFC6614Tests.php:329
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 "autoritate necunoscută, politică de certificat inexistentă sau altă problemă"
@@ -458,7 +526,7 @@ msgstr ""
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:510
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:521
 msgid "This realm has no NAPTR records."
 msgstr "Acest realm nu are înregistrări NAPTR"
 
@@ -472,25 +540,31 @@ msgstr ""
 
 #: core/diag/Sociopath.php:46
 msgid "There is nothing you can do to solve this problem yourself."
-msgstr ""
+msgstr "Nu puteți face nimic pentru a rezolva singur această problemă."
 
 #: core/diag/Sociopath.php:47
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"Vă rog sa aveți răbdare și incercați mai tărziu. NU vă schimbați "
+"configurația dispozitivului."
 
 #: core/diag/Sociopath.php:48
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"Operatorul care se ocupă cu infrastructura a fost informat automat și o sa "
+"verifice problema cel mai curând posibil."
 
 #: core/diag/Sociopath.php:50
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
+"Sistemul a identificat posibile probleme cu configurația dumneavoastră "
+"locală."
 
 #: core/diag/Sociopath.php:58
 msgid ""
@@ -498,6 +572,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"Sistemul nu poate găsi informații cu privire la furnizorul descris de "
+"dumneavostră. Probabil, aceasta nu este o instituție participantă și contul "
+"pe care îl folosiți nu există."
 
 #: core/diag/Sociopath.php:59
 msgid ""
@@ -508,6 +585,13 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"Este posibil să existe probleme în rețeaua wireless a rețelei la care "
+"încercați să vă conectați. Rețelele wireless nu se comportă mereu "
+"deterministic și consistent. Toți utilizatorii care se află la o anumită "
+"locație trebuie să împartă lățimea de bandă disponibilă, și mediul fizic "
+"(pereți de ciment, obiecte în cale, diferențe de înălțime) pot avea un "
+"impact semnificativ asupra experienței dumneavoastră de utilizare a "
+"conexiunii."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -519,12 +603,18 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Ar trebui să folosiți programele de configurare corespunzătoare [MGW: "
+"Verifică dacă domeniul există în CAT, apoi afișează adresa de legătură "
+"pentru configurare] sau contactați-vă furnizorul de identitate [MGW: adaugă "
+"informații de contact]"
 
 #: core/diag/Sociopath.php:71
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"V-ați mai conectat înainte cu succes la rețea? De exemplu, la instituția din "
+"care faceți parte, fără roaming? "
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -534,12 +624,17 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"Dacă dispozitivul dumneavoastră nu a funcționat niciodată cu această "
+"configurare, atunci este foarte probabil că dispozitivul dumneavoastră este "
+"configurat greșit. %s"
 
 #: core/diag/Sociopath.php:76
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"Precedent, a funcționat dispozitivul în roaming ? De exemplu, la alte puncte "
+"de acces în afară de cele de la instituția dumneavoastră."
 
 #. that's good, and somewhat encouraging
 #. that is almost a smoking gun
@@ -551,10 +646,15 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at your home organisation, but can not be used when roaming. %s"
 msgstr ""
+"Dacă roamingul nu funcționează, atunci este foarte posibil ca dispozitivul "
+"dumneavoastră să fie configurat greșit. Erori des întâlnite care cauzează "
+"acest simptom includ: folosirea unui nume de utilizator ('exterior') fără "
+"sufixul @realm.tld - acest lucru funcționează în mod normal la instituția "
+"dumneavoastră, dar nu va funcționa la conectarea la alte instituții.%s"
 
 #: core/diag/Sociopath.php:81
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "De curând ați schimbat configurația dispozitivului dumneavoastră?"
 
 #. that is almost a smoking gun
 #. encouraging
@@ -566,10 +666,16 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"Conturile trebuie să fie configurate o singură dată, și apoi pot fi folosite "
+"oriunde în lume fără nici o modificare necesară. Dacă ați modificat recent  "
+"configurația, atunci acea modificare ar putea fi sursa unei erori. Nu ar "
+"trebui să modificați niciodată configurația rețelei decât doar dacă vă este "
+"transmis explicit de către furnizorul de identitate; chiar și în cazul "
+"erorilor temporare de autentificare."
 
 #: core/diag/Sociopath.php:86
 msgid "Did you recently change your password?"
-msgstr ""
+msgstr "De curând ați schimbat parola?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -578,10 +684,14 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Când vă schimbați parola, trebuie să furnizați și noua parolă în "
+"configurația dispozitivului."
 
 #: core/diag/Sociopath.php:91
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
+"Dacă folosiți mai mult de un dispozitiv, celelalte dispozitive o sa "
+"functioneze in continuare?"
 
 #. seems that all is okay with the account as such
 #. now that is suspicious indeed
@@ -592,12 +702,19 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Dacă toate dispozitivele s-au oprit din funcționare simulan, este posibil să "
+"aveți o problemă cu contul dumneavoastră. Este posibil faptul că v-a expirat "
+"contul, sau că a fost necesar să vă schimbați parola. Răspunsurile la aceste "
+"întrebări vă pot fi date de furnizorul de identitate [MGW: arată "
+"informațiile de contact]"
 
 #: core/diag/Sociopath.php:96
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"Locația unde doriți să vă conectați este una aglomerată sau există în "
+"momentul de față un proces care solicită intens rețeaua?"
 
 #: core/diag/Sociopath.php:99
 msgid ""
@@ -606,10 +723,16 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"În acest moment rețeaua este posibil să fie supra solicitată. Ați putea "
+"aștepta până mai târziu pentru a obține o conexiune mai bună. Dacă "
+"dumneavoastră credeți că rețeaua ar trebui îmbunătățită pentru a avea o "
+"capacitate mai mare, ar trebui să contactați punctului de acces. [MGW: "
+"adaugă informație de contact]"
 
 #: core/diag/Sociopath.php:101
 msgid "Does the connection get better when you move around?"
 msgstr ""
+"Conexiunea se îmbunătățeste atunci când vă deplasați în diferite locuri?"
 
 #: core/diag/Sociopath.php:104
 msgid ""
@@ -617,11 +740,16 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Ar trebui să vă mutați în altă locație pentru a obține o acoperire mai bună "
+"a semnalului și a rețelei. Dacă dumneavoastră considerați că locul în care "
+"vă aflați trebuie să aibă o acoperire mai mare, ar trebui să informați "
+"furnizorul punctului de acces. [MGW: adaugă informație de contact]"
 
 #: core/diag/Sociopath.php:106
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
+"Vedeți erori care afirmă ceva similar cu „Imposibil de obținut adresa IP\"?"
 
 #. gotcha
 #. the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
@@ -631,133 +759,155 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"Datele colectate până acum sugerează că ar fi o problemă de infrastructură "
+"la acest furnizor particular de punct de acces. Nu există nici o soluție pe "
+"care să o puteți aplica pentru a rezolva această problemă. Vă rugăm să "
+"așteptați și să încercați din nou mai târziu."
 
 #: web/skins/modern/diag/diag.php:81
 msgid "Diagnostics site"
-msgstr ""
+msgstr "Zona de diagnosticare"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
+"Sistemul automat de diagnosticare va încerca să identifice și să vă rezolve "
+"problemele!"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
+"Vă rugăm să ajutați sistemul prin a răspunde cât mai precis posibil la "
+"următoarele întrebări."
 
 #: web/skins/modern/diag/diag.php:84
 msgid "Are you a"
-msgstr ""
+msgstr "Ești un"
 
 #: web/skins/modern/diag/diag.php:85
 msgid "end-user"
-msgstr ""
+msgstr "Utilizator final"
 
 #: web/skins/modern/diag/diag.php:85 web/diag/adminQuery.php:133
 msgid "or"
-msgstr ""
+msgstr "sau"
 
 #: web/skins/modern/diag/diag.php:86
 msgid "eduroam administrator"
-msgstr ""
+msgstr "Administrator eduroam"
 
 #: web/skins/modern/diag/diag.php:89
 msgid "Tools for End Users"
-msgstr ""
+msgstr "Unelte pentru utilizatorii finali"
 
 #: web/skins/modern/diag/diag.php:92
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
+"Pentru a rezolva problema trebuie să fie efectuată o diagnostică în timp "
+"real pentru domeniul tău."
 
 #: web/skins/modern/diag/diag.php:96
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
+"Sistemul are nevoie de niște informații despre instituția de origine - "
+"emitentul contului."
 
 #: web/skins/modern/diag/diag.php:97
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
+"Care este partea de domeniu din contul de utilizator (partea înainte de @ "
+"din 'nume.utilizator@<b>domeniu.tld</b>):"
 
 #: web/skins/modern/diag/diag.php:101
 msgid "alternatively"
-msgstr ""
+msgstr "alternativ"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "Puteți selecta instituția de origine din urmatoarea lista"
 
 #: web/skins/modern/diag/diag.php:104
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "Click pentru a selecta țara dumneavoastră/regiunea și organizația"
 
 #: web/skins/modern/diag/diag.php:111
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Opțional, pentru a îmbunătăți testele, puteți oferi informații legate de "
+"locația dumneavoastră curentă."
 
 #: web/skins/modern/diag/diag.php:113
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
+msgstr "Click pentru a selecta locația unde aveţi problemă cu eduroam"
 
 #: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
-msgstr ""
+msgstr "În curs de testare a domeniului"
 
 #: web/skins/modern/diag/diag.php:121
 msgid "First stage completed."
-msgstr ""
+msgstr "Primul stagiu complet."
 
 #: web/skins/modern/diag/diag.php:126
 msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
+"Pentru a vedea care exact este problema dumneavoastră, vă rugăm să "
+"răspundeți la următoarele întrebări."
 
 #: web/skins/modern/diag/diag.php:131
 msgid "Run tests"
-msgstr ""
+msgstr "Executați teste"
 
 #: web/skins/modern/diag/diag.php:136
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "Unelte pentru administratorii eduroam"
 
 #: web/skins/modern/diag/diag.php:146
 msgid "Which problem are you reporting?"
-msgstr ""
+msgstr "Ce problema raportați?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:959
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
+"Furnizorul de servicii contactează furnizorul de identitate din motive "
+"tehnice sau de abuz"
 
 #: web/skins/modern/diag/diag.php:150
 msgid "IdP contacting SP due to technical problems"
 msgstr ""
+"Furnizorul de identitate contactează furnizorul de servicii din motive de "
+"probleme tehnice"
 
 #: web/skins/modern/diag/diag.php:157
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Acest serviciu este accesibil doar administratorilor autentificați."
 
 #: web/skins/modern/diag/diag.php:159
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "Este nevoie de accestul adminstratorului eduroam®"
 
 #: web/skins/modern/diag/diag.php:183
 msgid "Select institiution:"
-msgstr ""
+msgstr "Selectați instituția:"
 
 #: web/skins/modern/diag/diag.php:209
 msgid "Select country or region:"
-msgstr ""
+msgstr "Selectați țara sau reginea:"
 
 #: web/skins/modern/diag/diag.php:217
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Obțineţi lista țărilor și/sau regiunilor."
 
 #: web/skins/modern/diag/diag.php:278
 msgid "Yes"
@@ -769,506 +919,537 @@ msgstr "Nu"
 
 #: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
-msgstr ""
+msgstr "Nu stiu"
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "Rezultatele testelor diagnostic pentru domeniul selectat"
 
 #: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "Rezultatul pentru domeniul testat:"
 
 #: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
-msgstr ""
+msgstr "Sistemul identificat"
 
 #: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "zone suspecte care ar putea cauza o problemă."
 
 #: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Lângă descrierea problemei este afișată o probabilitate estimată de "
+"producere a acestui eveniment. "
 
 #: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Configurația dispozitivului dumneavoastră este greșită."
 
 #: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Rețeaua Wi-Fi din apropierea dumneavoastră are probleme calitative."
 
 #: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Rețeaua din jurul dumneavoastră este defectă"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
+"Serverul RADIUS al furnizorului dumneavoastră de servicii este sursa "
+"problemei"
 
 #: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"Serverul RADIUS din instituția dumneavoastră de proveniență nu vă poate "
+"autentifica în acest moment"
 
 #: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"Serverul național în țara/regiunea pe care o vizitați nu funcționează corect"
 
 #: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Legătura dintre serverul național al țării/regiunii pe care o vizitați și "
+"serverul de la cel mai înalt nivel este defectă"
 
 #: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Legătura dintre serverul național al țării/regiunii de proveniență și "
+"serverul de la cel mai înalt nivel este defectă"
 
 #: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Calea de comunicare către serverul de cel mai înalt nivel este defectă"
 
 #: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
+"Serverul național în țara/regiunea de proveniență nu funcționează corect"
 
 #: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
+"Serverul RADIUS al furnizorului dumneavoastră de servicii din instituția "
+"dumneavoastră de proveniență este sursa problemei"
 
 #: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
-msgstr ""
+msgstr "Acest domeniu nu există."
 
-#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
+#: web/skins/modern/diag/diag.php:476 web/skins/modern/diag/diag.php:539
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Obţineţi lista instituțiilor"
 
-#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
+#: web/skins/modern/diag/diag.php:494 web/skins/modern/diag/diag.php:557
 msgid "Select institution:"
-msgstr ""
+msgstr "Selectați instituția:"
 
-#: web/skins/modern/diag/diag.php:510
+#: web/skins/modern/diag/diag.php:515
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Baza de date nu conține informațiile necesare pentru a vă ajuta în "
+"selectarea câmpurilor pentru această țară. Trebuie să oferiți câmpul care vă "
+"interesează."
 
-#: web/skins/modern/diag/diag.php:519
+#: web/skins/modern/diag/diag.php:524
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Nu se poate căuta în baza de date. Trebuie să oferiți câmpurile de care "
+"sunteți interesat. "
 
-#: web/skins/modern/diag/diag.php:575
+#: web/skins/modern/diag/diag.php:580
 msgid "Other location"
-msgstr ""
+msgstr "Altă locație"
 
-#: web/skins/modern/diag/diag.php:609
+#: web/skins/modern/diag/diag.php:614
 msgid "Fetching realms list"
-msgstr ""
+msgstr "Obţineţi lista domeniilor"
 
-#: web/skins/modern/diag/diag.php:621
+#: web/skins/modern/diag/diag.php:626
 msgid "Check realm(s):"
-msgstr ""
+msgstr "Verifică domeniul(domeniile):"
 
-#: web/skins/modern/diag/diag.php:633
+#: web/skins/modern/diag/diag.php:638
 msgid "Realm:"
-msgstr ""
+msgstr "Domenii:"
 
-#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:693 web/skins/modern/diag/diag.php:761
+#: web/skins/modern/diag/diag.php:885
 msgid "Running realm tests"
-msgstr ""
+msgstr "Rulaţi teste de domeniu:"
 
-#: web/skins/modern/diag/diag.php:732
+#: web/skins/modern/diag/diag.php:737
 msgid "Realm is not registered with the eduroam database:"
-msgstr ""
+msgstr "Câmpul nu este înregistrat în baza de date eduroam:"
 
-#: web/skins/modern/diag/diag.php:804
+#: web/skins/modern/diag/diag.php:809
 msgid "Diagnostics results for selected realms"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:805
-msgid "An unknown problem occured"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:808
-msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Rezultatele diagnosticelor pentru domeniile selectate:"
 
 #: web/skins/modern/diag/diag.php:810
+msgid "An unknown problem occured"
+msgstr "A apărut o problemă necunoscută"
+
+#: web/skins/modern/diag/diag.php:813
+msgid "This test includes checking of the following realm"
+msgstr "Acest test include verificarea câmpurilor "
+
+#: web/skins/modern/diag/diag.php:815
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Testul include verificarea următoarelor domenii"
 
-#: web/skins/modern/diag/diag.php:820
+#: web/skins/modern/diag/diag.php:825
 msgid "You should report this to"
-msgstr ""
+msgstr "Ar trebui să reportați şi acestă problemă"
 
-#: web/skins/modern/diag/diag.php:951
+#: web/skins/modern/diag/diag.php:956
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "Raportul trimis de administratorul eduroam"
 
-#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:971
 msgid "Reason"
-msgstr ""
+msgstr "Motiv "
 
-#: web/skins/modern/diag/diag.php:957
+#: web/skins/modern/diag/diag.php:962
 msgid "SP email"
-msgstr ""
+msgstr "SP email"
 
-#: web/skins/modern/diag/diag.php:958
+#: web/skins/modern/diag/diag.php:963
 msgid "IdP email(s)"
-msgstr ""
+msgstr "E-mail(uri) ale furnizorului de identitate"
 
-#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
+#: web/skins/modern/diag/diag.php:964 web/skins/modern/diag/diag.php:975
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Marcajul de timp al evenimentului"
 
-#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
+#: web/skins/modern/diag/diag.php:965 web/skins/modern/diag/diag.php:976
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Apelarea-ID-Statie"
 
-#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
+#: web/skins/modern/diag/diag.php:966 web/skins/modern/diag/diag.php:977
 msgid "Additional description"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:964
-msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:967
-msgid "SP's Operator-Name"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:968
-msgid "User's outer ID"
-msgstr ""
+msgstr "Descriere adițională"
 
 #: web/skins/modern/diag/diag.php:969
-msgid "IdP email"
+msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
+"Furnizorul de identitate contactează furnizorul de servicii din motive "
+"tehnice sau abuz"
+
+#: web/skins/modern/diag/diag.php:972
+msgid "SP's Operator-Name"
+msgstr "Numele operatorului furnizorului de servicii"
 
 #: web/skins/modern/diag/diag.php:973
+msgid "User's outer ID"
+msgstr "ID-ul extern de utilizator "
+
+#: web/skins/modern/diag/diag.php:974
+msgid "IdP email"
+msgstr "Adresa de e-mail a furnizorului de identitate"
+
+#: web/skins/modern/diag/diag.php:978
 msgid "How to contact the user"
-msgstr ""
+msgstr "Cum să contactați utilizatorul"
 
-#: web/skins/modern/diag/diag.php:990
+#: web/skins/modern/diag/diag.php:995
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "Adresa MAC este incompletă."
 
-#: web/skins/modern/diag/diag.php:999
+#: web/skins/modern/diag/diag.php:1004
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Formatul email este incorect."
 
-#: web/skins/modern/diag/diag.php:1008
+#: web/skins/modern/diag/diag.php:1013
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "Format ID-ului din exterior este incorect."
 
-#: web/skins/modern/diag/diag.php:1017
+#: web/skins/modern/diag/diag.php:1022
 msgid "Wrong string given as OperatorName"
-msgstr ""
+msgstr "Cuvânt greșit dat ca nume de operator."
 
 #: web/diag/action_realmcheck.php:30
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
 msgstr ""
+"Verificarea pentru descoperirea domeniilor în mod dinamic a fost corectă."
 
-#: web/diag/action_realmcheck.php:58
+#: web/diag/action_realmcheck.php:68
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"Ați cerut o verificare de domenii, dar nu se cunoaște domeniul pentru acest "
+"profil!"
 
-#: web/diag/action_realmcheck.php:67
+#: web/diag/action_realmcheck.php:77
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
+msgstr "Nume de domeniu invalid, nu se poate executa nici o verificare."
 
-#: web/diag/action_realmcheck.php:71
+#: web/diag/action_realmcheck.php:81
 msgid "STATIC"
-msgstr ""
+msgstr "STATIC"
 
-#: web/diag/action_realmcheck.php:72
+#: web/diag/action_realmcheck.php:82
 msgid "DYNAMIC"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:100
-msgid "PASS"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:101
-msgid "FAIL"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:102
-msgid "Client certificate:"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:103
-msgid "expected result: "
-msgstr ""
-
-#: web/diag/action_realmcheck.php:104
-msgid "Server accepted this client certificate"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:105
-msgid "Server accepted this client certificate, but should not have"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:106
-msgid "Server did not accept this client certificate"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:107
-msgid "Server did not accept this client certificate - reason"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:108
-msgid "Rest of tests for this CA skipped"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:109
-msgid "You should update your list of accredited CAs"
-msgstr ""
+msgstr "DINAMIC"
 
 #: web/diag/action_realmcheck.php:110
-msgid "Get it from here."
-msgstr ""
+msgid "PASS"
+msgstr "REUŞIT"
+
+#: web/diag/action_realmcheck.php:111
+msgid "FAIL"
+msgstr "PICAT"
 
 #: web/diag/action_realmcheck.php:112
-msgid "more"
-msgstr ""
+msgid "Client certificate:"
+msgstr "Certificatul clientului:"
 
-#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:659
-msgid "Show detailed information for all tests"
-msgstr ""
+#: web/diag/action_realmcheck.php:113
+msgid "expected result: "
+msgstr "rezultat așteptat:"
+
+#: web/diag/action_realmcheck.php:114
+msgid "Server accepted this client certificate"
+msgstr "Serverul a acceptat acest certificat de client"
+
+#: web/diag/action_realmcheck.php:115
+msgid "Server accepted this client certificate, but should not have"
+msgstr "Serverul a acceptat acest certificat de client, dar nu ar trebui"
+
+#: web/diag/action_realmcheck.php:116
+msgid "Server did not accept this client certificate"
+msgstr "Serverul nu a acceptat acest tip de client"
+
+#: web/diag/action_realmcheck.php:117
+msgid "Server did not accept this client certificate - reason"
+msgstr "Serverul nu aceeptat acest tip de client- motivul "
+
+#: web/diag/action_realmcheck.php:118
+msgid "Rest of tests for this CA skipped"
+msgstr "Restul testelor pentru acest CA au fost ignorate"
 
 #: web/diag/action_realmcheck.php:119
-msgid "All tests passed."
+msgid "You should update your list of accredited CAs"
 msgstr ""
+"Ar trebui să actualizați lista autorităților de certificare acreditate."
 
 #: web/diag/action_realmcheck.php:120
-msgid "There were some warnings."
-msgstr ""
-
-#: web/diag/action_realmcheck.php:121
-msgid "There were some errors."
-msgstr ""
+msgid "Get it from here."
+msgstr "Luați-l de aici."
 
 #: web/diag/action_realmcheck.php:122
-msgid "There were some remarks."
-msgstr ""
+msgid "more"
+msgstr "Mai mult "
+
+#: web/diag/action_realmcheck.php:124 web/diag/action_realmcheck.php:671
+msgid "Show detailed information for all tests"
+msgstr "Arată informații detaliate pentru toate testele"
 
 #: web/diag/action_realmcheck.php:129
-msgid "Server certificate"
-msgstr ""
+msgid "All tests passed."
+msgstr "Toate testele au trecut."
 
 #: web/diag/action_realmcheck.php:130
-msgid "Subject"
-msgstr ""
+msgid "There were some warnings."
+msgstr "Au fost detectate câteva avertismente."
 
 #: web/diag/action_realmcheck.php:131
-msgid "Issuer"
-msgstr ""
+msgid "There were some errors."
+msgstr "Au fost găsite câteva erori."
 
 #: web/diag/action_realmcheck.php:132
-msgid "SubjectAltName"
-msgstr ""
+msgid "There were some remarks."
+msgstr "Au fost câteva atenționări."
 
-#: web/diag/action_realmcheck.php:133
-msgid "Certificate policies"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:134
-msgid "crlDistributionPoint"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:135
-msgid "authorityInfoAccess"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:136
-msgid "Hide detailed information for all tests"
-msgstr ""
+#: web/diag/action_realmcheck.php:139
+msgid "Server certificate"
+msgstr "Certificatul serverului"
 
 #: web/diag/action_realmcheck.php:140
-msgid "Subject:"
-msgstr ""
+msgid "Subject"
+msgstr "Subiect"
 
 #: web/diag/action_realmcheck.php:141
-msgid "Issuer:"
-msgstr ""
+msgid "Issuer"
+msgstr "Emitent"
 
 #: web/diag/action_realmcheck.php:142
-msgid "Valid from:"
-msgstr ""
+msgid "SubjectAltName"
+msgstr "Nume alternativ subiect"
 
 #: web/diag/action_realmcheck.php:143
-msgid "Valid to:"
-msgstr ""
+msgid "Certificate policies"
+msgstr "Politicile certificatului"
 
 #: web/diag/action_realmcheck.php:144
-msgid "Serial number:"
-msgstr ""
+msgid "crlDistributionPoint"
+msgstr "crlDistributionPoint"
 
 #: web/diag/action_realmcheck.php:145
-msgid "SHA1 fingerprint:"
-msgstr ""
+msgid "authorityInfoAccess"
+msgstr "authorityInfoAccess"
 
 #: web/diag/action_realmcheck.php:146
+msgid "Hide detailed information for all tests"
+msgstr "Ascunde informațiile detaliate pentru toate testele"
+
+#: web/diag/action_realmcheck.php:150
+msgid "Subject:"
+msgstr "Subiect:"
+
+#: web/diag/action_realmcheck.php:151
+msgid "Issuer:"
+msgstr "Emitent:"
+
+#: web/diag/action_realmcheck.php:152
+msgid "Valid from:"
+msgstr "Valid de la:"
+
+#: web/diag/action_realmcheck.php:153
+msgid "Valid to:"
+msgstr "Valid până la:"
+
+#: web/diag/action_realmcheck.php:154
+msgid "Serial number:"
+msgstr "Serie:"
+
+#: web/diag/action_realmcheck.php:155
+msgid "SHA1 fingerprint:"
+msgstr "Amprentă SHA1:"
+
+#: web/diag/action_realmcheck.php:156
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Conectat la server nedeterminat"
 
-#: web/diag/action_realmcheck.php:198
+#: web/diag/action_realmcheck.php:208
 msgid "Some required input is missing!"
-msgstr ""
+msgstr "Lipsesc niște date de introdus"
 
-#: web/diag/action_realmcheck.php:249 web/diag/action_realmcheck.php:330
-#: web/diag/action_realmcheck.php:350 web/diag/action_realmcheck.php:408
+#: web/diag/action_realmcheck.php:259 web/diag/action_realmcheck.php:341
+#: web/diag/action_realmcheck.php:361 web/diag/action_realmcheck.php:419
 #, php-format
 msgid "elapsed time: %sms."
-msgstr ""
+msgstr "timp petrecut: %sms."
 
-#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:398
+#: web/diag/action_realmcheck.php:352 web/diag/action_realmcheck.php:409
 msgid "Extensions"
-msgstr ""
+msgstr "Extensii"
 
-#: web/diag/action_realmcheck.php:342
+#: web/diag/action_realmcheck.php:353
 msgid "show server certificate details"
-msgstr ""
+msgstr "Arată detaliile certificatului de server"
 
-#: web/diag/action_realmcheck.php:366 web/diag/action_realmcheck.php:371
+#: web/diag/action_realmcheck.php:377 web/diag/action_realmcheck.php:382
 msgid "See the appropriate tab for details."
-msgstr ""
+msgstr "Mergi la fila corespunzătoare pentru detalii."
 
-#: web/diag/action_realmcheck.php:385
+#: web/diag/action_realmcheck.php:396
 msgid "Server certificate details:"
-msgstr ""
+msgstr "Detaliile certificatului de server:"
 
-#: web/diag/action_realmcheck.php:485
+#: web/diag/action_realmcheck.php:496
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Domeniu testat pentru: %s"
 
-#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:498
+#: web/diag/action_realmcheck.php:501 web/diag/action_realmcheck.php:509
 msgid "Overview"
-msgstr ""
+msgstr "Rezumat"
 
-#: web/diag/action_realmcheck.php:491 web/diag/action_realmcheck.php:605
+#: web/diag/action_realmcheck.php:502 web/diag/action_realmcheck.php:617
 msgid "Static connectivity tests"
-msgstr ""
+msgstr "Teste de conexiune statică"
 
-#: web/diag/action_realmcheck.php:492 web/diag/action_realmcheck.php:610
+#: web/diag/action_realmcheck.php:503 web/diag/action_realmcheck.php:622
 msgid "Dynamic connectivity tests"
-msgstr ""
+msgstr "Teste de conexiune dinamică"
 
-#: web/diag/action_realmcheck.php:493
+#: web/diag/action_realmcheck.php:504
 msgid "Live login tests"
-msgstr ""
+msgstr "Teste de autentificare "
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:502
+#: web/diag/action_realmcheck.php:513
 msgid "DNS chekcs"
-msgstr ""
+msgstr "Verificări DNS"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:507
+#: web/diag/action_realmcheck.php:518
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "Verificare existența NAPTR:"
 
-#: web/diag/action_realmcheck.php:513
+#: web/diag/action_realmcheck.php:524
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Acest domeniu are date NAPTR, dar niciuna nu are legătura cu consorțiul "
+"roamingului."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:516
+#: web/diag/action_realmcheck.php:527
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
+"Acest domeniu are %d date NAPTR aflate în legătura cu consorțiul roamingului."
 
-#: web/diag/action_realmcheck.php:522
+#: web/diag/action_realmcheck.php:533
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-msgstr ""
+msgstr "Verificare condiții NAPTR (flag = S și regex = {empty}):"
 
-#: web/diag/action_realmcheck.php:526
+#: web/diag/action_realmcheck.php:537
 msgid "No issues found."
-msgstr ""
+msgstr "Nu s-au găsit probleme."
 
-#: web/diag/action_realmcheck.php:529 web/diag/action_realmcheck.php:545
+#: web/diag/action_realmcheck.php:540 web/diag/action_realmcheck.php:556
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "Cel puțin un NAPTR cu conținut invalid a fost descoperit!"
 
-#: web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:550
 msgid "Checking SRVs:"
-msgstr ""
+msgstr "Verificarea SRV-urilor:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:548
+#: web/diag/action_realmcheck.php:559
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "%d nume de gazde descoperite."
 
-#: web/diag/action_realmcheck.php:555
+#: web/diag/action_realmcheck.php:566
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "Verificare rezolvare adresei IP:"
 
-#: web/diag/action_realmcheck.php:561
+#: web/diag/action_realmcheck.php:572
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr ""
+msgstr "Cel puțin un nume de gazdă nu a putut fi rezolvat!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:564
+#: web/diag/action_realmcheck.php:575
 #, php-format
 msgid "%d IP addresses resolved."
-msgstr ""
+msgstr "%d adrese IP rezolvate."
 
-#: web/diag/action_realmcheck.php:571 web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:582 web/diag/action_realmcheck.php:584
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "Domeniul este <strong>%s</strong>"
 
-#: web/diag/action_realmcheck.php:571
+#: web/diag/action_realmcheck.php:582
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "fără erori DNS. Felicitări!"
 
-#: web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:584
 msgid "but there were DNS errors! Check them!"
-msgstr ""
+msgstr "dar s-au detectat erori DNS! Verificați-le!"
 
-#: web/diag/action_realmcheck.php:573
+#: web/diag/action_realmcheck.php:584
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Ar trebui să reluați testele după repararea erorilor; mai multe erori ar "
+"putea fi descoperite în acel punct. Cauzele exacte ale erorilor sunt afișate "
+"mai jos."
 
-#: web/diag/action_realmcheck.php:603
+#: web/diag/action_realmcheck.php:615
 msgid "Dynamic discovery test is not configured"
-msgstr ""
+msgstr "Testul de descoperire dinamică nu este configurat"
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:633
 msgid "Repeat static connectivity tests"
-msgstr ""
+msgstr "Repetă testele de conectare statică"
 
-#: web/diag/action_realmcheck.php:624
+#: web/diag/action_realmcheck.php:636
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "Teste de conexiune STATICĂ"
 
-#: web/diag/action_realmcheck.php:626
+#: web/diag/action_realmcheck.php:638
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1277,242 +1458,282 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"În această etapă se trimite o cerere pentru verificarea domeniului prin "
+"diferite puncte de intrare a infrastructurii consorțiului roaming. Cererea "
+"va conține atributul 'Nume-operator' și o să fie de dimensiune mai mare de "
+"1500 Bytes pentru a putea trece prin două probleme de configurare des "
+"întâlnite. <br/>Din moment ce nu avem credențiale actuale pentru domeniu, nu "
+"putem să ne autentificăm cu succes - așadar rezultatul la care ne aștepăm "
+"este răspunsul Acces-Interzis după trecerea printr-un schimb de mesaje EAP."
 
-#: web/diag/action_realmcheck.php:630 web/diag/action_realmcheck.php:742
+#: web/diag/action_realmcheck.php:642 web/diag/action_realmcheck.php:754
 #, php-format
 msgid "Testing from: %s"
-msgstr ""
+msgstr "Testând de la: %s"
 
-#: web/diag/action_realmcheck.php:635 web/diag/action_realmcheck.php:668
-#: web/diag/action_realmcheck.php:681
+#: web/diag/action_realmcheck.php:647 web/diag/action_realmcheck.php:680
+#: web/diag/action_realmcheck.php:693
 msgid "testing..."
-msgstr ""
+msgstr "testare..."
 
-#: web/diag/action_realmcheck.php:650
+#: web/diag/action_realmcheck.php:662
 msgid "Repeat dynamic connectivity tests"
-msgstr ""
+msgstr "Repetă testele de conectare dinamică"
 
-#: web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:666
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "Teste de conexiune DINAMICĂ"
 
-#: web/diag/action_realmcheck.php:658
+#: web/diag/action_realmcheck.php:670
 msgid "Some errors were found during the tests, see below"
-msgstr ""
+msgstr "Câteva erori au fost descoperite în timpul conexiunii, vezi mai jos"
 
-#: web/diag/action_realmcheck.php:658
+#: web/diag/action_realmcheck.php:670
 msgid "All tests passed, congratulations!"
-msgstr ""
+msgstr "Toate testele au trecut, felicitări!"
 
-#: web/diag/action_realmcheck.php:659
+#: web/diag/action_realmcheck.php:671
 msgid "Checking server handshake..."
-msgstr ""
+msgstr "Verificare date trimise de server..."
 
-#: web/diag/action_realmcheck.php:689
+#: web/diag/action_realmcheck.php:701
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr ""
+"Verificare dacă certificatele de la autoritatea de certificare sunt "
+"acceptate..."
 
-#: web/diag/action_realmcheck.php:689
+#: web/diag/action_realmcheck.php:701
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
+"Câteva certificate de client vor fi testate pentru a verifica dacă serverele "
+"fac față la erori ale certificatelor."
 
-#: web/diag/action_realmcheck.php:703
+#: web/diag/action_realmcheck.php:715
 msgid "Live login test"
-msgstr ""
+msgstr "Test de conectare în direct"
 
-#: web/diag/action_realmcheck.php:716
+#: web/diag/action_realmcheck.php:728
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"Dacă introduceți aici date de autentificare deja existente, atunci puteți "
+"testa această autentificare din diferite puncte din toată lumea."
 
-#: web/diag/action_realmcheck.php:717
+#: web/diag/action_realmcheck.php:729
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
 "the login with these credentials and the given EAP type actually worked. If "
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
+"Testul va folosi toate tipurile EAP trecute în profilul dumneavoastră pentru "
+"a verifica dacă numele serverelor și autoritățile de certificare sunt "
+"folosite, și bineînteles dacă autentificarea cu acele date și tipul EAP "
+"funcționează de fapt. Dacă ați setat un ID exterior anonim, testul îl va "
+"folosi pe acela."
 
-#: web/diag/action_realmcheck.php:718
+#: web/diag/action_realmcheck.php:730
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"Notă: Aplicația intenționat nu vă oferă opțiunea de a salva aceste "
+"credențiale, și acestea nu vor fi salvate niciodată, în nici un fel, pe "
+"servere. Vă rugăm să folosiți doar <strong> conturi temporare pentru testare "
+"</strong> aici; conturi de testare lăsate libere după lansare pot aduce "
+"vulnerabilități"
 
-#: web/diag/action_realmcheck.php:726
+#: web/diag/action_realmcheck.php:738
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "Tipuri EAP bazate pe parolă"
 
-#: web/diag/action_realmcheck.php:727
+#: web/diag/action_realmcheck.php:739
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "Nume de utilizator real (de interior):"
 
-#: web/diag/action_realmcheck.php:728
+#: web/diag/action_realmcheck.php:740
 msgid "Anonymous outer ID (optional):"
-msgstr ""
+msgstr "Nume de utilizator extern, anonim (opțional):"
 
-#: web/diag/action_realmcheck.php:729
+#: web/diag/action_realmcheck.php:741
 msgid "Password:"
 msgstr "Parola:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:745
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "Tipuri EAP bazate pe certificate"
 
-#: web/diag/action_realmcheck.php:734
+#: web/diag/action_realmcheck.php:746
 msgid "Certificate file (.p12 or .pfx):"
-msgstr ""
+msgstr "Fișier certificat (.p12 sau .pfx):"
 
-#: web/diag/action_realmcheck.php:735
+#: web/diag/action_realmcheck.php:747
 msgid "Certificate password, if any:"
-msgstr ""
+msgstr "Parolă certificat, dacă există:"
 
-#: web/diag/action_realmcheck.php:736
+#: web/diag/action_realmcheck.php:748
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "Nume de utilizator, dacă este diferit de subiectul din certificat:"
 
-#: web/diag/action_realmcheck.php:738
+#: web/diag/action_realmcheck.php:750
 msgid "Submit credentials"
-msgstr ""
+msgstr "Trimite credențiale"
 
-#: web/diag/action_realmcheck.php:760
+#: web/diag/action_realmcheck.php:772
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "Revino la zona administratorului %s"
 
 #: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Suspectez o problemă tehnică cu furnizorul de identitate"
 
 #: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr ""
+"Un utilizator al acestui furnizor de identitate a încălcat drepturi de autor"
 
 #: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
+"Un utilizator de la acest furnizor de identitate a efectuat operațiuni "
+"dăunătoare rețelei informatice (spam, DDoS, ...)"
 
 #: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"Utilizatorul susține că sunt probleme de conectivitate dar s-a autentificat "
+"cu succes"
 
 #: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
 msgstr ""
+"Utilizatorul susține că portul care trebuie să fie deschis obligatoriu, nu "
+"este deschis. "
 
 #: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
-msgstr ""
+msgstr "Selectați problema "
 
 #: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Care este domeniul furnizorului de identitate ?"
 
 #: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
-msgstr ""
+msgstr "Verifică dacă această valoare este înregistrată"
 
 #: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "Care este momentul de timp al autentificării utilizatorului discutat?"
 
 #: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "Care este adresa MAC a utilizatorului conectat?"
 
 #: web/diag/adminQuery.php:88
 msgid "Additional comments"
-msgstr ""
+msgstr "Comentarii adiționale"
 
 #: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
+"Vă rugăm să specificați o adresă de e-mail la care furnizorul de identitate "
+"vă poate contacta"
 
 #: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Acum puteți trimite cererea"
 
 #: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
-msgstr ""
+msgstr "Trimis "
 
 #: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Identificați furnizorul de servicii prin una dintre metodele următoare"
 
 #: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
-msgstr ""
+msgstr "Atributul Nume-Operator al furnizorului de servicii"
 
 #: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Selectați manual furnizorul de servicii:"
 
 #: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
-msgstr ""
+msgstr "Apasă ca să selectați țara si organizația"
 
 #: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "Vă rog sa specificați locația SP"
 
 #: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgstr "Care este ID-ul exterior al utilizatorului despre care se discută?"
 
 #: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "Comentarii suplimentare despre problemă"
 
 #: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
+"Aveți orice fel de detalii de contact ale utilizatorului prin care acesta "
+"dorește să fie contactat de furnizorul de servicii?"
 
 #: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
-msgstr ""
+msgstr "Vă rog să specificați o adresa de mail pentru a vă contacta SP-ul"
 
-#: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
+#: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr ""
+"Câteva detalii ale încercării de conectare au fost sub-optimale; lista cu "
+"respectivele proprietăți este mai jos."
 
-#: web/diag/radius_tests.php:35
+#: web/diag/radius_tests.php:36
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
+"Câteva erori de configurație au fost detectate; lista cu acestea este mai "
+"jos."
 
 #: web/diag/radius_tests.php:157
 msgid "<strong>Test successful.</strong>"
-msgstr ""
+msgstr "<strong>Test reușit</strong>"
 
 #: web/diag/radius_tests.php:161
 msgid "<strong>Test partially successful</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>Test parțial reușit</strong>: autentificarea a reușit."
 
 #: web/diag/radius_tests.php:164
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>Test nereușit</strong>: autentificarea a reușit."
 
 #: web/diag/radius_tests.php:169
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
+"<strong>Test eșuat</strong>: cererea a fost respinsă. Cel mai probabil motiv "
+"este că ați introdus numele de utilizator și/sau parola greșit."
 
 #: web/diag/radius_tests.php:174
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Această metodă nu poate fi testată"
 
 #: web/diag/radius_tests.php:178
 msgid ""
@@ -1520,6 +1741,9 @@ msgid ""
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
+"<strong>Test eșuat</strong>: cererea a fost respinsă imediat, fără "
+"comunicare EAP. Fie ați greșit numele de utilizator, fie este ceva serios în "
+"neregulă cu serverul."
 
 #: web/diag/radius_tests.php:184 web/diag/radius_tests.php:226
 #, php-format
@@ -1527,6 +1751,9 @@ msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
+"<strong>Test eșuat</strong>: niciun răspuns primit de la serverul RADIUS "
+"după %d secunde. Fie serverul responsabil de această procedură nu "
+"funcționează, fie rutarea este defectă."
 
 #: web/diag/radius_tests.php:189 web/diag/radius_tests.php:230
 #, php-format
@@ -1534,10 +1761,12 @@ msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
+"<strong>Test eșuat</strong>; a fost un schimb de mesaje RADIUS "
+"bidirecțional, dar acesta nu s-a finalizat după %d secunde!"
 
 #: web/diag/radius_tests.php:194
 msgid "<strong>Test FAILED</strong>"
-msgstr ""
+msgstr "<strong>Test nereușit</strong>"
 
 #: web/diag/radius_tests.php:215
 msgid ""
@@ -1545,6 +1774,9 @@ msgid ""
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
+"<strong>Test parțial reușit</strong>a avut loc o conversație bidirecțională "
+"RADIUS cu multiple destinații, a fost rezolvată și terminată într-un Acces-"
+"Respins conform planului."
 
 #: web/diag/radius_tests.php:221
 msgid ""
@@ -1555,18 +1787,35 @@ msgid ""
 "profile settings to get past this hurdle). In all other cases, the server "
 "appears misconfigured or it is unreachable."
 msgstr ""
+"<strong>Test eșuat</strong>: cererea a fost respinsă imediat, fără schimb de "
+"mesaje EAP. Asta nu înseamnă neapărat o eroare: dacă serverul RADIUS "
+"precizează că identitățile exterioare corespund unui nume de utilizator "
+"existent, atunci acest rezultat este de așteptat (Notă: ați putea configura "
+"o identitate exterioară în setările profilului pentru a trece peste această "
+"dificultate). În toate celelalte cazuri, serverul pare a fi configurat "
+"greșit sau nu se poate ajunge la acesta. "
 
 #: web/diag/radius_tests.php:234
 msgid "unhandled error"
-msgstr ""
+msgstr "Eroare fără soluție "
 
-#: web/diag/radius_tests.php:252
+#: web/diag/radius_tests.php:255
+#, php-format
+msgid "elapsed time: %d"
+msgstr "timp petrecut: %d"
+
+#: web/diag/radius_tests.php:257
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
+"<strong>Eroare</strong>: serverul a prezentat un certificat care este de la "
+"o autoritate necunoscută!"
 
-#: web/diag/radius_tests.php:252 web/diag/radius_tests.php:258
-#, php-format
-msgid "elapsed time: %d"
+#: web/diag/radius_tests.php:267
+msgid ""
+"<strong>WARNING</strong>: the server name as discovered in the SRV record "
+"does not match any name in the server certificate!"
 msgstr ""
+"<strong>ATENȚIE</strong>: numele de server descoperit din înregistrarea DNS "
+"de tip SRV nu corespunde cu niciun nume din certificatul de server !"
