@@ -248,12 +248,9 @@ class SanityTests extends CAT
         $exec_is = "UNDEFINED";
 
         foreach ([\config\Master::PATHS, \config\ConfAssistant::PATHS, \config\Diagnostics::PATHS] as $config) {
-            if (!empty($config[$pathToCheck])) {
-                $matchArray = [];
-                preg_match('/([^ ]+) ?/', $config[$pathToCheck], $matchArray);
-                $exe = $matchArray[1];
-                $the_path = exec("which " . $config[$pathToCheck]);
-                if ($the_path == $exe) {
+            if (!empty($config['PATHS'][$pathToCheck])) {
+                $the_path = $config['PATHS'][$pathToCheck];
+                if (substr($the_path, 0, 1) == "/") {
                     $exec_is = "EXPLICIT";
                 } else {
                     $exec_is = "IMPLICIT";
