@@ -472,14 +472,7 @@ class SanityTests extends CAT
             $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
         }
 
-
-        // on CentOS and RHEL 8, look for Gmagick, else Imagick
-        if (strpos(php_uname("r"), "el8") !== FALSE) {
-            $classname = 'Gmagick';
-        } else {
-            $classname = 'Imagick';
-        }
-
+        $classname = 'Imagick';
         if (class_exists('\\' . $classname)) {
             $this->storeTestResult(\core\common\Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
         } else {

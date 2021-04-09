@@ -8,6 +8,10 @@ Changes in 2.1-alpha1
 - [FEATURE #2]  WPA/TKIP is dead. It cannot be configured as a "legacy" SSID any
                 more. Existing configurations will be converted into a normal
                 additional-SSID as a normal WPA2/AES network
+- [FEATURE #3]  use IMagick unconditionally again. CentOS 8 added that with 8.1
+- [BUGFIX  #1]  don't use the bash "which" to find executables. Does not work
+                with php-fpm
+- [BUGFGIX #2]  do not use the hard-coded term "eduroam" in Apple installers
 
 Changes in 2.0.4
 ================

@@ -346,12 +346,7 @@ class UserAPI extends CAT
         $blob = $inputImage;
 
         if ($resize === TRUE) {
-            // on CentOS and RHEL 8, look for Gmagick, else Imagick
-            if (strpos(php_uname("r"), "el8") !== FALSE) {
-                $image = new \Gmagick();
-            } else {
-                $image = new \Imagick();
-            }
+            $image = new \Imagick();
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
             $image->thumbnailImage($width, $height, 1);

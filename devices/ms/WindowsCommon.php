@@ -285,17 +285,11 @@ abstract class WindowsCommon extends \core\DeviceConfig
      * scales a logo to the desired size
      * @param string $imagePath path to the image
      * @param int    $maxSize   maximum size of output image (larger axis counts)
-     * @return \Imagick|\GMagick *Magick image object
+     * @return \Imagick IMagick image object
      */
     private function scaleLogo($imagePath, $maxSize)
     {
-        // on CentOS and RHEL 8, look for Gmagick, else Imagick
-        if (strpos(php_uname("r"), "el8") !== FALSE) {
-            $imageObject = new \Gmagick($imagePath);
-        } else {
-            $imageObject = new \Imagick($imagePath);
-        }
-
+        $imageObject = new \Imagick($imagePath);
         $imageSize = $imageObject->getImageGeometry();
         $imageMax = max($imageSize);
         $this->loggerInstance->debug(5, "Logo size: ");
@@ -335,12 +329,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         // we are prefixig the paths with getcwd() wich migh appear unnecessary
         // but under some conditions appeared to be required
         $freeBottom = 30;
-// on CentOS and RHEL 8, look for Gmagick, else Imagick
-        if (strpos(php_uname("r"), "el8") !== FALSE) {
-            $bgImage = new \Gmagick(getcwd().'/cat_bg.bmp');
-        } else {
-            $bgImage = new \Imagick(getcwd().'/cat_bg.bmp');
-        }
+        $bgImage = new \Imagick(getcwd().'/cat_bg.bmp');
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
         $logosToPlace = [];

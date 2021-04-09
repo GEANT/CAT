@@ -212,12 +212,7 @@ class Logopath extends AbstractTest
     public function addScreenshot($binaryData)
     {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
-            // on CentOS and RHEL 8, look for Gmagick, else Imagick
-            if (strpos(php_uname("r"), "el8") !== FALSE) {
-                $magick = new \Gmagick();
-            } else {
-                $magick = new \Imagick();
-            }
+            $magick = new \Imagick();
             $magick->readimageblob($binaryData);
             $magick->setimageformat("png");
             $this->additionalScreenshot = $magick->getimageblob();
