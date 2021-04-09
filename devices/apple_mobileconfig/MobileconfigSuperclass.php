@@ -717,7 +717,7 @@ $mimeFormatted
                   <key>PayloadDescription</key>
                      <string>MIME Base-64 encoded PKCS#12 Client Certificate</string>
                   <key>PayloadDisplayName</key>
-                     <string>" . _("eduroam user certificate") . "</string>
+                     <string>" . _("User certificate") . "</string>
                   <key>PayloadIdentifier</key>
                      <string>com.apple.security.pkcs12.$payloadUUID</string>
                   <key>PayloadType</key>
