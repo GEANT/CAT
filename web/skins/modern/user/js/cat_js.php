@@ -23,7 +23,7 @@ $cat = new \web\lib\user\Gui();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
-if (isset(CONFIG_CONFASSISTANT['PRELOAD_IDPS']) && CONFIG_CONFASSISTANT['PRELOAD_IDPS']) {
+if (\config\ConfAssistant::PRELOAD_IDPS) {
     print "var preloadIdPs = true;\n";
 } else {
     print "var preloadIdPs = false;\n";

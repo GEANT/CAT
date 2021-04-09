@@ -1,8 +1,4 @@
-<<<<<<< HEAD:devices/xml/Type.php
 <?php
-
-=======
->>>>>>> origin/release_2_0:schema/2_0_4-2_0_5.sql
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -24,7 +20,6 @@
  */
 
 /**
-<<<<<<< HEAD:devices/xml/Type.php
  * This file contains class definitions and procedures for 
  * generation of a generic XML description of a 802.1x configurator
  *
