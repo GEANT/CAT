@@ -110,6 +110,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         foreach ($eapmethods as $eap) {
             $methodList[] = $this->getAuthMethod($eap);
         }
+
         $authMethods = new AuthenticationMethods();
         $authMethods->setProperty('AuthenticationMethods', $methodList);
         $eapIdp->setProperty('AuthenticationMethods', $authMethods);
@@ -318,9 +319,9 @@ abstract class Device_XML extends \core\DeviceConfig {
             $out['METHOD'] = \core\common\EAP::NE_PAP;
             return $out;
         }
-        
+      
         if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $out['METHOD'] = \core\common\EAP::NONE;
+            $out['METHOD'] = \core\common\EAP::NE_SILVERBULLET;
             return $out;           
         }
         
@@ -338,14 +339,18 @@ abstract class Device_XML extends \core\DeviceConfig {
         $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {
-            $innerauthmethod = new InnerAuthenticationMethod();
-            $typeOfInner = "\devices\xml\\" . ($inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod');
-            $eapmethod = new $typeOfInner();
-            $eaptype = new Type();
-            $eaptype->setValue($inner['METHOD']);
-            $eapmethod->setProperty('Type', $eaptype);
-            $innerauthmethod->setProperty($typeOfInner, $eapmethod);
-            return ['inner_method' => $innerauthmethod, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];
+            if ($inner["METHOD"] === \core\common\EAP::NE_SILVERBULLET) {
+                return ['inner_method' => 0, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];
+            } else {
+                $innerauthmethod = new InnerAuthenticationMethod();
+                $typeOfInner = "\devices\xml\\" . ($inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod');
+                $eapmethod = new $typeOfInner();
+                $eaptype = new Type();
+                $eaptype->setValue($inner['METHOD']);
+                $eapmethod->setProperty('Type', $eaptype);
+                $innerauthmethod->setProperty($typeOfInner, $eapmethod);
+                return ['inner_method' => $innerauthmethod, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];
+            }
         } else {
             return ['inner_method' => 0, 'methodID' => $outerMethod, 'inner_methodID' => 0];
         }
@@ -445,7 +450,6 @@ abstract class Device_XML extends \core\DeviceConfig {
 
 // ServerSideCredentials
         $authmethod->setProperty('ServerSideCredential', $this->setServerSideCredentials($eaptype));
-
 // ClientSideCredentials
         $authmethod->setProperty('ClientSideCredential', $this->setClientSideCredentials($eapParams));
         
