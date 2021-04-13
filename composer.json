@@ -4,13 +4,13 @@
     "description": "IEEE 802.1X Configuration Assistant Tool",
 
     "require-dev": {
-        "squizlabs/php_codesniffer": "3.4",
+        "squizlabs/php_codesniffer": "3.6",
         "phpunit/phpunit": "^8.1"
     },
     "require": {
         "geoip2/geoip2": "^2.9",
         "phpmailer/phpmailer": "^6.0",
-        "simplesamlphp/simplesamlphp": "^1.19",
-        "chillerlan/php-qrcode": "^3.1"
+        "simplesamlphp/simplesamlphp": "dev-master",
+        "chillerlan/php-qrcode": "^4.3"
     }
 }
