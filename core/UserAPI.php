@@ -486,20 +486,6 @@ class UserAPI extends CAT
     public function listIdentityProvidersWithProfiles() {
         return IdPlist::listIdentityProvidersWithProfiles();
     }
-
-    /**
-     * outputs a full list of IdPs containing the fllowing data:
-     * institution_is, institution name in all available languages,
-     * list of production profiles.
-     * For eache profile the profile identifier, profile name in all languages
-     * and redirect values (empty rediret value means that no redirect has been
-     * set).
-     * 
-     * @return array of identity providers with attributes
-     */
-    public function listIdentityProvidersWithProfiles() {
-        return IdPlist::listIdentityProvidersWithProfiles();
-    }
     
     /**
      * Detect the best device driver form the browser
