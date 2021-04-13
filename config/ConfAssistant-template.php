@@ -87,7 +87,9 @@ class ConfAssistant
         'networks' => [
             'eduroam®'     => [
                 'ssid' => ['eduroam'], 
-                'oi' => ['001bc50460' /* eduroam RCOI */ ], 
+                'oi' => [
+                    '001bc50460' /* eduroam RCOI */ 
+                    ], 
                 'condition' => TRUE],
             'OpenRoaming®' => [
                 'ssid' => [],     /* OpenRoaming has left SSIDs behind */
