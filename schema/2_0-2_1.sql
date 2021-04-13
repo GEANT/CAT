@@ -69,7 +69,7 @@ INSERT INTO profile_option_dict (name, description,type,flag) VALUES
 
 INSERT INTO profile_option_dict (name, description, type, flag) VALUES
   ('fed:openroaming','Allow IdP OpenRoaming Opt-In','boolean',NULL),
-  ('fed:openroaming_customtarget','custom NAPTR discovery target','string',NULL)
+  ('fed:openroaming_customtarget','custom NAPTR discovery target','string',NULL),
   ('media:openroaming_always','Unconditionally include OpenRoaming Free RCOIs where possible','string',NULL),
   ('media:openroaming_ask','Include OpenRoaming Free RCOIs if user wants so','string',NULL);
 
