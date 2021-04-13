@@ -137,7 +137,7 @@ class UIElements extends \core\common\Entity {
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
             sprintf(_("Mint %s with CA on creation"), $this->nomenclatureInst) => "fed:minted_ca_file",
             _("Allow OpenRoaming Opt-In") => "fed:openroaming",
-            _("OpenRoaming: Custom NAPTR Target") => "fed_openroaming_customtarget",
+            _("OpenRoaming: Custom NAPTR Target") => "fed:openroaming_customtarget",
             $ssidText => "media:SSID",
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
