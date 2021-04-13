@@ -85,8 +85,18 @@ class ConfAssistant
         'interworking-consortium-oi' => ['001bc50460'],
         'interworking-domainname-fallback' => 'eduroam.org',
         'networks' => [
-            'eduroam®' => ['ssid' => ['eduroam'], 'oi' => ['001bc5046f']],
-            'eduroam® via Passpoint' => ['ssid' => [], 'oi' => ['001bc50460']],
+            'eduroam®'     => [
+                'ssid' => ['eduroam'], 
+                'oi' => ['001bc50460' /* eduroam RCOI */ ], 
+                'condition' => TRUE],
+            'OpenRoaming®' => [
+                'ssid' => [],     /* OpenRoaming has left SSIDs behind */
+                'oi' => [
+                    '5A03BA0000', /* OpenRoaming/AllIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                    '5A03BA0800', /* OpenRoaming/EduIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                    ],
+                'condition' => 'internal:openroaming',
+                ],
         ],
         'registration_API_keys' => [
         // 'secretvalue' => 'UK',
