@@ -124,7 +124,7 @@ require_once "inc/click_button_js.php";
         }
         ?>
         <table class='user_overview'>
-            <caption><?php echo sprintf(_("%s Management Overview",$uiElements->nomenclatureParticipant));?></caption>
+            <caption><?php echo sprintf(_("%s Management Overview"),$uiElements->nomenclatureParticipant);?></caption>
             <tr>
                 <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
                 <th scope="col"><?php echo sprintf(_("Other admins of this %s"), $uiElements->nomenclatureParticipant); ?></th>
