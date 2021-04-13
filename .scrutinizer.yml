@@ -107,7 +107,7 @@ build:
         analysis:
             environment:
                 php:
-                    version: 7.2.25
+                    version: 8.0.3
             project_setup:
                 override: true
             tests:
@@ -121,7 +121,7 @@ build:
                     MY_PATH: '/home/scrutinizer/vault/'
                     TEST_LANGUAGE_VARIANTS: 0
                 php:
-                    version: 7.4.0
+                    version: 8.0.3
                 hosts:
                     ci.test: 127.0.0.1
                 apache2:
@@ -221,7 +221,8 @@ build:
                       ];
                       const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
                       const NSIS_VERSION = 3;
-                      
+                      const USE_KEYWORDS = true;
+                      const PRELOAD_IDPS = true;                      
                       }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "
