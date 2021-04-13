@@ -235,6 +235,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),
 ('media:force_proxy','URL of a mandatory content filter proxy','string',NULL),
+('media:openroaming_always','Unconditionally include OpenRoaming Free RCOIs where possible','string',NULL),
+('media:openroaming_ask','Include OpenRoaming Free RCOIs if user wants so','string',NULL),
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
 ('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
@@ -258,6 +260,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
 ('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL),
+('fed:openroaming','Allow IdP OpenRoaming Opt-In','boolean',NULL),
+('fed:openroaming_customtarget','custom NAPTR discovery target','string',NULL),
 ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
 ('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
 ('managedsp:operatorname','Operator-Name attribute to be added to requests','string',NULL);

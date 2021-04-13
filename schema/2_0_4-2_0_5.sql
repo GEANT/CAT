@@ -1,8 +1,3 @@
-<<<<<<< HEAD:devices/xml/Type.php
-<?php
-
-=======
->>>>>>> origin/release_2_0:schema/2_0_4-2_0_5.sql
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -24,24 +19,9 @@
  */
 
 /**
-<<<<<<< HEAD:devices/xml/Type.php
- * This file contains class definitions and procedures for 
- * generation of a generic XML description of a 802.1x configurator
- *
- * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
- *
- * @package ModuleWriting
- */
-
-namespace devices\xml;
-
-class Type extends XMLElement {
-    
-}
-=======
  * Author:  swinter
  * Created: 02.04.2021
  */
 
 INSERT INTO profile_option_dict (name, description, type, flag) VALUES('general:instshortname','short name of the institution (acronym etc) in multiple languages','string','ML');
->>>>>>> origin/release_2_0:schema/2_0_4-2_0_5.sql
+
