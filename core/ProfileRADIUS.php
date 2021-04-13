@@ -96,17 +96,6 @@ class ProfileRADIUS extends AbstractProfile
             $localValueIfAny = substr($this->realm, 0, $position);
         }
 
-        $internalAttributes = [
-            "internal:profile_count" => $this->idpNumberOfProfiles,
-            "internal:checkuser_outer" => $profileQuery->checkuser_outer,
-            "internal:checkuser_value" => $profileQuery->checkuser_value,
-            "internal:verify_userinput_suffix" => $profileQuery->verify,
-            "internal:hint_userinput_suffix" => $profileQuery->hint,
-            "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
-            "internal:use_anon_outer" => $profileQuery->use_anon_outer,
-            "internal:anon_local_value" => $localValueIfAny,
-        ];
-
         // fetch the EAP type and device-specific attributes in this profile from DB
 
         $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
@@ -121,6 +110,17 @@ class ProfileRADIUS extends AbstractProfile
         $this->loggerInstance->debug(5, "All low-Level Attributes: " . print_r($attributesLowLevel, true));
 
         // now fetch and merge profile-level attributes if not already set on deeper level
+
+        $internalAttributes = [
+            "internal:profile_count" => $this->idpNumberOfProfiles,
+            "internal:checkuser_outer" => $profileQuery->checkuser_outer,
+            "internal:checkuser_value" => $profileQuery->checkuser_value,
+            "internal:verify_userinput_suffix" => $profileQuery->verify,
+            "internal:hint_userinput_suffix" => $profileQuery->hint,
+            "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
+            "internal:use_anon_outer" => $profileQuery->use_anon_outer,
+            "internal:anon_local_value" => $localValueIfAny,
+        ];
 
         $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $this->addInternalAttributes($internalAttributes));
 
@@ -148,6 +148,13 @@ class ProfileRADIUS extends AbstractProfile
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('profile:name')); // cannot be set per device or eap type
 
+        // was OpenRoaming enabled for unconditional inclusion into installers?
+        // add the internal attribute to that effect
+        
+        if (isset($this->attributes['media:openroaming_always'])) {
+            $this->attributes = array_merge($this->attributes, $this->addInternalAttributes([ "internal:openroaming" => TRUE ] ));
+        }
+        
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
