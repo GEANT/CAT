@@ -216,9 +216,9 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * generates a CSR with parameters compatible with the CA.
      * 
-     * @param \resource $privateKey the private key
-     * @param string    $fed        federation, for the C= field
-     * @param string    $username   the username, for the CN= field
+     * @param \OpenSSLAsymmetricKey $privateKey the private key
+     * @param string                $fed        federation, for the C= field
+     * @param string                $username   the username, for the CN= field
      * @return array
      * @throws Exception
      */
@@ -234,11 +234,11 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             'req_extensions' => 'v3_req',
                 ]
         );
-        if ($newCsr === FALSE) {
-            throw new Exception("Unable to create a CSR!");
+        if ($newCsr === FALSE || is_resource($newCsr)) {
+            throw new Exception("Unable to create a CSR (or not a PHP8 object)!");
         }
         return [
-            "CSR" => $newCsr, // resource
+            "CSR" => $newCsr, // OpenSSLCertificateSigningRequest
             "USERNAME" => $username,
             "FED" => $fed
         ];

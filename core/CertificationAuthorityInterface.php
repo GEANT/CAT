@@ -17,9 +17,9 @@ interface CertificationAuthorityInterface
     /**
      * create a CSR
      * 
-     * @param resource $privateKey the private key to create the CSR with
-     * @param string   $fed        the federation to which the certificate belongs
-     * @param string   $username   the future username
+     * @param \OpenSSLAsymmetricKey $privateKey the private key to create the CSR with
+     * @param string                $fed        the federation to which the certificate belongs
+     * @param string                $username   the future username
      * @return array with the CSR and some meta info
      */
     public function generateCompatibleCsr($privateKey, $fed, $username): array;

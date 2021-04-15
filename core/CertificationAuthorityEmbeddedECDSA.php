@@ -36,9 +36,9 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     public $issuingCertRaw;
 
     /**
-     * resource of the issuing CA
+     * certificate of the issuing CA
      * 
-     * @var resource
+     * @var \OpenSSLCertificate
      */
     private $issuingCert;
 
@@ -51,7 +51,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     /**
      * resource for private key
      * 
-     * @var resource
+     * @var \OpenSSLAsymmetricKey
      */
     private $issuingKey;
 
@@ -74,15 +74,15 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         }
         $rootParsed = openssl_x509_read($this->rootPem);
         $this->issuingCert = openssl_x509_read($this->issuingCertRaw);
-        if ($this->issuingCert === FALSE || $rootParsed === FALSE) {
-            throw new Exception("At least one CA PEM file did not parse correctly!");
+        if ($this->issuingCert === FALSE || is_resource($this->issuingCert)|| $rootParsed === FALSE) {
+            throw new Exception("At least one CA PEM file did not parse correctly (or not a PHP8 resource)!");
         }
         if (stat(CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY) === FALSE) {
             throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY);
         }
         $issuingKeyTemp = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY);
-        if ($issuingKeyTemp === FALSE) {
-            throw new Exception("The private key did not parse correctly!");
+        if ($issuingKeyTemp === FALSE || is_resource($issuingKeyTemp)) {
+            throw new Exception("The private key did not parse correctly (or not a PHP8 resource)!");
         }
         $this->issuingKey = $issuingKeyTemp;
         if (stat(CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG) === FALSE) {
@@ -216,9 +216,9 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     /**
      * generates a CSR with parameters compatible with the CA.
      * 
-     * @param \resource $privateKey the private key
-     * @param string    $fed        federation, for the C= field
-     * @param string    $username   the username, for the CN= field
+     * @param \OpenSSLAsymmetricKey $privateKey the private key
+     * @param string                $fed        federation, for the C= field
+     * @param string                $username   the username, for the CN= field
      * @return array
      * @throws Exception
      */
@@ -234,11 +234,11 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             'req_extensions' => 'v3_req',
                 ]
         );
-        if ($newCsr === FALSE) {
-            throw new Exception("Unable to create a CSR!");
+        if ($newCsr === FALSE || is_resource($newCsr)) {
+            throw new Exception("Unable to create a CSR (or not a PHP8 object)!");
         }
         return [
-            "CSR" => $newCsr, // resource
+            "CSR" => $newCsr, // OpenSSLCertificateSigningRequest
             "USERNAME" => $username,
             "FED" => $fed
         ];

@@ -422,9 +422,9 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     /**
      * generates a CSR which eduPKI likes (DC components etc.)
      * 
-     * @param \resource $privateKey a private key
-     * @param string    $fed        name of the federation, for C= field
-     * @param string    $username   username, for CN= field
+     * @param \OpenSSLAsymmetricKey $privateKey a private key
+     * @param string                $fed        name of the federation, for C= field
+     * @param string                $username   username, for CN= field
      * @return array the CSR along with some meta information
      * @throws Exception
      */
