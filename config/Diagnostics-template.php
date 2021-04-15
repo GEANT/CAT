@@ -34,46 +34,7 @@ namespace config;
  */
 class Diagnostics
 {
-
-        /**
-         * Defines various general parameters of the roaming consortium.
-         * name: the display name of the consortium
-         * ssid: an array of default SSIDs for this consortium; they are automatically added to all installers.
-         * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
-         *                             a profile with these OIs will be added to all installers
-         * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
-         * homepage: URL of the consortium's general homepage.
-         * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
-         *           in the certificate. If left empty, signatures are not advertised even if configured and working
-         * allow_self_service_registration: if set to NULL, federation admins need to invite new inst admins manually
-         *                                  if set to a federation ID string, e.g. "DE" for Germany, new admins can
-         *                                  self-register and will be put into that federation.
-         * registration_API_keys: allows select federations to make bulk registrations for new IdPs (e.g. if they have
-         *                        an own, opaque, customer management system. The API will be documented at a later stage
-         * LOGOS: there are several variants of the consortium logo scattered in the
-         *        source. Please change them at the appropriate places:
-         *        - web/resources/images/consortium_logo.png
-         *        - web/favicon.ico
-         *        - devices/ms/Files/eduroam_150.bmp
-         *        - devices/ms/Files/eduroam32.ico
-         * 
-         * certfilename, keyfilename, keypass: if you want to send S/MIME signed mails, just configure the signing cert
-         *                                     with these parameters. All must be non-NULL for signing to happen. If you
-         *                                     don't need a keypass, make it an empty string instead.
-         * silverbullet options:
-         *         default_maxusers: an institution is not allowed to create more than that amount of users
-         *             the value can be overriden as a per-federation option in fed-operator UI
-         *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
-         *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
-         *             if left empty, realms would end in the federation name only
-         *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
-         *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
-         *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
-         *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
-         *             value steers where to get certificates from
-         * @var array
-         */
-        /**
+         /**
          * Various paths.
          * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
          * c_rehash: absolute path to the c_rehash executable. If you just fill in "c_rehash" the one from the system $PATH will be taken.

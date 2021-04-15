@@ -490,12 +490,8 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssidList['del'] = [];
         if (isset(\config\ConfAssistant::CONSORTIUM['ssid'])) {
             foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssid) {
-                if (\config\ConfAssistant::CONSORTIUM['tkipsupport'] == TRUE) {
-                    $ssidList['add'][$ssid] = 'TKIP';
-                } else {
-                    $ssidList['add'][$ssid] = 'AES';
-                    $ssidList['del'][$ssid] = 'TKIP';
-                }
+                $ssidList['add'][$ssid] = 'AES';
+                $ssidList['del'][$ssid] = 'TKIP';
             }
         }
         if (isset($this->attributes['media:SSID'])) {

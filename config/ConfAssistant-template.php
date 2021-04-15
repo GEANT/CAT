@@ -49,7 +49,6 @@ class ConfAssistant
      *                             a profile with these OIs will be added to all installers
      * interworking-domainname-fallback: This will be used in Windows installers for the DomainName setting if
      *                             the IdP configuration does not suppy its own realm
-     * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
      * homepage: URL of the consortium's general homepage.
      * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
      *           in the certificate. If left empty, signatures are not advertised even if configured and working
@@ -76,7 +75,6 @@ class ConfAssistant
         // presented to actual humans.
         'display_name' => 'eduroam®',
         'ssid' => ['eduroam'],
-        'tkipsupport' => FALSE,
         'homepage' => 'https://www.eduroam.org',
         'signer_name' => 'GÉANT Association',
         'selfservice_registration' => NULL,

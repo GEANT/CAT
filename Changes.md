@@ -9,6 +9,13 @@ Changes in 2.1-alpha1
                 more. Existing configurations will be converted into a normal
                 additional-SSID as a normal WPA2/AES network
 - [FEATURE #3]  use IMagick unconditionally again. CentOS 8 added that with 8.1
+- [FEATURE #4]  Integrate OpenRoaming Opt-In possibilities
+                * NROs can allow their IdPs to enable OpenRoaming installers
+                * NROs can specify where their custom RADIUS/TLS endpoint is, 
+                  if any (else a consortium-wide default is shown)
+                * IdPs can choose to have OpenRoaming Free RCOIs included in
+                  their end-user installers either unconditionally or only on
+                  explicit user request
 - [BUGFIX  #1]  don't use the bash "which" to find executables. Does not work
                 with php-fpm
 - [BUGFGIX #2]  do not use the hard-coded term "eduroam" in Apple installers

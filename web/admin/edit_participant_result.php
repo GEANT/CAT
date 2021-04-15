@@ -112,7 +112,7 @@ switch ($_POST['submitbutton']) {
 
         if (isset(\config\ConfAssistant::CONSORTIUM['ssid']) && count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssidname) {
-                $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONSORTIUM['tkipsupport']) && \config\ConfAssistant::CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+                $ssids[] = $ssidname . " " . _("(WPA2/AES)");
             }
         }
 

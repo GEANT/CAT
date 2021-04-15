@@ -144,9 +144,6 @@ echo $mapCode->htmlHeadCode();
                 }
                 $ssidlist = substr($ssidlist, 2);
                 echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(\config\ConfAssistant::CONSORTIUM['ssid'])), $ssidlist);
-                if (\config\ConfAssistant::CONSORTIUM['tkipsupport']) {
-                    echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
-                }
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the option '%s' below."), $uiElements->displayName("media:SSID"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
