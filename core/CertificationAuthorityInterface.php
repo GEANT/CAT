@@ -27,7 +27,7 @@ interface CertificationAuthorityInterface
     /**
      * generates a private key that can be processed by this CA
      * 
-     * @return \resource
+     * @return \OpenSSLAsymmetricKey
      */
     public function generateCompatiblePrivateKey();
 

@@ -247,7 +247,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * generates a private key compatible with the CA
      * 
-     * @return \resource
+     * @return \OpenSSLAsymmetricKey the key
      * @throws Exception
      */
     public function generateCompatiblePrivateKey()

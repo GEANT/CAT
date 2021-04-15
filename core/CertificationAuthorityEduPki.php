@@ -415,7 +415,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
     /**
      * generates a private key eduPKI can handle
      * 
-     * @return \resource the key
+     * @return \OpenSSLAsymmetricKey the key
      * @throws Exception
      */
     public function generateCompatiblePrivateKey()

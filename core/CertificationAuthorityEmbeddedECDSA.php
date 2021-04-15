@@ -247,7 +247,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     /**
      * generates a private key compatible with the CA
      * 
-     * @return \resource
+     * @return \OpenSSLAsymmetricKey
      * @throws Exception
      */
     public function generateCompatiblePrivateKey()
