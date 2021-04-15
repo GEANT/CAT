@@ -170,8 +170,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * sign CSR
      * 
-     * @param array   $csr        the request metadata. The member $csr['CSR'] must be a PHP *resource*
-     * @param integer $expiryDays how many days should the cert be valid?
+     * @param \OpenSSLCertificateSigningRequest $csr        the request as a PHP8 *opaque class*
+     * @param integer                           $expiryDays how many days should the cert be valid?
      * @return array the cert and some metadata
      * @throws Exception
      */

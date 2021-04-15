@@ -62,7 +62,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     /**
      * signs a CSR and returns the certificate (blocking wait)
      * 
-     * @param array   $csr        the request structure. The member $csr['CSR'] must contain the CSR in *PEM* format
+     * @param string  $csr        the request, must contain the CSR in *PEM* format
      * @param integer $expiryDays how many days should the certificate be valid
      * @return array the certificate with some meta info
      * @throws Exception
