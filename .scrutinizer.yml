@@ -103,6 +103,7 @@ checks:
         check_for_loops_test: true
 
 build:
+    image: default-bionic
     nodes:
         analysis:
             environment:
