@@ -299,7 +299,6 @@ class RADIUSTestsUI extends AbstractTest
             $this->globalInfo[$this->globalLevelDynamic].' '._("See the appropriate tab for details.").'</td></tr></table>';
         }
         $out[] = '</fieldset>';
-        //print '<pre>'; print_r($out); print '</pre>'; exit;
         return join('', $out);
     }
     
@@ -315,7 +314,6 @@ class RADIUSTestsUI extends AbstractTest
         foreach ($this->allReachabilityResults['udp'] as $udp) {
             $hostindex = $udp->hostindex;
             $result = $udp->result[0];
-            //print '<pre>'; print_r($result); print '</pre>';
             $out[] = '<hr>';
             $out[] = '<strong>'.sprintf(_("Testing from: %s"), \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name']).'</strong>';
             $out[] = "<table id='results$hostindex'  style='width:100%' class='udp_results'>
@@ -363,7 +361,6 @@ class RADIUSTestsUI extends AbstractTest
         $capathtest = [];
         $capathtest[] = '<p><strong>'._("Checking server handshake...")."</strong><p>";
         foreach ($this->allReachabilityResults['capath'] as $capath) {
-            //print '<pre>'; print_r($capath); print '<pre>';
             $hostindex = $capath->hostindex;
             $level = $capath->level;
             if ($capath->level == \core\common\Entity::L_OK && $capath->result == \core\diag\RADIUSTests::RETVAL_INVALID) {
@@ -377,7 +374,6 @@ class RADIUSTestsUI extends AbstractTest
             $capathtest[] = $this->stateIcons[$level]."' id='srcca".$hostindex."_img'></td>
 <td id='srcca$hostindex'>";
             $more = '';
-            //print '<pre>'; print_r($server_cert); print '</pre>';print $server_cert['title'].'<br>';
             if ($capath->certdata && $capath->certdata->subject != '') {
                 $more .= '<div class="more">';
                 $certdesc = '<br>'.$this->certFields['title'].'<ul>';
@@ -421,7 +417,6 @@ class RADIUSTestsUI extends AbstractTest
     {
         $clientstest = [];
         foreach ($this->allReachabilityResults['clients'] as $clients) {
-            //print '<pre>'; print_r($clients); print '</pre>';
             $hostindex = $clients->hostindex; 
             $clientstest[] = '<p><strong>'.$this->hostMap[$clients->IP].'</strong></p>';
             $clientstest[] = "<span id='clientresults$hostindex'>";
@@ -430,7 +425,6 @@ class RADIUSTestsUI extends AbstractTest
                 if (property_exists($clients, 'ca')) {
                     $clientstest[] = '<ol>';
                     foreach ($clients->ca as $ca) {
-                        //print '<pre>'; print_r($ca); print '</pre>';
                         $srefused = 0;
                         $cliinfo = '';
                         $cliinfo .= '<li>'._('Client certificate').' <b>'.$ca->clientcertinfo->from.
@@ -520,7 +514,6 @@ class RADIUSTestsUI extends AbstractTest
         if (count($this->rfc7585suite->NAPTR_hostname_records) > 0) {    
             $capathtest = $this->collectCAPath();
             $clientstest = $this->collectClients();
-            //print '<pre>'; print_r($clientstest); print '</pre>';
             $out[] = '<div style="align:right;">';            
             $out[] = '<div style="align:right; display: ';
             if ($this->globalLevelDynamic == \core\common\Entity::L_OK && !$this->areFailed) {
@@ -534,7 +527,6 @@ class RADIUSTestsUI extends AbstractTest
             $out[] = '" id="dynamic_result_pass"><b>'.
                                 _("All tests passed, congratulations!").'</b></div>'.
                                 '<div style="align:left;"><a href="" class="moreall"><i>'._('Show detailed information for all tests').'&raquo;</i></a></div>';
-            //print '<pre>'; print_r($clientstest); print '</pre>';
             $out[] = join('', $capathtest);
             $out[] = '<span id="clientstest" style="display: ;"><p><hr><b>'._('Checking if certificates from  CAs are accepted...').'</b><p>'._('A few client certificates will be tested to check if servers are resistant to some certificate problems.').'<p>';
             $out[] = join('', $clientstest);

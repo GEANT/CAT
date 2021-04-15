@@ -295,7 +295,7 @@ abstract class Entity
         for ($i = count($trace); $i--; $i > 0) {
             if (isset($trace[$i - 1]['class']) && preg_match('/Entity/', $trace[$i - 1]['class'])) {
                 if ($showTrace) {
-                    echo "FOUND caller: " . print_r($trace[$i], true) . " - class is " . $trace[$i]['class'];
+                    echo "FOUND caller: " . /** @scrutinizer ignore-type */ print_r($trace[$i], true) . " - class is " . $trace[$i]['class'];
                 }
                 $caller = $trace[$i];
                 break;
@@ -305,7 +305,7 @@ abstract class Entity
         // otherwise, on the filename relative to ROOT
         $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
         if ($showTrace === TRUE) {
-            echo "<pre>" . print_r($trace, true) . "</pre>";
+            echo "<pre>" . /** @scrutinizer ignore-type */ print_r($trace, true) . "</pre>";
             echo "CLASS = " . $myName . "<br/>";
         }
         if (preg_match("/diag/", $myName) == 1) {

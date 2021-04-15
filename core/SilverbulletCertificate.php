@@ -382,7 +382,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
         $certString = "";
         openssl_x509_export($cert, $certString);
         $parsedCert = $x509->processCertificate($certString);
-        $loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
+        $loggerInstance->debug(5, "CERTINFO: " . /** @scrutinizer ignore-type */ print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB

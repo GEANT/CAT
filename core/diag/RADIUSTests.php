@@ -167,9 +167,9 @@ class RADIUSTests extends AbstractTest
             }
         }
 
-        $this->loggerInstance->debug(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . print_r($supportedEapTypes, true));
-        $this->loggerInstance->debug(4, print_r($expectedServerNames, true));
-        $this->loggerInstance->debug(4, print_r($expectedCABundle, true));
+        $this->loggerInstance->debug(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . /** @scrutinizer ignore-type */ print_r($supportedEapTypes, true));
+        $this->loggerInstance->debug(4, /** @scrutinizer ignore-type */ print_r($expectedServerNames, true));
+        $this->loggerInstance->debug(4, /** @scrutinizer ignore-type */ print_r($expectedCABundle, true));
 
         $this->UDP_reachability_result = [];
         $this->errorlist = [];
@@ -284,7 +284,7 @@ class RADIUSTests extends AbstractTest
             $probValue = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
             $returnarray[] = $probValue;
         }
-        $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
+        $this->loggerInstance->debug(4, "CERT IS: " . /** @scrutinizer ignore-type */ print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_BASICCONSTRAINTS;
         }
@@ -766,10 +766,10 @@ network={
         if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
             exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
             $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
-            $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
+            $this->loggerInstance->debug(4, "Chain verify pass 1: " . /** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE) . "\n");
             exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
             $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
-            $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
+            $this->loggerInstance->debug(4, "Chain verify pass 2: " . /** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
 // now we do certificate verification against the collected parents
@@ -835,7 +835,7 @@ network={
         // we are UNHAPPY if no names match!
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
-            $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
+            $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . /** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE) . /** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
             if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
                 $this->loggerInstance->debug(4, "Totally happy!");
                 $happiness = "TOTALLY";
@@ -930,7 +930,7 @@ network={
         if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
             array_pop($packetflow);
         }
-        $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
+        $this->loggerInstance->debug(5, "Packetflow: " . /** @scrutinizer ignore-type */ print_r($packetflow, TRUE));
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
@@ -1065,7 +1065,7 @@ network={
                         if (file_put_contents($tmpDir . "/incomingserver.pem", $cert['pem'] . "\n") === FALSE) {
                             $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
                         }
-                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert[0], true));
+                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . /** @scrutinizer ignore-type */ print_r($servercert[0], true));
                     } elseif (!in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
                     }

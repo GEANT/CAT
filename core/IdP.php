@@ -144,7 +144,7 @@ class IdP extends EntityWithDBProperties
             $returnarray[] = $oneProfile;
         }
 
-        $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
+        $this->loggerInstance->debug(4, "listProfiles: " . /** @scrutinizer ignore-type */ print_r($returnarray, true));
         return $returnarray;
     }
 
@@ -164,7 +164,7 @@ class IdP extends EntityWithDBProperties
             $returnarray[] = new DeploymentManaged($this, $deploymentQuery->deployment_id);
         }
 
-        $this->loggerInstance->debug(4, "listDeployments: " . print_r($returnarray, true));
+        $this->loggerInstance->debug(4, "listDeployments: " . /** @scrutinizer ignore-type */ print_r($returnarray, true));
         return $returnarray;
     }
 

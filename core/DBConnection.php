@@ -123,7 +123,7 @@ class DBConnection
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
         if ($types !== NULL) {
-            $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . print_r($arguments, true));
+            $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . /** @scrutinizer ignore-type */ print_r($arguments, true));
         }
 
         if ($this->connection->connect_error) {
@@ -182,7 +182,7 @@ class DBConnection
         if ($isMoreThanSelect) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
             if ($types !== NULL) {
-                $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
+                $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . /** @scrutinizer ignore-type */ print_r($arguments, true));
             }
         }
         return $result;

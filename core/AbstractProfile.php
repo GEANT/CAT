@@ -171,7 +171,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             if (array_search($ca['name'], $baselineCA) !== FALSE) {
                 $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".$ca['name']."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['name'], $baselineCA)." and (added) ".$ca['sha1'];
             } else {
-                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '".print_r($ca['name'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
+                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '"./** @scrutinizer ignore-type */ print_r($ca['name'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
             }
         }
         // check if a servername was added
@@ -205,7 +205,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $eaptype = new common\EAP($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
+        $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n" . /** @scrutinizer ignore-type */ print_r($eapTypeArray, true));
         return $eapTypeArray;
     }
 

@@ -123,7 +123,7 @@ class OutsideComm extends Entity
             $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: no MX.");
             return OutsideComm::MAILDOMAIN_NO_MX;
         }
-        $loggerInstance->debug(5, "Domain: $domain MX: " . print_r($mx, TRUE));
+        $loggerInstance->debug(5, "Domain: $domain MX: " . /** @scrutinizer ignore-type */ print_r($mx, TRUE));
         // create a pool of A and AAAA records for all the MXes
         $ipAddrs = [];
         foreach ($mx as $onemx) {
@@ -140,7 +140,7 @@ class OutsideComm extends Entity
             $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: no mailserver hosts.");
             return OutsideComm::MAILDOMAIN_NO_HOST;
         }
-        $loggerInstance->debug(5, "Domain: $domain Addrs: " . print_r($ipAddrs, TRUE));
+        $loggerInstance->debug(5, "Domain: $domain Addrs: " . /** @scrutinizer ignore-type */ print_r($ipAddrs, TRUE));
         // connect to all hosts. If all can't connect, return MAILDOMAIN_NO_CONNECT. 
         // If at least one does not support STARTTLS or one of the hosts doesn't connect
         // , return MAILDOMAIN_NO_STARTTLS (one which we can't connect to we also

@@ -105,9 +105,9 @@ class ProfileRADIUS extends AbstractProfile
 
         $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
 
-        $this->loggerInstance->debug(5, "Device-Level Attributes: " . print_r($this->deviceLevelAttributes, true));
-        $this->loggerInstance->debug(5, "EAP-Level Attributes: " . print_r($this->eapLevelAttributes, true));
-        $this->loggerInstance->debug(5, "All low-Level Attributes: " . print_r($attributesLowLevel, true));
+        $this->loggerInstance->debug(5, "Device-Level Attributes: " . /** @scrutinizer ignore-type */ print_r($this->deviceLevelAttributes, true));
+        $this->loggerInstance->debug(5, "EAP-Level Attributes: " . /** @scrutinizer ignore-type */ print_r($this->eapLevelAttributes, true));
+        $this->loggerInstance->debug(5, "All low-Level Attributes: " . /** @scrutinizer ignore-type */ print_r($attributesLowLevel, true));
 
         // now fetch and merge profile-level attributes if not already set on deeper level
 
@@ -137,7 +137,7 @@ class ProfileRADIUS extends AbstractProfile
             }
         }
 
-        $this->loggerInstance->debug(5, "Merged Attributes: " . print_r($attributesLowLevel, true));
+        $this->loggerInstance->debug(5, "Merged Attributes: " . /** @scrutinizer ignore-type */ print_r($attributesLowLevel, true));
 
         // now, fetch and merge IdP-wide attributes
 
