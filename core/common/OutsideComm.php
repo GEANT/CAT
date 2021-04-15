@@ -211,7 +211,10 @@ class OutsideComm extends Entity
                 }
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
-
+                // we have set RETURNTRANSFER so anything except string means something went wrong
+                if (!is_string($response)) {
+                    throw new Exception("Error while sending API request with SMS: curl did not deliver a response string.");
+                }
                 $decoded_response = json_decode($response, true);
                 $messageCount = $decoded_response['message-count'];
 
@@ -393,7 +396,7 @@ class OutsideComm extends Entity
             CURLOPT_FRESH_CONNECT => TRUE,
         ));
         $response = \curl_exec($ch);
-        if ($response === FALSE || $response === NULL || $response === TRUE) { // With RETURNTRANSFER, TRUE is not a valid return
+        if (!is_string($response)) { // With RETURNTRANSFER, TRUE is not a valid return
             throw new \Exception("the POST didn't work!");
         }
         return json_decode($response, TRUE);

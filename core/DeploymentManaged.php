@@ -404,11 +404,11 @@ class DeploymentManaged extends AbstractDeployment
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $exec = curl_exec($ch);
-            if ($exec === FALSE) {
+            if (!is_string($exec)) {
                 $this->loggerInstance->debug(1, "curl_exec failure");
                 $res = 'FAILURE';
             } else {
-                $res = (string)$exec; // it is always a string due to RETURNTRANSFER but let's make Scrutinizer which thinks this could be TRUE as well
+                $res = $exec;
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);

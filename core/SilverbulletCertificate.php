@@ -357,7 +357,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        $certMeta = $caEngine->signRequest($csr["CSR"], $expiryDays);
+        $certMeta = $caEngine->signRequest($csr, $expiryDays);
         $cert = $certMeta["CERT"];
         $issuingCaPem = $certMeta["ISSUER"];
         $rootCaPem = $certMeta["ROOT"];
