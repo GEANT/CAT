@@ -62,13 +62,16 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     /**
      * signs a CSR and returns the certificate (blocking wait)
      * 
-     * @param string  $csr        the request, must contain the CSR in *PEM* format
+     * @param array  $csr        the request metadata
      * @param integer $expiryDays how many days should the certificate be valid
      * @return array the certificate with some meta info
      * @throws Exception
      */
     public function signRequest($csr, $expiryDays): array
     {
+        if ($csr["CSR_STRING"] === NULL) {
+            throw new Exception("This CA needs the CSR in a string (PEM)!");
+        }
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $soapReqnum = $this->sendRequestToCa($csr, $revocationPin, $expiryDays);
         sleep(55);
@@ -101,7 +104,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
             $this->loggerInstance->debug(5, "PARAM_1: " . CertificationAuthorityEduPkiServer::EDUPKI_RA_ID . "\n");
-            $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR"] . "\n");
+            $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR_STRING"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_3: ");
             $this->loggerInstance->debug(5, $altArray);
             $this->loggerInstance->debug(5, "PARAM_4: " . CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE . "\n");
@@ -112,7 +115,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
             $soapNewRequest = $soapPub->newRequest(
                     CertificationAuthorityEduPkiServer::EDUPKI_RA_ID, # RA-ID
-                    $csr["CSR"], # Request im PEM-Format
+                    $csr["CSR_STRING"], # Request im PEM-Format
                     $altArray, # altNames
                     CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                     sha1($revocationPin), # PIN
@@ -454,7 +457,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             throw new Exception("Unable to create a CSR!");
         }
         return [
-            "CSR" => $newCsr, // a string
+            "CSR_STRING" => $newCsr, // a string
+            "CSR_OBJECT" => NULL,
             "USERNAME" => $username,
             "FED" => $fed
         ];

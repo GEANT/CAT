@@ -62,13 +62,16 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
     /**
      * signs a CSR
      * 
-     * @param string  $csr        the request structure. The string must contain the CSR in *PEM* format
+     * @param array   $csr        the request structure, an array
      * @param integer $expiryDays how many days should the certificate be valid
      * @return array the certificate with some meta info
      * @throws Exception
      */
     public function signRequest($csr, $expiryDays): array
     {
+        if ($csr["CSR_STRING"] === NULL) {
+            throw new Exception("This CA needs the CSR in a string (PEM)!");
+        }
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
             $altArray = [# Array mit den Subject Alternative Names
@@ -77,7 +80,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
             $this->loggerInstance->debug(5, "PARAM_1: " . CertificationAuthorityEduPki::EDUPKI_RA_ID . "\n");
-            $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR"] . "\n");
+            $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR_STRING"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_3: ");
             $this->loggerInstance->debug(5, $altArray);
             $this->loggerInstance->debug(5, "PARAM_4: " . CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE . "\n");
@@ -88,7 +91,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
             $soapNewRequest = $soapPub->newRequest(
                     CertificationAuthorityEduPki::EDUPKI_RA_ID, # RA-ID
-                    $csr["CSR"], # Request im PEM-Format
+                    $csr["CSR_STRING"], # Request im PEM-Format
                     $altArray, # altNames
                     CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                     sha1("notused"), # PIN
@@ -406,7 +409,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             throw new Exception("Unable to create a CSR!");
         }
         return [
-            "CSR" => $newCsr, // a string
+            "CSR_STRING" => $newCsr, // a string
+            "CSR_OBJECT" => NULL,
             "USERNAME" => $username,
             "FED" => $fed
         ];

@@ -170,13 +170,16 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * sign CSR
      * 
-     * @param \OpenSSLCertificateSigningRequest $csr        the request as a PHP8 *opaque class*
-     * @param integer                           $expiryDays how many days should the cert be valid?
+     * @param array   $csr        the request as a PHP8 *opaque class*
+     * @param integer $expiryDays how many days should the cert be valid?
      * @return array the cert and some metadata
      * @throws Exception
      */
     public function signRequest($csr, $expiryDays): array
     {
+        if (!($csr["CSR_OBJECT"] instanceof \OpenSSLCertificateSigningRequest)) {
+            throw new Exception("This CA needs the CA as an OpenSSLCertificateSigningRequest object!");
+        }
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
@@ -238,7 +241,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             throw new Exception("Unable to create a CSR (or not a PHP8 object)!");
         }
         return [
-            "CSR" => $newCsr, // OpenSSLCertificateSigningRequest
+            "CSR_STRING" => NULL,
+            "CSR_OBJECT" => $newCsr, // OpenSSLCertificateSigningRequest
             "USERNAME" => $username,
             "FED" => $fed
         ];
