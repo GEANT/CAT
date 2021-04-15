@@ -32,32 +32,33 @@ if ($id !== FALSE) {
     $blob = \web\lib\admin\UIElements::getBlobFromDB($id['table'], $id['rowindex'], TRUE);
     if (is_bool($blob)) {
         echo "No valid ID";
-    }
-    $finalBlob = base64_decode($blob);
-    // Set data type and caching for 30 days
-    $info = new finfo();
-    $filetype = $info->buffer($finalBlob, FILEINFO_MIME_TYPE);
-    header("Content-type: " . $filetype);
+    } else {
+        $finalBlob = base64_decode($blob);
+        // Set data type and caching for 30 days
+        $info = new finfo();
+        $filetype = $info->buffer($finalBlob, FILEINFO_MIME_TYPE);
+        header("Content-type: " . $filetype);
 
-    switch ($filetype) {
-        case "text/rtf": // fall-through, same treatment
-        case "application/rtf":
-            header("Content-Disposition: attachment; filename='download.rtf'");
-            break;
-        case "text/plain":
-            header("Content-Disposition: attachment; filename='download.txt'");
-            break;
-        default:
-        // do nothing special with the Content-Disposition header
-    }
+        switch ($filetype) {
+            case "text/rtf": // fall-through, same treatment
+            case "application/rtf":
+                header("Content-Disposition: attachment; filename='download.rtf'");
+                break;
+            case "text/plain":
+                header("Content-Disposition: attachment; filename='download.txt'");
+                break;
+            default:
+            // do nothing special with the Content-Disposition header
+        }
 
-    header("Cache-Control: must-revalidate");
-    $offset = 60 * 60 * 24 * 30;
-    // gmdate can't possibly fail, because it operates on time() and an integer offset
-    $ExpStr = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
-    header($ExpStr);
-    //  Print out the image
-    echo $finalBlob;
+        header("Cache-Control: must-revalidate");
+        $offset = 60 * 60 * 24 * 30;
+        // gmdate can't possibly fail, because it operates on time() and an integer offset
+        $ExpStr = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+        header($ExpStr);
+        //  Print out the image
+        echo $finalBlob;
+    }
 } else {
     echo "No valid ID";
 }
