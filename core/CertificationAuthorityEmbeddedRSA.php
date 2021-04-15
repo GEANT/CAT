@@ -191,7 +191,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             }
         } while (!$nonDupSerialFound);
         $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type RSA.\n");
-        $cert = openssl_csr_sign($csr, $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'sha256', 'config' => $this->conffile], $serial);
+        $cert = openssl_csr_sign($csr["CSR_OBJECT"], $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'sha256', 'config' => $this->conffile], $serial);
         if ($cert === FALSE) {
             throw new Exception("Unable to sign the request and generate the certificate!");
         }
