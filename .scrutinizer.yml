@@ -133,7 +133,7 @@ build:
                             host: ci.test
             dependencies:
                 before:
-                    - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet
+                    - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl
                     - sudo /home/scrutinizer/.phpenv/versions/8.0.3/bin/pecl channel-update pecl.php.net
                     - sudo /home/scrutinizer/.phpenv/versions/8.0.3/bin/pecl install imagick
                     - sudo apachectl restart
