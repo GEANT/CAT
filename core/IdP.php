@@ -231,7 +231,11 @@ class IdP extends EntityWithDBProperties
         $result = $this->databaseHandle->exec("SELECT profile_id FROM profile 
              WHERE inst_id = $this->identifier");
         // SELECT -> resource, not boolean
-        return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
+        $numberOfRows = mysqli_num_rows(/** @scrutinizer ignore-type */ $result);
+        if (is_string($numberOfRows)) {
+            throw new Exception("Number of profiles > PHP_MAX_INT?");
+        }
+        return $numberOfRows;
     }
 
     /**
@@ -244,7 +248,11 @@ class IdP extends EntityWithDBProperties
         $result = $this->databaseHandle->exec("SELECT deployment_id FROM deployment
              WHERE inst_id = $this->identifier");
         // SELECT -> resource, not boolean
-        return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
+        $numberOfRows = mysqli_num_rows(/** @scrutinizer ignore-type */ $result);
+        if (is_string($numberOfRows)) {
+            throw new Exception("Number of deployments > PHP_MAX_INT?");
+        }
+        return $numberOfRows;
     }
 
     const ELIGIBILITY_IDP = "IdP";
