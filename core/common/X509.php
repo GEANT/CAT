@@ -95,8 +95,8 @@ class X509
     /**
      * parses openssl text output (there are some properties which aren't
      * available with the built-in openssl_x509_parse function)
-     * @param resource $myca the CA to inspect
-     * @param array    $out  by-reference: properties to add to the CA properties array
+     * @param \OpenSSLCertificate $myca the CA to inspect
+     * @param array               $out  by-reference: properties to add to the CA properties array
      * @return void
      */
     private function opensslTextParse($myca, &$out)
