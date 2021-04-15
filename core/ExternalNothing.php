@@ -101,6 +101,6 @@ class ExternalNothing implements ExternalLinkInterface
      */
     public function listExternalRealms()
     {
-        return $this->listExternalExternalEntitiesByRealm("");
+        return $this->listExternalEntitiesByRealm("");
     }
 }

@@ -398,7 +398,10 @@ Best regards,
         // This is a select, so tell Scrutinizer about the type-safety of the result
         $certInfoResource = $this->databaseHandle->exec("SELECT certificate FROM federation_servercerts WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
         $certInfo = mysqli_fetch_row(/** @scrutinizer ignore-type */ $certInfoResource);
-        $certData = openssl_x509_parse($certInfo);
+        if ($certInfo === NULL) {
+            return; // cert not found, nothing to revoke
+        }
+        $certData = openssl_x509_parse($certInfo[0]);
         $serial = $certData['full_details']['serialNumber'];
         $eduPki = new CertificationAuthorityEduPkiServer();
         $eduPki->revokeCertificate($serial);

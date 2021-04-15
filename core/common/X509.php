@@ -123,8 +123,8 @@ class X509
     /**
      * Is this a root CA, an intermediate CA, or an end-entity certificate?
      * 
-     * @param resource $myca the CA to inspect
-     * @param array    $out  by-reference: properties to add to the CA properties array
+     * @param \OpenSSLCertificate $myca the CA to inspect
+     * @param array               $out  by-reference: properties to add to the CA properties array
      * @return array
      */
     private function typeOfCertificate($myca, &$out)
@@ -197,7 +197,7 @@ class X509
 
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
-        if ($myca === FALSE) {
+        if ($myca === FALSE || is_resource($myca)) {
             return FALSE;
         }
 
