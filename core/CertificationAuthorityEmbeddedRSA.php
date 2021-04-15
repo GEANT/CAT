@@ -38,7 +38,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * resource of the issuing CA
      * 
-     * @var resource
+     * @var \OpenSSLCertificate
      */
     private $issuingCert;
 
@@ -51,7 +51,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * resource for private key
      * 
-     * @var resource
+     * @var \OpenSSLAsymmetricKey
      */
     private $issuingKey;
 
@@ -73,16 +73,18 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             throw new Exception("Issuing CA PEM file not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA);
         }
         $rootParsed = openssl_x509_read($this->rootPem);
-        $this->issuingCert = openssl_x509_read($this->issuingCertRaw);
-        if ($this->issuingCert === FALSE || $rootParsed === FALSE) {
-            throw new Exception("At least one CA PEM file did not parse correctly!");
+        $issuingCertCandidate = openssl_x509_read($this->issuingCertRaw);
+        
+        if ($issuingCertCandidate === FALSE || is_resource($issuingCertCandidate) || $rootParsed === FALSE) {
+            throw new Exception("At least one CA PEM file did not parse correctly (or is not a PHP8 object)!");
         }
+        $this->issuingCert = $issuingCertCandidate;
         if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY) === FALSE) {
             throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
         }
         $issuingKeyTemp = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
-        if ($issuingKeyTemp === FALSE) {
-            throw new Exception("The private key did not parse correctly!");
+        if ($issuingKeyTemp === FALSE || is_resource($issuingKeyTemp)) {
+            throw new Exception("The private key did not parse correctly (or is not a PHP8 object)!");
         }
         $this->issuingKey = $issuingKeyTemp;
         if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG) === FALSE) {
