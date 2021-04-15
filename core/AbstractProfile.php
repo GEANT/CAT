@@ -344,7 +344,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      */
     public function testCache($device)
     {
-        $returnValue = NULL;
+        $returnValue = ['cache' => NULL, 'mime' => NULL];
         $lang = $this->languageInstance->getLang();
         $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
         // SELECT queries always return a resource, not a boolean
