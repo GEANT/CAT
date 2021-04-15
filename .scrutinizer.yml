@@ -136,7 +136,7 @@ build:
                 before:
                     - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl
                     - sudo /home/scrutinizer/.phpenv/versions/8.0.3/bin/pecl channel-update pecl.php.net
-                    - sudo /home/scrutinizer/.phpenv/versions/8.0.3/bin/pecl install imagick
+                    - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.3/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
