@@ -95,10 +95,10 @@ switch ($action) {
         $API->jsonListIdentityProvidersForDisco();
         break;
         case 'listIdentityProvidersWithProfiles':
-        $API->JSON_ListIdentityProvidersWithProfiles();
+        $API->jsonListIdentityProvidersWithProfiles();
         break;
         case 'listIdentityProvidersWithProfiles':
-        $API->JSON_ListIdentityProvidersWithProfiles();
+        $API->jsonListIdentityProvidersWithProfiles();
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {

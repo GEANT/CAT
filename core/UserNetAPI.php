@@ -206,7 +206,7 @@ class UserNetAPI extends UserAPI
      * set).
      * @return array of identity providers with attributes
      */
-    public function JSON_listIdentityProvidersWithProfiles() {
+    public function jsonListIdentityProvidersWithProfiles() {
         echo $this->returnJSON($this->listIdentityProvidersWithProfiles());
     }
 
