@@ -73,10 +73,12 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             throw new Exception("Issuing CA PEM file not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA);
         }
         $rootParsed = openssl_x509_read($this->rootPem);
-        $this->issuingCert = openssl_x509_read($this->issuingCertRaw);
-        if ($this->issuingCert === FALSE || is_resource($this->issuingCert)|| $rootParsed === FALSE) {
+        $issuingCertCandidate = openssl_x509_read($this->issuingCertRaw);
+        if ($issuingCertCandidate === FALSE || is_resource($issuingCertCandidate)|| $rootParsed === FALSE) {
             throw new Exception("At least one CA PEM file did not parse correctly (or not a PHP8 resource)!");
         }
+        $this->issuingCert = $issuingCertCandidate;
+        
         if (stat(CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY) === FALSE) {
             throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY);
         }
