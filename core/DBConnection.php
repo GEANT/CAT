@@ -194,6 +194,9 @@ class DBConnection
      */
     public function lastID()
     {
+        if (is_string($this->connection->insert_id)) {
+            throw new \Exception("The row ID is allegedly larger than PHP_INT_MAX. This is unbelievable.");
+        }
         return $this->connection->insert_id;
     }
 
