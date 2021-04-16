@@ -49,7 +49,8 @@ if ($userInt === FALSE) {
     foreach ($userAuthData as $oneRecord) {
         echo "<tr class='".($oneRecord['RESULT'] == "Access-Accept" ? "auth-success" : "auth-fail" )."'>"
                 . "<td>".$oneRecord['TIMESTAMP']."</td>"
-                . "<td>".substr_replace($oneRecord['CN'], "@…", strpos($oneRecord['CN'],"@"))."</td>"
+                // $oneRecord['CN'] is a simple string, not an array, so disable Scrutinizer type check here
+                . "<td>"./** @scrutinizer ignore-type */ substr_replace($oneRecord['CN'], "@…", strpos($oneRecord['CN'],"@"))."</td>"
                 . "<td>".$oneRecord['MAC']."</td>"
                 . "<td>".($oneRecord['RESULT'] == "Access-Accept" ? _("Success") : _("Failure"))."</td>"
                 . "<td>".substr($oneRecord['OPERATOR'] ?? "1(unknown)",1)."</td>"
