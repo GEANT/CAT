@@ -193,6 +193,7 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                         $value = substr($value, $pos+1);
                     }
                 case 'email':
+                    $value = filter_var($value, FILTER_VALIDATE_EMAIL);
                 case 'mac':
                 case 'freetext':
                 case 'timestamp':
