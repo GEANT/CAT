@@ -27,8 +27,7 @@ namespace core\diag;
  * and figures out whom to send emails to, and with that content. It then sends
  * these emails.
  */
-class Logopath extends AbstractTest
-{
+class Logopath extends AbstractTest {
 
     /**
      * storing the end user's email, if he has given it to us
@@ -51,6 +50,7 @@ class Logopath extends AbstractTest
     /*
      * categories of people to contact
      */
+
     const TARGET_EDUROAM_OT = 0;
     const TARGET_NRO_IDP = 1;
     const TARGET_NRO_SP = 2;
@@ -91,6 +91,7 @@ class Logopath extends AbstractTest
     /*
      *  cases to consider
      */
+
     const IDP_EXISTS_BUT_NO_DATABASE = 100;
     const IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED = 101;
     const IDP_SUSPECTED_PROBLEM_INTERACTIVE_EVIDENCED = 102;
@@ -98,13 +99,11 @@ class Logopath extends AbstractTest
     /*
      * types of supplemental string data to send 
      */
-    
-    
+
     /**
      * initialise the class: maintain state of existing evidence, and get translated versions of email texts etc.
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         $this->userEmail = FALSE;
@@ -152,7 +151,7 @@ class Logopath extends AbstractTest
                 "subject" => _("[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"),
                 "body" => _("Dear IdP administrator,") . "\n"
                 . "\n"
-                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM']) 
+                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM'])
                 . "\n"
                 . _("Real-time connectivity checks determined that the realm appears to be working in acceptable parameters, but the administrator insisted to contact you with the supplemental information below.") . "\n"
                 . "\n",
@@ -165,28 +164,27 @@ class Logopath extends AbstractTest
                 "subject" => _("[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"),
                 "body" => _("Dear IdP administrator,") . "\n"
                 . "\n"
-                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM']) 
+                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM'])
                 . "\n"
                 . _("Real-time connectivity checks determined that the realm indeed has an operational problem at this point in time. Please see the supplemental information below.") . "\n"
                 . "\n",
             ],
         ];
-        
+
         // add exalted human-readable information to main mail body
-        foreach ($this->mailStack as $oneEntry)
-        if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP'])) {
-            $oneEntry["body"] .= _("Authentication/Attempt Timestamp of user session:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP']."\n";
+        foreach ($this->mailStack as $oneEntry) {
+            if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP'])) {
+                $oneEntry["body"] .= _("Authentication/Attempt Timestamp of user session:") . " " . $this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP'] . "\n";
+            }
+            if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_MAC'])) {
+                $oneEntry["body"] .= _("MAC address of end user in question:") . " " . $this->additionalFindings['INTERACTIVE_ENDUSER_MAC'] . "\n";
+            }
+            if (isset($this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS'])) {
+                $oneEntry["body"] .= _("Additional Comments:") . " " . $this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS'] . "\n";
+            }
         }
-        if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_MAC'])) {
-            $oneEntry["body"] .= _("MAC address of end user in question:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_MAC']."\n";
-        }
-        if (isset($this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS'])) {
-            $oneEntry["body"] .= _("Additional Comments:") ." ".$this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS']."\n";
-        }
-        
-        
+
         \core\common\Entity::outOfThePotatoes();
-        
     }
 
     /**
@@ -196,8 +194,7 @@ class Logopath extends AbstractTest
      * @param string $userEmail the end-users email to store
      * @return void
      */
-    public function addUserEmail($userEmail)
-    {
+    public function addUserEmail($userEmail) {
 // returns FALSE if it was not given or bogus, otherwise stores this as mail target
         $this->userEmail = $this->validatorInstance->email($userEmail);
     }
@@ -209,8 +206,7 @@ class Logopath extends AbstractTest
      * @param string $binaryData the submitted binary data, to be vetted
      * @return void
      */
-    public function addScreenshot($binaryData)
-    {
+    public function addScreenshot($binaryData) {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
             $magick = new \Imagick();
             $magick->readimageblob($binaryData);
@@ -227,8 +223,7 @@ class Logopath extends AbstractTest
      * 
      * @return void
      */
-    private function determineMailsToSend()
-    {
+    private function determineMailsToSend() {
         $this->mailQueue = [];
 // check for IDP_EXISTS_BUT_NO_DATABASE
         if (!in_array(AbstractTest::INFRA_NONEXISTENTREALM, $this->possibleFailureReasons) && $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS']['ID2'] < 0) {
@@ -309,8 +304,7 @@ class Logopath extends AbstractTest
      * sees if it is useful to ask the user for his contact details or screenshots
      * @return boolean
      */
-    public function isEndUserContactUseful()
-    {
+    public function isEndUserContactUseful() {
         $contactUseful = FALSE;
         $this->determineMailsToSend();
         foreach ($this->mailQueue as $oneMail) {
@@ -332,8 +326,7 @@ class Logopath extends AbstractTest
      * 
      * @return void
      */
-    public function weNeedToTalk()
-    {
+    public function weNeedToTalk() {
         $this->determineMailsToSend();
         foreach ($this->mailQueue as $oneMail) {
             $theMail = $this->mailStack[$oneMail];
@@ -365,4 +358,5 @@ class Logopath extends AbstractTest
             $handle->send();
         }
     }
+
 }
