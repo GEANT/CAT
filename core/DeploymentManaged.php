@@ -600,7 +600,7 @@ class DeploymentManaged extends AbstractDeployment
             $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
         }
         foreach (array('OK', 'FAILURE') as $status) {
-            if ((($status == 'OK' && $notify) || ($status == 'FAILURE')) && in_array($status, $response)) {
+            if ( ( ($status == 'OK' && $notify) || ($status == 'FAILURE') ) && ( in_array($status, $response) ) ) {
                 $this->sendMailtoAdmin($remove, $response, $status);
             }
         }
