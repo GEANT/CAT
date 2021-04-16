@@ -183,9 +183,11 @@ switch ($operationMode) {
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
         break;
     default: // includes OPERATION_MODE_INVALID
+        // second param is TRUE, so the variable *will* contain a string
+        // i.e. ignore Scrutinizer type warning later
         $wrongcontent = print_r($_POST, TRUE);
         echo "<pre>Wrong parameters in POST:
-" . htmlspecialchars($wrongcontent) . "
+" . htmlspecialchars(/** @scrutinizer ignore-type */ $wrongcontent) . "
 </pre>";
         exit(1);
 }
