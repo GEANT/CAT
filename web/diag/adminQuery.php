@@ -193,7 +193,8 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                         $value = substr($value, $pos+1);
                     }
                 case 'email':
-                    $value = filter_var($value, FILTER_VALIDATE_EMAIL);
+                    $returnArray[$key] = filter_var($value, FILTER_VALIDATE_EMAIL);
+                    break;
                 case 'mac':
                 case 'freetext':
                 case 'timestamp':
@@ -201,14 +202,17 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                 case 'outerid':
                 case 'cdetails':
                 case 'token':
-                case 'tests_result':
-                    $returnArray[$key] = $value;
+                    // all of the above have to be printable strings, so sanitise them all in one go
+                    $returnArray[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+                    break;
+                case 'tests_result':     
+                    $returnArray[$key] = filter_var($value, FILTER_VALIDATE_INT);
                     break;
                 case 'idpcontact':
                     if ($value == '') {
                         $returnArray[$key] = 'mgw@umk.pl';
                     } else {
-                        $returnArray[$key] = base64_decode($value);
+                        $returnArray[$key] = filter_var(base64_decode($value), FILTER_VALIDATE_EMAIL);
                     }
                     break;
                 case 'reason':
