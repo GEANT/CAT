@@ -720,8 +720,6 @@ class WpaConf(object):
     Prepare and save wpa_supplicant config file
     """
 
-
-    
     @staticmethod
     def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
         interface = """network={
@@ -730,20 +728,23 @@ class WpaConf(object):
         pairwise=CCMP
         group=CCMP TKIP
         eap=""" + Config.eap_outer + """
-        ca_cert=\"""" + get_config_path() + """/cat_installer/ca.pem\"
-        identity=\"""" + user_data.username + """\"
+        ca_cert=\"""" + get_config_path() + """/cat_installer/ca.pem\"""""""
+        identity=\"""" + user_data.username + """\"""""""
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
+        """
+
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
-            phase2=\"auth=""" + Config.eap_inner + """\"
-            password=\"""" + user_data.password + """\"
+            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
+                         f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
-                anonymous_identity=\"""" + Config.anonymous_identity + """\"
+                interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
+
         if Config.eap_outer == 'TLS':
-            private_key_passwd=\"""" + user_data.password + """\"
-            private_key=\"""" + os.environ.get('HOME') + """/.cat_installer/user.p12\"
-}
-    """
-        return out
+            interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
+                         f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
+
+        interface += "\n}"
+        return interface
 
     def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
