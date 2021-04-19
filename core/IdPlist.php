@@ -66,12 +66,10 @@ class IdPlist extends common\Entity
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = IdPlist::setAllIdentyProvidersQuery($activeOnly, $country);
         $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
-        $returnarray = [];
+        $idpArray = [];
         // SELECTs never return a booleans, always an object
-        $i=0;
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
-            $i++;
-            $institutionOptions = explode('---', $queryResult->options);
+            $options = IdPlist::setIdentityProviderAttributes($queryResult);
             $oneInstitutionResult = [];
             $oneInstitutionResult['entityID'] = $queryResult->inst_id;
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
@@ -105,10 +103,10 @@ class IdPlist extends common\Entity
             if (count($geo) > 0) {
                 $oneInstitutionResult['geo'] = $geo;
             }
-            $returnarray[] = $oneInstitutionResult;
+            $idpArray[] = $oneInstitutionResult;
         }
         common\Entity::outOfThePotatoes();
-        return $returnarray;
+        return $idpArray;
     }
     
     /**
