@@ -21,7 +21,7 @@
 
 
 $cat = new \web\lib\user\Gui();
-$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
+$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT) ?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
 if (\config\ConfAssistant::PRELOAD_IDPS) {
@@ -31,10 +31,10 @@ if (\config\ConfAssistant::PRELOAD_IDPS) {
 }
     ?>
 
-const apiURL = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>";
+const apiURL = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php") ?>";
 const catInfo = "<?php echo $skinObject->findResourceUrl("BASE", "user/cat_info.php")?>";
 const overviewUser = "<?php echo $skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>";
-const remindIdP = "<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php"); ?>";
+const remindIdP = "<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php") ?>";
 const profile_list_size = <?php echo $profile_list_size ?>;
 const generation_error = "<?php $cat->javaScriptEscapedEcho(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
 
@@ -63,43 +63,43 @@ var idpsLoaded = false;
 
 const guiTexts = {
     "noMatchingData": "<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>",
-    "select": "<?php $cat->javaScriptEscapedEcho(_("select"))?>",
-    "www": "<?php $cat->javaScriptEscapedEcho(_("WWW:")); ?>",
-    "email": "<?php $cat->javaScriptEscapedEcho(_("email:")); ?>",
-    "tel": "<?php $cat->javaScriptEscapedEcho(_("tel:")); ?>",
-    "problems": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?>",
-    "problemsGeneric": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")); ?>",
+    "select": "<?php $cat->javaScriptEscapedEcho(_("select")) ?>",
+    "www": "<?php $cat->javaScriptEscapedEcho(_("WWW:")) ?>",
+    "email": "<?php $cat->javaScriptEscapedEcho(_("email:")) ?>",
+    "tel": "<?php $cat->javaScriptEscapedEcho(_("tel:")) ?>",
+    "problems": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")) ?>",
+    "problemsGeneric": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")) ?>",
     "unconfigurable": "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>",
     "redirect": "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>",
-    "continue": "<?php $cat->javaScriptEscapedEcho(_("Continue")); ?>",
-    "close": "<?php $cat->javaScriptEscapedEcho(_("Close")); ?>",
+    "continue": "<?php $cat->javaScriptEscapedEcho(_("Continue")) ?>",
+    "close": "<?php $cat->javaScriptEscapedEcho(_("Close")) ?>",
     "noProviders": "<?php $cat->javaScriptEscapedEcho(_("No providers found for this email")) ?>",
     "yourIdP": "<?php $cat->javaScriptEscapedEcho(_("Your IdP is:")) ?>",
     "yourIdPs": "<?php $cat->javaScriptEscapedEcho(_("Your IdP could be one of:")) ?>",
-    "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")); ?>",
-    "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:"));?>",
+    "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")) ?>",
+    "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:")) ?>",
 };
 
 var discoTextStrings = {
    "title":"<?php $cat->javaScriptEscapedEcho(_("Organisation")) ?>",
    "subtitle":"<?php $cat->javaScriptEscapedEcho(_("Select your organisation")) ?>",
    "textHelp": "<?php $cat->javaScriptEscapedEcho(_("Help, my organisation is not on the list")) ?>",
-   "textHelpMore": "<?php $cat->javaScriptEscapedEcho(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])); ?>",
+   "textHelpMore": "<?php $cat->javaScriptEscapedEcho(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])) ?>",
    "textLocateMe": "<?php $cat->javaScriptEscapedEcho(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php $cat->javaScriptEscapedEcho(_("Show organisations in")) ?>",
    "textAllCountries": "<?php $cat->javaScriptEscapedEcho(_("all countries")) ?>",
    "textSearch" : "<?php $cat->javaScriptEscapedEcho(_("or search for an organisation, for example University of Oslo")) ?>",
    "textShowAllCountries": "<?php $cat->javaScriptEscapedEcho(_("show all countries")) ?>",
-   "textLimited1" : "<?php $cat->javaScriptEscapedEcho(_("Results limited to"))?>",
-   "textLimited2" : "<?php $cat->javaScriptEscapedEcho(_("entries - show more"))?>",
-   "textNearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby"))?>",
-   "geoLoc_timeout" : "<?php $cat->javaScriptEscapedEcho(_("Location timeout"))?>",
+   "textLimited1" : "<?php $cat->javaScriptEscapedEcho(_("Results limited to")) ?>",
+   "textLimited2" : "<?php $cat->javaScriptEscapedEcho(_("entries - show more")) ?>",
+   "textNearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby")) ?>",
+   "geoLoc_timeout" : "<?php $cat->javaScriptEscapedEcho(_("Location timeout")) ?>",
    "geoLoc_posUnavailable" : "<?php $cat->javaScriptEscapedEcho(_("Could not get your position"))?>",
-   "geoLoc_permDenied" : "<?php $cat->javaScriptEscapedEcho(_("Your browser has denied access to your location"))?>",
-   "geoLoc_unknownError" : "<?php $cat->javaScriptEscapedEcho(_("Unknown location error"))?>",
-   "geoLoc_here" : "<?php $cat->javaScriptEscapedEcho(_("You are here:"))?>",
-   "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location..."))?>",
-   "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top."))?>",
+   "geoLoc_permDenied" : "<?php $cat->javaScriptEscapedEcho(_("Your browser has denied access to your location")) ?>",
+   "geoLoc_unknownError" : "<?php $cat->javaScriptEscapedEcho(_("Unknown location error")) ?>",
+   "geoLoc_here" : "<?php $cat->javaScriptEscapedEcho(_("You are here:")) ?>",
+   "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location...")) ?>",
+   "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top.")) ?>",
 };
 var roller;
 if (roller === undefined)
