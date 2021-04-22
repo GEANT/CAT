@@ -410,6 +410,7 @@ class DeploymentManaged extends AbstractDeployment
             } else {
                 $res = $exec;
             }
+            curl_close($ch);
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);
         }
@@ -486,6 +487,7 @@ class DeploymentManaged extends AbstractDeployment
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
         if ($http_code == 200) {
             return 1;
         }

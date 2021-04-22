@@ -211,6 +211,7 @@ class OutsideComm extends Entity
                 }
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
+               
                 // we have set RETURNTRANSFER so anything except string means something went wrong
                 if (!is_string($response)) {
                     throw new \Exception("Error while sending API request with SMS: curl did not deliver a response string.");
@@ -218,6 +219,7 @@ class OutsideComm extends Entity
                 $decoded_response = json_decode($response, true);
                 $messageCount = $decoded_response['message-count'];
 
+                curl_close($ch);
                 if ($messageCount == 0) {
                     $loggerInstance->debug(2, 'Problem with SMS invitation: no message was sent!');
                     return OutsideComm::SMS_NOTSENT;

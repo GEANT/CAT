@@ -35,7 +35,6 @@ if (!isset($_GET["fedid"])) {
 // XHR call: language isn't set yet ... so do it
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
-$optioninfo = \core\Options::instance();
 
 // add one option of the specified class
 
