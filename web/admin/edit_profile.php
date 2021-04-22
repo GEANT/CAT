@@ -24,7 +24,6 @@
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-
 ?>
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
@@ -49,6 +48,7 @@ require_once "inc/click_button_js.php";
 <?php
 // initialize inputs
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+$fed = new \core\Federation($my_inst->federation);
 $anonLocal = "anonymous";
 $useAnon = FALSE;
 $checkuserOuter = FALSE;
@@ -98,7 +98,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $my_profile = NULL;
     $prefill_methods = [];
     $profile_options = [];
-    $fed = new \core\Federation($my_inst->federation);
     $minting = $fed->getAttributes("fed:minted_ca_file");
     if (count($minting) > 0) {
         $temp_profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
@@ -152,14 +151,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
 
-        echo $optionDisplay->prefilledOptionTable("profile");
+        echo $optionDisplay->prefilledOptionTable("profile", $my_inst->federation);
         ?>
-        <button type='button' class='newoption' onclick='getXML("profile")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("profile", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
         <table>
-            <caption><?php echo _("Basic Realm Information");?></caption>
+            <caption><?php echo _("Basic Realm Information"); ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Realm:");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Realm input field");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Realm:"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Realm input field"); ?></th>
             </tr>
             <?php
             ?>
@@ -214,13 +213,13 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
             <!-- UI table to align elements-->
         <table>
-            <caption><?php echo _("Username Handling Options");?></caption>
+            <caption><?php echo _("Username Handling Options"); ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Option name");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Option checkbox");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Option name"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Option checkbox"); ?></th>
             </tr>
             <tr>
-                <th colspan="2" style="text-align: left;"><?php echo _("Outer Identity Handling");?></th>
+                <th colspan="2" style="text-align: left;"><?php echo _("Outer Identity Handling"); ?></th>
             </tr>
             <tr>
                 <!-- checkbox and input field for anonymity support, available only when realm is known-->
@@ -259,7 +258,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 </td>
             </tr>
             <tr>
-                <th colspan="2" style="border-top: 2px solid; text-align: left;"><?php echo _("Inner Identity (Username) Handling");?></th>
+                <th colspan="2" style="border-top: 2px solid; text-align: left;"><?php echo _("Inner Identity (Username) Handling"); ?></th>
             </tr>
             <tr>
                 <!-- checkbox for "verify-->
@@ -270,8 +269,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 </td>
                 <td>
                     <input type='checkbox' <?php
-                    echo ($verify != FALSE ? "checked" : "" );
-                    ?> name='verify_support' onclick='
+                        echo ($verify != FALSE ? "checked" : "" );
+                        ?> name='verify_support' onclick='
                             if (this.form.elements["verify_support"].checked !== true || this.form.elements["realm"].value.length == 0) {
                                 this.form.elements["hint_support"].setAttribute("disabled", "disabled");
                             } else {
@@ -323,7 +322,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     }
     ?>
     <?php
-
     $methods = \core\common\EAP::listKnownEAPTypes();
     ?>
 
@@ -343,24 +341,24 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <div>
         <table style="border:none">
-            <caption><?php echo _("EAP type support");?></caption>
+            <caption><?php echo _("EAP type support"); ?></caption>
             <tr>
                 <th scope="row" style="vertical-align:top; padding:1em">
-                    <?php echo _('Supported EAP types for this profile'); ?>
+<?php echo _('Supported EAP types for this profile'); ?>
                 </th>
                 <td id="supported_eap">
                     <ol id="sortable1" class="eapmethods">
-                        <?php
-                        $D = [];
-                        foreach ($prefill_methods as $prio => $value) {
-                            print '<li>' . $value->getPrintableRep() . "</li>\n";
-                            $D[$value->getPrintableRep()] = $prio;
-                        }
-                        ?>
+<?php
+$D = [];
+foreach ($prefill_methods as $prio => $value) {
+    print '<li>' . $value->getPrintableRep() . "</li>\n";
+    $D[$value->getPrintableRep()] = $prio;
+}
+?>
                     </ol>
                 </td>
                 <td rowspan=3 style="text-align:center; width:12em; padding:1em">
-                    <?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
+<?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
                 </td>
             </tr>
             <tr id="eap_bottom_row">
@@ -368,34 +366,34 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             </tr>
             <tr>
                 <th scope="row" style="vertical-align:top; padding:1em">
-                    <?php echo _('Unsupported EAP types'); ?>
+<?php echo _('Unsupported EAP types'); ?>
                 </th>
                 <td style="vertical-align:top" id="unsupported_eap">
                     <ol id="sortable2" class="eapmethods">
-                        <?php
-                        foreach ($methods as $a) {
-                            if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-                                continue;
-                            }
-                            $display = $a->getPrintableRep();
-                            if (!isset($D[$a->getPrintableRep()])) {
-                                print '<li class="eap1">' . $a->getPrintableRep() . "</li>\n";
-                            }
-                        }
-                        ?>
+<?php
+foreach ($methods as $a) {
+    if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        continue;
+    }
+    $display = $a->getPrintableRep();
+    if (!isset($D[$a->getPrintableRep()])) {
+        print '<li class="eap1">' . $a->getPrintableRep() . "</li>\n";
+    }
+}
+?>
                     </ol>
                 </td>
             </tr>
         </table>
     </div>
-    <?php
-    foreach ($methods as $a) {
-        $display = $a->getPrintableRep();
-        $v = isset($D[$display]) ? $D[$display] : '';
-        print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
-        print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
-    }
-    ?>
+<?php
+foreach ($methods as $a) {
+    $display = $a->getPrintableRep();
+    $v = isset($D[$display]) ? $D[$display] : '';
+    print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
+    print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
+}
+?>
     <br style="clear:both;" />
 </fieldset>
 <?php
@@ -435,8 +433,11 @@ foreach ($fields as $name => $description) {
     }
 
     echo "</p>";
-    echo $optionDisplay->prefilledOptionTable($name);
-    echo "<button type='button' class='newoption' onclick='getXML(\"$name\")'>" . _("Add new option") . "</button>";
+    
+    echo $optionDisplay->prefilledOptionTable($name, $my_inst->federation);
+    ?>
+    <button type='button' class='newoption' onclick='getXML("<?php echo $name ?>", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
+    <?php
     echo "</fieldset>";
 }
 

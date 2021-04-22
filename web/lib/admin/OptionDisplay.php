@@ -82,9 +82,10 @@ class OptionDisplay extends \core\common\Entity {
      * creates a table with all the set options prefilled. Only displays options
      * of the category indicated.
      * @param string $attributePrefix category of option to display
+     * @param string $fed             the federation we are in
      * @return string HTML code <table>
      */
-    public function prefilledOptionTable(string $attributePrefix) {
+    public function prefilledOptionTable(string $attributePrefix, $fed) {
         $retval = "<table id='expandable_$attributePrefix" . "_options'>";
 
         $prepopulate = [];
@@ -96,7 +97,7 @@ class OptionDisplay extends \core\common\Entity {
         if (is_array($prepopulate) && ( count($prepopulate) > 0 || $attributePrefix == "device-specific" || $attributePrefix == "eap-specific" )) { // editing... fill with values
             $retval .= $this->addOptionEdit($attributePrefix, $prepopulate);
         } else {
-            $retval .= $this->addOptionNew($attributePrefix);
+            $retval .= $this->addOptionNew($attributePrefix, $fed);
         }
         $retval .= "</table>";
         return $retval;
@@ -132,17 +133,23 @@ class OptionDisplay extends \core\common\Entity {
     }
 
     /**
-     * Displays options for a given option class, in New mode.
+     * Find which options to expose to UI and which to hide.
+     * Not all options defined in the database are (always) displayed. Some have
+     * custom UI not matching the usual dropdown display, some depend on context
+     * (e.g. OpenRoaming or not, depending on whether the fed operator wants it
      * 
-     * @param string $class the class of options that is to be displayed
-     * @return string
+     * @param string $class the type of options requested
+     * @param string $fed   the federation TLD, to determine fed ops prefernce context
+     * @return array the list of options to display
      */
-    private function addOptionNew(string $class) {
-        $retval = "";
-
+    public static function enumerateOptionsToDisplay($class, $fed) {
         $optioninfo = \core\Options::instance();
 
         $list = $optioninfo->availableOptions($class);
+        
+        // use federation context to delete more options, if the feds don't like
+        // a particular one
+        $fedInstance = new \core\Federation($fed);
         switch ($class) {
             case "general":
                 unset($list[array_search("general:geo_coordinates", $list)]);
@@ -162,10 +169,31 @@ class OptionDisplay extends \core\common\Entity {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;
+            case "media":
+                if ($fedInstance->getAttributes("fed:openroaming") == []) {
+                    // no openroaming here
+                    unset($list[array_search("media:openroaming_always", $list)]);
+                    unset($list[array_search("media:openroaming_ask", $list)]);
+                }
+                break;
             default:
                 break;
         }
-        $list2 = array_values($list);
+        
+        return $list;
+    }
+    
+    /**
+     * Displays options for a given option class, in New mode.
+     * 
+     * @param string $class           the class of options that is to be displayed
+     * @param string $fed             the federation we are in
+     * @return string
+     */
+    private function addOptionNew(string $class, $fed) {
+        $retval = "";
+
+        $list2 = array_values(OptionDisplay::enumerateOptionsToDisplay($class, $fed));
 
         // add as many options as there are different option types
         $numberOfOptions = count($list2);

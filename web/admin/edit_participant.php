@@ -121,9 +121,9 @@ echo $mapCode->htmlHeadCode();
                          <li>" . sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclatureParticipant) . "</li>";
             echo "</ul>";
         }
-        echo $optionDisplay->prefilledOptionTable("general");
+        echo $optionDisplay->prefilledOptionTable("general", $my_inst->federation);
         ?>
-        <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("general", "<?php echo $my_inst->federation; ?>")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     echo $mapCode->htmlShowtime($wizardStyle, $additional);
@@ -174,9 +174,9 @@ echo $mapCode->htmlHeadCode();
             . "</li>";
             echo "</ul>";
         }
-        echo $optionDisplay->prefilledOptionTable("media");
+        echo $optionDisplay->prefilledOptionTable("media", $fed->tld);
         ?>
-        <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
+        <button type='button' class='newoption' onclick='getXML("media", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button></fieldset>
 
     <fieldset class="option_container">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
@@ -198,10 +198,10 @@ echo $mapCode->htmlHeadCode();
             }
             
         }
-        echo $optionDisplay->prefilledOptionTable("support");
+        echo $optionDisplay->prefilledOptionTable("support", $fed->tld);
         ?>
 
-        <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>
+        <button type='button' class='newoption' onclick='getXML("support", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizardStyle) {
         echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";

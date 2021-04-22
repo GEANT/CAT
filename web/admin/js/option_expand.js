@@ -20,11 +20,11 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML(attribute_class) {
+function getXML(attribute_class, fedid) {
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
     client.onreadystatechange = addOption;
-    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&etype=XML");
+    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML");
     client.send();
 }
 

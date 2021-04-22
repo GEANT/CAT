@@ -23,22 +23,14 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 \core\CAT::sessionStart();
 
-const DO_NOT_DISPLAY = [
-    "general" => ["general:geo_coordinates"],
-    "user" => ["user:fedadmin"],
-    "eap" => [],
-    "support" => [],
-    "profile" => [],
-    "media" => [],
-    "fed" => [(\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
-    "device-specific" => [],
-    "eap-specific" => [],
-    "managedsp" => ["managedsp:vlan", "managedsp:operatorname"]
-];
-
 if (!isset($_GET["class"]) || !array_key_exists($_GET["class"], DO_NOT_DISPLAY)) {
     throw new Exception("Unknown type of option!");
 }
+
+if (!isset($_GET["fedid"])) {
+    throw new Exception("Unknown federation context!");
+}
+
 
 // XHR call: language isn't set yet ... so do it
 $languageInstance = new \core\common\Language();
@@ -47,7 +39,7 @@ $optioninfo = \core\Options::instance();
 
 // add one option of the specified class
 
-$list = array_diff($optioninfo->availableOptions($_GET["class"]), DO_NOT_DISPLAY[$_GET['class']]);
+$list = web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], []);
 
 $optionDisplay = new \web\lib\admin\OptionDisplay($list);
-echo $optionDisplay->optiontext($list);
+echo $optionDisplay->optiontext(array_values($list));

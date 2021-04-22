@@ -56,9 +56,10 @@ $user = new \core\User($_SESSION['user']);
             </legend>
             <?php 
             $optionDisplay = new \web\lib\admin\OptionDisplay($user->getAttributes(), \core\Options::LEVEL_USER);
-            echo $optionDisplay->prefilledOptionTable("user"); 
+            // these options have no federation context, so use "DEFAULT"
+            echo $optionDisplay->prefilledOptionTable("user", "DEFAULT"); 
             ?>
-            <button type='button' class='newoption' onclick='getXML("user")'>
+            <button type='button' class='newoption' onclick='getXML("user", "<?php echo $my_inst->federation ?>")'>
                 <?php echo _("Add new option"); ?>
             </button>
         </fieldset>

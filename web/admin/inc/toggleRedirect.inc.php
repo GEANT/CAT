@@ -128,10 +128,10 @@ if ($device !== NULL) {
         }
     }
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
-    echo $optionDisplay->prefilledOptionTable($keyword);
+    echo $optionDisplay->prefilledOptionTable($keyword, $my_inst->federation);
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
         ?>
-        <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>")'><?php echo _("Add new option"); ?></button>
         <br/>
         <hr/>
         <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>

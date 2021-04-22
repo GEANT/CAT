@@ -85,9 +85,9 @@ $langObject = new \core\common\Language();
         <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>
         <?php
         $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_FED);
-        echo $optionDisplay->prefilledOptionTable("fed");
+        echo $optionDisplay->prefilledOptionTable("fed", $my_fed->tld);
         ?>
-        <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("fed", "<?php echo $my_fed->tld ?>")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";

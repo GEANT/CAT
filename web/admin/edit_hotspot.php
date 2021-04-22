@@ -151,9 +151,9 @@ require_once "inc/click_button_js.php";
         <tr>
     </table>
     <?php
-    echo $optionDisplay->prefilledOptionTable("managedsp");
+    echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
     ?>
-    <button type='button' class='newoption' onclick='getXML("managedsp")'><?php echo _("Add new option");?></button>
+    <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option");?></button>
     </fieldset>
 
 <?php
