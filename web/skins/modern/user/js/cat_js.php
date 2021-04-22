@@ -19,16 +19,25 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+
 $cat = new \web\lib\user\Gui();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
 if (\config\ConfAssistant::PRELOAD_IDPS) {
-    print "var preloadIdPs = true;\n";
+    print "const preloadIdPs = true;\n";
 } else {
-    print "var preloadIdPs = false;\n";
+    print "const preloadIdPs = false;\n";
 }
     ?>
+
+const apiURL = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>";
+const catInfo = "<?php echo $skinObject->findResourceUrl("BASE", "user/cat_info.php")?>";
+const overviewUser = "<?php echo $skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>";
+const remindIdP = "<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php"); ?>";
+const profile_list_size = <?php echo $profile_list_size ?>;
+const generation_error = "<?php $cat->javaScriptEscapedEcho(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
+
 
 var n;
 var profile;
@@ -40,8 +49,6 @@ var catWelcome;
 var hide_images = 0;
 var front_page = 1;
 var download_link;
-var profile_list_size = <?php echo $profile_list_size ?>;
-var generation_error = "<?php $cat->javaScriptEscapedEcho(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
 const discoCountries = {
 <?php 
     $C = $Gui->printCountryList(1);
@@ -53,6 +60,25 @@ const discoCountries = {
 ?>
   };
 var idpsLoaded = false;
+
+const guiTexts = {
+    "noMatchingData": "<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>",
+    "select": "<?php $cat->javaScriptEscapedEcho(_("select"))?>",
+    "www": "<?php $cat->javaScriptEscapedEcho(_("WWW:")); ?>",
+    "email": "<?php $cat->javaScriptEscapedEcho(_("email:")); ?>",
+    "tel": "<?php $cat->javaScriptEscapedEcho(_("tel:")); ?>",
+    "problems": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?>",
+    "problemsGeneric": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")); ?>",
+    "unconfigurable": "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>",
+    "redirect": "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>",
+    "continue": "<?php $cat->javaScriptEscapedEcho(_("Continue")); ?>",
+    "close": "<?php $cat->javaScriptEscapedEcho(_("Close")); ?>",
+    "noProviders": "<?php $cat->javaScriptEscapedEcho(_("No providers found for this email")) ?>",
+    "yourIdP": "<?php $cat->javaScriptEscapedEcho(_("Your IdP is:")) ?>",
+    "yourIdPs": "<?php $cat->javaScriptEscapedEcho(_("Your IdP could be one of:")) ?>",
+    "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")); ?>",
+    "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:"));?>",
+};
 
 var discoTextStrings = {
    "title":"<?php $cat->javaScriptEscapedEcho(_("Organisation")) ?>",
@@ -114,13 +140,13 @@ $.fn.redraw = function(){
     $("#user_info").hide();
     $("#devices").hide();
     $("#profile_redirect").hide();
-      $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
+      $.post(apiURL, {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
     j = $.parseJSON(data);
     result = j.status;
     if (j.otherdata !== undefined)
         otherdata = j.otherdata;
     if(! result) {
-      alert("<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>");
+      alert(guiTexts.noMatchingData);
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
     }
     j = j.data;
@@ -134,15 +160,15 @@ $.fn.redraw = function(){
     $("#user_page").show();
     $("#institution_name").show();
     if(n > profile_list_size)
-    $("#profile_list").append('<option value="0" selected style="color:red"> --<?php $cat->javaScriptEscapedEcho(_("select"))?> --</option>');
+    $("#profile_list").append('<option value="0" selected style="color:red"> --' + guiTexts.select + ' --</option>');
     $.each(j,printP);
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
     if(logo == 1) {
-        $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+inst_id);
+        $("#idp_logo").attr("src",apiURL + "?action=sendLogo&api_version=2&idp="+inst_id);
         $("#idp_logo").show();
     }
-    $("#fed_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&idp="+inst_id);
+    $("#fed_logo").attr("src",apiURL +"?action=sendFedLogo&api_version=2&idp="+inst_id);
     if(otherdata !== undefined && otherdata['fedname'] !== undefined) {
         $("#fed_logo").attr("title",otherdata['fedname']);
         $("#fed_logo").attr("alt",otherdata['fedname']);
@@ -207,7 +233,7 @@ function resetDevices() {
   if(button_id.substr(0,7) == "info_b_") {
     var device_id = button_id.substr(7);
     $("#info_window").html("<h2>"+$('#'+device_id).text()+"</h2>");
-    $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
+    $.post(apiURL, {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
     var h = $("#info_window").html();
     $("#info_window").html(h+data);
     $("#main_body").fadeTo("fast", 0.2,function() {
@@ -232,7 +258,7 @@ function resetDevices() {
         generateTimer = $.now();
         $("#devices").hide();
         $("#user_welcome").show();
-        $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile}, processDownload);
+        $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile}, processDownload);
      }
   }
 }); 
@@ -253,11 +279,11 @@ function resetDevices() {
      profile = prof;
      $("#profile_id").val(prof);
      txt = '';
-     $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
+     $.post(apiURL, {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
        j1 = $.parseJSON(data);
        result = j1.status;
        if(! result) {
-            alert("<?php $cat->javaScriptEscapedEcho(_("no matching data found")) ?>");
+            alert(guiTexts.noMatchingData);
             document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
        }
        j = j1.data;
@@ -269,17 +295,17 @@ function resetDevices() {
          $("#profile_desc").hide();
          $("#profile_desc").text('');
        }
-       updateTxt = '<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:"));?>'+' '+j.last_changed+'</span><br/>';
+       updateTxt = guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
        if(j.local_url !== undefined && j.local_url) 
-       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
+       txt = txt+'<span class="user_info">' + guiTexts.www + ' <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
-       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("email:")); ?> <a href="mailto:'+j.local_email+'">'+j.local_email+'</a></span><br/>';
+       txt = txt+'<span class="user_info">' + guiTexts.email + ' <a href="mailto:'+j.local_email+'">'+j.local_email+'</a></span><br/>';
        if(j.local_phone !== undefined && j.local_phone) 
-       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("tel:")); ?> '+j.local_phone+'</span><br/>';
+       txt = txt+'<span class="user_info">' + guiTexts.tel + ' ' +j.local_phone+'</span><br/>';
        if(txt) 
-       txt = "<span class='user_info_header'><?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
+       txt = "<span class='user_info_header'>" + guiTexts.problems + "</span><br/>"+txt;
         else
-        txt = "<span class='user_info_header'><?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
+        txt = "<span class='user_info_header'>" + guiTexts.problemsGeneric + '</span><br/>';
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
@@ -297,7 +323,7 @@ function resetDevices() {
           $("#g_"+v.id).addClass('alertButton');
           $("#cross_icon_"+v.id).show();
           $("#"+v.id).addClass('disabledDevice');
-          $("#download_button_header_"+v.id).html("<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>");
+          $("#download_button_header_"+v.id).html(guiTexts.unconfigurable);
           $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
         } else  {
           if(v.status == -1)
@@ -310,7 +336,7 @@ function resetDevices() {
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
-            t = "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php $cat->javaScriptEscapedEcho(_("Continue")); ?></a></span>";
+            t = guiTexts.redirect+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'>" + guiTexts.continue + "</a></span>";
             i_div.html(t);
             $(".redirect_link").click(function(event) {
                i_div.hide();
@@ -318,13 +344,13 @@ function resetDevices() {
                
           });
         } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
-          var continue_text = "<?php $cat->javaScriptEscapedEcho(_("Continue")); ?>";
+          var continue_text = guiTexts.continue;
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             if(v.status > 0) {
-              t = "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>";
-              continue_text = "<?php $cat->javaScriptEscapedEcho(_("Close")); ?>";
+              t = guiTexts.unconfigurable;
+              continue_text = guiTexts.close;
             } else {
             t = i_div.html();
             if(v.message != '0') {
@@ -355,7 +381,7 @@ function resetDevices() {
                $("#devices").hide();
                generateTimer = $.now();
                $("#user_welcome").show();
-               $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, profile: profile}, processDownload); 
+               $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, profile: profile}, processDownload); 
                }
             });
                
@@ -394,7 +420,7 @@ function resetDevices() {
   }
   
   function infoCAT(k,subK,title) {
-      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/cat_info.php")?>', {page: k, subpage: subK, lang: lang}, function(data) {
+      $.post(catInfo, {page: k, subpage: subK, lang: lang}, function(data) {
           showInfo(data, title)});
   }
 
@@ -414,18 +440,18 @@ function resetDevices() {
   
   function goAdmin() {
    waiting('start');
-   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>?lang="+lang);
+   window.location.replace(overviewUser+"?lang="+lang);
 }
 
   function remindIdPF() {
     mail = $("#remindIdP").val();
     key = $("#remindIdPs").val();
     if (mail == "") {
-        alert("<?php echo(_("Missing email address")); ?>");
+        alert(guiTexts.missingEmail);
         return;
     }
     waiting('start');
-    $.get('<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php"); ?>', {key: key, mail: mail}, function(data) {
+    $.get(remindIdP, {key: key, mail: mail}, function(data) {
        $("#remindIdPl").html("");
        try {
          j = $.parseJSON(data);
@@ -435,14 +461,14 @@ function resetDevices() {
          return(false);
        }
        if (j.status == 0) {
-           $("#remindIdPh").html("<?php echo _("No providers found for this email") ?>");
+           $("#remindIdPh").html(guiTexts.noProviders);
            waiting('stop');
            return;
        }
        if (j.data.length == 1) {
-          $("#remindIdPh").html("<?php echo _("Your IdP is:") ?>");
+          $("#remindIdPh").html(guiTexts.yourIdP);
        } else {
-          $("#remindIdPh").html("<?php echo _("Your IdP could be one of:") ?>");
+          $("#remindIdPh").html(guiTexts.yourIdPs);
        }
        $.each(j.data, function(i, v) {
            $("#remindIdPl").append('<li>' + v + '</li>');
@@ -507,7 +533,6 @@ function processDownload(data) {
      generateTimer = 0;
      
   var j;
-//alert(data);
   try {
     j = $.parseJSON(data).data;
   }
@@ -518,7 +543,7 @@ function processDownload(data) {
   if( j.link == 0 )
     alert(generation_error);
   else {
-    download_link = '<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
+    download_link = apiURL+'?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if( generateTimer > 0 ) {
@@ -555,16 +580,16 @@ function loadDiscoJuice() {
     if (preloadIdPs)
        metadata = allIdPs;
     else
-       metadata = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang;
+       metadata = apiURL+"?action=listAllIdentityProviders&api_version=2&lang="+lang;
        
     discoTextStrings.discoPath = "external/discojuice/";
-    discoTextStrings.iconPath = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=";
+    discoTextStrings.iconPath = apiURL + "?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=";
     discoTextStrings.overlay = true;
     discoTextStrings.cookie = true;
     discoTextStrings.type = false;
     discoTextStrings.country = true;
     discoTextStrings.location = true;
-    discoTextStrings.countryAPI = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=locateUser&api_version=2";
+    discoTextStrings.countryAPI = apiURL+"?action=locateUser&api_version=2";
     discoTextStrings.metadata = metadata;
     discoTextStrings.metadataPreloaded = preloadIdPs;
     discoTextStrings.callback = discoJuiceCallback;
@@ -655,7 +680,7 @@ catWelcome = $("#main_menu_content").html();
 
 if (noDisco === 0) {
     if (preloadIdPs) {
-        $.get("<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang,function(data) {
+        $.get(apiURL+"?action=listAllIdentityProviders&api_version=2&lang="+lang,function(data) {
             allIdPs = data;
             loadDiscoJuice();
         }, "json");
