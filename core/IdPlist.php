@@ -100,8 +100,8 @@ class IdPlist extends common\Entity
                     }
                 }
             }
-            if (count($geo) > 0) {
-                $oneInstitutionResult['geo'] = $geo;
+            if (count($options['geo']) > 0) {
+                $oneInstitutionResult['geo'] = $options['geo'];
             }
             $idpArray[] = $oneInstitutionResult;
         }
