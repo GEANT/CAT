@@ -46,8 +46,7 @@ use \Exception;
  *
  * @package Developer
  */
-class RADIUSTests extends AbstractTest
-{
+class RADIUSTests extends AbstractTest {
 
     /**
      * Was the reachability check executed already?
@@ -127,8 +126,7 @@ class RADIUSTests extends AbstractTest
      * @param array  $expectedCABundle       array of PEM blocks
      * @throws Exception
      */
-    public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = [])
-    {
+    public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
         parent::__construct();
 
         $this->realm = $realm;
@@ -181,8 +179,7 @@ class RADIUSTests extends AbstractTest
      * @param array $distinguishedName the components of the DN
      * @return string
      */
-    private function printDN($distinguishedName)
-    {
+    private function printDN($distinguishedName) {
         $out = '';
         foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
             if (!is_array($nameValue)) { // single-valued: just a string
@@ -204,8 +201,7 @@ class RADIUSTests extends AbstractTest
      * @param int $time time in UNIX timestamp
      * @return string
      */
-    private function printTm($time)
-    {
+    private function printTm($time) {
         return(gmdate(\DateTime::COOKIE, $time));
     }
 
@@ -219,8 +215,7 @@ class RADIUSTests extends AbstractTest
      *                          array values are also defined
      * @return array of oddities; the array is empty if everything is fine
      */
-    private function propertyCheckServercert(&$servercert)
-    {
+    private function propertyCheckServercert(&$servercert) {
 // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
 // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
@@ -274,8 +269,7 @@ class RADIUSTests extends AbstractTest
      * @param boolean $serverCert     treat as servercert?
      * @return array of oddities; the array is empty if everything is fine
      */
-    private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE)
-    {
+    private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
         $returnarray = [];
         if (preg_match("/md5/i", $intermediateCa['full_details']['signatureTypeSN'])) {
             $returnarray[] = RADIUSTests::CERTPROB_MD5_SIGNATURE;
@@ -313,8 +307,7 @@ class RADIUSTests extends AbstractTest
      * 
      * @return array all the errors
      */
-    public function listerrors()
-    {
+    public function listerrors() {
         return $this->errorlist;
     }
 
@@ -330,8 +323,7 @@ class RADIUSTests extends AbstractTest
      * @return integer returncode
      * @throws Exception
      */
-    public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE)
-    {
+    public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
@@ -354,8 +346,7 @@ class RADIUSTests extends AbstractTest
      * @return integer result code whether we were successful in retrieving the CRL
      * @throws Exception
      */
-    private function addCrltoCert(&$cert)
-    {
+    private function addCrltoCert(&$cert) {
         $crlUrl = [];
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
@@ -411,8 +402,7 @@ class RADIUSTests extends AbstractTest
      * @param array  $inputarray     array of strings (outputs of eapol_test command)
      * @return string[] the output of eapol_test with the password redacted
      */
-    private function redact($stringToRedact, $inputarray)
-    {
+    private function redact($stringToRedact, $inputarray) {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
         $spaced = "";
@@ -433,8 +423,7 @@ class RADIUSTests extends AbstractTest
      * @param array $inputarray array of strings (outputs of eapol_test command)
      * @return array the packet codes which were exchanged, in sequence
      */
-    private function filterPackettype($inputarray)
-    {
+    private function filterPackettype($inputarray) {
         $retarray = [];
         foreach ($inputarray as $line) {
             if (preg_match("/RADIUS message:/", $line)) {
@@ -473,8 +462,7 @@ class RADIUSTests extends AbstractTest
      * @return boolean|string returns TRUE if ETLR Reject logic was detected; FALSE if not; strings are returned for TLS versions
      * @throws Exception
      */
-    private function checkLineparse($inputarray, $desiredCheck)
-    {
+    private function checkLineparse($inputarray, $desiredCheck) {
         foreach ($inputarray as $lineid => $line) {
             switch ($desiredCheck) {
                 case self::LINEPARSE_CHECK_REJECTIGNORE:
@@ -542,8 +530,7 @@ class RADIUSTests extends AbstractTest
      * @param string $password the password
      * @return string[] [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
-    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password)
-    {
+    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
@@ -595,8 +582,7 @@ network={
      * @param array $packetcount the count of incoming packets
      * @return int
      */
-    private function packetCountEvaluation(&$testresults, $packetcount)
-    {
+    private function packetCountEvaluation(&$testresults, $packetcount) {
         $reqs = $packetcount[1] ?? 0;
         $accepts = $packetcount[2] ?? 0;
         $rejects = $packetcount[3] ?? 0;
@@ -640,8 +626,7 @@ network={
      * @param boolean $frag       make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
      */
-    private function eapolTestConfig($probeindex, $opName, $frag)
-    {
+    private function eapolTestConfig($probeindex, $opName, $frag) {
         $cmdline = \config\Diagnostics::PATHS['eapol_test'] .
                 " -a " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -676,8 +661,7 @@ network={
      * @return string
      * @throws Exception
      */
-    private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs)
-    {
+    private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
         if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
         }
@@ -752,8 +736,7 @@ network={
      * @return int
      * @throws Exception
      */
-    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs)
-    {
+    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
         $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
 
@@ -825,8 +808,7 @@ network={
      *                           adds its own findings.
      * @return void
      */
-    private function thoroughNameChecks($servercert, &$testresults)
-    {
+    private function thoroughNameChecks($servercert, &$testresults) {
         // Strategy for checks: we are TOTALLY happy if any one of the
         // configured names shows up in both the CN and a sAN
         // This is the primary check.
@@ -872,10 +854,9 @@ network={
      * @return array timing information of the executed eapol_test run
      * @throws Exception
      */
-    private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag)
-    {
+    private function executeEapolTest($tmpDir, $probeindex, $eaptype, $outerUser, $innerUser, $password, $opnameCheck, $frag) {
         $finalInner = $innerUser;
-        $finalOuter = $this->outerUsernameForChecks;
+        $finalOuter = $outerUser;
 
         $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
         // the config intentionally does not include CA checking. We do this
@@ -910,8 +891,7 @@ network={
      * @param array $packetflow_orig original flow of packets
      * @return int
      */
-    private function checkRadiusPacketFlow(&$testresults, $packetflow_orig)
-    {
+    private function checkRadiusPacketFlow(&$testresults, $packetflow_orig) {
 
         $packetflow = $this->filterPackettype($packetflow_orig);
 
@@ -949,8 +929,7 @@ network={
      * @return bool
      * @throws Exception
      */
-    private function wasEapTypeNegotiated(&$testresults, $packetflow_orig)
-    {
+    private function wasEapTypeNegotiated(&$testresults, $packetflow_orig) {
         $negotiatedEapType = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
         if (!is_bool($negotiatedEapType)) {
             throw new Exception("checkLineparse should only ever return a boolean in this case!");
@@ -969,8 +948,7 @@ network={
      * @param array $packetflow_orig the array of text output from eapol_test
      * @return string|bool the version as a string or FALSE if TLS version could not be determined
      */
-    private function wasModernTlsNegotiated(&$testresults, $packetflow_orig)
-    {
+    private function wasModernTlsNegotiated(&$testresults, $packetflow_orig) {
         $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
         $this->loggerInstance->debug(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
         if ($negotiatedTlsVersion === FALSE) {
@@ -993,8 +971,7 @@ network={
      * @param int   $totalCertCount number of certs in total in chain
      * @return int
      */
-    private function determineCertificateType(&$cert, $totalCertCount)
-    {
+    private function determineCertificateType(&$cert, $totalCertCount) {
         if ($cert['ca'] == 0 && $cert['root'] == 0) {
             return RADIUSTests::SERVER_NO_CA_EXTENSION;
         }
@@ -1017,8 +994,7 @@ network={
      * @return array|FALSE an array with all the certs, CRLs and oddities, or FALSE if the EAP conversation did not yield a certificate at all
      * @throws Exception
      */
-    private function extractIncomingCertsfromEAP(&$testresults, $tmpDir)
-    {
+    private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
 
         /*
          *  EAP's house rules:
@@ -1039,6 +1015,7 @@ network={
             $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
             return FALSE;
         }
+        $rootIncluded = [];
         $eapIntermediates = [];
         $eapIntermediateCRLs = [];
         $servercert = [];
@@ -1074,9 +1051,10 @@ network={
                     if (!in_array(RADIUSTests::CERTPROB_ROOT_INCLUDED, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
                     }
-// do not save the root CA, it serves no purpose
 // chain checks need to be against the UPLOADED CA of the
 // IdP/profile, not against an EAP-discovered CA
+                    // save it anyway, but only for feature "root CA autodetection" is executed
+                    $rootIncluded[] = $cert['pem'];
                     break;
                 case RADIUSTests::CA_INTERMEDIATE:
                     $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
@@ -1105,6 +1083,121 @@ network={
             "INTERMEDIATE_CA" => $eapIntermediates,
             "INTERMEDIATE_CRL" => $eapIntermediateCRLs,
             "INTERMEDIATE_OBSERVED_ODDITIES" => $intermOdditiesEAP,
+            "UNTRUSTED_ROOT_INCLUDED" => $rootIncluded,
+        ];
+    }
+
+    private function udpLoginPreliminaries($probeindex, $eaptype, $clientcertdata) {
+        /** preliminaries */
+        $eapText = \core\common\EAP::eapDisplayName($eaptype);
+        // no host to send probes to? Nothing to do then
+        if (!isset(\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex])) {
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
+        }
+
+        // if we need client certs but don't have one, return
+        if (($eaptype == \core\common\EAP::EAPTYPE_ANY || $eaptype == \core\common\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
+        }
+        // if we don't have a string for outer EAP method name, give up
+        if (!isset($eapText['OUTER'])) {
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
+        }
+        return TRUE;
+    }
+
+    public function autodetectCAWithProbe($outerId) {
+        // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
+        // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
+        $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
+        if ($clientcert === FALSE) {
+            throw new Exception("A dummy client cert is part of the source distribution, but could not be loaded!");
+        }
+        // which probe should we use? First is probably okay...
+        $probeindex = 0;
+        $preliminaries = $this->udpLoginPreliminaries($probeindex, \core\common\EAP::EAPTYPE_ANY, $clientcert);
+        if ($preliminaries !== TRUE) {
+            return $preliminaries;
+        }
+        // we will need a config blob for wpa_supplicant, in a temporary directory
+        $temporary = \core\common\Entity::createTemporaryDirectory('test');
+        $tmpDir = $temporary['dir'];
+        chdir($tmpDir);
+        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
+        file_put_contents($tmpDir . "/client.p12", $clientcert);
+        $testresults = ['cert_oddities' => []];
+        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, \core\common\EAP::EAPTYPE_ANY, $outerId, $outerId, "eaplab", FALSE, FALSE);
+        $packetflow_orig = $runtime_results['output'];
+        $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
+        $negotiatedEapType = FALSE;
+        if ($radiusResult != RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+            $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
+            $testresults['negotiated_eaptype'] = $negotiatedEapType;
+            $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
+            $testresults['tls_version_eap'] = $negotiatedTlsVersion;
+        }
+        // now let's look at the server cert+chain, if we got a cert at all
+        // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
+        // all
+        // in that case: no server CA guess possible
+        if (!
+                ($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $negotiatedEapType) || $radiusResult == RADIUSTests::RETVAL_OK
+        ) {
+            return RADIUSTests::RETVAL_INVALID;
+        }
+        $bundle = $this->extractIncomingCertsfromEAP($testresults, $tmpDir);
+        // we need to check if we know the issuer of the server cert
+        // assume we have only one server cert - anything else is a 
+        // misconfiguration on the EAP server side
+        $previousHighestKnownIssuer = [];
+        $currentHighestKnownIssuer = $bundle['SERVERCERT'][0]['full_details']['issuer'];
+        // maybe there is an intermediate and the EAP server sent it. If so,
+        // go and look at that, going one level higher
+        $x509 = new \core\common\X509();
+        $includedRoot = NULL;
+        $allCACerts = array_merge($bundle['INTERMEDIATE_CA'], $bundle['UNTRUSTED_ROOT_INCLUDED']);
+        while ($previousHighestKnownIssuer != $currentHighestKnownIssuer) {
+            $previousHighestKnownIssuer = $currentHighestKnownIssuer;
+            foreach ($allCACerts as $oneCACert) {
+                $certDetails = $x509->processCertificate($oneCACert);
+                if ($certDetails['full_details']['subject'] == $previousHighestKnownIssuer) {
+                    $currentHighestKnownIssuer = $certDetails['full_details']['issuer'];
+                }
+                if ($certDetails['full_details']['subject'] == $certDetails['full_details']['issuer']) {
+                    // if we see a subject == issuer, then the EAP server even
+                    // sent a root certificate. We'll propose that then.
+                    return [
+                        "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
+                        "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
+                        "ROOT_CA" => $certDetails['pem'],
+                    ];
+                }
+            }
+        }
+        // we now know the "highest" issuer name we got from the EAP 
+        // conversation - ideally the name of a root CA we know. Let's look at 
+        // our own system store to get a list of all commercial CAs with browser
+        // trust, and custom ones we may have configured
+        $ourRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-custom']);
+        $mozillaRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-mozilla']);
+        $allRoots = $x509->splitCertificate($ourRoots . "\n" . $mozillaRoots);
+        foreach ($allRoots as $oneRoot) {
+            $processedRoot = $x509->processCertificate($oneRoot);
+            if ($processedRoot['full_details']['subject'] == $currentHighestKnownIssuer) {
+                return [
+            "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
+            "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
+            "ROOT_CA" => $oneRoot,
+        ];
+            }
+        }
+        return [
+            "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
+            "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
+            "ROOT_CA" => NULL,
         ];
     }
 
@@ -1121,24 +1214,10 @@ network={
      * @return int overall return code of the login test
      * @throws Exception
      */
-    public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL)
-    {
-        /** preliminaries */
-        $eapText = \core\common\EAP::eapDisplayName($eaptype);
-        // no host to send probes to? Nothing to do then
-        if (!isset(\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex])) {
-            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
-            return RADIUSTests::RETVAL_NOTCONFIGURED;
-        }
-        // if we need client certs but don't have one, return
-        if (($eaptype == \core\common\EAP::EAPTYPE_ANY || $eaptype == \core\common\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
-            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
-            return RADIUSTests::RETVAL_NOTCONFIGURED;
-        }
-        // if we don't have a string for outer EAP method name, give up
-        if (!isset($eapText['OUTER'])) {
-            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
-            return RADIUSTests::RETVAL_NOTCONFIGURED;
+    public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+        $preliminaries = $this->udpLoginPreliminaries($probeindex, $eaptype, $clientcertdata);
+        if ($preliminaries !== TRUE) {
+            return $preliminaries;
         }
         // we will need a config blob for wpa_supplicant, in a temporary directory
         $temporary = \core\common\Entity::createTemporaryDirectory('test');
@@ -1152,7 +1231,7 @@ network={
         // initialise the sub-array for cleaner parsing
         $testresults['cert_oddities'] = [];
         // execute RADIUS/EAP converation
-        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
+        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $this->outerUsernameForChecks, $innerUser, $password, $opnameCheck, $frag);
         $testresults['time_millisec'] = $runtime_results['time'];
         $packetflow_orig = $runtime_results['output'];
         $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
@@ -1222,8 +1301,7 @@ network={
      * @param string $id the outer ID to use
      * @return void
      */
-    public function setOuterIdentity($id)
-    {
+    public function setOuterIdentity($id) {
         $this->outerUsernameForChecks = $id;
     }
 
@@ -1232,8 +1310,7 @@ network={
      * @param int $host index of the probe for which the results are collated
      * @return array
      */
-    public function consolidateUdpResult($host)
-    {
+    public function consolidateUdpResult($host) {
         \core\common\Entity::intoThePotatoes();
         $ret = [];
         $serverCert = [];
@@ -1285,4 +1362,5 @@ network={
         \core\common\Entity::outOfThePotatoes();
         return $ret;
     }
+
 }

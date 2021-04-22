@@ -143,10 +143,14 @@ class ConfAssistant
      * Various paths.
      * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
      *   See also NSIS_VERSION further down
+     * trust-store-*: if an IdP wants to auto-detect his root CA rather than specifying it properly, we need to have repositories
+     *                of "known-good" CAs. Mozilla's trust store is usually good, plus ones we can ship ourselves
      * @var array
      */
     const PATHS = [
         'makensis' => 'makensis',
+        'trust-store-mozilla' => '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem',
+        'trust-store-custom' => __DIR__ . "/known-roots.pem",
     ];
 
     /**
