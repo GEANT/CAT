@@ -1157,7 +1157,6 @@ network={
         // maybe there is an intermediate and the EAP server sent it. If so,
         // go and look at that, going one level higher
         $x509 = new \core\common\X509();
-        $includedRoot = NULL;
         $allCACerts = array_merge($bundle['INTERMEDIATE_CA'], $bundle['UNTRUSTED_ROOT_INCLUDED']);
         while ($previousHighestKnownIssuer != $currentHighestKnownIssuer) {
             $previousHighestKnownIssuer = $currentHighestKnownIssuer;
