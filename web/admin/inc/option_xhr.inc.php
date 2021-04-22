@@ -23,7 +23,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 \core\CAT::sessionStart();
 
-if (!isset($_GET["class"]) || !array_key_exists($_GET["class"], DO_NOT_DISPLAY)) {
+if (!isset($_GET["class"] )) {
     throw new Exception("Unknown type of option!");
 }
 
