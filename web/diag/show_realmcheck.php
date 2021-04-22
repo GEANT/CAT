@@ -47,8 +47,12 @@ if (isset($_SESSION['user'])) {
 ?>
 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
-
+<?php 
+$cssUrl = $gui->skinObject->findResourceUrl("CSS", "diag.css", "diag");
+if ($cssUrl !== FALSE) {
+    echo '<link rel="stylesheet" media="screen" type="text/css" href="'.$cssUrl.'" />';
+} 
+?>
 <!-- JQuery -->
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
