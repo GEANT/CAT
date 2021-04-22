@@ -47,7 +47,7 @@ if (empty($brokenDeployments)) {
 }
 $allServers = $dbLink->exec("SELECT server_id, mgmt_hostname from managed_sp_servers");
 $radiusSites = array();
-$siteStatus = array();
+
 while ($siteRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allServers)) {
     $radiusSite[$siteRow->server_id] = $siteRow->mgmt_hostname;
 }
