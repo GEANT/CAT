@@ -366,7 +366,7 @@ echo $mapCode->htmlHeadCode();
         <?php
         if ($readonly === FALSE) {
             $myfed = new \core\Federation($my_inst->federation);
-            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                 // the button is grayed out if there's no support email address configured...
                 $hasMail = count($my_inst->getAttributes("support:email"));
                 ?>
@@ -401,7 +401,7 @@ echo $mapCode->htmlHeadCode();
             }
         }
         ?>
-        <div style='display: table-row; margin-bottom: 20px;'>
+        <div style='display: table-row;'>
             <div class='profilebox' style='display: table-cell;'>
                 <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
@@ -552,7 +552,8 @@ echo $mapCode->htmlHeadCode();
             <div style='width:20px;'></div> <!-- QR code space, reserved -->
             <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space, reserved -->
         </div>
-
+        <!-- dummy div to keep a little distance-->
+        <div style='height:20px'></div>
         <?php
     }
     echo $deco->footer();
