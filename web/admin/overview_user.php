@@ -46,8 +46,10 @@ require_once "inc/click_button_js.php";
         <?php echo _("User Overview"); ?>
     </h1>
     <div class="infobox">
-        <h2><?php $tablecaption = _("Your Personal Information");
-        echo $tablecaption ?></h2>
+        <h2><?php
+            $tablecaption = _("Your Personal Information");
+            echo $tablecaption
+            ?></h2>
         <table>
             <caption><?php echo $tablecaption; ?></caption>
             <tr>
@@ -56,10 +58,10 @@ require_once "inc/click_button_js.php";
                 <th class="wai-invisible" scope="col"><?php echo _("Property Value"); ?></th>
             </tr>
 
-<?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
-<?php echo "" . _("Unique Identifier") ?>
+                    <?php echo "" . _("Unique Identifier") ?>
                 </td>
                 <td>
                 </td>
@@ -124,7 +126,7 @@ require_once "inc/click_button_js.php";
         }
         ?>
         <table class='user_overview'>
-            <caption><?php echo sprintf(_("%s Management Overview"),$uiElements->nomenclatureParticipant);?></caption>
+            <caption><?php echo sprintf(_("%s Management Overview"), $uiElements->nomenclatureParticipant); ?></caption>
             <tr>
                 <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
                 <th scope="col"><?php echo sprintf(_("Other admins of this %s"), $uiElements->nomenclatureParticipant); ?></th>
@@ -140,106 +142,78 @@ require_once "inc/click_button_js.php";
                         echo _("Danger Zone");
                     }
                     ?>
-                </th></tr>
+                </th>
+            </tr>
             <?php
             foreach ($myFeds as $fed_id => $fed_name) {
-/// nomenclature 'fed', fed name, nomenclature 'inst'
-                echo "<tr><td colspan='4'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclatureFed, $fed_name, $uiElements->nomenclatureParticipant) . "</strong></td></tr>";
 
+/// nomenclature 'fed', fed name, nomenclature 'inst'
+                ?>
+                <tr>
+                    <td colspan='4'>
+                        <strong><?php echo sprintf(_("%s %s: %s list"), $uiElements->nomenclatureFed, $fed_name, $uiElements->nomenclatureParticipant); ?></strong>
+                    </td>
+                </tr>
+                <?php
                 $fedOrganisations = $my_idps[$fed_id];
                 asort($fedOrganisations);
                 foreach ($fedOrganisations as $index => $myOrganisation) {
                     $oneinst = $instlist[$index];
                     $the_inst = $oneinst['object'];
-
-                    echo "<tr>"
-                    . "<td>" . $oneinst['name'] . "</td>";
-                    echo "<td>";
-                    $admins = $the_inst->listOwners();
-                    $blessedUser = FALSE;
-                    foreach ($admins as $number => $username) {
-                        if ($username['ID'] != $_SESSION['user']) {
-                            $coadmin = new \core\User($username['ID']);
-                            $coadmin_name = $coadmin->getAttributes('user:realname');
-                            if (count($coadmin_name) > 0) {
-                                echo $coadmin_name[0]['value'] . "<br/>";
-                                unset($admins[$number]);
-                            }
-                        } else { // don't list self
-                            unset($admins[$number]);
-                            if ($username['LEVEL'] == "FED") {
-                                $blessedUser = TRUE;
-                            }
-                        }
-                        $otherAdminCount = count($admins); // only the unnamed remain
-                        if ($otherAdminCount > 0) {
-                            echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount), $otherAdminCount);
-                        }
-                        echo "</td><td>";
-                        if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
-                            echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
-                        }
-                        echo "</td></tr>";
-                    }
-                    $otherAdminCount = count($admins); // only the unnamed remain
-                    if ($otherAdminCount > 0) {
-                        echo ngettext("other user", "other users", $otherAdminCount);
-                    }
-                    echo "</td><td>";
-                    if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
-                        ?>
-                        <div style='white-space: nowrap;'>
-                            <form action='edit_participant.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                                <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureParticipant); ?></button>
-                            </form>
-                            <form method='post' action='inc/manageAdmins.inc.php?inst_id=<?php echo $the_inst->identifier; ?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                <button type='submit'><?php echo sprintf(_("Add/Remove %s Administrators"), $uiElements->nomenclatureParticipant); ?></button>
-                            </form>
+                    ?>
+                    <tr>
+                        <td>
+                            <a href="overview_org.php?inst_id=<?php echo $the_inst->identifier; ?>"><?php echo $oneinst['name']; ?></a>
+                        </td>
+                        <td>
                             <?php
-                            if (in_array(IdP::ELIGIBILITY_IDP, $the_inst->eligibility())) {
-                                ?>
-                                <form action='overview_idp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
-                                    <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureInst); ?></button>
-                                </form>
-                                <?php
-                            };
-                            if (in_array(IdP::ELIGIBILITY_SP, $the_inst->eligibility())) {
-                                ?>
-                                <form action='overview_sp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
-                                    <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureHotspot); ?></button>
-                                </form>
-                                <?php
+                            $admins = $the_inst->listOwners();
+                            $blessedUser = FALSE;
+                            foreach ($admins as $number => $username) {
+                                if ($username['ID'] != $_SESSION['user']) {
+                                    $coadmin = new \core\User($username['ID']);
+                                    $coadmin_name = $coadmin->getAttributes('user:realname');
+                                    if (count($coadmin_name) > 0) {
+                                        echo $coadmin_name[0]['value'] . "<br/>";
+                                        unset($admins[$number]);
+                                    }
+                                } else { // don't list self
+                                    unset($admins[$number]);
+                                    if ($username['LEVEL'] == "FED") {
+                                        $blessedUser = TRUE;
+                                    }
+                                }
+                                $otherAdminCount = count($admins); // only the unnamed remain
+                                if ($otherAdminCount > 0) {
+                                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount), $otherAdminCount);
+                                }
                             }
                             ?>
-                        </div>
-                        <?php
-                    }
-                    echo "</td><td>"; // danger zone 
-                    ?>
-                    <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( \config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
-                    </form>
-                    <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureParticipant); ?></button>
-                    </form>
+                        </td>
+                        <td>
+                            <?php
+                            if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
+                                echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                            }
+                            ?>
+                        </td>
+                        <td> <!-- danger zone --> 
+
+                            <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( \config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $the_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
+                            </form>
+                            <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureParticipant, $the_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureParticipant); ?></button>
+                            </form>
+
+                        </td>
+                    </tr>
                     <?php
-                    echo "</td></tr>";
                 }
-                $otherAdminCount = count($admins); // only the unnamed remain
-                if ($otherAdminCount > 0) {
-                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount),$otherAdminCount);
-                }
-                echo "</td><td>";
-                $isAdminMgmtAvailable = FALSE;
-                if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
-                    $isAdminMgmtAvailable = TRUE;
-                }
-                echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit' ". ($isAdminMgmtAvailable ? "" : "disabled") .">" . _("Add/Remove Administrators") . "</button></form></div>";
-                echo "</td></tr>";
-            }
-            ?>
-        </table>
-        <?php
+                ?>
+            </table>
+            <?php
+        }
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
     }
