@@ -66,10 +66,11 @@ echo $mapCode->htmlHeadCode();
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureParticipant); ?></h1>
     <hr/>
     <div>
-        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureParticipant); ?></h2>
-        <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureParticipant); ?></button>
-        </form>
+        <h2 style='display: flex;'><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureParticipant); ?>&nbsp;
+            <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo _("Edit ..."); ?></button>
+            </form>
+        </h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
@@ -83,6 +84,7 @@ echo $mapCode->htmlHeadCode();
             }
         }
         ?>
+
     </div>
     <hr/>
     <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureInst); ?>&nbsp;
