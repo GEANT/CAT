@@ -44,7 +44,7 @@ switch ($_POST['submitbutton']) {
         $profileToBeDel = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
         $profileToBeDel->destroy();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile ".$profileToBeDel->identifier);
-        header("Location: overview_idp.php?inst_id=$my_inst->identifier");
+        header("Location: overview_org.php?inst_id=$my_inst->identifier");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
         if (isset($_GET['profile_id'])) {
@@ -255,7 +255,7 @@ switch ($_POST['submitbutton']) {
             ?>
         </table>
         <br/>
-        <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
+        <form method='post' action='overview_org.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
             <button type='submit'><?php echo _("Continue to dashboard"); ?></button>
         </form>
         <?php

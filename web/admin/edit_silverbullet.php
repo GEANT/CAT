@@ -89,7 +89,7 @@ if (isset($_POST['token'])) {
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
         case \web\lib\common\FormElements::BUTTON_CLOSE:
-            header("Location: overview_idp.php?inst_id=" . $inst->identifier);
+            header("Location: overview_org.php?inst_id=" . $inst->identifier);
             break;
         case \web\lib\common\FormElements::BUTTON_TERMSOFUSE:
             if (isset($_POST['agreement']) && $_POST['agreement'] == 'true') {
@@ -713,7 +713,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
     }
     ?>
 
-    <form action="overview_idp.php?inst_id=<?php echo $inst->identifier; ?>" method="POST">
+    <form action="overview_org.php?inst_id=<?php echo $inst->identifier; ?>" method="POST">
         <p>
             <button type='submit' name='submitbutton' value="nomatter"><?php echo sprintf(_("Back to %s page"), $uiElements->nomenclatureInst); ?></button>
         </p>
