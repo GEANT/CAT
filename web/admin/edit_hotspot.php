@@ -36,7 +36,7 @@ $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 if (!isset($_GET['deployment_id'])) {
     $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED);
-    header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
+    header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
     exit(0);
 }
 // if we have come this far, we are editing an existing deployment
@@ -48,7 +48,7 @@ if (isset($_POST['submitbutton'])) {
         if (in_array('OK', $response)) {
             $deployment->deactivate();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
 
@@ -57,7 +57,7 @@ if (isset($_POST['submitbutton'])) {
         if (in_array('OK', $response)) {
             $deployment->activate();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
     
@@ -78,7 +78,7 @@ if (isset($_POST['submitbutton'])) {
             $deployment->status = core\DeploymentManaged::INACTIVE;
             $response = $deployment->setRADIUSconfig();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
 }
@@ -157,6 +157,6 @@ require_once "inc/click_button_js.php";
     </fieldset>
 
 <?php
-    echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_sp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+    echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();
     

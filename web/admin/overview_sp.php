@@ -310,20 +310,6 @@ $(document).on('click', '#realmcheck' , function() {
         // a) there is no SB profile yet
         // b) federation wants this to happen
 
-        $myfed = new \core\Federation($my_inst->federation);
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
-            // the button is grayed out if there's no support email address configured...
-            $hasMail = count($my_inst->getAttributes("support:email"));
-            ?>
-            <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                <div>
-                    <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                        <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
-                    </button>
-                </div>
-            </form>
-            <?php
-        }
 
         // adding a normal profile is always possible if we're configured for it
     }

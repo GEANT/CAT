@@ -360,5 +360,200 @@ echo $mapCode->htmlHeadCode();
         <div style='height:20px'></div>
         <?php
     }
+    ?>
+    <hr/>
+    <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
+        <?php
+        if ($readonly === FALSE) {
+            $myfed = new \core\Federation($my_inst->federation);
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
+                // the button is grayed out if there's no support email address configured...
+                $hasMail = count($my_inst->getAttributes("support:email"));
+                ?>
+                <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <div>
+                        <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
+                            <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
+                        </button>
+                    </div>
+                </form>
+                <?php
+            }
+        }
+        ?>
+    </h2>
+    <?php
+    $hotspotProfiles = $my_inst->listDeployments();
+    if (count($hotspotProfiles) == 0) { // no profiles yet.
+        echo "<h2>" . sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot) . "</h2>";
+    }
+
+    foreach ($hotspotProfiles as $counter => $deploymentObject) {
+        $radius_status = array();
+        $radius_status[0] = $deploymentObject->radius_status_1;
+        $radius_status[1] = $deploymentObject->radius_status_2;
+        $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
+        if (is_array($retry)) {
+            foreach ($retry as $id => $stat) {
+                if ($stat) {
+                    $response = $deploymentObject->setRADIUSconfig($id, 1);
+                }
+            }
+        }
+        ?>
+        <div style='display: table-row; margin-bottom: 20px;'>
+            <div class='profilebox' style='display: table-cell;'>
+                <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
+                <table>
+                    <caption><?php echo _("Deployment Details"); ?></caption>
+                    <tr>
+                        <th class='wai-invisible' scope='col'><?php echo("Server IP addresses"); ?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port label"); ?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port value"); ?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Deployment Status"); ?></th>
+                    </tr>
+                    <tr>
+                        <td><strong><?php echo _("Your primary RADIUS server") ?></strong><br/>
+                            <?php
+                            if ($deploymentObject->host1_v4 !== NULL) {
+                                echo _("IPv4") . ": " . $deploymentObject->host1_v4;
+                            }
+                            if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
+                                echo "<br/>";
+                            }
+                            if ($deploymentObject->host1_v6 !== NULL) {
+                                echo _("IPv6") . ": " . $deploymentObject->host1_v6;
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo _("RADIUS port number: ") ?></td>
+                        <td><?php echo $deploymentObject->port1; ?></td>
+                        <td>
+                            <?php
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
+                            "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
+                            "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong><?php echo _("Your backup RADIUS server") ?><br/></strong>
+                            <?php
+                            if ($deploymentObject->host2_v4 !== NULL) {
+                                echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                            }
+                            if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
+                                echo "<br/>";
+                            }
+                            if ($deploymentObject->host2_v6 !== NULL) {
+                                echo _("IPv6") . ": " . $deploymentObject->host2_v6;
+                            }
+                            ?></td>
+                        <td><?php echo _("RADIUS port number: ") ?></td>
+                        <td><?php echo $deploymentObject->port2; ?></td>
+                        <td>
+                            <?php
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
+                            "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
+                            "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "'>";
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
+                        <td><?php echo $deploymentObject->secret; ?></td>
+                    </tr>
+                    <tr><td colspan="4"><hr></td></tr>
+                    <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
+                        <tr>
+                            <td><strong><?php echo _("Custom Operator-Name"); ?></strong></td>
+                            <td><?php echo $opname; ?></td>
+                        </tr>
+                        <?php
+                    }
+                    if ($vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                        ?>
+                        <tr>
+                            <td><strong><?php echo _("VLAN tag for own users"); ?></strong></td>
+                            <td><?php echo $vlan; ?></td>
+                        </tr>
+                    <?php } ?>
+                    <?php
+                    $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
+                    if (!empty($allRealms)) {
+                        ?>
+                        <tr>
+                            <td><strong><?php echo _("Realm to be considered own users"); ?></strong></td>
+                            <td><?php echo implode(', ', $allRealms); ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </table>
+                <div class='buttongroupprofilebox' style='clear:both;'>
+                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <br/>
+                        <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
+                    </form>
+                    <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Deactivate"); ?>
+                            </button>
+                            <?php
+                            if (isset($_GET['res']) && is_array($_GET['res'])) {
+                                $res = array_count_values($_GET['res']);
+                                if (isset($res['FAILURE']) && $res['FAILURE'] > 0) {
+                                    echo '<br>';
+                                    if ($res['FAILURE'] == 2) {
+                                        echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
+                                    } else {
+                                        if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
+                                            echo ' <span style="color: red;">' . _("Activation failure for your primary RADIUS server.") . '</span>';
+                                        } else {
+                                            echo ' <span style="color: red;">' . _("Activation failure for your backup RADIUS server.") . '</span>';
+                                        }
+                                    }
+                                }
+                            }
+                            ?>
+                        </form>
+                        <?php
+                    } else {
+                        ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
+                                <?php echo _("Activate"); ?>
+                            </button>
+                            <?php
+                            if (isset($_GET['res']) && is_array($_GET['res'])) {
+                                $res = array_count_values($_GET['res']);
+                                if ($res['FAILURE'] > 0) {
+                                    echo '<br>';
+                                    if ($res['FAILURE'] == 2) {
+                                        echo ' <span style="color: red;">' . _("Failure during deactivation, your request is queued for handling") . '</span>';
+                                    } else {
+                                        if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
+                                            echo ' <span style="color: red;">' . _("Deactivation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                                        } else {
+                                            echo ' <span style="color: red;">' . _("Deactivation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                        }
+                                    }
+                                }
+                            }
+                            ?>
+                        </form>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+            <div style='width:20px;'></div> <!-- QR code space, reserved -->
+            <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space, reserved -->
+        </div>
+
+        <?php
+    }
     echo $deco->footer();
     
