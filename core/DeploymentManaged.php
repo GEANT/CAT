@@ -276,7 +276,7 @@ class DeploymentManaged extends AbstractDeployment
         if (count($serverCandidates) == 0 && $federation != "DEFAULT") {
             // we look in the default pool instead
             // recursivity! Isn't that cool!
-            return $this->findGoodServerLocation($adminLocation, "DEFAULT", $blacklistedServers, $this->consortium);
+            return $this->findGoodServerLocation($adminLocation, "DEFAULT", $blacklistedServers);
         }
         if (count($serverCandidates) == 0) {
             throw new Exception("No available server found for new SP! $federation " . /** @scrutinizer ignore-type */ print_r($serverCandidates, true));
