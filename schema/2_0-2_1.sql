@@ -36,6 +36,7 @@ CREATE TABLE `deployment` (
   `radius_instance_2` varchar(32) DEFAULT NULL,
   `radius_status_1` tinyint(1) DEFAULT '0',
   `radius_status_2` tinyint(1) DEFAULT '0',
+  `consortium` varchar(64) DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`deployment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,6 +60,7 @@ CREATE TABLE `managed_sp_servers` (
   `location_lon` double NOT NULL,
   `location_lat` double NOT NULL,
   `pool` varchar(16) NOT NULL DEFAULT 'DEFAULT',
+  `consortium` varchar(64) NOT NULL DEFAULT 'eduroam',
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -79,3 +81,6 @@ UPDATE profile_option SET option_name = 'media:SSID' WHERE option_name = 'media:
 DELETE FROM profile_option_dict WHERE name = 'media:SSID_with_legacy';
 
 ALTER TABLE invitations ADD COLUMN `invite_fortype` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP';
+
+# ALTER TABLE managed_sp_servers ADD COLUMN `consortium` varchar(64) NOT NULL DEFAULT 'eduroam';
+# ALTER TABLE deployment ADD COLUMN `consortium` varchar(64) DEFAULT NULL;

@@ -153,6 +153,13 @@ class DeploymentManaged extends AbstractDeployment
      * @var string
      */
     public $radius_status_2;
+    
+    /**
+     * the consortium this deployment is attached to
+     * 
+     * @var string
+     */
+    public $consortium;
 
     /**
      * Class constructor for existing deployments (use 
@@ -161,9 +168,10 @@ class DeploymentManaged extends AbstractDeployment
      * 
      * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB
+     * @param string     $consortium      identifier of the consortium to attach to (only relevant when initialising a new deployment for the first time
      * @throws Exception
      */
-    public function __construct($idpObject, $deploymentIdRaw)
+    public function __construct($idpObject, $deploymentIdRaw, $consortium = 'eduroam')
     {
         parent::__construct($idpObject, $deploymentIdRaw); // we now have access to our INST database handle and logging
         $this->entityOptionTable = "deployment_option";
@@ -172,7 +180,7 @@ class DeploymentManaged extends AbstractDeployment
         if (!is_numeric($deploymentIdRaw)) {
             throw new Exception("Managed SP instances have to have a numeric identifier");
         }
-        $propertyQuery = "SELECT status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2,radius_status_1,radius_status_2 FROM deployment WHERE deployment_id = ?";
+        $propertyQuery = "SELECT consortium, status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2,radius_status_1,radius_status_2,consortium FROM deployment WHERE deployment_id = ?";
         $queryExec = $this->databaseHandle->exec($propertyQuery, "i", $deploymentIdRaw);
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $queryExec) == 0) {
             throw new Exception("Attempt to construct an unknown DeploymentManaged!");
@@ -180,7 +188,13 @@ class DeploymentManaged extends AbstractDeployment
         $this->identifier = $deploymentIdRaw;
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $queryExec)) {
             if ($iterator->secret == NULL && $iterator->radius_instance_1 == NULL) {
-                // we are instantiated for the first time, initialise us
+                // we are instantiated for the first time, or all previous init attempts failed - so initialise us
+                // first time: note the consortium, permanently
+                if ($iterator->consortium === NULL) {
+                    $this->consortium = $consortium;
+                    $consortiumQuery = "UPDATE deployment SET consortium = '$this->consortium' WHERE deployment_id = ?";
+                    $this->databaseHandle->exec($consortiumQuery, "i", $deploymentIdRaw);
+                }
                 $details = $this->initialise();
                 $this->port1 = $details["port_instance_1"];
                 $this->port2 = $details["port_instance_2"];
@@ -199,6 +213,7 @@ class DeploymentManaged extends AbstractDeployment
                 $this->radius_status_1 = $iterator->radius_status_1;
                 $this->radius_status_2 = $iterator->radius_status_2;
                 $this->status = $iterator->status;
+                $this->consortium = $iterator->consortium;
             }
         }
         $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_1'");
@@ -234,7 +249,8 @@ class DeploymentManaged extends AbstractDeployment
     {
         // find a server near him (list of all servers with capacity, ordered by distance)
         // first, if there is a pool of servers specifically for this federation, prefer it
-        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = '$federation'");
+        // only check the consortium pool group we want to attach to
+        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = '$federation' AND consortium = '$this->consortium'");
 
         $serverCandidates = [];
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
@@ -260,7 +276,7 @@ class DeploymentManaged extends AbstractDeployment
         if (count($serverCandidates) == 0 && $federation != "DEFAULT") {
             // we look in the default pool instead
             // recursivity! Isn't that cool!
-            return $this->findGoodServerLocation($adminLocation, "DEFAULT", $blacklistedServers);
+            return $this->findGoodServerLocation($adminLocation, "DEFAULT", $blacklistedServers, $this->consortium);
         }
         if (count($serverCandidates) == 0) {
             throw new Exception("No available server found for new SP! $federation " . /** @scrutinizer ignore-type */ print_r($serverCandidates, true));
@@ -307,7 +323,7 @@ class DeploymentManaged extends AbstractDeployment
         }
         // and make up a shared secret that is halfways readable
         $futureSecret = $this->randomString(16, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = '" . $ourserver . "', radius_instance_2 = '" . $ourSecondServer . "', port_instance_1 = $foundFreePort1, port_instance_2 = $foundFreePort2, secret = '$futureSecret' WHERE deployment_id = $this->identifier");
+        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = '" . $ourserver . "', radius_instance_2 = '" . $ourSecondServer . "', port_instance_1 = $foundFreePort1, port_instance_2 = $foundFreePort2, secret = '$futureSecret', consortium = '$this->consortium' WHERE deployment_id = $this->identifier");
         return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourserver];
     }
 

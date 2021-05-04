@@ -16,6 +16,9 @@ Changes in 2.1-alpha1
                 * IdPs can choose to have OpenRoaming Free RCOIs included in
                   their end-user installers either unconditionally or only on
                   explicit user request
+- [FEATURE #5]  add possibility to add OpenRoaming ANP uplinks independently
+                from eduroam Managed SP uplinks. Fed op needs to enable the
+                OpenRoaming feature set for this to be exposed to IdPs
 - [BUGFIX  #1]  don't use the bash "which" to find executables. Does not work
                 with php-fpm
 - [BUGFGIX #2]  do not use the hard-coded term "eduroam" in Apple installers

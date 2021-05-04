@@ -328,11 +328,12 @@ class IdP extends EntityWithDBProperties
      * 
      * Only creates the DB entry for the deployment. If you want to add attributes later, see Profile::addAttribute().
      *
-     * @param string $type exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
+     * @param string $type       exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
+     * @param string $consortium name of the consortium to attach this *Managed* SP to
      * @return DeploymentManaged the newly created deployment
      * @throws Exception
      */
-    public function newDeployment(string $type)
+    public function newDeployment(string $type, string $consortium = "eduroam")
     {
         switch ($type) {
             case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
@@ -341,7 +342,7 @@ class IdP extends EntityWithDBProperties
             case AbstractDeployment::DEPLOYMENTTYPE_MANAGED:
                 $this->databaseHandle->exec("INSERT INTO deployment (inst_id) VALUES($this->identifier)");
                 $identifier = $this->databaseHandle->lastID();
-                return new DeploymentManaged($this, $identifier);
+                return new DeploymentManaged($this, $identifier, $consortium);
             default:
                 throw new Exception("This type of deployment is unknown and can not be added.");
         }

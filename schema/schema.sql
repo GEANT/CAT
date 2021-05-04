@@ -144,6 +144,7 @@ CREATE TABLE `deployment` (
   `radius_instance_2` varchar(64) DEFAULT NULL,
   `radius_status_1` tinyint(1) DEFAULT '0',
   `radius_status_2` tinyint(1) DEFAULT '0',
+  `consortium` varchar(64) DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`deployment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -166,6 +167,7 @@ CREATE TABLE `managed_sp_servers` (
   `radius_ip6` varchar(64) DEFAULT NULL,
   `location_lon` double NOT NULL,
   `location_lat` double NOT NULL,
+  `consortium` varchar(64) NOT NULL DEFAULT 'eduroam',
   `pool` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

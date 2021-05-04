@@ -46,6 +46,7 @@ require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+$myfed = new \core\Federation($my_inst->federation);
 
 // delete stored realm
 
@@ -95,7 +96,6 @@ echo $mapCode->htmlHeadCode();
             // a) there is no SB profile yet
             // b) federation wants this to happen
 
-            $myfed = new \core\Federation($my_inst->federation);
             if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
                 // the button is grayed out if there's no support email address configured...
                 $hasMail = count($my_inst->getAttributes("support:email"));
@@ -365,19 +365,33 @@ echo $mapCode->htmlHeadCode();
     <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
         <?php
         if ($readonly === FALSE) {
-            $myfed = new \core\Federation($my_inst->federation);
             if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                 // the button is grayed out if there's no support email address configured...
                 $hasMail = count($my_inst->getAttributes("support:email"));
                 ?>
                 <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <div>
+                        <input type="hidden" name="consortium" value="eduroam"/>
                         <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                            <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
+                            <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                         </button>
+
                     </div>
                 </form>
-                <?php
+                <?php if (count($myfed->getAttributes("fed:openroaming")) > 0) {
+                    ?>
+                    &nbsp;
+                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <div>
+                            <input type="hidden" name="consortium" value="OpenRoaming"/>
+                            <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
+                                <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
+                            </button>
+
+                        </div>
+                    </form>
+                    <?php
+                }
             }
         }
         ?>
@@ -403,7 +417,18 @@ echo $mapCode->htmlHeadCode();
         ?>
         <div style='display: table-row;'>
             <div class='profilebox' style='display: table-cell;'>
-                <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
+                <h2><?php
+                switch ($deploymentObject->consortium) {
+                    case "eduroam":
+                        $displayname = config\ConfAssistant::CONSORTIUM['name']." ".core\DeploymentManaged::PRODUCTNAME;
+                        break;
+                    case "OpenRoaming":
+                        $displayname = "OpenRoaming ANP";
+                        break;
+                    default:
+                        throw new Exception("We are supposed to operate on a roaming consortium we don't know.");
+                }
+                echo $displayname . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
                     <caption><?php echo _("Deployment Details"); ?></caption>
                     <tr>

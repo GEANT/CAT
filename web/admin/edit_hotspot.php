@@ -33,11 +33,16 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 // initialize inputs
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+$myfed = new \core\Federation($my_inst->federation);
 
 if (!isset($_GET['deployment_id'])) {
-    $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED);
-    header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
-    exit(0);
+    if (isset($_POST['consortium']) && count($myfed->getAttributes("fed:openroaming")) > 0) {
+        $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
+        header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+        exit(0);
+    } else {
+        throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
+    }
 }
 // if we have come this far, we are editing an existing deployment
 
@@ -60,7 +65,7 @@ if (isset($_POST['submitbutton'])) {
         header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
-    
+
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
         $optionParser = new web\lib\admin\OptionParser();
         $postArray = $_POST;
@@ -110,53 +115,55 @@ require_once "inc/click_button_js.php";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, \core\Options::LEVEL_PROFILE);
     ?>
     <fieldset class='option_container' id='managedsp_override'>
-    <legend>
-        <strong>
-    <?php $tablecaption = _("Options for this deployment"); echo $tablecaption;?>
-        </strong>
-    </legend>
-    <table>
-            <caption><?php echo $tablecaption;?></caption>
+        <legend>
+            <strong>
+                <?php $tablecaption = _("Options for this deployment");
+                echo $tablecaption; ?>
+            </strong>
+        </legend>
+        <table>
+            <caption><?php echo $tablecaption; ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value"); ?></th>
             </tr>
-        <tr>
-            <!-- input for Operator-Name override-->
-            <td>
-                <span id='opname_label'>
-                    <?php echo _("Custom Operator-Name:"); ?>
-                </span>
-            </td>
-            <td>
-                <input type='text' width="20" name="opname" value="<?php echo $opname; ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <!-- input for VLAN identifier for home users-->
-            <td>
-                <span id='vlan_label'>
-                    <?php echo sprintf(_("VLAN tag for own users%s:"), ($vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
-                </span>
-            </td>
-            <td>
-                <input type='number' width="4" name='vlan' <?php
+            <tr>
+                <!-- input for Operator-Name override-->
+                <td>
+                    <span id='opname_label'>
+<?php echo _("Custom Operator-Name:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='text' width="20" name="opname" value="<?php echo $opname; ?>"/>
+                </td>
+            </tr>
+            <tr>
+                <!-- input for VLAN identifier for home users-->
+                <td>
+                    <span id='vlan_label'>
+<?php echo sprintf(_("VLAN tag for own users%s:"), ($vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='number' width="4" name='vlan' <?php
                     if ($vlan !== NULL) {
                         echo "value='$vlan'";
                     }
                     ?>/>
-            </td>    
-        </tr>
-        <tr>
-    </table>
-    <?php
-    echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
-    ?>
-    <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option");?></button>
+                </td>    
+            </tr>
+            <tr>
+        </table>
+        <?php
+        echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
+        ?>
+        <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
     </fieldset>
 
-<?php
+    <?php
     echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();
+
     
