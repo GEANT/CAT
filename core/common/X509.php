@@ -201,6 +201,15 @@ class X509
             return FALSE;
         }
 
+        $pkey = openssl_pkey_get_public($myca);
+        if ($pkey === FALSE) {
+            return FALSE;
+        }
+        $pkeyDetails = openssl_pkey_get_details($pkey);
+        if ($pkeyDetails === FALSE || !isset($pkeyDetails['key'])) {
+            return FALSE;
+        }
+
         $out = [];
         $mydetails = $this->typeOfCertificate($myca, $out);
         if (!isset($mydetails['subject'])) {
@@ -213,6 +222,7 @@ class X509
         $out["sha256"] = openssl_digest($authorityDer, 'SHA256');
         $out["name"] = $mydetails['name'];
         $mydetails['sha1'] = $out['sha1'];
+        $mydetails["public_key"] = $pkeyDetails['key'];
         $out['full_details'] = $mydetails;
         $this->opensslTextParse($myca, $out);
         return $out;
