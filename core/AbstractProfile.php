@@ -154,9 +154,11 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // check if a CA was added
         $x509 = new common\X509();
         $baselineCA = [];
+        $baselineCApublicKey = [];
         foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
             $ca = $x509->processCertificate($oldCA['value']);
             $baselineCA[$ca['sha1']] = $ca['name'];
+            $baselineCApublicKey[$ca['sha1']] = $ca['full_details']['public_key'];
         }
         // remove the new ones that are identical to the baseline
         foreach ($new->getAttributes("eap:ca_file") as $newCA) {
@@ -166,7 +168,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 continue;
             }
             // check if a CA with identical DN was added - alert NRO if so
-            if (array_search($ca['name'], $baselineCA) !== FALSE) {
+            $foundSHA1 = array_search($ca['name'], $baselineCA);
+            if ($foundSHA1 !== FALSE) {
+                // but only if the public key does not match
+                if ($baselineCApublicKey[$foundSHA1] === $ca['full_details']['public_key']) {
+                    continue;
+                }
                 $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".$ca['name']."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['name'], $baselineCA)." and (added) ".$ca['sha1'];
             } else {
                 $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '".print_r($ca['name'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
