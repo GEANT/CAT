@@ -28,6 +28,7 @@
                 - bind-utils
                 - net-tools
                 - nettle-devel
+                - hiredis-devel
                 - lsof
                 - yum-utils
                 - libtalloc-devel
