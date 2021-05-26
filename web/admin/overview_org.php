@@ -193,9 +193,10 @@ echo $mapCode->htmlHeadCode();
                 case "core\ProfileRADIUS":
                     ?>
                     <div style='padding-bottom:20px;'>
+                        <?php
+                        $profile_name = $profile_list->name; ?>
                         <h2 style='overflow:auto; display:inline; padding-bottom: 10px;'><?php printf(_("Profile: %s"), $profile_name); ?></h2>
                         <?php
-                        $profile_name = $profile_list->name;
                         // see if there are any profile-level overrides
                         $attribs = $profile_list->getAttributes();
                         // write things into a buffer; we need some function calls to determine
