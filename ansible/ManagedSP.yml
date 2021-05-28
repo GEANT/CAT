@@ -44,6 +44,8 @@
                 - apr
                 - apr-util
                 - initscripts
+                - openssl11
+                - openssl11-libs
         state: present
     - name: all packages are up to date
       package:
