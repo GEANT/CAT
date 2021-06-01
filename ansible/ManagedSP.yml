@@ -44,9 +44,15 @@
                 - apr
                 - apr-util
                 - initscripts
+        state: present
+    - name: Install openssl11 if CentOS7
+      package:
+        name:
                 - openssl11
                 - openssl11-libs
-        state: present
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
     - name: all packages are up to date
       package:
         name: '*'
