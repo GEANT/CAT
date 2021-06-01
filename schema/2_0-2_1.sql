@@ -64,6 +64,8 @@ CREATE TABLE `managed_sp_servers` (
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE profile_option_dict MODIFY COLUMN `flag` VARCHAR (255);
+
 INSERT INTO profile_option_dict (name, description,type,flag) VALUES 
 ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
 ('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
@@ -72,8 +74,7 @@ INSERT INTO profile_option_dict (name, description,type,flag) VALUES
 INSERT INTO profile_option_dict (name, description, type, flag) VALUES
   ('fed:openroaming','Allow IdP OpenRoaming Opt-In','boolean',NULL),
   ('fed:openroaming_customtarget','custom NAPTR discovery target','string',NULL),
-  ('media:openroaming_always','Unconditionally include OpenRoaming Free RCOIs where possible','boolean',NULL),
-  ('media:openroaming_ask','Include OpenRoaming Free RCOIs if user wants so','boolean',NULL);
+  ('media:openroaming','enum switch to select desired OpenRoaming integration','enum_openroaming','VALUES:ask,always');
 
 UPDATE institution_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
 UPDATE profile_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
@@ -84,3 +85,4 @@ ALTER TABLE invitations ADD COLUMN `invite_fortype` enum('IdP','SP','IdPSP') NOT
 
 # ALTER TABLE managed_sp_servers ADD COLUMN `consortium` varchar(64) NOT NULL DEFAULT 'eduroam';
 # ALTER TABLE deployment ADD COLUMN `consortium` varchar(64) DEFAULT NULL;
+

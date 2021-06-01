@@ -53,7 +53,7 @@ CREATE TABLE `profile_option_dict` (
   `name` char(32) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(32) DEFAULT NULL,
-  `flag` varchar(16) DEFAULT NULL,
+  `flag` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -237,8 +237,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),
 ('media:force_proxy','URL of a mandatory content filter proxy','string',NULL),
-('media:openroaming_always','Unconditionally include OpenRoaming Free RCOIs where possible','boolean',NULL),
-('media:openroaming_ask','Include OpenRoaming Free RCOIs if user wants so','boolean',NULL),
+('media:openroaming","enum switch to select desired OpenRoaming integration","enum_openroaming","VALUES:ask,always'),
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
 ('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),

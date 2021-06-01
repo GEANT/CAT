@@ -97,6 +97,14 @@ class OptionParser extends \core\common\Entity {
                     return TRUE;
                 }
                 return FALSE;
+            case "media:openroaming": // and any other enum_* data type actually
+                $optionClass = \core\Options::instance();
+                $optionProps = $optionClass->optionType($optiontype);
+                $allowedValues = explode(',', substr($optionProps["flags"], 7));
+                if (in_array($incomingBinary,$allowedValues))  {
+                    return TRUE;
+                }
+                return FALSE;
             default:
                 return FALSE;
         }
@@ -367,6 +375,17 @@ class OptionParser extends \core\common\Entity {
                         break;
                     }
                     continue 2;
+                    
+                case \core\Options::TYPECODE_ENUM_OPENROAMING:
+                    $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_ENUM_OPENROAMING];
+                    if (!empty($previsionalContent)) {
+                        $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
+                        if ($content === FALSE) {
+                            continue 2;
+                        }
+                        break;
+                    }
+                    continue 2;    
                 case \core\Options::TYPECODE_FILE:
                     // this is either actually an uploaded file, or a reference to a DB entry of a previously uploaded file
                     $reference = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];

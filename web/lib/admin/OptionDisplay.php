@@ -31,8 +31,9 @@ use Exception;
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class OptionDisplay extends \core\common\Entity {
-    
+class OptionDisplay extends \core\common\Entity
+{
+
     /**
      * stores all the options we are caring about
      * 
@@ -67,15 +68,33 @@ class OptionDisplay extends \core\common\Entity {
      */
     private $optionIterator;
 
+    private $htmlDatatypeTexts;
+    
+    private $enumPrettyPrints;
     /**
      * Which attributes are we talking about?
      * @param array  $options the options of interest
      * @param string $level   the level on which these options were defined by the user (not applicable for XHR UI, then it is NULL)
      */
-    public function __construct(array $options, string $level = NULL) {
+    public function __construct(array $options, string $level = NULL)
+    {
         $this->listOfOptions = $options;
         $this->level = $level;
         $this->allLocationCount = 0;
+
+        $this->enumPrettyPrints = [
+            "ask" => _("Ask User"),
+            "always" => _("Always"),
+        ];
+        
+        $this->htmlDatatypeTexts = [
+            \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
+            \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox'", "tail" => ''],
+            \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
+            \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
+            \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => "><option value='ask'>" . $this->enumPrettyPrints["ask"]  . "</option><option value='always'>" . $this->enumPrettyPrints["always"] . "</option></select"],
+            \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
+        ];
     }
 
     /**
@@ -85,7 +104,8 @@ class OptionDisplay extends \core\common\Entity {
      * @param string $fed             the federation we are in
      * @return string HTML code <table>
      */
-    public function prefilledOptionTable(string $attributePrefix, $fed) {
+    public function prefilledOptionTable(string $attributePrefix, $fed)
+    {
         $retval = "<table id='expandable_$attributePrefix" . "_options'>";
 
         $prepopulate = [];
@@ -110,7 +130,8 @@ class OptionDisplay extends \core\common\Entity {
      * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      * @return string
      */
-    private function addOptionEdit(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
+    private function addOptionEdit(string $class, array $prepopulate = [])
+    { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
@@ -142,11 +163,12 @@ class OptionDisplay extends \core\common\Entity {
      * @param string $fed   the federation TLD, to determine fed ops prefernce context
      * @return array the list of options to display
      */
-    public static function enumerateOptionsToDisplay($class, $fed) {
+    public static function enumerateOptionsToDisplay($class, $fed)
+    {
         $optioninfo = \core\Options::instance();
 
         $list = $optioninfo->availableOptions($class);
-        
+
         // use federation context to delete more options, if the feds don't like
         // a particular one
         $fedInstance = new \core\Federation($fed);
@@ -174,15 +196,16 @@ class OptionDisplay extends \core\common\Entity {
                     // no openroaming here
                     unset($list[array_search("media:openroaming_always", $list)]);
                     unset($list[array_search("media:openroaming_ask", $list)]);
+                    unset($list[array_search("media:openroaming", $list)]);
                 }
                 break;
             default:
                 break;
         }
-        
+
         return $list;
     }
-    
+
     /**
      * Displays options for a given option class, in New mode.
      * 
@@ -190,7 +213,8 @@ class OptionDisplay extends \core\common\Entity {
      * @param string $fed             the federation we are in
      * @return string
      */
-    private function addOptionNew(string $class, $fed) {
+    private function addOptionNew(string $class, $fed)
+    {
         $retval = "";
 
         $list2 = array_values(OptionDisplay::enumerateOptionsToDisplay($class, $fed));
@@ -213,7 +237,8 @@ class OptionDisplay extends \core\common\Entity {
      *                           or are they both currently hidden?
      * @return string
      */
-    private function tooltip($rowid, $input, $isVisible) {
+    private function tooltip($rowid, $input, $isVisible)
+    {
         \core\common\Entity::intoThePotatoes();
         $descriptions = [];
         if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
@@ -221,13 +246,12 @@ class OptionDisplay extends \core\common\Entity {
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
         $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
-        $descriptions["media:openroaming"] = 
-                sprintf(_("By opting in to OpenRoaming, you agree to be bound by the %s."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
-                " ".
-                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms and Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."), \config\Master::APPEARANCE['productname']).
-                " ".
-                _("You are also aware that for best technical interoperability, you need to add a DNS entry into the DNS zone of your RADIUS realm.").
-                " ".
+        $descriptions["media:openroaming"] = sprintf(_("By opting in to OpenRoaming, you agree to be bound by the %s."), "eduroam Ecosystem Broker OpenRoaming Identity Provider Policy") .
+                " " .
+                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms and Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."), \config\Master::APPEARANCE['productname']) .
+                " " .
+                _("You are also aware that for best technical interoperability, you need to add a DNS entry into the DNS zone of your RADIUS realm.") .
+                " " .
                 _("Read the instructions in the wiki.");
         \core\common\Entity::outOfThePotatoes();
         if (!isset($descriptions[$input])) {
@@ -244,18 +268,20 @@ class OptionDisplay extends \core\common\Entity {
      * @return array HTML code and which option is active
      * @throws \Exception
      */
-    private function selectElement($rowid, $list) {
+    private function selectElement($rowid, $list)
+    {
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
                                    } else {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
                                    }";
-        foreach (array_keys(OptionDisplay::HTML_DATATYPE_TEXTS) as $key) {
+        foreach (array_keys($this->htmlDatatypeTexts) as $key) {
             $jsmagic .= "if (/#" . $key . "#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($key == \core\Options::TYPECODE_FILE ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($key == \core\Options::TYPECODE_TEXT ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($key == \core\Options::TYPECODE_STRING ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-enum_openroaming\").style.display = \"" . ($key == \core\Options::TYPECODE_ENUM_OPENROAMING ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($key == \core\Options::TYPECODE_BOOLEAN ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($key == \core\Options::TYPECODE_INTEGER ? "block" : "none") . "\";
                              }
@@ -327,7 +353,8 @@ FOO;
      * @param boolean $makeVisible is the language selector to be made visible?
      * @return string
      */
-    private function selectLanguage($rowid, $makeVisible) {
+    private function selectLanguage($rowid, $makeVisible)
+    {
         \core\common\Entity::intoThePotatoes();
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
@@ -341,14 +368,6 @@ FOO;
         return $retval;
     }
 
-    const HTML_DATATYPE_TEXTS = [
-        \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
-        \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox'", "tail" => ''],
-        \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
-        \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
-        \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
-    ];
-
     /**
      * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
      * @param int   $rowid      the number (nonce during page build) of the option 
@@ -356,9 +375,10 @@ FOO;
      * @param array $activetype the active datatype that is to be visible
      * @return string
      */
-    private function inputFields($rowid, $activetype) {
+    private function inputFields($rowid, $activetype)
+    {
         $retval = "";
-        foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
+        foreach ($this->htmlDatatypeTexts as $key => $type) {
             $retval .= "<" . $type['html'] . " style='display:" . ($activetype['type'] == $key ? "block" : "none") . "' name='value[S$rowid-$key]' id='S" . $rowid . "-input-" . $key . "'" . $type['tail'] . ">";
         }
         return $retval;
@@ -371,7 +391,8 @@ FOO;
      * @return string HTML code
      * @throws Exception
      */
-    private function noPrefillText(int $rowid, array $list) {
+    private function noPrefillText(int $rowid, array $list)
+    {
         // first column: the <select> element with the names of options and their field-toggling JS magic
         $selectorInfo = $this->selectElement($rowid, $list);
         $retval = "<td>" . $selectorInfo["TEXT"] . "</td>";
@@ -392,7 +413,8 @@ FOO;
      * @return string HTML code
      * @throws Exception
      */
-    private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang) {
+    private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang)
+    {
         \core\common\Entity::intoThePotatoes();
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -449,16 +471,20 @@ FOO;
                         $retval .= _("file content");
                 }
                 break;
+            case \core\Options::TYPECODE_ENUM_OPENROAMING: // is a string after all
+                $displayedVariant = $this->enumPrettyPrints[$optionValue];
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
+                break;
             case \core\Options::TYPECODE_STRING:
             // fall-thorugh is intentional; mostly identical HTML code for the three types
             case \core\Options::TYPECODE_INTEGER:
             // fall-thorugh is intentional; mostly identical HTML code for the three types
             case \core\Options::TYPECODE_TEXT:
                 $displayedVariant = $optionValue; // for all three types, value tag and actual display are identical
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
+                break;
             case \core\Options::TYPECODE_BOOLEAN:
-                if ($listtype['type'] == \core\Options::TYPECODE_BOOLEAN) {// only modify in this one case
-                    $displayedVariant = ($optionValue == "on" ? _("on") : _("off"));
-                }
+                $displayedVariant = ($optionValue == "on" ? _("on") : _("off"));
                 $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;
             default:
@@ -480,7 +506,8 @@ FOO;
      * @return string HTML code <tr>
      * @throws Exception
      */
-    public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
+    public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL)
+    {
         $rowid = mt_rand();
 
         $retval = "<tr id='option-S$rowid' style='vertical-align:top'>";
@@ -513,5 +540,4 @@ FOO;
     </tr>";
         return $retval;
     }
-
 }

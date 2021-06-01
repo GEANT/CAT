@@ -73,6 +73,7 @@ class Options
     private $typeDb;
 
     const TYPECODE_STRING = "string";
+    const TYPECODE_ENUM_OPENROAMING = "enum_openroaming";
     const TYPECODE_INTEGER = "integer";
     const TYPECODE_TEXT = "text";
     const TYPECODE_BOOLEAN = "boolean";
