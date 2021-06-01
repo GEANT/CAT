@@ -285,6 +285,8 @@ class UserAPI extends CAT
         }
         if (isset($attribs['media:openroaming'])) {
             $returnArray['openroaming'] = $attribs['media:openroaming'][0];
+        } else {
+            $returnArray['openroaming'] = 'none';
         }
         $returnArray['devices'] = $profile->listDevices();
         $returnArray['last_changed'] = $profile->getFreshness();
