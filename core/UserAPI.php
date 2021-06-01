@@ -283,6 +283,9 @@ class UserAPI extends CAT
         if (isset($attribs['profile:description'])) {
             $returnArray['description'] = $attribs['profile:description'][0];
         }
+        if (isset($attribs['media:openroaming'])) {
+            $returnArray['openroaming'] = $attribs['media:openroaming'][0];
+        }
         $returnArray['devices'] = $profile->listDevices();
         $returnArray['last_changed'] = $profile->getFreshness();
         return $returnArray;
