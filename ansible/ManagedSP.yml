@@ -179,8 +179,16 @@
       loop:
         - edupki-root-ca-cert.crl_url
         - edupki-root-ca-cert.pem
-    - name: enable fetch-crl.service
-      service: name=fetch-crl.service enabled=no daemon_reload=yes state=started
+    - name: enable fetch-crl-cron.service
+      service: name=fetch-crl-cron.service enabled=no daemon_reload=yes state=started
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+    - name: enable fetch-crl.timer
+      service: name=fetch-crl.timer enabled=no daemon_reload=yes state=started
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "8"
     - name: Allow apache to modify files in /opt/Socket
       sefcontext:
         target: '/opt/Socket(/.*)?'
