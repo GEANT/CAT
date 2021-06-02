@@ -10,8 +10,6 @@
       eduroam_pass: "eduroam_db_password"
       cat_ip: "{{ groups['main_web'][0] }}"
       fr_ports: "1999:65535"
-      newline1: "local0.*                       /var/log/radsecproxy/rp.log"
-      newline2: "local2.*                       /var/log/radsecproxy/fticks.log"
   tasks:
     - name: Populate service facts
       service_facts:
@@ -44,6 +42,7 @@
                 - apr
                 - apr-util
                 - initscripts
+                - fetch-crl
         state: present
     - name: Install openssl11 if CentOS7
       package:
@@ -171,7 +170,17 @@
       loop:
         - /opt/FR/scripts/logs
         - /opt/FR/scripts/tmp
+        - /opt/radsecproxy/etc/ca-certs
         - /opt/install
+    - name: fetch-crl configuration
+      copy:
+        src: ManagedSP/templates/configuration/{{ item }}
+        dest: /opt/radsecproxy/etc/ca-certs/
+      loop:
+        - edupki-root-ca-cert.crl_url
+        - edupki-root-ca-cert.pem
+    - name: enable fetch-crl.service
+      service: name=fetch-crl.service enabled=no daemon_reload=yes state=started
     - name: Allow apache to modify files in /opt/Socket
       sefcontext:
         target: '/opt/Socket(/.*)?'
@@ -369,10 +378,22 @@
     - name: restart iptables
       service: name=iptables state=restarted
       when: apache_set.rc is defined or fr_set.rc is defined
-    - name: add local0
-      lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline1 }}' state=present backup=yes
-    - name: add local2
-      lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline2 }}' state=present backup=yes
+    - name: add local0 and local2
+      copy:
+        src: "ManagedSP/templates/configuration/22_radsecproxy.conf"
+        dest: /etc/rsyslog.d/
+        owner: "root"
+        group: "root"
+        mode: 0600
+    - name: Create directory for radsecproxy logs
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0700
+      loop:
+        - /var/log/radsecproxy
     - name: restart-rsyslog
       service: name=rsyslog state=restarted
     - name: check if avahi package is installed
