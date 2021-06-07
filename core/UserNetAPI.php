@@ -242,10 +242,10 @@ class UserNetAPI extends UserAPI
      * @param int    $prof_id profile identifier
      * @return void creates direct output
      */
-    public function jsonGenerateInstaller($device, $prof_id)
+    public function jsonGenerateInstaller($device, $prof_id, $openRoaming = 0)
     {
-        $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
-        $output = $this->generateInstaller($device, $prof_id);
+        $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id, $openRoaming\n");
+        $output = $this->generateInstaller($device, $prof_id, 'user', $openRoaming);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
         $this->loggerInstance->debug(4, print_r($output, true));
         $this->loggerInstance->debug(4, json_encode($output));

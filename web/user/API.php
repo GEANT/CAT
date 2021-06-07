@@ -71,10 +71,12 @@ $width = $validator->simpleInputFilter('width', 'int') ?? 0;
 $height = $validator->simpleInputFilter('height', 'int') ?? 0;
 $sort = $validator->simpleInputFilter('sort', 'int') ?? 0;
 $generatedfor = $validator->simpleInputFilter('generatedfor', 'safe_text') ?? 'user';
+$openRoaming = $validator->simpleInputFilter('openroaming', 'int') ?? 0;
 $token = $validator->simpleInputFilter('token', 'safe_text');
 $idR = $validator->simpleInputFilter('id', 'safe_text');
 $id = $idR ? $idR : FALSE;
-
+$loggerInstance->debug(4, "openRoaming:$openRoaming\n");
+$loggerInstance->debug(4, $_REQUEST);
 switch ($action) {
     case 'listLanguages':
         $API->jsonListLanguages();
@@ -93,9 +95,6 @@ switch ($action) {
         break;
     case 'listAllIdentityProviders':
         $API->jsonListIdentityProvidersForDisco();
-        break;
-        case 'listIdentityProvidersWithProfiles':
-        $API->jsonListIdentityProvidersWithProfiles();
         break;
         case 'listIdentityProvidersWithProfiles':
         $API->jsonListIdentityProvidersWithProfiles();
@@ -126,7 +125,7 @@ switch ($action) {
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
-        $API->jsonGenerateInstaller($device, $profile);
+        $API->jsonGenerateInstaller($device, $profile, $openRoaming);
         break;
     case 'downloadInstaller': // needs $device and $profile set optional $generatedfor
         if ($device === FALSE) {
@@ -135,7 +134,7 @@ switch ($action) {
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
-        $API->downloadInstaller($device, $profile, $generatedfor);
+        $API->downloadInstaller($device, $profile, $generatedfor, $openRoaming);
         break;
     case 'profileAttributes': // needs $profile set
         if ($profile === FALSE) {
@@ -200,5 +199,3 @@ switch ($action) {
         $API->jsonGetUserCerts($token);
         break;
 }
-
-// $loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang !== FALSE ? $lang : '' . ':' . $profile . ':' . $device . "\n");

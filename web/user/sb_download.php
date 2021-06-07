@@ -33,6 +33,7 @@ $validator = new \web\lib\common\InputValidation();
 
 $device = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING) ?? "INVALID";
 $generatedFor = $_REQUEST['generatedfor'] ?? 'user';
+$openRoaming = 0;
 
 const VALID_GENERATOR_TARGETS = ['admin', 'user', 'silverbullet'];
 
@@ -67,7 +68,7 @@ $loggerInstance->debug(4, "download: profile:$profile->identifier; inst:$profile
 // now we generate the installer
 try {
     $cleanDevice = $validator->existingDevice($device); // throws an Exception if unknown
-    $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $cleanToken, $cleanPassword);
+    $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $openRoaming, $cleanToken, $cleanPassword);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();
     // find our account status page, and bail out if this doesn't work

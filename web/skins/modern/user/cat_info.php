@@ -120,4 +120,5 @@ switch ($page) {
     default:
         break;
 }
+
 print $out;

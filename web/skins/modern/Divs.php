@@ -292,6 +292,7 @@ class Divs {
                     $retval .= '<tr>';
                 }
                 $retval .= "<td><button id='" . $d . "'>" . $D['display'] . "</button>"
+                        . "<div class='openroaming_selection' id='openroaming_" . $d . "'><button>eduroam</button> <button>eduroam + OpenRoaming</button></div>"
                         . "<div class='device_info' id='info_" . $d . "'></div></td>"
                         . "<td><button class='more_info_b' id='info_b_" . $d . "'>i</button></td></tr>\n";
                 $deviceIndex++;
@@ -315,36 +316,35 @@ class Divs {
     public function divGuessOs($operatingSystem) {
         $vendorlogo = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png");
         $vendorstyle = "";
+        
         if ($vendorlogo !== FALSE) {
             $vendorstyle = "style='background-image:url(\"" . $vendorlogo . "\")'";
         }
+
         $deleteIcon = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/delete_32.png");
         $deleteImg = "";
         if ($deleteIcon !== FALSE) {
             $deleteImg = "<img id='cross_icon_" . $operatingSystem['device'] . "' src='$deleteIcon' >";
         }
         return "
-<div class='sub_h' id='guess_os'>
-    <!-- table browser -->
-    <table id='browser'>
-        <tr>
-            <td>
-                <button class='large_button guess_os' $vendorstyle id='g_" . $operatingSystem['device'] . "'>
-                    $deleteImg
-                    <div class='download_button_text_1' id='download_button_header_" . $operatingSystem['device'] . "'> " . $this->Gui->textTemplates->templates[user\DOWNLOAD_MESSAGE] . "
-                    </div>
-                    <div class='download_button_text'>" .
-                $operatingSystem['display'] . "
-                    </div>
-                </button>
-                <div class='device_info' id='info_g_" . $operatingSystem['device'] . "'></div>
-          </td>
-          <td style='vertical-align:top'>
-               <button class='more_info_b large_button' id='g_info_b_" . $operatingSystem['device'] . "'>i</button>
-          </td>
-      </tr>
-    </table> <!-- id='browser' -->
-    <div class='sub_h'>
+<div class='sub_h' id='guess_os' >
+<div id='download_text_1' $vendorstyle><div style='margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%);  transform: translateY(-50%);'>Download installer for " . $operatingSystem['display'] . "</div></div>
+<div>
+    <div class='button_wrapper'><button class='guess_os' id='g_" . $operatingSystem['device'] . "'>
+        <div class='download_button_text_1' id='download_button_header_" . $operatingSystem['device'] . "'>eduroam only
+        </div>
+    </button></div>
+    <div class='button_wrapper'><button class='guess_os' id='g_or_" . $operatingSystem['device'] . "'>
+        <div class='download_button_text_1' id='download_button_or_header_" . $operatingSystem['device'] . "'>eduroam and OpenRoaming
+        </div>
+    </button>  
+        <div id='openroaming_tou'><input type='checkbox' id='openroaming_check' name='openroaming_check'> I have read and accept <a href='https://wballiance.com/openroaming/toc-2020/' target='_blank'>OpenRoaming terms and conditions</a></div>
+   </div>
+   <div class='button_wrapper'><button class='more_info_b' id='g_info_b_" . $operatingSystem['device'] . "'>i</button></div>
+    </div>
+    <div class='device_info' id='info_g_" . $operatingSystem['device'] . "'>XXXXX</div>
+    <div id='more_i'><a href='xx'>See more installer information</a></div>
+<div class='sub_h'>
        <a href='javascript:other_installers()'>" . $this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE] . "</a>
     </div>
 </div> <!-- id='guess_os' -->";

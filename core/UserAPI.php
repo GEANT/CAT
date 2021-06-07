@@ -70,9 +70,9 @@ class UserAPI extends CAT
      *  link - the path name of the resulting installer
      *  mime - the mimetype of the installer
      */
-    public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL)
+    public function generateInstaller($device, $profileId, $generatedFor = "user", $openRoaming = 0, $token = NULL, $password = NULL)
     {
-        $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
+        $this->loggerInstance->debug(4, "generateInstaller arguments:$device:$profileId:$openRoaming\n");
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->existingProfile($profileId);
         // test if the profile is production-ready and if not if the authenticated user is an owner
@@ -86,10 +86,10 @@ class UserAPI extends CAT
         $this->installerPath = $cache['path'];
         if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
+            $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             $installerProperties['mime'] = $cache['mime'];
         } else {
-            $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
+            $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $openRoaming, $token, $password);
             if ($myInstaller['link'] !== 0) {
                 $installerProperties['mime'] = $myInstaller['mime'];
             }
@@ -161,13 +161,15 @@ class UserAPI extends CAT
      * @param string          $device       the device for which we want an installer
      * @param AbstractProfile $profile      the profile for which we want an installer
      * @param string          $generatedFor type of download requested (admin/user/silverbullet)
+     * @param int             $openRoaming values 0 o 1 to indicate support for open roaming in the installer
      * @param string          $token        in case of silverbullet, the token that was used to trigger the generation
      * @param string          $password     in case of silverbullet, the import PIN for the future client certificate
      * @return array info about the new installer (mime and link)
      */
-    private function generateNewInstaller($device, $profile, $generatedFor, $token, $password)
+    private function generateNewInstaller($device, $profile, $generatedFor, $openRoaming, $token, $password)
     {
         $this->loggerInstance->debug(5, "generateNewInstaller() - Enter");
+        $this->loggerInstance->debug(5, "generateNewInstaller:openRoaming:$openRoaming\n");
         $factory = new DeviceFactory($device);
         $this->loggerInstance->debug(5, "generateNewInstaller() - created Device");
         $dev = $factory->device;
@@ -192,10 +194,10 @@ class UserAPI extends CAT
                 if (\config\Master::DEBUG_LEVEL < 4) {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . "\n");
-                $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
+                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . ", openRoaming: $openRoaming\n");
+                $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             } else {
-                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
+                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "openRoaming: $openRoaming\n");
                 $out['link'] = 0;
             }
         }
@@ -303,10 +305,10 @@ class UserAPI extends CAT
      * @param string $password      for silverbull: import PIN for the future certificate
      * @return string binary stream: installerFile
      */
-    public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL)
+    public function downloadInstaller($device, $prof_id, $generated_for = 'user', $openRoaming = 0, $token = NULL, $password = NULL)
     {
-        $this->loggerInstance->debug(4, "downloadInstaller arguments: $device,$prof_id,$generated_for\n");
-        $output = $this->generateInstaller($device, $prof_id, $generated_for, $token, $password);
+        $this->loggerInstance->debug(4, "downloadInstaller arguments: $device,$prof_id,$generated_for, $openRoaming\n");
+        $output = $this->generateInstaller($device, $prof_id, $generated_for, $openRoaming, $token, $password);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
         $this->loggerInstance->debug(4, print_r($output, true));
         if (empty($output['link']) || $output['link'] === 0) {
