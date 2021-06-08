@@ -218,6 +218,7 @@ function printP(i,v) {
 function resetDevices(initial) {
   if (recognisedOS !== '' ) {
     $("#other_installers").hide();
+    $("#openroaming_check").prop("checked", false);
     switch (openroaming) {
       case 'none':
         $("#download_button_header_"+recognisedOS).html("eduroam");
@@ -228,6 +229,7 @@ function resetDevices(initial) {
       case 'ask':
         $("#download_button_header_"+recognisedOS).html("eduroam only");
         $("#g_"+recognisedOS).show();
+        $("#g_or_"+recognisedOS).css("background-color", "#aaa");
         $("#g_or_"+recognisedOS).show();
         $("#openroaming_tou").show();
         break;
@@ -747,6 +749,12 @@ $(document).ready(function() {
     if (roller)
       prepareAnimation();
   }
+  $("#openroaming_check").change(function(event) {
+    if ($("#openroaming_check").prop("checked") == true) 
+      $(this).parent().prev().css("background-color", "#1d4a74");
+    else
+      $(this).parent().prev().css("background-color", "#aaa");
+  });
   reset_footer();
   $( window ).resize(function(event) {
     if ($( window ).width() > 750) {
