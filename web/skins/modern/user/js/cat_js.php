@@ -151,7 +151,7 @@ function listProfiles(inst_id,selected_profile) {
         otherdata = j.otherdata;
     if (! result) {
         alert(guiTexts.noMatchingData);
-        document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
+        document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/').'/' ?>';
     }
     j = j.data;
     n = j.length;
@@ -236,6 +236,7 @@ function resetDevices(initial) {
       case 'always':
         $("#download_button_header_"+recognisedOS).html("eduroam only");
         $("#g_"+recognisedOS).hide();
+        $("#g_or_"+recognisedOS).css("background-color", "#aaa");
         $("#g_or_"+recognisedOS).show();
         $("#openroaming_tou").show();
         break;
@@ -322,7 +323,7 @@ function showProfile(prof) {
     result = j1.status;
     if (! result) {
       alert(guiTexts.noMatchingData);
-      document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
+      document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/').'/' ?>';
     }
     j = j1.data;
     if (j.description !== undefined && j.description) {
