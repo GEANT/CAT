@@ -43,6 +43,7 @@
                 - apr-util
                 - initscripts
                 - fetch-crl
+                - openssl-perl
         state: present
     - name: Install openssl11 if CentOS7
       package:
@@ -170,25 +171,7 @@
       loop:
         - /opt/FR/scripts/logs
         - /opt/FR/scripts/tmp
-        - /opt/radsecproxy/etc/ca-certs
         - /opt/install
-    - name: fetch-crl configuration
-      copy:
-        src: ManagedSP/templates/configuration/{{ item }}
-        dest: /opt/radsecproxy/etc/ca-certs/
-      loop:
-        - edupki-root-ca-cert.crl_url
-        - edupki-root-ca-cert.pem
-    - name: enable fetch-crl-cron.service
-      service: name=fetch-crl-cron.service enabled=no daemon_reload=yes state=started
-      when:
-        - ansible_facts['distribution'] == "CentOS"
-        - ansible_facts['distribution_major_version'] == "7"
-    - name: enable fetch-crl.timer
-      service: name=fetch-crl.timer enabled=no daemon_reload=yes state=started
-      when:
-        - ansible_facts['distribution'] == "CentOS"
-        - ansible_facts['distribution_major_version'] == "8"
     - name: Allow apache to modify files in /opt/Socket
       sefcontext:
         target: '/opt/Socket(/.*)?'
@@ -288,6 +271,10 @@
         src: "ManagedSP/templates/radsecproxy/etc"
         dest: /opt/radsecproxy/
         owner: "root"
+    - name: Change permission of naptr-eduroam.sh - add "+x"
+        file: dest=/opt/radsecproxy/etc/radsecproxy.conf.d/naptr-eduroam.sh mode=a+x
+    - name: Hash CA certs
+      shell: /bin/c_rehash /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/ca-certs/
     - name: Copy and set up radsecproxy.conf
       template:
         src: "ManagedSP/templates/radsecproxy/radsecproxy.conf.j2"
@@ -332,6 +319,21 @@
           - clientcert.key
           - -days
           - 365
+    - name: Copy eduroam-fetch-crl configuration
+      copy:
+        src: "ManagedSP/templates/configuration/eduroam-fetch-crl.conf"
+        dest: /etc/fetch-crl.d/
+        owner: "root"
+    - name: enable fetch-crl-cron.service
+      service: name=fetch-crl-cron.service enabled=no daemon_reload=yes state=started
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+    - name: enable fetch-crl.timer
+      service: name=fetch-crl.timer enabled=no daemon_reload=yes state=started
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "8"
     - name: disable firewalld.service
       service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
       when: "'firewalld.service' in ansible_facts.services"
