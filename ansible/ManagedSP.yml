@@ -272,7 +272,9 @@
         dest: /opt/radsecproxy/
         owner: "root"
     - name: Change permission of naptr-eduroam.sh - add "+x"
-        file: dest=/opt/radsecproxy/etc/radsecproxy.conf.d/naptr-eduroam.sh mode=a+x
+      file:
+        path: /opt/radsecproxy/etc/radsecproxy.conf.d/naptr-eduroam.sh
+        mode: '0755'
     - name: Hash CA certs
       shell: /bin/c_rehash /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/ca-certs/
     - name: Copy and set up radsecproxy.conf
