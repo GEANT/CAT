@@ -78,6 +78,8 @@ class Devices extends \core\common\Entity {
      * - 'mime' - used to set the MIME type of the installer file;
      *         if not set will default to the value provided by PHP finfo.
      *         The default is unset, so it is not listed in the Options array.
+     * - 'hs20' - if defined and equal to 1 will mark the device as potenially supporting
+     *         Hotspot 2.0.
      * 
      * @var array
      */
@@ -198,6 +200,7 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
+                    'hs20' => 1,
                     'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
                 ],
@@ -398,6 +401,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'Lollipop',
                 'options' => [
                     'mime' => 'application/eap-config',
+                    'hs20' => 1,
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "geteduroam",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
