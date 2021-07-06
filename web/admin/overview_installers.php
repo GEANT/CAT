@@ -90,7 +90,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
                                      ";
-                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && $factory->device->options['openroaming'] == true) {
+                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && $factory->device->options['hs20'] == 1) {
                 $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&openroaming=1&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
