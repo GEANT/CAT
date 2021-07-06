@@ -261,11 +261,11 @@ switch ($_POST['submitbutton']) {
                 $didWeComplainYet = false;
                 $tag = "aaa+auth:radius.tls.tcp";
                 // do we know the realm at all? Notice if not.
-                if (!isset($this->getAttributes("internal:realm")[0]['value'])) {
+                if (!isset($reloadedProfileNr2->getAttributes("internal:realm")[0]['value'])) {
                     echo $uiElements->boxRemark(_("The profile information does not include the realm, so no DNS checks for OpenRoaming can be executed."));
                     $didWeComplainYet = true;
                 } else {
-                    $dnsChecks = new \core\diag\RFC7585Tests($this->getAttributes("internal:realm")[0]['value']);
+                    $dnsChecks = new \core\diag\RFC7585Tests($reloadedProfileNr2->getAttributes("internal:realm")[0]['value']);
                     $relevantNaptrRecords = $dnsChecks->relevantNAPTR($tag);
                     if (!is_array($relevantNaptrRecords)) {
                         echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
