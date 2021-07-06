@@ -84,15 +84,21 @@ class OptionDisplay extends \core\common\Entity
 
         $this->enumPrettyPrints = [
             "ask" => _("Ask User"),
+            "ask-preagreed" => _("Ask User; T&C Pre-Agreed"),
             "always" => _("Always"),
+            "always-preagreed" => _("Always; T&C Pre-Agreed"),
         ];
+        $openRoamingTail = "";
+        foreach ($this->enumPrettyPrints as $optionName => $optionDisplay) {
+            $openRoamingTail .= "<option value='$optionName'>$optionDisplay</option>";
+        }
         
         $this->htmlDatatypeTexts = [
             \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
             \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox'", "tail" => ''],
             \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
             \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
-            \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => "><option value='ask'>" . $this->enumPrettyPrints["ask"]  . "</option><option value='always'>" . $this->enumPrettyPrints["always"] . "</option></select"],
+            \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => ">$openRoamingTail</select"],
             \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
         ];
     }

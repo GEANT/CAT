@@ -74,7 +74,7 @@ INSERT INTO profile_option_dict (name, description,type,flag) VALUES
 INSERT INTO profile_option_dict (name, description, type, flag) VALUES
   ('fed:openroaming','Allow IdP OpenRoaming Opt-In','boolean',NULL),
   ('fed:openroaming_customtarget','custom NAPTR discovery target','string',NULL),
-  ('media:openroaming','enum switch to select desired OpenRoaming integration','enum_openroaming','VALUES:ask,always');
+  ('media:openroaming','enum switch to select desired OpenRoaming integration','enum_openroaming','VALUES:ask,always,ask-preagreed,always-preagreed');
 
 UPDATE institution_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
 UPDATE profile_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
