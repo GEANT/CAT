@@ -88,8 +88,16 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
-                                       <button class='download'>" . _("Download") . "</button>
+                                       <button class='download'>" . sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
                                      ";
+                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && $factory->device->options['openroaming'] == true) {
+                $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&openroaming=1&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
+                                       <input type='hidden' name='device' value='$index'/>
+                                       <input type='hidden' name='generatedfor'  value='admin'/>
+                                       <button class='download'>" . sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
+                                     ";
+                }
+                
                 // first of all: if redirected, indicate by color
 
                 $redirectAttribs = [];
