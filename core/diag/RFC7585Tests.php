@@ -164,9 +164,9 @@ class RFC7585Tests extends AbstractTest
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
-    public function relevantNAPTR()
+    public function relevantNAPTR($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
     {
-        if (\config\Diagnostics::RADIUSTESTS['TLS-discoverytag'] == "") {
+        if ($discoverytag == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
@@ -177,7 +177,7 @@ class RFC7585Tests extends AbstractTest
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
-            if ($naptr["services"] == \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']) {
+            if ($naptr["services"] == $discoverytag) {
                 $NAPTRs_consortium[] = $naptr;
             }
         }
@@ -200,7 +200,7 @@ class RFC7585Tests extends AbstractTest
 
      * @return int one of two RETVALs above
      */
-    public function relevantNAPTRcompliance()
+    public function relevantNAPTRcompliance($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
     {
 // did we query DNS for the NAPTRs yet? If not, do so now.
         if ($this->NAPTR_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
@@ -217,9 +217,9 @@ class RFC7585Tests extends AbstractTest
             return RADIUSTests::RETVAL_OK;
         }
         $formatErrors = [];
-// format of NAPTRs is consortium specific. eduroam below; others need
-// their own code
-        if (\config\Diagnostics::RADIUSTESTS['TLS-discoverytag'] == "x-eduroam:radius.tls") {
+// format of NAPTRs is consortium specific. eduroam and OpenRoaming below; 
+// others need their own code
+        if ($discoverytag == "x-eduroam:radius.tls" || $discoverytag == "aaa+auth:radius.tls.tcp") {
             foreach ($this->NAPTR_records as $edupointer) {
 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
@@ -250,12 +250,12 @@ class RFC7585Tests extends AbstractTest
      * 
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
-    public function relevantNAPTRsrvResolution()
+    public function relevantNAPTRsrvResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
     {
 // see if preceding checks have been run, and run them if not
 // compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
-            $this->relevantNAPTRcompliance();
+            $this->relevantNAPTRcompliance($discoverytag);
         }
 // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
         if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RADIUSTests::RETVAL_INVALID) {
@@ -293,12 +293,12 @@ class RFC7585Tests extends AbstractTest
      * 
      * @return int count of IP / port pairs for all the hostnames
      */
-    public function relevantNAPTRhostnameResolution()
+    public function relevantNAPTRhostnameResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
     {
 // make sure the previous tests have been run before we go on
 // preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
-            $this->relevantNAPTRsrvResolution();
+            $this->relevantNAPTRsrvResolution($discoverytag);
         }
 // if previous are SKIPPED, skip this one, too
         if ($this->NAPTR_SRV_executed == RADIUSTests::RETVAL_SKIPPED) {

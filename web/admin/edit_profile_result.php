@@ -43,7 +43,7 @@ switch ($_POST['submitbutton']) {
         }
         $profileToBeDel = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
         $profileToBeDel->destroy();
-        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile ".$profileToBeDel->identifier);
+        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile " . $profileToBeDel->identifier);
         header("Location: overview_org.php?inst_id=$my_inst->identifier");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
@@ -56,7 +56,7 @@ switch ($_POST['submitbutton']) {
             echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
         }
         if (!$profile instanceof \core\ProfileRADIUS) {
-                throw new Exception("This page should only be called to submit RADIUS Profile information!");
+            throw new Exception("This page should only be called to submit RADIUS Profile information!");
         }
 // extended input checks
         $realm = FALSE;
@@ -107,12 +107,14 @@ switch ($_POST['submitbutton']) {
             $redirect = $validator->boolean($_POST['redirect']);
         }
         ?>
-        <h1><?php $tablecaption = _("Submitted attributes for this profile"); echo $tablecaption; ?></h1>
+        <h1><?php $tablecaption = _("Submitted attributes for this profile");
+        echo $tablecaption;
+        ?></h1>
         <table>
-            <caption><?php echo $tablecaption;?></caption>
+            <caption><?php echo $tablecaption; ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Overall Result");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Details");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Overall Result"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Details"); ?></th>
             </tr>
             <?php
             $uiElements = new web\lib\admin\UIElements();
@@ -235,7 +237,7 @@ switch ($_POST['submitbutton']) {
                     $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::CA_ADDED])) {
-                    $text .= _("A new trusted root CA was added. The details are below:")."\n\n";
+                    $text .= _("A new trusted root CA was added. The details are below:") . "\n\n";
                     $text .= $significantChanges[\core\AbstractProfile::CA_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::SERVERNAME_ADDED])) {
@@ -252,6 +254,56 @@ switch ($_POST['submitbutton']) {
                 }
             }
             $reloadedProfileNr2->prepShowtime();
+
+            // do OpenRoaming initial diagnostic checks
+
+            if (sizeof($reloadedProfileNr2->getAttributes("media:openroaming")) > 0) {
+                $didWeComplainYet = false;
+                $tag = "aaa+auth:radius.tls.tcp";
+                // do we know the realm at all? Notice if not.
+                if (!isset($this->getAttributes("internal:realm")[0]['value'])) {
+                    echo $uiElements->boxRemark(_("The profile information does not include the realm, so no DNS checks for OpenRoaming can be executed."));
+                    $didWeComplainYet = true;
+                } else {
+                    $dnsChecks = new \core\diag\RFC7585Tests($this->getAttributes("internal:realm")[0]['value']);
+                    $relevantNaptrRecords = $dnsChecks->relevantNAPTR($tag);
+                    if (!is_array($relevantNaptrRecords)) {
+                        echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
+                        $didWeComplainYet = true;
+                    } else {
+                        $recordCompliance = $dnsChecks->relevantNAPTRcompliance(tag);
+                        if ($recordCompliance != core\diag\AbstractTest::RETVAL_OK) {
+                            echo $uiElements->boxWarning(_("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work."));
+                            $didWeComplainYet = true;
+                        }
+                        $fed = new \core\Federation($my_inst->federation);
+                        // check if target is the expected one, if set by NRO
+                        if (sizeof($fed->getAttributes("fed:openroaming_customtarget")) > 0) {
+                            $expectedTarget = $fed->getAttributes("fed:openroaming_customtarget")[0]['value'];
+                            foreach ($relevantNaptrRecords as $orpointer) {
+                                if ($orpointer["replacement"] != $expectedTarget) {
+                                    echo $uiElements->boxRemark(_("The SRV target of a NAPTR record is unexpected."));
+                                    $didWeComplainYet = true;
+                                }
+                            }
+                        }
+                        $srvResolution = $dnsChecks->relevantNAPTRsrvResolution($tag);
+                        $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution($tag);
+
+                        if (!is_array($srvResolution)) {
+                            echo $uiElements->boxError(_("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work."));
+                            $didWeComplainYet = true;
+                        }
+                        if (!is_array($hostnameResolution)) {
+                            echo $uiElements->boxError(_("The DNS hostnames in the SRV records do not resolve to actual host IPs. OpenRoaming will not work."));
+                            $didWeComplainYet = true;
+                        }
+                    }
+                }
+                if (!$didWeComplainYet) {
+                    echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming were successful."));
+                }
+            }
             ?>
         </table>
         <br/>
