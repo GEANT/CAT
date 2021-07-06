@@ -271,7 +271,7 @@ switch ($_POST['submitbutton']) {
                         echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
                         $didWeComplainYet = true;
                     } else {
-                        $recordCompliance = $dnsChecks->relevantNAPTRcompliance(tag);
+                        $recordCompliance = $dnsChecks->relevantNAPTRcompliance($tag);
                         if ($recordCompliance != core\diag\AbstractTest::RETVAL_OK) {
                             echo $uiElements->boxWarning(_("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work."));
                             $didWeComplainYet = true;
