@@ -267,7 +267,7 @@ switch ($_POST['submitbutton']) {
                 } else {
                     $dnsChecks = new \core\diag\RFC7585Tests($reloadedProfileNr2->getAttributes("internal:realm")[0]['value']);
                     $relevantNaptrRecords = $dnsChecks->relevantNAPTR($tag);
-                    if (!is_array($relevantNaptrRecords)) {
+                    if ($relevantNaptrRecords <= 0) {
                         echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
                         $didWeComplainYet = true;
                     } else {
@@ -278,11 +278,11 @@ switch ($_POST['submitbutton']) {
                         }
                         $fed = new \core\Federation($my_inst->federation);
                         // check if target is the expected one, if set by NRO
-                        if (sizeof($fed->getAttributes("fed:openroaming_customtarget")) > 0) {
-                            $expectedTarget = $fed->getAttributes("fed:openroaming_customtarget")[0]['value'];
-                            foreach ($relevantNaptrRecords as $orpointer) {
-                                if ($orpointer["replacement"] != $expectedTarget) {
-                                    echo $uiElements->boxRemark(_("The SRV target of a NAPTR record is unexpected."));
+                        $hasCustomTarget = $fed->getAttributes("fed:openroaming_customtarget");
+                        if (sizeof($hasCustomTarget) > 0) {
+                            foreach ($dnsChecks->NAPTR_records as $orpointer) {
+                                if ($orpointer["replacement"] != $hasCustomTarget[0]['value']) {
+                                    echo $uiElements->boxRemark(_("The SRV target of an OpenRoaming NAPTR record is unexpected."));
                                     $didWeComplainYet = true;
                                 }
                             }
@@ -290,15 +290,18 @@ switch ($_POST['submitbutton']) {
                         $srvResolution = $dnsChecks->relevantNAPTRsrvResolution($tag);
                         $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution($tag);
 
-                        if (!is_array($srvResolution)) {
+                        if ($srvResolution <= 0) {
                             echo $uiElements->boxError(_("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work."));
                             $didWeComplainYet = true;
-                        }
-                        if (!is_array($hostnameResolution)) {
+                        } elseif ($hostnameResolution <= 0) {
                             echo $uiElements->boxError(_("The DNS hostnames in the SRV records do not resolve to actual host IPs. OpenRoaming will not work."));
                             $didWeComplainYet = true;
                         }
                     }
+                }
+                if (!$dnsChecks->allResponsesSecure) {
+                    echo $uiElements->boxWarning(_("At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may refuse to connect to the endpoint."));
+                            $didWeComplainYet = true;
                 }
                 if (!$didWeComplainYet) {
                     echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming were successful."));

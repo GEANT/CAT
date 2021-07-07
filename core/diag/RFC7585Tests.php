@@ -65,11 +65,12 @@ class RFC7585Tests extends AbstractTest {
     private $NAPTR_hostname_executed;
 
     /**
-     * holds the list of NAPTR records found
+     * holds the list of NAPTR records found. Exposed because we may want to
+     * double-check the replacement against NRO expectations
      * 
      * @var array
      */
-    private $NAPTR_records;
+    public $NAPTR_records;
 
     /**
      * holds the list of SRV records found
@@ -124,6 +125,13 @@ class RFC7585Tests extends AbstractTest {
      * @var \Net_DNS2_Resolver
      */
     private $resolver;
+    
+    /**
+     * maintains state whether all DNS responses were DNSSEC-secured
+     * 
+     * @var bool
+     */
+    public $allResponsesSecure;
 
     /**
      * Initialises the dynamic discovery test instance for a specific realm that is to be tested
@@ -160,6 +168,7 @@ class RFC7585Tests extends AbstractTest {
         $this->resolver = new \Net_DNS2_Resolver(
                 ["dnssec_ad_flag" => true]
         );
+        $this->allResponsesSecure = true;
     }
 
     /**
@@ -181,21 +190,21 @@ class RFC7585Tests extends AbstractTest {
         $NAPTRs = [];
         try {
             $response = $this->resolver->query($this->realm, 'NAPTR');
+            $securedAnswer = $response->header->ad ?? 0;
+            if ($securedAnswer == 0) {
+                $this->allResponsesSecure = FALSE;
+            }
             foreach ($response->answer as $oneAnswer) {
                 $NAPTRs[] = [
                     'services' => $oneAnswer->services, 
                     'flags' => $oneAnswer->flags, 
                     'regexp' => $oneAnswer->regexp,
                     'replacement' => $oneAnswer->replacement,
+                    'ad' => $securedAnswer,
                     ];
             }
         } catch(\Net_DNS2_Exception $e) {
         }
-        /* echo "<pre>";
-        print_r($NAPTRs);
-        echo "</pre>";
-        exit(1); */
-        // $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
         if (count($NAPTRs) == 0) {
             $this->NAPTR_executed = RFC7585Tests::RETVAL_NONAPTR;
             return RFC7585Tests::RETVAL_NONAPTR;
