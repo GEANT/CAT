@@ -34,7 +34,8 @@ namespace core\diag;
  *
  * @package Developer
  */
-class RFC7585Tests extends AbstractTest {
+class RFC7585Tests extends AbstractTest
+{
 
     /**
      * maintains state for the question: has the NAPTR existence check already been executed? Holds the number of NAPTR records found if so.
@@ -93,7 +94,6 @@ class RFC7585Tests extends AbstractTest {
      * @var array
      */
     public $NAPTR_hostname_records;
-
     // return codes specific to NAPTR existence checks
 
     /**
@@ -125,7 +125,7 @@ class RFC7585Tests extends AbstractTest {
      * @var \Net_DNS2_Resolver
      */
     private $resolver;
-    
+
     /**
      * maintains state whether all DNS responses were DNSSEC-secured
      * 
@@ -138,7 +138,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @param string $realm the realm to be tested
      */
-    public function __construct(string $realm) {
+    public function __construct(string $realm)
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         // return codes specific to NAPTR existence checks
@@ -182,7 +183,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
-    public function relevantNAPTR($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']) {
+    public function relevantNAPTR($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
+    {
         if ($discoverytag == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
@@ -196,14 +198,15 @@ class RFC7585Tests extends AbstractTest {
             }
             foreach ($response->answer as $oneAnswer) {
                 $NAPTRs[] = [
-                    'services' => $oneAnswer->services, 
-                    'flags' => $oneAnswer->flags, 
+                    'services' => $oneAnswer->services,
+                    'flags' => $oneAnswer->flags,
                     'regexp' => $oneAnswer->regexp,
                     'replacement' => $oneAnswer->replacement,
                     'ad' => $securedAnswer,
-                    ];
+                ];
             }
-        } catch(\Net_DNS2_Exception $e) {
+        } catch (\Net_DNS2_Exception $e) {
+            
         }
         if (count($NAPTRs) == 0) {
             $this->NAPTR_executed = RFC7585Tests::RETVAL_NONAPTR;
@@ -234,7 +237,8 @@ class RFC7585Tests extends AbstractTest {
 
      * @return int one of two RETVALs above
      */
-    public function relevantNAPTRcompliance($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']) {
+    public function relevantNAPTRcompliance($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
+    {
 // did we query DNS for the NAPTRs yet? If not, do so now.
         if ($this->NAPTR_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->relevantNAPTR();
@@ -283,7 +287,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
-    public function relevantNAPTRsrvResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']) {
+    public function relevantNAPTRsrvResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
+    {
 // see if preceding checks have been run, and run them if not
 // compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
@@ -297,16 +302,28 @@ class RFC7585Tests extends AbstractTest {
 
         $sRVerrors = [];
         $sRVtargets = [];
+        $sRVcount = 0;
 
         foreach ($this->NAPTR_records as $edupointer) {
-            $tempResult = dns_get_record($edupointer["replacement"], DNS_SRV);
-            if ($tempResult === FALSE || count($tempResult) == 0) {
-                $sRVerrors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
-            } else {
-                foreach ($tempResult as $res) {
-                    $sRVtargets[] = ["hostname" => $res["target"], "port" => $res["port"]];
+            try {
+                $response = $this->resolver->query($edupointer["replacement"], 'SRV');
+                $securedAnswer = $response->header->ad ?? 0;
+                if ($securedAnswer == 0) {
+                    $this->allResponsesSecure = FALSE;
                 }
+                foreach ($response->answer as $oneAnswer) {
+                    $sRVtargets[] = [
+                        'hostname' => $oneAnswer->target,
+                        'port' => $oneAnswer->port,
+                        'ad' => $securedAnswer,
+                    ];
+                }
+            } catch (\Net_DNS2_Exception $e) {                
             }
+            if (count($sRVtargets) == $sRVcount) { // no new target added... defunct replacement
+                $sRVerrors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
+            }
+            $sRVcount = count($sRVtargets);
         }
         $this->NAPTR_SRV_records = $sRVtargets;
         if (count($sRVerrors) > 0) {
@@ -325,7 +342,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int count of IP / port pairs for all the hostnames
      */
-    public function relevantNAPTRhostnameResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']) {
+    public function relevantNAPTRhostnameResolution($discoverytag = \config\Diagnostics::RADIUSTESTS['TLS-discoverytag'])
+    {
 // make sure the previous tests have been run before we go on
 // preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
@@ -370,5 +388,4 @@ class RFC7585Tests extends AbstractTest {
         $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
         return count($this->NAPTR_hostname_records);
     }
-
 }
