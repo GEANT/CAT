@@ -318,7 +318,8 @@ class RFC7585Tests extends AbstractTest
                         'ad' => $securedAnswer,
                     ];
                 }
-            } catch (\Net_DNS2_Exception $e) {                
+            } catch (\Net_DNS2_Exception $e) {
+                
             }
             if (count($sRVtargets) == $sRVcount) { // no new target added... defunct replacement
                 $sRVerrors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
@@ -361,25 +362,46 @@ class RFC7585Tests extends AbstractTest
         $ipAddrs = [];
         $resolutionErrors = [];
 
+        $responsesUpToHereWereSecure = $this->allResponsesSecure;
+
         foreach ($this->NAPTR_SRV_records as $server) {
-            $hostResolutionIPv6 = dns_get_record($server["hostname"], DNS_AAAA);
-            $hostResolutionIPv4 = dns_get_record($server["hostname"], DNS_A);
-            $hostResolution = array_merge($hostResolutionIPv6, $hostResolutionIPv4);
-            if ($hostResolution === FALSE || count($hostResolution) == 0) {
-                $resolutionErrors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']];
-            } else {
-                foreach ($hostResolution as $address) {
-                    if (isset($address["ip"])) {
-                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
-                    } else {
-                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
+            foreach (["a", "aaaa"] as $family) {
+                try {
+                    $response = $this->resolver->query($server["hostname"], $family);
+                    $securedAnswer = $response->header->ad ?? 0;
+                    if ($securedAnswer == 0) {
+                        $this->allResponsesSecure = FALSE;
                     }
+                    foreach ($response->answer as $oneAnswer) {
+                        $ipAddrs[] = [
+                            'hostname' => $server['hostname'],
+                            'port' => $server['port'],
+                            'family' => ($family == "a" ? "IPv4" : "IPv6"),
+                            'IP' => $oneAnswer->address,
+                            'securepath' => $securedAnswer && $responsesUpToHereWereSecure,
+                        ];
+                    }
+                } catch (\Net_DNS2_Exception $e) {
+                    
                 }
             }
         }
-
+        
         $this->NAPTR_hostname_records = $ipAddrs;
-
+        
+        $orphanedHostnames = [];
+        foreach ($this->NAPTR_SRV_records as $srvHostnames) {
+            $orphanedHostnames[$srvHostnames['hostname']] = "MISSING";
+            foreach ($this->NAPTR_hostname_records as $resolvedHostnames) {
+                if ($resolvedHostnames['hostname'] == $srvHostnames['hostname']) {
+                    unset($orphanedHostnames[$resolvedHostnames['hostname']]);
+                }
+            }
+        }
+        foreach ($orphanedHostnames as $name => $nomatter) {
+                $resolutionErrors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $name];
+            }
+                    
         if (count($resolutionErrors) > 0) {
             $this->errorlist = array_merge($this->errorlist, $resolutionErrors);
             $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_INVALID;
