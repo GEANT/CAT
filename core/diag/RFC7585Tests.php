@@ -365,7 +365,7 @@ class RFC7585Tests extends AbstractTest
         $responsesUpToHereWereSecure = $this->allResponsesSecure;
 
         foreach ($this->NAPTR_SRV_records as $server) {
-            foreach (["a", "aaaa"] as $family) {
+            foreach (["A", "AAAA"] as $family) {
                 try {
                     $response = $this->resolver->query($server["hostname"], $family);
                     $securedAnswer = $response->header->ad ?? 0;
@@ -376,7 +376,7 @@ class RFC7585Tests extends AbstractTest
                         $ipAddrs[] = [
                             'hostname' => $server['hostname'],
                             'port' => $server['port'],
-                            'family' => ($family == "a" ? "IPv4" : "IPv6"),
+                            'family' => ($family == "A" ? "IPv4" : "IPv6"),
                             'IP' => $oneAnswer->address,
                             'securepath' => $securedAnswer && $responsesUpToHereWereSecure,
                         ];
