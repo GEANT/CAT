@@ -121,7 +121,7 @@ class RFC7585Tests extends AbstractTest {
     /**
      * An instance of the Net_DNS2 resolver to do lookups with
      * 
-     * @var Net_DNS2_Resolver
+     * @var \Net_DNS2_Resolver
      */
     private $resolver;
 
@@ -178,7 +178,7 @@ class RFC7585Tests extends AbstractTest {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-        $NAPTRs = FALSE;
+        $NAPTRs = [];
         try {
             $response = $this->resolver->query($this->realm, 'NAPTR');
             foreach ($response->answer as $oneAnswer) {
@@ -189,14 +189,14 @@ class RFC7585Tests extends AbstractTest {
                     'replacement' => $oneAnswer->replacement,
                     ];
             }
-        } catch(Net_DNS2_Exception $e) {
+        } catch(\Net_DNS2_Exception $e) {
         }
         /* echo "<pre>";
         print_r($NAPTRs);
         echo "</pre>";
         exit(1); */
         // $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
-        if ($NAPTRs === FALSE || count($NAPTRs) == 0) {
+        if (count($NAPTRs) == 0) {
             $this->NAPTR_executed = RFC7585Tests::RETVAL_NONAPTR;
             return RFC7585Tests::RETVAL_NONAPTR;
         }
