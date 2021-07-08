@@ -194,7 +194,7 @@ class RFC7585Tests extends AbstractTest
      */
     public function relevantNAPTR()
     {
-        if ($this->discoverytag == "") {
+        if ($this->discoveryTag == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
@@ -265,7 +265,7 @@ class RFC7585Tests extends AbstractTest
         $formatErrors = [];
 // format of NAPTRs is consortium specific. eduroam and OpenRoaming below; 
 // others need their own code
-        if ($this->discoverytag == "x-eduroam:radius.tls" || $this->discoverytag == "aaa+auth:radius.tls.tcp") {
+        if ($this->discoveryTag == "x-eduroam:radius.tls" || $this->discoveryTag == "aaa+auth:radius.tls.tcp") {
             foreach ($this->NAPTR_records as $edupointer) {
 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
