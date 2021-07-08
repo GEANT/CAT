@@ -303,16 +303,18 @@ switch ($_POST['submitbutton']) {
                         $oneHostOkay = FALSE;
                         $testCandidates = [];
                         foreach ($dnsChecks->NAPTR_hostname_records as $oneServer) {
-                            $testCandidates[$oneServer['hostname']][] = $oneServer['IP'];
+                            $testCandidates[$oneServer['hostname']][] = ($oneServer['family'] == "IPv4" ? $oneServer['IP'] : "[" . $oneServer['IP'] . "]") . ":" . $oneServer['port'];
                         }
                         foreach ($testCandidates as $oneHost => $listOfIPs) {
                             $connectionTests = new core\diag\RFC6614Tests(array_values($listOfIPs), $oneHost, "openroaming");
-                            // for now (no OpenRoaming client certs available) only run single test on hostname for server-side checks
-                            $connectionResult = $connectionTests->cApathCheck($oneHost);
-                            if ($connectionResult != core\diag\AbstractTest::RETVAL_OK || ( isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
-                                $allHostsOkay = FALSE;
-                            } else {
-                                $oneHostOkay = TRUE;
+                            // for now (no OpenRoaming client certs available) only run server-side tests
+                            foreach ($listOfIPs as $oneIP) {
+                                $connectionResult = $connectionTests->cApathCheck($oneIP);
+                                if ($connectionResult != core\diag\AbstractTest::RETVAL_OK || ( isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
+                                    $allHostsOkay = FALSE;
+                                } else {
+                                    $oneHostOkay = TRUE;
+                                }
                             }
                         }
                         if (!$allHostsOkay) {

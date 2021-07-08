@@ -114,8 +114,9 @@ class RFC6614Tests extends AbstractTest
 
         switch ($consortium) {
             case "eduroam":
-                break;
+                // fall-through intended
             case "openroaming":
+                $this->consortium = $consortium;
                 break;
             default:
                 throw new Exception("Certificate checks against unknown consortium identifier requested!");
