@@ -206,7 +206,7 @@ class RFC7585Tests extends AbstractTest
                 ];
             }
         } catch (\Net_DNS2_Exception $e) {
-            
+            // NXDOMAIN is an Exception, but we don't care - no result means no result
         }
         if (count($NAPTRs) == 0) {
             $this->NAPTR_executed = RFC7585Tests::RETVAL_NONAPTR;
@@ -319,7 +319,7 @@ class RFC7585Tests extends AbstractTest
                     ];
                 }
             } catch (\Net_DNS2_Exception $e) {
-                
+                // NXDOMAIN is an Exception, but we don't care - no result means no result
             }
             if (count($sRVtargets) == $sRVcount) { // no new target added... defunct replacement
                 $sRVerrors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
@@ -382,7 +382,7 @@ class RFC7585Tests extends AbstractTest
                         ];
                     }
                 } catch (\Net_DNS2_Exception $e) {
-                    
+                    // NXDOMAIN is an Exception, but we don't care - no result means no result
                 }
             }
         }
