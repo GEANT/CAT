@@ -107,9 +107,10 @@ switch ($_POST['submitbutton']) {
             $redirect = $validator->boolean($_POST['redirect']);
         }
         ?>
-        <h1><?php $tablecaption = _("Submitted attributes for this profile");
-        echo $tablecaption;
-        ?></h1>
+        <h1><?php
+            $tablecaption = _("Submitted attributes for this profile");
+            echo $tablecaption;
+            ?></h1>
         <table>
             <caption><?php echo $tablecaption; ?></caption>
             <tr>
@@ -297,14 +298,40 @@ switch ($_POST['submitbutton']) {
                             echo $uiElements->boxError(_("The DNS hostnames in the SRV records do not resolve to actual host IPs. OpenRoaming will not work."));
                             $didWeComplainYet = true;
                         }
+                        // connect to all IPs we found and see if they are really an OpenRoaming server
+                        $allHostsOkay = TRUE;
+                        $oneHostOkay = FALSE;
+                        $testCandidates = [];
+                        foreach ($dnsChecks->NAPTR_hostname_records as $oneServer) {
+                            $testCandidates[$oneServer['hostname']][] = $oneServer['IP'];
+                        }
+                        foreach ($testCandidates as $oneHost => $listOfIPs) {
+                            $connectionTests = new core\diag\RFC6614Tests(array_values($listOfIPs), $oneHost, "openroaming");
+                            // for now (no OpenRoaming client certs available) only run single test on hostname for server-side checks
+                            $connectionResult = $connectionTests->cApathCheck($oneHost);
+                            if ($connectionResult != core\diag\AbstractTest::RETVAL_OK || ( isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
+                                $allHostsOkay = FALSE;
+                            } else {
+                                $oneHostOkay = TRUE;
+                            }
+                        }
+                        if (!$allHostsOkay) {
+                            if (!$oneHostOkay) {
+                                echo $uiElements->boxError(_("When connecting to the discovered OpenRoaming endpoints, they all had errors. OpenRoaming will likely not work."));
+                            } else {
+                                echo $uiElements->boxWarning(_("When connecting to the discovered OpenRoaming endpoints, only a subset of endpoints had no errors."));
+                            }
+                            $didWeComplainYet = true;
+                        }
                     }
                 }
+
                 if (!$dnsChecks->allResponsesSecure) {
                     echo $uiElements->boxWarning(_("At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may refuse to connect to the endpoint."));
-                            $didWeComplainYet = true;
+                    $didWeComplainYet = true;
                 }
                 if (!$didWeComplainYet) {
-                    echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming were successful."));
+                    echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) were successful."));
                 }
             }
             ?>

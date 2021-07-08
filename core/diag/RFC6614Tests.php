@@ -77,11 +77,19 @@ class RFC6614Tests extends AbstractTest
     public $TLS_clients_checks_result;
 
     /**
+     * which consortium are we testing against?
+     * 
+     * @var string
+     */
+    private $consortium;
+    /**
      * Sets up the instance for testing of a number of candidate IPs
      * 
-     * @param array $listOfIPs candidates to test
+     * @param array  $listOfIPs    candidates to test
+     * @param string $expectedName expected server name to test against
+     * @param string $consortium   which consortium to test against
      */
-    public function __construct($listOfIPs, $expectedName)
+    public function __construct($listOfIPs, $expectedName, $consortium = "eduroam")
     {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
@@ -103,6 +111,16 @@ class RFC6614Tests extends AbstractTest
 
         $this->candidateIPs = $listOfIPs;
         $this->expectedName = $expectedName;
+
+        switch ($consortium) {
+            case "eduroam":
+                break;
+            case "openroaming":
+                break;
+            default:
+                throw new Exception("Certificate checks against unknown consortium identifier requested!");
+        }
+
         \core\common\Entity::outOfThePotatoes();
     }
 
@@ -177,7 +195,7 @@ class RFC6614Tests extends AbstractTest
     /**
      * This function executes openssl s_client command to check if a server accepts a client certificate
      * 
-     * @param string $host IP:port
+     * @param string $host       IP:port
      * @return int returncode
      */
     public function tlsClientSideCheck(string $host)
@@ -231,6 +249,7 @@ class RFC6614Tests extends AbstractTest
      * This function executes openssl s_client command
      * 
      * @param string $host        IP address
+     * @param string $consortium  which consortium to check against
      * @param string $arg         arguments to add to the openssl command 
      * @param array  $testresults by-reference: the testresults array we are writing into
      * @return array result of openssl s_client ...
@@ -242,11 +261,11 @@ class RFC6614Tests extends AbstractTest
 // but code analysers want this more explicit, so here is this extra
 // call to escapeshellarg()
         $escapedHost = escapeshellarg($host);
-        $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(\config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(\config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
