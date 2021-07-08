@@ -266,13 +266,13 @@ switch ($_POST['submitbutton']) {
                     echo $uiElements->boxRemark(_("The profile information does not include the realm, so no DNS checks for OpenRoaming can be executed."));
                     $didWeComplainYet = true;
                 } else {
-                    $dnsChecks = new \core\diag\RFC7585Tests($reloadedProfileNr2->getAttributes("internal:realm")[0]['value']);
-                    $relevantNaptrRecords = $dnsChecks->relevantNAPTR($tag);
+                    $dnsChecks = new \core\diag\RFC7585Tests($reloadedProfileNr2->getAttributes("internal:realm")[0]['value'], $tag);
+                    $relevantNaptrRecords = $dnsChecks->relevantNAPTR();
                     if ($relevantNaptrRecords <= 0) {
                         echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
                         $didWeComplainYet = true;
                     } else {
-                        $recordCompliance = $dnsChecks->relevantNAPTRcompliance($tag);
+                        $recordCompliance = $dnsChecks->relevantNAPTRcompliance();
                         if ($recordCompliance != core\diag\AbstractTest::RETVAL_OK) {
                             echo $uiElements->boxWarning(_("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work."));
                             $didWeComplainYet = true;
@@ -288,8 +288,8 @@ switch ($_POST['submitbutton']) {
                                 }
                             }
                         }
-                        $srvResolution = $dnsChecks->relevantNAPTRsrvResolution($tag);
-                        $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution($tag);
+                        $srvResolution = $dnsChecks->relevantNAPTRsrvResolution();
+                        $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution();
 
                         if ($srvResolution <= 0) {
                             echo $uiElements->boxError(_("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work."));
