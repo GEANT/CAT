@@ -35,6 +35,7 @@
 
 <script type="text/javascript">
     var recognisedOS = '';
+    var recognisedOShs20 = 0;
     var downloadMessage;
 <?php
 $visibility = 'index';
@@ -43,10 +44,17 @@ $divs = new \web\skins\modern\Divs($Gui);
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
 if ($operatingSystem) {
-    print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
+    print "recognisedOS = '".$operatingSystem['device'] . "';\n";
+    print "recognisedOShs20 = '".$operatingSystem['hs20'] . "';\n";
+    $vendorlogo = $Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/");
+    if ($vendorlogo !== FALSE) {
+        print "vendorlogo = '$vendorlogo';\n";
+    } else {
+        print "vendorlogo ='';\n";
+    }
 }
 
-print 'downloadMessage = "' . $Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_MESSAGE] . '";';
+print 'downloadMessage = "'.$Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_MESSAGE] . '";';
 //TODO modify this based on OS detection
 $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? "";
 if (preg_match('/Android/', $userAgent)) {
@@ -112,19 +120,23 @@ require "user/js/cat_js.php";
                         </a>
                     </span>
                 </div> <!-- id="profile_redirect" -->
-                <div id="devices" class="device_list">
+                <div id="devices">
                     <?php
-                        // this part is shown when we have guessed the OS -->
+                        echo $divs->OpenRoamingTou();
                         if ($operatingSystem) {
                             echo $divs->divGuessOs($operatingSystem);
                         }
                         echo $divs->divOtherinstallers();
                     ?>
                 </div> <!-- id="devices" -->
+                <?php
+                    $guessedOS = $operatingSystem ? $operatingSystem['device'] : "";
+                ?>
                 <input type="hidden" name="profile" id="profile_id"/>
                 <input type="hidden" name="idp" id="inst_id"/>
                 <input type="hidden" name="inst_name" id="inst_name"/>
                 <input type="hidden" name="lang" id="lang"/>
+                <input type="hidden" name="device" id="device" value="<?php echo $guessedOS ?>"/>        
             </div> <!-- id="user_page" -->
       </div>
     </div>

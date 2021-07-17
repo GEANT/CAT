@@ -275,7 +275,7 @@ class Divs {
         $retval = "
 <div class='sub_h'>
     <div id='other_installers'>".$this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE]."
-         <table id='device_list' style='padding:0px;'>";
+        <table id='device_list' style='padding:0px;'>";
 
         foreach ($this->Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
             $groupIndex = count($deviceGroup);
@@ -291,10 +291,10 @@ class Divs {
                 if ($deviceIndex) {
                     $retval .= '<tr>';
                 }
-                $retval .= "<td><button id='".$d."'>".$D['display']."</button>"
-                       ."<div class='openroaming_selection' id='openroaming_".$d."'><button>eduroam</button> <button>eduroam + OpenRoaming</button></div>"
-                       ."<div class='device_info' id='info_".$d."'></div></td>"
-                       ."<td><button class='more_info_b' id='info_b_".$d."'>i</button></td></tr>\n";
+
+                $retval .= "<td><button name='$d' class='other_os' id='$d'>".$D['display']."</button>"
+                       ."</td>"
+                       ."<td><button name='$d' class='more_info_b' id='info_b_$d'>i</button></td></tr>\n";
                 $deviceIndex++;
             }
             $retval .= "</tbody>";
@@ -307,6 +307,13 @@ class Divs {
         return $retval;
     }
 
+    public function OpenRoamingTou() {
+        return "<div id='openroaming_tou'  style='padding:10px'>
+        <div id='or_text_1'></div>     
+        <input type='checkbox' id='openroaming_check' name='openroaming_check'> <span id='or_text_2'>I want to use OpenRoaming and have read and accept <a href='https://wballiance.com/openroaming/toc-2020/' target='_blank'>OpenRoaming terms and conditions</a></span>
+        </div>  ";
+    }
+    
     /**
      * generates the div with the big download button for the guessed OS
      * 
@@ -314,40 +321,12 @@ class Divs {
      * @return string
      */
     public function divGuessOs($operatingSystem) {
-        $vendorlogo = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/".$operatingSystem['group'].".png");
-        $vendorstyle = "";
-        
-        if ($vendorlogo !== FALSE) {
-            $vendorstyle = "style='background-image:url(\"".$vendorlogo."\")'";
-        }
-
-        $deleteIcon = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/delete_32.png");
-        $deleteImg = "";
-        if ($deleteIcon !== FALSE) {
-            $deleteImg = "<img id='cross_icon_".$operatingSystem['device']."' src='$deleteIcon' >";
-        }
         return "
-<div class='sub_h' id='guess_os' >
-<div id='download_text_1' $vendorstyle><div style='margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%);  transform: translateY(-50%);'>Download installer for ".$operatingSystem['display']."</div></div>
-<div>
-    <div class='button_wrapper'><button class='guess_os' id='g_".$operatingSystem['device']."'>
-        <div class='download_button_text_1' id='download_button_header_".$operatingSystem['device']."'>eduroam only
-        </div>
-    </button></div>
-    <div class='button_wrapper'><button class='guess_os' id='g_or_".$operatingSystem['device']."'>
-        <div class='download_button_text_1' id='download_button_or_header_".$operatingSystem['device']."'>eduroam and OpenRoaming
-        </div>
-    </button>  
-        <div id='openroaming_tou'><input type='checkbox' id='openroaming_check' name='openroaming_check'> I have read and accept <a href='https://wballiance.com/openroaming/toc-2020/' target='_blank'>OpenRoaming terms and conditions</a></div>
-   </div>
-   <div class='button_wrapper'><button class='more_info_b' id='g_info_b_".$operatingSystem['device']."'>i</button></div>
-    </div>
-    <div class='device_info' id='info_g_".$operatingSystem['device']."'>XXXXX</div>
-    <div id='more_i'><a href='xx'>See more installer information</a></div>
-<div class='sub_h'>
-       <a href='javascript:other_installers()'>".$this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE]."</a>
-    </div>
-</div> <!-- id='guess_os' -->";
+<div id='guess_os_wrapper' class='sub_h guess_os' >
+    <div id='download_text_1'></div>
+    <div id='device_message'></div>
+    <div id='guess_os' class='guess_os'></div>
+</div>";
     }
 
     /**

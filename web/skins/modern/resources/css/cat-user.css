@@ -203,23 +203,27 @@ button.delete {
     height: 40px;
 }
 
-.device_list button {
+#device_list button.dev_or {
+    background-color: #bbb;
+}
+
+#devices button {
     width: 25em; 
     font-size: 14px;  
     font-weight: normal; 
     font-style: normal;
 }
 
-.no_borders .device_list td {
+#devices.no_borders td {
     padding-top: 2px;
     margin-top: 2px;
 }
 
-.device_list {
+#devices {
     list-style-type: none;
 }
 
-.device_list td {
+#devices td {
     vertical-align:middle;
 }
 
@@ -610,9 +614,9 @@ button.guess_os {
 #openroaming_tou {
     display: none;
     min-width: 300px;
-    max-width: 450px;
+    max-width: 900px;
     padding-left: 10px;
-    width: 40vw;
+    width: 80vw;
 }
 
 #more_i {
@@ -623,33 +627,21 @@ button.guess_os {
 #download_text_1 {
     font-size: 20px;
     color: #1d4a74;
-    padding-left: 50px;
-    padding-bottom: 10px;
-    min-height: 50px;
+    padding-left: 60px;
+    min-height: 60px;
+    margin: 0;
     background-repeat:no-repeat;
     position: relative;
 }
 
-#device_list div.openroaming_selection {
-    height: 8ex;
-    position: relative;
-    display: none;
-}
-
-#device_list div.openroaming_selection button {
-    width: 40%;
-    height: 6ex;
+#download_text_1 div {
+    margin: 0;
     position: absolute;
-    top: 3px;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-#device_list div.openroaming_selection button:first-child {
-    left: 7%;
-}
-
-#device_list div.openroaming_selection button:last-child {
-    right: 7%;
-}
 
 div.button_wrapper {
     display: inline-block;
@@ -664,7 +656,7 @@ div.button_wrapper {
         color: #1d4a74;
         padding-top: 2vh;
         display: block;
-            }
+    }
             
     #more_i a {
         color: #1d4a74;
@@ -673,7 +665,7 @@ div.button_wrapper {
         color: #1d4a74;
     } 
     
-    button.more_info_b {
+    #guess_os button.more_info_b {
                 display: none;
             }
     }
@@ -752,11 +744,11 @@ div.button_wrapper {
 }
 
 
-.device_list {
+#devices {
     list-style-type: none;
 }
 
-.device_list td {
+#devices td {
     vertical-align:middle;
 }
 

@@ -86,7 +86,7 @@ class UserAPI extends CAT
         $this->installerPath = $cache['path'];
         if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
+            $installerProperties['link'] = "user/API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $openRoaming, $token, $password);
@@ -195,7 +195,7 @@ class UserAPI extends CAT
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . ", openRoaming: $openRoaming\n");
-                $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
+                $out['link'] = "user/API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "openRoaming: $openRoaming\n");
                 $out['link'] = 0;
@@ -536,7 +536,12 @@ class UserAPI extends CAT
     {
         if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
             $this->loggerInstance->debug(4, "Browser_id: $devId\n");
-            return ['device' => $devId, 'display' => $device['display'], 'group' => $device['group']];
+            if (isset($device['options']['hs20']) && $device['options']['hs20'] === 1) {
+                $hs20 = 1;
+            } else {
+                $hs20 = 0;
+            }
+            return ['device' => $devId, 'display' => $device['display'], 'group' => $device['group'], 'hs20' => $hs20];
         }
         return FALSE;
     }

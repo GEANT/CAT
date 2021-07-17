@@ -32,6 +32,7 @@ const WELCOME_ABOARD_HEADING = 1002;
 const WELCOME_ABOARD_USAGE = 1003;
 const WELCOME_ABOARD_PROBLEMS = 1004;
 const WELCOME_ABOARD_TERMS = 1006;
+const NETWORK_TERMS_AND_PRIV = 1007;
 const WELCOME_ABOARD_BACKTODOWNLOADS = 1005;
 const HEADING_TOPLEVEL_GREET = 1010;
 const HEADING_TOPLEVEL_PURPOSE = 1011;
@@ -42,7 +43,8 @@ const FRONTPAGE_BIGDOWNLOADBUTTON = 1023;
 const FRONTPAGE_EDUROAM_AD = 1024;
 const INSTITUTION_SELECTION = 1030;
 const PROFILE_SELECTION = 1040;
-const DOWNLOAD_CHOOSE = 1050;
+const DOWNLOAD_CHOOSE = 1049;
+const DOWNLOAD_CHOOSE_ANOTHER = 1050;
 const DOWNLOAD_ALLPLATFORMS = 1051;
 const DOWNLOAD_MESSAGE = 1052;
 const DOWNLOAD_REDIRECT = 1053;
@@ -85,21 +87,25 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Dear user from %s,"), "<span class='inst_name'></span>");
         $this->templates[WELCOME_ABOARD_USAGE] = sprintf(_("Now that you have downloaded and installed a client configurator, all you need to do is find an %s hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[WELCOME_ABOARD_PROBLEMS] = sprintf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>");
+        $this->templates[NETWORK_TERMS_AND_PRIV] = [
+            "eduroam" => [
+                "TOU_LINK" => "https://wiki.geant.org/display/H2eduroam/Terms+and+Conditions",
+                "TOU_TEXT" => _("eduroam Terms and Conditions"),
+                "PRIV_LINK" => "https://www.eduroam.org/privacy/",
+                "PRIV_TEXT" => _("eduroam Privacy Policy"),
+            ],
+            "OpenRoaming" => [
+                "TOU_LINK" => "https://wballiance.com/openroaming/toc-2020/",
+                "TOU_TEXT" => _("OpenRoaming Terms and Conditions"),
+                "PRIV_LINK" => "https://wballiance.com/openroaming/privacy-policy-2020/",
+                "PRIV_TEXT" => _("OpenRoaming Privacy Policy"),
+            ],
+        ];
         $this->templates[WELCOME_ABOARD_TERMS] = "";
-        foreach ([
-                "eduroam" => [ 
-                      "TOU"  => "https://wiki.geant.org/display/H2eduroam/Terms+and+Conditions",
-                      "PRIV" => "https://www.eduroam.org/privacy/",
-                    ], 
-                "OpenRoaming" => [ 
-                      "TOU"  => "https://wballiance.com/openroaming/toc-2020/",
-                      "PRIV" => "https://wballiance.com/openroaming/privacy-policy-2020/",
-                    ]
-            ] as $consortium => $terms) {
-            $this->templates[WELCOME_ABOARD_TERMS] .= sprintf("<p>" . _("When connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply.") . "</p>", $consortium, $terms['TOU'], $terms['PRIV']);
+        foreach ($this->templates[NETWORK_TERMS_AND_PRIV] as $consortium => $terms) {
+            $this->templates[WELCOME_ABOARD_TERMS] .= sprintf("<p>" . _("Please remember that when connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply.") . "</p>", $consortium, $terms['TOU_LINK'], $terms['PRIV_LINK']);
         }
-        // this would actually be a checkbox which grays out the actual download button until ACKed
-        $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
+    //    $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
         $this->templates[WELCOME_ABOARD_BACKTODOWNLOADS] = _("Back to downloads");
         $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), \config\Master::APPEARANCE['productname']);
@@ -110,7 +116,8 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[FRONTPAGE_EDUROAM_AD] = sprintf(_("%s provides access to thousands of Wi-Fi hotspots around the world, free of charge. <a href='%s'>Learn more</a>"), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['homepage']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
-        $this->templates[DOWNLOAD_CHOOSE] = _("Choose another installer to download");
+        $this->templates[DOWNLOAD_CHOOSE_ANOTHER] = _("Choose another installer to download");
+        $this->templates[DOWNLOAD_CHOOSE] = _("Choose an installer to download");
         $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
         $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");

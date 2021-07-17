@@ -584,6 +584,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
             // find the attribute pertaining to the specific device
+            $group = '';
             $redirectUrl = 0;
             $redirects = [];
             foreach ($redirect as $index => $oneRedirect) {
@@ -598,6 +599,9 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $message = 0;
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
                 $message = $deviceProperties['options']['message'];
+            }
+            if (isset($deviceProperties['group'])) {
+                $group = $deviceProperties['group'];
             }
             $eapCustomtext = 0;
             $deviceCustomtext = 0;
@@ -639,7 +643,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                     }
                 }
             }
-            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options']];
+            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options'], 'group' => $group];
         }
         return $returnarray;
     }

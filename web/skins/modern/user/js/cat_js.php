@@ -20,6 +20,14 @@
  */
 
 
+/* General AJAX comment: im many places we do not specfy the json argument in the
+ * handler function and do the JSON decoding explicitely. The reason for this
+ * is debugging - it is much easier to dump the raw JSON output fr a quick look.
+ * To make the code cleaner it might be a good idea to change these calls in the future.
+ */
+
+use web\lib\user;
+
 $cat = new \web\lib\user\Gui();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT) ?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
@@ -29,6 +37,7 @@ if (\config\ConfAssistant::PRELOAD_IDPS) {
 } else {
     print "const preloadIdPs = false;\n";
 }
+#print "idp = $idpId;\n";
     ?>
 
 const apiURL = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php") ?>";
@@ -49,7 +58,10 @@ var catWelcome;
 var hide_images = 0;
 var front_page = 1;
 var download_link;
-var openroaming = '';
+var openroaming = 'none';
+var preagreed = false;
+var pressedButton;
+var profileDevices;
 const discoCountries = {
 <?php 
     $C = $Gui->printCountryList(1);
@@ -63,45 +75,52 @@ const discoCountries = {
 var idpsLoaded = false;
 
 const guiTexts = {
-    "noMatchingData": "<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>",
-    "select": "<?php $cat->javaScriptEscapedEcho(_("select")) ?>",
-    "www": "<?php $cat->javaScriptEscapedEcho(_("WWW:")) ?>",
-    "email": "<?php $cat->javaScriptEscapedEcho(_("email:")) ?>",
-    "tel": "<?php $cat->javaScriptEscapedEcho(_("tel:")) ?>",
-    "problems": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")) ?>",
-    "problemsGeneric": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")) ?>",
-    "unconfigurable": "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>",
-    "redirect": "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>",
-    "continue": "<?php $cat->javaScriptEscapedEcho(_("Continue")) ?>",
-    "close": "<?php $cat->javaScriptEscapedEcho(_("Close")) ?>",
-    "noProviders": "<?php $cat->javaScriptEscapedEcho(_("No providers found for this email")) ?>",
-    "yourIdP": "<?php $cat->javaScriptEscapedEcho(_("Your IdP is:")) ?>",
-    "yourIdPs": "<?php $cat->javaScriptEscapedEcho(_("Your IdP could be one of:")) ?>",
-    "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")) ?>",
-    "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:")) ?>",
-    "openRoamingTouWarning": "<?php $cat->javaScriptEscapedEcho(_("If you intend to download an installer which also enables OpenRoaming then you must accept OpenRoaming Terms and Conditions.")) ?>",
+  "noMatchingData": "<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>",
+  "select": "<?php $cat->javaScriptEscapedEcho(_("select")) ?>",
+  "www": "<?php $cat->javaScriptEscapedEcho(_("WWW:")) ?>",
+  "email": "<?php $cat->javaScriptEscapedEcho(_("email:")) ?>",
+  "tel": "<?php $cat->javaScriptEscapedEcho(_("tel:")) ?>",
+  "problems": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")) ?>",
+  "problemsGeneric": "<?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")) ?>",
+  "unconfigurable": "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>",
+  "redirect": "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>",
+  "profile_redirect": "<?php $cat->javaScriptEscapedEcho(_($cat->textTemplates->templates[web\lib\user\DOWNLOAD_REDIRECT])) ?>",
+  "continue": "<?php $cat->javaScriptEscapedEcho(_("Continue")) ?>",
+  "close": "<?php $cat->javaScriptEscapedEcho(_("Close")) ?>",
+  "noProviders": "<?php $cat->javaScriptEscapedEcho(_("No providers found for this email")) ?>",
+  "yourIdP": "<?php $cat->javaScriptEscapedEcho(_("Your IdP is:")) ?>",
+  "yourIdPs": "<?php $cat->javaScriptEscapedEcho(_("Your IdP could be one of:")) ?>",
+  "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")) ?>",
+  "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:")) ?>",
+  "openRoamingTouWarning": "<?php $cat->javaScriptEscapedEcho(_("If you intend to download an installer which also enables OpenRoaming then you must accept OpenRoaming Terms and Conditions.")) ?>",
+  "openRoamingText1": "<?php $cat->javaScriptEscapedEcho(_("If you select installers with OpenRoaming support, remember to mark you consent.")) ?>",
+  "openRoamingText2": "<?php $cat->javaScriptEscapedEcho(_("The installer has built-in OpenRoaming support.")) ?>",
+  "openRoamingText3": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I want to use OpenRoaming and have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",
+  "openRoamingText4": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",
+  "openRoamingDisabled": "<?php $cat->javaScriptEscapedEcho(_("OpenRoaming is not supported on this device")) ?>",
+  "downloadAnother": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_CHOOSE_ANOTHER]) ?>",
 };
 
 var discoTextStrings = {
-   "title":"<?php $cat->javaScriptEscapedEcho(_("Organisation")) ?>",
-   "subtitle":"<?php $cat->javaScriptEscapedEcho(_("Select your organisation")) ?>",
-   "textHelp": "<?php $cat->javaScriptEscapedEcho(_("Help, my organisation is not on the list")) ?>",
-   "textHelpMore": "<?php $cat->javaScriptEscapedEcho(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])) ?>",
-   "textLocateMe": "<?php $cat->javaScriptEscapedEcho(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
-   "textShowProviders": "<?php $cat->javaScriptEscapedEcho(_("Show organisations in")) ?>",
-   "textAllCountries": "<?php $cat->javaScriptEscapedEcho(_("all countries")) ?>",
-   "textSearch" : "<?php $cat->javaScriptEscapedEcho(_("or search for an organisation, for example University of Oslo")) ?>",
-   "textShowAllCountries": "<?php $cat->javaScriptEscapedEcho(_("show all countries")) ?>",
-   "textLimited1" : "<?php $cat->javaScriptEscapedEcho(_("Results limited to")) ?>",
-   "textLimited2" : "<?php $cat->javaScriptEscapedEcho(_("entries - show more")) ?>",
-   "textNearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby")) ?>",
-   "geoLoc_timeout" : "<?php $cat->javaScriptEscapedEcho(_("Location timeout")) ?>",
-   "geoLoc_posUnavailable" : "<?php $cat->javaScriptEscapedEcho(_("Could not get your position"))?>",
-   "geoLoc_permDenied" : "<?php $cat->javaScriptEscapedEcho(_("Your browser has denied access to your location")) ?>",
-   "geoLoc_unknownError" : "<?php $cat->javaScriptEscapedEcho(_("Unknown location error")) ?>",
-   "geoLoc_here" : "<?php $cat->javaScriptEscapedEcho(_("You are here:")) ?>",
-   "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location...")) ?>",
-   "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top.")) ?>",
+  "title":"<?php $cat->javaScriptEscapedEcho(_("Organisation")) ?>",
+  "subtitle":"<?php $cat->javaScriptEscapedEcho(_("Select your organisation")) ?>",
+  "textHelp": "<?php $cat->javaScriptEscapedEcho(_("Help, my organisation is not on the list")) ?>",
+  "textHelpMore": "<?php $cat->javaScriptEscapedEcho(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])) ?>",
+  "textLocateMe": "<?php $cat->javaScriptEscapedEcho(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
+  "textShowProviders": "<?php $cat->javaScriptEscapedEcho(_("Show organisations in")) ?>",
+  "textAllCountries": "<?php $cat->javaScriptEscapedEcho(_("all countries")) ?>",
+  "textSearch" : "<?php $cat->javaScriptEscapedEcho(_("or search for an organisation, for example University of Oslo")) ?>",
+  "textShowAllCountries": "<?php $cat->javaScriptEscapedEcho(_("show all countries")) ?>",
+  "textLimited1" : "<?php $cat->javaScriptEscapedEcho(_("Results limited to")) ?>",
+  "textLimited2" : "<?php $cat->javaScriptEscapedEcho(_("entries - show more")) ?>",
+  "textNearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby")) ?>",
+  "geoLoc_timeout" : "<?php $cat->javaScriptEscapedEcho(_("Location timeout")) ?>",
+  "geoLoc_posUnavailable" : "<?php $cat->javaScriptEscapedEcho(_("Could not get your position"))?>",
+  "geoLoc_permDenied" : "<?php $cat->javaScriptEscapedEcho(_("Your browser has denied access to your location")) ?>",
+  "geoLoc_unknownError" : "<?php $cat->javaScriptEscapedEcho(_("Unknown location error")) ?>",
+  "geoLoc_here" : "<?php $cat->javaScriptEscapedEcho(_("You are here:")) ?>",
+  "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location...")) ?>",
+  "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top.")) ?>",
 };
 var roller; // controlls if the system sliedes apper on the page
 if (roller === undefined)
@@ -120,12 +139,14 @@ $.fn.redraw = function() {
   });
 };
 
-function other_installers() {
-  $("#guess_os").hide();
+function otherInstallers() {
+  clearUIsettings();
+  $(".guess_os").hide();
   $("#other_installers").show();
   $("#devices").redraw();
   reset_footer();
 }
+// Print the list of profiles for the given IdP (identified as inst_id)
 
 function listProfiles(inst_id,selected_profile) {
   var j;
@@ -145,7 +166,7 @@ function listProfiles(inst_id,selected_profile) {
   $("#devices").hide();
   $("#profile_redirect").hide();
   $.post(apiURL, {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
-    j = $.parseJSON(data);
+    j = JSON.parse(data);
     result = j.status;
     if (j.otherdata !== undefined)
         otherdata = j.otherdata;
@@ -158,9 +179,9 @@ function listProfiles(inst_id,selected_profile) {
     $("#profile_list").html('');
     inst_name = j[0].idp_name;
     logo = j[0].logo;
+    // the #inst_name is the hiddien form field used to carry the info
     $("#inst_name").val(inst_name);
     $("#inst_name_span").html(inst_name);
-    $(".inst_name").text(inst_name);
     $("#user_page").show();
     $("#institution_name").show();
     if (n > profile_list_size)
@@ -192,140 +213,61 @@ function listProfiles(inst_id,selected_profile) {
       }
       $("#profiles").show();
     }
+    
+    // depending on the case if we have one or multiple profiles we either
+    // show the select or skip the selection and show the profile
     if (n > 1 && selected_profile) {
       var theProfile = $('#profile_list option[value='+selected_profile+']');
       if ( theProfile.length == 1) { 
         theProfile.attr("selected",true);
         showProfile(selected_profile);
-        $("#devices").show();
       } 
     }
     reset_footer();
   });
 }
 
+// the printP function prints an individual profile entry in the select
 function printP(i,v) {
   if (n == 1 ) {
     $("#profiles").hide();
     $("#profile_list").append('<option value="'+v.profile+'" selected>'+v.display+'</option>');
     showProfile(v.profile);
-//     $("#devices").show();
   } else {
     $("#profile_list").append('<option value="'+v.profile+'">'+v.display+'</option>');
   }
 }
 
-function resetDevices(initial) {
-  if (recognisedOS !== '' ) {
-    $("#other_installers").hide();
-    $("#openroaming_check").prop("checked", false);
-    switch (openroaming) {
-      case 'none':
-        $("#download_button_header_"+recognisedOS).html("eduroam");
-        $("#g_"+recognisedOS).show();
-        $("#g_or_"+recognisedOS).hide();
-        $("#openroaming_tou").hide();
-        break;
-      case 'ask':
-        $("#download_button_header_"+recognisedOS).html("eduroam only");
-        $("#g_"+recognisedOS).show();
-        $("#g_or_"+recognisedOS).css("background-color", "#aaa");
-        $("#g_or_"+recognisedOS).show();
-        $("#openroaming_tou").show();
-        break;
-      case 'always':
-        $("#download_button_header_"+recognisedOS).html("eduroam only");
-        $("#g_"+recognisedOS).hide();
-        $("#g_or_"+recognisedOS).css("background-color", "#aaa");
-        $("#g_or_"+recognisedOS).show();
-        $("#openroaming_tou").show();
-        break;
-    }
-    if (!initial)
-        $("#guess_os").show();
-//    $("#download_button_header_"+recognisedOS).html(downloadMessage);
-    $("#cross_icon_"+recognisedOS).hide();
-  }
-  $(".device_list button").removeClass('alertButton');
-  $(".device_list button").removeClass('disabledDevice');
-  $(".device_list button").removeClass('additionalInfo');
-  $('.device_list button').unbind('click');
-  $('.device_list tr').show();
-  $('.device_info').html('');
-  $('.device_info').hide();
-  $('.openroaming_selection').hide();
-  $("#user_welcome").hide();
-  $(".device_list button").click(function(event) {
-    var j;
-    var or = false;
-    event.preventDefault();
-    var button_id = $(this).attr('id');
-    var info_id = 'info_'+button_id;
-    if (button_id.substr(0,5) == "g_or_") {
-      or = true;
-      button_id = button_id.substr(5);
-      info_id = 'info_g_'+button_id;
-    } else if (button_id.substr(0,2) == "g_") {
-      button_id = button_id.substr(2);
-      info_id = 'info_g_'+button_id;
-    }
-    if (button_id.substr(0,7) == "info_b_") { // the info button
-      var device_id = button_id.substr(7);
-      $("#info_window").html("<h2>"+$('#'+device_id).text()+"</h2>");
-      $.post(apiURL, {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile, openroaming: openroaming}, function(data) {
-        var h = $("#info_window").html();
-        $("#info_window").html(h+data);
-        $("#main_body").fadeTo("fast", 0.2,function() {
-          var x = getWindowHCenter() - 350;
-          var top = $("#main_body").get(0).getBoundingClientRect().top;
-          if (top < -150) {
-            $("#info_overlay").css("top", -top + 50);
-          }
-          $("#info_overlay").show();
-        });
-      });
-    } else { // the download button
-      $('.device_info').html('');
-      $('.device_info').hide();
-      $('.openroaming_selection').hide();
-      pressedButton = $(this);
-      if ($(this).hasClass('additionalInfo')) {
-        openroaming_id = 'openroaming_'+pressedButton.attr('id');
-        $('#'+openroaming_id).show();  // TMW - temporary hack
-        $('#'+info_id).show(100);
-      } else {
-        $('#download_info').hide();
-        generateTimer = $.now();
-        $("#devices").hide();
-        $("#user_welcome").show();
-        $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile, openroaming: openroaming}, processDownload);
-      }
-    }
-  });   
-} 
-
+// showProfile displays a single profile and the corresponding download buttons
+// the argument is the numeric profile identifier
+// Other than hiding unncecessay elements the function is essentialy an AJAX
+// handler for profileAttributes call
 function showProfile(prof) {
   $("#profile_redirect").hide();
   $("#silverbullet").hide();
+  $("#other_installers").hide();
+  $("#devices").hide();
+  // no matching profile hide stuff and return
   if (prof == 0) {
     $("#user_info").hide();
-    $("#devices").hide();
+//    $("#devices").hide();
     return;
   }
   var j, txt ;
-  var redirect_profile;
-  redirect_profile = '0';
+  // set the global profile variable
   profile = prof;
-  $("#profile_id").val(prof);
+  $("#profile_id").val(profile);
   txt = '';
   $.post(apiURL, {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
-    j1 = $.parseJSON(data);
+    j1 = JSON.parse(data);
     result = j1.status;
     if (! result) {
       alert(guiTexts.noMatchingData);
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/').'/' ?>';
     }
     j = j1.data;
+            console.log(j.devices);
+
     if (j.description !== undefined && j.description) {
       $("#profile_desc").text(j.description);
       $("#profile_desc").css("display","inline-block");
@@ -335,8 +277,16 @@ function showProfile(prof) {
       $("#profile_desc").text('');
     }
     updateTxt = guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
+    openroamming = 'none';
+    preagreed = false;
     if (j.openroaming !== undefined) {
-      openroaming = j.openroaming;
+      var p = j.openroaming.match(/.*(?=-preagreed)/);
+      if (p != null) {
+        preagreed = true;
+        openroaming = p[0];
+      } else {
+        openroaming = j.openroaming;
+      }
     }
     if (j.local_url !== undefined && j.local_url) 
       txt = txt+'<span class="user_info">' + guiTexts.www + ' <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
@@ -355,114 +305,363 @@ function showProfile(prof) {
       $("#silverbullet").show();
       return;
     }
-    resetDevices(false);
-    $.each(j.devices,function(i,v) {
-      // test if we have a global profile redirect
-      if (v.id == 0) {
-        redirect_profile = v.redirect;
-      } else {
-        if (v.status > 0 && v.redirect == '0') {
-          $("#g_"+v.id).addClass('alertButton');
-          $("#cross_icon_"+v.id).show();
-          $("#"+v.id).addClass('disabledDevice');
-          $("#download_button_header_"+v.id).html(guiTexts.unconfigurable);
-          $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
-        } else  {
-          if (v.status == -1)
-            $("#"+v.id).parent().parent().hide();
-          else
-            if ($( window ).width() > 389 )
-               $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
-        }
-        if (v.redirect != '0') {
-          $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
-          $("#"+v.id+",#g_or_"+v.id).addClass('additionalInfo');
-          $("#"+v.id+",#g_"+v.id).click(function(event) {
-            i_div = $("#info_"+$(this).attr('id'));
-            t = guiTexts.redirect+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'>" + guiTexts.continue + "</a></span>";
-            i_div.html(t);
-            $(".redirect_link").click(function(event) {
-              i_div.hide();
-            });           
-          });
-        } else if (v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
-          var continue_text = guiTexts.continue;
-          $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
-          $("#"+v.id+",#g_or_"+v.id).addClass('additionalInfo');
-          $("#"+v.id+",#g_"+v.id+",#g_or_"+v.id).click(function(event) {
-            if ($(this).attr('id').substr(0,2) == "g_")
-              i_div = $("#info_g_"+v.id);
-            else
-              i_div = $("#info_"+$(this).attr('id'));
-            if ($(this).attr('id').substr(0,5) == "g_or_") {
-              if ($("#openroaming_check").prop("checked") == false) {
-                i_div.hide();  
-                alert(guiTexts.openRoamingTouWarning);
-                return;
-              }
-            }
+    profileDevices = j.devices;
+    mydev=findDevice(recognisedOS);
+    console.log(mydev);
+    // create the main download page section
 
-            if (v.status > 0) {
-              t = guiTexts.unconfigurable;
-              continue_text = guiTexts.close;
-            } else {
-              t = i_div.html();
-              if (v.message != '0') {
-                if (t != '')
-                  t += '<br>';
-                t +=  v.message;
-              }
-              if (v.device_customtext != '0') {
-                if (t != '')
-                  t += '<br>';
-                t +=  v.device_customtext;
-              }
-              if (v.eap_customtext != '0') {
-                if (t != '')
-                  t += '<br/>&nbsp;<br/>';
-                t +=  v.eap_customtext;
-              }
-            }
-            t += "<br><span class='redirect_link'>"+continue_text+"</span>";
-            i_div.html(t);
-            $(".redirect_link").click(function(event) {
-              i_div.hide('fast');
-              var dev_id = pressedButton.attr('id');
-              var setOpenRoaming = 0;
-              
-              if (dev_id.substr(0,5) == "g_or_" && $("#openroaming_check").prop("checked") == true) {
-                setOpenRoaming = 1;
-                dev_id = dev_id.substr(5);
-              } else if (dev_id.substr(0,2) == "g_") {
-                dev_id = dev_id.substr(2);
-              }
-              if (v.status == 0) {
-                $('#download_info').hide();
-                $("#devices").hide();
-                generateTimer = $.now();
-                $("#user_welcome").show();
-                $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, openroaming: setOpenRoaming, profile: profile}, processDownload); 
-              }
-            });           
-          });
-        }
-      }
-    });
-    if (redirect_profile == 0) {
-      $("#devices").show();
-    } else {
+    
+      // test if we have a global profile redirect in this case the array
+      // will only have a single element and it will have id 0
+      // such device id may not appear in any other situation    
+    if (profileDevices.length == 1 && profileDevices[0].id == '0') {
       $("#devices").hide();
       $("#user_info").hide();
-      $("#profile_redirect_bt").attr('href',redirect_profile);
+      $("#profile_redirect_bt").attr('href',profileDevices[0].redirect);
       $("#profile_redirect").show();
+      reset_footer();
+      return;
     }
+    updateGuessOsDiv(mydev);
+    resetDevices(false);
+    // first handle the guess_os part
+    if (!handleGuessOs(mydev))
+      return;
+     
+    // now the full devices list
+    $.each(j.devices,function(i,v) {
+      // Now consider devices that cannot be configured due to unsupported
+      // EAP methods. This can be recognised by the device status set to 1
+      // however we also need to make sure that the redirect has not been
+      // set for this device. 
+      if (v.redirect != '0')
+        //alert(v.id);
+        if (v.status > 0) {
+          if( v.redirect == '0') {
+            $("#"+v.id).addClass('disabledDevice');
+            $("#info_b_"+v.id).addClass('disabledDevice');
+          }
+        }
+    });
+    $("#devices").show();
     reset_footer();
- })
- }
+})
+}
+
+
+function resetDevices(initial) {    
+  if (recognisedOS !== '' ) {
+    mainOS(initial);
+  } else {
+    otherInstallers();
+  }
+  $("#devices button").removeClass('alertButton');
+  $("#devices button").removeClass('disabledDevice');
+  $("#devices button").removeClass('hasAdditonalInfo');
+  $('#devices button').unbind('click');
+  $('#devices tr').show();
+  $('.device_info').html('');
+  $('.device_info').hide();
+  $("#user_welcome").hide();
+  $("#devices").unbind();
+  $("#devices").on('click', 'button', function(event) {
+    event.preventDefault();
+    deviceButtonClick($(this));
+  });
+} 
+
+function clearUIsettings() {
+    $("#other_installers").hide(); // 
+    $("#openroaming_check").prop("checked", false);
+    $("#g_or_"+recognisedOS).css("background-color", "#bbb");
+    $("#g_or_"+recognisedOS).removeClass('enabled');
+    $("#openroaming_tou").hide();
+    $("#g_or_"+recognisedOS).hide();
+    $("button.dev_or").removeClass('enabled');
+    $("button.dev_or").css("background-color", "#bbb");
+}
+
+function handlePreagreed() {
+  if (!preagreed) {
+    if (openroaming == 'ask') {
+      $("#or_text_1").show();
+    }
+    $("#openroaming_tou").show();
+  } else {
+    $("#openroaming_check").prop("checked", true);
+    $("#openroaming_check").trigger("change");
+  }
+}
+
+function resetOpenRoaming(mainOs, hs20) {
+  if (mainOs === '' ) {
+    return;
+  }
+  $("#g_or_"+mainOs).css("background-color", "#bbb");
+  $("#g_or_"+mainOs).removeClass('enabled');
+  $("#g_or_"+mainOs).hide();
+  switch (openroaming) {
+    case 'none':
+      $("#download_button_header_"+mainOs).html("eduroam");
+      $("#g_"+mainOs).show();
+      $("#g_or_"+mainOs).hide();
+      break;
+    case 'ask':
+      if (hs20 == "1") {
+        $("#or_text_1").html(guiTexts.openRoamingText1);
+        $("#or_text_2").html(guiTexts.openRoamingText3);
+        $("#g_"+mainOs).show();
+        handlePreagreed();
+        $("#download_button_header_"+mainOs).html("eduroam only");
+        $("#g_"+mainOs).show();
+        $("#g_or_"+mainOs).show();
+      } else {
+          $("#download_button_header_"+mainOs).html("eduroam");        
+      }
+      $("#g_"+mainOs).show();
+      break;
+    case 'always':
+      if (hs20 == "1") {
+        $("#download_button_header_"+mainOs).html("eduroam and OpenRoaming");
+        $("#or_text_1").html(guiTexts.openRoamingText2);
+        $("#or_text_2").html(guiTexts.openRoamingText4);
+        handlePreagreed();
+        $("#g_"+mainOs).hide();
+        $("#download_button_header_"+mainOs).html("eduroam and OpenRoaming");
+        $("#g_or_"+mainOs).show();
+      } else {
+        $("#openroaming_tou").hide();
+        $("#download_button_header_"+mainOs).html("eduroam");
+        $("#g_"+mainOs).show();
+      }
+      break; 
+  }
+}
+
+function mainOS(initial) {
+  clearUIsettings();
+  resetOpenRoaming(recognisedOS, recognisedOShs20);
+  if (!initial) {
+    $("div.guess_os").show();
+  }
+}
+
+
+/*
+now comes the definition of button click
+there are several types of button possible
+the main download button (.guess_os) my either generate immediate download action
+or can open up the extra info window;
+the device listing buttons (.other_os) just cause the device selection
+and call the main download screen;
+the info button (.more_info_b) just pop up the device info window
+*/
+
+function deviceButtonClick(button) {
+  var device_id = button.attr("name");
+  var info_id = 'info_'+device_id;
+  if (button.hasClass("guess_os")) { // main download buttons first
+    info_id = 'info_g_'+device_id;
+    $('.device_info').hide();
+    if (button.hasClass("dev_or") && $("#openroaming_check").prop("checked") == false) {
+      alert(guiTexts.openRoamingTouWarning);
+      return;
+    }
+    pressedButton = button;
+    if (button.hasClass('hasAdditonalInfo')) {
+      $('#'+info_id).show(100);
+    } else {
+      doDownload(device_id,0);
+    }
+  } else if (button.hasClass("other_os")) { // now the full list download buttons
+      changeDevice(device_id);  
+  } else if (button.hasClass("more_info_b")) {
+    if (button.hasClass("disabledDevice")) {
+      alert(guiTexts.unconfigurable)
+    } else {
+      showMoreDeviceInfo(device_id);
+    }
+  }
+}
+
+function showMoreDeviceInfo(devId) {
+  $("#info_window").html("<h2>"+$('#'+devId).text()+"</h2>");
+  $.post(apiURL, {action: 'deviceInfo', api_version: 2, lang: lang, device: devId, profile: profile, openroaming: openroaming}, deviceInfo);
+}
+
+function doDownload(devId, setOpenRoaming) {
+    $('#download_info').hide();
+    generateTimer = $.now();
+    $("#devices").hide();
+    $("#user_welcome").show();
+    $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: devId, profile: profile, openroaming: setOpenRoaming}, processDownload);
+}
+
+function findDevice(devId) {
+  for (var i = 0; i < profileDevices.length; i++) {
+    v = profileDevices[i];
+      if (v.id == devId) {
+        return(v);
+      }
+    }
+    return(null);
+}
+
+function deviceInfo(data) {
+  var h = $("#info_window").html();
+  $("#info_window").html(h+data);
+  $("#main_body").fadeTo("fast", 0.2,function() {
+    var x = getWindowHCenter() - 350;
+    var top = $("#main_body").get(0).getBoundingClientRect().top;
+    if (top < -150) {
+      $("#info_overlay").css("top", -top + 50);
+    }
+    $("#info_overlay").show();
+  });
+}
+
+function handleGuessOs(recognisedDevice) {
+if(recognisedDevice.redirect != '0') {
+  alert(recognisedDevice.redirect);
+}
+/*
+  var recognisedDevice = null;
+  recognisedDevice = findDevice(os);
+  if (recognisedDevice == null)
+    return;
+            */
+  
+  // handle devices that canot be configured due to lack of support
+  // for required EAP methods
+  /*
+  if (recognisedDevice.status > 0 && recognisedDevice.redirect == '0') {
+      // this requires a proper handler
+      alert(guiTexts.unconfigurable);
+    $("#devices").hide();
+    $("#user_info").hide();
+    $("#profile_redirtect_text").html(guiTexts.unconfigurable);
+    $("span.redirect_link").hide();
+    $("#profile_redirect").show();
+    reset_footer();
+    return false;
+  }
+      */
+      // handle devices which require displaying extra information when
+      // the dowmload button is pressed
+  $('.device_info').html('');
+  
+  if (recognisedDevice.device_customtext != '0' || 
+      recognisedDevice.eap_customtext != '0' || 
+      recognisedDevice.message != '0') {
+    $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditonalInfo');
+      i_div = $("#info_g_"+recognisedOS);
+      /*
+      if ($(this).hasClass("dev_or") && $("#openroaming_check").prop("checked") == false) {
+        i_div.hide();
+        alert(guiTexts.openRoamingTouWarning);
+        return;
+      }
+    */
+
+//        t = i_div.html();
+    t = '';
+    if (recognisedDevice.message != '0') {
+      if (t != '')
+        t += '<br>';
+      t +=  recognisedDevice.message;
+    }
+    if (recognisedDevice.device_customtext != '0') {
+      if (t != '')
+        t += '<br>';
+      t +=  recognisedDevice.device_customtext;
+    }
+    if (recognisedDevice.eap_customtext != '0') {
+      if (t != '')
+        t += '<br/>&nbsp;<br/>';
+      t +=  recognisedDevice.eap_customtext;
+    }
+    t += "<br><span class='redirect_link'>"+guiTexts.continue+"</span>";
+    i_div.html(t);
+    $(".redirect_link").click(function(event) {
+      i_div.hide('fast');
+      var dev_id = pressedButton.attr('name');
+      var setOpenRoaming = 0;
+      if (pressedButton.hasClass("dev_or") && $("#openroaming_check").prop("checked") == true) {
+        setOpenRoaming = 1;
+      } 
+      if (recognisedDevice.status == 0) {
+        doDownload(dev_id, setOpenRoaming);
+      }
+    });           
+  }
+  return true;
+}
+
+
+function changeDevice(devId) {
+  device = findDevice(devId);
+  console.log(device);
+  if (device.options.hs20 === undefined) {
+      recognisedOShs20 = 0;
+  } else {
+      recognisedOShs20 = device.options.hs20;
+  }
+  recognisedOS = device.id;
+  $("#device").val(device.id);
+  updateGuessOsDiv(device);
+  resetOpenRoaming(recognisedOS, recognisedOShs20);
+  if (!handleGuessOs(device))
+    return;
+  $("#devices").show();
+  $("div.guess_os").show();
+  $("#other_installers").hide();
+  reset_footer();
+}
 
 function changeLang(l) {
   $("#lang").val(l);
   document.cat_form.submit();
+}
+
+  
+function updateGuessOsDiv(device) {
+  $("#device_message").hide();
+  $("#guess_os").empty();
+  $("#download_another").remove();
+
+  $("#download_text_1").empty();
+  $("#download_text_1").append("<div>Download installer for "+device.display+"</div>")
+  $("#download_text_1").css('background-image', 'url("'+vendorlogo+device.group+'.png")');
+  if (device.status > 0) {
+    $("#device_message").html(guiTexts.unconfigurable);
+    $("#device_message").show();
+  } else {
+
+  div1 = "<div>\
+      <div class='button_wrapper'>\
+        <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
+          <div class='download_button_text_1' id='download_button_header_"+device.id+"'>eduroam only\
+          /div>\
+        </button>\
+      </div>\
+      <div class='button_wrapper'>\
+        <button name='"+device.id+"' class='guess_os dev_or' id='g_or_"+device.id+"'>\
+          <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>eduroam and OpenRoaming\
+          </div>\
+        </button>\
+      </div>\
+      <div class='button_wrapper'>\
+        <button name='"+device.id+"' class='more_info_b' id='g_info_b_"+device.id+"'>i</button>\
+      </div>\
+    </div>\
+    <div name='"+device.id+"' class='device_info' id='info_g_"+device.id+"'>XXXXX</div>\
+    <div id='more_i'><a href='xx'>See more installer information</a></div>";   
+    $("#guess_os").prepend(div1);
+  }
+    div2 ="<div id='download_another' class='sub_h guess_os'>\
+    <a href='javascript:otherInstallers()'>"+guiTexts.downloadAnother+"</a>\
+  </div>";
+  $("#guess_os_wrapper").append(div2);
 }
 
 function showInfo(data, title) {
@@ -514,7 +713,7 @@ function remindIdPF() {
   $.get(remindIdP, {key: key, mail: mail}, function(data) {
     $("#remindIdPl").html("");
     try {
-      j = $.parseJSON(data);
+      j = JSON.parse(data);
     }
     catch(err) {
       alert(generation_error);
@@ -593,7 +792,7 @@ function processDownload(data) {
      
   var j;
   try {
-    j = $.parseJSON(data).data;
+    j = JSON.parse(data).data;
   }
   catch(err) {
     alert(generation_error);
@@ -602,7 +801,7 @@ function processDownload(data) {
   if ( j.link == 0 )
     alert(generation_error);
   else {
-    download_link = apiURL+'?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
+    download_link = j.link;
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if ( generateTimer > 0 ) {
@@ -670,6 +869,7 @@ $(document).ready(function() {
   if (ie_version > 9)
     $('body').addClass("no_borders");
   }
+  $("#devices").hide();
   if (sbPage == 0) {
     $("#user_page").hide();
     $("#institution_name").hide();
@@ -751,11 +951,19 @@ $(document).ready(function() {
       prepareAnimation();
   }
   $("#openroaming_check").change(function(event) {
-    if ($("#openroaming_check").prop("checked") == true) 
-      $(this).parent().prev().css("background-color", "#1d4a74");
-    else
-      $(this).parent().prev().css("background-color", "#aaa");
+    if ($("#openroaming_check").prop("checked") == true) {
+        $("[id^='g_or_']").css("background-color", "#1d4a74");
+        $("[id^='g_or_']").addClass('enabled');
+        $("#device_list button.dev_or.hs20").css("background-color", "#1d4a74");
+        $("#device_list button.dev_or.hs20").addClass('enabled');
+    } else {
+      $("[id^='g_or_']").css("background-color", "#bbb");
+      $("[id^='g_or_']").removeClass('enabled');
+      $("#device_list button.dev_or").css("background-color", "#bbb");
+      $("#device_list button.dev_or").removeClass('enabled');
+    }
   });
+
   reset_footer();
   $( window ).resize(function(event) {
     if ($( window ).width() > 750) {
