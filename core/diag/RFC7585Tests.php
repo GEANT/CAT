@@ -223,7 +223,7 @@ class RFC7585Tests extends AbstractTest
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
-            if ($naptr["services"] == $this->discoverytag) {
+            if ($naptr["services"] == $this->discoveryTag) {
                 $NAPTRs_consortium[] = $naptr;
             }
         }
