@@ -305,7 +305,7 @@ $(document).on('click', '#realmcheck' , function() {
                         echo "red;'>O";
                         break;
                     default:
-                        throw \Exception("Impossible OpenRoaming status!");
+                        throw new \Exception("Impossible OpenRoaming status!");
                 }
                 echo "</span></td>";
                 // name; and realm of silverbullet profiles if any
