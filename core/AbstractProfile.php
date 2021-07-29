@@ -120,6 +120,15 @@ abstract class AbstractProfile extends EntityWithDBProperties
     protected $frontendHandle;
 
     /**
+     * readiness levels for OpenRoaming column in profiles)
+     */
+    const OVERALL_OPENROAMING_LEVEL_NO = 4;
+    const OVERALL_OPENROAMING_LEVEL_GOOD = 3;
+    const OVERALL_OPENROAMING_LEVEL_NOTE = 2;
+    const OVERALL_OPENROAMING_LEVEL_WARN = 1;
+    const OVERALL_OPENROAMING_LEVEL_ERROR = 0;
+    
+    /**
      *  generates a detailed log of which installer was downloaded
      * 
      * @param int    $idpIdentifier the IdP identifier
@@ -192,6 +201,17 @@ abstract class AbstractProfile extends EntityWithDBProperties
             }
         }
         return $retval;
+    }
+
+    /**
+     * Takes note of the OpenRoaming participation and conformance level
+     * 
+     * @param int $level the readiness level, as determined by RFC7585Tests
+     * @return void
+     */
+    public function setOpenRoamingReadinessInfo(int $level)
+    {
+            $this->databaseHandle->exec("UPDATE profile SET openroaming = ? WHERE profile_id = ?", "ii", $level, $this->identifier);
     }
 
     /**

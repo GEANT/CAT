@@ -257,25 +257,27 @@ switch ($_POST['submitbutton']) {
             $reloadedProfileNr2->prepShowtime();
 
             // do OpenRoaming initial diagnostic checks
-
+            // numbers correspond to RFC7585Tests::OVERALL_LEVEL
+            $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO;
             if (sizeof($reloadedProfileNr2->getAttributes("media:openroaming")) > 0) {
-                $didWeComplainYet = false;
+                $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD; // assume all is well, degrade if we have concrete findings to suggest otherwise
                 $tag = "aaa+auth:radius.tls.tcp";
                 // do we know the realm at all? Notice if not.
                 if (!isset($reloadedProfileNr2->getAttributes("internal:realm")[0]['value'])) {
                     echo $uiElements->boxRemark(_("The profile information does not include the realm, so no DNS checks for OpenRoaming can be executed."));
-                    $didWeComplainYet = true;
+                    $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE]);
+                    
                 } else {
                     $dnsChecks = new \core\diag\RFC7585Tests($reloadedProfileNr2->getAttributes("internal:realm")[0]['value'], $tag);
                     $relevantNaptrRecords = $dnsChecks->relevantNAPTR();
                     if ($relevantNaptrRecords <= 0) {
                         echo $uiElements->boxError(_("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work."));
-                        $didWeComplainYet = true;
+                        $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR]);
                     } else {
                         $recordCompliance = $dnsChecks->relevantNAPTRcompliance();
                         if ($recordCompliance != core\diag\AbstractTest::RETVAL_OK) {
                             echo $uiElements->boxWarning(_("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work."));
-                            $didWeComplainYet = true;
+                            $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN]);
                         }
                         $fed = new \core\Federation($my_inst->federation);
                         // check if target is the expected one, if set by NRO
@@ -284,7 +286,7 @@ switch ($_POST['submitbutton']) {
                             foreach ($dnsChecks->NAPTR_records as $orpointer) {
                                 if ($orpointer["replacement"] != $hasCustomTarget[0]['value']) {
                                     echo $uiElements->boxRemark(_("The SRV target of an OpenRoaming NAPTR record is unexpected."));
-                                    $didWeComplainYet = true;
+                                    $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE]);
                                 }
                             }
                         }
@@ -293,10 +295,10 @@ switch ($_POST['submitbutton']) {
 
                         if ($srvResolution <= 0) {
                             echo $uiElements->boxError(_("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work."));
-                            $didWeComplainYet = true;
+                            $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR]);
                         } elseif ($hostnameResolution <= 0) {
                             echo $uiElements->boxError(_("The DNS hostnames in the SRV records do not resolve to actual host IPs. OpenRoaming will not work."));
-                            $didWeComplainYet = true;
+                            $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR]);
                         }
                         // connect to all IPs we found and see if they are really an OpenRoaming server
                         $allHostsOkay = TRUE;
@@ -320,22 +322,24 @@ switch ($_POST['submitbutton']) {
                         if (!$allHostsOkay) {
                             if (!$oneHostOkay) {
                                 echo $uiElements->boxError(_("When connecting to the discovered OpenRoaming endpoints, they all had errors. OpenRoaming will likely not work."));
+                                $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR]);
                             } else {
                                 echo $uiElements->boxWarning(_("When connecting to the discovered OpenRoaming endpoints, only a subset of endpoints had no errors."));
+                                $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN]);
                             }
-                            $didWeComplainYet = true;
                         }
                     }
                 }
 
                 if (!$dnsChecks->allResponsesSecure) {
                     echo $uiElements->boxWarning(_("At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may refuse to connect to the endpoint."));
-                    $didWeComplainYet = true;
+                    $resultLevel = min([$resultLevel, \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN]);
                 }
-                if (!$didWeComplainYet) {
+                if ($resultLevel == \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD) {
                     echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) were successful."));
-                }
+                }                
             }
+            $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
             ?>
         </table>
         <br/>

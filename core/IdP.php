@@ -186,6 +186,23 @@ class IdP extends EntityWithDBProperties
         return self::PROFILES_INCOMPLETE;
     }
 
+    /**
+     * looks through all the profiles of the inst and determines the highest 
+     * participation/conformance level for OpenRoaming
+     * 
+     * @return int highest level of completeness of all the profiles of the inst
+     */
+    public function maxOpenRoamingStatus()
+    {
+        $allProfiles = $this->databaseHandle->exec("SELECT MIN(openroaming) AS maxlevel FROM profile WHERE inst_id = $this->identifier");
+        // SELECT yields a resource, not a boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
+            return (is_numeric($res->maxlevel) ? (int)$res->maxlevel : AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO ); // insts without profiles should get a "NO"
+        }
+        return AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO;
+    }
+    
+    
     /** This function retrieves an array of authorised users which can
      * manipulate this institution.
      * 

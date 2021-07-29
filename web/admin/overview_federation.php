@@ -236,7 +236,7 @@ $(document).on('click', '#realmcheck' , function() {
     <table class='user_overview' style='border:0px;'>
         <caption><?php echo _("Participant Details");?></caption>
         <tr>
-            <th scope='col'><?php echo _("Deployment Status"); ?></th>
+            <th scope='col'><?php echo _("Configured / Visible / OpenRoaming"); ?></th>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
 
             <?php
@@ -283,8 +283,31 @@ $(document).on('click', '#realmcheck' , function() {
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
-                echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
-                echo "</td>";
+                echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "-" ) 
+                        . " " 
+                        . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "-" )
+                        . " "
+                        . "<span style='color:";
+                switch ($idp_instance->maxOpenRoamingStatus()) {
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO:
+                        echo "black;'>-";
+                        break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD:
+                        echo "green;'>O";
+                        break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
+                        echo "blue;'>O";
+                        break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
+                        echo "yellow;'>O";
+                        break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
+                        echo "red;'>O";
+                        break;
+                    default:
+                        throw \Exception("Impossible OpenRoaming status!");
+                }
+                echo "</span></td>";
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
                 // the deployment at hand has silverbullet enabled

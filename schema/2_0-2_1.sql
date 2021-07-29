@@ -23,7 +23,8 @@
  * Created: 08.03.2019
  */
 
-ALTER TABLE `institution` ADD COLUMN `type` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP';
+ALTER TABLE `institution` ADD COLUMN `type` ENUM('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP';
+ALTER TABLE `profile` ADD COLUMN `openroaming` INT(2) NOT NULL DEFAULT 4;
 
 CREATE TABLE `deployment` (
   `deployment_id` int(11) NOT NULL AUTO_INCREMENT,

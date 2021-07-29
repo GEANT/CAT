@@ -129,6 +129,7 @@ CREATE TABLE `profile` (
   `hint_userinput_suffix` int(1) NOT NULL DEFAULT '1',
   `showtime` tinyint(1) DEFAULT '1',
   `sufficient_config` tinyint(1) NULL DEFAULT NULL,
+  `openroaming` int(2) NOT NULL DEFAULT 4,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`profile_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
