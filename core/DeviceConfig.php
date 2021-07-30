@@ -233,7 +233,7 @@ abstract class DeviceConfig extends \core\common\Entity
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
-        if (isset($this->attributes['media:openroaming']) && ( $this->attribute['media:openroaming'] == "always-preagreed" ) ) {
+        if (isset($this->attributes['media:openroaming']) && substr($this->attributes['media:openroaming'],6) == "always" ) {
             $this->attributes['internal:openroaming'] = TRUE;
         }
         // alternatively: if DeviceConfig was called after a user hitting the
