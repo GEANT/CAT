@@ -581,7 +581,13 @@ abstract class DeviceConfig extends \core\common\Entity
         $additionalSSIDs = [];
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
-        $networks = \config\ConfAssistant::CONSORTIUM['networks'] ?? [];
+        $networks = [];
+        foreach (\config\ConfAssistant::CONSORTIUM['networks'] ?? [] as $netName => $netDetails) {
+            // only add network blocks if their respective condition is met in this profile
+            if ($netDetails['condition'] === TRUE || isset($this->attributes[$netDetails['condition']])) { 
+                $networks[$netName] = $netDetails;
+            }
+        }
         // add locally defined SSIDs
         if (isset($this->attributes['media:SSID'])) {
             foreach ($this->attributes['media:SSID'] as $ssid) {
