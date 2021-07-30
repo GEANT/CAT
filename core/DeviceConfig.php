@@ -233,6 +233,17 @@ abstract class DeviceConfig extends \core\common\Entity
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
+        if (isset($this->attributes['media:openroaming']) && ( $this->attribute['media:openroaming'] == "always-preagreed" ) ) {
+            $this->attributes['internal:openroaming'] = TRUE;
+        }
+        // alternatively: if DeviceConfig was called after a user hitting the
+        // OpenRoaming opt-in button on the end-user download page, also add
+        // this internal attribute
+        // TODO
+        if (FALSE) {
+            $this->attributes['internal:openroaming'] = TRUE;
+        }
+        
         $this->attributes['internal:networks'] = $this->getNetworks();
 
         $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONSORTIUM['display_name']);
