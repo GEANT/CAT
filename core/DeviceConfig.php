@@ -577,7 +577,8 @@ abstract class DeviceConfig extends \core\common\Entity
      */
     private function getNetworks()
     {
-        $consortia = [];
+        $additionalConsortia = [];
+        $additionalSSIDs = [];
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
         $networks = isset(\config\ConfAssistant::CONSORTIUM['networks']) ? 
@@ -586,7 +587,7 @@ abstract class DeviceConfig extends \core\common\Entity
         if (isset($this->attributes['media:SSID'])) {
             foreach ($this->attributes['media:SSID'] as $ssid) {
                 if (!in_array($ssid, $ssids)) {
-                    $networks[$ssid] = ['ssid' => [$ssid], 'oi' => []];
+                    $additionalSSIDs[] = $ssid;
                 }
             }
         }
@@ -594,12 +595,12 @@ abstract class DeviceConfig extends \core\common\Entity
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 if (!in_array($new_oi, $ois)) {
-                    $consortia[] = $new_oi;
+                    $additionalConsortia[] = $new_oi;
                 }
             }
         }
-        if (!empty($consortia)) {
-            $networks['local passpoint network'] = ['ssid' => [], 'oi' => $consortia];
+        if (!empty($additionalConsortia) || !empty($additionalSSIDs)) {
+            $networks[sprintf('%s Custom Network', CAT::$nomenclature_participant)] = ['ssid' => $additionalSSIDs, 'oi' => $additionalConsortia];
         }
         return $networks;
     }
