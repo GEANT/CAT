@@ -581,8 +581,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $additionalSSIDs = [];
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
-        $networks = isset(\config\ConfAssistant::CONSORTIUM['networks']) ? 
-            \config\ConfAssistant::CONSORTIUM['networks'] : [];
+        $networks = \config\ConfAssistant::CONSORTIUM['networks'] ?? [];
         // add locally defined SSIDs
         if (isset($this->attributes['media:SSID'])) {
             foreach ($this->attributes['media:SSID'] as $ssid) {
