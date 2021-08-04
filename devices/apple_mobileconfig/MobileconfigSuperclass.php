@@ -366,7 +366,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
      * This is the XML structure subtree of a Network block which contains the
      * settings specific to Passpoint
      * 
-     * @param string $consortiumOi list of consortiumOi to put into structure
+     * @param array  $consortiumOi list of consortiumOi to put into structure
      * @param string $oiName       the pretty-print name of the RCOI
      * @return string
      */
@@ -378,7 +378,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>" . \config\ConfAssistant::CONSORTIUM['display_name'] . " via Passpoint</string>";
+               <string>" . $oiName . "</string>";
         // if we don't know the realm, omit the entire DomainName key
         if (isset($this->attributes['internal:realm'])) {
             $retval .= "<key>DomainName</key>
@@ -390,7 +390,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
 
-        $retval .= "<string>" . strtoupper($consortiumOi) . "</string>";
+        foreach ($consortiumOi as $oneCons) {
+            $retval .= "<string>" . strtoupper($oneCons) . "</string>";
+        }
 
         $retval .= "</array>";
         // this is an undocumented value found on the net. Does it do something useful?
@@ -543,10 +545,10 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 $wifiNetworkIdentification = "";
                 break;
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
-                if (!is_string($toBeConfigured)) {
-                    throw new Exception("ConsortiumOI must be a string!");
+                if (!is_array($toBeConfigured)) {
+                    throw new Exception("ConsortiumOI must be an array!");
                 }
-                $payloadIdentifier = "hs20.$toBeConfigured";
+                $payloadIdentifier = "hs20.".implode('-',$toBeConfigured);
                 $knownOiName = array_search($toBeConfigured, \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
                 if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
                     $knownOiName = $this->instName . " "._("Roaming Partner");
@@ -655,13 +657,11 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
             $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
         }
+        if (count($this->attributes['internal:consortia']) > 0 && $this->selectedEapObject->isPasswordRequired() === FALSE) {            
+            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
+        }
         if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\DeviceMobileconfigOsX") {
             $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
-        }
-        if (count($this->attributes['internal:consortia']) > 0 && $this->selectedEapObject->isPasswordRequired() === FALSE) {
-            foreach ($this->attributes['internal:consortia'] as $oneCons) {
-                $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $oneCons);
-            }
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             $this->removeSerial = 0;
