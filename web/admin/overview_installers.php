@@ -79,7 +79,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
                         </form>
                         </td>";
-            $factory = new \core\DeviceFactory($index);
+            $factory = new \core\DeviceFactory($index);                       
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $footnotesForDevEapCombo = [];
@@ -119,11 +119,19 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         echo "<td class='compat_incomplete'></td>";
                     } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote - iterate through all available attributes and see if we have something in the buffer
+                        // prep the entire device with per-profile finesses; we need to find out if OpenRoaming is wanted or not so we can display footnotes about its usability
+                        // but only if it is not a redirect device; no EAP type to initialise there
+                        $factory->device->setup($my_profile);
+
                         $optionlist = core\Options::instance();
                         foreach ($optionlist->availableOptions() as $oneOption) {
-                            $value = $my_profile->getAttributes($oneOption)[0]["value"] ?? FALSE;
-                            // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
-                            if ($value != FALSE && isset($factory->device->specialities[$oneOption])) {
+                            $value = $my_profile->getAttributes($oneOption)[0] ?? FALSE;
+                            if (
+                                    // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
+                                    // look for the attribute either in the Profile properties or in the device properties
+                                    ($value != FALSE || isset($factory->device->attributes[$oneOption])) 
+                                    && isset($factory->device->specialities[$oneOption])
+                                ) {
                                 if (isset($factory->device->specialities[$oneOption][serialize($method->getArrayRep())])) {
                                     $footnotesForDevEapCombo[] = $factory->device->specialities[$oneOption][serialize($method->getArrayRep())];
                                 } else if (!is_array($factory->device->specialities[$oneOption])) {

@@ -49,6 +49,9 @@ use \Exception;
                     \core\common\EAP::EAPTYPE_SILVERBULLET
                 ]);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['internal:openroaming'] = _("While OpenRoaming can be configured, it is possible that the Wi-Fi hardware does not support it; then the network definition is ignored.");
+        $this->specialities['media:consortium_OI'] = _("While Passpoint networks can be configured, it is possible that the Wi-Fi hardware does not support it; then the network definition is ignored.");
+
         \core\common\Entity::outOfThePotatoes();
     }
     
