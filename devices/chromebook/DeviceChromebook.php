@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -78,7 +79,8 @@ use Exception;
  *
  * @package ModuleWriting
  */
-class DeviceChromebook extends \core\DeviceConfig {
+class DeviceChromebook extends \core\DeviceConfig
+{
 
     /**
      * Number of iterations for the PBKDF2 function. 
@@ -93,7 +95,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      *
      * @final not to be redefined
      */
-    final public function __construct() {
+    final public function __construct()
+    {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
@@ -106,7 +109,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * @param string $password  the import PIN we told the user
      * @return string
      */
-    private function encryptConfig($clearJson, $password) {
+    private function encryptConfig($clearJson, $password)
+    {
         $salt = \core\common\Entity::randomString(12);
         $encryptionKey = hash_pbkdf2("sha1", $password, $salt, DeviceChromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
         $strong = FALSE; // should become TRUE if strong crypto is available like it should.
@@ -140,7 +144,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * @param array  $eapdetails the EAP sub-block as derived from EapBlock()
      * @return array
      */
-    private function wifiBlock($ssid, $eapdetails) {
+    private function wifiBlock($ssid, $eapdetails)
+    {
         return [
             "GUID" => \core\common\Entity::uuid('', $ssid),
             "Name" => "$ssid",
@@ -162,7 +167,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * 
      * @return array
      */
-    protected function proxySettings() {
+    protected function proxySettings()
+    {
         if (isset($this->attributes['media:force_proxy'])) {
             // find the port delimiter. In case of IPv6, there are multiple ':' 
             // characters, so we have to find the LAST one
@@ -186,7 +192,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * @param array $eapdetails the EAP configuration as created with eapBlock()
      * @return array
      */
-    private function wiredBlock($eapdetails) {
+    private function wiredBlock($eapdetails)
+    {
         return [
             "GUID" => \core\common\Entity::uuid('', "wired-dot1x-ethernet") . "}",
             "Name" => "eduroam configuration (wired network)",
@@ -206,7 +213,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * @param array $caRefs list of strings with CA references
      * @return array
      */
-    private function eapBlock($caRefs) {
+    private function eapBlock($caRefs)
+    {
         $selectedEap = $this->selectedEap;
         $outerId = $this->determineOuterIdString();
         $eapPrettyprint = \core\common\EAP::eapDisplayName($selectedEap);
@@ -255,7 +263,8 @@ class DeviceChromebook extends \core\DeviceConfig {
      * @return string installer path name
      * @throws Exception
      */
-    public function writeInstaller() {
+    public function writeInstaller()
+    {
         $this->loggerInstance->debug(4, "Chromebook Installer start\n");
         $caRefs = [];
         // we don't do per-user encrypted containers
@@ -284,8 +293,10 @@ class DeviceChromebook extends \core\DeviceConfig {
         }
         $eaparray = $this->eapBlock($caRefs);
         // define Wi-Fi networks
-        foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $jsonArray["NetworkConfigurations"][] = $this->wifiBlock($ssid, $eaparray);
+        foreach ($this->attributes['internal:networks'] as $netDefinition) {
+            foreach ($netDefinition['ssid'] as $ssid) {
+                $jsonArray["NetworkConfigurations"][] = $this->wifiBlock($ssid, $eaparray);
+            }
         }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
@@ -325,12 +336,12 @@ class DeviceChromebook extends \core\DeviceConfig {
      * 
      * @return string HTML text to be displayed in the information window
      */
-    public function writeDeviceInfo() {
+    public function writeDeviceInfo()
+    {
         \core\common\Entity::intoThePotatoes();
         $out = "<p>";
         $out .= _("The installer is a file with the extension '.onc'. Please download it, open Chrome, and navigate to the URL <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.");
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
-
 }
