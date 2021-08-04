@@ -508,10 +508,11 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
      * 
      * @param int                  $blocktype      which type of network block is this?
      * @param string|array|boolean $toBeConfigured variable part of the config. Single SSID or list of ConsortiumOi
+     * @param string               $prettyName     name with which to present the network to users
      * @return string
      * @throws Exception
      */
-    private function networkBlock($blocktype, $toBeConfigured)
+    private function networkBlock($blocktype, $toBeConfigured, $prettyName)
     {
         \core\common\Entity::intoThePotatoes();
         $eapType = $this->selectedEap;
@@ -522,8 +523,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 }
                 $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
                 $payloadIdentifier = "wifi." . $this->serial;
-                $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-                $payloadName = sprintf(_("%s configuration for network name %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $escapedSSID);
+                $payloadShortName = sprintf(_("%s - SSID %s"), $prettyName, $escapedSSID);
+                $payloadName = sprintf(_("%s configuration for network name %s"), $prettyName, $escapedSSID);
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
                 $wifiNetworkIdentification = "<key>SSID_STR</key>
@@ -534,8 +535,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                     throw new Exception("We expected a TRUE here!");
                 }
                 $payloadIdentifier = "firstactiveethernet";
-                $payloadShortName = _("Wired Network");
-                $payloadName = sprintf(_("%s configuration for wired network"), \config\ConfAssistant::CONSORTIUM['display_name']);
+                $payloadShortName = sprintf(_("%s - Wired Network"), $prettyName);
+                $payloadName = sprintf(_("%s configuration for wired network"), $prettyName);
                 $encryptionTypeString = "any";
                 $setupModesString = "
                <key>SetupModes</key>
@@ -548,16 +549,15 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 if (!is_array($toBeConfigured)) {
                     throw new Exception("ConsortiumOI must be an array!");
                 }
-                $payloadIdentifier = "hs20.".implode('-',$toBeConfigured);
-                $knownOiName = array_search($toBeConfigured, \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
-                if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
-                    $knownOiName = $this->instName . " "._("Roaming Partner");
+                if (count($toBeConfigured) == 0) {
+                    return "";
                 }
-                $payloadShortName = $knownOiName;
-                $payloadName = _("Passpoint roaming configuration ($knownOiName)");
+                $payloadIdentifier = "hs20.".implode('-',$toBeConfigured);
+                $payloadShortName = sprintf(_("%s - RCOI"), $prettyName);
+                $payloadName = sprintf(_("%s configuration (Passpoint RCOI)"),$prettyName);
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
-                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured, $knownOiName);
+                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured, $prettyName);
                 break;
             default:
                 throw new Exception("This type of network block is unknown!");
@@ -653,15 +653,18 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
     {
         $retval = "";
         $this->serial = 0;
-
-        foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
-            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
-        }
-        if (count($this->attributes['internal:consortia']) > 0 && $this->selectedEapObject->isPasswordRequired() === FALSE) {            
-            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
+        foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+            // mobileconfig network blocks can only hold one SSID each, so iterate here
+            foreach ($netDefinition['ssid'] as $ssid) {
+                $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid, $netName);
+            }
+            // mobileconfig network blocks can accomodate a list of RCOIs in one statement, so just call it
+            if ($this->selectedEapObject->isPasswordRequired() === FALSE) {
+                $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $netDefinition['oi'], $netName);
+            }
         }
         if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\DeviceMobileconfigOsX") {
-            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
+            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE, \config\ConfAssistant::CONSORTIUM['display_name']);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             $this->removeSerial = 0;
