@@ -35,6 +35,9 @@ class DeviceLinuxSh extends \core\DeviceConfig {
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
+        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("This device does not support provisioning of OpenRoaming.");
+        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("This device does not support provisioning of Passpoint networks.");
+
     }
 
     /**

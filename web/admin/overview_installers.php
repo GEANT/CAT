@@ -119,10 +119,6 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         echo "<td class='compat_incomplete'></td>";
                     } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote - iterate through all available attributes and see if we have something in the buffer
-                        // prep the entire device with per-profile finesses; we need to find out if OpenRoaming is wanted or not so we can display footnotes about its usability
-                        // but only if it is not a redirect device; no EAP type to initialise there
-                        $factory->device->setup($my_profile);
-
                         $optionlist = core\Options::instance();
                         foreach ($optionlist->availableOptions() as $oneOption) {
                             $value = $my_profile->getAttributes($oneOption)[0] ?? FALSE;
