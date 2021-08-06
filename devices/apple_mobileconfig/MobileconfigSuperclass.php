@@ -145,19 +145,13 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         \core\common\Entity::intoThePotatoes();
         // that's what all variants support. Sub-classes can change it.
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
-        $this->specialities['internal:verify_userinput_suffix'] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_TTLS_PAP)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_TTLS_PAP)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_TTLS_GTC)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_TTLS_GTC)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_PWD)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_PWD)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_FAST_GTC)] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
-        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_FAST_GTC)] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
+        foreach(\core\common\EAP::listKnownEAPTypes() as $eapType) {
+            if ($eapType->isPasswordRequired() || $eapType->isPasswordOptional()) {
+                $this->specialities['internal:verify_userinput_suffix'][serialize($eapType->getArrayRep())] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
+                $this->specialities['media:openroaming'][serialize($eapType->getArrayRep())] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
+                $this->specialities['media:consortium_OI'][serialize($eapType->getArrayRep())] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
+            }
+        }
         \core\common\Entity::outOfThePotatoes();
     }
 
