@@ -510,6 +510,26 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
     }
 
     /**
+     * iOS 8 introduced the new value "WPA2" to lock out WPA ("1"). Make sure
+     * we use it for the most recent gen of mobileconfig for iOS.
+     * 
+     * According to reports on the eduroam dev ML, also recent macOS supports it
+     * so add it there, too (spec is silent on macOS versions).
+     * 
+     * @return string either "WPA" or "WPA2
+     */
+    private function encryptionString() {
+        if (
+                get_class($this) == "devices\apple_mobileconfig\DeviceMobileconfigIos12plus" || 
+                get_class($this) == "devices\apple_mobileconfig\DeviceMobileconfigOsX"
+           ) {
+                    return "WPA2";
+                } else {
+                    return "WPA";
+                }
+    }
+    
+    /**
      * produces an entire Network block
      * 
      * @param int                  $blocktype      which type of network block is this?
@@ -531,7 +551,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 $payloadIdentifier = "wifi." . $this->serial;
                 $payloadShortName = sprintf(_("%s - SSID %s"), $prettyName, $escapedSSID);
                 $payloadName = sprintf(_("%s configuration for network name %s"), $prettyName, $escapedSSID);
-                $encryptionTypeString = "WPA";
+                $encryptionTypeString = $this->encryptionString();
                 $setupModesString = "";
                 $wifiNetworkIdentification = "<key>SSID_STR</key>
                   <string>$escapedSSID</string>";
@@ -561,7 +581,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 $payloadIdentifier = "hs20.".implode('-',$toBeConfigured);
                 $payloadShortName = sprintf(_("%s - RCOI"), $prettyName);
                 $payloadName = sprintf(_("%s configuration (Passpoint RCOI)"),$prettyName);
-                $encryptionTypeString = "WPA";
+                $encryptionTypeString = $this->encryptionString();
                 $setupModesString = "";
                 $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured, $prettyName);
                 break;
