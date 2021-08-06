@@ -46,6 +46,9 @@ class DeviceVista7 extends WindowsCommon
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, $this->supportedEapMethods);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['media:openroaming'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("This device does not support provisioning of OpenRoaming.");
+        $this->specialities['media:consortium_OI'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("This device does not support provisioning of Passpoint networks.");
+
         \core\common\Entity::outOfThePotatoes();
     }
 
