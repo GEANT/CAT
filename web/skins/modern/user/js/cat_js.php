@@ -182,6 +182,7 @@ function listProfiles(inst_id,selected_profile) {
     // the #inst_name is the hiddien form field used to carry the info
     $("#inst_name").val(inst_name);
     $("#inst_name_span").html(inst_name);
+    $(".inst_name").text(inst_name);
     $("#user_page").show();
     $("#institution_name").show();
     if (n > profile_list_size)
@@ -334,8 +335,6 @@ function showProfile(prof) {
       // EAP methods. This can be recognised by the device status set to 1
       // however we also need to make sure that the redirect has not been
       // set for this device. 
-      if (v.redirect != '0')
-        //alert(v.id);
         if (v.status > 0) {
           if( v.redirect == '0') {
             $("#"+v.id).addClass('disabledDevice');
