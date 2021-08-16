@@ -86,7 +86,7 @@ class UserAPI extends CAT
         $this->installerPath = $cache['path'];
         if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "user/API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
+            $installerProperties['link'] = "user/API.php?action=downloadInstaller&lang=".$this->languageInstance->getLang()."&profile=$profileId&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $openRoaming, $token, $password);
@@ -179,7 +179,7 @@ class UserAPI extends CAT
             $this->loggerInstance->debug(5, "generateNewInstaller() - Device setup done");
             $installer = $dev->writeInstaller();
             $this->loggerInstance->debug(5, "generateNewInstaller() - writeInstaller complete");
-            $iPath = $dev->FPATH . '/tmp/' . $installer;
+            $iPath = $dev->FPATH.'/tmp/'.$installer;
             if ($iPath && is_file($iPath)) {
                 if (isset($dev->options['mime'])) {
                     $out['mime'] = $dev->options['mime'];
@@ -187,17 +187,17 @@ class UserAPI extends CAT
                     $info = new \finfo();
                     $out['mime'] = $info->file($iPath, FILEINFO_MIME_TYPE);
                 }
-                $this->installerPath = $dev->FPATH . '/' . $installer;
+                $this->installerPath = $dev->FPATH.'/'.$installer;
                 rename($iPath, $this->installerPath);
                 $integerEap = (new \core\common\EAP($dev->selectedEap))->getIntegerRep();
                 $profile->updateCache($device, $this->installerPath, $out['mime'], $integerEap, $openRoaming);
                 if (\config\Master::DEBUG_LEVEL < 4) {
-                    \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
+                    \core\common\Entity::rrmdir($dev->FPATH.'/tmp');
                 }
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . ", openRoaming: $openRoaming\n");
-                $out['link'] = "user/API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
+                $this->loggerInstance->debug(4, "Generated installer: ".$this->installerPath.": for: $device, EAP:".$integerEap.", openRoaming: $openRoaming\n");
+                $out['link'] = "user/API.php?action=downloadInstaller&lang=".$this->languageInstance->getLang()."&profile=".$profile->identifier."&device=$device&generatedfor=$generatedFor&openroaming=$openRoaming";
             } else {
-                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "openRoaming: $openRoaming\n");
+                $this->loggerInstance->debug(2, "Installer generation failed for: ".$profile->identifier.":$device:".$this->languageInstance->getLang()."openRoaming: $openRoaming\n");
                 $out['link'] = 0;
             }
         }
@@ -321,13 +321,13 @@ class UserAPI extends CAT
         $file = $this->installerPath;
         $filetype = $output['mime'];
         $this->loggerInstance->debug(4, "installer MIME type:$filetype\n");
-        header("Content-type: " . $filetype);
+        header("Content-type: ".$filetype);
         if ($filetype !== "application/x-wifi-config") { // for those installers to work on Android, Content-Disposition MUST NOT be set
-            header('Content-Disposition: inline; filename="' . basename($file) . '"');
+            header('Content-Disposition: inline; filename="'.basename($file).'"');
         } else {
             header('Content-Transfer-Encoding: base64');
         }
-        header('Content-Length: ' . filesize($file));
+        header('Content-Length: '.filesize($file));
         ob_clean();
         flush();
         readfile($file);
@@ -349,7 +349,7 @@ class UserAPI extends CAT
         $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
         $offset = 60 * 60 * 24 * 30;
         // gmdate cannot fail here - time() is its default argument (and integer), and we are adding an integer to it
-        $expiresString = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+        $expiresString = "Expires: "./** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset)." GMT";
         $blob = $inputImage;
 
         if ($resize === TRUE) {
@@ -405,7 +405,7 @@ class UserAPI extends CAT
         $filetype = 'image/png'; // default, only one code path where it can become different
         list($width, $height, $resize) = $this->testForResize($widthIn, $heightIn);
         if ($resize) {
-            $logoFile = ROOT . '/web/downloads/logos/' . $identifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT.'/web/downloads/logos/'.$identifier.'_'.$width.'_'.$height.'.png';
         }
         if (is_file($logoFile)) { // $logoFile could be an empty string but then we will get a FALSE
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $identifier\n");
@@ -517,7 +517,7 @@ class UserAPI extends CAT
             if (!isset($device['match'])) {
                 continue;
             }
-            if (preg_match('/' . $device['match'] . '/', $browser)) {
+            if (preg_match('/'.$device['match'].'/', $browser)) {
                 return $this->returnDevice($devId, $device);
             }
         }

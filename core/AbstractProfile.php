@@ -143,7 +143,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType, $openRoaming)
     {
         if (\config\Master::PATHS['logdir']) {
-            $file = fopen(\config\Master::PATHS['logdir'] . "/download_details.log", "a");
+            $file = fopen(\config\Master::PATHS['logdir']."/download_details.log", "a");
             if ($file === FALSE) {
                 throw new Exception("Unable to open file for append: $file");
             }
@@ -197,7 +197,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         foreach ($new->getAttributes("eap:server_name") as $newName) {
             if (!in_array($newName['value'], $baselineNames)) {
-                $retval[AbstractProfile::SERVERNAME_ADDED] .= "#New server name '" . $newName['value'] . "' added";
+                $retval[AbstractProfile::SERVERNAME_ADDED] .= "#New server name '".$newName['value']."' added";
             }
         }
         return $retval;
@@ -232,7 +232,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $eaptype = new common\EAP($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n" . /** @scrutinizer ignore-type */ print_r($eapTypeArray, true));
+        $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n"./** @scrutinizer ignore-type */ print_r($eapTypeArray, true));
         return $eapTypeArray;
     }
 
@@ -314,16 +314,16 @@ abstract class AbstractProfile extends EntityWithDBProperties
         if (count($this->getAttributes("internal:checkuser_outer")) > 0) {
             // we are supposed to use a specific outer username for checks, 
             // which is different from the outer username we put into installers
-            return $this->getAttributes("internal:checkuser_value")[0]['value'] . "@" . $realm;
+            return $this->getAttributes("internal:checkuser_value")[0]['value']."@".$realm;
         }
         if (count($this->getAttributes("internal:use_anon_outer")) > 0) {
             // no special check username, but there is an anon outer ID for
             // installers - so let's use that one
-            return $this->getAttributes("internal:anon_local_value")[0]['value'] . "@" . $realm;
+            return $this->getAttributes("internal:anon_local_value")[0]['value']."@".$realm;
         }
         // okay, no guidance on outer IDs at all - but we need *something* to
         // test with for the RealmChecks. So:
-        return "@" . $realm;
+        return "@".$realm;
     }
 
     /**
@@ -778,7 +778,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
     public function prepShowtime()
     {
         $properConfig = $this->readyForShowtime();
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = ".($properConfig ? "TRUE" : "FALSE")." WHERE profile_id = ".$this->identifier);
 
         $attribs = $this->getCollapsedAttributes();
         // if not enough info to go live, set FALSE
