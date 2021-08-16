@@ -138,7 +138,7 @@ abstract class DeviceConfig extends \core\common\Entity
                     break 2;
                 }
             }
-            $longestSuffix = $candidate . $longestSuffix;
+            $longestSuffix = $candidate.$longestSuffix;
         }
         return $longestSuffix;
     }
@@ -176,7 +176,7 @@ abstract class DeviceConfig extends \core\common\Entity
             throw new Exception("No EAP type available.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        $this->deviceUUID = common\Entity::uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
+        $this->deviceUUID = common\Entity::uuid('', 'CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
 
 
         // if we are instantiating a Silverbullet profile AND have been given
@@ -201,8 +201,8 @@ abstract class DeviceConfig extends \core\common\Entity
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = \core\common\Entity::createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
-        mkdir($tempDir['dir'] . '/tmp');
-        chdir($tempDir['dir'] . '/tmp');
+        mkdir($tempDir['dir'].'/tmp');
+        chdir($tempDir['dir'].'/tmp');
         $caList = [];
         $x509 = new \core\common\X509();
         if (isset($this->attributes['eap:ca_file'])) {
@@ -243,7 +243,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONSORTIUM['display_name']);
 
         if ($this->signer && $this->options['sign']) {
-            $this->sign = ROOT . '/signer/' . $this->signer;
+            $this->sign = ROOT.'/signer/'.$this->signer;
         }
         $this->installerBasename = $this->getInstallerBasename();
         common\Entity::outOfThePotatoes();
@@ -303,10 +303,10 @@ abstract class DeviceConfig extends \core\common\Entity
      */
     protected function findSourceFile($file)
     {
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
-            return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
-        } elseif (is_file($this->module_path . '/Files/' . $file)) {
-            return $this->module_path . '/Files/' . $file;
+        if (is_file($this->module_path.'/Files/'.$this->device_id.'/'.$file)) {
+            return $this->module_path.'/Files/'.$this->device_id.'/'.$file;
+        } elseif (is_file($this->module_path.'/Files/'.$file)) {
+            return $this->module_path.'/Files/'.$file;
         } else {
             $this->loggerInstance->debug(2, "requested file $file does not exist\n");
             return FALSE;
@@ -430,19 +430,19 @@ abstract class DeviceConfig extends \core\common\Entity
      */
     private function getInstallerBasename()
     {
-        $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name']) . "-" . $this->getDeviceId();
+        $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name'])."-".$this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) {
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
             // and then scrub non-ASCII just in case
-            return $baseName . $this->customTranslit($this->attributes['profile:customsuffix'][1]);
+            return $baseName.$this->customTranslit($this->attributes['profile:customsuffix'][1]);
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
         // if an instshortname is set, base on that, otherwise, the normal instname
         $attribToUse = (isset($this->attributes['general:instshortname']) ? 'general:instshortname' : 'general:instname');
         $lang_pointer = \config\Master::LANGUAGES[$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
-        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes[$attribToUse][$lang_pointer] . "\n");
+        $this->loggerInstance->debug(5, "getInstallerBasename1:".$this->attributes[$attribToUse][$lang_pointer]."\n");
         $inst = $this->customTranslit($this->attributes[$attribToUse][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
@@ -457,7 +457,7 @@ abstract class DeviceConfig extends \core\common\Entity
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $profTemp = $this->customTranslit($this->attributes['profile:name'][$lang_pointer]);
                 $prof = preg_replace('/_+$/', '', $profTemp);
-                return $baseName . $inst . '-' . $prof;
+                return $baseName.$inst.'-'.$prof;
             }
         }
         return $baseName . $inst;
@@ -647,7 +647,7 @@ abstract class DeviceConfig extends \core\common\Entity
                 $ext = 'unsupported';
             }
             $this->loggerInstance->debug(5, "saveLogoFile: $mime : $ext\n");
-            $fileName = 'logo-' . $type . $iterator . '.' . $ext;
+            $fileName = 'logo-'.$type.$iterator.'.'.$ext;
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
@@ -674,13 +674,13 @@ abstract class DeviceConfig extends \core\common\Entity
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
         $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
-        $fileHandle = fopen('local-info.' . $ext, "w");
+        $fileHandle = fopen('local-info.'.$ext, "w");
         if ($fileHandle === FALSE) {
             throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
         fclose($fileHandle);
-        return(['name' => 'local-info.' . $ext, 'mime' => $ext]);
+        return(['name' => 'local-info.'.$ext, 'mime' => $ext]);
     }
 
     /**
@@ -734,9 +734,9 @@ abstract class DeviceConfig extends \core\common\Entity
     {
         $outerId = NULL;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
-            $outerId = "@" . $this->attributes['internal:realm'][0];
+            $outerId = "@".$this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value'])) {
-                $outerId = $this->attributes['internal:anon_local_value'][0] . $outerId;
+                $outerId = $this->attributes['internal:anon_local_value'][0].$outerId;
             }
         }
         return $outerId;
