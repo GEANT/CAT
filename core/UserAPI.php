@@ -82,7 +82,7 @@ class UserAPI extends CAT
         $installerProperties = [];
         $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
-        $cache = $this->getCache($device, $profile);
+        $cache = $this->getCache($device, $profile, $openRoaming);
         $this->installerPath = $cache['path'];
         if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
@@ -135,7 +135,7 @@ class UserAPI extends CAT
      * @param AbstractProfile $profile the profile for which the installer is searched in cache
      * @return array containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned
      */
-    private function getCache($device, $profile)
+    private function getCache($device, $profile, $openRoaming)
     {
         $deviceConfig = \devices\Devices::listDevices()[$device];
         $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
@@ -147,7 +147,7 @@ class UserAPI extends CAT
             return ['path' => NULL, 'mime' => NULL];
         }
         $this->loggerInstance->debug(5, "getCache: caching option set for this device\n");
-        $cache = $profile->testCache($device);
+        $cache = $profile->testCache($device, $openRoaming);
         $iPath = $cache['cache'];
         if ($iPath && is_file($iPath)) {
             return ['path' => $iPath, 'mime' => $cache['mime']];
@@ -175,7 +175,7 @@ class UserAPI extends CAT
         $dev = $factory->device;
         $out = [];
         if (isset($dev)) {
-            $dev->setup($profile, $token, $password);
+            $dev->setup($profile, $token, $password, $openRoaming);
             $this->loggerInstance->debug(5, "generateNewInstaller() - Device setup done");
             $installer = $dev->writeInstaller();
             $this->loggerInstance->debug(5, "generateNewInstaller() - writeInstaller complete");
@@ -190,7 +190,7 @@ class UserAPI extends CAT
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
                 $integerEap = (new \core\common\EAP($dev->selectedEap))->getIntegerRep();
-                $profile->updateCache($device, $this->installerPath, $out['mime'], $integerEap);
+                $profile->updateCache($device, $this->installerPath, $out['mime'], $integerEap, $openRoaming);
                 if (\config\Master::DEBUG_LEVEL < 4) {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
@@ -317,7 +317,7 @@ class UserAPI extends CAT
         }
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->existingProfile($prof_id);
-        $profile->incrementDownloadStats($device, $generated_for);
+        $profile->incrementDownloadStats($device, $generated_for, $openRoaming);
         $file = $this->installerPath;
         $filetype = $output['mime'];
         $this->loggerInstance->debug(4, "installer MIME type:$filetype\n");

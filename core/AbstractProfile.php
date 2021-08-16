@@ -140,14 +140,14 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * @return void
      * @throws Exception
      */
-    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType)
+    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType, $openRoaming)
     {
         if (\config\Master::PATHS['logdir']) {
             $file = fopen(\config\Master::PATHS['logdir'] . "/download_details.log", "a");
             if ($file === FALSE) {
                 throw new Exception("Unable to open file for append: $file");
             }
-            fprintf($file, "%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
+            fprintf($file, "%-015s;%d;%d;%s;%s;%s;%d;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType, $openRoaming);
             fclose($file);
         }
     }
@@ -369,11 +369,11 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * @param string $device device ID to check
      * @return mixed a string with the path to the configurator download, or NULL if it needs to be regenerated
      */
-    public function testCache($device)
+    public function testCache($device, $openRoaming)
     {
         $returnValue = ['cache' => NULL, 'mime' => NULL];
         $lang = $this->languageInstance->getLang();
-        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
+        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ? AND openroaming = ?", "issi", $this->identifier, $device, $lang, $openRoaming);
         // SELECT queries always return a resource, not a boolean
         if ($result && $cache = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
@@ -398,7 +398,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
      * @return void
      */
-    abstract public function updateCache($device, $path, $mime, $integerEapType);
+    abstract public function updateCache($device, $path, $mime, $integerEapType, $openRoaming);
 
     /** Toggle anonymous outer ID support.
      *
@@ -414,11 +414,11 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * @param string $area   either admin or user
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
-    public function incrementDownloadStats($device, $area)
+    public function incrementDownloadStats($device, $area, $openRoaming)
     {
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $lang = $this->languageInstance->getLang();
-            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $lang);
+            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, openroaming, downloads_$area) VALUES (? ,?, ?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "issi", $this->identifier, $device, $lang, $openRoaming);
             // get eap_type from the downloads table
             $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
             // SELECT queries always return a resource, not a boolean
@@ -428,7 +428,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 if ($eapO->eap_type == NULL) {
                     $this->loggerInstance->debug(2, "EAP_type not set in the database\n");
                 } else {
-                    $this->saveDownloadDetails($this->institution, $this->identifier, $device, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+                    $this->saveDownloadDetails($this->institution, $this->identifier, $device, $area, $this->languageInstance->getLang(), $eapO->eap_type, $openRoaming);
                 }
             }
             return TRUE;

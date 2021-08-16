@@ -181,7 +181,7 @@ class ProfileSilverbullet extends AbstractProfile
      * @return void
      * @throws Exception
      */
-    public function updateCache($device, $path, $mime, $integerEapType)
+    public function updateCache($device, $path, $mime, $integerEapType, $openRoaming)
     {
         // caching is not supported in SB (private key in installers)
         // the following merely makes the "unused parameter" warnings go away

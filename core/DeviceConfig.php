@@ -75,6 +75,7 @@ abstract class DeviceConfig extends \core\common\Entity
      * @var array EAP methods
      */
     public $supportedEapMethods;
+   
 
     /**
      * sets the supported EAP methods for a device
@@ -164,7 +165,7 @@ abstract class DeviceConfig extends \core\common\Entity
      * @throws Exception
      * @final not to be redefined
      */
-    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL)
+    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL, $openRoaming = 0)
     {
         $this->loggerInstance->debug(4, "module setup start\n");
         common\Entity::intoThePotatoes();
@@ -232,15 +233,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        
-        if (isset($this->attributes['media:openroaming']) && substr($this->attributes['media:openroaming'][0],0,6) == "always" ) {
-            $this->attributes['internal:openroaming'] = TRUE;
-        }
-        // alternatively: if DeviceConfig was called after a user hitting the
-        // OpenRoaming opt-in button on the end-user download page, also add
-        // this internal attribute
-        // TODO
-        if (FALSE) {
+        if ($openRoaming == 1 && isset($this->attributes['media:openroaming'])) {
             $this->attributes['internal:openroaming'] = TRUE;
         }
         
@@ -595,8 +588,9 @@ abstract class DeviceConfig extends \core\common\Entity
         $networks = [];
         foreach (\config\ConfAssistant::CONSORTIUM['networks'] ?? [] as $netName => $netDetails) {
             // only add network blocks if their respective condition is met in this profile
-            if ($netDetails['condition'] === TRUE || isset($this->attributes[$netDetails['condition']])) { 
+            if ($netDetails['condition'] === TRUE || (isset($this->attributes[$netDetails['condition']]) && $this->attributes[$netDetails['condition']] === TRUE)) { 
                 $networks[$netName] = $netDetails;
+                $this->loggerInstance->debug(5,$netName, "\nAdding network: ");
             }
         }
         // add locally defined SSIDs
