@@ -86,7 +86,7 @@ ALTER TABLE invitations ADD COLUMN `invite_fortype` enum('IdP','SP','IdPSP') NOT
 
 ALTER TABLE downloads ADD COLUMN `openroaming` int(1) DEFAULT 0;
 ALTER TABLE downloads DROP KEY profile_device_lang;
-ALTER TABLE downloads ADD KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`);
+ALTER TABLE downloads ADD UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`);
 
 # ALTER TABLE managed_sp_servers ADD COLUMN `consortium` varchar(64) NOT NULL DEFAULT 'eduroam';
 # ALTER TABLE deployment ADD COLUMN `consortium` varchar(64) DEFAULT NULL;
