@@ -417,7 +417,7 @@ class UserAPI extends CAT
         } else {
             $logoAttribute = $entity->getAttributes($attributeName[$type]);
             if (count($logoAttribute) == 0) {
-                $blob = file_get_contents(ROOT . '/web/resources/images/empty.png');
+                $blob = file_get_contents(ROOT.'/web/resources/images/empty.png');
                 $expiresString = $this->logoExpireTime();
             } else {
                 $this->loggerInstance->debug(4, "RESIZE:$width:$height\n");
