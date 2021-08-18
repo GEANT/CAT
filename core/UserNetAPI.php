@@ -69,7 +69,7 @@ class UserNetAPI extends UserAPI
         $returnArray = [];
         $returnArray['status'] = $status;
         $returnArray['data'] = $data;
-        $returnArray['tou'] = "Please consult Terms of Use at: //" . $host . \core\CAT::getRootUrlPath() . "/tou.php";
+        $returnArray['tou'] = "Please consult Terms of Use at: //".$host.\core\CAT::getRootUrlPath()."/tou.php";
         if (!empty($otherData)) {
             $returnArray['otherdata'] = $otherData;
         }
@@ -324,7 +324,7 @@ class UserNetAPI extends UserAPI
     public function sendLogo($identifier, $type, $width, $height)
     {
         $logo = $this->getLogo($identifier, $type, $width, $height);
-        header("Content-type: " . $logo['filetype']);
+        header("Content-type: ".$logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
         header($logo['expires']);
         echo $logo['blob'];
