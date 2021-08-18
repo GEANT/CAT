@@ -83,7 +83,7 @@ class IdPlist extends common\Entity
             }          
             $oneInstitutionResult['title'] = $name;
             $keywords = [];
-            foreach ($names as $keyword) {
+            foreach ($options['names'] as $keyword) {
                 $value = $keyword['value'];
                 $keywords[$keyword['lang']] = $keyword['value'];
                 $keywords[$keyword['lang'].'_7'] =
