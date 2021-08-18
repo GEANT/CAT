@@ -347,9 +347,7 @@ class UserAPI extends CAT
     {
         $info = new \finfo();
         $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
-        $offset = 60 * 60 * 24 * 30;
-        // gmdate cannot fail here - time() is its default argument (and integer), and we are adding an integer to it
-        $expiresString = "Expires: "./** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset)." GMT";
+        $expiresString = $this->logoExpireTime();
         $blob = $inputImage;
 
         if ($resize === TRUE) {
@@ -365,6 +363,12 @@ class UserAPI extends CAT
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
+    protected function logoExpireTime()
+    {
+        $offset = 60 * 60 * 24 * 30;
+        // gmdate cannot fail here - time() is its default argument (and integer), and we are adding an integer to it
+        return("Expires: "./** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset)." GMT");
+    }
     /**
      * Get and prepare logo file 
      *
@@ -413,13 +417,15 @@ class UserAPI extends CAT
         } else {
             $logoAttribute = $entity->getAttributes($attributeName[$type]);
             if (count($logoAttribute) == 0) {
-                return NULL;
+                $blob = file_get_contents(ROOT . '/web/resources/images/empty.png');
+                $expiresString = $this->logoExpireTime();
+            } else {
+                $this->loggerInstance->debug(4, "RESIZE:$width:$height\n");
+                $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
+                $filetype = $meta['filetype'];
+                $expiresString = $meta['expires'];
+                $blob = $meta['blob'];
             }
-            $this->loggerInstance->debug(4, "RESIZE:$width:$height\n");
-            $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
-            $filetype = $meta['filetype'];
-            $expiresString = $meta['expires'];
-            $blob = $meta['blob'];
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }

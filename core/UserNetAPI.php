@@ -324,10 +324,9 @@ class UserNetAPI extends UserAPI
     public function sendLogo($identifier, $type, $width, $height)
     {
         $logo = $this->getLogo($identifier, $type, $width, $height);
-        $blob = $logo === NULL ? file_get_contents(ROOT . '/web/resources/images/empty.png') : $logo['blob'];
         header("Content-type: " . $logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
         header($logo['expires']);
-        echo $blob;
+        echo $logo['blob'];
     }
 }
