@@ -274,7 +274,7 @@ echo $mapCode->htmlHeadCode();
                                     $diagUrl = \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] . "/diag/";
                                 }
                                 ?>
-                                <form action='<?php echo $diagUrl; ?>action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+                                <form action='<?php echo $diagUrl."action_realmcheck.php?inst_id=".$my_inst->identifier."&profile_id=".$profile_list->identifier ?>' method='post' accept-charset='UTF-8'>
                                     <input type='hidden' name='comefrom' id='comefrom-<?php echo $profilecount; ?>' value='<?php echo $link; ?>'/>
                                     <button type='submit' name='profile_action' value='check' <?php echo ($has_realm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
                                         <?php echo _("Check realm reachability"); ?>
