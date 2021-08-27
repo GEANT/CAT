@@ -56,9 +56,10 @@ if ($inst_id && $profile_id) {
         $testedProfile = core\ProfileFactory::instantiate($testCandidate);
     }
 }
-$orrealm = NULL;
+$orrealm = array();
 if ($testedProfile !== NULL) {
     $orrealm = $testedProfile->getAttributes("media:openroaming");
+    print gettype($orrealm); exit;
     $checkrealm = $testedProfile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
