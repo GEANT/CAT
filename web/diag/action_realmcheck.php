@@ -56,8 +56,9 @@ if ($inst_id && $profile_id) {
         $testedProfile = core\ProfileFactory::instantiate($testCandidate);
     }
 }
-
+$orrealm = NULL;
 if ($testedProfile !== NULL) {
+    $orrealm = $testedProfile->getAttributes("media:openroaming");
     $checkrealm = $testedProfile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
@@ -73,11 +74,11 @@ if ($testedProfile !== NULL) {
         $_SESSION['check_realm'] = $check_realm;
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
+        //print '<pre>'; print_r($rfc7585suite); print '</pre>';
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
 }
-
 $translate1 = _("STATIC");
 $translate2 = _("DYNAMIC");
 $errorstate = [];
@@ -136,6 +137,7 @@ $errorstate = [];
     var running_ajax_dyn = 0;
     var global_level_udp = L_OK;
     var global_level_dyn = L_OK;
+    var global_level_openroaming = L_OK;
     servercert['title'] = "<?php echo _("Server certificate") ?>";
     servercert['subject'] = "<?php echo _("Subject") ?>";
     servercert['issuer'] = "<?php echo _("Issuer") ?>";
@@ -146,6 +148,7 @@ $errorstate = [];
     var lessalltext = "<?php echo _("Hide detailed information for all tests") ?>";
     var addresses = new Array();
     var clients_level = L_OK;
+    var openroamingclients_level = L_OK;
     var server_cert = new Object();
     server_cert.subject = "<?php echo _("Subject:") ?>";
     server_cert.issuer = "<?php echo _("Issuer:") ?>";
@@ -215,6 +218,10 @@ $errorstate = [];
     });
 
     function clients(data, status) {
+        consortium = data.consortium;
+        if (consortium == 'eduroam') {
+            consortium = '';
+        }
         var srefused = 0;
         show_debug(data);
         cliinfo = '<ol>';
@@ -263,37 +270,58 @@ $errorstate = [];
                     }
                 }
             }
-            clients_level = Math.max(clients_level, level);
-            global_level_dyn = Math.max(global_level_dyn, level);
+            if (consortium == '') {
+                clients_level = Math.max(clients_level, level);
+                global_level_dyn = Math.max(global_level_dyn, level);
+            } else {
+                openroamingclients_level = Math.max(openroamingclients_level, level);
+                global_level_openroaming = Math.max(global_level_openroaming, level);
+            }
 
             cliinfo = cliinfo + '</ul>';
         }
         cliinfo = cliinfo + '</ol>';
+        resultname = '#';
+        if (consortium == '') {
+            resultname = resultname + 'dynamic'
+        } else {
+            resultname = resultname + 'openroaming'
+        }
         if (srefused > 0) {
             cliinfo = refused_info;
-            $("#srcclient$hostindex").html('<p>' + cliinfo + '</p>');
-            $("#srcclient" + data.hostindex + "_img").attr('src', icons[L_ERROR]);
-            $("#dynamic_result_pass").hide();
-            $("#dynamic_result_fail").show();
+            $('#' + consortium + 'srcclient' + data.hostindex).html('<p>' + cliinfo + '</p>');
+            $('#' + consortium + 'srcclient' + data.hostindex + "_img").attr('src', icons[L_ERROR]);
+            $(resultname + '_pass').hide();
+            $(resultname + '_fail').show();
         } else {
             if (arefailed) {
-                $("#dynamic_result_pass").hide();
-                $("#dynamic_result_fail img").attr('src', icons[clients_level]);
-                $("#dynamic_result_fail").show();
+                $(resultname + '_pass').hide();
+                $(resultname + '_fail img').attr('src', icons[clients_level]);
+                $(resultname + '_fail').show();
             } else {
-                $("#dynamic_result_pass").show();
-                $("#dynamic_result_fail").hide();
+                $(resultname + '_pass').show();
+                $(resultname + '_fail').hide();
             }
-            $("#clientresults" + data.hostindex).html('<p>' + cliinfo + '</p>');
+            $('#' + consortium + 'clientresults' + data.hostindex).html('<p>' + cliinfo + '</p>');
         }
-        running_ajax_dyn--;
+        if (consortium == '') {
+            running_ajax_dyn--;
+        } else {
+            running_ajax_openroaming--;
+        }
         ajax_end();
 
     }
 
     function capath(data, status) {
         show_debug(data);
-        $("#srcca" + data.hostindex).html('');
+        consortium = data.consortium;
+        if (consortium == 'eduroam') {
+            consortium = '';
+        }
+        srcca = '#' + consortium + 'srcca';
+        clientstest = '#' + consortium + 'clientstest';
+        $(srcca + data.hostindex).html('');
         var newhtml = '<p>' + data.message + '</p>';
         var more = '';
         addresses[data.ip] = data.result;
@@ -323,13 +351,21 @@ $errorstate = [];
             certdesc = certdesc + '</ul>';
             more = more + '<span class="morecontent"><span>' + certdesc + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span></td></tr>';
         }
-        global_level_dyn = Math.max(global_level_dyn, data.level);
-        $("#srcca" + data.hostindex).html('<div>' + data.message + '</div>' + more);
-        $("#srcca" + data.hostindex + "_img").attr('src', icons[data.level]);
-        if ((addresses[data.ip] === 0) && $('#clientstest').is(':hidden')) {
-            $('#clientstest').show();
+        if (consortium == '') {
+            global_level_dyn = Math.max(global_level_dyn, data.level);
+        } else {
+            global_level_openroaming = Math.max(global_level_openroaming, data.level);
         }
-        running_ajax_dyn--;
+        $(srcca + data.hostindex).html('<div>' + data.message + '</div>' + more);
+        $(srcca + data.hostindex + "_img").attr('src', icons[data.level]);
+        if ((addresses[data.ip] === 0) && $(clientstest).is(':hidden')) {
+            $(clientstest).show();
+        }
+        if (consortium == '') {
+            running_ajax_dyn--;
+        } else {
+            running_ajax_openroaming--;
+        }
         ajax_end();
     }
 
@@ -370,7 +406,7 @@ $errorstate = [];
         running_ajax_stat--;
         ajax_end();
     }
-
+    
     function ajax_end() {
         if (running_ajax_stat === 0) {
             $("#main_static_ico").attr('src', icons[global_level_udp]);
@@ -381,6 +417,11 @@ $errorstate = [];
             $("#main_dynamic_ico").attr('src', icons[global_level_dyn]);
             $("#main_dynamic_result").html(global_info[global_level_dyn] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_dynamic_result").show();
+        }
+        if (running_ajax_openroaming === 0) {
+            $("#main_openroaming_ico").attr('src', icons[global_level_openroaming]);
+            $("#main_openroaming_result").html(global_info[global_level_openroaming] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
+            $("#main_openroaming_result").show();
         }
     }
 
@@ -494,12 +535,13 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
         print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
         ?>
         <div id="debug_out" style="display: none"></div>
-        <div id="tabs" style="min-width: 600px; max-width:800px">
+        <div id="tabs" style="min-width: 600px; max-width:1000px">
             <ul>
                 <li><a href="#tabs-1"><?php echo _("Overview") ?></a></li>
                 <li><a href="#tabs-2"><?php echo _("Static connectivity tests") ?></a></li>
                 <li id="tabs-d-li"><a href="#tabs-3"><?php echo _("Dynamic connectivity tests") ?></a></li>
-                <li id="tabs-through"><a href="#tabs-4"><?php echo _("Live login tests") ?></a></li>
+                <li id="tabs-o-li"><a href="#tabs-4"><?php echo _("OpenRoaming connectivity tests") ?></a></li>
+                <li id="tabs-through"><a href="#tabs-n"><?php echo _("Live login tests") ?></a></li>
             </ul>
             <div id="tabs-1">
                 <fieldset class='option_container'>
@@ -508,7 +550,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     </legend>
                     <?php
                     // NAPTR existence check
-                    echo "<strong>" . _("DNS chekcs") . "</strong><div>";
+                    echo "<strong>" . _("DNS checks") . "</strong><div>";
                     $naptr = $rfc7585suite->relevantNAPTR();
                     if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
                         echo "<table>";
@@ -608,10 +650,112 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                        ";
                         }
                         echo "}
-              </script><hr>";
+              </script>";
                     } else {
                         echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
                     }
+#### OpenRoaming
+                    if (count($orrealm)) {
+                    echo "<br><strong>" . _("OpenRoaming DNS checks") . "</strong><div>";
+                    $dnsChecks = new \core\diag\RFC7585Tests($check_realm, "aaa+auth:radius.tls.tcp");
+                    $ornaptr = $dnsChecks->relevantNAPTR();
+                    if ($ornaptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
+                        echo "<table>";
+                        // output in friendly words
+                        echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
+                        switch ($ornaptr) {
+                            case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
+                                echo _("This realm has no NAPTR records.");
+                                break;
+                            case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
+                                echo _("This realm has NAPTR records, but none are related to this roaming consortium.");
+                                break;
+                            default: // if none of the possible negative retvals, then we have matching NAPTRs
+                                printf(_("This realm has %d NAPTR record(s) relating to this roaming consortium."), $ornaptr);
+                        }
+                        echo "</td></tr>";
+
+                        // compliance checks for NAPTRs
+                        if ($ornaptr > 0) {
+                            echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
+                            $naptr_valid = $dnsChecks->relevantNAPTRcompliance();
+                            switch ($naptr_valid) {
+                                case \core\diag\RADIUSTests::RETVAL_OK:
+                                    echo _("No issues found.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one NAPTR with invalid content found!"));
+                                    break;
+                            }
+                            echo "</td></tr>";
+                        }
+
+                        // SRV resolution
+
+                        if ($ornaptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
+                            $srv = $dnsChecks->relevantNAPTRsrvResolution();
+                            echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
+                            switch ($srv) {
+                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
+                                    echo _("This check was skipped.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one NAPTR with invalid content found!"));
+                                    break;
+                                default: // print number of successfully retrieved SRV targets
+                                    printf(_("%d host names discovered."), $srv);
+                            }
+                            echo "</td></tr>";
+                        }
+                        // IP addresses for the hosts
+                        if ($ornaptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
+                            $hosts = $dnsChecks->relevantNAPTRhostnameResolution();
+                            echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
+                            switch ($srv) {
+                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
+                                    echo _("This check was skipped.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one hostname could not be resolved!"));
+                                    break;
+                                default: // print number of successfully retrieved SRV targets
+                                    printf(_("%d IP addresses resolved."), $hosts);
+                            }
+                            echo "</td></tr>";
+                        }
+
+                        echo "</table><br/><br/>";
+                        echo '</div>';
+            foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
+                            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+                            $expectedName = $addr['hostname'];
+                            print '<br>'; print "$host $hostindex $expectedName"; print '</br>';
+            }
+//print '<pre>'; print_r($dnsChecks->NAPTR_hostname_records); print '</pre>';
+                        echo '<script type="text/javascript">
+              function run_openroaming() {
+                 running_ajax_openroaming = 0;
+                 $("#main_openroaming_ico").attr("src",icon_loading);
+                 $("#main_openroaming_result").html("");
+                 $("#main_openroaming_result").hide();
+                 global_level_or = L_OK;
+                 $("#openroaming_tests").show();
+              ';
+                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
+                            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+                            $expectedName = $addr['hostname'];
+                            print "
+                            running_ajax_openroaming++;
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                       ";
+                        }
+                        echo "}
+              </script><hr>";
+                    } else {
+                        echo "<tr><td>" . _("OpenRoaming connectivity test is not configured") . "</td><td>";
+                    }
+                    }
+#### OpenRoaming
                     echo "<strong>" . _("Static connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
@@ -620,6 +764,12 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         echo "<hr><strong>" . _("Dynamic connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
+         </tr></table>";
+                    }
+                    if (count($orrealm)) {
+                      echo "<hr><strong>" . _("OpenRoaming connectivity tests") . "</strong>
+         <table><tr>
+         <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_openroaming_ico' class='icon'></td><td id='main_openroaming_result' style='display:none'>&nbsp;</td>
          </tr></table>";
                     }
                     ?>
@@ -703,13 +853,61 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     }
                     echo "</fieldset></div></div>";
                 }
+            if (count($orrealm) > 0) {
+                ?>
+                <div id="tabs-4">
+                    <button id="run_o_tests" onclick="run_openroaming()"><?php echo _("Repeat OpenRoaming connectivity tests") ?></button>
+                    <div id="openroaming_tests"><fieldset class="option_container">
+                    <legend><strong>
+                <?php
+                    echo _("OpenRoaming connectivity tests").'</strong></legend>';
+                    $resultstoprint = [];
+                    if (count($dnsChecks->NAPTR_hostname_records) > 0) {
+                        $resultstoprint[] = '<div style="align:right; display: none;" id="openroaming_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</div>';
+                        $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
+                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
+                            $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
+                            $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
+                            $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
+                            $resultstoprint[] = "<table id='openroamingcaresults$hostindex'  style='width:100%'>
+<tr>
+<td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='openroamingsrcca" . $hostindex . "_img'></td>
+<td id='openroamingsrcca$hostindex'>
+" . _("testing...") . "
+</td>
+</tr>
+</table>";
+                            $resultstoprint[] = '</li></ul>';
+                        }
+                        $clientstest = [];
+                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
+                            $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
+                            $clientstest[] = "<span id='openroamingclientresults$hostindex$clinx'><table style='width:100%'>
+<tr>
+<td class='icon_td'><!--<img src='../resources/images/icons/loading51.gif' id='openroamingsrcclient" . $hostindex . "_img'></td>
+<td id='srcclient$hostindex'>
+" . _("testing...") . "
+-->" . _("not implemented yet") ."</td>
+</tr>
+</table></span>";
+                            $clientstest[] = '</ol>';
+                        }
+                        echo '<div style="align:right;">';
+                        echo join('', $resultstoprint);
+                        echo '<span id="openroamingclientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
+                        print join('', $clientstest);
+                        echo '</span>';
+                        echo '</div>';
+                    }
+                    echo '</fieldset></div></div>';
+            }
                 // further checks TBD:
                 //     check if accepts certificates from all accredited CAs
                 //     check if doesn't accept revoked certificates
                 //     check if RADIUS request gets rejected timely
                 //     check if truncates/dies on Operator-Name
                 if ($my_profile !== NULL) {
-                    echo "<div id='tabs-4'><fieldset class='option_container'>
+                    echo "<div id='tabs-n'><fieldset class='option_container'>
                 <legend><strong>" . _("Live login test") . "</strong></legend>";
                     $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
                     if (count($prof_compl) > 0) {
@@ -782,12 +980,15 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                 } else {
                     echo '$("#tabs-d-li").hide();';
                 }
+                if (count($orrealm) > 0) {
+                    echo "run_openroaming();";
+                } else {
+                    echo '$("#tabs-o-li").hide();';
+                }
                 if ($my_profile === NULL) {
                     echo '$("#tabs-through").hide();';
                 }
                 echo "</script>";
             }
-
-            echo $deco->footer();
-
             
+            echo $deco->footer();

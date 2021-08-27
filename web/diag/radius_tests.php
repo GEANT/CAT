@@ -52,7 +52,7 @@ if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
 
-const VALID_TEST_TYPES = ['udp_login', 'udp', 'capath', 'clients'];
+const VALID_TEST_TYPES = ['udp_login', 'udp', 'capath', 'clients', 'openroamingcapath', 'openroamingclients'];
 
 $test_type = 'INVALID'; // will throw Exception if not replaced with correct
 foreach (VALID_TEST_TYPES as $index => $oneType) {
@@ -82,10 +82,9 @@ if (isset($_REQUEST['profile_id'])) {
     }
 }
 
-
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
-    throw new Exception("The requested host index is not numeric!");
+    throw new Exception("The requested host index is not numeric!");    
 }
 
 $token = '';
@@ -116,6 +115,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 
 $returnarray = [];
 $timeout = \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
+$consortiumName = 'eduroam';
 switch ($test_type) {
     case 'udp_login':
         $i = 0;
@@ -255,11 +255,14 @@ switch ($test_type) {
         $returnarray['result'][$i]['level'] = $level;
         $returnarray['result'][$i]['message'] = $message;
         break;
+    case 'openroamingcapath':
+        $consortiumName = 'openroaming';
     case 'capath':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
         $testresult = $rfc6614suite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
+        $returnarray['consortium'] = $consortiumName;
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
         if (!isset($rfc6614suite->TLS_CA_checks_result[$host])) {
@@ -315,11 +318,14 @@ switch ($test_type) {
         $returnarray['cert_oddities'] = [];
         $returnarray['result'] = $testresult;
         break;
+    case 'openroamingclient':
+        $consortiumName = 'openroaming';
     case 'clients':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
         $testresult = $rfc6614suite->tlsClientSideCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
+        $returnarray['consortium'] = $consortiumName;
         $k = 0;
         // the host member of the array may not exist if RETVAL_SKIPPED came out
         // (e.g. no client cert to test with). Be prepared for that
@@ -333,7 +339,6 @@ switch ($test_type) {
         }
         $returnarray['result'] = $testresult;
         break;
-
     default:
         throw new Exception("Unknown test requested: default case reached!");
 }
@@ -347,4 +352,3 @@ if ($token != '') {
     file_put_contents($jsonDir.'/'.$token.'/'.$test_type.'_'.$hostindex, $json_data);
 }
 echo($json_data);
-

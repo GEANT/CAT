@@ -81,7 +81,7 @@ if (!is_null($givenRealm)) {
             }
         }
         $details = [];
-        if ($found === false) {
+        if (!$found) {
             break;
         }
         $admins = array();
@@ -102,11 +102,11 @@ if (!is_null($givenRealm)) {
         
         break;
     }
-    if ($found === false) {
+    if (!$found) {
         $details['realm'] = $givenRealm;
         $details['admins'] = '';
         $details['status'] = 0;
-    }
+    } 
     if ($forTests) {
         $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);
         $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
