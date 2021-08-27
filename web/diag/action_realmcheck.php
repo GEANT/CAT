@@ -59,7 +59,6 @@ if ($inst_id && $profile_id) {
 $orrealm = array();
 if ($testedProfile !== NULL) {
     $orrealm = $testedProfile->getAttributes("media:openroaming");
-    print gettype($orrealm); exit;
     $checkrealm = $testedProfile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
@@ -75,7 +74,6 @@ if ($testedProfile !== NULL) {
         $_SESSION['check_realm'] = $check_realm;
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
-        //print '<pre>'; print_r($rfc7585suite); print '</pre>';
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
@@ -730,9 +728,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             $expectedName = $addr['hostname'];
-                            print '<br>'; print "$host $hostindex $expectedName"; print '</br>';
             }
-//print '<pre>'; print_r($dnsChecks->NAPTR_hostname_records); print '</pre>';
                         echo '<script type="text/javascript">
               function run_openroaming() {
                  running_ajax_openroaming = 0;
