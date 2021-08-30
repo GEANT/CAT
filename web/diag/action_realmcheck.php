@@ -64,7 +64,10 @@ if ($testedProfile !== NULL) {
         // checking our own stuff. Enable thorough checks
         $check_realm = $checkrealm[0]['value'];
         $testsuite = new \core\diag\RADIUSTests($check_realm, $testedProfile->getRealmCheckOuterUsername(), $testedProfile->getEapMethodsinOrderOfPreference(1), $testedProfile->getCollapsedAttributes()['eap:server_name'], $testedProfile->getCollapsedAttributes()["eap:ca_file"]);
-        $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
+        $dnsChecks = new \core\diag\RFC7585Tests($check_realm);
+        if (count($orrealm)) {
+            $dnsChecksOR = new \core\diag\RFC7585Tests($check_realm, "aaa+auth:radius.tls.tcp");
+        }
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
@@ -73,7 +76,7 @@ if ($testedProfile !== NULL) {
     if ($check_realm !== FALSE) {
         $_SESSION['check_realm'] = $check_realm;
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
-        $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
+        $dnsChecks = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
@@ -547,11 +550,27 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     <legend>
                         <strong><?php echo _("Overview") ?></strong>
                     </legend>
-                    <?php
+            <?php
+                foreach (array("", "openroaming") as $dynType) {
                     // NAPTR existence check
-                    echo "<strong>" . _("DNS checks") . "</strong><div>";
+                    if ($dynType == "") {
+                        $rfc7585suite = $dnsChecks;
+                        echo "<strong>" . _("DNS checks") . "</strong><div>";
+                    } else {
+                        if (count($orrealm) == 0) {
+                            continue;
+                        }
+                        $rfc7585suite = $dnsChecksOR;
+                        echo "<strong>" . _("OpenRoaming DNS checks") . "</strong><div>";
+                    }
                     $naptr = $rfc7585suite->relevantNAPTR();
-                    if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
+                    if ($naptr == \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
+                        if ($dynType == "") {
+                        	echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
+                        } else {
+                        	echo "<tr><td>" . _("OpenRoaming connectivity test is not configured") . "</td><td>";
+                        }
+                    } else {
                         echo "<table>";
                         // output in friendly words
                         echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
@@ -581,9 +600,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                             }
                             echo "</td></tr>";
                         }
-
                         // SRV resolution
-
                         if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
                             $srv = $rfc7585suite->relevantNAPTRsrvResolution();
                             echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
@@ -616,20 +633,24 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                             echo "</td></tr>";
                         }
 
-                        echo "</table><br/><br/>";
-                        if (count($testsuite->listerrors()) == 0) {
-                            echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
-                        } else {
-                            echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
-                            echo "<div class='notacceptable'><table>";
-                            foreach ($testsuite->listerrors() as $details) {
-                                echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                        echo "</table><br/>";
+                        if ($dynType == "") {
+                            if (count($testsuite->listerrors()) == 0) {
+                                echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
+                            } else {
+                                echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
+                                echo "<div class='notacceptable'><table>";
+                                foreach ($testsuite->listerrors() as $details) {
+                                    echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                                }
+                                echo "</table></div>";
                             }
-                            echo "</table></div>";
                         }
-                        echo '</div>';
-
-                        echo '<script type="text/javascript">
+                        echo '</div><hr>';
+                  
+                        echo '<script type="text/javascript">';
+                        if ($dynType == "") {
+                            echo '
               function run_dynamic() {
                  running_ajax_dyn = 0;
                  $("#main_dynamic_ico").attr("src",icon_loading);
@@ -650,86 +671,8 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         }
                         echo "}
               </script>";
-                    } else {
-                        echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
-                    }
-#### OpenRoaming
-                    if (count($orrealm)) {
-                    echo "<br><strong>" . _("OpenRoaming DNS checks") . "</strong><div>";
-                    $dnsChecks = new \core\diag\RFC7585Tests($check_realm, "aaa+auth:radius.tls.tcp");
-                    $ornaptr = $dnsChecks->relevantNAPTR();
-                    if ($ornaptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
-                        echo "<table>";
-                        // output in friendly words
-                        echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
-                        switch ($ornaptr) {
-                            case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
-                                echo _("This realm has no NAPTR records.");
-                                break;
-                            case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
-                                echo _("This realm has NAPTR records, but none are related to this roaming consortium.");
-                                break;
-                            default: // if none of the possible negative retvals, then we have matching NAPTRs
-                                printf(_("This realm has %d NAPTR record(s) relating to this roaming consortium."), $ornaptr);
-                        }
-                        echo "</td></tr>";
-
-                        // compliance checks for NAPTRs
-                        if ($ornaptr > 0) {
-                            echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
-                            $naptr_valid = $dnsChecks->relevantNAPTRcompliance();
-                            switch ($naptr_valid) {
-                                case \core\diag\RADIUSTests::RETVAL_OK:
-                                    echo _("No issues found.");
-                                    break;
-                                case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                    printf(_("At least one NAPTR with invalid content found!"));
-                                    break;
-                            }
-                            echo "</td></tr>";
-                        }
-
-                        // SRV resolution
-
-                        if ($ornaptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
-                            $srv = $dnsChecks->relevantNAPTRsrvResolution();
-                            echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
-                            switch ($srv) {
-                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
-                                    echo _("This check was skipped.");
-                                    break;
-                                case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                    printf(_("At least one NAPTR with invalid content found!"));
-                                    break;
-                                default: // print number of successfully retrieved SRV targets
-                                    printf(_("%d host names discovered."), $srv);
-                            }
-                            echo "</td></tr>";
-                        }
-                        // IP addresses for the hosts
-                        if ($ornaptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
-                            $hosts = $dnsChecks->relevantNAPTRhostnameResolution();
-                            echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
-                            switch ($srv) {
-                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
-                                    echo _("This check was skipped.");
-                                    break;
-                                case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                    printf(_("At least one hostname could not be resolved!"));
-                                    break;
-                                default: // print number of successfully retrieved SRV targets
-                                    printf(_("%d IP addresses resolved."), $hosts);
-                            }
-                            echo "</td></tr>";
-                        }
-
-                        echo "</table><br/><br/>";
-                        echo '</div>';
-            foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
-                            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
-                            $expectedName = $addr['hostname'];
-            }
-                        echo '<script type="text/javascript">
+                        } else {
+                   echo ' 
               function run_openroaming() {
                  running_ajax_openroaming = 0;
                  $("#main_openroaming_ico").attr("src",icon_loading);
@@ -738,7 +681,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                  global_level_or = L_OK;
                  $("#openroaming_tests").show();
               ';
-                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
+                        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             $expectedName = $addr['hostname'];
                             print "
@@ -747,12 +690,10 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                        ";
                         }
                         echo "}
-              </script><hr>";
-                    } else {
-                        echo "<tr><td>" . _("OpenRoaming connectivity test is not configured") . "</td><td>";
+              </script>";
+                        } 
                     }
-                    }
-#### OpenRoaming
+                }
                     echo "<strong>" . _("Static connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
@@ -799,29 +740,52 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 
 
             </div>
-
             <?php
-            if ($naptr > 0) {
-                ?>
-                <div id="tabs-3">
-                    <button id="run_d_tests" onclick="run_dynamic()"><?php echo _("Repeat dynamic connectivity tests") ?></button>
+            for ($i=3; $i<5; $i++) {
+                if ($i == 3 && $naptr == 0) {
+                   continue;
+                }
+                if ($i == 4 && count($orrealm) == 0) {
+                   continue;
+                }
+                if ($i == 3) {
+                    $rfc7585suite = $dnsChecks;
+                } else {
+                    $rfc7585suite = $dnsChecksOR;
+                }
+            ?>
+                <div id="tabs-<?php echo $i;?>">
+                    <button id="run_<?php if ($i==3) echo 'd'; else echo 'o';?>_tests"; onclick="run_<?php if ($i==3) echo 'dynamic'; else echo 'openroaming';?>()"><?php if ($i==3) echo _("Repeat dynamic connectivity tests"); else echo _("Repeat OpenRoaming connectivity tests");?></button>
 
-                    <?php
-                    echo "<div id='dynamic_tests'><fieldset class='option_container'>
-                <legend><strong>" . _("DYNAMIC connectivity tests") . "</strong></legend>";
-
+                <?php
+                    echo "<div id='";
+                    if ($i==3) { echo 'dynamic'; } else { echo 'openroaming'; }
+                    echo "_tests'><fieldset class='option_container'>
+                <legend><strong>";
+                    if ($i==3) {
+                     echo _("DYNAMIC connectivity tests");
+                    } else {
+                     echo _("OpenRoaming connectivity tests");
+                    }
+                    echo  "</strong></legend>";
+                    $prefix1 = 'dynamic';
+                    $prefix2 = '';
+                    if ($i == 4) {
+                    	$prefix1 = 'openroaming';
+                    	$prefix2 = $prefix1;
+                    }
                     $resultstoprint = [];
                     if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
-                        $resultstoprint[] = '<div style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</div>';
+                        $resultstoprint[] = '<div style="align:right; display: none;" id="' . $prefix1 . '_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="' . $prefix1 . '_result_pass">' . _("All tests passed, congratulations!") . '</div>';
                         $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
                             $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
                             $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
-                            $resultstoprint[] = "<table id='caresults$hostindex'  style='width:100%'>
+                            $resultstoprint[] = "<table id='" . $prefix2 . "caresults$hostindex'  style='width:100%'>
 <tr>
-<td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='srcca" . $hostindex . "_img'></td>
-<td id='srcca$hostindex'>
+<td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='" . $prefix2 . "srcca$hostindex" . "_img'></td>
+<td id='" . $prefix2 . "srcca$hostindex'>
 " . _("testing...") . "
 </td>
 </tr>
@@ -831,73 +795,31 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         $clientstest = [];
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
-                            $clientstest[] = "<span id='clientresults$hostindex$clinx'><table style='width:100%'>
+                            $clientstest[] = "<span id='" . $prefix2 . "clientresults$hostindex$clinx'><table style='width:100%'>
 <tr>
-<td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='srcclient" . $hostindex . "_img'></td>
-<td id='srcclient$hostindex'>
-" . _("testing...") . "
-</td>
-</tr>
-</table></span>";
+<td class='icon_td'>";
+                            if ($i == 4 ) {
+                                $clientstest[] = "<!--";
+                            }
+                            $clientstest[] = "<img src='../resources/images/icons/loading51.gif' id='" . $prefix2 . "srcclient$hostindex" . "_img'></td>
+<td id='" . $prefix2 . "srcclient$hostindex'>
+" . _("testing...");
+
+                            if ($i == 4 ) {
+                                $clientstest[] = "-->" . _("not implemented yet");
+                            }
+                            $clientstest[] = "</td></tr></table></span>";
                             $clientstest[] = '</ol>';
                         }
                         echo '<div style="align:right;">';
                         echo join('', $resultstoprint);
-                        echo '<span id="clientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
+                        echo '<span id="' . $prefix2 . 'clientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
                         print join('', $clientstest);
                         echo '</span>';
                         echo '</div>';
                     }
                     echo "</fieldset></div></div>";
                 }
-            if (count($orrealm) > 0) {
-                ?>
-                <div id="tabs-4">
-                    <button id="run_o_tests" onclick="run_openroaming()"><?php echo _("Repeat OpenRoaming connectivity tests") ?></button>
-                    <div id="openroaming_tests"><fieldset class="option_container">
-                    <legend><strong>
-                <?php
-                    echo _("OpenRoaming connectivity tests").'</strong></legend>';
-                    $resultstoprint = [];
-                    if (count($dnsChecks->NAPTR_hostname_records) > 0) {
-                        $resultstoprint[] = '<div style="align:right; display: none;" id="openroaming_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</div>';
-                        $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
-                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
-                            $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
-                            $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
-                            $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
-                            $resultstoprint[] = "<table id='openroamingcaresults$hostindex'  style='width:100%'>
-<tr>
-<td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='openroamingsrcca" . $hostindex . "_img'></td>
-<td id='openroamingsrcca$hostindex'>
-" . _("testing...") . "
-</td>
-</tr>
-</table>";
-                            $resultstoprint[] = '</li></ul>';
-                        }
-                        $clientstest = [];
-                        foreach ($dnsChecks->NAPTR_hostname_records as $hostindex => $addr) {
-                            $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
-                            $clientstest[] = "<span id='openroamingclientresults$hostindex$clinx'><table style='width:100%'>
-<tr>
-<td class='icon_td'><!--<img src='../resources/images/icons/loading51.gif' id='openroamingsrcclient" . $hostindex . "_img'></td>
-<td id='srcclient$hostindex'>
-" . _("testing...") . "
--->" . _("not implemented yet") ."</td>
-</tr>
-</table></span>";
-                            $clientstest[] = '</ol>';
-                        }
-                        echo '<div style="align:right;">';
-                        echo join('', $resultstoprint);
-                        echo '<span id="openroamingclientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
-                        print join('', $clientstest);
-                        echo '</span>';
-                        echo '</div>';
-                    }
-                    echo '</fieldset></div></div>';
-            }
                 // further checks TBD:
                 //     check if accepts certificates from all accredited CAs
                 //     check if doesn't accept revoked certificates
