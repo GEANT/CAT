@@ -56,7 +56,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
     </fieldset>
     <?php
     if ($security == 0) {
-        print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config-master.php and login as one.</h2>";
+        print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/Master.php and login as one.</h2>";
     } else {
         ?>
         <fieldset class="option_container">

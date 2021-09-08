@@ -395,7 +395,7 @@ class SanityTests extends CAT
     private function testSecurity()
     {
         if (in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
-            $this->storeTestResult(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
+            $this->storeTestResult(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config/Master.php: 'SUPERADMINS'!");
         }
     }
 
