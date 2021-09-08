@@ -248,8 +248,8 @@ class SanityTests extends CAT
         $exec_is = "UNDEFINED";
 
         foreach ([\config\Master::PATHS, \config\ConfAssistant::PATHS, \config\Diagnostics::PATHS] as $config) {
-            if (!empty($config['PATHS'][$pathToCheck])) {
-                $the_path = $config['PATHS'][$pathToCheck];
+            if (!empty($config[$pathToCheck])) {
+                $the_path = $config[$pathToCheck];
                 if (substr($the_path, 0, 1) == "/") {
                     $exec_is = "EXPLICIT";
                 } else {
