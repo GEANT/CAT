@@ -21,25 +21,10 @@
  */
 
 /**
- * This file contains the TestModule class
+ * This file contains the DeviceChromebook class, for generating installers
+ * on ChromeOS.
  *
- * This is a very basic example of using the CAT API.  
- *
- * The module contains two files
- * in the Files directory. They will illustrate the use of the {@link DeviceConfig::copyFile()} method.
- * One fille will be coppied without the name change, for the second we will provide a new name.
- * The API also contains a similar {@link DeviceConfig::translateFile()} method, which is special to Windows installers and not used in this example.
- *
- * This module will collect all certificate files stored in the database for a given profile and will copy them to the working directory.
- *
- * If, for the given profile, an information file is available, this will also be copied to the working directory.
- *
- * The installer will collect all available configuration attributes and save them to a file in the form of the PHP print_r output.
- *
- * Finally, the installer will create a zip archive containing all above files and this file 
- * will be sent to the user as the configurator file.
- *
- * Go to the {@link DeviceTestModule} and {@link DeviceConfig} class definitions to learn more.
+ * We follow the specification at: https://chromium.googlesource.com/chromium/src/+/refs/heads/main/components/onc/docs/onc_spec.md
  *  
  * @package ModuleWriting
  */
@@ -49,33 +34,7 @@ namespace devices\chromebook;
 use Exception;
 
 /**
- * This is the main implementation class of the module
- *
- * The name of the class must the the 'Device' followed by the name of the module file
- * (without the '.php' extension), so in this case the file is "TestModule.php" and
- * the class is DeviceTestModule.
- *
- * The class MUST define the constructor method and one additional 
- * public method: {@link writeInstaller()}.
- *
- * All other methods and properties should be private. This example sets zipInstaller method to protected, so that it can be seen in the documentation.
- *
- * It is important to understand how the device module fits into the whole picture, so here is s short descrption.
- * An external caller (for instance {@link GUI::generateInstaller()}) creates the module device instance and prepares
- * its environment for a given user profile by calling {@link DeviceConfig::setup()} method.
- *      this will:
- *       - create the temporary directory and save its path as $this->FPATH
- *       - process the CA certificates and store results in $this->attributes['internal:CAs'][0]
- *            $this->attributes['internal:CAs'][0] is an array of processed CA certificates
- *            a processed certifincate is an array 
- *               'pem' points to pem feromat certificate
- *               'der' points to der format certificate
- *               'md5' points to md5 fingerprint
- *               'sha1' points to sha1 fingerprint
- *               'name' points to the certificate subject
- *               'root' can be 1 for self-signed certificate or 0 otherwise
- *       - save the info_file (if exists) and put the name in $this->attributes['internal:info_file_name'][0]
- * Finally, the module {@link DeviceConfig::writeInstaller ()} is called and the returned path name is used for user download.
+ * This is the main implementation class of the ChromeOS module
  *
  * @package ModuleWriting
  */
