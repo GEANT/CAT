@@ -191,7 +191,7 @@ echo $mapCode->htmlHeadCode();
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
-                echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), core\ProfileSilverbullet::PRODUCTNAME) ." " . _("This is the contact point for your end users' level 1 support.") . "</p>";
+                echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), config\ConfAssistant::SILVERBULLET['product_name']) ." " . _("This is the contact point for your organisation. It may be displayed publicly.") . "</p>";
                 }
             } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>". _("Providing at least a local support e-mail contact is required.")." "._("This is the contact point for your end users' level 1 support.")."</p>";
