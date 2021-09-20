@@ -406,10 +406,17 @@ class SanityTests extends CAT
      */
     private function testZip()
     {
-        if (exec("which zip") != "") {
-            $this->storeTestResult(\core\common\Entity::L_OK, "<strong>zip</strong> binary found.");
+        $A = $this->getExecPath('zip');
+        if ($A['exec'] != "") {
+            $fullOutput = [];
+            $t = exec($A['exec'] . ' --version', $fullOutput);
+            if ($A['exec_is'] == "EXPLICIT") {
+                $this->storeTestResult(\core\common\Entity::L_OK, "<strong>".$fullOutput[1]."</strong> was found and is configured explicitly in your config.");
+            } else {
+                $this->storeTestResult(\core\common\Entity::L_WARN, "<strong>".$fullOutput[1]."</strong> was found, but is not configured with an absolute path in your config.");
+            }
         } else {
-            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>zip</strong> not found in your \$PATH!");
+            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>zip</strong> was not found on your system!");
         }
     }
 
