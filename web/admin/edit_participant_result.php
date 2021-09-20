@@ -145,10 +145,11 @@ switch ($_POST['submitbutton']) {
 // if so, show both buttons; if not, just the normal EAP profile button
         $myfed = new \core\Federation($myInstReinstantiated->federation);
         $allow_sb = $myfed->getAttributes("fed:silverbullet");
+        // only show IdP parts if fed has enabled hosted services && participant is an SP-type
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0 && preg_match("/IdP/", $myInstReinstantiated->type) ) {
 // show the new profile jumpstart buttons only if we do not have any profile at all
-        if (count($myInstReinstantiated->listProfiles()) == 0) {
+            if (count($myInstReinstantiated->listProfiles()) == 0) {
 
-            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
                 echo "<br/>";
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
@@ -159,9 +160,10 @@ switch ($_POST['submitbutton']) {
                     echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
                     echo "</table>";
                 }
-            }
-            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
-                echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+                    echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+                }
             }
         }
         echo "<br/><form method='post' action='overview_user.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
