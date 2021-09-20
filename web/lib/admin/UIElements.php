@@ -131,7 +131,7 @@ class UIElements extends \core\common\Entity {
             sprintf(_("%s Name"), $this->nomenclatureFed) => "fed:realname",
             sprintf(_("%s Homepage"), $this->nomenclatureFed) => "fed:url",
             sprintf(_("Custom text in %s Invitations"), $this->nomenclatureInst) => "fed:custominvite",
-            sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
+            sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
             sprintf(_("Mint %s with CA on creation"), $this->nomenclatureInst) => "fed:minted_ca_file",

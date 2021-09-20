@@ -64,7 +64,7 @@ class ProfileSilverbullet extends AbstractProfile
     /**
      * the displayed name of this feature
      */
-    const PRODUCTNAME = "Managed IdP";
+    const PRODUCTNAME = \config\ConfAssistant::SILVERBULLET['subproduct_idp_name'];
 
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 

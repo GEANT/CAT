@@ -130,6 +130,9 @@ class ConfAssistant
      * 
      */
     const SILVERBULLET = [
+        'product_name' => 'Hosted Services',
+        'subproduct_sp_name' => 'Managed SP',
+        'subproduct_idp_name' => 'Managed IdP',
         'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
         'default_maxusers' => 200,
         'realm_suffix' => '.hosted.eduroam.org',

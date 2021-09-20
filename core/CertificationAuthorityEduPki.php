@@ -87,7 +87,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             $this->loggerInstance->debug(5, "PARAM_5: " . sha1("notused") . "\n");
             $this->loggerInstance->debug(5, "PARAM_6: " . $csr["USERNAME"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERNAME"] . "\n");
-            $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
+            $this->loggerInstance->debug(5, "PARAM_8: " . \config\ConfAssistant::SILVERBULLET['product_name'] . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
             $soapNewRequest = $soapPub->newRequest(
                     CertificationAuthorityEduPki::EDUPKI_RA_ID, # RA-ID
@@ -97,7 +97,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                     sha1("notused"), # PIN
                     $csr["USERNAME"], # Name des Antragstellers
                     $csr["USERNAME"], # Kontakt-E-Mail
-                    ProfileSilverbullet::PRODUCTNAME, # Organisationseinheit des Antragstellers
+                    \config\ConfAssistant::SILVERBULLET['product_name'], # Organisationseinheit des Antragstellers
                     false                   # Veröffentlichen des Zertifikats?
             );
             $this->loggerInstance->debug(5, $soapPub->__getLastRequest());
