@@ -166,7 +166,7 @@ class ConfAssistant
      */
     const NSIS_VERSION = 3;
     const MAPPROVIDER = [
-        'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenLayers, None
+        'PROVIDER' => 'OpenLayers', // recognised values: Google, Bing, OpenLayers, None
         'USERNAME' => '' // or equivalent; for Google, this is the APIKEY
     ];
 
