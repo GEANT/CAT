@@ -95,7 +95,7 @@ class OptionDisplay extends \core\common\Entity
         
         $this->htmlDatatypeTexts = [
             \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
-            \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox'", "tail" => ''],
+            \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox' checked", "tail" => ''],
             \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
             \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
             \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => ">$openRoamingTail</select"],
