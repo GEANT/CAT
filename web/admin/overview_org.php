@@ -44,6 +44,12 @@ $link = htmlspecialchars($link);
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant));
 require_once "inc/click_button_js.php";
 
+// RADIUS status icons
+$radiusMessages = [
+    \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
+    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
+    ];
+
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $myfed = new \core\Federation($my_inst->federation);
@@ -532,7 +538,7 @@ echo $mapCode->htmlHeadCode();
                                 <?php
                                 if (isset($_GET['res']) && is_array($_GET['res'])) {
                                     $res = array_count_values($_GET['res']);
-                                    if (isset($res['FAILURE']) && $res['FAILURE'] > 0) {
+                                    if (array_key_exists('FAILURE', $res) && $res['FAILURE'] > 0) {
                                         echo '<br>';
                                         if ($res['FAILURE'] == 2) {
                                             echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
