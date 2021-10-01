@@ -36,7 +36,12 @@ $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $myfed = new \core\Federation($my_inst->federation);
 
 if (!isset($_GET['deployment_id'])) {
-    if (isset($_POST['consortium']) && count($myfed->getAttributes("fed:openroaming")) > 0) {
+    if (isset($_POST['consortium']) 
+            && ( $_POST['consortium'] == "eduroam" 
+                    ||   
+                 ( $_POST['consortium'] == "OpenRoaming" && count($myfed->getAttributes("fed:openroaming")) > 0 )
+               )
+            ) {
         $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
         header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
         exit(0);
