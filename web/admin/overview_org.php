@@ -104,6 +104,7 @@ echo $mapCode->htmlHeadCode();
                 // b) federation wants this to happen
 
                 // first find out if we already have SB profiles
+                $profiles_for_this_idp = $my_inst->listProfiles();
                 $sbProfileExists = FALSE;
                 foreach ($profiles_for_this_idp as $profilecount => $profile_list) {
                     switch (get_class($profile_list)) {
@@ -154,7 +155,7 @@ echo $mapCode->htmlHeadCode();
         ?>
     </h2>
     <?php
-    $profiles_for_this_idp = $my_inst->listProfiles();
+    
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
         printf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureInst);
     }
