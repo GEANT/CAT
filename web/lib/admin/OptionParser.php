@@ -339,6 +339,7 @@ class OptionParser extends \core\common\Entity {
                     $bad[] = $objValue;
                     continue;
                 }
+                $languageFlag = $this->validator->string($listOfEntries["$objId-lang"]);
                 $this->determineLanguages($objValue, $listOfEntries["$objId-lang"], $multilangAttrsWithC);
             }
 
@@ -539,7 +540,7 @@ class OptionParser extends \core\common\Entity {
         // two values forming one attribute; extract those two as an extra step
 
         $options = array_merge($optionsStep2, $this->postProcessCoordinates($postArray, $good));
-
+        
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
         // 5a: first deletion step: purge all old content except file-based attributes;
