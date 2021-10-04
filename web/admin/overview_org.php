@@ -381,7 +381,7 @@ echo $mapCode->htmlHeadCode();
     }
     if (preg_match("/SP/", $my_inst->type)) {
         ?>
-        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?></h2>&nbsp;
+        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
             if ($readonly === FALSE) {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
@@ -418,7 +418,7 @@ echo $mapCode->htmlHeadCode();
         <?php
         $hotspotProfiles = $my_inst->listDeployments();
         if (count($hotspotProfiles) == 0) { // no profiles yet.
-            echo "<h2>" . sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot) . "</h2>";
+            echo sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot);
         }
 
         foreach ($hotspotProfiles as $counter => $deploymentObject) {
