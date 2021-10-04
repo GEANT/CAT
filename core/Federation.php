@@ -254,10 +254,10 @@ class Federation extends EntityWithDBProperties
         $admins = $this->listFederationAdmins();
 
         switch ($type) {
-            case "IdP": // the enum's string value of ExternalEduroamDBData::TYPE_IDP in the database
+            case IdP::TYPE_IDP:
                 $prettyPrintType = common\Entity::$nomenclature_inst;
                 break;
-            case "SP": // the enum's string value of ExternalEduroamDBData::TYPE_SP in the database
+            case IdP::TYPE_SP:
                 $prettyPrintType = common\Entity::$nomenclature_hotspot;
                 break;
             default:
