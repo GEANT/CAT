@@ -240,7 +240,7 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . sprintf(_("General %s details"), $this->nomenclatureInst) . "</h2>
+        <h2>" . sprintf(_("General %s details"), $this->nomenclatureParticipant) . "</h2>
         <table>
             <tr>
                 <td>
