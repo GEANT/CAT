@@ -377,10 +377,11 @@ echo $mapCode->htmlHeadCode();
         }
         ?>
         <hr/>
-    <?php }
+        <?php
+    }
     if (preg_match("/SP/", $my_inst->type)) {
         ?>
-        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
+        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?></h2>&nbsp;
             <?php
             if ($readonly === FALSE) {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
@@ -391,7 +392,7 @@ echo $mapCode->htmlHeadCode();
                         <div>
                             <input type="hidden" name="consortium" value="eduroam"/>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-            <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
+                                <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                             </button>
 
                         </div>
@@ -403,7 +404,7 @@ echo $mapCode->htmlHeadCode();
                             <div>
                                 <input type="hidden" name="consortium" value="OpenRoaming"/>
                                 <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
+                                    <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
                                 </button>
 
                             </div>
@@ -509,7 +510,7 @@ echo $mapCode->htmlHeadCode();
                             <td><?php echo $deploymentObject->secret; ?></td>
                         </tr>
                         <tr><td colspan="4"><hr></td></tr>
-        <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
+                        <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
                             <tr>
                                 <td><strong><?php echo _("Custom Operator-Name"); ?></strong></td>
                                 <td><?php echo $opname; ?></td>
@@ -540,10 +541,10 @@ echo $mapCode->htmlHeadCode();
                             <br/>
                             <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                         </form>
-        <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
+                        <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
                             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                                 <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
-                                <?php echo _("Deactivate"); ?>
+                                    <?php echo _("Deactivate"); ?>
                                 </button>
                                 <?php
                                 if (isset($_GET['res']) && is_array($_GET['res'])) {
@@ -568,7 +569,7 @@ echo $mapCode->htmlHeadCode();
                             ?>
                             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                                 <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
-                                <?php echo _("Activate"); ?>
+                                    <?php echo _("Activate"); ?>
                                 </button>
                                 <?php
                                 if (isset($_GET['res']) && is_array($_GET['res'])) {
