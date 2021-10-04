@@ -254,10 +254,10 @@ class Federation extends EntityWithDBProperties
         $admins = $this->listFederationAdmins();
 
         switch ($type) {
-            case ExternalEduroamDBData::TYPE_IDP:
+            case IdP::TYPE_IDP:
                 $prettyPrintType = common\Entity::$nomenclature_inst;
                 break;
-            case ExternalEduroamDBData::TYPE_SP:
+            case IdP::TYPE_SP:
                 $prettyPrintType = common\Entity::$nomenclature_hotspot;
                 break;
             default:
@@ -281,7 +281,7 @@ class Federation extends EntityWithDBProperties
             ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
             $message = sprintf(_("Hi,
 
-the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
+the invitation for the new %s %s in your %s federation %s has been used and the %s was created in %s.
 
 We thought you might want to know.
 
