@@ -593,7 +593,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         $retval .= "<key>EncryptionType</key>
                   <string>$encryptionTypeString</string>
                <key>HIDDEN_NETWORK</key>
-                  <true />
+                  <false />
                <key>PayloadDescription</key>
                   <string>$payloadName</string>
                <key>PayloadDisplayName</key>
