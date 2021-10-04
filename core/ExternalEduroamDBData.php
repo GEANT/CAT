@@ -149,9 +149,9 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
     }
 
-    public const TYPE_IDPSP = "1";
+    public const TYPE_IDPSP = "3";
     public const TYPE_SP = "2";
-    public const TYPE_IDP = "3";
+    public const TYPE_IDP = "1";
     private const TYPE_MAPPING = [
         IdP::TYPE_IDP => ExternalEduroamDBData::TYPE_IDP,
         IdP::TYPE_IDPSP => ExternalEduroamDBData::TYPE_IDPSP,
