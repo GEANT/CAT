@@ -65,7 +65,7 @@ echo $mapCode->htmlHeadCode();
 </head>
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
-    echo $deco->productheader("ADMIN-IDP");
+    echo $deco->productheader("ADMIN-PARTICIPANT");
 
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
