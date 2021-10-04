@@ -232,7 +232,7 @@ switch ($_POST['submitbutton']) {
                 // send a notification/alert mail to someone we know is in charge
                 $text = _("To whom it may concern,") . "\n\n";
                 /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
-                $text .= sprintf(_("significant changes were made to a RADIUS deployment profile of the %s %s / %s / '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+                $text .= sprintf(_("significant changes were made to a RADIUS deployment profile of the %s %s / %s / '%s'."), $ui->nomenclatureIdP, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
                 if (isset($significantChanges[\core\AbstractProfile::CA_CLASH_ADDED])) {
                     $text .= _("WARNING! A new trusted root CA was added, and it has the exact same name as a previously existing root CA. This may (but does not necessarily) mean that this is an attempt to insert an unauthorised trust root by disguising as the genuine one. The details are below:") . "\n\n";
                     $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
@@ -251,7 +251,7 @@ switch ($_POST['submitbutton']) {
                 $fed = new core\Federation($myInstOriginal->federation);
                 foreach ($fed->listFederationAdmins() as $id) {
                     $user = new core\User($id);
-                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureIdP), $text);
                 }
             }
             $reloadedProfileNr2->prepShowtime();

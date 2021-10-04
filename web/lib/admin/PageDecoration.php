@@ -161,7 +161,7 @@ class PageDecoration extends \core\common\Entity {
                 $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureParticipant);
                 break;
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureInst);
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureIdP);
                 break;
             case "ADMIN-SP":
                 $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureHotspot);

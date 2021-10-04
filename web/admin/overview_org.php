@@ -95,7 +95,7 @@ echo $mapCode->htmlHeadCode();
     </div>
     <hr/>
     <?php if (preg_match("/IdP/", $my_inst->type)) { ?>
-        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureInst); ?>&nbsp;
+        <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureIdP); ?>&nbsp;
             <?php
             $readonly = \config\Master::DB['INST']['readonly'];
             $profiles_for_this_idp = $my_inst->listProfiles();
@@ -155,7 +155,7 @@ echo $mapCode->htmlHeadCode();
         </h2>
         <?php
         if (count($profiles_for_this_idp) == 0) { // no profiles yet.
-            printf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureInst);
+            printf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureIdP);
         }
 // if there is one profile and it is of type Silver Bullet, display a very
 // simple widget with just a "Manage" button

@@ -715,7 +715,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
 
     <form action="overview_org.php?inst_id=<?php echo $inst->identifier; ?>" method="POST">
         <p>
-            <button type='submit' name='submitbutton' value="nomatter"><?php echo sprintf(_("Back to %s page"), $uiElements->nomenclatureInst); ?></button>
+            <button type='submit' name='submitbutton' value="nomatter"><?php echo sprintf(_("Back to %s page"), $uiElements->nomenclatureIdP); ?></button>
         </p>
     </form>
     <?php

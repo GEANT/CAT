@@ -218,7 +218,7 @@ $(document).on('click', '#realmcheck' , function() {
     $link = htmlspecialchars($link);
     if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
         echo "<table><tr>
-                        <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</td>
+                        <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureIdP) . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
                               <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
@@ -237,7 +237,7 @@ $(document).on('click', '#realmcheck' , function() {
         <caption><?php echo _("Participant Details");?></caption>
         <tr>
             <th scope='col'><?php echo _("Configured / Visible / OpenRoaming"); ?></th>
-            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
+            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
@@ -258,7 +258,7 @@ $(document).on('click', '#realmcheck' , function() {
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;

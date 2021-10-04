@@ -212,7 +212,7 @@ build:
                       'name' => 'eduroam',
                       'display_name' => 'eduroam®',
                       'nomenclature_federation' => 'National Roaming Operator',
-                      'nomenclature_institution' => 'Identity Provider',
+                      'nomenclature_idp' => 'Identity Provider',
                       'nomenclature_hotspot' => 'Hotspot',
                       'homepage' => 'https://www.eduroam.org',
                       'nomenclature_participant' => 'Customer',

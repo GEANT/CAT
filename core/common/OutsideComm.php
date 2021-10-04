@@ -272,13 +272,13 @@ class OutsideComm extends Entity
         $prettyPrintType = "";
         switch ($type) {
             case \core\IdP::TYPE_IDP:
-                $prettyPrintType = Entity::$nomenclature_inst;
+                $prettyPrintType = Entity::$nomenclature_idp;
                 break;
             case \core\IdP::TYPE_SP:
                 $prettyPrintType = Entity::$nomenclature_hotspot;
                 break;
             case \core\IdP::TYPE_IDPSP:
-                $prettyPrintType = sprintf(_("%s and %s"), Entity::$nomenclature_inst, Entity::$nomenclature_hotspot);
+                $prettyPrintType = sprintf(_("%s and %s"), Entity::$nomenclature_idp, Entity::$nomenclature_hotspot);
                 break;
             default:
                 throw new \Exception("This is controlled vocabulary, impossible.");

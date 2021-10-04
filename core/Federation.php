@@ -237,7 +237,7 @@ class Federation extends EntityWithDBProperties
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "Organisation $identifier")) {
-            $text = "<p>Could not create a new " . \config\ConfAssistant::CONSORTIUM['nomenclature_inst'] . "!</p>";
+            $text = "<p>Could not create a new " . common\Entity::$nomenclature_participant . "!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -255,14 +255,14 @@ class Federation extends EntityWithDBProperties
 
         switch ($type) {
             case IdP::TYPE_IDP:
-                $prettyPrintType = common\Entity::$nomenclature_inst;
+                $prettyPrintType = common\Entity::$nomenclature_idp;
                 break;
             case IdP::TYPE_SP:
                 $prettyPrintType = common\Entity::$nomenclature_hotspot;
                 break;
             default:
                 /// IdP and SP
-                $prettyPrintType = sprintf(_("%s and %s"), common\Entity::$nomenclature_inst, common\Entity::$nomenclature_hotspot);
+                $prettyPrintType = sprintf(_("%s and %s"), common\Entity::$nomenclature_idp, common\Entity::$nomenclature_hotspot);
         }
 
         $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];

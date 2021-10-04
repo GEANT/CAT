@@ -64,7 +64,7 @@ if ($checkval < 0) {
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     switch ($checkval) {
         case \core\UserManagement::TOKENSTATUS_FAIL_ALREADYCONSUMED:
-            echo "<p>" . sprintf(_("Sorry... this token has already been used. The %s is already created. If you got the invitation from a mailing list, probably someone else used it before you."), $elements->nomenclatureInst) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has already been used. The %s is already created. If you got the invitation from a mailing list, probably someone else used it before you."), $elements->nomenclatureParticipant) . "</p>";
             break;
         case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
             echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. The %s administrator can create a new one for you."), $elements->nomenclatureFed) . "</p>";

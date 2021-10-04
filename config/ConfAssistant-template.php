@@ -111,7 +111,7 @@ class ConfAssistant
           translation is geared towards *male* declination to match that term.
          */
         'nomenclature_federation' => 'National Roaming Operator',
-        'nomenclature_institution' => 'Identity Provider',
+        'nomenclature_idp' => 'Identity Provider',
         'nomenclature_hotspot' => 'Service Provider',
         'nomenclature_participant' => 'Organisation',
     ];

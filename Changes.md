@@ -235,7 +235,7 @@ Configuration parameter changes
 - [ADDED]     CONSORTIUM['silverbullet_server_suffix']
 - [ADDED]     CONSORTIUM['silverbullet_gracetime']
 - [ADDED]     CONSORTIUM['nomenclature_federation']
-- [ADDED]     CONSORTIUM['nomenclature_institution']
+- [ADDED]     CONSORTIUM['nomenclature_idp']
 - [ADDED]     CONSORTIUM['display_name']
 - [ADDED]     APPEARANCE['skins']
 - [ADDED]     APPEARANCE['google_maps_api_key']

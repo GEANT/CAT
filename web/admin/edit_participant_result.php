@@ -53,12 +53,12 @@ switch ($_POST['submitbutton']) {
         $myInstOriginal->flushAttributes();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
         $text = $hello .
-                sprintf(_("the %s %s / %s / (previously known as) '%s' has deleted all properties and is starting over freshly. This means that its not recognisable by its name any more, and it may assume a different name in the future. You will get another mail if and when the name change happens."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n" .
+                sprintf(_("the %s %s / %s / (previously known as) '%s' has deleted all properties and is starting over freshly. This means that its not recognisable by its name any more, and it may assume a different name in the future. You will get another mail if and when the name change happens."), $ui->nomenclatureParticipant, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n" .
                 $bye;
         $fed = new core\Federation($myInstOriginal->federation);
         foreach ($fed->listFederationAdmins() as $id) {
             $user = new core\User($id);
-            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
         }
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
@@ -93,9 +93,9 @@ switch ($_POST['submitbutton']) {
         if (count($significantChanges) > 0) {
             // send a notification/alert mail to someone we know is in charge
             /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
-            $text = $hello . sprintf(_("significant changes were made to the %s %s / %s / (previously known as) '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+            $text = $hello . sprintf(_("significant changes were made to the %s %s / %s / (previously known as) '%s'."), $ui->nomenclatureParticipant, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
             if (isset($significantChanges[\core\IdP::INSTNAME_CHANGED])) {
-                $text .= sprintf(_("The %s has changed its name. The details are below:"), $ui->nomenclatureInst) . "\n\n";
+                $text .= sprintf(_("The %s has changed its name. The details are below:"), $ui->nomenclatureParticipant) . "\n\n";
                 $text .= $significantChanges[\core\IdP::INSTNAME_CHANGED] . "\n\n";
             }
             $text .= $bye;
@@ -103,7 +103,7 @@ switch ($_POST['submitbutton']) {
             $fed = new core\Federation($myInstOriginal->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new core\User($id);
-                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
             }
         }
 
@@ -157,7 +157,7 @@ switch ($_POST['submitbutton']) {
                     echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
                 } else {
                     echo "<table>";
-                    echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
+                    echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureParticipant), _("No support e-mail!"));
                     echo "</table>";
                 }
 

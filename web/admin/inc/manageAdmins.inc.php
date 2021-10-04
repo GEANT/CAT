@@ -54,7 +54,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 $is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 // if none of the two, send the user away
 if (!$isFedAdmin && !$is_admin_with_blessing) {
-    echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclatureInst);
+    echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclatureParticipant);
     exit(1);
 }
 
@@ -82,7 +82,7 @@ if (isset($_POST['submitbutton'])) {
                 $ownermgmt = new \core\UserManagement();
                 $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
             } else {
-                echo "Fatal Error: you wanted to take control over an " . \config\ConfAssistant::CONSORTIUM['nomenclature_institution'] . ", but are not a " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " operator!";
+                echo "Fatal Error: you wanted to take control over an " . \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . ", but are not a " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " operator!";
                 exit(1);
             }
             break;
@@ -232,7 +232,7 @@ if ($isFedAdmin) {
 
     if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclatureInst) . "</button>
+    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclatureParticipant) . "</button>
 </form>";
     }
 }

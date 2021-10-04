@@ -138,27 +138,27 @@ class ProfileSilverbullet extends AbstractProfile
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
 
         $product = \core\ProfileSilverbullet::PRODUCTNAME;
-        $nameInst = \config\ConfAssistant::CONSORTIUM['nomenclature_institution'];
+        $nameIdP = \config\ConfAssistant::CONSORTIUM['nomenclature_idp'];
         $nameConsortium = \config\ConfAssistant::CONSORTIUM['display_name'];
         $nameFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation'];
         $this->termsAndConditions = "<h2>Product Definition</h2>
-        <p>$product outsources the technical setup of $nameConsortium $nameInst functions to the $nameConsortium Operations Team. The system includes</p>
+        <p>$product outsources the technical setup of $nameConsortium $nameIdP functions to the $nameConsortium Operations Team. The system includes</p>
             <ul>
                 <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
                 <li>a technical infrastructure ('CA') which issues and revokes credentials</li>
                 <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to $nameConsortium</li>           
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an $nameConsortium $nameInst administrator using this system, you are authorized to create user accounts according to your local $nameInst policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
+        <p>As an $nameConsortium $nameIdP administrator using this system, you are authorized to create user accounts according to your local $nameIdP policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
         $this->termsAndConditions .= "<p>Your responsibilities include that you</p>
         <ul>
-            <li>only issue accounts to members of your $nameInst, as defined by your local policy.</li>
+            <li>only issue accounts to members of your $nameIdP, as defined by your local policy.</li>
             <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
-            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your $nameInst</li>
+            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your $nameIdP</li>
             <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
         </ul>
         <p>";
-        $this->termsAndConditions .= "Failure to comply with these requirements may make your $nameFed act on your behalf, which you authorise, and will ultimately lead to the deletion of your $nameInst (and all the users you create inside) in this system.";
+        $this->termsAndConditions .= "Failure to comply with these requirements may make your $nameFed act on your behalf, which you authorise, and will ultimately lead to the deletion of your $nameIdP (and all the users you create inside) in this system.";
         $this->termsAndConditions .= "</p>
         <h2>Privacy</h2>
         <p>With $product, we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>

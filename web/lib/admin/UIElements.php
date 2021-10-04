@@ -43,7 +43,7 @@ class UIElements extends \core\common\Entity {
      * 
      * @var string
      */
-    public $nomenclatureInst;
+    public $nomenclatureIdP;
 
     /**
      * the custom displayable variant of the term 'hotspot'
@@ -69,7 +69,7 @@ class UIElements extends \core\common\Entity {
         // them here in this catalogue
         parent::__construct();
         $this->nomenclatureFed = \core\common\Entity::$nomenclature_fed;
-        $this->nomenclatureInst = \core\common\Entity::$nomenclature_inst;
+        $this->nomenclatureIdP = \core\common\Entity::$nomenclature_idp;
         $this->nomenclatureHotspot = \core\common\Entity::$nomenclature_hotspot;
         $this->nomenclatureParticipant = \core\common\Entity::$nomenclature_participant;
     }
@@ -130,11 +130,11 @@ class UIElements extends \core\common\Entity {
             sprintf(_("Include %s branding in installers"), $this->nomenclatureFed) => "fed:include_logo_installers",
             sprintf(_("%s Name"), $this->nomenclatureFed) => "fed:realname",
             sprintf(_("%s Homepage"), $this->nomenclatureFed) => "fed:url",
-            sprintf(_("Custom text in %s Invitations"), $this->nomenclatureInst) => "fed:custominvite",
+            sprintf(_("Custom text in %s Invitations"), $this->nomenclatureParticipant) => "fed:custominvite",
             sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
-            sprintf(_("Mint %s with CA on creation"), $this->nomenclatureInst) => "fed:minted_ca_file",
+            sprintf(_("Mint %s with CA on creation"), $this->nomenclatureIdP) => "fed:minted_ca_file",
             sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant) => "fed:openroaming",
             _("OpenRoaming: Custom NAPTR Target") => "fed:openroaming_customtarget",
             $ssidText => "media:SSID",

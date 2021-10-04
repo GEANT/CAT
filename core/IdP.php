@@ -402,8 +402,8 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), common\Entity::$nomenclature_inst, $this->name, \config\ConfAssistant::CONSORTIUM['display_name'], strtoupper($fed->name), \config\Master::APPEARANCE['productname'], \config\Master::APPEARANCE['productname_long']);
-            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_inst), $message);
+%s"), common\Entity::$nomenclature_participant, $this->name, \config\ConfAssistant::CONSORTIUM['display_name'], strtoupper($fed->name), \config\Master::APPEARANCE['productname'], \config\Master::APPEARANCE['productname_long']);
+            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_participant), $message);
         }
         common\Entity::outOfThePotatoes();
     }

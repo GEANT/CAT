@@ -884,7 +884,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             if (isset($_POST['comefrom'])) {
                 $return = htmlspecialchars_decode($_POST['comefrom']) . ( $inst_id ? "?inst_id=" . $inst_id : "" );
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
-                    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst) . "</button>"
+                    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_idp) . "</button>"
                 . "</form>";
             }
             if ($check_realm !== FALSE) {

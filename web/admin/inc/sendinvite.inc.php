@@ -113,7 +113,7 @@ switch ($operationMode) {
         $fedadmin = $userObject->isFederationAdmin($idp->federation);
         // check if he is either one, if not, complain
         if (!$is_owner && !$fedadmin) {
-            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst) . "</p>";
+            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
             exit(1);
         }
 
@@ -135,7 +135,7 @@ switch ($operationMode) {
         $participant_type = $validator->partType($_POST['participant_type']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureParticipant . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
         $federation = $validator->existingFederation($newcountry);
         $prettyprintname = $newinstname;
@@ -156,7 +156,7 @@ switch ($operationMode) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureParticipant . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
         $federation = $validator->existingFederation($extinfo['country']);
         $newcountry = $extinfo['country'];

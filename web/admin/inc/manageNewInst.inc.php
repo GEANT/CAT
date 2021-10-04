@@ -45,20 +45,20 @@ $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to register new %ss."), $uiElements->nomenclatureInst);
+    echo sprintf(_("You do not have the necessary privileges to register new %ss."), $uiElements->nomenclatureParticipant);
     exit(1);
 }
 // okay... we are indeed entitled to "do stuff"
 $feds = $user->getAttributes("user:fedadmin");
 ?>
 <h1>
-    <?php printf(_("%s - Register new %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureInst); ?>
+    <?php printf(_("%s - Register new %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant); ?>
 </h1>
 <?php
-echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst);
+echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant);
 if (\config\Master::DB['enforce-external-sync']) {
-    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";    
+    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureParticipant, \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureParticipant) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureParticipant, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";    
 }
 ?>
 <hr/>
@@ -105,8 +105,8 @@ if (\config\Master::DB['enforce-external-sync']) {
             </td>
             <td>
                 <select name="participant_type">
-                    <option value="IdPSP" selected><?php printf(_("%s and %s"),$uiElements->nomenclatureInst, $uiElements->nomenclatureHotspot)?></option>
-                    <option value="IdP"><?php printf(_("%s"),$uiElements->nomenclatureInst)?></option>
+                    <option value="IdPSP" selected><?php printf(_("%s and %s"),$uiElements->nomenclatureIdP, $uiElements->nomenclatureHotspot)?></option>
+                    <option value="IdP"><?php printf(_("%s"),$uiElements->nomenclatureIdP)?></option>
                     <option value="SP"><?php printf(_("%s"),$uiElements->nomenclatureHotspot)?></option>
                 </select>
             </td>

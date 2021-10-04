@@ -801,12 +801,12 @@ $mimeFormatted
                <data>
 " . $trimmedPem . "</data>
                <key>PayloadDescription</key>
-               <string>" . sprintf(_("The %s Certification Authority"), \core\common\Entity::$nomenclature_inst) . "</string>
+               <string>" . sprintf(_("The %s Certification Authority"), \core\common\Entity::$nomenclature_idp) . "</string>
                <key>PayloadDisplayName</key>
                <string>" . 
                     /// example: "Identity Provider CA #1 (Root)"
                     sprintf(_("%s CA #%d (%s)" ), 
-                            \core\common\Entity::$nomenclature_inst, 
+                            \core\common\Entity::$nomenclature_idp, 
                             count($this->CAsAccountedFor)+1, 
                             ($ca['root'] ? _("Root") : _("Intermediate"))) . 
               "</string>

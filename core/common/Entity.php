@@ -86,7 +86,7 @@ abstract class Entity
      * the custom displayable variant of the term 'institution'
      * @var string
      */
-    public static $nomenclature_inst;
+    public static $nomenclature_idp;
 
     /**
      * the custom displayable variant of the term "hotspot"
@@ -118,9 +118,9 @@ abstract class Entity
         // different wording, no translation, sorry
 
         $dummy_NRO = _("National Roaming Operator");
-        $dummy_inst1 = _("identity provider");
-        $dummy_inst2 = _("organisation");
-        $dummy_inst3 = _("Identity Provider");
+        $dummy_idp1 = _("identity provider");
+        $dummy_idp2 = _("organisation");
+        $dummy_idp3 = _("Identity Provider");
         $dummy_hotspot1 = _("Wi-Fi Hotspot");
         $dummy_hotspot2 = _("Hotspot");
         $dummy_hotspot3 = _("Service Provider");
@@ -129,15 +129,15 @@ abstract class Entity
         $dummy_organisation2a = _("organization");
         $dummy_organisation3 = _("entity");
         // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
+        if (strlen($dummy_NRO . $dummy_idp1 . $dummy_idp2 . $dummy_idp3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
             throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
         $xyzVariableFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . "";
-        $xyzVariableInst = \config\ConfAssistant::CONSORTIUM['nomenclature_institution'] . "";
+        $xyzVariableIdP = \config\ConfAssistant::CONSORTIUM['nomenclature_idp'] . "";
         $xyzVariableHotspot = \config\ConfAssistant::CONSORTIUM['nomenclature_hotspot'] . "";
         $xyzVariableParticipant = \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . "";
         Entity::$nomenclature_fed = _($xyzVariableFed);
-        Entity::$nomenclature_inst = _($xyzVariableInst);
+        Entity::$nomenclature_idp = _($xyzVariableIdP);
         Entity::$nomenclature_hotspot = _($xyzVariableHotspot);
         Entity::$nomenclature_participant = _($xyzVariableParticipant);
 
