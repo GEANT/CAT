@@ -85,6 +85,7 @@ if (isset($_POST['submitbutton'])) {
         $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
         $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
         if ($deployment->status == core\DeploymentManaged::ACTIVE) {
+            $deployment->status = core\DeploymentManaged::INACTIVE;
             $response = $deployment->setRADIUSconfig();
         } else {
             $response = ['NOOP', 'NOOP'];
