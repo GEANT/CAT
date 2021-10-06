@@ -58,7 +58,7 @@ function displaySilverbulletPropertyWidget(&$theProfile, $readonly, &$uiElements
         <?php
         if ($readonly === FALSE) {
             ?>
-            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='POST'>
+            <form action='edit_silverbullet.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='POST'>
                 <button <?php echo ( is_array($completeness) ? "disabled" : "" ); ?> type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
             </form>
             <?php
@@ -231,7 +231,19 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
     <?php
 }
 
+/**
+ * displays an infocard about a Managed SP deployment
+ * 
+ * @param \core\DeploymentManaged $deploymentObject the deployment to work with
+ * @throws Exception
+ */
 function displayDeploymentPropertyWidget(&$deploymentObject) {
+    // RADIUS status icons
+    $radiusMessages = [
+        \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
+        \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
+    ];
+
     $radius_status = array();
     $radius_status[0] = $deploymentObject->radius_status_1;
     $radius_status[1] = $deploymentObject->radius_status_2;
@@ -347,12 +359,12 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 ?>
             </table>
             <div class='buttongroupprofilebox' style='clear:both;'>
-                <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <br/>
                     <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                 </form>
                 <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
-                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                             <?php echo _("Deactivate"); ?>
                         </button>
@@ -377,7 +389,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <?php
                 } else {
                     ?>
-                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                             <?php echo _("Activate"); ?>
                         </button>
@@ -412,18 +424,21 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
     <?php
 }
 
+/**
+ * displays a eduroam DB entry for SPs. Not implemented yet.
+ * 
+ * @param \core\DeploymentClassic $deploymentObject the deployment to work with
+ */
+function displayClassicHotspotPropertyWidget($deploymentObject) {
+    
+}
+
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant));
 require_once "inc/click_button_js.php";
-
-// RADIUS status icons
-$radiusMessages = [
-    \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
-    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
-];
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
@@ -618,7 +633,16 @@ echo $mapCode->htmlHeadCode();
         }
 
         foreach ($hotspotProfiles as $counter => $deploymentObject) {
-            displayDeploymentPropertyWidget($deploymentObject);
+            switch (get_class($profile_list)) {
+                case "core\DeploymentManaged":
+                    displayDeploymentPropertyWidget($deploymentObject);
+                    break;
+                case "core\DeploymentClassic":
+                    displayClassicHotspotPropertyWidget($deploymentObject);
+                    break;
+                default:
+                    throw new Exception("We were asked to operate on something that is neither a classic nor a Managed hotspot deployment!");
+            }
         }
     }
     echo $deco->footer();
