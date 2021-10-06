@@ -387,6 +387,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         ?>
                     </form>
                     <?php
+                } elseif (count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted")) == 0) {
+                    ?>
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <button class='delete' style='background-color: yellow; color: black;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_TERMSOFUSE_NEEDACCEPTANCE; ?>'>
+                            <?php echo _("Accept Terms of Use"); ?>
+                        </button>
+                        <?php
                 } else {
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
