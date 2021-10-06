@@ -121,19 +121,20 @@ if (isset($_POST['submitbutton'])) {
             case web\lib\common\FormElements::BUTTON_SAVE:
                 $optionParser = new web\lib\admin\OptionParser();
                 $postArray = $_POST;
-                if (isset($_POST['vlan'])) {
+                if (isset($postArray['vlan'])) {
                     $postArray['option']['S1234567890'] = "managedsp:vlan#int##";
-                    $postArray['value']['S1234567890-integer'] = $_POST['vlan'];
+                    $postArray['value']['S1234567890-integer'] = $postArray['vlan'];
                 }
-                if (isset($_POST['opname'])) {
+                if (isset($postArray['opname'])) {
                     $postArray['option']['S1234567891'] = "managedsp:operatorname#string##";
-                    $postArray['value']['S1234567891-string'] = $_POST['opname'];
+                    $postArray['value']['S1234567891-string'] = $postArray['opname'];
                 }
                 $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
-                $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-                if ($deployment->status == core\DeploymentManaged::ACTIVE) {
-                    $deployment->status = core\DeploymentManaged::INACTIVE;
-                    $response = $deployment->setRADIUSconfig();
+                // reinstantiate object with new values
+                $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment, $my_inst);
+                if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
+                    $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
+                    $response = $deploymentReinstantiated->setRADIUSconfig();
                 } else {
                     $response = ['NOOP', 'NOOP'];
                 }
