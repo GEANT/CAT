@@ -633,7 +633,7 @@ echo $mapCode->htmlHeadCode();
         }
 
         foreach ($hotspotProfiles as $counter => $deploymentObject) {
-            switch (get_class($profile_list)) {
+            switch (get_class($deploymentObject)) {
                 case "core\DeploymentManaged":
                     displayDeploymentPropertyWidget($deploymentObject);
                     break;
