@@ -541,7 +541,11 @@ class InputValidation extends \core\common\Entity
      */
     public function image($binary)
     {
-        $image = new \Imagick();
+        if (class_exists('\\Gmagick')) { 
+            $image = new \Gmagick(); 
+        } else {
+            $image = new \Imagick();
+        }
         try {
             $image->readImageBlob($binary);
         } catch (\ImagickException $exception) {
