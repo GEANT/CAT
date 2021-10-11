@@ -131,7 +131,7 @@ if (isset($_POST['submitbutton'])) {
                 }
                 $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
                 // reinstantiate object with new values
-                $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment, $my_inst);
+                $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
                 if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
                     $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
                     $response = $deploymentReinstantiated->setRADIUSconfig();
