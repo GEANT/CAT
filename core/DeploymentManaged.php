@@ -162,6 +162,11 @@ class DeploymentManaged extends AbstractDeployment
     public $consortium;
 
     /**
+     * the T&C of this service
+     */
+    public $termsAndConditions;
+    
+    /**
      * Class constructor for existing deployments (use 
      * IdP::newDeployment() to actually create one). Retrieves all 
      * attributes from the DB and stores them in the priv_ arrays.
@@ -234,6 +239,17 @@ class DeploymentManaged extends AbstractDeployment
                                             ORDER BY option_name", "Profile");
         $tempAttribMergedIdP = $this->levelPrecedenceAttributeJoin($thisLevelAttributes, $this->idpAttributes, "IdP");
         $this->attributes = $this->levelPrecedenceAttributeJoin($tempAttribMergedIdP, $this->fedAttributes, "FED");
+        
+        $this->termsAndConditions = "<h2>Product Definition</h2>
+<p>eduroam Managed SP enables eligible institutions to outsource the technical setup of the roaming uplink functions in an eduroam SP to the eduroam Operations Team. eduroam SP administrators use the service instead of a local RADIUS infrastructure. A unique selling point of this service is that the typical limitation of being required to have a static IP address is waived - eduroam SP Wi-Fi infrastructure can be managed by the system even on IP connectivity with changing IP addresses (e.g. DSL, mobile networks).</p>
+<p>The service includes:</p>
+<ul><li>web-based user management interface where eduroam SP deployment details can be created and deleted;</li>
+    <li>web-based institution management interface where institutions are enabled or disabled to use the service;</li>
+    <li>technical infrastructure ('RADIUS') which accepts RADIUS/UDP requests independently of client IP addresses, processes them according to eduroam Service Definition best practices, and forwards them to eduroam IdPs via the established eduroam roaming infrastructure.</li>
+</ul>
+<p>The aspects of eduroam SP operation beyond the RADIUS uplink remain in the responsibility of the eduroam SP administrator, and are subject to the eduroam Service Definition as usual. This includes (but is not limited to) local logging of IP leases to MAC addresses in the Enterprise Wi-Fi session, having sufficient Wi-Fi coverage, and making sure the IP uplink works within expected parameters.</p>
+<h2>Terms of Use</h2>
+<p>In addition to the provisions in your participation agreement with your NRO and the eduroam Service Definition, you undertake to keep confidential the RADIUS server uplink details you receive here (which consist of the tuple IP address, port and shared secret).";
     }
 
     /**

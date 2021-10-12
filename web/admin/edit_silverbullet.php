@@ -91,7 +91,7 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_CLOSE:
             header("Location: overview_org.php?inst_id=" . $inst->identifier);
             break;
-        case \web\lib\common\FormElements::BUTTON_TERMSOFUSE:
+        case \web\lib\common\FormElements::BUTTON_TERMSOFUSE_ACCEPTED:
             if (isset($_POST['agreement']) && $_POST['agreement'] == 'true') {
                 $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
                 // re-instantiate profile with the new info
@@ -701,7 +701,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                             <div style="position: relative; padding-bottom: 5px;">
                                 <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
                             </div>
-                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE ?>"><?php echo _("Continue"); ?></button>
+                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE_ACCEPTED ?>"><?php echo _("Continue"); ?></button>
                             <button class="delete" type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Abort"); ?></button>
                             </form>
                         </div>

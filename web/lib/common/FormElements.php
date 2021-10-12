@@ -42,7 +42,7 @@ class FormElements {
     const BUTTON_FLUSH_AND_RESTART = 7;
     const BUTTON_SANITY_TESTS = 8;
     // Silverbullet buttons
-    const BUTTON_TERMSOFUSE = 9;
+    const BUTTON_TERMSOFUSE_ACCEPTED = 9;
     const BUTTON_ADDUSER = 10;
     const BUTTON_CHANGEUSEREXPIRY = 11;
     const BUTTON_REVOKEINVITATION = 12;
@@ -54,5 +54,6 @@ class FormElements {
     const BUTTON_SENDINVITATIONMAILBYCAT = 18;
     const BUTTON_SENDINVITATIONSMS = 19;
     const BUTTON_ACTIVATE = 20;
+    const BUTTON_TERMSOFUSE_NEEDACCEPTANCE = 21;
     
 }

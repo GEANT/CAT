@@ -81,12 +81,13 @@ class InputValidation extends \core\common\Entity
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP
-     * @param mixed  $input the numeric ID of the IdP in the system
-     * @param string $owner the authenticated username, optional
+     * @param mixed            $input             the numeric ID of the IdP in the system
+     * @param string           $owner             the authenticated username, optional
+     * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
      * @return \core\IdP
      * @throws Exception
      */
-    public function existingIdP($input, $owner = NULL)
+    public function existingIdP($input, $owner = NULL, $claimedFedBinding = NULL)
     {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
@@ -102,6 +103,9 @@ class InputValidation extends \core\common\Entity
                 }
             }
             throw new Exception($this->inputValidationError("This IdP identifier is not accessible!"));
+        }
+        if ($claimedFedBinding !== NULL && strtoupper($temp->federation) != strtoupper($claimedFedBinding->tld)) {
+            throw new Exception($this->inputValidationError("This IdP does not belong to the claimed federation!"));
         }
         return $temp;
     }
@@ -537,7 +541,11 @@ class InputValidation extends \core\common\Entity
      */
     public function image($binary)
     {
-        $image = new \Imagick();
+        if (class_exists('\\Gmagick')) { 
+            $image = new \Gmagick(); 
+        } else {
+            $image = new \Imagick();
+        }
         try {
             $image->readImageBlob($binary);
         } catch (\ImagickException $exception) {
