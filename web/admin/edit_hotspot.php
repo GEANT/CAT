@@ -141,7 +141,7 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
                 exit(0);
             default:
-                throw new Exception("Unknown button actioon requested!");
+                throw new Exception("Unknown button action requested!");
         }
     }
     $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
