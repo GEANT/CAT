@@ -130,6 +130,10 @@ if (isset($_POST['submitbutton'])) {
                     $postArray['value']['S1234567891-string'] = $postArray['opname'];
                 }
                 $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
+                // if ToU were already accepted, keep them (would otherwise be auto-deleted
+                if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
+                    $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
+                }
                 // reinstantiate object with new values
                 $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
                 if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
