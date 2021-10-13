@@ -80,7 +80,9 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
     ?>
     <div style='padding-bottom:20px;'>
         <?php $profile_name = $theProfile->name; ?>
-        <h2 style='overflow:auto; display:inline; padding-bottom: 10px;'><?php printf(_("Profile: %s"), $profile_name); ?></h2>
+        <div style='margin-bottom:10px; display:block;'>
+            <h2 style='overflow:auto; display:inline; padding-bottom: 10px;'><?php printf(_("Profile: %s"), $profile_name); ?></h2>
+        </div>
         <?php
         // see if there are any profile-level overrides
         $attribs = $theProfile->getAttributes();
@@ -141,7 +143,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
 
-        $buffer_headline .= "</span></div>";
+        $buffer_headline .= "</span>";
 
         echo $buffer_headline;
         echo $buffer_eaptypediv;
@@ -184,7 +186,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
         </div>
         <div class='buttongroupprofilebox' style='clear:both; display: flex;'>
             <?php if ($readonly === FALSE) { ?>
-                <div style='margin-right: 200px;'>
+                <div style='margin-right: 200px; display: ruby'>
                     <form action='edit_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <hr/>
                         <button type='submit' name='profile_action' value='edit'><?php echo _("Edit"); ?></button>
