@@ -25,10 +25,10 @@ namespace devices\ms;
 
 ; Start
 
-SetCompress auto
+;SetCompress auto
 SetCompressor bzip2
 CRCCheck on
-ManifestDPIAware true
+;ManifestDPIAware true
 
 
 !define DEBUG_CAT 5
@@ -95,6 +95,10 @@ Var spacesRemoved
   !define PASSWORD_BASED_CRED
 !endif
 !ifdef PEAP
+  !define CRED
+  !define PASSWORD_BASED_CRED
+!endif
+!ifdef TTLS
   !define CRED
   !define PASSWORD_BASED_CRED
 !endif
@@ -293,9 +297,9 @@ Function .onInit
   Push 0
   Pop $tkip_count
   Push 0
-  Pop $install_wireless_credentials
-  Push 0
   Pop $install_wired_credentials
+  Push 0
+  Pop $install_wireless_credentials
   !ifdef WIRED 
     Push 1
   !else
@@ -583,21 +587,21 @@ Function wVersionCheck
             ${EndIf}
             cont1:
     !endif
-  ${If} ${AtMostWin8.1}
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
-    !ifndef ALLOW_LOW_VERSION
-        Call Cleanup
-    !endif
-  ${EndIf}
+;  ${If} ${AtMostWin8.1}
+;    IfSilent +2
+;    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
+;    !ifndef ALLOW_LOW_VERSION
+;        Call Cleanup
+;    !endif
+;  ${EndIf}
 !else ifdef W8
-${If} ${AtLeastWin10}
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
-    !ifndef ALLOW_LOW_VERSION
-        Call Cleanup
-    !endif
-  ${EndIf}
+;${If} ${AtLeastWin10}
+;    IfSilent +2
+;    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
+;    !ifndef ALLOW_LOW_VERSION
+;        Call Cleanup
+;    !endif
+;  ${EndIf}
   ${If} ${AtMostWin7}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
@@ -922,57 +926,74 @@ Function CreateWirelessProfiles
 FunctionEnd
 
 ; re-install a wireless profile and set the credentials flag if succeded
+; Profile counter is passed on stack and popped into $R0
 Function InstallProfile
-  Pop $R0
-  nsArray::Get Profile_names $R0
-  Pop $R1
-  nsArray::Get Profile_states $R0
-  Pop $R2
-  ${If} $R2 == ${PROFILE_STATE_DELETE}
-    DetailPrint "<?php WindowsCommon::echoNsis(_("deleting profile \$R1"))?>"
-    !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
-    nsArray::Set Commands "netsh wlan delete profile $\"$R1$\""
-    nsExec::Exec '"$Netsh" wlan delete profile "$R1"'
+    Pop $R0
+    nsArray::Get Profile_names $R0
+    Pop $R1
+    nsArray::Get Profile_states $R0
+    Pop $R2
+    ${If} $R2 == ${PROFILE_STATE_DELETE}
+        DetailPrint "<?php WindowsCommon::echoNsis(_("deleting profile \$R1"))?>"
+        !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
+        nsArray::Set Commands "netsh wlan delete profile $\"$R1$\""
+        nsExec::Exec '"$Netsh" wlan delete profile "$R1"'
+        Pop $0
+        !insertmacro debug_cat 4 "netsh returned $0"
+        !insertmacro debug_cat 1 "Profile $R1 deleted"
+    ${EndIf}
+; profile installation
+    DetailPrint "<?php WindowsCommon::echoNsis(_("installing profile \$R1"))?>"
+    !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
+    nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
+    nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
+    nsExec::Exec '"$Netsh" wlan add profile "$TEMP\wlan_prof-$R0.xml"'
     Pop $0
     !insertmacro debug_cat 4 "netsh returned $0"
-    !insertmacro debug_cat 1 "Profile $R1 deleted"
-  ${EndIf}
-; profile installation
-  DetailPrint "<?php WindowsCommon::echoNsis(_("installing profile \$R1"))?>"
-  !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
-  nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
-  nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
-
-  nsExec::ExecToStack '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
-  Pop $0
-  Pop $1
-  !insertmacro debug_cat 4 "netsh returned $0"
-  ${If} $0 <> 0
-    !insertmacro debug_cat 1 'Profile installation error for "$R1"'
-    nsArray::Get Profile_hs20 $R0
-    Pop $R3
-    ${If} $R3 == 1
-        GoTo FailedProfile
+    ${If} $0 <> 0
+        Push 1
+        Pop $profile_fail
+        !insertmacro debug_cat 1 'Profile installation error for "$R1"'
+; we need to see if the profile is HS 2.0 if so then try the nohs profile
+        nsArray::Get Profile_hs20 $R0
+        Pop $R3
+        ${If} $R3 == 1
+            IfFileExists "$TEMP\nohs_wlan_prof-$R0.xml" 0 noInstall
+            !insertmacro debug_cat 1 "Retrying installtion with the non-hs profile"
+            !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml"
+            nsArray::Set Commands "netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml" 
+            nsArray::Set Commands "del $TEMP\nohs_wlan_prof-$R0.xml"
+            nsExec::Exec '"$Netsh" wlan add profile "$TEMP\nohs_wlan_prof-$R0.xml"'
+            Pop $R4
+            !insertmacro debug_cat 4 "netsh returned $R4"
+            ${If} $R4 == 0
+                !insertmacro debug_cat 1 "The non-hs profile suceeded"
+                    Push 0
+                    Pop $profile_fail
+            ${Else}
+                !insertmacro debug_cat 1 "The non-hs profile failed as well"
+                IfSilent +2
+                MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
+            ${EndIf}
+            noInstall:
+        ${EndIf}
     ${EndIf}
-    IfSilent +2
-    MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
-    Push 1
-    Pop $profile_fail
-    FailedProfile:
-    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
-  ${Else}
-     !insertmacro debug_cat 1 "Profile $R1 created"
-    Push 1
-    Pop $install_wireless_credentials
-  !ifndef DEBUG_CAT
-     Delete "$TEMP\wlan_prof-$R0.xml"
-  !endif
-  !ifdef DEBUG_CAT
-   ${If} $Debug_cat == 0
-     Delete "$TEMP\wlan_prof-$R0.xml"
-  ${EndIf}
-  !endif
-  ${EndIf}
+    ${If} $profile_fail == 0
+        !insertmacro debug_cat 1 "Profile $R1 created"
+        Push 1
+        Pop $install_wireless_credentials
+        !insertmacro debug_cat 4 "pushing install_wireless_credentials $install_wireless_credentials"
+        !ifndef DEBUG_CAT
+            Delete "$TEMP\wlan_prof-$R0.xml"
+        !endif
+        !ifdef DEBUG_CAT
+            ${If} $Debug_cat == 0
+                Delete "$TEMP\wlan_prof-$R0.xml"
+            ${EndIf}
+        !endif
+    ${Else}
+        nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
+    ${EndIf}
 FunctionEnd
 
 
@@ -985,12 +1006,11 @@ Function InstallWiredCred
   nsExec::Exec "$TEMP\install_wired.cmd"
 FunctionEnd
 
-Function writeTlsUserProfle
+Function writeTlsUserProfile
     DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials TLS"))?>"
     !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
-    !if ${NSIS_MAJOR_VERSION} >= 3
-       FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+       FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
   <EapMethod>$\r$\n\
     <eapCommon:Type>13</eapCommon:Type>$\r$\n\
@@ -1000,39 +1020,17 @@ Function writeTlsUserProfle
     <baseEap:Eap>$\r$\n\
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
-    !else
-       FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
-       <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
-  <EapMethod>$\r$\n\
-    <eapCommon:Type>13</eapCommon:Type>$\r$\n\
-    <eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
-  </EapMethod>$\r$\n\
-  <Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:eapTls=$\"http://www.microsoft.com/provisioning/EapTlsUserPropertiesV1$\">$\r$\n\
-    <baseEap:Eap>$\r$\n\
-      <baseEap:Type>13</baseEap:Type>$\r$\n\
-      <eapTls:EapType>$\r$\n'
-    !endif
 
 !ifdef PFX_USERNAME
-   !if ${NSIS_MAJOR_VERSION} >= 3
-      FileWriteUTF16LE $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
-   !else
-      FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
-   !endif
+    FileWriteUTF16LE $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
+
 !endif
-!if ${NSIS_MAJOR_VERSION} >= 3
 FileWriteUTF16LE $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
   </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-!else
-FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
-      </eapTls:EapType>$\r$\n\
-    </baseEap:Eap>$\r$\n\
-  </Credentials>$\r$\n\
-</EapHostUserCredentials>$\r$\n"
-!endif
+
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
@@ -1040,8 +1038,7 @@ FunctionEnd
 
 Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
-    !if ${NSIS_MAJOR_VERSION} >= 3
-    FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+    FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
 <eapCommon:Type>25</eapCommon:Type>$\r$\n\
@@ -1063,30 +1060,28 @@ FileWriteUTF16LE $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </baseEap:Eap>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-!else
-    FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+
+   FileClose $9
+   nsArray::Set Delete_files "user_cred.xml"
+FunctionEnd
+
+Function writeTtlsUserProfile
+    !insertmacro debug_cat 4 "Creating TTLS user profile"
+    FileOpen $9 "$TEMP\user_cred.xml" w
+    FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding="UTF-16"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
-<eapCommon:Type>25</eapCommon:Type>$\r$\n\
-<eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+<eapCommon:Type>21</eapCommon:Type>$\r$\n\
+<eapCommon:AuthorId>311</eapCommon:AuthorId>$\r$\n\
 </EapMethod>$\r$\n\
-<Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:MsPeap=$\"http://www.microsoft.com/provisioning/MsPeapUserPropertiesV1$\" xmlns:MsChapV2=$\"http://www.microsoft.com/provisioning/MsChapV2UserPropertiesV1$\">$\r$\n\
-<baseEap:Eap>$\r$\n\
-<baseEap:Type>25</baseEap:Type>$\r$\n\
-<MsPeap:EapType>$\r$\n\
-<baseEap:Eap>$\r$\n\
-<baseEap:Type>26</baseEap:Type>$\r$\n\
-<MsChapV2:EapType>$\r$\n'
-
-FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
-<MsChapV2:Password>$PASS1</MsChapV2:Password>$\r$\n\
-</MsChapV2:EapType>$\r$\n\
-</baseEap:Eap>$\r$\n\
-</MsPeap:EapType>$\r$\n\
-</baseEap:Eap>$\r$\n\
+<Credentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\">$\r$\n\
+<EapTtls xmlns=$\"http://www.microsoft.com/provisioning/EapTtlsUserPropertiesV1$\">$\r$\n'
+    
+FileWriteUTF16LE $9 "<Username>$UNAME</Username>$\r$\n\
+<Password>$PASS1</Password>$\r$\n\
+</EapTtls>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-!endif
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
@@ -1104,13 +1099,16 @@ Function InstallWirelessCred
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
     DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials for profile \$R1"))?>"
     !ifdef TLS
-      Call writeTlsUserProfle
+      Call writeTlsUserProfile
     !endif
     !ifdef PEAP
       Call writePeapUserProfle
     !endif
-    !insertmacro debug_cat 3 'Execute: "$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
-    nsExec::Exec '"$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
+    !ifdef TTLS
+      Call writeTtlsUserProfile
+    !endif
+    !insertmacro debug_cat 3 'Execute: "$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml" /i'
+    nsExec::Exec '"$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml" /i'
     Pop $0
     ${If} $Debug_cat == 0
        Delete "$TEMP\user_cred.xml"
@@ -1465,7 +1463,7 @@ Function InstallUserCredentials
 FunctionEnd
 ;=============================
 Function InstallWirelessUserCredentials
-  !insertmacro debug_cat 4 "Installing wireless credentials"
+  !insertmacro debug_cat 4 "Installing wireless credentials $install_wireless_credentials"
   ${If} $install_wireless_credentials == 0
     Goto WirelessEnd
   ${EndIf}
