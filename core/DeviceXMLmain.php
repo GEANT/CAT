@@ -69,6 +69,8 @@ class DeviceXMLmain
     private $value;
     
 
+    private $type;
+    
     /**
      * constructor, initialises empty set of attributes and value
      */
@@ -176,7 +178,7 @@ class DeviceXMLmain
     /**
      * This method is used to generate 
      * 
-     * @param $node DOM object to which the node is to be attached
+     * @param $node \SimpleXMLElement DOM object to which the node is to be attached
      * @param $name the tag name of the child node to be attached
      * @param $object the XXX object which is to be transfored to the DOM object
      *     and attached as a child to the $node
