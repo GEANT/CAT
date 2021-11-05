@@ -67,6 +67,7 @@ class DeviceXMLmain
      * @var string
      */
     private $value;
+    
 
     /**
      * constructor, initialises empty set of attributes and value
@@ -76,6 +77,7 @@ class DeviceXMLmain
         $this->attributes = [];
         $this->value = '';
         $this->children = [];
+        $this->type = NULL;
     }
     
     /**
@@ -111,6 +113,18 @@ class DeviceXMLmain
         } else {
             throw new Exception("unexpected value type passed".gettype($value));
         }
+    }
+    
+    public function setType($type)
+    {
+        if (empty($type)) {
+            return;
+        }
+        $this->type = $type;
+    }
+    
+    public function getType() {
+        return $this->type;
     }
 
     /**
@@ -154,20 +168,26 @@ class DeviceXMLmain
      * @param mixed  $value    value to set
      * @return void
      */
-    public function setChild($name, $value, $namespace = NULL)
+    public function setChild($name, $value, $namespace = NULL, $type = NULL)
     {
-        $this->children[] = ['name' => $name, 'value' => $value, 'namespace' => $namespace];
+        $this->children[] = ['name' => $name, 'value' => $value, 'namespace' => $namespace, 'type' => $type];
     }
 
     /**
      * This method is used to generate 
      * 
-     * @var $node an SimpleXMLElement object that will serve as the document root
+     * @param $node DOM object to which the node is to be attached
+     * @param $name the tag name of the child node to be attached
+     * @param $object the XXX object which is to be transfored to the DOM object
+     *     and attached as a child to the $node
+     * @param $namespace of the child
+     * @param $root Boolean - if true treat the node as the tree root, i.e do not
+     *     attach the resulting object to the parent (as there is none)
      * 
      * marchalObject attaches all children transforming the DeviceXMLmain structure
      * to the root
      */
-    public static function marshalObject($node, $name, $object, $namespace = NULL, $root = false)
+    public static function marshalObject($domElement, $node, $name, $object, $namespace = NULL, $root = false)
     {
         if (is_null($object)) {
             return;
@@ -177,42 +197,79 @@ class DeviceXMLmain
         } else {
             if ($object->getValue()) {
                 $val = preg_replace('/&/', '&amp;', $object->getValue());
-                $childNode = $node->addChild($name, $val, $namespace);
+                if ($object->getType() === 'cdata') {
+                    $childNode = $domElement->createElement($name);
+                    $cdata = $domElement->createCDATASection(strval($val));
+                    $childNode->appendChild($cdata);
+                    $node->appendChild($nextChild);
+                } else {
+                    $childNode = $domElement->createElement($name, $val);
+                }
+                $node->appendChild($childNode);
             } else {
-                $childNode = $node->addChild($name, '', $namespace);
+                $childNode = $domElement->createElement($name);
+                $node->appendChild($childNode);
+            }
+            if (!empty($namespace)) {
+                $ns = $domElement->createAttributeNS(null,'xmlns');
+                $ns->value = $namespace;
+                $childNode->appendChild($ns);  
             }
         }
+        
         if ($object->areAttributes()) {
             $attrs = $object->getAttributes();
             foreach ($attrs as $attrt => $attrv) {
-                $childNode->addAttribute($attrt, $attrv);
+                $attrE = $domElement->createAttribute($attrt);
+                $attrE->value = $attrv;
+                $childNode->appendChild($attrE);
             }
         }
-//        $fields = $object->children;
+
         if (empty($object->children)) {
             return;
         }
         foreach ($object->children as $child) {
             $nameC = $child['name'];
-            $value = $child['value'];
-            $namespace = $child['namespace'];
-            if (is_scalar($value)) {
-                $childNode->addChild($nameC, strval($value), $namespace);
+            $valueC = $child['value'];
+            $namespaceC = $child['namespace'];
+            if (is_scalar($valueC)) {
+                $cl = strval($valueC);
+                $nextChild = $domElement->createElement($nameC, $cl);    
+                $childNode->appendChild($nextChild);
+                if (!empty($namespaceC)) {
+                    $ns = $domElement->createAttributeNS(null,'xmlns');
+                    $ns->value = $namespaceC;
+                    $nextChild->appendChild($ns);  
+                }
                 continue;
             } 
-            if (gettype($value) == 'array') {
-                foreach ($value as $insideValue) {
+            if (gettype($valueC) == 'array') {
+                foreach ($valueC as $insideValue) {
                     if (is_object($insideValue)) {
-                        DeviceXMLmain::marshalObject($childNode, $nameC, $insideValue, $namespace);
+                        DeviceXMLmain::marshalObject($domElement, $childNode, $nameC, $insideValue, $namespaceC);
                     }
                     if (is_scalar($insideValue)) {
-                        $childNode->addChild($nameC, strval($insideValue), $namespace);
+                        if ($child['type'] === 'cdata') {
+                            $nextChild = $domElement->createElement($nameC);
+                            $cdata = $domElement->createCDATASection(strval($insideValue));
+                            $nextChild->appendChild($cdata);
+                            $childNode->appendChild($nextChild);
+                        } else {
+                            $nextChild = $domElement->createElement($nameC, strval($insideValue));
+                            $childNode->appendChild($nextChild);
+                        }
+                        if (!empty($namespaceC)) {
+                            $ns = $domElement->createAttributeNS(null,'xmlns');
+                            $ns->value = $namespaceC;
+                            $nextChild->appendChild($ns);  
+                        }
                     }
                 }
                 continue;
             } 
-            if (gettype($value) == 'object') {
-                DeviceXMLmain::marshalObject($childNode, $nameC, $value, $namespace);
+            if (gettype($valueC) == 'object') {
+                DeviceXMLmain::marshalObject($domElement, $childNode, $nameC, $valueC, $namespaceC);              
             }
         }
     }
