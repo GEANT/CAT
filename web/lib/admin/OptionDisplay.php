@@ -149,7 +149,7 @@ class OptionDisplay extends \core\common\Entity
             $blackListOnPrefill .= "|fed:silverbullet";
         }
         foreach ($prepopulate as $option) {
-            if (preg_match("/^class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
+            if (preg_match("/^$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 $loggerInstance = new \core\common\Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
