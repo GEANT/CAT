@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -20,576 +21,186 @@
  */
 
 /**
- * This file creates MS Windows 8 installers
- * It supports EAP-TLS, TTLS, PEAP and EAP-pwd
+ * This file creates MS Windows 8 and 10 installers
+ * It supports EAP-TLS, TTLS (both native and GEANTLink), PEAP.
+ * Other EAP methods could be added.
+ * 
+ * The file is an interface between the global CAT system and individual EAP
+ * methods modules. It also performs global operations like preparing
+ * and saving cerificates and generating the installers.
+ * 
+ * Adding a new EAP handler requres defining an extension of the MsEapProfile
+ * class. Such an extension is required to define a public getConfig method
+ * returning a valid Windows XML <Config> element.
+ * Extensions to Files/common.inc will also be required.
+ * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package ModuleWriting
  */
 
 namespace devices\ms;
-use \Exception;
+use Exception;
+//require_once dirname(__FILE__) . '/DeviceXMLmain.php';
 
-/**
- *
- * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @package ModuleWriting
- */
- class DeviceW8W10 extends WindowsCommon 
- {
-    final public function __construct() {
+class DeviceW8W10 extends \devices\ms\WindowsCommon
+{
+    public function __construct()
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
-        $this->setSupportedEapMethods(
-                [
-                    \core\common\EAP::EAPTYPE_TLS,
-                    \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
-                    \core\common\EAP::EAPTYPE_TTLS_PAP,
-                    \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
-                    \core\common\EAP::EAPTYPE_SILVERBULLET
-                ]);
+        $this->setSupportedEapMethods([
+            \core\common\EAP::EAPTYPE_TLS,
+            \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
+            \core\common\EAP::EAPTYPE_TTLS_PAP,
+            \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+            \core\common\EAP::EAPTYPE_SILVERBULLET
+        ]);
+        $this->profileNames = [];
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
         $this->specialities['media:openroaming'] = _("While OpenRoaming can be configured, it is possible that the Wi-Fi hardware does not support it; then the network definition is ignored.");
         $this->specialities['media:consortium_OI'] = _("While Passpoint networks can be configured, it is possible that the Wi-Fi hardware does not support it; then the network definition is ignored.");
-
         \core\common\Entity::outOfThePotatoes();
-    }
+    } 
     
     /**
      * create the actual installer executable
      * 
      * @return string filename of the generated installer
      *
-     */    
-    public function writeInstaller() {
+     */  
+    public function writeInstaller()
+    {
         \core\common\Entity::intoThePotatoes();
-        // create certificate files and save their names in $caFiles arrary
-        $caFiles = $this->saveCertificateFiles('der');
-        $this->caArray = $this->getAttribute('internal:CAs')[0];
-        $outerId = $this->determineOuterIdString();
-        $this->useAnon = $outerId === NULL ? FALSE : TRUE;
-        $this->servers = empty($this->attributes['eap:server_name']) ? '' : implode(';', $this->attributes['eap:server_name']);
-        $allSSID = $this->attributes['internal:SSID'];
-        $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
-        $this->setGeantLink();
+        $this->setupEapConfig();
         $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
-//   create a list of profiles to be deleted after installation
-        $delProfiles = [];
-        foreach ($delSSIDs as $ssid => $cipher) {
-            if ($cipher == 'DEL') {
-                $delProfiles[] = $ssid;
-            }
-            if ($cipher == 'TKIP') {
-                $delProfiles[] = $ssid.' (TKIP)';
-            }
-        }
-        $windowsProfile = [];
-        $eapConfig = $this->prepareEapConfig();
-        $iterator = 0;
-        foreach ($allSSID as $ssid => $cipher) {
-            if ($cipher == 'TKIP') {
-                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid.' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
-                $iterator++;
-            }
-            $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
-            $iterator++;
-        }
-        if ($this->device_id !== 'w8') {
-            $roamingPartner = 1;
-            foreach ($this->attributes['internal:consortia'] as $oneCons) {
-                $knownOiName = array_search($oneCons, \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
-                if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
-                    $knownOiName = $this->attributes['general:instname'][0] . " "._("Roaming Partner") . " $roamingPartner";
-                    $roamingPartner++;
-                }
-                $ssid = 'cat-passpoint-profile';
-                $windowsProfile[$iterator] = $this->writeWLANprofile($knownOiName, $ssid, 'WPA2', 'AES', $eapConfig, $iterator, $oneCons);
-                $iterator++;
+        $this->iterator = 0;
+        $fcontentsProfile = '';
+        $this->createProfileDir();
+        foreach ($this->attributes['internal:networks'] as $networkName => $oneNetwork) {
+            if ($this::separateHS20profiles === true) {
+                $fcontentsProfile .= $this->saveNetworkProfileSeparateHS($networkName, $oneNetwork);
+            } else {
+                $fcontentsProfile .= $this->saveNetworkProfileJoinedHS($networkName, $oneNetwork);
             }
         }
+        file_put_contents('profiles.nsh', $fcontentsProfile);
         if ($setWired) {
-            $this->writeLANprofile($eapConfig);
+            $this->loggerInstance->debug(4, "Saving LAN profile\n");
+            $windowsProfile = $this->generateLANprofile();
+            $this->saveProfile($windowsProfile);
         }
-        $this->loggerInstance->debug(4, "windowsProfile");
-        $this->loggerInstance->debug(4, print_r($windowsProfile, true));
-
-        $this->writeProfilesNSH($windowsProfile, $caFiles);
-        $this->writeAdditionalDeletes($delProfiles);
+        $this->saveCerts();
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
-        $fedLogo = $this->attributes['fed:logo_file'] ?? NULL;
-        $idpLogo = $this->attributes['internal:logo_file'] ?? NULL;
-        $this->combineLogo($idpLogo, $fedLogo);
+        $this->saveLogo();
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
         $installerPath = $this->signInstaller();
         \core\common\Entity::outOfThePotatoes();
         return $installerPath;
     }
-
-    private function setAuthorId() {
-        if ($this->selectedEap['OUTER'] === \core\common\EAP::TTLS) {
-            if ($this->useGeantLink) {
-                $authorId = "67532";
-            } else {
-                $authorId = "311";
-            }
-        } else {
-            $authorId = 0;
+    
+    private function createProfileDir()
+    {
+        if (!is_dir('profiles')) {
+            mkdir('profiles');
         }
-        return($authorId);
-    }
-
-    private function addConsortia($oi) {
-        if ($this->device_id == 'w8' || $oi == '') {
-            return('');
-        }
-        $retval = '<Hotspot2>';
-        $retval .= '<DomainName>';
-        if (empty($this->attributes['internal:realm'][0])) {
-            $retval .= \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
-        } else {
-            $retval .=  $this->attributes['internal:realm'][0];
-        }
-        $retval .= '</DomainName>';
-        $retval .= '<RoamingConsortium><OUI>' . $oi .
-            '</OUI></RoamingConsortium>';
-        $retval .=  '</Hotspot2>';
-        return($retval);
     }
     
-    private function eapConfigHeader() {
-        $authorId = $this->setAuthorId();
-        $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
-<EapMethod>
-';
-        $profileFileCont .= '<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">' .
-                $this->selectedEap["OUTER"] . '</Type>
-<VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
-<VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
-<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">' . $authorId . '</AuthorId>
-</EapMethod>
-';
-        return($profileFileCont);
-    }
-
-    private function tlsServerValidation() {
-        $profileFileCont = '
-<eapTls:ServerValidation>
-<eapTls:DisableUserPromptForServerValidation>true</eapTls:DisableUserPromptForServerValidation>
-';
-        $profileFileCont .= '<eapTls:ServerNames>' . $this->servers . '</eapTls:ServerNames>';
-        foreach ($this->caArray as $certAuthority) {
-            if ($certAuthority['root']) {
-                $profileFileCont .= "<eapTls:TrustedRootCA>" . $certAuthority['sha1'] . "</eapTls:TrustedRootCA>\n";
-            }
-        }
-        $profileFileCont .= '</eapTls:ServerValidation>
-';
-        return($profileFileCont);
-    }
-    
-    private function msTtlsServerValidation() {
-        $profileFileCont = '
-        <ServerValidation>
-';
-        $profileFileCont .= '<ServerNames>' . $this->servers . '</ServerNames> ';
-        foreach ($this->caArray as $certAuthority) {
-            if ($certAuthority['root']) {
-                $profileFileCont .= "<TrustedRootCAHash>" . chunk_split($certAuthority['sha1'], 2, ' ') . "</TrustedRootCAHash>\n";
-            }
-        }
-        $profileFileCont .= '<DisablePrompt>true</DisablePrompt>
-</ServerValidation>
-';
-        return($profileFileCont);
-    }
-    
-    private function glTtlsServerValidation() {
-        $servers = implode('</ServerName><ServerName>', $this->attributes['eap:server_name']);
-        $profileFileCont = '
-<ServerSideCredential>
-';
-        foreach ($this->caArray as $ca) {
-            $profileFileCont .= '<CA><format>PEM</format><cert-data>';
-            $profileFileCont .= base64_encode($ca['der']);
-            $profileFileCont .= '</cert-data></CA>
-';
-        }
-        $profileFileCont .= "<ServerName>$servers</ServerName>\n";
-
-        $profileFileCont .= '
-</ServerSideCredential>
-';
-        return($profileFileCont);
-    }
-    
-    private function peapServerValidation() {
-        $profileFileCont = '
-        <ServerValidation>
-<DisableUserPromptForServerValidation>true</DisableUserPromptForServerValidation>
-<ServerNames>' . $this->servers . '</ServerNames>';
-        foreach ($this->caArray as $certAuthority) {
-            if ($certAuthority['root']) {
-                $profileFileCont .= "<TrustedRootCA>" . $certAuthority['sha1'] . "</TrustedRootCA>\n";
-            }
-        }
-        $profileFileCont .= '</ServerValidation>
-';
-        return($profileFileCont);
-    }
-    
-    private function tlsConfig() {
-        $profileFileCont = '
-<Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1"
-  xmlns:eapTls="http://www.microsoft.com/provisioning/EapTlsConnectionPropertiesV1">
-<baseEap:Eap>
-<baseEap:Type>13</baseEap:Type>
-<eapTls:EapType>
-<eapTls:CredentialsSource>
-<eapTls:CertificateStore />
-</eapTls:CredentialsSource>
-';    
-        $profileFileCont .= $this->tlsServerValidation();
-        if (\core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on') {
-            $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-            $this->tlsOtherUsername = 1;
-        } else {
-            $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
-        }
-        $profileFileCont .= '
-</eapTls:EapType>
-</baseEap:Eap>
-</Config>
-';
-        return($profileFileCont);
-    }
-
-    private function msTtlsConfig() {        
-        $profileFileCont = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
-<EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1">
-';
-        $profileFileCont .= $this->msTtlsServerValidation();
-        $profileFileCont .= '<Phase2Authentication>
-';
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
-            $profileFileCont .= '<PAPAuthentication /> ';
-        }
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
-            $profileFileCont .= '<MSCHAPv2Authentication>
-<UseWinlogonCredentials>false</UseWinlogonCredentials>
-</MSCHAPv2Authentication>
-';
-        }
-        $profileFileCont .= '</Phase2Authentication>
-<Phase1Identity>
-';
-        if ($this->useAnon) {
-            $profileFileCont .= '<IdentityPrivacy>true</IdentityPrivacy>
-';
-            $profileFileCont .= '<AnonymousIdentity>' . $this->outerId . '</AnonymousIdentity>
-                ';
-        } else {
-            $profileFileCont .= '<IdentityPrivacy>false</IdentityPrivacy>
-';
-        }
-        $profileFileCont .= '</Phase1Identity>
-</EapTtls>
-</Config>
-';
-        return($profileFileCont);
-    }
-    
-    private function glTtlsConfig() {        
-        $profileFileCont = '
-<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
-<EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
-<EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
-
-<ProviderInfo>
-<DisplayName>' . $this->translateString($this->attributes['general:instname'][0], $this->codePage) . '</DisplayName>
-</ProviderInfo>
-<AuthenticationMethods>
-<AuthenticationMethod>
-<EAPMethod>21</EAPMethod>
-<ClientSideCredential>
-<allow-save>true</allow-save>
-';
-        if ($this->useAnon) {
-            if ($this->outerUser == '') {
-                $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
-            } else {
-                $profileFileCont .= '<AnonymousIdentity>' . $this->outerId . '</AnonymousIdentity>';
-            }
-        }
-        $profileFileCont .= '</ClientSideCredential>
-';
-        $profileFileCont .= $this->glTtlsServerValidation();
-        $profileFileCont .= '
-<InnerAuthenticationMethod>
-<NonEAPAuthMethod>' . \core\common\EAP::eapDisplayName($this->selectedEap)['INNER'] . '</NonEAPAuthMethod>
-</InnerAuthenticationMethod>
-<VendorSpecific>
-<SessionResumption>false</SessionResumption>
-</VendorSpecific>
-</AuthenticationMethod>
-</AuthenticationMethods>
-</EAPIdentityProvider>
-</EAPIdentityProviderList>
-</Config>
-';
-        return($profileFileCont);
-    }
-
-    private function peapConfig() {
-        $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) == 'on') ? 'true' : 'false';
-        $profileFileCont = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
-<Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
-<Type>25</Type>
-<EapType xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1">
-';
-        $profileFileCont .= $this->peapServerValidation();
-        $profileFileCont .= '
-<FastReconnect>true</FastReconnect>
-<InnerEapOptional>false</InnerEapOptional>
-<Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
-<Type>26</Type>
-<EapType xmlns="http://www.microsoft.com/provisioning/MsChapV2ConnectionPropertiesV1">
-<UseWinLogonCredentials>false</UseWinLogonCredentials>
-</EapType>
-</Eap>
-<EnableQuarantineChecks>' . $nea . '</EnableQuarantineChecks>
-<RequireCryptoBinding>false</RequireCryptoBinding>
-';
-        if ($this->useAnon) {
-            $profileFileCont .= '<PeapExtensions>
-<IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
-<EnableIdentityPrivacy>true</EnableIdentityPrivacy>
-';
-            if ($this->outerUser == '') {
-                $profileFileCont .= '<AnonymousUserName/>
-';
-            } else {
-                $profileFileCont .= '<AnonymousUserName>' . $this->outerUser . '</AnonymousUserName>
-                ';
-            }
-            $profileFileCont .= '</IdentityPrivacy>
-</PeapExtensions>
-';
-        }
-        $profileFileCont .= '</EapType>
-</Eap>
-</Config>
-';
-        return($profileFileCont);
-    }
-    
-    private function pwdConfig() {
-        return('<ConfigBlob></ConfigBlob>');
-    }
-
     /**
-     * Set the GEANTLink usage flag based on device settings
+     * If separateHS20profiles is true then we should be saving OID and SSID
+     * profiles separately. OID profiles should be considered optionl, i.e.
+     * the installer should not report installation failure (??). If we decide
+     * that such installation failures should be silent then it is enough if
+     * these profiles are marked as hs20 and no "nohs" profiles are created
      */
-    private function setGeantLink() {
-        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on') {
-            $this->useGeantLink = TRUE;
+    
+    private function saveNetworkProfileSeparateHS($name, $network)
+    {
+        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
+        $out = '';
+        if (!empty($network['ssid'])) {
+            $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
+            $this->saveProfile($windowsProfileSSID, $this->iterator, true);
+            $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
+            $this->iterator ++;
+            $profileName .= " via Hotspot 2.0";
         }
+        if (!empty($network['oi'])) {
+            $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
+            $this->saveProfile($windowsProfileHS, $this->iterator, true);
+            $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
+            $this->iterator ++;
+        }
+        return($out);
     }
-
-    private function prepareEapConfig() {
-        if ($this->useAnon) {
-            $this->outerUser = $this->attributes['internal:anon_local_value'][0];
-            $this->outerId = $this->outerUser . '@' . $this->attributes['internal:realm'][0];
-        }
-
-        $profileFileCont = $this->eapConfigHeader();
-
-        switch ($this->selectedEap['OUTER']) {
-            case \core\common\EAP::TLS:
-                $profileFileCont .= $this->tlsConfig();
-                break;
-            case \core\common\EAP::PEAP:
-                $profileFileCont .= $this->peapConfig();
-                break;
-            case \core\common\EAP::TTLS:
-                if ($this->useGeantLink) {
-                    $profileFileCont .= $this->glTtlsConfig();
-                } else {
-                    $profileFileCont .= $this->msTtlsConfig();
-                }
-                break;
-            case \core\common\EAP::PWD:
-                $profileFileCont .= $this->pwdConfig();
-                break;
-            default:
-                break;
-        }
-        return(['win' => $profileFileCont . '</EapHostConfig></EAPConfig>']);
-    }
-
+    
     /**
-     * produce PEAP, TLS and TTLS configuration files for Windows 8
-     *
-     * @param string $wlanProfileName
-     * @param string $ssid
-     * @param string $auth can be one of "WPA", "WPA2"
-     * @param string $encryption can be one of: "TKIP", "AES"
-     * @param array $eapConfig XML configuration block with EAP config data
-     * @param int $profileNumber counter, which profile number is this
-     * @param string $oi nonempty value indicates that this is a Passpoint profile or a given OI value
-     * @return string
+     * If separateHS20profiles is false then we should be saving a hs20 profile
+     * containing both OIDs and SSIDs. In addiotion we should also be saving
+     * a nohs_... profile. When  the installer runs it first tries the normal
+     * profile and if this fails it will try the nohs (if one exists)
      */
-    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $oi = '') {
-        $profileFileCont = '<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>' . $wlanProfileName . '</name>
-<SSIDConfig>
-<SSID>
-<name>' . $ssid . '</name>
-</SSID>
-<nonBroadcast>true</nonBroadcast>
-</SSIDConfig>';
-        $profileFileCont .= $this->addConsortia($oi);
-        $profileFileCont .= '
-<connectionType>ESS</connectionType>
-<connectionMode>auto</connectionMode>
-<autoSwitch>false</autoSwitch>
-<MSM>
-<security>
-<authEncryption>
-<authentication>' . $auth . '</authentication>
-<encryption>' . $encryption . '</encryption>
-<useOneX>true</useOneX>
-</authEncryption>
-';
-        if ($auth == 'WPA2') {
-            $profileFileCont .= '<PMKCacheMode>enabled</PMKCacheMode>
-<PMKCacheTTL>720</PMKCacheTTL>
-<PMKCacheSize>128</PMKCacheSize>
-<preAuthMode>disabled</preAuthMode>
-        ';
+    
+    private function saveNetworkProfileJoinedHS($name, $network)
+    {
+        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
+        $oiOnly = false;
+        if ($network['ssid'] == []) {
+            $oiOnly = true;
+            $network['ssid'] = ['cat-passpoint-profile'];
         }
-        $profileFileCont .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
-<cacheUserData>true</cacheUserData>
-<authMode>user</authMode>
-';
-
-        $closing = '
-</OneX>
-</security>
-</MSM>
-</WLANProfile>
-';
-
-        if (!is_dir('w8')) {
-            mkdir('w8');
+        $windowsProfile = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', $network['oi'], true);
+        $this->saveProfile($windowsProfile, $this->iterator, true);
+        if (!$oiOnly) {
+            $windowsProfile = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
+            $this->saveProfile($windowsProfile, $this->iterator, false);
         }
-        $xmlFname = "w8/wlan_prof-$profileNumber.xml";
-        file_put_contents($xmlFname, $profileFileCont . $eapConfig['win'] . $closing);
-        $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
-        $hs20 = $oi == '' ? 0 : 1;
-        return("\"$wlanProfileName\" \"$encryption\" $hs20");
+        $this->iterator ++;
+        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n");
     }
 
-    private function writeLANprofile($eapConfig) {
-        $profileFileCont = '<?xml version="1.0"?>
-<LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
-<MSM>
-<security>
-<OneXEnforced>false</OneXEnforced>
-<OneXEnabled>true</OneXEnabled>
-<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
-<cacheUserData>true</cacheUserData>
-<authMode>user</authMode>
-';
-        $closing = '
-</OneX>
-</security>
-</MSM>
-</LANProfile>
-';
-
-        if (!is_dir('w8')) {
-            mkdir('w8');
-        }
-        $xmlFname = "w8/lan_prof.xml";
-        file_put_contents($xmlFname, $profileFileCont . $eapConfig['win'] . $closing);
-        $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
+    private function saveLogo()
+    {
+        $fedLogo = $this->attributes['fed:logo_file'] ?? NULL;
+        $idpLogo = $this->attributes['internal:logo_file'] ?? NULL;
+        $this->combineLogo($idpLogo, $fedLogo);
     }
 
-    private function writeProfilesNSH($wlanProfiles, $caArray) {
-        $this->loggerInstance->debug(4, "writeProfilesNSH");
-        $this->loggerInstance->debug(4, $wlanProfiles);
-        $fcontentsProfile = '';
-        foreach ($wlanProfiles as $wlanProfile) {
-            $fcontentsProfile .= "!insertmacro define_wlan_profile $wlanProfile\n";
-        }
-
-        file_put_contents('profiles.nsh', $fcontentsProfile);
-
-        $fcontentsCerts = '';
-        $fileHandleCerts = fopen('certs.nsh', 'w');
-        if ($fileHandleCerts === FALSE) {
-            throw new Exception("Unable to open new certs.nsh file for writing CAs.");
-        }
-        foreach ($caArray as $certAuthority) {
-            $store = $certAuthority['root'] ? "root" : "ca";
-            $fcontentsCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
-        }
-        fwrite($fileHandleCerts, $fcontentsCerts);
-        fclose($fileHandleCerts);
-    }
-
-    private function writeMainNSH($eap, $attr) {
+    private function writeMainNSH($eap, $attr)
+    {
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
-        $this->loggerInstance->debug(4, "Device_id = " . $this->device_id . "\n");
+        $this->loggerInstance->debug(4, "Device_id = ".$this->device_id."\n");
         $fcontents = "!define W8\n";
         if ($this->device_id == 'w10') {
             $fcontents .= "!define W10\n";
         }
-        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
-            $fcontents .= "Unicode true\n";
-        }
-        $eapOptions = [
-            \core\common\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
-            \core\common\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
-            \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
-            \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
-        ];
+        $fcontents .= "Unicode true\n";
         if ($this->useGeantLink) {
-            $eapOptions[\core\common\EAP::TTLS]['str'] = 'GEANTLink';
+            $eapStr = 'GEANTLink';
+        } else {
+            $eapStr = \core\common\EAP::eapDisplayName($this->selectedEap)['OUTER'];
         }
-
-// Uncomment the line below if you want this module to run under XP (only displaying a warning)
-// $fcontents .= "!define ALLOW_XP\n";
-// Uncomment the line below if you want this module to produce debugging messages on the client
-// $fcontents .= "!define DEBUG_CAT\n";
-        if ($this->tlsOtherUsername == 1) {
+        if (isset($this->tlsOtherUsername) && $this->tlsOtherUsername == 1) {
             $fcontents .= "!define PFX_USERNAME\n";
         }
-        $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
-        $eapStr = $eapOptions[$eap["OUTER"]]['str'];
         if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= "!define SILVERBULLET\n";
         }
-        $fcontents .= '!define ' . $eapStr;
-        $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
+        $fcontents .= '!define '.$eapStr;
+        $fcontents .= "\n".'!define EXECLEVEL "user"';
         $fcontents .= $this->writeNsisDefines($attr);
         file_put_contents('main.nsh', $fcontents);
     }
 
-    private function copyStandardNsi() {
-        if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
-            throw new Exception("Translating needed file eap_w8.inc failed!");
-        }
-    }
-
-    private function copyFiles($eap) {
+    
+    private function copyFiles($eap)
+    {
         $this->loggerInstance->debug(4, "copyFiles start\n");
         $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
@@ -600,21 +211,136 @@ use \Exception;
                     $this->copyStandardNsi();
                 }
                 break;
-            case \core\common\EAP::PWD:
-                $this->copyPwdFiles();
-                break;
             default:
                 $this->copyStandardNsi();
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
-        return TRUE;
+        return true;
+    }
+    
+    private function copyStandardNsi()
+    {
+        if (!$this->translateFile('eap_w8.inc', 'cat.NSI')) {
+            throw new Exception("Translating needed file eap_w8.inc failed!");
+        }
+    }
+    
+    private function saveCerts()
+    {
+        $caArray = $this->saveCertificateFiles('der');
+        $fcontentsCerts = '';
+        $fileHandleCerts = fopen('certs.nsh', 'w');
+        if ($fileHandleCerts === false) {
+            throw new Exception("Unable to open new certs.nsh file for writing CAs.");
+        }
+        foreach ($caArray as $certAuthority) {
+            $store = $certAuthority['root'] ? "root" : "ca";
+            $fcontentsCerts .= '!insertmacro install_ca_cert "'.$certAuthority['file'].'" "'.$certAuthority['sha1'].'" "'.$store."\"\n";
+        }
+        fwrite($fileHandleCerts, $fcontentsCerts);
+        fclose($fileHandleCerts);
     }
 
-    private $tlsOtherUsername = 0;
-    private $caArray;
-    private $useAnon;
-    private $servers;
-    private $outerUser;
-    private $outerId;
+    /* saveProvile writes a LAN or WLAN profile
+     * @param string $profile the XML content to be saved
+     * @param int $profileNumber the profile index or NULL to indicate a LAN profile
+     * @param boolean $hs20 for WLAN profiles indicates if use the nohs prefix
+     */
+    private function saveProfile($profile, $profileNumber=NULL, $hs20=false)
+    {
+        if ($hs20) {
+            $prefix = 'w';
+        } else {
+            $prefix = 'nohs_w';
+        }
+        if (is_null($profileNumber)) {
+            $prefix = '';
+            $suffix = '';
+        } else {
+            $suffix = "-$profileNumber";
+        }
+        $xmlFname = "profiles/".$prefix."lan_prof".$suffix.".xml";
+        $this->loggerInstance->debug(4, "Saving profile to ".$xmlFname."\n");
+        file_put_contents($xmlFname, $profile);
+    }
+
+    /**
+     * Selects the approprate handler for a given EAP type and retirns
+     * an initiated object
+     * 
+     * @return a profile object
+     */
+    
+    private function setEapObject()
+    {        
+        switch ($this->selectedEap['OUTER']) {
+            case \core\common\EAP::TTLS:
+                if ($this->useGeantLink) {
+                    return(new GeantLinkTtlsProfile());
+                } else {
+                    return(new MsTtlsProfile());
+                }
+            case \core\common\EAP::PEAP:
+                return(new MsPeapProfile());
+            case \core\common\EAP::TLS:
+                return(new MsTlsProfile());
+            default:
+                // use Exception here
+                break;
+        }
+    }
+    
+    private function setupEapConfig() {
+        $servers = empty($this->attributes['eap:server_name']) ? '' : implode(';', $this->attributes['eap:server_name']);
+        $outerId = $this->determineOuterIdString();
+        $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) === 'on') ? 'true' : 'false';
+        $otherTlsName = \core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on' ? 'true' : 'false';
+        $this->useGeantLink =  \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on' ? true : false;
+        $eapConfig = $this->setEapObject();
+        $eapConfig->setInnerType($this->selectedEap['INNER']);
+        $eapConfig->setInnerTypeDisplay(\core\common\EAP::eapDisplayName($this->selectedEap)['INNER']);
+        $eapConfig->setCAList($this->getAttribute('internal:CAs')[0]);
+        $eapConfig->setServerNames($servers);
+        $eapConfig->setOuterId($outerId);
+        $eapConfig->setNea($nea);
+        $eapConfig->setDisplayName($this->translateString($this->attributes['general:instname'][0]));
+        $eapConfig->setIdPId($this->deviceUUID);
+        $eapConfig->setOtherTlsName($otherTlsName);
+        $eapConfig->setConfig();
+        $this->eapConfigObject = $eapConfig;
+    } 
+        
+    private function generateWlanProfile($networkName, $ssids, $authentication, $encryption, $ois, $hs20 = false)
+    {
+        if (empty($this->attributes['internal:realm'][0])) {
+            $domainName = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+        } else {
+            $domainName = $this->attributes['internal:realm'][0];
+        }
+        $wlanProfile = new MsWlanProfile();
+        $wlanProfile->setName($networkName);       
+        $wlanProfile->setEncryption($authentication, $encryption);
+        $wlanProfile->setSSIDs($ssids);
+        $wlanProfile->setHS20($hs20);
+        $wlanProfile->setOIs($ois);
+        $wlanProfile->setDomainName($domainName);
+        $wlanProfile->setEapConfig($this->eapConfigObject);
+        return($wlanProfile->writeWLANprofile());
+    }
+    
+    private function generateLanProfile()
+    {
+        $lanProfile = new MsLanProfile();
+        $lanProfile->setEapConfig($this->eapConfigObject);
+        return($lanProfile->writeLANprofile());
+    }
+
+    private $eapTypeId;
+    private $eapAuthorId;
+    private $eapConfigObject;
+    private $profileNames;
+    private $iterator;
 }
+
+
 
