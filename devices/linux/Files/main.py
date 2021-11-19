@@ -556,7 +556,8 @@ class InstallerData(object):
             if Config.use_other_tls_id:
                 return True
             out_str = out.decode('utf-8').strip()
-            subject = re.split(r'\s*[/,]\s*',
+            # split only on commas that are not inside double quotes
+            subject = re.split(r'\s*[/,]\s*(?=([^"]*"[^"]*")*[^"]*$)',
                                re.findall(r'subject=/?(.*)$',
                                           out_str, re.MULTILINE)[0])
             cert_prop = {}
