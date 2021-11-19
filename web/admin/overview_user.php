@@ -171,12 +171,15 @@ require_once "inc/click_button_js.php";
                             $blessedUser = FALSE;
                             foreach ($admins as $number => $username) {
                                 if ($username['ID'] != $_SESSION['user']) {
-                                    $coadmin = new \core\User($username['ID']);
-                                    $coadmin_name = $coadmin->getAttributes('user:realname');
-                                    if (count($coadmin_name) > 0) {
-                                        echo $coadmin_name[0]['value'] . "<br/>";
-                                        unset($admins[$number]);
-                                    }
+                                    /*
+                                     * $coadmin = new \core\User($username['ID']);
+                                     * $coadmin_name = $coadmin->getAttributes('user:realname');
+                                     * if (count($coadmin_name) > 0) {
+                                     *     echo $coadmin_name[0]['value'] . "<br/>";
+                                     *     unset($admins[$number]);
+                                     *
+                                     * }
+                                     */
                                 } else { // don't list self
                                     unset($admins[$number]);
                                     if ($username['LEVEL'] == "FED") {
@@ -185,7 +188,7 @@ require_once "inc/click_button_js.php";
                                 }
                                 $otherAdminCount = count($admins); // only the unnamed remain
                                 if ($otherAdminCount > 0) {
-                                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount), $otherAdminCount);
+                                    echo sprintf(ngettext("You and %d other user", "You and %d other users", $otherAdminCount), $otherAdminCount);
                                 }
                             }
                             ?>
