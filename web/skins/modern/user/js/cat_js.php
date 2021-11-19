@@ -308,7 +308,7 @@ function showProfile(prof) {
     }
     profileDevices = j.devices;
     mydev=findDevice(recognisedOS);
-    console.log(mydev);
+    console.log("recognisedOS:"+mydev);
     // create the main download page section
 
     
@@ -520,16 +520,11 @@ function deviceInfo(data) {
 }
 
 function handleGuessOs(recognisedDevice) {
-if(recognisedDevice.redirect != '0') {
-  alert(recognisedDevice.redirect);
-}
-/*
-  var recognisedDevice = null;
-  recognisedDevice = findDevice(os);
-  if (recognisedDevice == null)
-    return;
-            */
-  
+    if (recognisedDevice == null)
+        return true;
+    if(recognisedDevice.redirect != '0') {
+         alert(recognisedDevice.redirect);
+    } 
   // handle devices that canot be configured due to lack of support
   // for required EAP methods
   /*
@@ -629,33 +624,35 @@ function updateGuessOsDiv(device) {
   $("#download_another").remove();
 
   $("#download_text_1").empty();
-  $("#download_text_1").append("<div>Download installer for "+device.display+"</div>")
-  $("#download_text_1").css('background-image', 'url("'+vendorlogo+device.group+'.png")');
-  if (device.status > 0) {
-    $("#device_message").html(guiTexts.unconfigurable);
-    $("#device_message").show();
-  } else {
+  if (device != null) {
+      $("#download_text_1").append("<div>Download installer for "+device.display+"</div>")
+      $("#download_text_1").css('background-image', 'url("'+vendorlogo+device.group+'.png")');
+      if (device.status > 0) {
+        $("#device_message").html(guiTexts.unconfigurable);
+        $("#device_message").show();
+      } else {
 
-  div1 = "<div>\
-      <div class='button_wrapper'>\
-        <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
-          <div class='download_button_text_1' id='download_button_header_"+device.id+"'>eduroam only\
-          /div>\
-        </button>\
-      </div>\
-      <div class='button_wrapper'>\
-        <button name='"+device.id+"' class='guess_os dev_or' id='g_or_"+device.id+"'>\
-          <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>eduroam and OpenRoaming\
+      div1 = "<div>\
+          <div class='button_wrapper'>\
+            <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
+              <div class='download_button_text_1' id='download_button_header_"+device.id+"'>eduroam only\
+              /div>\
+            </button>\
           </div>\
-        </button>\
-      </div>\
-      <div class='button_wrapper'>\
-        <button name='"+device.id+"' class='more_info_b' id='g_info_b_"+device.id+"'>i</button>\
-      </div>\
-    </div>\
-    <div name='"+device.id+"' class='device_info' id='info_g_"+device.id+"'>XXXXX</div>\
-    <div id='more_i'><a href='xx'>See more installer information</a></div>";   
-    $("#guess_os").prepend(div1);
+          <div class='button_wrapper'>\
+            <button name='"+device.id+"' class='guess_os dev_or' id='g_or_"+device.id+"'>\
+              <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>eduroam and OpenRoaming\
+              </div>\
+            </button>\
+          </div>\
+          <div class='button_wrapper'>\
+            <button name='"+device.id+"' class='more_info_b' id='g_info_b_"+device.id+"'>i</button>\
+          </div>\
+        </div>\
+        <div name='"+device.id+"' class='device_info' id='info_g_"+device.id+"'>XXXXX</div>\
+        <div id='more_i'><a href='xx'>See more installer information</a></div>";   
+        $("#guess_os").prepend(div1);
+      }
   }
     div2 ="<div id='download_another' class='sub_h guess_os'>\
     <a href='javascript:otherInstallers()'>"+guiTexts.downloadAnother+"</a>\

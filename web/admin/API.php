@@ -192,7 +192,7 @@ switch ($inputDecoded['ACTION']) {
             }
             $retArray[$idpIdentifier] = $thisIdP->getAttributes();
             foreach ($thisIdP->listProfiles() as $oneProfile) {
-                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getAttributes();
+                $retArray[$idpIdentifier]["PROFILES"][$oneProfile->identifier] = $oneProfile->getAttributes();
             }
         }
         foreach ($retArray as $instNumber => $oneInstData) {

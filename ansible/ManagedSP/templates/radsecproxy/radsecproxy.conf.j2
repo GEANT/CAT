@@ -2,9 +2,8 @@ ListenUDP       localhost:1812
 ListenTLS       {{ radius_sp_ip }}:2083
 SourceUDP       localhost
 SourceTCP       {{ radius_sp_ip }}
-LogLevel        5
+LogLevel        3
 LogDestination  x-syslog:///LOG_LOCAL0
-FTicksSyslogFacility x-syslog:///LOG_LOCAL2
 loopprevention on
 
 tls edupkiclient {
