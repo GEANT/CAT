@@ -75,8 +75,13 @@ abstract class DeviceConfig extends \core\common\Entity
      * @var array EAP methods
      */
     public $supportedEapMethods;
-   
-
+ 
+    /**
+     * 
+     * @var string the realm attached to the profile (possibly substituted with fallback value
+     */
+    public $realm = NULL;
+    
     /**
      * sets the supported EAP methods for a device
      * 
@@ -178,7 +183,9 @@ abstract class DeviceConfig extends \core\common\Entity
         $this->attributes = $this->getProfileAttributes($profile);
         $this->deviceUUID = common\Entity::uuid('', 'CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
 
-
+        if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
+            $this->realm = $this->attributes['internal:realm'][0];
+        }
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
         // then, this is the only instance of the device ever which knows the
@@ -586,7 +593,9 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
         $networks = [];
+        $realm = $this->realm === NULL ? CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'] : $this->realm;
         foreach (\config\ConfAssistant::CONSORTIUM['networks'] ?? [] as $netName => $netDetails) {
+            $netName = preg_replace('/%REALM%/', $this->realm, $netName);
             // only add network blocks if their respective condition is met in this profile
             if ($netDetails['condition'] === TRUE || (isset($this->attributes[$netDetails['condition']]) && $this->attributes[$netDetails['condition']] === TRUE)) { 
                 $networks[$netName] = $netDetails;

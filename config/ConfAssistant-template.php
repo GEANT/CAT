@@ -89,7 +89,7 @@ class ConfAssistant
                     '001bc50460' /* eduroam RCOI */ 
                     ], 
                 'condition' => TRUE],
-            'OpenRoaming®' => [
+            'OpenRoaming® (%REALM%)' => [
                 'ssid' => [],     /* OpenRoaming has left SSIDs behind */
                 'oi' => [
                     '5A03BA0000', /* OpenRoaming/AllIdentities/SettlementFree/NoPersonalData/BaselineQoS */
