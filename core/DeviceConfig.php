@@ -76,7 +76,10 @@ abstract class DeviceConfig extends \core\common\Entity
      */
     public $supportedEapMethods;
  
-
+    /**
+     * 
+     * @var string the realm attached to the profile (possibly substituted with fallback value
+     */
     public $realm = NULL;
     
     /**
