@@ -83,39 +83,21 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      */
     public function writeDeviceInfo() {
         \core\common\Entity::intoThePotatoes();
-        $ssidCount = count($this->attributes['internal:SSID']);
-        $out = '';
+        $out = sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $out .= "<p>"._("The installer will configure access to:")." <strong>";
+        $out .= implode('</strong>, <strong>', array_keys($this->attributes['internal:networks']));
+        $out .= '</strong><p>';
 
-        $out .= sprintf(_("The installer is in the form of a shell script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), \config\ConfAssistant::CONSORTIUM['display_name']);
-        $out .= "<p>";
-        if ($ssidCount > 1) {
-            if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', \config\ConfAssistant::CONSORTIUM['ssid'])) . " ";
-            } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', \config\ConfAssistant::CONSORTIUM['ssid'])) . " ";
-            }
-            $iterator = 0;
-            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, \config\ConfAssistant::CONSORTIUM['ssid'])) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
-            $out .= "<p>";
-        }
-        $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
+        $out .= _("The installer will create cat_installer sub-directory in your config directory (possubly the .config in your home directory) and will copy your server certificates there.");
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS) {
-            $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your organisation. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
+            $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your organisation. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the cat_installer directory.");
         } elseif ($this->selectedEap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an account from your organisation. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
             $out .= "<p>";
             $out .= _("You will be requested to enter your account credentials during the installation. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
         }
         // nothing to say if we are doing silverbullet.
-        $out .= "<p>";
+        $out .= "<p>";        
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
@@ -310,12 +292,14 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      * @return string
      */
     private function mkSsidList() {
-        $ssids = $this->attributes['internal:SSID'];
+        $networks = $this->attributes['internal:networks'];
         $outArray = [];
-        foreach ($ssids as $ssid => $cipher) {
-            $outArray[] = "'$ssid'";
+        foreach ($networks as $network => $networkDetails) {
+            if (!empty($networkDetails['ssid'])) {
+                $outArray = array_merge($outArray, $networkDetails['ssid']);
+            }
         }
-        return '(' . implode(' ', $outArray) . ')';
+        return "['" . implode("', '", $outArray) . "']";
     }
 
     /**
