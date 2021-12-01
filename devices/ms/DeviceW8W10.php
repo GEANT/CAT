@@ -254,7 +254,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * @param int $profileNumber the profile index or NULL to indicate a LAN profile
      * @param boolean $hs20 for WLAN profiles indicates if use the nohs prefix
      */
-    private function saveProfile($profile, $profileNumber=NULL, $hs20=false)
+    private function saveProfile($profile, $profileNumber = NULL, $hs20 = false)
     {
         if ($hs20) {
             $prefix = 'w';
@@ -303,7 +303,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
         $outerId = $this->determineOuterIdString();
         $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) === 'on') ? 'true' : 'false';
         $otherTlsName = \core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on' ? 'true' : 'false';
-        $this->useGeantLink =  \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on' ? true : false;
+        $this->useGeantLink = \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on' ? true : false;
         $eapConfig = $this->setEapObject();
         $eapConfig->setInnerType($this->selectedEap['INNER']);
         $eapConfig->setInnerTypeDisplay(\core\common\EAP::eapDisplayName($this->selectedEap)['INNER']);
