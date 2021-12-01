@@ -41,7 +41,6 @@
 
 namespace devices\ms;
 use Exception;
-//require_once dirname(__FILE__) . '/DeviceXMLmain.php';
 
 class DeviceW8W10 extends \devices\ms\WindowsCommon
 {
@@ -137,14 +136,14 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
             $this->saveProfile($windowsProfileSSID, $this->iterator, true);
             $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
-            $this->iterator ++;
+            $this->iterator++;
             $profileName .= " via partner";
         }
         if (!empty($network['oi'])) {
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
             $this->saveProfile($windowsProfileHS, $this->iterator, true);
             $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
-            $this->iterator ++;
+            $this->iterator++;
         }
         return($out);
     }
@@ -169,7 +168,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $windowsProfile = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
             $this->saveProfile($windowsProfile, $this->iterator, false);
         }
-        $this->iterator ++;
+        $this->iterator++;
         return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n");
     }
 
