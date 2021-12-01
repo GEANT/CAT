@@ -48,7 +48,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      *
      */
     public function writeInstaller() {
-        $installerPath = $this->installerBasename . ".sh";
+        $installerPath = $this->installerBasename.".sh";
         $this->copyFile("eduroam_linux_main.sh", $installerPath);
 
         if ( !file_exists($installerPath) ) {
@@ -64,9 +64,9 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             fseek($installer, 0, SEEK_END);
             $this->writeMessages($installer);
             $this->writeConfigVars($installer);
-            fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
-            fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
-            fwrite($installer, 'main "$@"; exit' . "\n");
+            fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"'."\n");
+            fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"'."\n\n");
+            fwrite($installer, 'main "$@"; exit'."\n");
         } catch (Exception $e) {
             echo 'Error message: ' .$e->getMessage();
         } finally {
@@ -111,7 +111,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      * @return void
      */
     private function writeConfigLine($file, $name, $text) {
-        $out = $name . '="' . $text . '"' . "\n";
+        $out = $name.'="'.$text.'"'."\n";
 //        fwrite($file, wordwrap($out, 70, "\n"));
         fwrite($file, $out);
 
@@ -197,7 +197,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         if ($outerId !== NULL) {
-            $configRaw['ANONYMOUS_IDENTITY'] = '"' . $outerId . '"';
+            $configRaw['ANONYMOUS_IDENTITY'] = '"'.$outerId.'"';
         }
 
         if (!empty($this->attributes['internal:realm'][0])) {
@@ -219,19 +219,19 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         foreach ($configRaw as $name => $value) {
-            fwrite($file, $name ."=". $value . "\n");
+            fwrite($file, $name ."=". $value."\n");
         }
 
         if ($tou === '') {
             fwrite($file, "TOU=\"\"\n");
         } else {
-            fwrite($file, "TOU=\"" . $tou . "\"\n");
+            fwrite($file, "TOU=\"".$tou."\"\n");
         }
 
-        fwrite($file, "CA_CERTIFICATE=\"" . $this->mkCAfile() . "\"\n");
+        fwrite($file, "CA_CERTIFICATE=\"".$this->mkCAfile()."\"\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
-            fwrite($file, "SB_USER_FILE=\"" . $sbUserFile . "\"\n");
+            fwrite($file, "SB_USER_FILE=\"".$sbUserFile."\"\n");
         }
     }
 
@@ -283,7 +283,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             }
             $out .= "'DNS:$oneServer'";
         }
-        return "(" . $out. ")";
+        return "(".$out. ")";
     }
 
     /**
@@ -299,7 +299,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray = array_merge($outArray, $networkDetails['ssid']);
             }
         }
-        return "['" . implode("', '", $outArray) . "']";
+        return "['".implode("', '", $outArray)."']";
     }
 
     /**
@@ -315,7 +315,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray[] = "'$ssid'";
             }
         }
-        return '(' . implode(', ', $outArray) . ')';
+        return '('.implode(', ', $outArray).')';
     }
 
     /**
@@ -339,7 +339,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      */
     private function mkIntro() {
         \core\common\Entity::intoThePotatoes();
-        $out = _("This installer has been prepared for %s") . '\n\n' . _("More information and comments:") . '\n\nE-Mail: %s\nWWW: %s\n\n' .
+        $out = _("This installer has been prepared for %s").'\n\n'._("More information and comments:").'\n\nE-Mail: %s\nWWW: %s\n\n' .
             _("Installer created with software from the GEANT project.");
         \core\common\Entity::outOfThePotatoes();
         return $out;

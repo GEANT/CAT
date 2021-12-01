@@ -58,7 +58,7 @@ class DeviceLinux extends \core\DeviceConfig {
      *
      */
     public function writeInstaller() {
-        $installerPath = $this->installerBasename . ".py";
+        $installerPath = $this->installerBasename.".py";
         $this->copyFile("main.py", $installerPath);
         $installer = fopen($installerPath,"a");
         if ($installer === FALSE) {
@@ -111,8 +111,8 @@ class DeviceLinux extends \core\DeviceConfig {
      * @return void
      */
     private function writeConfigLine($file, $prefix, $name, $text) {
-        $out = $prefix . $name . ' = "' . $text;
-        fwrite($file, wordwrap($out, 70, " \" \\\n    \"") . "\n");
+        $out = $prefix.$name.' = "'.$text;
+        fwrite($file, wordwrap($out, 70, " \" \\\n    \"")."\n");
     }
     
     /**
@@ -151,7 +151,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'user_cert_missing' => _("personal certificate file not found"),
         ];
         foreach ($messages as $name => $value) {
-            $this->writeConfigLine($file, 'Messages.', $name, $value . '"');
+            $this->writeConfigLine($file, 'Messages.', $name, $value.'"');
         }
         \core\common\Entity::outOfThePotatoes();
     }
@@ -195,7 +195,7 @@ class DeviceLinux extends \core\DeviceConfig {
         }
 
         if ($outerId !== NULL) {
-            $configRaw['anonymous_identity'] = '"' . $outerId . '"';
+            $configRaw['anonymous_identity'] = '"'.$outerId.'"';
         }
 
         if (!empty($this->attributes['internal:realm'][0])) {
@@ -211,23 +211,23 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         
         foreach ($config as $name => $value) {
-            $this->writeConfigLine($file, 'Config.', $name, $value . '"');
+            $this->writeConfigLine($file, 'Config.', $name, $value.'"');
         }
         
         foreach ($configRaw as $name => $value) {
-            fwrite($file, 'Config.' . $name . ' = ' . $value . "\n");
+            fwrite($file, 'Config.'.$name.' = '.$value."\n");
         }
         
         if ($tou === '') {
-            fwrite($file, 'Config.tou = ""' . "\n");
+            fwrite($file, 'Config.tou = ""'."\n");
         } else {
-            fwrite($file, 'Config.tou = """' . $tou . '"""' . "\n");
+            fwrite($file, 'Config.tou = """'.$tou.'"""'."\n");
         }
         
-        fwrite($file, 'Config.CA = """' . $this->mkCAfile() . '"""' . "\n");
+        fwrite($file, 'Config.CA = """'.$this->mkCAfile().'"""'."\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
-            fwrite($file, 'Config.sb_user_file = """' . $sbUserFile . '"""' . "\n");
+            fwrite($file, 'Config.sb_user_file = """'.$sbUserFile.'"""'."\n");
         }
     }
 
@@ -279,7 +279,7 @@ class DeviceLinux extends \core\DeviceConfig {
             }
             $out .= "'DNS:$oneServer'";
         }
-        return "[" . $out. "]";
+        return "[".$out. "]";
     }
 
     /**
@@ -295,7 +295,7 @@ class DeviceLinux extends \core\DeviceConfig {
                 $outArray = array_merge($outArray, $networkDetails['ssid']);
             }
         }
-        return "['" . implode("', '", $outArray) . "']";
+        return "['".implode("', '", $outArray)."']";
     }
     
     /**
@@ -311,7 +311,7 @@ class DeviceLinux extends \core\DeviceConfig {
                 $outArray[] = "'$ssid'";
             }
         }
-        return '[' . implode(', ', $outArray) . ']';
+        return '['.implode(', ', $outArray).']';
     }
     
     /**
@@ -335,7 +335,7 @@ class DeviceLinux extends \core\DeviceConfig {
      */
     private function mkIntro() {
         \core\common\Entity::intoThePotatoes();
-        $out = _("This installer has been prepared for {0}") . '\n\n' . _("More information and comments:") . '\n\nEMAIL: {1}\nWWW: {2}\n\n' .
+        $out = _("This installer has been prepared for {0}").'\n\n'._("More information and comments:").'\n\nEMAIL: {1}\nWWW: {2}\n\n' .
             _("Installer created with software from the GEANT project.");
         \core\common\Entity::outOfThePotatoes();
         return $out;
