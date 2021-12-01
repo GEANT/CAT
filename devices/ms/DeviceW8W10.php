@@ -86,6 +86,17 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             }
         }
         file_put_contents('profiles.nsh', $fcontentsProfile);
+        $delSSIDs = $this->attributes['internal:remove_SSID'];
+        $delProfiles = [];
+        foreach ($delSSIDs as $ssid => $cipher) {
+            if ($cipher == 'DEL') {
+                $delProfiles[] = $ssid;
+            }
+            if ($cipher == 'TKIP') {
+                $delProfiles[] = $ssid.' (TKIP)';
+            }
+        }
+        $this->writeAdditionalDeletes($delProfiles);
         if ($setWired) {
             $this->loggerInstance->debug(4, "Saving LAN profile\n");
             $windowsProfile = $this->generateLANprofile();
@@ -119,16 +130,15 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * these profiles are marked as hs20 and no "nohs" profiles are created
      */
     
-    private function saveNetworkProfileSeparateHS($name, $network)
+    private function saveNetworkProfileSeparateHS($profileName, $network)
     {
-        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
         $out = '';
         if (!empty($network['ssid'])) {
             $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
             $this->saveProfile($windowsProfileSSID, $this->iterator, true);
             $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
             $this->iterator ++;
-            $profileName .= " via Hotspot 2.0";
+            $profileName .= " via partner";
         }
         if (!empty($network['oi'])) {
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
@@ -146,9 +156,8 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * profile and if this fails it will try the nohs (if one exists)
      */
     
-    private function saveNetworkProfileJoinedHS($name, $network)
+    private function saveNetworkProfileJoinedHS($profileName, $network)
     {
-        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
         $oiOnly = false;
         if ($network['ssid'] == []) {
             $oiOnly = true;
