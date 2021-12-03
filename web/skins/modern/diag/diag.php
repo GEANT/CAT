@@ -32,6 +32,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 <script type="text/javascript">
     var recognisedOS = '';
     var downloadMessage;
+    var recognisedOShs20 = 0;
     var noDisco = 1;
     var sbPage = 1;
     var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
