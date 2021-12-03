@@ -320,7 +320,7 @@
                             if (dynamic_req == null || (dynamic_req && dynamic_ready == dynamic_req.length*2)) {
                                 var level = global_level_stat;
                                 if (dynamic_req) {
-                                    level = MaxMath.max(global_level_dyn, level);
+                                    level = Math.max(global_level_dyn, level);
                                 }
                                 show_tests_result(token, level);
                             }

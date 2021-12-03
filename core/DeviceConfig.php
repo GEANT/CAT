@@ -499,6 +499,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
+        
         if (isset(\config\ConfAssistant::CONSORTIUM['ssid'])) {
             foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssid) {
                 $ssidList['add'][$ssid] = 'AES';
@@ -771,7 +772,6 @@ abstract class DeviceConfig extends \core\common\Entity
      * - <b>internal:info_file</b> -  the pathname of the info_file saved in the working directory
      * - <b>internal:logo_file</b>  -  array of pathnames of logo_files saved in the working directory
      * - <b>internal:CAs</b> - the value is an array produced by X509::processCertificate() with the following filds
-     * - <b>internal:SSID</b> - an array indexed by SSID strings with values either TKIP or AES; if TKIP is set the both WPA/TKIP and WPA2/AES should be set if AES is set the this is a WPA2/AES only SSID; the consortium's defined SSIDs are always set as the first array elements.
      * - <b>internal:consortia</b> an array of consortion IO as declared in the Confassistant config
      * - <b>internal:networks</b> - an array of network parameters  as declared in the Confassistant config
      * - <b>internal:profile_count</b> - the number of profiles for the associated IdP
@@ -779,7 +779,7 @@ abstract class DeviceConfig extends \core\common\Entity
      *
      * these attributes are available and can be used, but the "internal" attributes are better suited for modules
      * -  eap:ca_file    -      certificate of the CA signing the RADIUS server key                                         
-     * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
+     * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:networks)
      *
      * @var array $attributes
      * @see \core\common\X509::processCertificate()

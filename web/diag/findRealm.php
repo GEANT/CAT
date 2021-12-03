@@ -60,11 +60,11 @@ if (!is_null($givenRealm)) {
     $realmElems = explode('.', $givenRealm);
     $lap = count($realmElems);
     $i = 0;
+    $foundIndex = NULL;
     /* select the record matching the realm */
     while (($lap - $i) > 1) {
         $realmToCheck = implode('.', array_slice($realmElems, $i, $lap));
-        $externalDB = \core\CAT::determineExternalConnection();
-        
+        $externalDB = \core\CAT::determineExternalConnection();    
         $allRealms = $externalDB->listExternalEntitiesByRealm($realmToCheck, ['inst_realm', 'contact']);
         if (count($allRealms) == 0) {
             $i += 1;
@@ -72,21 +72,21 @@ if (!is_null($givenRealm)) {
         }
         foreach ($allRealms as $key => $realmRecord) {
             $realmList = explode(',', $realmRecord['inst_realm']);
-            $found = FALSE;
             foreach ($realmList as $realm) {
                 if ($realm == $realmToCheck) {
-                    $found = $key;
+                    $foundIndex = $key;
+                    error_log('MGW FOUND! '.$foundIndex);
                     break;
                 }
             }
         }
         $details = [];
-        if (!$found) {
+        if (is_null($foundIndex)) {
             break;
         }
         $admins = array();
-        if ($allRealms[$found]['contact']) {
-            $elems = explode(', ', $allRealms[$found]['contact']);
+        if ($allRealms[$foundIndex]['contact']) {
+            $elems = explode(', ', $allRealms[$foundIndex]['contact']);
             foreach ($elems as $admin) {
                 if (substr($admin, 0, 2) == 'e:') {
                     $admins[] = substr($admin, 3);
@@ -102,7 +102,7 @@ if (!is_null($givenRealm)) {
         
         break;
     }
-    if (!$found) {
+    if (is_null($foundIndex)) {
         $details['realm'] = $givenRealm;
         $details['admins'] = '';
         $details['status'] = 0;
