@@ -41,7 +41,6 @@
 
 namespace devices\ms;
 use Exception;
-//require_once dirname(__FILE__) . '/DeviceXMLmain.php';
 
 class DeviceW8W10 extends \devices\ms\WindowsCommon
 {
@@ -86,6 +85,17 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             }
         }
         file_put_contents('profiles.nsh', $fcontentsProfile);
+        $delSSIDs = $this->attributes['internal:remove_SSID'];
+        $delProfiles = [];
+        foreach ($delSSIDs as $ssid => $cipher) {
+            if ($cipher == 'DEL') {
+                $delProfiles[] = $ssid;
+            }
+            if ($cipher == 'TKIP') {
+                $delProfiles[] = $ssid.' (TKIP)';
+            }
+        }
+        $this->writeAdditionalDeletes($delProfiles);
         if ($setWired) {
             $this->loggerInstance->debug(4, "Saving LAN profile\n");
             $windowsProfile = $this->generateLANprofile();
@@ -119,22 +129,21 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * these profiles are marked as hs20 and no "nohs" profiles are created
      */
     
-    private function saveNetworkProfileSeparateHS($name, $network)
+    private function saveNetworkProfileSeparateHS($profileName, $network)
     {
-        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
         $out = '';
         if (!empty($network['ssid'])) {
             $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
             $this->saveProfile($windowsProfileSSID, $this->iterator, true);
             $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
-            $this->iterator ++;
-            $profileName .= " via Hotspot 2.0";
+            $this->iterator++;
+            $profileName .= " via partner";
         }
         if (!empty($network['oi'])) {
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
             $this->saveProfile($windowsProfileHS, $this->iterator, true);
             $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
-            $this->iterator ++;
+            $this->iterator++;
         }
         return($out);
     }
@@ -146,9 +155,8 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * profile and if this fails it will try the nohs (if one exists)
      */
     
-    private function saveNetworkProfileJoinedHS($name, $network)
+    private function saveNetworkProfileJoinedHS($profileName, $network)
     {
-        $profileName = iconv('UTF-8', 'ASCII//IGNORE', $name);
         $oiOnly = false;
         if ($network['ssid'] == []) {
             $oiOnly = true;
@@ -160,7 +168,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $windowsProfile = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
             $this->saveProfile($windowsProfile, $this->iterator, false);
         }
-        $this->iterator ++;
+        $this->iterator++;
         return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n");
     }
 
@@ -246,7 +254,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
      * @param int $profileNumber the profile index or NULL to indicate a LAN profile
      * @param boolean $hs20 for WLAN profiles indicates if use the nohs prefix
      */
-    private function saveProfile($profile, $profileNumber=NULL, $hs20=false)
+    private function saveProfile($profile, $profileNumber = NULL, $hs20 = false)
     {
         if ($hs20) {
             $prefix = 'w';
@@ -295,7 +303,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
         $outerId = $this->determineOuterIdString();
         $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) === 'on') ? 'true' : 'false';
         $otherTlsName = \core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on' ? 'true' : 'false';
-        $this->useGeantLink =  \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on' ? true : false;
+        $this->useGeantLink = \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on' ? true : false;
         $eapConfig = $this->setEapObject();
         $eapConfig->setInnerType($this->selectedEap['INNER']);
         $eapConfig->setInnerTypeDisplay(\core\common\EAP::eapDisplayName($this->selectedEap)['INNER']);

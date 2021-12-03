@@ -1263,7 +1263,7 @@ network={
             $intermOdditiesCAT = [];
             $verifyResult = 0;
 
-            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE && !in_array(RADIUSTests::CERTPROB_NO_SERVER_CERT, $testresults['cert_odditities'])) {
+            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE && !in_array(RADIUSTests::CERTPROB_NO_SERVER_CERT, $testresults['cert_oddities'])) {
                 $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
                 $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);
             }

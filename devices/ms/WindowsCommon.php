@@ -215,11 +215,11 @@ abstract class WindowsCommon extends \core\DeviceConfig
     {
         $networkList = [];
         foreach (array_keys($this->getAttribute('internal:networks')) as $networkName) {
-            $networkList[] = iconv('UTF-8', 'ASCII//IGNORE', $networkName);
+            $networkList[] = $networkName;
         }
         $configNetworkList = [];
         foreach (array_keys(\config\ConfAssistant::CONSORTIUM['networks']) as $networkName) {
-            $configNetworkList[] = iconv('UTF-8', 'ASCII//IGNORE', $networkName);
+            $configNetworkList[] = $networkName;
         }
 
         $configCount = count($configNetworkList);
@@ -552,6 +552,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
         'af' => "Afrikaans",
         'ast' => "Asturian",
     ];
+    
     
     /**
      * this constant controls if the system generates sepaarate SSID and OI profiles
