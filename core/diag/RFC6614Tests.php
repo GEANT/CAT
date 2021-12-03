@@ -295,7 +295,7 @@ class RFC6614Tests extends AbstractTest
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_INVALID;
             return RADIUSTests::RETVAL_INVALID;
         }
-        if (preg_match('/Cipher is (NONE)', implode($opensslbabble))) {
+        if (preg_match('/Cipher is (NONE)/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
             return RADIUSTests::RETVAL_INVALID;
         }
