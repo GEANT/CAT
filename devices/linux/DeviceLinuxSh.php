@@ -198,6 +198,8 @@ class DeviceLinuxSh extends \core\DeviceConfig {
 
         if ($outerId !== NULL) {
             $configRaw['ANONYMOUS_IDENTITY'] = '"'.$outerId.'"';
+        } else {
+            $configRaw['ANONYMOUS_IDENTITY'] = '""';
         }
 
         if (!empty($this->attributes['internal:realm'][0])) {
@@ -299,7 +301,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray = array_merge($outArray, $networkDetails['ssid']);
             }
         }
-        return "['".implode("', '", $outArray)."']";
+        return "('".implode("' '", $outArray)."')";
     }
 
     /**
@@ -315,7 +317,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray[] = "'$ssid'";
             }
         }
-        return '('.implode(', ', $outArray).')';
+        return '('.implode(' ', $outArray).')';
     }
 
     /**
