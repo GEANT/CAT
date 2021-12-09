@@ -90,7 +90,9 @@ class Gui extends \core\UserAPI {
      * @return void
      */
     public function javaScriptEscapedEcho($s) {
-        echo preg_replace('/"/', '&quot;', $s);
+        $out = preg_replace('/"/', '&quot;', $s);
+        $out = preg_replace('/\\n/', ' ', $out);
+        echo $out;
     }
 
     /**
