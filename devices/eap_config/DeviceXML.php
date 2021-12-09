@@ -166,7 +166,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             }
         }        
         
-        if ($dom->schemaValidate(ROOT.'/devices/eap_config_1/eap-metadata.xsd') === FALSE) {
+        if ($dom->schemaValidate(ROOT.'/devices/eap_config/eap-metadata.xsd') === FALSE) {
             throw new Exception("Schema validation failed for eap-metadata");
         }
 
