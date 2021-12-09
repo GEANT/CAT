@@ -36,6 +36,7 @@ class DeviceKitKat extends DeviceXML {
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;
+        $this->eduroamCATcompatibility = TRUE;
     }
 
 }

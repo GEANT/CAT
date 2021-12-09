@@ -110,6 +110,11 @@ abstract class DeviceXML extends \core\DeviceConfig
      */
     public $eduroamCATcompatibility = FALSE; 
 
+    private $eapId;
+    private $namespace;
+    private $providerInfo;
+    private $authMethodsList;
+    
     /**
      * create HTML code explaining the installer
      * 
@@ -134,47 +139,72 @@ abstract class DeviceXML extends \core\DeviceConfig
     public function writeInstaller()
     {
         \core\common\Entity::intoThePotatoes();
+        $rootname = 'EAPIdentityProviderList';
+        $dom = new \DOMDocument('1.0', 'utf-8');
+        $root = $dom->createElement($rootname);
+        $dom->appendChild($root);
+        $ns = $dom->createAttributeNS( 'http://www.w3.org/2001/XMLSchema-instance', 'xsi:noNamespaceSchemaLocation' );
+        $ns->value = "eap-metadata.xsd";
+        $root->appendChild($ns);
+        
+        if (empty($this->attributes['internal:realm'][0])) {
+            $this->eapId = 'undefined';
+            $this->namespace = 'urn:undefined';
+        } else {
+            $this->eapId = $this->attributes['internal:realm'][0];
+            $this->namespace = 'urn:RFC4282:realm';
+        }
+        
+        $this->providerInfo = $this->getProviderInfo();
+        $this->authMethodsList = $this->getAuthMethodsList();
+        
+        foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+            $ssids = $netDefinition['ssid'];
+            $ois = $netDefinition['oi'];
+            if (!empty($ssids) || !empty($ois)) {
+                \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($ssids, $ois));
+            }
+        }        
+        
+        if ($dom->schemaValidate(ROOT.'/devices/eap_config_1/eap-metadata.xsd') === FALSE) {
+            throw new Exception("Schema validation failed for eap-metadata");
+        }
+
+        $dom->formatOutput = true;
+        file_put_contents($this->installerBasename.'.eap-config', $dom->saveXML($dom));
+        \core\common\Entity::outOfThePotatoes();
+        return($this->installerBasename.'.eap-config');
+    }
+    
+    /**
+     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
+     * @param array $eap the EAP type for which we want to get the inner auth
+     * @return array
+     */    
+    private function eapIdp($ssids, $oids)
+    {
         $eapIdp = new \core\DeviceXMLmain();
         $eapIdp->setAttribute('version', '1');
         if ($this->langScope === 'single') {
             $eapIdp->setAttribute('lang', $this->languageInstance->getLang());
         }
-        if (empty($this->attributes['internal:realm'][0])) {
-            $eapIdp->setAttribute('ID', 'undefined');
-            $namespace = 'urn:undefined';
-        } else {
-            $eapIdp->setAttribute('ID', $this->attributes['internal:realm'][0]);
-            $namespace = 'urn:RFC4282:realm';
-        }
-        $eapIdp->setAttribute('namespace', $namespace);
+        $eapIdp->setAttribute('ID', $this->eapId);
+        $eapIdp->setAttribute('namespace', $this->namespace);
         $authMethods = new \core\DeviceXMLmain();
-        $authMethods->setChild('AuthenticationMethod', $this->getAuthMethodsList());
-        $eapIdp->setChild('AuthenticationMethods', $authMethods);       
-        $eapIdp->setChild('CredentialApplicability', $this->getCredentialApplicability());
+        $authMethods->setChild('AuthenticationMethod', $this->authMethodsList);
+        $eapIdp->setChild('AuthenticationMethods', $authMethods);
+        $eapIdp->setChild('CredentialApplicability', $this->getCredentialApplicability($ssids,$oids));
 // TODO   $eap_idp->setChild('ValidUntil',$this->getValidUntil());
-        $eapIdp->setChild('ProviderInfo', $this->getProviderInfo());
+        $eapIdp->setChild('ProviderInfo', $this->providerInfo);
 // TODO   $eap_idp->setChild('VendorSpecific',$this->getVendorSpecific());
-
-// Generate XML
-        $rootname = 'EAPIdentityProviderList';
-        $root = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
-        \core\DeviceXMLmain::marshalObject($root, 'EAPIdentityProvider', $eapIdp);
-        $dom = dom_import_simplexml($root)->ownerDocument;
-        if ($dom->schemaValidate(ROOT.'/devices/eap_config/eap-metadata.xsd') === FALSE) {
-            throw new Exception("Schema validation failed for eap-metadata");
-        }
-        $dom->formatOutput = true;
-        file_put_contents($this->installerBasename.'.eap-config', $dom->saveXML());
-        \core\common\Entity::outOfThePotatoes();
-        return($this->installerBasename.'.eap-config');
+        return($eapIdp);
     }
-
 
     /**
      * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
      * @param array $eap the EAP type for which we want to get the inner auth
      * @return array
-     */
+     */  
     private function innerAuth($eap)
     {
         $out = [];
@@ -227,7 +257,7 @@ abstract class DeviceXML extends \core\DeviceConfig
         }
         return($objs);
     }
-
+    
     /**
      * constructs the name of the institution and puts it into the XML.
      * consists of the best-language-match inst name, and if the inst has more 
@@ -299,7 +329,7 @@ abstract class DeviceXML extends \core\DeviceConfig
         $providerinfo->setChild('Description', $this->getSimpleMLAttribute('profile:description'));
         $providerinfo->setChild('ProviderLocation', $this->getProviderLocation());
         $providerinfo->setChild('ProviderLogo', $this->getProviderLogo());
-        $providerinfo->setChild('TermsOfUse', $this->getSimpleMLAttribute('support:info_file'));
+        $providerinfo->setChild('TermsOfUse', $this->getSimpleMLAttribute('support:info_file'), null, 'cdata');
         $providerinfo->setChild('Helpdesk', $this->getHelpdesk());
         return $providerinfo;
     }
@@ -346,18 +376,16 @@ abstract class DeviceXML extends \core\DeviceConfig
      * 
      * @return \core\DeviceXMLmain
      */
-    private function getCredentialApplicability()
+    private function getCredentialApplicability($ssids, $oids)
     {
         $setWired = isset($this->attributes['media:wired'][0]) && 
                 $this->attributes['media:wired'][0] == 'on' ? 1 : 0;        
-        $ssids = $this->attributes['internal:SSID'];
-        $oids = $this->attributes['internal:consortia'];
         $credentialapplicability = new \core\DeviceXMLmain();
         $ieee80211s = [];
-        foreach ($ssids as $ssid => $ciph) {
+        foreach ($ssids as $ssid) {
             $ieee80211 = new \core\DeviceXMLmain();
             $ieee80211->setChild('SSID', $ssid);
-            $ieee80211->setChild('MinRSNProto', $ciph == 'AES' ? 'CCMP' : 'TKIP');
+            $ieee80211->setChild('MinRSNProto', 'CCMP');
             $ieee80211s[] = $ieee80211;
         }
         foreach ($oids as $oid) {
