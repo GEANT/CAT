@@ -36,8 +36,9 @@ class DeviceLollipop extends DeviceXML {
             \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
-        $this->allEaps = TRUE;
-        $this->eduroamCATcompatibility = TRUE;
+        $this->allEaps = true;
+        $this->eduroamCATcompatibility = true;
+        $this->singleEAPProvider = true;
     }
 
 }

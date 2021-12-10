@@ -37,8 +37,9 @@ class DeviceGeneric extends DeviceXML {
             \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
-        $this->allEaps = TRUE;
-        $this->eduroamCATcompatibility = FALSE;
+        $this->allEaps = true;
+        $this->eduroamCATcompatibility = true;
+        $this->singleEAPProvider = true;
     }
 
 }

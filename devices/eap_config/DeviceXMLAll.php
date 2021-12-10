@@ -36,9 +36,8 @@ class DeviceXMLAll extends DeviceXML {
             \core\common\EAP::EAPTYPE_PWD,
             \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
-        $this->langScope = 'single';
-        $this->allEaps = TRUE;
-        $this->eduroamCATcompatibility = TRUE;
+        $this->langScope = 'global';
+        $this->allEaps = true;
+        $this->eduroamCATcompatibility = false;
     }
-
 }

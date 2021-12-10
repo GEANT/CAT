@@ -95,7 +95,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * 
      * @var boolean
      */
-    public $allEaps = FALSE;
+    public $allEaps = false;
 
     /**
      * vendor-specific additional information, this is nit yest fully
@@ -108,7 +108,8 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * A flag to preserve backwards compatibility for eduroamCAT application
      */
-    public $eduroamCATcompatibility = FALSE; 
+    public $eduroamCATcompatibility = false; 
+    public $singleEAPProvider = false;
 
     private $eapId;
     private $namespace;
@@ -157,14 +158,32 @@ abstract class DeviceXML extends \core\DeviceConfig
         
         $this->providerInfo = $this->getProviderInfo();
         $this->authMethodsList = $this->getAuthMethodsList();
-        
-        foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
-            $ssids = $netDefinition['ssid'];
-            $ois = $netDefinition['oi'];
+        $this->loggerInstance->debug(5, $this->attributes['internal:networks'], "NETWORKS:", "\n");
+        if ($this->singleEAPProvider === true) {
+            $ssids = [];
+            $ois = [];
+            foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+                foreach ($netDefinition['ssid'] as $ssid) {
+                    $ssids[] = $ssid;
+                }
+                foreach ($netDefinition['oi'] as $oi) {
+                    $ois[] = $oi;
+                }
+            }
+                    $this->loggerInstance->debug(5, $ssids, "SSIDs:", "\n");
+                    $this->loggerInstance->debug(5, $ois, "RCOIs:", "\n");
             if (!empty($ssids) || !empty($ois)) {
                 \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($ssids, $ois));
+            } 
+        } else {
+            foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+                $ssids = $netDefinition['ssid'];
+                $ois = $netDefinition['oi'];
+                if (!empty($ssids) || !empty($ois)) {
+                    \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($ssids, $ois));
+                }
             }
-        }        
+        }
         
         if ($dom->schemaValidate(ROOT.'/devices/eap_config/eap-metadata.xsd') === FALSE) {
             throw new Exception("Schema validation failed for eap-metadata");
@@ -594,7 +613,6 @@ abstract class DeviceXML extends \core\DeviceConfig
         }
         return $methodList;
     }
-
 
 
 }
