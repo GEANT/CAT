@@ -690,7 +690,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid, $netName);
             }
             // mobileconfig network blocks can accomodate a list of RCOIs in one statement, so just call it
-            if ($this->selectedEapObject->isPasswordRequired() === FALSE) {
+            if ($this->selectedEapObject->isPasswordRequired() === FALSE || $netName != 'eduroam®') {
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $netDefinition['oi'], $netName);
             }
         }
