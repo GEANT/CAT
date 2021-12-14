@@ -1154,6 +1154,7 @@ network={
         // misconfiguration on the EAP server side
         $previousHighestKnownIssuer = [];
         $currentHighestKnownIssuer = $bundle['SERVERCERT'][0]['full_details']['issuer'];
+        $serverName = $bundle['SERVERCERT'][0]['CN'][0];
         // maybe there is an intermediate and the EAP server sent it. If so,
         // go and look at that, going one level higher
         $x509 = new \core\common\X509();
@@ -1169,6 +1170,7 @@ network={
                     // if we see a subject == issuer, then the EAP server even
                     // sent a root certificate. We'll propose that then.
                     return [
+                        "NAME" => $serverName,
                         "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
                         "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
                         "ROOT_CA" => $certDetails['pem'],
@@ -1187,6 +1189,7 @@ network={
             $processedRoot = $x509->processCertificate($oneRoot);
             if ($processedRoot['full_details']['subject'] == $currentHighestKnownIssuer) {
                 return [
+            "NAME" => $serverName,
             "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
             "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
             "ROOT_CA" => $oneRoot,
@@ -1194,6 +1197,7 @@ network={
             }
         }
         return [
+            "NAME" => $serverName,
             "INTERMEDIATE_CA" => $bundle['INTERMEDIATE_CA'],
             "HIGHEST_ISSUER" => $currentHighestKnownIssuer,
             "ROOT_CA" => NULL,

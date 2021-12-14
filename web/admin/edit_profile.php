@@ -94,16 +94,32 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         }
     }
 } else {
+    $loggerInstance = new \core\common\Logging();
     $wizardStyle = TRUE;
-    $my_profile = NULL;
     $prefill_methods = [];
-    $profile_options = [];
     $minting = $fed->getAttributes("fed:minted_ca_file");
+    $temp_profile = NULL;
+    $profile_options = [];
     if (count($minting) > 0) {
         $temp_profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
         foreach ($minting as $oneMint) {
             $temp_profile->addAttribute("eap:ca_file", $oneMint['lang'], base64_encode($oneMint['value']));
         }
+    }
+    if (isset($_POST['username_to_detect']) && isset($_POST['realm_to_detect'])) {
+        $detectRealm = $validator->string($_POST['realm_to_detect']);
+        $localname = $validator->string($_POST['username_to_detect']);
+        $checker = new \core\diag\RADIUSTests($detectRealm, $localname);
+        $detectionResult = $checker->autodetectCAWithProbe($localname . "@" . $detectRealm);
+        $loggerInstance->debug(2, "CA Auto-Detection yields:");
+        $loggerInstance->debug(2, $detectionResult);
+        if ($detectionResult['ROOT_CA'] !== NULL) { // we are lucky!
+            $temp_profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
+            $temp_profile->addAttribute("eap:ca_file", "C", base64_encode($detectionResult['ROOT_CA']));
+            $temp_profile->addAttribute("eap:server_name", "C", $detectionResult['NAME']);
+        }
+    }
+    if ($temp_profile !== NULL) {
         $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
         $profile_options = $my_profile->getAttributes();
     }
@@ -269,14 +285,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 </td>
                 <td>
                     <input type='checkbox' <?php
-                        echo ($verify != FALSE ? "checked" : "" );
-                        ?> name='verify_support' onclick='
-                            if (this.form.elements["verify_support"].checked !== true || this.form.elements["realm"].value.length == 0) {
-                                this.form.elements["hint_support"].setAttribute("disabled", "disabled");
-                            } else {
-                                this.form.elements["hint_support"].removeAttribute("disabled");
-                            }
-                            ;'/>
+                    echo ($verify != FALSE ? "checked" : "" );
+                    ?> name='verify_support' onclick='
+                                if (this.form.elements["verify_support"].checked !== true || this.form.elements["realm"].value.length == 0) {
+                                    this.form.elements["hint_support"].setAttribute("disabled", "disabled");
+                                } else {
+                                    this.form.elements["hint_support"].removeAttribute("disabled");
+                                }
+                                ;'/>
                 </td>
             </tr>
             <tr>
@@ -344,21 +360,21 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             <caption><?php echo _("EAP type support"); ?></caption>
             <tr>
                 <th scope="row" style="vertical-align:top; padding:1em">
-<?php echo _('Supported EAP types for this profile'); ?>
+                    <?php echo _('Supported EAP types for this profile'); ?>
                 </th>
                 <td id="supported_eap">
                     <ol id="sortable1" class="eapmethods">
-<?php
-$D = [];
-foreach ($prefill_methods as $prio => $value) {
-    print '<li>' . $value->getPrintableRep() . "</li>\n";
-    $D[$value->getPrintableRep()] = $prio;
-}
-?>
+                        <?php
+                        $D = [];
+                        foreach ($prefill_methods as $prio => $value) {
+                            print '<li>' . $value->getPrintableRep() . "</li>\n";
+                            $D[$value->getPrintableRep()] = $prio;
+                        }
+                        ?>
                     </ol>
                 </td>
                 <td rowspan=3 style="text-align:center; width:12em; padding:1em">
-<?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
+                    <?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
                 </td>
             </tr>
             <tr id="eap_bottom_row">
@@ -366,34 +382,34 @@ foreach ($prefill_methods as $prio => $value) {
             </tr>
             <tr>
                 <th scope="row" style="vertical-align:top; padding:1em">
-<?php echo _('Unsupported EAP types'); ?>
+                    <?php echo _('Unsupported EAP types'); ?>
                 </th>
                 <td style="vertical-align:top" id="unsupported_eap">
                     <ol id="sortable2" class="eapmethods">
-<?php
-foreach ($methods as $a) {
-    if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-        continue;
-    }
-    $display = $a->getPrintableRep();
-    if (!isset($D[$a->getPrintableRep()])) {
-        print '<li class="eap1">' . $a->getPrintableRep() . "</li>\n";
-    }
-}
-?>
+                        <?php
+                        foreach ($methods as $a) {
+                            if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+                                continue;
+                            }
+                            $display = $a->getPrintableRep();
+                            if (!isset($D[$a->getPrintableRep()])) {
+                                print '<li class="eap1">' . $a->getPrintableRep() . "</li>\n";
+                            }
+                        }
+                        ?>
                     </ol>
                 </td>
             </tr>
         </table>
     </div>
-<?php
-foreach ($methods as $a) {
-    $display = $a->getPrintableRep();
-    $v = isset($D[$display]) ? $D[$display] : '';
-    print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
-    print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
-}
-?>
+    <?php
+    foreach ($methods as $a) {
+        $display = $a->getPrintableRep();
+        $v = isset($D[$display]) ? $D[$display] : '';
+        print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
+        print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
+    }
+    ?>
     <br style="clear:both;" />
 </fieldset>
 <?php
@@ -433,7 +449,7 @@ foreach ($fields as $name => $description) {
     }
 
     echo "</p>";
-    
+
     echo $optionDisplay->prefilledOptionTable($name, $my_inst->federation);
     ?>
     <button type='button' class='newoption' onclick='getXML("<?php echo $name ?>", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>

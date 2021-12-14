@@ -459,6 +459,8 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>    
+<script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
@@ -538,10 +540,10 @@ echo $mapCode->htmlHeadCode();
                             </button>
                         </div>
                     </form>&nbsp;
-                    <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <form method='post' action='inc/profileAutodetectCA.inc.php?inst_id=<?php echo $my_inst->identifier;?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <div>
-                            <button type='submit' name='profile_action' value='new'>
-                                <?php echo _("New RADIUS/EAP profile (autodetect server details) ..."); ?>
+                            <button type='submit'>
+                                <?php echo _("New RADIUS/EAP profile (autodetect server details) ...");?>
                             </button>
                         </div>
                     </form>
