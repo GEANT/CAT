@@ -104,6 +104,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         $temp_profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
         foreach ($minting as $oneMint) {
             $temp_profile->addAttribute("eap:ca_file", $oneMint['lang'], base64_encode($oneMint['value']));
+            $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
+            $profile_options = $my_profile->getAttributes();
         }
     }
     if (isset($_POST['username_to_detect']) && isset($_POST['realm_to_detect'])) {
@@ -117,11 +119,16 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             $temp_profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $temp_profile->addAttribute("eap:ca_file", "C", base64_encode($detectionResult['ROOT_CA']));
             $temp_profile->addAttribute("eap:server_name", "C", $detectionResult['NAME']);
+            $temp_profile->setRealm($detectRealm);
+            $temp_profile->setRealmCheckUser(TRUE, $localname);
+            $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
+            $profile_options = $my_profile->getAttributes();
+            $realm = $my_profile->getAttributes("internal:realm")[0]['value'];
+            $checkuserOuter = TRUE;
+            $checkuserValue = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
         }
     }
     if ($temp_profile !== NULL) {
-        $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
-        $profile_options = $my_profile->getAttributes();
     }
 }
 ?>
