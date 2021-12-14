@@ -330,7 +330,12 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
     public function writeDeviceInfo()
     {
         \core\common\Entity::intoThePotatoes();
-        $ssidCount = count($this->attributes['internal:SSID']);
+        $ssidCount = 0;
+        $oiCount = 0;
+        foreach ($this->attributes['internal:networks'] as $netDetail) {
+            $ssidCount = $ssidCount + count($netDetail['ssid']);
+            $oiCount = $oiCount + count($netDetail['oi']);
+        }
         $certCount = count($this->attributes['internal:CAs'][0]);
         $out = "<p>" . _("For best results, please use the built-in browser (Safari) to open the configuration file.") . "</p>";
         $out .= "<p>";
@@ -344,7 +349,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         $out .= "</li>";
         $out .= "<li>" . _("to enter the username and password you have been given by your organisation");
         if ($ssidCount > 1) {
-            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, \config\ConfAssistant::CONSORTIUM['display_name'], $ssidCount);
+            $out .= " " . sprintf(_("(%d times each, because %d SSIDs and %d Passpoint networks are installed)"), $ssidCount+$oiCount, $ssidCount, $oiCount);
         }
         $out .= "</li>";
         $out .= "</ul>";

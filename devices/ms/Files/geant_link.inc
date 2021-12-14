@@ -37,14 +37,13 @@ File "MsiUseFeature.exe"
 nsArray::Set Delete_files "MsiUseFeature.exe"
 Call InstallGEANTLink
 SectionEnd
-
 ;TRANSLATION
 Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("profiles")?>"
 SectionIn RO
 !insertmacro MUI_HEADER_TEXT "<?php echo _("Installation")?>" "<?php echo _("Network profiles update")?>"
 !ifdef W8
 !insertmacro debug_cat 4 "unpacking profiles for W8"
-File "w8/*lan_prof*.xml"
+File "profiles/*lan_prof*.xml"
 !else
 ${If} $WindowsVer == 6
 !insertmacro debug_cat 4 "unpacking profiles for Vista"

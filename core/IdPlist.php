@@ -149,7 +149,7 @@ class IdPlist extends common\Entity
         $profileQuery = IdPlist::setAllProfileQuery();
         $allProfiles = $handle->exec($profileQuery);
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
-            $profileOptions = IdPlist::setProfileAttribtes($queryResult);
+            $profileOptions = IdPlist::setProfileAttributes($queryResult);
             $idpId = $queryResult->inst_id;
             if (empty($idpArray[$idpId])) {
                 continue;
@@ -312,7 +312,7 @@ class IdPlist extends common\Entity
      * @param object $profile - the row object returned by the profile search
      * @return array the profile attributes
      */
-    private static function setProfileAttribtes($profile)
+    private static function setProfileAttributes($profile)
     {
         $profileOptions = explode('---', $profile->profile_options);
         $productionProfile = false;
@@ -328,7 +328,10 @@ class IdPlist extends common\Entity
                     }
                     break;
                 case 'device-specific:redirect':
-                        $redirect = $opt[1].':'.$profile->device_id;
+                    $redirect = $opt[1];
+                    if (!empty($profile->device_id)) {
+                        $redirect .= ':' . $profile->device_id;
+                    }
                     break;
                 case 'profile:name': 
                     $profileNames[] = [

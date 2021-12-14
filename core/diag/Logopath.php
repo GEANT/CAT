@@ -208,7 +208,11 @@ class Logopath extends AbstractTest {
      */
     public function addScreenshot($binaryData) {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
-            $magick = new \Imagick();
+            if (class_exists('\\Gmagick')) { 
+                $magick = new \Gmagick(); 
+            } else {
+                $magick = new \Imagick();
+            }
             $magick->readimageblob($binaryData);
             $magick->setimageformat("png");
             $this->additionalScreenshot = $magick->getimageblob();

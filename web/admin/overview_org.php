@@ -80,7 +80,9 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
     ?>
     <div style='padding-bottom:20px;'>
         <?php $profile_name = $theProfile->name; ?>
-        <h2 style='overflow:auto; display:inline; padding-bottom: 10px;'><?php printf(_("Profile: %s"), $profile_name); ?></h2>
+        <div style='margin-bottom:10px; display:block;'>
+            <h2 style='overflow:auto; display:inline; padding-bottom: 10px;'><?php printf(_("Profile: %s"), $profile_name); ?></h2>
+        </div>
         <?php
         // see if there are any profile-level overrides
         $attribs = $theProfile->getAttributes();
@@ -141,7 +143,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
 
-        $buffer_headline .= "</span></div>";
+        $buffer_headline .= "</span>";
 
         echo $buffer_headline;
         echo $buffer_eaptypediv;
@@ -184,7 +186,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
         </div>
         <div class='buttongroupprofilebox' style='clear:both; display: flex;'>
             <?php if ($readonly === FALSE) { ?>
-                <div style='margin-right: 200px;'>
+                <div style='margin-right: 200px; display: ruby'>
                     <form action='edit_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <hr/>
                         <button type='submit' name='profile_action' value='edit'><?php echo _("Edit"); ?></button>
@@ -394,33 +396,33 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <?php echo _("Accept Terms of Use"); ?>
                         </button>
                         <?php
-                } else {
-                    ?>
-                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
-                            <?php echo _("Activate"); ?>
-                        </button>
-                        <?php
-                        if (isset($_GET['res']) && is_array($_GET['res'])) {
-                            $res = array_count_values($_GET['res']);
-                            if ($res['FAILURE'] > 0) {
-                                echo '<br>';
-                                if ($res['FAILURE'] == 2) {
-                                    echo ' <span style="color: red;">' . _("Failure during deactivation, your request is queued for handling") . '</span>';
-                                } else {
-                                    if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
-                                        echo ' <span style="color: red;">' . _("Deactivation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                    } else {
+                        ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
+                                <?php echo _("Activate"); ?>
+                            </button>
+                            <?php
+                            if (isset($_GET['res']) && is_array($_GET['res'])) {
+                                $res = array_count_values($_GET['res']);
+                                if ($res['FAILURE'] > 0) {
+                                    echo '<br>';
+                                    if ($res['FAILURE'] == 2) {
+                                        echo ' <span style="color: red;">' . _("Failure during deactivation, your request is queued for handling") . '</span>';
                                     } else {
-                                        echo ' <span style="color: red;">' . _("Deactivation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                        if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
+                                            echo ' <span style="color: red;">' . _("Deactivation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                                        } else {
+                                            echo ' <span style="color: red;">' . _("Deactivation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                        }
                                     }
                                 }
                             }
-                        }
-                        ?>
-                    </form>
-                    <?php
-                }
-                ?>
+                            ?>
+                        </form>
+                        <?php
+                    }
+                    ?>
             </div>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
@@ -493,10 +495,12 @@ echo $mapCode->htmlHeadCode();
 
     </div>
     <hr/>
-    <?php if (preg_match("/IdP/", $my_inst->type)) { ?>
+    <?php
+    $readonly = \config\Master::DB['INST']['readonly'];
+    if (preg_match("/IdP/", $my_inst->type)) {
+        ?>
         <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureIdP); ?>&nbsp;
             <?php
-            $readonly = \config\Master::DB['INST']['readonly'];
             $profiles_for_this_idp = $my_inst->listProfiles();
             if ($readonly === FALSE) {
 
@@ -521,7 +525,7 @@ echo $mapCode->htmlHeadCode();
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                                <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
+            <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
                             </button>
                         </div>
                     </form>&nbsp;
@@ -536,14 +540,14 @@ echo $mapCode->htmlHeadCode();
                     <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' name='profile_action' value='new'>
-                                <?php echo _("New RADIUS/EAP profile (manual setup) ..."); ?>
+            <?php echo _("New RADIUS/EAP profile (manual setup) ..."); ?>
                             </button>
                         </div>
                     </form>&nbsp;
                     <form method='post' action='inc/profileAutodetectCA.inc.php?inst_id=<?php echo $my_inst->identifier;?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <div>
-                            <button type='submit'>
-                                <?php echo _("New RADIUS/EAP profile (autodetect server details) ...");?>
+                            <button type='submit' name='profile_action' value='new'>
+                                <?php echo _("New RADIUS/EAP profile (autodetect server details) ..."); ?>
                             </button>
                         </div>
                     </form>
@@ -612,7 +616,7 @@ echo $mapCode->htmlHeadCode();
                         <div>
                             <input type="hidden" name="consortium" value="eduroam"/>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                                <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
+            <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                             </button>
 
                         </div>
@@ -624,7 +628,7 @@ echo $mapCode->htmlHeadCode();
                             <div>
                                 <input type="hidden" name="consortium" value="OpenRoaming"/>
                                 <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                                    <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
+                <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
                                 </button>
 
                             </div>

@@ -30,7 +30,7 @@ SectionEnd
 Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("profiles")?>"
 SectionIn RO
 !insertmacro MUI_HEADER_TEXT "<?php echo _("Installation")?>" "<?php echo _("Network profiles update")?>"
-File "w8/*lan_prof*.xml"
+File "profiles/*lan_prof*.xml"
 
 
 ${If} $wireless_result == 0

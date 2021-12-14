@@ -151,6 +151,7 @@ def run_installer() -> None:
     password = ''
     silent = False
     pfx_file = ''
+    wpa_conf = False
     parser = argparse.ArgumentParser(description='eduroam linux installer.')
     parser.add_argument('--debug', '-d', action='store_true', dest='debug',
                         default=False, help='set debug flag')
@@ -162,6 +163,8 @@ def run_installer() -> None:
                         help='set silent flag')
     parser.add_argument('--pfxfile', action='store', dest='pfx_file',
                         help='set path to user certificate file')
+    parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
+                        help='generate wpa_supplicant config file without configuring the system')
     args = parser.parse_args()
     if args.debug:
         DEBUG_ON = True
@@ -175,17 +178,22 @@ def run_installer() -> None:
         silent = args.silent
     if args.pfx_file:
         pfx_file = args.pfx_file
+    if args.wpa_conf:
+        wpa_conf = args.wpa_conf
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
                                    password=password, pfx_file=pfx_file)
+    
+    if wpa_conf:
+        NM_AVAILABLE = False
 
     # test dbus connection
     if NM_AVAILABLE:
         config_tool = CatNMConfigTool()
         if config_tool.connect_to_nm() is None:
             NM_AVAILABLE = False
-    if not NM_AVAILABLE:
+    if not NM_AVAILABLE and not wpa_conf:
         # no dbus so ask if the user will want wpa_supplicant config
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
@@ -548,7 +556,8 @@ class InstallerData(object):
             if Config.use_other_tls_id:
                 return True
             out_str = out.decode('utf-8').strip()
-            subject = re.split(r'\s*[/,]\s*',
+            # split only on commas that are not inside double quotes
+            subject = re.split(r'\s*[/,]\s*(?=([^"]*"[^"]*")*[^"]*$)',
                                re.findall(r'subject=/?(.*)$',
                                           out_str, re.MULTILINE)[0])
             cert_prop = {}

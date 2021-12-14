@@ -351,7 +351,11 @@ class UserAPI extends CAT
         $blob = $inputImage;
 
         if ($resize === TRUE) {
-            $image = new \Imagick();
+            if (class_exists('\\Gmagick')) { 
+                $image = new \Gmagick(); 
+            } else {
+                $image = new \Imagick();
+            }
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
             $image->thumbnailImage($width, $height, 1);

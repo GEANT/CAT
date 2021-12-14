@@ -1,7 +1,7 @@
 - hosts: radius_sp
   vars:
       radius_sp_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
-      radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] }}"
+      radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] if ansible_facts['default_ipv6']['address'] is defined else '' }}"
       radius_sp_name: "{{ ansible_facts['fqdn'] }}"
       os_dist: "{{ ansible_facts['distribution'] }}{{ ansible_facts['distribution_major_version'] }}"
       mysql_pass: "mysql-root-password"
@@ -13,12 +13,6 @@
   tasks:
     - name: Populate service facts
       service_facts:
-    - name: remove dhclient
-      package:
-        name: 
-                - dhclient
-                - dhcp-libs
-        state: absent
     - name: Install required packages
       package:
         name:
@@ -397,6 +391,13 @@
         owner: "root"
         group: "root"
         mode: 0600
+    - name: add local2
+      copy:
+        src: "ManagedSP/templates/configuration/23_eduroam.conf"
+        dest: /etc/rsyslog.d/
+        owner: "root"
+        group: "root"
+        mode: 0600
     - name: Create directory for radsecproxy logs
       file:
         path: "{{ item }}"
@@ -406,6 +407,15 @@
         mode: 0700
       loop:
         - /var/log/radsecproxy
+    - name: Create directory for fticks logs
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: radius
+        group: radius
+        mode: 0700
+      loop:
+        - /var/log/eduroam
     - name: restart-rsyslog
       service: name=rsyslog state=restarted
     - name: check if avahi package is installed

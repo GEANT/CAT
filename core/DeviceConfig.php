@@ -75,8 +75,13 @@ abstract class DeviceConfig extends \core\common\Entity
      * @var array EAP methods
      */
     public $supportedEapMethods;
-   
-
+ 
+    /**
+     * 
+     * @var string the realm attached to the profile (possibly substituted with fallback value
+     */
+    public $realm = NULL;
+    
     /**
      * sets the supported EAP methods for a device
      * 
@@ -178,7 +183,9 @@ abstract class DeviceConfig extends \core\common\Entity
         $this->attributes = $this->getProfileAttributes($profile);
         $this->deviceUUID = common\Entity::uuid('', 'CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
 
-
+        if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
+            $this->realm = $this->attributes['internal:realm'][0];
+        }
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
         // then, this is the only instance of the device ever which knows the
@@ -492,6 +499,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
+        
         if (isset(\config\ConfAssistant::CONSORTIUM['ssid'])) {
             foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssid) {
                 $ssidList['add'][$ssid] = 'AES';
@@ -586,7 +594,9 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
         $networks = [];
+        $realm = $this->realm === NULL ? \config\ConfAssistant::CONSORTIUM['CONSORTIUM']['interworking-domainname-fallback'] : $this->realm;
         foreach (\config\ConfAssistant::CONSORTIUM['networks'] ?? [] as $netName => $netDetails) {
+            $netName = preg_replace('/%REALM%/', $this->realm, $netName);
             // only add network blocks if their respective condition is met in this profile
             if ($netDetails['condition'] === TRUE || (isset($this->attributes[$netDetails['condition']]) && $this->attributes[$netDetails['condition']] === TRUE)) { 
                 $networks[$netName] = $netDetails;
@@ -762,7 +772,6 @@ abstract class DeviceConfig extends \core\common\Entity
      * - <b>internal:info_file</b> -  the pathname of the info_file saved in the working directory
      * - <b>internal:logo_file</b>  -  array of pathnames of logo_files saved in the working directory
      * - <b>internal:CAs</b> - the value is an array produced by X509::processCertificate() with the following filds
-     * - <b>internal:SSID</b> - an array indexed by SSID strings with values either TKIP or AES; if TKIP is set the both WPA/TKIP and WPA2/AES should be set if AES is set the this is a WPA2/AES only SSID; the consortium's defined SSIDs are always set as the first array elements.
      * - <b>internal:consortia</b> an array of consortion IO as declared in the Confassistant config
      * - <b>internal:networks</b> - an array of network parameters  as declared in the Confassistant config
      * - <b>internal:profile_count</b> - the number of profiles for the associated IdP
@@ -770,7 +779,7 @@ abstract class DeviceConfig extends \core\common\Entity
      *
      * these attributes are available and can be used, but the "internal" attributes are better suited for modules
      * -  eap:ca_file    -      certificate of the CA signing the RADIUS server key                                         
-     * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
+     * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:networks)
      *
      * @var array $attributes
      * @see \core\common\X509::processCertificate()

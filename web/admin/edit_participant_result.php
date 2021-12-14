@@ -154,7 +154,7 @@ switch ($_POST['submitbutton']) {
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
                 if (count($myInstReinstantiated->getAttributes("support:email")) > 0) {
-                    echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+                    echo "<form method='post' action='edit_silverbullet.php?inst_id=$instId' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
                 } else {
                     echo "<table>";
                     echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureParticipant), _("No support e-mail!"));
@@ -162,11 +162,11 @@ switch ($_POST['submitbutton']) {
                 }
 
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
-                    echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+                    echo "<br/><form method='post' action='edit_profile.php?inst_id=$instId' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
                 }
             }
         }
-        echo "<br/><form method='post' action='overview_user.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+        echo "<br/><form method='post' action='overview_org.php?inst_id=$instId' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 
         break;
     default:

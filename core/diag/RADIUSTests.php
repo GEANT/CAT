@@ -895,7 +895,6 @@ network={
 
         $packetflow = $this->filterPackettype($packetflow_orig);
 
-
 // when MS-CHAPv2 allows retry, we never formally get a reject (just a 
 // Challenge that PW was wrong but and we should try a different one; 
 // but that effectively is a reject
@@ -1022,7 +1021,6 @@ network={
         $intermOdditiesEAP = [];
 
         $testresults['certdata'] = [];
-
 
         foreach ($eapCertArray as $certPem) {
             $cert = $x509->processCertificate($certPem);
@@ -1269,7 +1267,7 @@ network={
             $intermOdditiesCAT = [];
             $verifyResult = 0;
 
-            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE) {
+            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE && !in_array(RADIUSTests::CERTPROB_NO_SERVER_CERT, $testresults['cert_oddities'])) {
                 $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
                 $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);
             }
