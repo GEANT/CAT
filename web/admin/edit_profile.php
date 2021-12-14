@@ -120,7 +120,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             $temp_profile->addAttribute("eap:ca_file", "C", base64_encode($detectionResult['ROOT_CA']));
             $temp_profile->addAttribute("eap:server_name", "C", $detectionResult['NAME']);
             $temp_profile->setRealm($detectRealm);
-            $temp_profile->setRealmCheckUser(TRUE, $localname);
+            // We have created a RADIUS profile, not SilverBullet, so that function is guaranteed to exist
+            $temp_profile/** @scrutinizer ignore-call */->setRealmCheckUser(TRUE, $localname);
             $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
             $profile_options = $my_profile->getAttributes();
             $realm = $my_profile->getAttributes("internal:realm")[0]['value'];
