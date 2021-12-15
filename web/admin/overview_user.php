@@ -213,10 +213,10 @@ require_once "inc/click_button_js.php";
                     </tr>
                     <?php
                 }
-                ?>
-            </table>
-            <?php
-        }
+            }
+            ?>
+        </table>
+        <?php
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureParticipant) . "</h2>";
     }
