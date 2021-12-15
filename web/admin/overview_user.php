@@ -187,9 +187,9 @@ require_once "inc/click_button_js.php";
                                     }
                                 }
                                 $otherAdminCount = count($admins); // only the unnamed remain
-                                if ($otherAdminCount > 0) {
-                                    echo sprintf(ngettext("You and %d other user", "You and %d other users", $otherAdminCount), $otherAdminCount);
-                                }
+                            }
+                            if ($otherAdminCount > 0) {
+                                echo sprintf(ngettext("You and %d other user", "You and %d other users", $otherAdminCount), $otherAdminCount);
                             }
                             ?>
                         </td>
