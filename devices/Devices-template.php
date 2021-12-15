@@ -382,6 +382,17 @@ class Devices extends \core\common\Entity {
                     'mime' => 'application/x-sh',
                 ],
             ],
+            'linux_sh' => [
+                'group' => "linux",
+                'display' => _("Linux"),
+                'match' => 'Linux(?!.*Android)',
+                'directory' => 'linux',
+                'module' => 'LinuxSh',
+                'options' => [
+                    'hidden' => 1,
+                    'mime' => 'application/x-sh',
+                ],
+            ],
             'chromeos' => [
                 'group' => "chrome",
                 'display' => _("Chrome OS"),
