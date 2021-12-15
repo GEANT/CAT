@@ -134,7 +134,7 @@ build:
                             host: ci.test
             dependencies:
                 before:
-                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl
+                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl shellcheck
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set download_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set cache_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set temp_dir /tmp
@@ -494,10 +494,16 @@ build:
                   title: "Checking whether output is a S/MIME signed Apple plist file"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
-                  title: "Generating a Linux installer via API call"
+                  title: "Generating a Linux (Python) installer via API call"
                 - 
                   command: /home/scrutinizer/.pyenv/versions/3.7.2/bin/pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
                   title: "Checking whether output is a error-free Python file"
+                - 
+                  command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux_sh\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.sh --no-verbose
+                  title: "Generating a Linux (Bash) installer via API call"
+                - 
+                  command: shellcheck /home/scrutinizer/artifacts/LinuxInstaller.sh
+                  title: "Checking whether output is a error-free Bash script"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
                   title: "Generating an eap-config XML file via API call"
