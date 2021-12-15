@@ -135,7 +135,11 @@ build:
             dependencies:
                 before:
                     - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl
-                    - sudo /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl channel-update pecl.php.net
+                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set download_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set cache_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set temp_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl update-channels
+                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl upgrade
                     - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
