@@ -139,7 +139,6 @@ build:
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set cache_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set temp_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl update-channels
-                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl upgrade
                     - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
