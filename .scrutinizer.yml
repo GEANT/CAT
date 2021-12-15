@@ -108,7 +108,7 @@ build:
         analysis:
             environment:
                 php:
-                    version: 8.0.8
+                    version: 8.0.13
             project_setup:
                 override: true
             tests:
@@ -123,7 +123,7 @@ build:
                     TEST_LANGUAGE_VARIANTS: 0
                     DEBIAN_FRONTEND: 'noninteractive'
                 php:
-                    version: 8.0.8
+                    version: 8.0.13
                 hosts:
                     ci.test: 127.0.0.1
                 apache2:
@@ -135,8 +135,8 @@ build:
             dependencies:
                 before:
                     - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl
-                    - sudo /home/scrutinizer/.phpenv/versions/8.0.8/bin/pecl channel-update pecl.php.net
-                    - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.8/bin/pecl install imagick
+                    - sudo /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl channel-update pecl.php.net
+                    - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
@@ -502,7 +502,7 @@ build:
                   command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
                   title: "Checking whether output is well-formed XML and validates against Schema"
                 - 
-                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/8.0.3/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/8.0.3/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
+                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/8.0.13/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/8.0.13/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
     services:
         mariadb: 10
 tools:
