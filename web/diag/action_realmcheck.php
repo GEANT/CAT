@@ -551,6 +551,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         <strong><?php echo _("Overview") ?></strong>
                     </legend>
             <?php
+                $naptrs = array();
                 foreach (array("", "openroaming") as $dynType) {
                     // NAPTR existence check
                     if ($dynType == "") {
@@ -693,18 +694,23 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
               </script>";
                         } 
                     }
+                    if ($dynType == '') {
+                         $naptrs[0] = $naptr;
+                     } else {
+                         $naptrs[1] = $naptr;
+                     }
                 }
                     echo "<strong>" . _("Static connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
          </tr></table>";
-                    if ($naptr > 0) {
+                    if ($naptrs[0] > 0) {
                         echo "<hr><strong>" . _("Dynamic connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
          </tr></table>";
                     }
-                    if (count($orrealm)) {
+                    if (count($orrealm) && ($naptrs[1] > 0)) {
                       echo "<hr><strong>" . _("OpenRoaming connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_openroaming_ico' class='icon'></td><td id='main_openroaming_result' style='display:none'>&nbsp;</td>
@@ -742,11 +748,13 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             </div>
             <?php
             for ($i=3; $i<5; $i++) {
-                if ($i == 3 && $naptr == 0) {
+                if ($i == 3 && $naptrs[0] <= 0) {
                    continue;
                 }
-                if ($i == 4 && count($orrealm) == 0) {
-                   continue;
+                if ($i == 4) {
+                   if ((count($orrealm) == 0) || ($naptrs[1] <= 0)) {
+                       continue;
+                   }
                 }
                 if ($i == 3) {
                     $rfc7585suite = $dnsChecks;
@@ -894,12 +902,12 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             var realm = '$check_realm';
             run_udp();";
 
-                if ($naptr > 0) {
+                if ($naptrs[0] > 0) {
                     echo "run_dynamic();";
                 } else {
                     echo '$("#tabs-d-li").hide();';
                 }
-                if (count($orrealm) > 0) {
+                if (($naptrs[1] > 0) && count($orrealm) > 0) {
                     echo "run_openroaming();";
                 } else {
                     echo '$("#tabs-o-li").hide();';
