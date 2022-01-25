@@ -650,7 +650,7 @@ function updateGuessOsDiv(device) {
           </div>\
         </div>\
         <div name='"+device.id+"' class='device_info' id='info_g_"+device.id+"'>XXXXX</div>\
-        <div id='more_i'><a href='xx'>See more installer information</a></div>";   
+        <div id='more_i'><a href='javascript:showMoreDeviceInfo(\""+device.id+"\")'>See more installer information</a></div>";   
         $("#guess_os").prepend(div1);
       }
   }
