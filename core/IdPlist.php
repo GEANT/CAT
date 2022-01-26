@@ -162,8 +162,10 @@ class IdPlist extends common\Entity
             }
             $idpArray[$idpId]['profiles'][] = [
                 'id'=> (int) $queryResult->profile_id,
-                'names'=> $profileOptions['profileNames'],
-                'redirect'=>$profileOptions['redirect']
+                'names' => $profileOptions['profileNames'],
+                'redirect' => $profileOptions['redirect'],
+                'openroaming' => $profileOptions['openroaming'],
+//                'options' => $profileOptions['options'],
                 ];
         }       
         return $idpArray;
@@ -267,6 +269,7 @@ class IdPlist extends common\Entity
                 AND (profile_option.option_name = 'profile:name'
                 OR (profile_option.option_name = 'device-specific:redirect'
                     AND isnull(profile_option.device_id))
+                OR profile_option.option_name = 'media:openroaming'
                 OR profile_option.option_name = 'profile:production')        
             GROUP BY profile.profile_id ORDER BY inst_id";
         return $query;
@@ -318,6 +321,7 @@ class IdPlist extends common\Entity
         $productionProfile = false;
         $profileNames = [];
         $redirect = '';
+        $openroaming = 'none';
 
         foreach ($profileOptions as $profileOption) {
             $opt = explode('===', $profileOption);
@@ -339,13 +343,18 @@ class IdPlist extends common\Entity
                         'value' => $opt[1]
                     ];
                     break;
+                case 'media:openroaming':
+                    $openroaming = $opt[1];
+                    break;
                 default:
                     break; 
             }
         }
         return ['production' => $productionProfile,
             'profileNames' => $profileNames,
-            'redirect' => $redirect];
+            'redirect' => $redirect,
+            'openroaming' => $openroaming,
+            ];
     }
     
     private static function setKeywords($names)
