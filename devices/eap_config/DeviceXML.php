@@ -159,10 +159,21 @@ abstract class DeviceXML extends \core\DeviceConfig
         $this->providerInfo = $this->getProviderInfo();
         $this->authMethodsList = $this->getAuthMethodsList();
         $this->loggerInstance->debug(5, $this->attributes['internal:networks'], "NETWORKS:", "\n");
+        /*
+         * This approach is forced by geteduroam compatibility. We pack all networks into a single Provider
+         * with the exception of the openroaming one which we pack separately.
+         */
         if ($this->singleEAPProvider === true) {
             $ssids = [];
             $ois = [];
+            $orNetwork = [];
             foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+                if ($netDefinition['condition'] === 'internal:openroaming' &&
+                        $this->attributes['internal:openroaming'] &&
+                        preg_match("/^ask/",$this->attributes['media:openroaming'][0])) {
+                    $orNetwork = $netDefinition;
+                    continue;
+                }
                 foreach ($netDefinition['ssid'] as $ssid) {
                     $ssids[] = $ssid;
                 }
@@ -174,7 +185,11 @@ abstract class DeviceXML extends \core\DeviceConfig
                     $this->loggerInstance->debug(5, $ois, "RCOIs:", "\n");
             if (!empty($ssids) || !empty($ois)) {
                 \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($ssids, $ois));
-            } 
+            }
+            
+            if (!empty($orNetwork)) {
+                \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($orNetwork['ssid'], $orNetwork['oi']));
+            }
         } else {
             foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
                 $ssids = $netDefinition['ssid'];
