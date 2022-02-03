@@ -42,10 +42,10 @@ if ($id !== FALSE) {
         switch ($filetype) {
             case "text/rtf": // fall-through, same treatment
             case "application/rtf":
-                header("Content-Disposition: attachment; filename='download.rtf'");
+                header("Content-Disposition: attachment; filename=download.rtf");
                 break;
             case "text/plain":
-                header("Content-Disposition: attachment; filename='download.txt'");
+                header("Content-Disposition: attachment; filename=download.txt");
                 break;
             default:
             // do nothing special with the Content-Disposition header
