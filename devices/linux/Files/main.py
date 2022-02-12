@@ -43,17 +43,41 @@ import argparse
 import base64
 import getpass
 import os
+import pathlib
 import platform
 import re
+import string
 import subprocess
 import sys
+import tempfile
 import uuid
+import venv
 from shutil import copyfile
 from typing import List, Type, Union
 
 NM_AVAILABLE = True
 CRYPTO_AVAILABLE = True
 DEBUG_ON = False
+
+KEYRING_TEMPLATE = '''\
+#!${venv_executable}
+
+import argparse
+
+import keyring
+
+def main():    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('password', action="store", type=str)
+    result = parser.parse_args()
+
+    keyring.set_password("eduroam", result.password)
+    
+
+if __name__ == "__main__":
+    main()
+
+'''
 
 
 def debug(msg) -> None:
@@ -1015,3 +1039,42 @@ class CatNMConfigTool(object):
             self.__add_connection(ssid)
         for ssid in Config.del_ssids:
             self.__delete_existing_connection(ssid)
+
+    def use_keyring(self, password: str) -> bool:
+        """ create a virtual environment to use the gnome keyring """
+        with tempfile.TemporaryDirectory() as target_dir_path:
+            debug(f"Create temporary directory '{target_dir_path}'.")
+
+            venv_builder = EnvBuilder(with_pip=True)
+            venv_builder.create(target_dir_path)
+            venv_context = venv_builder.context
+            requirements = ['keyring']
+
+            pip_install_command = [
+                venv_context.env_exe,
+                '-m',
+                'pip',
+                'install',
+                *requirements,
+            ]
+            subprocess.run(pip_install_command)
+
+            script_substitutions = {'venv_executable': venv_context.env_exe}
+            script = (string.Template(KEYRING_TEMPLATE).substitute(script_substitutions))
+            script_path = pathlib.Path(target_dir_path).joinpath('save_password.py')
+            script_path.write_text(script)
+            script_command = [venv_context.env_exe, str(script_path), password]
+            run_script_process = subprocess.run(script_command)
+            if run_script_process.returncode == 0:
+                return True
+            return False
+
+
+class EnvBuilder(venv.EnvBuilder):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.context = None
+
+    def post_setup(self, context):
+        self.context = context
