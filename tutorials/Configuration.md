@@ -97,8 +97,9 @@ Installing CAT
 7.  make sure that the var/installer_cache, var/silverbullet and var/tmp directories exists and are writeable to the Apache web server user
 8.  make sure that simpleSAMLphp is installed
 9.  make sure that simpleSAMLphp openid module is enabled and google (or any IdP of your choice) is uncommented in authsources
-10. using your browser, check if the main interface is running (web subdirectory)
-11. if so, go to the master management page to have your system prerequisites checked (web/admin/112365365321.php)
+10.  create a symlink web/external/jquery/jquery.js pointing to the most current version of jQuery (which needs to be put in place in the same directory) (the version shipped inside the distribution may not be the most current one!)
+11. using your browser, check if the main interface is running (web subdirectory)
+12. if so, go to the master management page to have your system prerequisites checked (web/admin/112365365321.php)
 
 Configuring CAT
 ---------------
