@@ -181,4 +181,22 @@ class Language
         $loggerInstance->debug(4, "getLocalisedValue:$this->LANG:$out\n");
         return $out;
     }
+    
+    /**
+     * Return all available translations of a given message
+     * 
+     * @param string $message
+     * @param string $domain
+     * @return array indexed by language indexes
+     */
+    public function getAllTranslations($message, $domain) {
+        $currentLocale = setlocale(LC_ALL, 0);
+        $allValues = [];    
+        foreach (\config\Master::LANGUAGES as $onelanguage) {
+            setlocale(LC_ALL, $onelanguage['locale']);
+            $allValues[$onelanguage] = dgettext($domain, $message);
+        }
+        setlocale(LC_ALL, $currentLocale);
+        return $allValues;
+    }
 }
