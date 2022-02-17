@@ -35,7 +35,7 @@ require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 // we are referring to $_SESSION later in the file
 \core\CAT::sessionStart();
 
-$jsonDir = dirname(dirname(dirname(dirname(__FILE__))))."/CAT/var/json_cache";
+$jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];

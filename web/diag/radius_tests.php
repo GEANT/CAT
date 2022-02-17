@@ -27,7 +27,7 @@ $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
 
-$jsonDir = dirname(dirname(dirname(dirname(__FILE__))))."/CAT/var/json_cache";
+$jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
 
 $additional_message = [
     \core\common\Entity::L_OK => '',
@@ -348,7 +348,6 @@ if (!is_dir($jsonDir.'/'.$token)) {
 }
 $json_data = json_encode($returnarray);
 if ($token != '') {
-    $loggerInstance->debug(4, $jsonDir.'/'.$returnarray['token']);
     file_put_contents($jsonDir.'/'.$token.'/'.$test_type.'_'.$hostindex, $json_data);
 }
 echo($json_data);
