@@ -460,7 +460,7 @@ class Telepath extends AbstractTest
     public function magic()
     {
         $this->testId = \core\CAT::uuid();
-        $this->databaseHandle->exec("INSERT INTO diagnosticrun (test_id, suspects, evidence) VALUES ('$this->testId', NULL, NULL)");
+        $this->databaseHandle->exec("INSERT INTO diagnosticrun (test_id, realm, suspects, evidence) VALUES ('$this->testId', '$this->realm', NULL, NULL)");
         // simple things first: do we know anything about the realm, either
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
