@@ -88,7 +88,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         $out .= implode('</strong>, <strong>', array_keys($this->attributes['internal:networks']));
         $out .= '</strong><p>';
 
-        $out .= _("The installer will create cat_installer sub-directory in your config directory (possubly the .config in your home directory) and will copy your server certificates there.");
+        $out .= _("The installer will create cat_installer sub-directory in your config directory (possibly the .config in your home directory) and will copy your server certificates there.");
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS) {
             $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your organisation. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the cat_installer directory.");
         } elseif ($this->selectedEap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
