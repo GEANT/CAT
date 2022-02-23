@@ -192,9 +192,9 @@ class Language
     public function getAllTranslations($message, $domain) {
         $currentLocale = setlocale(LC_ALL, 0);
         $allValues = [];    
-        foreach (\config\Master::LANGUAGES as $onelanguage) {
+        foreach (\config\Master::LANGUAGES as $lang => $onelanguage) {
             setlocale(LC_ALL, $onelanguage['locale']);
-            $allValues[$onelanguage] = dgettext($domain, $message);
+            $allValues[$lang] = dgettext($domain, $message);
         }
         setlocale(LC_ALL, $currentLocale);
         return $allValues;
