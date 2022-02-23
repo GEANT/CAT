@@ -464,9 +464,9 @@ class DeploymentManaged extends AbstractDeployment
     {
         $txt = '';
         if ($status == 'OK') {
-            $txt = $remove ? _('Profile dectivation succeeded') : _('Profile activation/modification succeeded');
+            $txt = $remove ? _('Profile deactivation succeeded') : _('Profile activation/modification succeeded');
         } else {
-            $txt = $remove ? _('Profile dectivation failed') : _('Profile activation/modification failed');
+            $txt = $remove ? _('Profile deactivation failed') : _('Profile activation/modification failed');
         }
         $txt = $txt . ' ';
         if (array_count_values($response)[$status] == 2) {
