@@ -688,6 +688,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     }
     
     private $openRoamingToUArray;
+    private $openRoamingToU;
     private $addORtou = false;
 
 }
