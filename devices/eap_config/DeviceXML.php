@@ -147,8 +147,10 @@ abstract class DeviceXML extends \core\DeviceConfig
         $ns = $dom->createAttributeNS( 'http://www.w3.org/2001/XMLSchema-instance', 'xsi:noNamespaceSchemaLocation' );
         $ns->value = "eap-metadata.xsd";
         $root->appendChild($ns);
-        $this->openRoamingToU = _("I have read and agree to OpenRoaming Terms of Use on the Internet.");
-        $this->openRoamingToUArray = $this->languageInstance->getAllTranslations("I have read and agree to OpenRoaming Terms of Use on the Internet.", "device");
+        $this->openRoamingToU = sprintf(_("I have read and agree to OpenRoaming Terms of Use at %s."), "https://wballiance.com/openroaming/toc-2020/");
+        foreach ($this->languageInstance->getAllTranslations("I have read and agree to OpenRoaming Terms of Use at %s", "device") as $lang => $message) {
+            $this->openRoamingToUArray[$lang] = sprintf($message, "https://wballiance.com/openroaming/toc-2020/");
+        }
         
         if (empty($this->attributes['internal:realm'][0])) {
             $this->eapId = 'undefined';
