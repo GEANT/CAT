@@ -12,6 +12,7 @@
         "phpmailer/phpmailer": "^6.0",
         "simplesamlphp/simplesamlphp": "dev-master",
         "chillerlan/php-qrcode": "^4.3",
-        "pear/net_dns2": "^1.5"
+        "pear/net_dns2": "^1.5",
+        "components/jquery": "^3.6"
     }
 }
