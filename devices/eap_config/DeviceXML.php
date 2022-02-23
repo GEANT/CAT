@@ -147,6 +147,8 @@ abstract class DeviceXML extends \core\DeviceConfig
         $ns = $dom->createAttributeNS( 'http://www.w3.org/2001/XMLSchema-instance', 'xsi:noNamespaceSchemaLocation' );
         $ns->value = "eap-metadata.xsd";
         $root->appendChild($ns);
+        $this->openRoamingToU = _("I have read and agree to OpenRoaming Terms of Use on the Internet.");
+        $this->openRoamingToUArray = $this->languageInstance->getAllTranslations("I have read and agree to OpenRoaming Terms of Use on the Internet.", "device");
         
         if (empty($this->attributes['internal:realm'][0])) {
             $this->eapId = 'undefined';
@@ -156,23 +158,31 @@ abstract class DeviceXML extends \core\DeviceConfig
             $this->namespace = 'urn:RFC4282:realm';
         }
         
-        $this->providerInfo = $this->getProviderInfo();
         $this->authMethodsList = $this->getAuthMethodsList();
         $this->loggerInstance->debug(5, $this->attributes['internal:networks'], "NETWORKS:", "\n");
         /*
          * This approach is forced by geteduroam compatibility. We pack all networks into a single Provider
          * with the exception of the openroaming one which we pack separately.
          */
+        
         if ($this->singleEAPProvider === true) {
+            /*
+             * if "condition" is set to openroaming, OpenRoaming terms of use must be mentioned
+             * unless the preagreed is set for openroaming
+             * if "ask" is set then we generate a separate OR profile which needs to contain the OR ToU
+             * the ToU is not needed in the eduroam-only profile
+             */
             $ssids = [];
             $ois = [];
             $orNetwork = [];
             foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
                 if ($netDefinition['condition'] === 'internal:openroaming' &&
-                        $this->attributes['internal:openroaming'] &&
-                        preg_match("/^ask/",$this->attributes['media:openroaming'][0])) {
-                    $orNetwork = $netDefinition;
-                    continue;
+                        $this->attributes['internal:openroaming']) {
+                    $this->setORtou();
+                    if (preg_match("/^ask/",$this->attributes['media:openroaming'][0])) {
+                        $orNetwork = $netDefinition;
+                        continue;                        
+                    }
                 }
                 foreach ($netDefinition['ssid'] as $ssid) {
                     $ssids[] = $ssid;
@@ -181,17 +191,32 @@ abstract class DeviceXML extends \core\DeviceConfig
                     $ois[] = $oi;
                 }
             }
-                    $this->loggerInstance->debug(5, $ssids, "SSIDs:", "\n");
-                    $this->loggerInstance->debug(5, $ois, "RCOIs:", "\n");
+
+            if (!empty($orNetwork)) {
+                $this->addORtou = false;
+            }
+            $this->providerInfo = $this->getProviderInfo();
+            
             if (!empty($ssids) || !empty($ois)) {
                 \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($ssids, $ois));
             }
             
             if (!empty($orNetwork)) {
+                // here we need to add the Tou unless preagreed is set
+                $this->setORtou();
+                $this->providerInfo = $this->getProviderInfo();
                 \core\DeviceXMLmain::marshalObject($dom, $root, 'EAPIdentityProvider', $this->eapIdp($orNetwork['ssid'], $orNetwork['oi']));
             }
         } else {
+
             foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
+                if ($netDefinition['condition'] === 'internal:openroaming' &&
+                        $this->attributes['internal:openroaming']) {
+                    $this->setORtou();
+                } else {
+                    $this->addORtou = false;
+                }
+                $this->providerInfo = $this->getProviderInfo();
                 $ssids = $netDefinition['ssid'];
                 $ois = $netDefinition['oi'];
                 if (!empty($ssids) || !empty($ois)) {
@@ -208,6 +233,14 @@ abstract class DeviceXML extends \core\DeviceConfig
         file_put_contents($this->installerBasename.'.eap-config', $dom->saveXML($dom));
         \core\common\Entity::outOfThePotatoes();
         return($this->installerBasename.'.eap-config');
+    }
+    
+    private function setORtou() {
+        if (preg_match("/preagreed/",$this->attributes['media:openroaming'][0])) {
+            $this->addORtou = false;
+        } else {
+            $this->addORtou = true;
+        }
     }
     
     /**
@@ -363,9 +396,32 @@ abstract class DeviceXML extends \core\DeviceConfig
         $providerinfo->setChild('Description', $this->getSimpleMLAttribute('profile:description'));
         $providerinfo->setChild('ProviderLocation', $this->getProviderLocation());
         $providerinfo->setChild('ProviderLogo', $this->getProviderLogo());
-        $providerinfo->setChild('TermsOfUse', $this->getSimpleMLAttribute('support:info_file'), null, 'cdata');
+        $providerinfo->setChild('TermsOfUse', $this->getProviderTou(), null, 'cdata');
         $providerinfo->setChild('Helpdesk', $this->getHelpdesk());
-        return $providerinfo;
+        return $providerinfo; 
+    }
+    
+    private function getProviderTou() {
+        $standardTou = $this->getSimpleMLAttribute('support:info_file');
+        if ($this->addORtou === false) {
+            return $standardTou;
+        }
+        $out = [];
+        if ($this->langScope === 'global') {
+            foreach ($standardTou as $touObj) {
+                $tou = $touObj->getValue();
+                $lngAttr = $touObj->getAttributes();
+                $lng = $lngAttr['lang'] === 'any' ? \config\Master::APPEARANCE['defaultlocale'] : $lngAttr['lang'];
+                $tou .= "\n".$this->openRoamingToUArray[$lng];
+                $touObj->setValue($tou);
+                $out[] =  $touObj;
+            } 
+        } else {
+            $tou = $standardTou[0];
+            $tou .= "\n".$this->openRoamingToU;
+            $out = [$tou];
+        }
+        return $out;
     }
 
     /**
@@ -628,6 +684,8 @@ abstract class DeviceXML extends \core\DeviceConfig
         }
         return $methodList;
     }
-
+    
+    private $openRoamingToUArray;
+    private $addORtou = false;
 
 }
