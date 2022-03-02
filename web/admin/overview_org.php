@@ -652,7 +652,12 @@ echo $mapCode->htmlHeadCode();
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
                                 <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                             </button>
-
+                            <span style='color: red;'>
+                            <?php if ($hasMail == 0) { 
+                              echo _("Helpdesk mail address is required but missing!");  
+                            }
+                            ?>
+                            </span>
                         </div>
                     </form>
                     <?php if (count($myfed->getAttributes("fed:openroaming")) > 0) {
