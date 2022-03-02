@@ -40,7 +40,7 @@ switch ($backlog) {
 <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr>
-        <th scope="col"><strong><?php echo _("Timestamp");?></strong></th>
+        <th scope="col"><strong><?php echo _("Timestamp (UTC)");?></strong></th>
         <th scope="col"><strong><?php echo _("Realm");?></strong></th>
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>

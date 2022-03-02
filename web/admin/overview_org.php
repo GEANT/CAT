@@ -427,12 +427,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
         <div style='display: table-cell; min-width:200px;'>
-            <h1><?php echo _("Hotspot Usage Statistics"); ?></h1>
+            <?php $tablecaption = _("Hotspot Usage Statistics");?>
+            <h1><?php echo $tablecaption; ?></h1>
             <h2><?php echo _("5 most recent authentications");?></h2>
             <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr style='text-align: left;'>
-        <th scope="col"><strong><?php echo _("Timestamp");?></strong></th>
+        <th scope="col"><strong><?php echo _("Timestamp (UTC)");?></strong></th>
         <th scope="col"><strong><?php echo _("Realm");?></strong></th>
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
