@@ -426,13 +426,15 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
             </div>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
-        <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space -->
-        <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&amp;deployment_id=<?php echo $deploymentObject->identifier;?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
-            <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour");?></button>
-            <button type='submit' id='stats-month' name='stats' value='MONTH'><?php echo _("Last 30 days");?></button>
-            <button type='submit' id='stats-full' name='stats' value='FULL'><?php echo _("Last 6 months");?></button>
-        </form>
-    </div>
+        <div style='display: table-cell; min-width:200px;'>
+            <h1><?php echo _("Hotspot Usage Statistics"); ?></h1>
+            <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+                <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour"); ?></button>
+                <button type='submit' id='stats-month' name='stats' value='MONTH'><?php echo _("Last 30 days"); ?></button>
+                <button type='submit' id='stats-full' name='stats' value='FULL'><?php echo _("Last 6 months"); ?></button>
+            </form>
+        </div><!-- statistics space -->
+    </div> 
     <!-- dummy div to keep a little distance-->
     <div style='height:20px'></div>
     <?php
@@ -530,7 +532,7 @@ echo $mapCode->htmlHeadCode();
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-            <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
+                                <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
                             </button>
                         </div>
                     </form>&nbsp;
@@ -545,11 +547,11 @@ echo $mapCode->htmlHeadCode();
                     <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' name='profile_action' value='new'>
-            <?php echo _("New RADIUS/EAP profile (manual setup) ..."); ?>
+                                <?php echo _("New RADIUS/EAP profile (manual setup) ..."); ?>
                             </button>
                         </div>
                     </form>&nbsp;
-                    <form method='post' action='inc/profileAutodetectCA.inc.php?inst_id=<?php echo $my_inst->identifier;?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                    <form method='post' action='inc/profileAutodetectCA.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' name='profile_action' value='new'>
                                 <?php echo _("New RADIUS/EAP profile (autodetect server details) ..."); ?>
@@ -621,7 +623,7 @@ echo $mapCode->htmlHeadCode();
                         <div>
                             <input type="hidden" name="consortium" value="eduroam"/>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-            <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
+                                <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                             </button>
 
                         </div>
@@ -633,7 +635,7 @@ echo $mapCode->htmlHeadCode();
                             <div>
                                 <input type="hidden" name="consortium" value="OpenRoaming"/>
                                 <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
+                                    <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
                                 </button>
 
                             </div>
