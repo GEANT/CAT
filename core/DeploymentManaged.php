@@ -408,6 +408,17 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
+     * removes the deployment.
+     * 
+     * @return void
+     */
+    public function remove()
+    {
+        $this->databaseHandle->exec("DELETE from deployment WHERE deployment_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE from deployment_option WHERE deployment_id = $this->identifier");
+    }
+    
+    /**
      * activates the deployment.
      * TODO: needs to call the RADIUS server reconfiguration routines...
      * 
