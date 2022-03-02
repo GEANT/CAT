@@ -1,7 +1,5 @@
 <?php
 define('SOCKET', '/opt/Socket/CAT_requests/queue');
-define('OPNAME_PREFIX', '1hotspot-');
-define('OPNAME_SUFFIX', '.hosted.eduroam.org');
 
 function cat_socket($obj) {
    $sock = socket_create(AF_UNIX, SOCK_STREAM, 0);

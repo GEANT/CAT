@@ -416,6 +416,17 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
+     * removes the deployment.
+     * 
+     * @return void
+     */
+    public function remove()
+    {
+        $this->databaseHandle->exec("DELETE from deployment WHERE deployment_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE from deployment_option WHERE deployment_id = $this->identifier");
+    }
+    
+    /**
      * activates the deployment.
      * TODO: needs to call the RADIUS server reconfiguration routines...
      * 
@@ -636,9 +647,7 @@ class DeploymentManaged extends AbstractDeployment
         if ($remove) {
             $toPostTemplate = $toPostTemplate . 'remove=1&';
         } else {
-            if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
-                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
-            }
+            $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                 $allRealms = $this->getAllRealms();
                 if (!empty($allRealms)) {
