@@ -610,9 +610,7 @@ class DeploymentManaged extends AbstractDeployment
         if ($remove) {
             $toPostTemplate = $toPostTemplate . 'remove=1&';
         } else {
-            if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
-                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
-            }
+            $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                 $allRealms = $this->getAllRealms();
                 if (!empty($allRealms)) {
