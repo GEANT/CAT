@@ -1,3 +1,7 @@
+Changes in 2.1
+=====================
+- [FEATURE #1]  display hotspot usage statistics
+
 Changes in 2.1-alpha1
 =====================
 - [FEATURE #1]  institutions are now an SP, IdP, or both. Creation of unlinked
