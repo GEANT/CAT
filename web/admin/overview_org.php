@@ -426,7 +426,12 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
             </div>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
-        <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space, reserved -->
+        <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space -->
+        <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&amp;deployment_id=<?php echo $deploymentObject->identifier;?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+            <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour");?></button>
+            <button type='submit' id='stats-month' name='stats' value='MONTH'><?php echo _("Last 30 days");?></button>
+            <button type='submit' id='stats-full' name='stats' value='FULL'><?php echo _("Last 6 months");?></button>
+        </form>
     </div>
     <!-- dummy div to keep a little distance-->
     <div style='height:20px'></div>
