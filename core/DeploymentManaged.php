@@ -306,18 +306,26 @@ class DeploymentManaged extends AbstractDeployment
     /**
      * retrieves usage statistics for the deployment
      * 
-     * @param int backlog how many seconds back in time should we look
+     * @param int $backlog how many seconds back in time should we look
+     * @param int $limit   max number of entries to retrieve (if supplied, backlog will be ignored)
      * @return array of arrays: activity_time, realm, mac, result
      * @throws Exception
      */
-    public function retrieveStatistics(int $backlog)
+    public function retrieveStatistics(int $backlog, int $limit = 0)
     {
         // find a server near him (list of all servers with capacity, ordered by distance)
         // first, if there is a pool of servers specifically for this federation, prefer it
         // only check the consortium pool group we want to attach to
         // TODO: if we also collect stats from OpenRoaming hosts, differentiate the logs!
         $opName = $this->getOperatorName();
-        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, result FROM activity WHERE operatorname = ? AND activity_time > DATE_SUB(NOW(), INTERVAL ? SECOND) ORDER BY activity_time", "si", $opName, $backlog );
+        if ($limit !== 0) {
+            $conditional1 = "";
+            $conditional2 = "LIMIT $limit";
+        } else {
+            $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND)";
+            $conditional2 = "";
+        }
+        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, result FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }
         

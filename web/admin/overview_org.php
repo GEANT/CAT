@@ -434,8 +434,30 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
         <div style='display: table-cell; min-width:200px;'>
-            <h1><?php echo _("Hotspot Usage Statistics"); ?></h1>
-            <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+            <?php $tablecaption = _("Hotspot Usage Statistics");?>
+            <h1><?php echo $tablecaption; ?></h1>
+            <h2><?php echo _("5 most recent authentications");?></h2>
+            <table class='authrecord'>
+    <caption><?php echo $tablecaption;?></caption>
+    <tr style='text-align: left;'>
+        <th scope="col"><strong><?php echo _("Timestamp (UTC)");?></strong></th>
+        <th scope="col"><strong><?php echo _("Realm");?></strong></th>
+        <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
+        <th scope="col"><strong><?php echo _("Result");?></strong></th>
+    </tr>
+    <?php
+    $userAuthData = $deploymentObject->retrieveStatistics(0,5);
+    foreach ($userAuthData as $oneRecord) {
+        echo "<tr class='".($oneRecord['result'] == "OK" ? "auth-success" : "auth-fail" )."'>"
+                . "<td>".$oneRecord['activity_time']."</td>"
+                . "<td>".$oneRecord['realm']."</td>"
+                . "<td>".$oneRecord['mac']."</td>"
+                . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
+                . "</tr>";
+    }
+    ?>
+</table>
+            <div style='display: ruby;'><form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour"); ?></button>
             </form>
             <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
@@ -444,6 +466,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
             <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-full' name='stats' value='FULL'><?php echo _("Last 6 months"); ?></button>
             </form>
+            </div>
         </div><!-- statistics space -->
     </div> 
     <!-- dummy div to keep a little distance-->
@@ -636,7 +659,12 @@ echo $mapCode->htmlHeadCode();
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
                                 <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
                             </button>
-
+                            <span style='color: red;'>
+                            <?php if ($hasMail == 0) { 
+                              echo _("Helpdesk mail address is required but missing!");  
+                            }
+                            ?>
+                            </span>
                         </div>
                     </form>
                     <?php if (count($myfed->getAttributes("fed:openroaming")) > 0) {
