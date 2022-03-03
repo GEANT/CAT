@@ -354,6 +354,7 @@ CREATE TABLE `activity` (
   `realm` varchar(255) DEFAULT NULL,
   `operatorname` varchar(255) DEFAULT NULL,
   `mac` varchar(17) DEFAULT NULL,
+  `cui` varchar(255) DEFAULT NULL,
   `result` varchar(4) DEFAULT NULL,
   `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
