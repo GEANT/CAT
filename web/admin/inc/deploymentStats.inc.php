@@ -43,6 +43,7 @@ switch ($backlog) {
         <th scope="col"><strong><?php echo _("Timestamp (UTC)");?></strong></th>
         <th scope="col"><strong><?php echo _("Realm");?></strong></th>
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
+        <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
     </tr>
     <?php
@@ -53,6 +54,7 @@ switch ($backlog) {
                 // $oneRecord['CN'] is a simple string, not an array, so disable Scrutinizer type check here
                 . "<td>".$oneRecord['realm']."</td>"
                 . "<td>".$oneRecord['mac']."</td>"
+                . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                 . "</tr>";
     }
