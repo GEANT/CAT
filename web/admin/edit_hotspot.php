@@ -154,6 +154,16 @@ if (isset($_POST['submitbutton'])) {
                 throw new Exception("Unknown button action requested!");
         }
     }
+    if (isset($_POST['command'])) {
+        switch ($_POST['command']) {
+        case web\lib\common\FormElements::BUTTON_CLOSE:
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            exit(0);
+        default:
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            exit(0);
+        }
+    }
     $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
     $opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
 
