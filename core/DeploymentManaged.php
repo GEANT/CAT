@@ -221,13 +221,15 @@ class DeploymentManaged extends AbstractDeployment
                 $this->consortium = $iterator->consortium;
             }
         }
-        $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_1'");
+        $server1 = $this->radius_instance_1;
+        $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server1);
         while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server1details)) {
             $this->host1_v4 = $iterator2->radius_ip4;
             $this->host1_v6 = $iterator2->radius_ip6;
             $this->radius_hostname_1 = $iterator2->mgmt_hostname;
         }
-        $server2details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_2'");
+        $server2 = $this->radius_instance_2;
+        $server2details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server2);
         while ($iterator3 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server2details)) {
             $this->host2_v4 = $iterator3->radius_ip4;
             $this->host2_v6 = $iterator3->radius_ip6;
@@ -266,7 +268,8 @@ class DeploymentManaged extends AbstractDeployment
         // find a server near him (list of all servers with capacity, ordered by distance)
         // first, if there is a pool of servers specifically for this federation, prefer it
         // only check the consortium pool group we want to attach to
-        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = '$federation' AND consortium = '$this->consortium'");
+        $cons = $this->consortium;
+        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = ? AND consortium = ?", "ss", $federation, $cons);
 
         $serverCandidates = [];
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
@@ -275,8 +278,9 @@ class DeploymentManaged extends AbstractDeployment
                 // half the amount of IP stacks means half the amount of FDs in use, so we can take twice as many
                 $maxSupportedClients = $maxSupportedClients * 2;
             }
-            $clientCount1 = $this->databaseHandle->exec("SELECT port_instance_1 AS tenants1 FROM deployment WHERE radius_instance_1 = '$iterator->server_id'");
-            $clientCount2 = $this->databaseHandle->exec("SELECT port_instance_2 AS tenants2 FROM deployment WHERE radius_instance_2 = '$iterator->server_id'");
+            $serverId = $iterator->server_id;
+            $clientCount1 = $this->databaseHandle->exec("SELECT port_instance_1 AS tenants1 FROM deployment WHERE radius_instance_1 = ?", "s", $serverId);
+            $clientCount2 = $this->databaseHandle->exec("SELECT port_instance_2 AS tenants2 FROM deployment WHERE radius_instance_2 = ?", "s", $serverId);
 
             $clients = $clientCount1->num_rows + $clientCount2->num_rows;
             if (in_array($iterator->server_id, $blacklistedServers)) {
@@ -323,7 +327,7 @@ class DeploymentManaged extends AbstractDeployment
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
             $portCandidate = random_int(1200, 65535);
-            $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = '" . $ourserver . "' AND port_instance_1 = $portCandidate");
+            $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = ? AND port_instance_1 = ?", "si", $ourserver, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort1 = $portCandidate;
             }
@@ -332,14 +336,16 @@ class DeploymentManaged extends AbstractDeployment
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
             $portCandidate = random_int(1200, 65535);
-            $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = '" . $ourSecondServer . "' AND port_instance_2 = $portCandidate");
+            $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = ? AND port_instance_2 = ?", "si", $ourSecondServer, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort2 = $portCandidate;
             }
         }
         // and make up a shared secret that is halfways readable
         $futureSecret = $this->randomString(16, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = '" . $ourserver . "', radius_instance_2 = '" . $ourSecondServer . "', port_instance_1 = $foundFreePort1, port_instance_2 = $foundFreePort2, secret = '$futureSecret', consortium = '$this->consortium' WHERE deployment_id = $this->identifier");
+        $cons = $this->consortium;
+        $id = $this->identifier;
+        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = ?, radius_instance_2 = ?, port_instance_1 = ?, port_instance_2 = ?, secret = ?, consortium = ? WHERE deployment_id = ?", "ssiissi", $ourserver, $ourSecondServer, $foundFreePort1, $foundFreePort2, $futureSecret, $cons, $id);
         return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer];
     }
 
@@ -350,7 +356,8 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function updateFreshness()
     {
-        $this->databaseHandle->exec("UPDATE deployment SET last_change = CURRENT_TIMESTAMP WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $this->databaseHandle->exec("UPDATE deployment SET last_change = CURRENT_TIMESTAMP WHERE deployment_id = ?", "i", $id);
     }
 
     /**
@@ -360,7 +367,8 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function getFreshness()
     {
-        $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM deployment WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM deployment WHERE deployment_id = ?", "i", $id);
         // SELECT always returns a resource, never a boolean
         if ($freshnessQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execLastChange)) {
             return $freshnessQuery->last_change;
@@ -374,8 +382,9 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function destroy()
     {
-        $this->databaseHandle->exec("DELETE FROM deployment_option WHERE deployment_id = $this->identifier");
-        $this->databaseHandle->exec("DELETE FROM deployment WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $this->databaseHandle->exec("DELETE FROM deployment_option WHERE deployment_id = ?", "i", $id);
+        $this->databaseHandle->exec("DELETE FROM deployment WHERE deployment_id = ?", "i", $id);
     }
 
     /**
@@ -386,7 +395,9 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function deactivate()
     {
-        $this->databaseHandle->exec("UPDATE deployment SET status = " . DeploymentManaged::INACTIVE . " WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $inactive = DeploymentManaged::INACTIVE;
+        $this->databaseHandle->exec("UPDATE deployment SET status = ? WHERE deployment_id = ?", "ii", $inactive, $id);
     }
 
     /**
@@ -397,7 +408,9 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function activate()
     {
-        $this->databaseHandle->exec("UPDATE deployment SET status = " . DeploymentManaged::ACTIVE . " WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $active = DeploymentManaged::ACTIVE;
+        $this->databaseHandle->exec("UPDATE deployment SET status = ? WHERE deployment_id = ?", "ii", $active, $id);
     }
 
     /**
@@ -421,7 +434,7 @@ class DeploymentManaged extends AbstractDeployment
      * @param  string  $post string to POST 
      * @return string  OK or FAILURE
      */
-    private function sendToRADIUS($idx, $post)
+    private function sendToRADIUS(int $idx, $post)
     {
 
         $hostname = "radius_hostname_$idx";
@@ -447,7 +460,9 @@ class DeploymentManaged extends AbstractDeployment
             $this->loggerInstance->debug(1, $this);
         }
         $this->loggerInstance->debug(1, "Database update");
-        $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($res == 'OK' ? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
+        $id = $this->identifier;
+        $resValue = ($res == 'OK' ? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE);
+        $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = ? WHERE deployment_id = ?", "ii", $resValue, $id);
         return $res;
     }
 
