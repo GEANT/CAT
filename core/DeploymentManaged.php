@@ -406,7 +406,7 @@ class DeploymentManaged extends AbstractDeployment
      * 
      * @return void
      */
-    public function destroy()
+    public function remove()
     {
         $id = $this->identifier;
         $this->databaseHandle->exec("DELETE FROM deployment_option WHERE deployment_id = ?", "i", $id);
@@ -423,17 +423,6 @@ class DeploymentManaged extends AbstractDeployment
         $id = $this->identifier;
         $inactive = DeploymentManaged::INACTIVE;
         $this->databaseHandle->exec("UPDATE deployment SET status = ? WHERE deployment_id = ?", "ii", $inactive, $id);
-    }
-
-    /**
-     * removes the deployment.
-     * 
-     * @return void
-     */
-    public function remove()
-    {
-        $this->databaseHandle->exec("DELETE from deployment WHERE deployment_id = $this->identifier");
-        $this->databaseHandle->exec("DELETE from deployment_option WHERE deployment_id = $this->identifier");
     }
     
     /**
