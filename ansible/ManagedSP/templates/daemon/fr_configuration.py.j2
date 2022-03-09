@@ -130,7 +130,6 @@ def make_conf(data):
             return False
     move(TEMP_DIR + 'site_' + str(_port),
          FR_SITES_A + 'site_' + str(_port))
-    _pwd = os.getcwd()
     try:
         if not os.path.islink(FR_SITES_E + 'site_' + str(_port)):
             os.chdir(FR_SITES_E)
