@@ -388,8 +388,7 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
-     * deactivates the deployment.
-     * TODO: needs to call the RADIUS server reconfiguration routines...
+     * marks the deployment as deactivated 
      * 
      * @return void
      */
@@ -401,8 +400,7 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
-     * activates the deployment.
-     * TODO: needs to call the RADIUS server reconfiguration routines...
+     * marks the deployment as activated
      * 
      * @return void
      */
