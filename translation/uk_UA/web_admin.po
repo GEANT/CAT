@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Iryna Rykhalska <irina@uran.ua>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-02 08:26+0100\n"
-"PO-Revision-Date: 2011-10-27 10:29+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"PO-Revision-Date: 2022-02-15 17:14+0000\n"
+"Last-Translator: Transifex Bot <>\n"
 "Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/eduroam_devel/"
 "cat/language/uk_UA/)\n"
 "Language: uk_UA\n"
@@ -21,41 +22,66 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: web/admin/action_enrollment.php:52 web/admin/action_enrollment.php:78
-#: web/admin/action_enrollment.php:79
+#: web/admin/action_enrollment.php:44 web/admin/action_enrollment.php:48
+#: web/admin/action_enrollment.php:63 web/admin/action_enrollment.php:64
 msgid "Error creating new IdP binding!"
-msgstr ""
+msgstr "Помилка створення нової прив'язки IdP!"
 
-#: web/admin/action_enrollment.php:59
+#: web/admin/action_enrollment.php:44
 msgid "This page needs to be called with a valid invitation token!"
-msgstr ""
+msgstr "Цю сторінку потрібно викликати з дійсним маркером запрошення!"
 
-#: web/admin/action_enrollment.php:63
+#: web/admin/action_enrollment.php:48
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
 msgstr ""
+"Ви намагалися зареєструватися самостійно, але це впровадження не дозволяє "
+"самообслуговування!"
 
-#: web/admin/action_enrollment.php:82
+#: web/admin/action_enrollment.php:67
 #, php-format
 msgid ""
 "Sorry... this token has already been used. The %s is already created. If you "
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
+"Вибачте ... цей маркер вже використано. Вже %sстворено. Якщо ви отримали "
+"запрошення зі списку розсилки, можливо, хтось використовував його до вас."
 
-#: web/admin/action_enrollment.php:85
+#: web/admin/action_enrollment.php:70
 #, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
+"Вибачте ... термін дії цього маркера закінчився. Маркери запрошення дійсні "
+"протягом 24 годин. %sАдміністратор може створити для вас новий."
 
-#: web/admin/action_enrollment.php:88
+#: web/admin/action_enrollment.php:73
 msgid ""
 "Sorry... you have come to the enrollment page without a valid token. Are you "
 "a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
+msgstr ""
+"Вибачте ... Ви перейшли на сторінку реєстрації без дійсного маркера. Ви "
+"небезпечна людина? Якщо ні, замість цього перейдіть на сторінку свого "
+"профілю."
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/action_generate_zone.php:41
+#, php-format
+msgid "%s: RADIUS/TLS superglue zone management"
+msgstr ""
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/action_generate_zone.php:56
+msgid "DNS NAPTR certificate management"
+msgstr ""
+
+#: web/admin/action_generate_zone.php:66
+msgid ""
+"You do not have the necessary privileges to request NAPTR superglue zones."
 msgstr ""
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
@@ -63,170 +89,244 @@ msgstr ""
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: Управління сертифікатами RADIUS / TLS для%s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Управління сертифікатами RADIUS / TLS для %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "У вас немає необхідних привілеїв для запиту сертифікатів сервера."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Запит на сертифікат із такими властивостями"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "Політика OIDs:"
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Спеціальне ім'я:"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Контактні дані запитувача: надходитимуть з eduroam DB (за допомогою заглушки "
+"„Хтось, & lt; someone@somewhere.xy&gt; ')"
 
 #: web/admin/action_req_certificate.php:127
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Сертифікат був затребуваний."
 
 #: web/admin/action_req_certificate.php:130
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Повернутися до огляду сертифіката"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
 #: web/admin/action_req_certificate.php:139
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Деталі власника сертифіката"
 
 #: web/admin/action_req_certificate.php:141
 #: web/admin/action_req_certificate.php:162
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Сертифікат на %sучасть"
 
 #: web/admin/action_req_certificate.php:150
 #: web/admin/action_req_certificate.php:164
 msgid "---PLEASE CHOOSE---"
-msgstr ""
+msgstr "---БУДЬ-ЛАСКА ОБЕРІТЬ---"
 
 #: web/admin/action_req_certificate.php:179
 msgid "2. CSR generation"
-msgstr ""
+msgstr "2. Генерація CSR "
 
 #: web/admin/action_req_certificate.php:180
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
+"Один із способів згенерувати прийнятний запит сертифіката - через цей "
+"openssl one-liner:"
 
 #: web/admin/action_req_certificate.php:182
 msgid "3. Submission"
-msgstr ""
+msgstr "3. Подання"
 
 #: web/admin/action_req_certificate.php:183
 msgid "Please paste your CSR here:"
-msgstr ""
+msgstr "Будь ласка, вставте ваш CSR сюди:"
 
 #: web/admin/action_req_certificate.php:184
 msgid "Send request"
-msgstr ""
+msgstr "Відправити запит"
 
 #: web/admin/action_req_certificate.php:187
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Повернутися до оглядової сторінки"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/edit_federation.php:45
+#: web/admin/edit_federation.php:45 web/admin/edit_participant.php:44
 #, php-format
 msgid "%s: Editing %s '%s'"
-msgstr ""
+msgstr "%s:Редагування%s '%s'"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/edit_federation.php:60
+#: web/admin/edit_federation.php:60 web/admin/edit_participant.php:78
 #, php-format
 msgid "Editing %s information for '%s'"
-msgstr ""
+msgstr "Редагування %sінформації для '%s'"
 
-#: web/admin/edit_federation.php:64 web/admin/edit_federation.php:79
+#: web/admin/edit_federation.php:64 web/admin/edit_federation.php:85
 #, php-format
 msgid "%s Properties"
+msgstr "%s Властивості"
+
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:189
+#: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
+#: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
+#: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
+msgid "Property Type"
 msgstr ""
 
-#: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:228
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:190
+#: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
+#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
+#: web/admin/overview_user.php:57
+msgid "Language if applicable"
+msgstr ""
+
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:191
+#: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
+#: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
+#: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
+msgid "Property Value"
+msgstr ""
+
+#: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
+#: web/lib/admin/UIElements.php:248
 msgid "Country:"
-msgstr ""
+msgstr "Країна:"
 
-#: web/admin/edit_federation.php:84 web/admin/edit_idp.php:119
-#: web/admin/edit_idp.php:175 web/admin/edit_idp.php:200
-#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:484
-#: web/admin/edit_user.php:56 web/admin/inc/toggleRedirect.inc.php:134
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:224
+#: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
+#: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
+#: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
+#: web/admin/inc/toggleRedirect.inc.php:134
 msgid "Add new option"
-msgstr ""
+msgstr "Додати новий параметр"
 
-#: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:491 web/admin/edit_user.php:61
-#: web/admin/inc/toggleRedirect.inc.php:137
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:228
+#: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
+#: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
-msgstr ""
+msgstr "Зберегти дані"
 
-#: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:491 web/admin/edit_user.php:64
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:228
+#: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
+#: web/admin/edit_user.php:71
 msgid "Discard changes"
-msgstr ""
+msgstr "Скасувати зміни"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:39
 #, php-format
 msgid "%s: %s Customisation (submission completed)"
-msgstr ""
+msgstr "%s: %s Налаштування (подання завершено)"
 
-#: web/admin/edit_federation_result.php:43
+#: web/admin/edit_federation_result.php:49
 #, php-format
 msgid "Submitted attributes for %s '%s'"
-msgstr ""
+msgstr "Представлені атрибути для %s  '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:175
-#: web/admin/edit_profile_result.php:258
+#: web/admin/edit_federation_result.php:61
+#: web/admin/edit_participant_result.php:169
+#: web/admin/edit_profile_result.php:347
 msgid "Continue to dashboard"
-msgstr ""
+msgstr "Перейдіть до інформаційної панелі"
 
-#: web/admin/edit_idp.php:42
+#. terms of use popup, going interactive
+#: web/admin/edit_hotspot.php:58
 #, php-format
-msgid "%s: IdP enrollment wizard (step 2)"
+msgid "%s: %s Terms of Use"
 msgstr ""
 
-#: web/admin/edit_idp.php:44
+#: web/admin/edit_hotspot.php:68
+msgid "Terms of Use Acceptance"
+msgstr ""
+
+#. Appending terms of use popup
+#: web/admin/edit_hotspot.php:76 web/admin/edit_silverbullet.php:695
 #, php-format
-msgid "%s: Editing IdP '%s'"
-msgstr ""
+msgid "%s - Terms of Use"
+msgstr "%s - - Умови користування"
 
-#: web/admin/edit_idp.php:76
-msgid "Step 2: General Information about your IdP"
-msgstr ""
+#: web/admin/edit_hotspot.php:83 web/admin/edit_silverbullet.php:702
+msgid "I have read and agree to the terms."
+msgstr "Я прочитав  та погоджуюсь з умовами."
 
-#: web/admin/edit_idp.php:78
+#: web/admin/edit_hotspot.php:85 web/admin/edit_silverbullet.php:704
+msgid "Continue"
+msgstr "Продовжити"
+
+#: web/admin/edit_hotspot.php:86 web/admin/edit_silverbullet.php:705
+msgid "Abort"
+msgstr "Перервати"
+
+#: web/admin/edit_hotspot.php:154
 #, php-format
-msgid "Editing IdP information for '%s'"
+msgid "%s: Enrollment Wizard (Step 3)"
 msgstr ""
 
-#: web/admin/edit_idp.php:83
+#: web/admin/edit_hotspot.php:167
+#, php-format
+msgid "Editing %s deployment"
+msgstr ""
+
+#: web/admin/edit_hotspot.php:181
+msgid "Options for this deployment"
+msgstr ""
+
+#: web/admin/edit_hotspot.php:197
+msgid "Custom Operator-Name:"
+msgstr ""
+
+#: web/admin/edit_hotspot.php:208
+#, php-format
+msgid "VLAN tag for own users%s:"
+msgstr ""
+
+#: web/admin/edit_hotspot.php:208
+msgid "(unset with '0')"
+msgstr ""
+
+#: web/admin/edit_participant.php:42
+#, php-format
+msgid "%s: %s enrollment wizard (step 2)"
+msgstr ""
+
+#: web/admin/edit_participant.php:76
+#, php-format
+msgid "Step 2: General Information about your %s"
+msgstr ""
+
+#: web/admin/edit_participant.php:83
 #, php-format
 msgid "%s general properties"
-msgstr ""
+msgstr "%sзагальні властивості"
 
-#: web/admin/edit_idp.php:102
+#: web/admin/edit_participant.php:110
 #, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
@@ -234,27 +334,39 @@ msgid ""
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
+"Привіт, новачок. %sНовачок для нас. Цей майстер задасть Вам кілька запитань, "
+"щоб врешті-решт ми змогли згенерувати для Вас гарні профілі. Вся інформація "
+"нижче є необов'язковою, але важливо заповнити якомога більше полів на благо "
+"ваших кінцевих користувачів."
 
-#: web/admin/edit_idp.php:107
+#: web/admin/edit_participant.php:115
 msgid "General Information"
-msgstr ""
+msgstr "Загальна інформація"
 
-#: web/admin/edit_idp.php:111
+#: web/admin/edit_participant.php:119
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
+"Деякі властивості дійсні для всіх профілів розгортання. Тут ви можете "
+"докладно описати ці властивості. Запрошена інформація використовується "
+"наступним чином:"
 
-#: web/admin/edit_idp.php:113
+#: web/admin/edit_participant.php:121
 msgid ""
 "<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
+"<strong>Логотип</strong>: Коли ви надасте логотип, ми вбудуємо цей логотип у "
+"всі інсталятори, де можливий власний логотип. Ми приймаємо будь-який формат "
+"зображення, але для найкращих результатів ми пропонуємо SVG. Якщо ви не "
+"завантажите логотип, ми замість нього використаємо загальний логотип (див. "
+"Верхній правий кут цієї сторінки)."
 
-#: web/admin/edit_idp.php:114
+#: web/admin/edit_participant.php:122
 #, php-format
 msgid ""
 "<strong>Name</strong>: The %s may have names in multiple languages. It is "
@@ -262,93 +374,99 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
+"<strong>Ім'я</strong>: %sМоже мати імена на декількох мовах. Рекомендується "
+"завжди заповнювати, принаймні, \"за замовчуванням /інша\" мову, так як це "
+"використовується як запасний варіант, якщо система не має імені на тій мові, "
+"на якій користувач потребує завантаження."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:262
 msgid "Media Properties"
-msgstr ""
+msgstr "Властивості мультимедіа"
 
-#: web/admin/edit_idp.php:129
+#: web/admin/edit_participant.php:138
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
 msgstr ""
+"У цьому розділі ви визначаєте, яке медійне оточення %s має бути налагоджене "
+"на призначених для користувача пристроях."
 
-#: web/admin/edit_idp.php:132
+#: web/admin/edit_participant.php:141
 msgid "Additional SSIDs:"
-msgstr ""
+msgstr "Додаткові ідентифікатори SSID:"
 
-#: web/admin/edit_idp.php:132
+#: web/admin/edit_participant.php:141
 msgid "SSIDs:"
-msgstr ""
+msgstr "SSIDs:"
 
-#: web/admin/edit_idp.php:139
+#: web/admin/edit_participant.php:148
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Ми завжди будемо конфігурувати ці SSID для WPA2 / AES:%s."
+msgstr[1] "Ми завжди будемо конфігурувати ці SSID для WPA2 / AES:%s."
+msgstr[2] "Ми завжди будемо конфігурувати ці SSID для WPA2 / AES:%s."
+msgstr[3] "Ми завжди будемо конфігурувати ці SSID для WPA2 / AES:%s."
 
-#: web/admin/edit_idp.php:141
-msgid ""
-"They will also be configured for WPA/TKIP if the device supports multiple "
-"encryption types."
-msgstr ""
-
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_participant.php:149
 #, php-format
 msgid ""
-"It is also possible to define custom additional SSIDs with the options '%s' "
-"and '%s' below."
+"It is also possible to define custom additional SSIDs with the option '%s' "
+"below."
 msgstr ""
 
-#: web/admin/edit_idp.php:145
+#: web/admin/edit_participant.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr ""
+"Будь ласка, налаштуйте, які SSID повинні бути зконфігуровані в інсталяторах."
 
-#: web/admin/edit_idp.php:147
+#: web/admin/edit_participant.php:153
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
+"За замовчуванням ми будемо налаштовувати SSID тільки за допомогою WPA2/AES "
+"шифрування. Використовуючи опцію '(з WPA / TKIP)', ви можете вказати, що ми "
+"повинні включати підтримку WPA /TKIP там, де це можливо."
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_participant.php:157
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Додаткові Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_participant.php:157
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:158
+#: web/admin/edit_participant.php:164
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Ми завжди будемо налаштовувати такі OI консорціуму:%s."
+msgstr[1] "Ми завжди будемо налаштовувати такі OI консорціуму:%s."
+msgstr[2] "Ми завжди будемо налаштовувати такі OI консорціуму:%s."
+msgstr[3] "Ми завжди будемо налаштовувати такі OI консорціуму:%s."
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_participant.php:166
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
 msgstr ""
+"Також можна визначити спеціальні додаткові OI за допомогою опції `%s` нижче."
 
-#: web/admin/edit_idp.php:162
+#: web/admin/edit_participant.php:168
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
+"Будь ласка, налаштуйте, які OI консорціумb слід налаштувати в інсталяторах."
 
-#: web/admin/edit_idp.php:165
+#: web/admin/edit_participant.php:171
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "Підтримка дротового IEEE 802.1X:"
 
-#: web/admin/edit_idp.php:166
+#: web/admin/edit_participant.php:172
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
 "wired ethernet, please check the corresponding box. Note that this makes the "
@@ -356,36 +474,52 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
+"Якщо ви хочете налаштувати пристрої своїх користувачів за допомогою IEEE "
+"802.1X з підтримкою дротового Ethernet, встановіть відповідний прапорець. "
+"Зверніть увагу, що це ускладнює процес встановлення на деяких платформах "
+"(Windows: потрібні права адміністратора; Apple: спроба встановити профіль з "
+"дротовою підтримкою на пристрій без активної дротової картки Ethernet не "
+"вдасться)."
 
-#: web/admin/edit_idp.php:168
+#: web/admin/edit_participant.php:174
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "Видалення SSID-ідентифікаторів завантажений/прийнятий:"
 
-#: web/admin/edit_idp.php:169
+#: web/admin/edit_participant.php:175
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
+"Якщо ви використовуєте неформальний портал для розповсюдження конфігурацій, "
+"можливо, вам доведеться скасувати / вимкнути цей SSID після процесу "
+"завантаження. За допомогою цієї опції SSID буде або видалено, або визначено "
+"як \"Підключати лише вручну\"."
 
-#: web/admin/edit_idp.php:178
+#: web/admin/edit_participant.php:187
 msgid "Helpdesk Details for all users"
-msgstr ""
+msgstr "Деталі довідкової служби для всіх користувачів"
 
-#: web/admin/edit_idp.php:181
+#: web/admin/edit_participant.php:190
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
 msgstr ""
+"Цей розділ можна використовувати для завантаження конкретних Умов "
+"використання для ваших користувачів та для відображення детальної інформації "
+"про те, як ваші користувачі можуть зв’язатися з вашою місцевою службою "
+"підтримки."
 
-#: web/admin/edit_idp.php:186
+#: web/admin/edit_participant.php:194
 #, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
+"Чи надаєте Ви службу підтримки своїм користувачам? Якщо так, було б "
+"непогано, якщо б ви повідомили нам орієнтири до цієї довідкової служби."
 
-#: web/admin/edit_idp.php:188
+#: web/admin/edit_participant.php:196
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -393,44 +527,65 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
+"Якщо ви введете тут значення, воно буде додано до установників для всіх "
+"ваших користувачів і відображатиметься на сторінці завантаження. Якщо ви "
+"працюєте з окремими довідковими службами для різних груп користувачів (ми "
+"називаємо це \"профілі\"), вкажіть пізніше в цьому майстрі налаштування "
+"інформацію довідкової служби для кожного профілю. Якщо у вас взагалі немає "
+"служби довідки, просто залиште ці поля порожніми."
 
-#: web/admin/edit_idp.php:190
+#: web/admin/edit_participant.php:198
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
 msgstr ""
+"Для %sрозгортання потрібно надати принаймні місцевий контакт електронною "
+"поштою."
 
-#: web/admin/edit_idp.php:190 web/admin/edit_idp.php:193
-msgid "This is the contact point for your end users' level 1 support."
+#: web/admin/edit_participant.php:198
+msgid ""
+"This is the contact point for your organisation. It may be displayed "
+"publicly."
 msgstr ""
 
-#: web/admin/edit_idp.php:193
+#: web/admin/edit_participant.php:201
 msgid "Providing at least a local support e-mail contact is required."
 msgstr ""
+"Потрібно вказати принаймні місцевий контакт служби підтримки по  електронній "
+"пошті "
 
-#: web/admin/edit_idp.php:203
+#: web/admin/edit_participant.php:201
+msgid "This is the contact point for your end users' level 1 support."
+msgstr "Це контактна точка для підтримки кінцевих користувачів рівня 1."
+
+#: web/admin/edit_participant.php:210
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
-msgstr ""
+msgstr "Якщо ви впевнені, що все правильно, натисніть %sПродовжити ...%s"
 
 #. send a notification/alert mail to someone we know is in charge
-#: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
+#: web/admin/edit_participant_result.php:36
+#: web/admin/edit_profile_result.php:233
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "Всім, кого це може стосуватися"
 
-#: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
+#: web/admin/edit_participant_result.php:37
+#: web/admin/edit_profile_result.php:248
 msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"Цей лист є лише перехресною перевіркою, оскільки ці зміни можуть стосуватися "
+"безпеки. Якщо зміни очікувались, не потрібно вживати жодних дій."
 
-#: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
+#: web/admin/edit_participant_result.php:38
+#: web/admin/edit_profile_result.php:249
 msgid "Greetings, "
-msgstr ""
+msgstr "Вітаємо,"
 
-#: web/admin/edit_idp_result.php:61
+#: web/admin/edit_participant_result.php:56
 #, php-format
 msgid ""
 "the %s %s / %s / (previously known as) '%s' has deleted all properties and "
@@ -438,208 +593,259 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"%s %s /%s/ (раніше відомий як) '%s' видалив усі властивості та починає "
+"спочатку. Це означає, що його більше не можна впізнати за іменем, і в "
+"майбутньому він може прийняти інше ім’я. Ви отримаєте інший лист, якщо "
+"відбудеться зміна імен"
 
-#: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
-#: web/admin/edit_profile_result.php:249
+#: web/admin/edit_participant_result.php:61
+#: web/admin/edit_participant_result.php:106
+#: web/admin/edit_profile_result.php:254
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: Суттєві зміни, внесені в %s"
 
-#: web/admin/edit_idp_result.php:73
+#: web/admin/edit_participant_result.php:68
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr ""
+msgstr "%s: Майстер реєстрації IdP (крок 2 завершений)"
 
-#: web/admin/edit_idp_result.php:80
+#: web/admin/edit_participant_result.php:75
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
-msgstr ""
+msgstr "Представлені атрибути для IdP '%s'"
 
 #. send a notification/alert mail to someone we know is in charge
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
-#: web/admin/edit_idp_result.php:101
+#: web/admin/edit_participant_result.php:96
 #, php-format
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
-msgstr ""
+msgstr "були внесені суттєві зміни в %s%s/%s / (раніше відомий як) '%s'."
 
-#: web/admin/edit_idp_result.php:103
+#: web/admin/edit_participant_result.php:98
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%s змінив своє ім'я. Детальніше нижче:"
 
-#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
-msgid "(WPA2/AES and WPA/TKIP)"
-msgstr ""
-
-#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:128
+#: web/admin/edit_participant_result.php:115
+#: web/admin/edit_participant_result.php:120
 msgid "(WPA2/AES)"
-msgstr ""
+msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:138
+#: web/admin/edit_participant_result.php:130
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
-msgstr ""
+msgstr "Ваші інсталятори налаштують такі SSID:<strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:138
+#: web/admin/edit_participant_result.php:130
 msgid "SSIDs configured"
-msgstr ""
+msgstr " SSID налаштовані"
 
-#: web/admin/edit_idp_result.php:142
+#: web/admin/edit_participant_result.php:134
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr ""
+msgstr "Ваші інсталятори налаштують дротові інтерфейси."
 
-#: web/admin/edit_idp_result.php:142
+#: web/admin/edit_participant_result.php:134
 msgid "Wired configured"
-msgstr ""
+msgstr "Дротове налаштування виконане"
 
-#: web/admin/edit_idp_result.php:145
+#: web/admin/edit_participant_result.php:137
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
+"Ми не можемо створити інсталятори, оскільки ні бездротові SSID, ні дротові "
+"інтерфейси не вибрані в якості мети налаштування!"
 
-#: web/admin/edit_idp_result.php:164
+#: web/admin/edit_participant_result.php:157
 #, php-format
 msgid "Continue to %s properties"
-msgstr ""
+msgstr "Продовжуйте до %sвластивостей"
 
-#: web/admin/edit_idp_result.php:167
+#: web/admin/edit_participant_result.php:160
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
+"Ви не подали електронну адресу. Це потрібно для %s. Перейдіть на "
+"%sінформаційну панель та відредагуйте налаштування довідкової служби, щоб "
+"включити електронну адресу довідкової служби."
 
-#: web/admin/edit_idp_result.php:167
+#: web/admin/edit_participant_result.php:160
 msgid "No support e-mail!"
-msgstr ""
+msgstr "Немає електронної пошти підтримки!"
 
-#: web/admin/edit_idp_result.php:172
+#: web/admin/edit_participant_result.php:165
 msgid "Continue to RADIUS/EAP profile definition"
-msgstr ""
+msgstr "Перейдіть до визначення профілю RADIUS/EAP"
 
-#: web/admin/edit_profile.php:36
+#: web/admin/edit_profile.php:35
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: Майстер налаштування реєстрації IdP (Крок 3)"
 
-#: web/admin/edit_profile.php:121
+#: web/admin/edit_profile.php:144
 msgid "Step 3: Defining a user group profile"
-msgstr ""
+msgstr "Крок 3: Визначення профілю групи користувачів"
 
-#: web/admin/edit_profile.php:123
+#: web/admin/edit_profile.php:146
 #, php-format
 msgid "Edit profile '%s' ..."
-msgstr ""
+msgstr "Редагувати профіль '%s' ..."
 
-#: web/admin/edit_profile.php:136
+#: web/admin/edit_profile.php:159
 msgid "General Profile properties"
-msgstr ""
+msgstr "Загальні властивості профілю"
 
-#: web/admin/edit_profile.php:140
+#: web/admin/edit_profile.php:163
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
 "page. After we are done, the wizard is finished and you will be taken to the "
 "main IdP administration page."
 msgstr ""
+"Тепер ми визначимо профіль для вашої групи (груп) користувачів. Ви можете "
+"додати стільки профілів, скільки захочете, вибравши відповідну кнопку в "
+"кінці сторінки. Після того, як ми закінчимо, майстер налаштування буде "
+"готовий, і Ви перейдете на головну сторінку адміністрування IdP."
 
-#: web/admin/edit_profile.php:143
+#: web/admin/edit_profile.php:166
 msgid "Profile Name and RADIUS realm"
-msgstr ""
+msgstr "Ім'я профілю та RADIUS область"
 
-#: web/admin/edit_profile.php:146
+#: web/admin/edit_profile.php:169
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
 msgstr ""
+"Перш за все нам потрібна назва профілю. Це відображатиметься для кінцевих "
+"користувачів, тому, можливо, ви захочете вибрати описове ім’я, наприклад "
+"„Професори”, „Студенти факультету біологічних наук” тощо."
 
-#: web/admin/edit_profile.php:147
+#: web/admin/edit_profile.php:170
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
+"За бажанням ви можете надати довший описовий текст про те, для кого "
+"призначений цей профіль. Якщо ви вказали це, воно відображатиметься на "
+"сторінці завантаження після того, як користувач вибрав ім'я профілю у списку."
 
-#: web/admin/edit_profile.php:148
+#: web/admin/edit_profile.php:171
 msgid "You can also tell us your RADIUS realm. "
-msgstr ""
+msgstr "Ви також можете повідомити нам про свою RADIUS область."
 
-#: web/admin/edit_profile.php:150
+#: web/admin/edit_profile.php:173
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
+"Це корисно, якщо ви хочете пізніше використовувати модуль перевірки "
+"неушкодженості, який перевіряє доступність вашої області в %s інфраструктурі."
 
-#: web/admin/edit_profile.php:152
+#: web/admin/edit_profile.php:175
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
+"Необхідно ввести ім'я області, якщо ви хочете підтримати анонімну зовнішню "
+"ідентифікацію (дивись нижче)."
 
-#: web/admin/edit_profile.php:165
+#: web/admin/edit_profile.php:182
+msgid "Basic Realm Information"
+msgstr ""
+
+#: web/admin/edit_profile.php:184 web/admin/edit_profile.php:192
 msgid "Realm:"
+msgstr "Область"
+
+#: web/admin/edit_profile.php:185
+msgid "Realm input field"
 msgstr ""
 
-#: web/admin/edit_profile.php:202
+#: web/admin/edit_profile.php:226
 msgid "Realm Options"
-msgstr ""
+msgstr "Властивості області"
 
-#: web/admin/edit_profile.php:206
+#: web/admin/edit_profile.php:230
 #, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
+"Деякі інсталятори підтримують функцію під назвою \"Анонімні зовнішні дані\". "
+"Якщо ви не знаєте, що це, будь ласка, прочитайте <a href='%s'>цю статтю</a>."
 
-#: web/admin/edit_profile.php:207
+#: web/admin/edit_profile.php:231
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
+"На деяких платформах інсталятори можуть запропонувати закінчення імені "
+"користувача та/або перевірити введення користувача, щоб містити суфікс "
+"області."
 
-#: web/admin/edit_profile.php:208
+#: web/admin/edit_profile.php:232
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
+"Функція перевірки області повинна знати зовнішній ідентифікатор, який "
+"насправді отримує шанс на аутентифікацію. Якщо ваш сервер RADIUS дозволяє "
+"тільки вибирати імена користувачів, корисно надати інформацію про те, яке з "
+"цих (зовнішніх) імен користувачів ми можемо використовувати для перевірки."
 
-#: web/admin/edit_profile.php:217
+#: web/admin/edit_profile.php:240
+msgid "Username Handling Options"
+msgstr ""
+
+#: web/admin/edit_profile.php:242
+msgid "Option name"
+msgstr ""
+
+#: web/admin/edit_profile.php:243
+msgid "Option checkbox"
+msgstr ""
+
+#: web/admin/edit_profile.php:246
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Обробка зовнішніх ідентифікаційних даних"
 
-#: web/admin/edit_profile.php:223
+#: web/admin/edit_profile.php:252
 msgid "Enable Anonymous Outer Identity:"
-msgstr ""
+msgstr "Увімкнути анонімну зовнішню ідентичність:"
 
-#: web/admin/edit_profile.php:241
+#: web/admin/edit_profile.php:270
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
+"Використовуйте спеціальну зовнішню ідентифікацію для перевірок області:"
 
-#: web/admin/edit_profile.php:256
+#: web/admin/edit_profile.php:285
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Обробка внутрішньої ідентифікації (ім’я користувача)"
 
-#: web/admin/edit_profile.php:262
+#: web/admin/edit_profile.php:291
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "Застосувати суфікс області в імені користувача"
 
-#: web/admin/edit_profile.php:280
+#: web/admin/edit_profile.php:309
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Застосувати точну область в імені користувача"
 
-#: web/admin/edit_profile.php:290
+#: web/admin/edit_profile.php:319
 msgid "Installer Download Location"
-msgstr ""
+msgstr "Місце завантаження інсталятора"
 
-#: web/admin/edit_profile.php:294
+#: web/admin/edit_profile.php:323
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -649,16 +855,23 @@ msgid ""
 "profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
+"CAT має область завантаження для кінцевих користувачів. Там вони, наприклад, "
+"дізнаються інформацію про підтримку, які ви ввели раніше. CAT також може "
+"негайно запропонувати програмі встановлення профілю для завантаження. Якщо "
+"ви цього не хочете, ви можете замість цього ввести місце розташування веб-"
+"сайту, куди ви хочете, щоб ваші користувачі були перенаправлені. Ви, як "
+"адміністратор, все ще можете завантажити профілі, щоб розмістити їх на цій "
+"сторінці (див. Кнопку \"Матриця сумісності\" на інформаційній панелі)."
 
-#: web/admin/edit_profile.php:300
+#: web/admin/edit_profile.php:329
 msgid "Redirect end users to own web page:"
-msgstr ""
+msgstr "Перенаправлення кінцевих користувачів на власну веб-сторінку:"
 
-#: web/admin/edit_profile.php:313
+#: web/admin/edit_profile.php:342
 msgid "Supported EAP types"
-msgstr ""
+msgstr "Типи EAP, які підтримуються"
 
-#: web/admin/edit_profile.php:316
+#: web/admin/edit_profile.php:345
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -666,44 +879,48 @@ msgid ""
 "highest priority; only if the user's device can't use that EAP type, we will "
 "use an EAP type further down in the list."
 msgstr ""
+"Тепер нам потрібно знати, які типи EAP підтримує ваш IdP. Якщо ви "
+"підтримуєте кілька типів EAP, ви можете призначити кожному типу пріоритет (1 "
+"= найвищий). Цей інструмент завжди створює автоматичний інсталятор для типу "
+"EAP з найвищим пріоритетом; лише якщо пристрій користувача не може "
+"використовувати цей тип EAP, ми будемо використовувати тип EAP нижче в "
+"списку."
 
-#: web/admin/edit_profile.php:361
-msgid "EAP options inherited from Global level:"
+#: web/admin/edit_profile.php:368
+msgid "EAP type support"
 msgstr ""
 
-#: web/admin/edit_profile.php:366
-#, php-format
-msgid "(%dx) %s"
-msgstr ""
-
-#: web/admin/edit_profile.php:394
+#: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
-msgstr ""
+msgstr "Підтримувані типи EAP для цього профілю"
 
-#: web/admin/edit_profile.php:408
+#: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
+"Використовуйте \"drag & amp; drop\", щоб позначити метод EAP і перемістити "
+"його в підтримувану (зелену) область. Розміщення пріоритетів здійснюється "
+"автоматично, залежно від того, куди ви «опустите» метод."
 
-#: web/admin/edit_profile.php:416
+#: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
-msgstr ""
+msgstr "Типи EAP, які не підтримуються"
 
-#: web/admin/edit_profile.php:469
+#: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
-msgstr ""
+msgstr "Деталі довідкової служби для цього профілю"
 
-#: web/admin/edit_profile.php:470
+#: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
-msgstr ""
+msgstr "Деталі EAP для цього профілю"
 
-#: web/admin/edit_profile.php:471
+#: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
-msgstr ""
+msgstr "Властивості мультимедіа для цього профілю"
 
-#: web/admin/edit_profile.php:479
+#: web/admin/edit_profile.php:456
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -712,56 +929,82 @@ msgid_plural ""
 "The options %s are already defined IdP-wide. If you set them here on profile "
 "level, these settings will override the IdP-wide ones."
 msgstr[0] ""
+"Параметри %sвже визначені для IdP. Якщо ви встановите їх тут на рівні "
+"профілю, ці налаштування замінять загальнодоступні."
 msgstr[1] ""
+"Параметри %sвже визначені для IdP. Якщо ви встановите їх тут на рівні "
+"профілю, ці налаштування замінять загальнодоступні."
 msgstr[2] ""
+"Параметри %sвже визначені для IdP. Якщо ви встановите їх тут на рівні "
+"профілю, ці налаштування замінять загальнодоступні."
 msgstr[3] ""
+"Параметри %sвже визначені для IdP. Якщо ви встановите їх тут на рівні "
+"профілю, ці налаштування замінять загальнодоступні."
 
-#: web/admin/edit_profile.php:489
+#: web/admin/edit_profile.php:469
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
+"Коли ви переконаєтесь, що все правильно, натисніть \"Зберегти дані\", і ви "
+"потрапите на сторінку інформаційної панелі IdP."
 
 #: web/admin/edit_profile_result.php:52
 #, php-format
+msgid "%s: Edit Profile - Result"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:56
+#, php-format
 msgid "%s: Profile wizard (step 3 completed)"
-msgstr ""
+msgstr "%s: Майстер налаштування профілю (крок 3 завершено)"
 
-#: web/admin/edit_profile_result.php:115
+#: web/admin/edit_profile_result.php:111
 msgid "Submitted attributes for this profile"
+msgstr "Визначені атрибути для цього профілю"
+
+#: web/admin/edit_profile_result.php:117 web/admin/edit_user_result.php:77
+msgid "Overall Result"
 msgstr ""
 
-#: web/admin/edit_profile_result.php:122
+#: web/admin/edit_profile_result.php:118 web/admin/edit_user_result.php:78
+msgid "Details"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:125
 #, php-format
 msgid "Realm: <strong>%s</strong>"
-msgstr ""
-
-#: web/admin/edit_profile_result.php:129
-msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
-msgstr ""
+msgstr "Область: <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:132
+msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
+msgstr ""
+"Неможливо ввімкнути анонімні зовнішні ідентифікатори: область відсутня!"
+
+#: web/admin/edit_profile_result.php:135
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
 msgstr ""
+"Підтримка анонімних ідентифікаційних даних це <strong>%s</strong>, анонімні "
+"зовнішні ідентифікаційні дані це<strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:132 web/admin/edit_profile_result.php:147
+#: web/admin/edit_profile_result.php:135 web/admin/edit_profile_result.php:150
 msgid "ON"
-msgstr ""
+msgstr "УВІМКНУТИ"
 
-#: web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:139
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
-msgstr ""
+msgstr "Підтримка анонімної ідентифікації це <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:139
 msgid "OFF"
-msgstr ""
+msgstr "ВИМКНУТИ"
 
 #. no anon outer ID, and no realm suffix verification? Bad idea!
-#: web/admin/edit_profile_result.php:138
+#: web/admin/edit_profile_result.php:141
 msgid ""
 "Without Anoymous Identity, the actual username will be used as outer "
 "identity and be the basis for request routing. For that to work, the "
@@ -771,350 +1014,431 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
-
-#: web/admin/edit_profile_result.php:144
-msgid "Realm check username cannot be configured: realm is missing!"
-msgstr ""
+"Без Анонімної ідентифікації фактичне ім’я користувача буде використовуватися "
+"як зовнішній ідентифікатор і буде основою для маршрутизації запитів. Щоб це "
+"працювало, ім’я користувача має мати правильний суфікс області. Проте "
+"перевірку суфікса області вимкнено. Запитувачі не перевірятимуть, що імена "
+"користувачів містять область, а помилки, такі як ім'я користувача \"johndoe"
+"\", яке не буде працювати в сценаріях роумінгу, не будуть заборонені. "
+"Спробуйте встановити прапорець «Застосувати суфікс області в імені "
+"користувача»!"
 
 #: web/admin/edit_profile_result.php:147
+msgid "Realm check username cannot be configured: realm is missing!"
+msgstr ""
+"Ім'я користувача для перевірки області неможливо налаштувати: область "
+"відсутня!"
+
+#: web/admin/edit_profile_result.php:150
 #, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
+"Спеціальне ім'я користувача для перевірки області - це <strong>%s</strong>, "
+"значення <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:151
+#: web/admin/edit_profile_result.php:154
 msgid "No special username for realm checks is configured."
-msgstr ""
+msgstr "Спеціальне ім'я користувача для перевірок сфери не налаштовано."
 
-#: web/admin/edit_profile_result.php:159
+#: web/admin/edit_profile_result.php:162
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "Частина області ПОВИННА бути точно \"... @\"%s."
 
-#: web/admin/edit_profile_result.php:161
+#: web/admin/edit_profile_result.php:164
 #, php-format
 msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"Частина області ПОВИННА закінчуватися на %s'', але дозволено її суб-області "
+"(тобто 'user @%s' та 'user @ <...>.' %s'обидві прийнятні)."
 
-#: web/admin/edit_profile_result.php:164
+#: web/admin/edit_profile_result.php:167
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Де це можливо, запитувачі перевірятимуть, що введені імена користувачів "
+"містять синтаксично правильну область."
 
-#: web/admin/edit_profile_result.php:173
+#: web/admin/edit_profile_result.php:176
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
+"Переадресація не може бути активована - ви не вказали місце призначення!"
 
-#: web/admin/edit_profile_result.php:175
+#: web/admin/edit_profile_result.php:178
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
 msgstr ""
+"Переадресація не може бути активована - метою повинен бути повний URL, що "
+"починається з http: // або https: //! "
 
-#: web/admin/edit_profile_result.php:187
+#: web/admin/edit_profile_result.php:190
 #, php-format
 msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
 "device-level redirect."
 msgstr ""
+"Переадресація встановлена ​​в <strong>%s</strong>, але буде проігнорована "
+"через існуючу переадресацію на рівні пристрою."
 
-#: web/admin/edit_profile_result.php:189
+#: web/admin/edit_profile_result.php:192
 #, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr ""
+msgstr "Переадресацію встановлена на <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:193
+#: web/admin/edit_profile_result.php:196
 msgid "Redirection is <strong>OFF</strong>"
-msgstr ""
+msgstr "Переадресація <strong> ВИМКНЕНА </strong>"
 
-#: web/admin/edit_profile_result.php:210
+#: web/admin/edit_profile_result.php:214
 msgid "Supported EAP Type: "
-msgstr ""
+msgstr "Тип EAP, що підтримується"
 
-#: web/admin/edit_profile_result.php:218
+#: web/admin/edit_profile_result.php:222
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
 msgstr ""
+"Тип EAP, що підтримується: <strong>%s</strong> відсутня необхідна інформація "
+"%s!"
 
-#: web/admin/edit_profile_result.php:218
+#: web/admin/edit_profile_result.php:222
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
 msgstr ""
+"Тип EAP був доданий до профілю, але вам потрібно заповнити відсутні дані, "
+"перш ніж ми зможемо створити для вас програми встановлення."
 
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
-#: web/admin/edit_profile_result.php:230
+#: web/admin/edit_profile_result.php:235
 #, php-format
 msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"значні зміни були внесені в профіль розгортання RADIUS з %s%s /%s / %s''."
 
-#: web/admin/edit_profile_result.php:232
+#: web/admin/edit_profile_result.php:237
 msgid ""
 "WARNING! A new trusted root CA was added, and it has the exact same name as "
 "a previously existing root CA. This may (but does not necessarily) mean that "
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"УВАГА! Додано новий надійний кореневий CA, і вона має точно те саме ім’я, що "
+"і раніше існуючий кореневий CA. Це може (але не обов'язково) означати, що це "
+"спроба вставити несанкціонований корінь довіри шляхом маскування під "
+"справжній. Детальніше нижче:"
 
-#: web/admin/edit_profile_result.php:236
+#: web/admin/edit_profile_result.php:241
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "Додано новий надійний кореневий CA. Детальніше нижче:"
 
-#: web/admin/edit_profile_result.php:240
+#: web/admin/edit_profile_result.php:245
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"Додано нове прийнятне ім'я сервера для сервера автентифікації. Детальніше "
+"нижче:"
 
-#: web/admin/edit_profile_result.php:263
+#: web/admin/edit_profile_result.php:267
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:288
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:300
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:324
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:327
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:335
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:339
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:352
 msgid "Continue to Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "Продовжити установку тонкого налаштування і завантаження"
 
-#: web/admin/edit_silverbullet.php:239
+#: web/admin/edit_silverbullet.php:237
 msgid "Insecure mail domain!"
-msgstr ""
+msgstr "Небезпечний поштовий домен!"
 
-#: web/admin/edit_silverbullet.php:240
+#: web/admin/edit_silverbullet.php:238
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
 msgstr ""
+"Поштовий домен поштової адреси <strong>%s</strong> не захищений: деякі або "
+"всі поштові сервери не приймають зашифрованих з'єднань (відсутність "
+"постійної підтримки STARTTLS)."
 
-#: web/admin/edit_silverbullet.php:241
+#: web/admin/edit_silverbullet.php:239
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
+"Запрошення повинно бути відправлено в Інтернеті у вигляді чіткого тексту і, "
+"можливо, може бути прочитане і використане будь-якою особою, яка перебуває "
+"на шляху доставки."
+
+#: web/admin/edit_silverbullet.php:240
+msgid "Do you want the system to send this mail anyway?"
+msgstr "Ви хочете, щоб система все одно надіслала цей лист?"
 
 #: web/admin/edit_silverbullet.php:242
-msgid "Do you want the system to send this mail anyway?"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:244
 msgid "DO NOT SEND"
-msgstr ""
+msgstr "НЕ ВІДПРАВЛЯТИ"
 
-#: web/admin/edit_silverbullet.php:251
+#: web/admin/edit_silverbullet.php:249
 msgid "Send anyway."
-msgstr ""
+msgstr "Відправити в будь-якому випадку."
 
-#: web/admin/edit_silverbullet.php:301
+#: web/admin/edit_silverbullet.php:300
 #, php-format
 msgid "Managing %s users"
-msgstr ""
+msgstr "Керування %s користувачами"
 
-#: web/admin/edit_silverbullet.php:338
+#: web/admin/edit_silverbullet.php:340
 #, php-format
 msgid "Current %s users"
-msgstr ""
+msgstr "Поточні %s користувачі"
 
-#: web/admin/edit_silverbullet.php:341
+#: web/admin/edit_silverbullet.php:349
 msgid "Assigned Realm"
-msgstr ""
+msgstr "Призначена область"
 
-#: web/admin/edit_silverbullet.php:344
+#: web/admin/edit_silverbullet.php:352
 msgid "Total number of active users allowed"
-msgstr ""
+msgstr "Дозволена загальна кількість активних користувачів"
 
-#: web/admin/edit_silverbullet.php:347
+#: web/admin/edit_silverbullet.php:355
 msgid "Number of active users"
-msgstr ""
+msgstr "Кількість активних користувачів"
 
-#: web/admin/edit_silverbullet.php:350
+#: web/admin/edit_silverbullet.php:358
 msgid "Number of inactive users"
-msgstr ""
+msgstr "Кількість неактивних користувачів"
 
-#: web/admin/edit_silverbullet.php:361
+#: web/admin/edit_silverbullet.php:369
 msgid "The e-mail was sent successfully."
-msgstr ""
+msgstr "Електронне повідомлення було успішно відправлене."
 
-#: web/admin/edit_silverbullet.php:361
+#: web/admin/edit_silverbullet.php:369
 msgid "E-mail OK."
-msgstr ""
+msgstr "Електронна пошта в порядку."
 
-#: web/admin/edit_silverbullet.php:364
+#: web/admin/edit_silverbullet.php:372
 msgid "The e-mail was NOT sent."
-msgstr ""
+msgstr "Електронне повідомлення НЕ було надіслане."
 
-#: web/admin/edit_silverbullet.php:364
+#: web/admin/edit_silverbullet.php:372
 msgid "E-mail not OK."
-msgstr ""
+msgstr "Електронна пошта не в порядку."
 
-#: web/admin/edit_silverbullet.php:367
+#: web/admin/edit_silverbullet.php:375
 msgid "The SMS was sent successfully."
-msgstr ""
+msgstr "SMS надіслане успішно."
 
-#: web/admin/edit_silverbullet.php:367
+#: web/admin/edit_silverbullet.php:375
 msgid "SMS OK."
-msgstr ""
+msgstr "SMS в порядку"
 
-#: web/admin/edit_silverbullet.php:370
+#: web/admin/edit_silverbullet.php:378
 msgid "The SMS was NOT sent."
-msgstr ""
+msgstr "SMS не надіслане."
 
-#: web/admin/edit_silverbullet.php:370
+#: web/admin/edit_silverbullet.php:378
 msgid "SMS not OK."
-msgstr ""
+msgstr "SMS не в порядку."
 
-#: web/admin/edit_silverbullet.php:373
+#: web/admin/edit_silverbullet.php:381
 msgid "Only a fragment of the SMS was sent. You should re-send it."
-msgstr ""
+msgstr "Відправлено лише фрагмент SMS. Вам слід надіслати його повторно."
 
-#: web/admin/edit_silverbullet.php:373
+#: web/admin/edit_silverbullet.php:381
 msgid "SMS Fragment."
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:380
-#, php-format
-msgid "Manage %s users"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:386 web/admin/edit_silverbullet.php:393
-#: web/admin/overview_federation.php:127
-msgid "User"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:387
-msgid "Token/Certificate details"
-msgstr ""
+msgstr "Фрагмент SMS."
 
 #: web/admin/edit_silverbullet.php:388
-msgid "User/Token Expiry"
-msgstr ""
+#, php-format
+msgid "Manage %s users"
+msgstr "Управління %s користувачами"
 
-#: web/admin/edit_silverbullet.php:389 web/admin/edit_silverbullet.php:396
-msgid "Actions"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:394
-msgid "Certificate details"
-msgstr ""
+#: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:167
+msgid "User"
+msgstr "Користувач"
 
 #: web/admin/edit_silverbullet.php:395
+msgid "Token/Certificate details"
+msgstr "Деталі Маркера/Сертифіката"
+
+#: web/admin/edit_silverbullet.php:396
+msgid "User/Token Expiry"
+msgstr "Термін дії Користувача/Маркера"
+
+#: web/admin/edit_silverbullet.php:397 web/admin/edit_silverbullet.php:404
+#: web/admin/inc/manageAdmins.inc.php:168
+msgid "Actions"
+msgstr "Дії"
+
+#: web/admin/edit_silverbullet.php:402
+msgid "Certificate details"
+msgstr "Деталі сертифікату"
+
+#: web/admin/edit_silverbullet.php:403
 msgid "User Expiry"
-msgstr ""
+msgstr "Термін дії користувача"
 
-#: web/admin/edit_silverbullet.php:436
+#: web/admin/edit_silverbullet.php:445
 msgid "REVOKED"
-msgstr ""
+msgstr "ВІДМОВЛЕНО"
 
-#: web/admin/edit_silverbullet.php:441
+#: web/admin/edit_silverbullet.php:450
 msgid "EXPIRED"
-msgstr ""
+msgstr "ПРОСТРОЧЕНИЙ"
 
-#: web/admin/edit_silverbullet.php:452
+#: web/admin/edit_silverbullet.php:461
 msgid "Device:"
-msgstr ""
+msgstr "Пристрій:"
 
-#: web/admin/edit_silverbullet.php:453
+#: web/admin/edit_silverbullet.php:462
 msgid "Serial Number:"
-msgstr ""
+msgstr "Серійний номер"
 
-#: web/admin/edit_silverbullet.php:454
+#: web/admin/edit_silverbullet.php:463
 msgid "CN:"
-msgstr ""
+msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:455
+#: web/admin/edit_silverbullet.php:464
 msgid "Expiry:"
-msgstr ""
+msgstr "Термін дії:"
 
-#: web/admin/edit_silverbullet.php:456
+#: web/admin/edit_silverbullet.php:465
 msgid "Issued:"
-msgstr ""
+msgstr "Виданий:"
 
-#: web/admin/edit_silverbullet.php:468
+#: web/admin/edit_silverbullet.php:477
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"Пристрій, про який йде мова, перестане функціонувати з %s. Відмінити не "
+"можна. Ви впевнені, що хочете це зробити?"
 
-#: web/admin/edit_silverbullet.php:469 web/admin/edit_silverbullet.php:541
+#: web/admin/edit_silverbullet.php:478 web/admin/edit_silverbullet.php:550
 msgid "Revoke"
-msgstr ""
+msgstr "Відкликати"
 
-#: web/admin/edit_silverbullet.php:493
+#: web/admin/edit_silverbullet.php:502
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(показати %dанульовані сертифікати)"
+msgstr[1] "(показати %dанульовані сертифікати)"
+msgstr[2] "(показати %dанульовані сертифікати)"
+msgstr[3] "(показати %dанульовані сертифікати)"
 
-#: web/admin/edit_silverbullet.php:496
+#: web/admin/edit_silverbullet.php:505
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(показати %dпрострочені сертифікати)"
+msgstr[1] "(показати %dпрострочені сертифікати)"
+msgstr[2] "(показати %dпрострочені сертифікати)"
+msgstr[3] "(показати %dпрострочені сертифікати)"
 
-#: web/admin/edit_silverbullet.php:510
+#: web/admin/edit_silverbullet.php:519
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
-msgstr ""
+msgstr "Маркер запрошення%s готовий до відправки! Виберіть спосіб надсилання:"
 
-#: web/admin/edit_silverbullet.php:512
+#: web/admin/edit_silverbullet.php:521
 msgid "E-Mail:"
-msgstr ""
+msgstr "Електронна пошта:"
 
-#: web/admin/edit_silverbullet.php:516
+#: web/admin/edit_silverbullet.php:525
 msgid "Local mail client"
-msgstr ""
+msgstr "Локальний поштовий клієнт"
 
-#: web/admin/edit_silverbullet.php:517
+#: web/admin/edit_silverbullet.php:526
 msgid "Send with CAT"
-msgstr ""
+msgstr "Надіслати з CAT"
 
-#: web/admin/edit_silverbullet.php:520
+#: web/admin/edit_silverbullet.php:529
 msgid "SMS:"
-msgstr ""
+msgstr "SMS:"
 
-#: web/admin/edit_silverbullet.php:524
+#: web/admin/edit_silverbullet.php:533
 msgid "Send in SMS..."
-msgstr ""
+msgstr "Надіслати в SMS ..."
 
-#: web/admin/edit_silverbullet.php:527
+#: web/admin/edit_silverbullet.php:536
 msgid "Manual:"
-msgstr ""
+msgstr "Вручну:"
 
-#: web/admin/edit_silverbullet.php:528
+#: web/admin/edit_silverbullet.php:537
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Копіювати в Буфер обміну"
 
-#: web/admin/edit_silverbullet.php:531
+#: web/admin/edit_silverbullet.php:540
 msgid "Display QR code"
-msgstr ""
+msgstr "Відображати QR-код"
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:546
 msgid "Expiry Date:"
-msgstr ""
+msgstr "Термін придатності:"
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:546
 msgid "Activations remaining:"
-msgstr ""
+msgstr "Залишилося активацій:"
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:546
 #, php-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d з %d"
 
-#: web/admin/edit_silverbullet.php:560
+#: web/admin/edit_silverbullet.php:569
 msgid "Update"
-msgstr ""
+msgstr "Оновлення"
 
-#: web/admin/edit_silverbullet.php:567
+#: web/admin/edit_silverbullet.php:576
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1122,39 +1446,43 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"Усі активні на даний момент пристрої перестануть працювати з %s. Це не може "
+"бути скасовано. Незважаючи на те, що користувач може бути повторно "
+"активований пізніше, його потрібно буде повторно забезпечити новими "
+"маркерами запрошень. Ви впевнені, що хочете це зробити?"
 
-#: web/admin/edit_silverbullet.php:576
+#: web/admin/edit_silverbullet.php:585
 msgid "Deactivate User"
-msgstr ""
+msgstr "Деактивувати користувача"
 
-#: web/admin/edit_silverbullet.php:581
+#: web/admin/edit_silverbullet.php:590
 msgid "Show Authentication Records"
-msgstr ""
+msgstr "Показати записи автентифікації"
 
 #. current user, allow sending new token
-#: web/admin/edit_silverbullet.php:586
+#: web/admin/edit_silverbullet.php:595
 msgid "New Invitation"
-msgstr ""
+msgstr "Нове запрошення"
 
-#: web/admin/edit_silverbullet.php:587
+#: web/admin/edit_silverbullet.php:596
 msgid "Activations:"
-msgstr ""
+msgstr "Активації:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
-#: web/admin/edit_silverbullet.php:594
+#: web/admin/edit_silverbullet.php:603
 msgid "Delete User"
-msgstr ""
+msgstr "Видалити користувача"
 
-#: web/admin/edit_silverbullet.php:610
+#: web/admin/edit_silverbullet.php:619
 msgid "Current Users"
-msgstr ""
+msgstr "Поточні користувачі"
 
-#: web/admin/edit_silverbullet.php:613
+#: web/admin/edit_silverbullet.php:622
 msgid "Previous Users"
-msgstr ""
+msgstr "Попередні користувачі"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:622
+#: web/admin/edit_silverbullet.php:631
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1163,642 +1491,792 @@ msgid ""
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
+"Ви повинні підтвердити, що створені облікові записи все ще дійсні протягом "
+"наступних %s днів. Якщо всі облікові записи, що вище показані як активні, "
+"дійсно все ще реальні будь ласка, поставте галочку внизу і натисніть "
+"\"Зберегти\". Якщо будь-який з облікових записів застарів, будь ласка, "
+"деактивуйте її, натиснувши відповідну кнопку перед цим."
 
-#: web/admin/edit_silverbullet.php:630
+#: web/admin/edit_silverbullet.php:639
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
-msgstr ""
+msgstr "Я підтвердив, що всі налаштовані користувачі все ще мають право на %s."
 
-#: web/admin/edit_silverbullet.php:632
+#: web/admin/edit_silverbullet.php:641
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
-#: web/admin/edit_silverbullet.php:642 web/admin/edit_silverbullet.php:657
+#: web/admin/edit_silverbullet.php:651 web/admin/edit_silverbullet.php:666
 msgid "Add new user"
-msgstr ""
+msgstr "Додати нового користувача"
 
-#: web/admin/edit_silverbullet.php:645
+#: web/admin/edit_silverbullet.php:654
 msgid "Import users from CSV file"
-msgstr ""
+msgstr "Імпортуйте користувачів із файлу CSV"
 
-#: web/admin/edit_silverbullet.php:652
+#: web/admin/edit_silverbullet.php:661
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
+"Будь ласка, введіть ім’я користувача на ваш вибір та термін дії користувача, "
+"щоб створити нового користувача:"
 
-#: web/admin/edit_silverbullet.php:666
+#: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
+"Значення, відокремлені комами, слід вказати у файлі CSV: ім’я користувача, "
+"термін дії „рррр-мм-дд”, кількість маркерів (необов’язково):"
 
-#: web/admin/edit_silverbullet.php:670
+#: web/admin/edit_silverbullet.php:679
 msgid "Import users"
-msgstr ""
+msgstr "Імпортувати користувачів"
 
-#. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:686
-#, php-format
-msgid "%s - Terms of Use"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:693
-msgid "I have read and agree to the terms."
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:695
-msgid "Continue"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:696
-msgid "Abort"
-msgstr ""
-
-#: web/admin/edit_silverbullet.php:709
+#: web/admin/edit_silverbullet.php:718
 #, php-format
 msgid "Back to %s page"
-msgstr ""
+msgstr "Повернутися до %s сторінки"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
-msgstr ""
+msgstr "Редагування атрибутів користувача"
 
 #: web/admin/edit_user.php:40
 msgid "Current User Attributes"
-msgstr ""
+msgstr "Поточні атрибути користувача"
 
-#: web/admin/edit_user.php:49
+#: web/admin/edit_user.php:55
 msgid "Your attributes"
-msgstr ""
+msgstr "Ваші атрибути"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr ""
+msgstr "Атрибути користувача - Підсумок поданих даних"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
 msgstr ""
+"Сторінку викликали з недостатньою кількістю даних. Будь ласка, повідомте про "
+"це як про помилку."
 
 #: web/admin/edit_user_result.php:38
 msgid "Submitted attributes"
+msgstr "Подані атрибути"
+
+#: web/admin/edit_user_result.php:72
+msgid "Submitted attributes for this user"
 msgstr ""
 
-#: web/admin/edit_user_result.php:81
+#: web/admin/edit_user_result.php:88
 msgid "Continue to user overview page"
-msgstr ""
+msgstr "Перейти до сторінки огляду користувачів"
 
 #. Logout failed. Tell the user to close the browser.
 #: web/admin/logout_check.php:47
 msgid "Incomplete Logout"
-msgstr ""
+msgstr "Незавершений вихід з системи"
 
 #: web/admin/logout_check.php:48
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
+"Нам не вдалося вийти з усіх ваших сеансів. Щоб бути повністю впевненим, що "
+"ви вийшли з системи, потрібно закрити веб-браузер."
 
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Інформація про сертифікат для%s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Запросити новий сертифікат"
 
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
-msgstr ""
+msgstr "%s: %s Управління"
 
-#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
+#: web/admin/overview_federation.php:47 web/admin/overview_org.php:474
 #, php-format
 msgid "%s Overview"
-msgstr ""
+msgstr "%s Огляд"
 
-#: web/admin/overview_federation.php:45 web/admin/overview_user.php:49
+#: web/admin/overview_federation.php:51 web/admin/overview_user.php:50
 msgid "Your Personal Information"
-msgstr ""
+msgstr "Ваша персональна інформація"
 
-#: web/admin/overview_federation.php:50 web/admin/overview_user.php:54
+#: web/admin/overview_federation.php:62 web/admin/overview_user.php:64
 msgid "Unique Identifier"
-msgstr ""
+msgstr "Унікальний ідентифікатор"
 
-#: web/admin/overview_federation.php:55 web/admin/overview_user.php:59
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:69
 msgid "click to display"
-msgstr ""
+msgstr "натисніть, щоб відобразити"
 
-#: web/admin/overview_federation.php:65
+#: web/admin/overview_federation.php:77
 #, php-format
 msgid "You are not a %s manager."
-msgstr ""
+msgstr "Ви не %s адміністратор"
 
-#: web/admin/overview_federation.php:76
+#: web/admin/overview_federation.php:88
 #, php-format
 msgid "%s Properties: %s"
-msgstr ""
+msgstr "%s Властивості: %s"
 
-#: web/admin/overview_federation.php:82
+#: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
-msgstr ""
-
-#: web/admin/overview_federation.php:106
-#, php-format
-msgid "%s Statistics: %s"
-msgstr ""
-
-#: web/admin/overview_federation.php:111
-msgid "IdPs Total"
-msgstr ""
-
-#: web/admin/overview_federation.php:112
-msgid "Public Download"
-msgstr ""
+msgstr "Країна"
 
 #: web/admin/overview_federation.php:124
+#, php-format
+msgid "%s Statistics: %s"
+msgstr "%s Статистика: %s"
+
+#: web/admin/overview_federation.php:129
+msgid "IdPs Total"
+msgstr "Всього IdPs"
+
+#: web/admin/overview_federation.php:130
+msgid "Public Download"
+msgstr "Загальнодоступне завантаження"
+
+#: web/admin/overview_federation.php:142
 msgid "Downloads"
-msgstr ""
+msgstr "Завантаження"
 
-#: web/admin/overview_federation.php:125
+#: web/admin/overview_federation.php:143
 msgid "Admin"
-msgstr ""
+msgstr "Адміністратор"
 
-#: web/admin/overview_federation.php:152 web/admin/inc/manageAdmins.inc.php:110
+#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:110
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Вони були надіслані з транспортною безпекою (шифруванням)."
+msgstr[1] "Вони були надіслані з транспортною безпекою (шифруванням)."
+msgstr[2] "Вони були надіслані з транспортною безпекою (шифруванням)."
+msgstr[3] "Вони були надіслані з транспортною безпекою (шифруванням)."
 
-#: web/admin/overview_federation.php:155 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:113
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Вони були надіслані чистим текстом (без шифрування)."
+msgstr[1] "Вони були надіслані чистим текстом (без шифрування)."
+msgstr[2] "Вони були надіслані чистим текстом (без шифрування)."
+msgstr[3] "Вони були надіслані чистим текстом (без шифрування)."
 
-#: web/admin/overview_federation.php:158 web/admin/inc/manageAdmins.inc.php:116
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:116
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
+"Підмножина листів була надіслана з транспортним шифруванням, решта - чистим "
+"текстом."
 
-#: web/admin/overview_federation.php:163 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:121
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Усі електронні листи із запрошеннями були успішно відправлені."
+msgstr[1] "Усі електронні листи із запрошеннями були успішно відправлені."
+msgstr[2] "Усі електронні листи із запрошеннями були успішно відправлені."
+msgstr[3] "Усі електронні листи із запрошеннями були успішно відправлені."
 
-#: web/admin/overview_federation.php:163 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:121
 msgid "Sent successfully."
-msgstr ""
+msgstr "Надіслано успішно."
 
-#: web/admin/overview_federation.php:166 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:124
 msgid "No invitation email could be sent!"
-msgstr ""
+msgstr "Жодне запрошення не може бути надіслане!"
 
-#: web/admin/overview_federation.php:166 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:124
 msgid "Sending failure!"
-msgstr ""
+msgstr "Помилка надсилання!"
 
-#: web/admin/overview_federation.php:172 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:130
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
+msgstr[1] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
+msgstr[2] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
+msgstr[3] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
 
-#: web/admin/overview_federation.php:175 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:133
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Успішні листи надіслані чистим текстом (без шифрування)."
+msgstr[1] "Успішні листи надіслані чистим текстом (без шифрування)."
+msgstr[2] "Успішні листи надіслані чистим текстом (без шифрування)."
+msgstr[3] "Успішні листи надіслані чистим текстом (без шифрування)."
 
-#: web/admin/overview_federation.php:178 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:136
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
+"Підмножина листів була надіслана з транспортним шифруванням, решта - чистим "
+"текстом."
 
-#: web/admin/overview_federation.php:183 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:141
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
+"Деякі електронні листи із запрошеннями були відправлені успішно (%sзагалом), "
+"інші не вдалося."
 
-#: web/admin/overview_federation.php:183 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:141
 msgid "Partial success."
-msgstr ""
+msgstr "Частково успішно."
 
-#: web/admin/overview_federation.php:186 web/admin/inc/manageAdmins.inc.php:144
+#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:144
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
+"Електронна адреса запрошення була неправильно сформована, запрошення не "
+"надіслано!"
 
-#: web/admin/overview_federation.php:189 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:147
 msgid "Error: unknown result code of invitation!?!"
-msgstr ""
+msgstr "Помилка: невідомий код результату запрошення!?!"
 
-#: web/admin/overview_federation.php:189 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:147
 msgid "Unknown result!"
+msgstr "Невідомий результат!"
+
+#: web/admin/overview_federation.php:221
+#, php-format
+msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
 
-#: web/admin/overview_federation.php:194
+#: web/admin/overview_federation.php:224 web/admin/overview_user.php:232
+msgid "Go!"
+msgstr "Далі!"
+
+#: web/admin/overview_federation.php:231
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
+msgstr "Потрібна допомога? Зверніться до <a href='%s'>%sпосібника</a>"
+
+#: web/admin/overview_federation.php:237
+msgid "Participant Details"
 msgstr ""
 
-#: web/admin/overview_federation.php:201
-msgid "Deployment Status"
+#: web/admin/overview_federation.php:239
+msgid "Configured / Visible / OpenRoaming"
 msgstr ""
 
-#: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:116
+#: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "%s Name"
-msgstr ""
+msgstr "%s Ім'я"
 
-#: web/admin/overview_federation.php:208
+#: web/admin/overview_federation.php:246
 #, php-format
 msgid "%s Database Sync Status"
-msgstr ""
+msgstr "%s Статус синхронізації бази даних"
 
-#: web/admin/overview_federation.php:214 web/admin/overview_user.php:117
+#: web/admin/overview_federation.php:252
 msgid "Administrator Management"
-msgstr ""
+msgstr "Управління адміністратором"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:223
+#: web/admin/overview_federation.php:261
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "Наступне %sє у вас %s %s:"
 
-#: web/admin/overview_federation.php:269
+#: web/admin/overview_federation.php:330
 msgid "Manage DB Link"
-msgstr ""
+msgstr "Керування DB посиланням"
 
-#: web/admin/overview_federation.php:275
+#: web/admin/overview_federation.php:336
 msgid "Linked"
-msgstr ""
+msgstr "Пов’язані"
 
-#: web/admin/overview_federation.php:278
+#: web/admin/overview_federation.php:339
 msgid "NOT linked"
-msgstr ""
+msgstr "НЕ пов'язані"
 
-#: web/admin/overview_federation.php:293 web/admin/overview_user.php:156
+#: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
-msgstr ""
+msgstr "Додавання / видалення адміністраторів"
 
-#: web/admin/overview_federation.php:306
+#: web/admin/overview_federation.php:367
 #, php-format
 msgid "Pending invitations in the %s:"
-msgstr ""
+msgstr "Запрошення, що очікують на розгляд %s:"
 
-#: web/admin/overview_federation.php:323
+#: web/admin/overview_federation.php:384
 msgid "Revoke Invitation"
-msgstr ""
+msgstr "Відкликати запрошення"
 
-#: web/admin/overview_federation.php:324 web/admin/inc/manageAdmins.inc.php:208
+#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:213
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(закінчується %s)"
 
-#: web/admin/overview_federation.php:343
+#: web/admin/overview_federation.php:404
 #, php-format
 msgid "Register a new %s!"
-msgstr ""
+msgstr "Зареєструйте новий %s!"
 
-#: web/admin/overview_idp.php:48
+#: web/admin/overview_installers.php:27
+msgid "Device Compatibility matrix"
+msgstr "Матриця сумісності пристроїв"
+
+#: web/admin/overview_installers.php:47
 #, php-format
-msgid "%s: IdP Dashboard"
-msgstr ""
+msgid "Device compatiblity matrix for %s of %s "
+msgstr "Матриця сумісності пристроїв для %s з %s"
 
-#: web/admin/overview_idp.php:72
+#: web/admin/overview_installers.php:52
+msgid "Device"
+msgstr "Пристрій"
+
+#: web/admin/overview_installers.php:60
+msgid "EAP-Type-specific options..."
+msgstr "Параметри типу EAP ..."
+
+#: web/admin/overview_installers.php:79
+msgid "Device-specific options..."
+msgstr "Опції для конкретного пристрою ..."
+
+#: web/admin/overview_installers.php:91
 #, php-format
-msgid "%s general settings"
+msgid "%s<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_idp.php:77
+#: web/admin/overview_installers.php:97
 #, php-format
-msgid "%s download area QR code"
+msgid "%s + OpenRoaming<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_idp.php:111
-#, php-format
-msgid "Edit general %s details"
+#: web/admin/overview_installers.php:164
+msgid "Legend:"
+msgstr "Пояснення"
+
+#: web/admin/overview_installers.php:167
+msgid "Colour"
 msgstr ""
 
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid ""
-"After deleting the %s, you can not recreate it yourself - you need a new "
-"invitation token from the %s administrator!"
+#: web/admin/overview_installers.php:167
+msgid "Meaning"
 msgstr ""
 
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid "Do you really want to delete your %s %s?"
-msgstr ""
+#: web/admin/overview_installers.php:168
+msgid "redirection is set"
+msgstr "встановлена переадресація"
 
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid "Delete %s"
-msgstr ""
+#: web/admin/overview_installers.php:169
+msgid "will be offered on download site"
+msgstr "буде запропоновано на сайті для завантаження"
 
-#: web/admin/overview_idp.php:122
-#, php-format
-msgid ""
-"This action will delete all properties of the %s and start over the "
-"configuration from scratch. Do you really want to reset all settings of the "
-"%s %s?"
-msgstr ""
+#: web/admin/overview_installers.php:170
+msgid "configured, but not preferred EAP type"
+msgstr "налаштований, але не кращий тип EAP"
 
-#: web/admin/overview_idp.php:122
-#, php-format
-msgid "Reset all %s settings"
-msgstr ""
+#: web/admin/overview_installers.php:171
+msgid "incomplete configuration"
+msgstr "неповна конфігурація"
 
-#: web/admin/overview_idp.php:132
-msgid "Available Support actions"
-msgstr ""
+#: web/admin/overview_installers.php:172
+msgid "not supported by CAT"
+msgstr "не підтримується CAT"
 
-#: web/admin/overview_idp.php:137
-msgid "Check another realm's reachability"
-msgstr ""
+#: web/admin/overview_installers.php:176
+msgid "Footnotes:"
+msgstr "Виноски:"
 
-#: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:173
-msgid "Go!"
-msgstr ""
+#: web/admin/overview_installers.php:185
+msgid "Return to dashboard"
+msgstr "Повернутися до інформаційної панелі"
 
-#. SW: APPROVED
-#: web/admin/overview_idp.php:148
-#, php-format
-msgid "Check %s server status"
-msgstr ""
-
-#. no profiles yet.
-#: web/admin/overview_idp.php:162
-#, php-format
-msgid "There are not yet any profiles for your %s."
-msgstr ""
-
-#. no profiles yet.
-#: web/admin/overview_idp.php:165
-#, php-format
-msgid "Profiles for this %s"
-msgstr ""
-
-#: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
+#: web/admin/overview_org.php:42 web/admin/overview_org.php:107
 msgid "Information needed!"
-msgstr ""
+msgstr "Потрібна інформація!"
 
-#: web/admin/overview_idp.php:196
+#: web/admin/overview_org.php:53
 #, php-format
-msgid ""
-"You can create up to %d users. Their credentials will carry the name <strong>"
-"%s</strong>."
+msgid "You can create up to %d users."
 msgstr ""
 
-#: web/admin/overview_idp.php:205
+#: web/admin/overview_org.php:53
+#, php-format
+msgid "Their credentials will carry the name <strong>%s</strong>."
+msgstr ""
+
+#: web/admin/overview_org.php:62
 msgid "Manage User Base"
-msgstr ""
+msgstr "Управління базою користувачів"
 
-#: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
-msgid "User Downloads"
-msgstr ""
-
-#: web/admin/overview_idp.php:237
-msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr ""
-
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
-msgid "OK"
-msgstr ""
-
-#: web/admin/overview_idp.php:263
-msgid "Options on EAP Method/Device level are in effect."
-msgstr ""
-
-#: web/admin/overview_idp.php:268
+#: web/admin/overview_org.php:84
 #, php-format
 msgid "Profile: %s"
-msgstr ""
+msgstr "Профіль: %s"
 
-#: web/admin/overview_idp.php:273
+#: web/admin/overview_org.php:97
+msgid "<strong>EAP Types</strong> (in order of preference):"
+msgstr "<strong>Типи EAP</strong> (у порядку уподобання):"
+
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:417
+msgid "OK"
+msgstr "OK"
+
+#: web/admin/overview_org.php:123
+msgid "Options on EAP Method/Device level are in effect."
+msgstr "Діють опції на рівні EAP Метод/Пристрій."
+
+#: web/admin/overview_org.php:133
 msgid "Option override on profile level is in effect."
-msgstr ""
+msgstr "Застосовується перевизначення опції на рівні профілю."
 
-#: web/admin/overview_idp.php:276
+#: web/admin/overview_org.php:136
 msgid "The information in this profile is incomplete."
-msgstr ""
+msgstr "Інформація в цьому профілі неповна."
 
-#: web/admin/overview_idp.php:280
+#: web/admin/overview_org.php:140
 msgid "This profile is shown on the user download interface."
-msgstr ""
+msgstr "Цей профіль відображається в інтерфейсі завантаження користувача."
 
-#: web/admin/overview_idp.php:283
+#: web/admin/overview_org.php:143
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
 msgstr ""
+"Цей профіль НЕ відображається в інтерфейсі завантаження користувача, хоча ми "
+"маємо достатньо інформації для показу. Щоб увімкнути профіль, додайте "
+"атрибут \"%s\" і поставте галочку у відповідному полі."
 
-#: web/admin/overview_idp.php:304
+#: web/admin/overview_org.php:174
 msgid "The realm can only be checked if you configure the realm!"
-msgstr ""
+msgstr "Область можна перевірити, лише якщо ви налаштуєте область!"
 
-#: web/admin/overview_idp.php:305
+#: web/admin/overview_org.php:175
 msgid "Check realm reachability"
-msgstr ""
+msgstr "Перевірте доступність області"
 
-#: web/admin/overview_idp.php:310
+#: web/admin/overview_org.php:182
 msgid "You have not fully configured any supported EAP types!"
-msgstr ""
+msgstr "Ви не в повному обсязі налаштували підтримувані типи EAP!"
 
-#: web/admin/overview_idp.php:311
+#: web/admin/overview_org.php:183
 msgid "Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "Точне налаштування і завантаження інсталятора"
 
-#: web/admin/overview_idp.php:320
+#: web/admin/overview_org.php:192
 msgid "Edit"
-msgstr ""
+msgstr "Редагувати"
 
-#: web/admin/overview_idp.php:323
+#: web/admin/overview_org.php:195
 #, php-format
 msgid "Do you really want to delete the profile %s?"
-msgstr ""
+msgstr "Ви дійсно хочете видалити профіль %s?"
 
-#: web/admin/overview_idp.php:324
+#: web/admin/overview_org.php:196
 msgid "Delete"
+msgstr "Видалити"
+
+#: web/admin/overview_org.php:245
+msgid "Successfully set profile"
 msgstr ""
 
-#: web/admin/overview_idp.php:333
-msgid "User Download Link"
+#: web/admin/overview_org.php:246
+msgid "Some problem occured during profile update"
 msgstr ""
 
-#: web/admin/overview_idp.php:379
+#: web/admin/overview_org.php:274
+msgid "inactive"
+msgstr ""
+
+#: web/admin/overview_org.php:274
+msgid "active"
+msgstr ""
+
+#: web/admin/overview_org.php:277
+msgid "Deployment Details"
+msgstr ""
+
+#: web/admin/overview_org.php:285
+msgid "Your primary RADIUS server"
+msgstr ""
+
+#: web/admin/overview_org.php:288 web/admin/overview_org.php:312
+msgid "IPv4"
+msgstr ""
+
+#: web/admin/overview_org.php:294 web/admin/overview_org.php:318
+msgid "IPv6"
+msgstr ""
+
+#: web/admin/overview_org.php:298 web/admin/overview_org.php:321
+msgid "RADIUS port number: "
+msgstr ""
+
+#: web/admin/overview_org.php:309
+msgid "Your backup RADIUS server"
+msgstr ""
+
+#: web/admin/overview_org.php:333
+msgid "RADIUS shared secret"
+msgstr ""
+
+#: web/admin/overview_org.php:339
+msgid "Custom Operator-Name"
+msgstr ""
+
+#: web/admin/overview_org.php:347
+msgid "VLAN tag for own users"
+msgstr ""
+
+#: web/admin/overview_org.php:356 web/lib/admin/UIElements.php:144
+msgid "Realm to be considered own users"
+msgstr ""
+
+#: web/admin/overview_org.php:366
+msgid "Advanced Configuration"
+msgstr ""
+
+#: web/admin/overview_org.php:370
+#, php-format
+msgid "Do you really want to deactivate the %s deployment?"
+msgstr ""
+
+#: web/admin/overview_org.php:371
+msgid "Deactivate"
+msgstr ""
+
+#: web/admin/overview_org.php:379
+msgid "Activation failure."
+msgstr ""
+
+#: web/admin/overview_org.php:382
+msgid "Activation failure for your primary RADIUS server."
+msgstr ""
+
+#: web/admin/overview_org.php:384
+msgid "Activation failure for your backup RADIUS server."
+msgstr ""
+
+#: web/admin/overview_org.php:396
+msgid "Accept Terms of Use"
+msgstr ""
+
+#: web/admin/overview_org.php:403
+msgid "Activate"
+msgstr ""
+
+#: web/admin/overview_org.php:411
+msgid "Failure during deactivation, your request is queued for handling"
+msgstr ""
+
+#: web/admin/overview_org.php:414
+msgid ""
+"Deactivation failure for your primary RADIUS server, your request is queued."
+msgstr ""
+
+#: web/admin/overview_org.php:416
+msgid ""
+"Deactivation failure for your backup RADIUS server, your request is queued."
+msgstr ""
+
+#: web/admin/overview_org.php:449
+#, php-format
+msgid "%s: %s Dashboard"
+msgstr ""
+
+#: web/admin/overview_org.php:477
+#, php-format
+msgid "%s general settings"
+msgstr "%s Загальні налаштування"
+
+#: web/admin/overview_org.php:479
+msgid "Edit ..."
+msgstr ""
+
+#: web/admin/overview_org.php:502 web/admin/overview_org.php:608
+#, php-format
+msgid "%s: %s Deployment Details"
+msgstr ""
+
+#: web/admin/overview_org.php:528
 #, php-format
 msgid "Add %s profile ..."
+msgstr "Додати %s профіль ..."
+
+#: web/admin/overview_org.php:543
+msgid "New RADIUS/EAP profile (manual setup) ..."
 msgstr ""
 
-#: web/admin/overview_idp.php:392
-msgid "Add new RADIUS/EAP profile ..."
+#: web/admin/overview_org.php:550
+msgid "New RADIUS/EAP profile (autodetect server details) ..."
 msgstr ""
 
-#: web/admin/overview_installers.php:27
-msgid "Device Compatibility matrix"
-msgstr ""
-
-#: web/admin/overview_installers.php:47
+#. no profiles yet.
+#: web/admin/overview_org.php:561
 #, php-format
-msgid "Device compatiblity matrix for %s of %s "
+msgid "There are not yet any profiles for your %s."
+msgstr "Ще немає профілів для вашого %s."
+
+#: web/admin/overview_org.php:586
+msgid "User Downloads"
+msgstr "Завантаження користувачів"
+
+#: web/admin/overview_org.php:619 web/admin/overview_org.php:631
+#, php-format
+msgid "Add %s deployment ..."
 msgstr ""
 
-#: web/admin/overview_installers.php:51
-msgid "Device"
-msgstr ""
-
-#: web/admin/overview_installers.php:59
-msgid "EAP-Type-specific options..."
-msgstr ""
-
-#: web/admin/overview_installers.php:78
-msgid "Device-specific options..."
-msgstr ""
-
-#: web/admin/overview_installers.php:90
-msgid "Download"
-msgstr ""
-
-#: web/admin/overview_installers.php:151
-msgid "Legend:"
-msgstr ""
-
-#: web/admin/overview_installers.php:153
-msgid "redirection is set"
-msgstr ""
-
-#: web/admin/overview_installers.php:154
-msgid "will be offered on download site"
-msgstr ""
-
-#: web/admin/overview_installers.php:155
-msgid "configured, but not preferred EAP type"
-msgstr ""
-
-#: web/admin/overview_installers.php:156
-msgid "incomplete configuration"
-msgstr ""
-
-#: web/admin/overview_installers.php:157
-msgid "not supported by CAT"
-msgstr ""
-
-#: web/admin/overview_installers.php:161
-msgid "Footnotes:"
-msgstr ""
-
-#: web/admin/overview_installers.php:170
-msgid "Return to dashboard"
+#. no profiles yet.
+#: web/admin/overview_org.php:645
+#, php-format
+msgid "There are not yet any known deployments for your %s."
 msgstr ""
 
 #: web/admin/overview_user.php:30
 #, php-format
 msgid "%s: User Management"
-msgstr ""
+msgstr "%s: Управління користувачами"
 
 #: web/admin/overview_user.php:46
 msgid "User Overview"
-msgstr ""
+msgstr "Огляд користувача"
 
-#: web/admin/overview_user.php:67
+#: web/admin/overview_user.php:77
 msgid "Edit User Details"
-msgstr ""
+msgstr "Редагувати дані користувача"
 
-#: web/admin/overview_user.php:71
+#: web/admin/overview_user.php:81
 #, php-format
 msgid "Click here for %s management tasks"
-msgstr ""
+msgstr "Натисніть тут для %s завдань управління"
 
-#: web/admin/overview_user.php:74
+#: web/admin/overview_user.php:84
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "Натисніть тут, щоб отримати доступ до сторінки супер адміністратора"
 
-#: web/admin/overview_user.php:86
+#: web/admin/overview_user.php:97
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
+"(Потрібна допомога? Зверніться до <a href='%s'>%sпосібника адміністратора</"
+"a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:95
+#: web/admin/overview_user.php:106
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Ви керуєте наступним<span style='display:none'>%d</span>%s:"
+msgstr[1] "Ви керуєте наступним <span style='display:none'>%d</span>%s:"
+msgstr[2] "Ви керуєте наступним <span style='display:none'>%d</span>%s:"
+msgstr[3] "Ви керуєте наступним:<strong>%d</strong>%s:"
 
-#: web/admin/overview_user.php:117
+#: web/admin/overview_user.php:129
+#, php-format
+msgid "%s Management Overview"
+msgstr ""
+
+#: web/admin/overview_user.php:132
 #, php-format
 msgid "Other admins of this %s"
+msgstr "Інші адміністратори цього %s"
+
+#: web/admin/overview_user.php:135
+msgid "Management"
+msgstr ""
+
+#: web/admin/overview_user.php:142
+msgid "Danger Zone"
 msgstr ""
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:120
+#: web/admin/overview_user.php:154
 #, php-format
 msgid "%s %s: %s list"
-msgstr ""
+msgstr "%s%s:%s список"
 
-#: web/admin/overview_user.php:149
+#: web/admin/overview_user.php:192
 #, php-format
-msgid "%d other user"
-msgid_plural "%d other users"
+msgid "You and %d other user"
+msgid_plural "You and %d other users"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: web/admin/overview_user.php:162
+#: web/admin/overview_user.php:206
+#, php-format
+msgid ""
+"After deleting the %s, you can not recreate it yourself - you need a new "
+"invitation token from the %s administrator!"
+msgstr ""
+"Після видалення %s, ви не можете відтворити його самостійно - вам потрібен "
+"новий маркер запрошення від %s адміністратора!"
+
+#: web/admin/overview_user.php:206
+#, php-format
+msgid "Do you really want to delete your %s %s?"
+msgstr "Ви дійсно хочете видалити свій%s%s?"
+
+#: web/admin/overview_user.php:206
+#, php-format
+msgid "Delete %s"
+msgstr "Видалити %s"
+
+#: web/admin/overview_user.php:209
+#, php-format
+msgid ""
+"This action will delete all properties of the %s and start over the "
+"configuration from scratch. Do you really want to reset all settings of the "
+"%s %s?"
+msgstr ""
+"Ця дія призведе до видалення всіх властивостей %s та запуску конфігурації з "
+"нуля. Ви дійсно хочете скинути всі налаштування %s%s?"
+
+#: web/admin/overview_user.php:209
+#, php-format
+msgid "Reset all %s settings"
+msgstr "Скиньте всі %s налаштування"
+
+#: web/admin/overview_user.php:221
 #, php-format
 msgid "You are not managing any %s."
-msgstr ""
+msgstr "Ви не керуєте жодним %s."
 
-#: web/admin/overview_user.php:166
+#: web/admin/overview_user.php:225
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
+"Будь ласка, зверніться до свого %s адміністратора з проханням запросити вас "
+"стати %s адміністратором."
 
-#: web/admin/overview_user.php:170
+#: web/admin/overview_user.php:229
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr ""
+msgstr "Ви отримали запрошення на управління %s? Будь ласка, вставте його тут:"
 
-#: web/admin/overview_user.php:182
+#: web/admin/overview_user.php:241
 #, php-format
 msgid "New %s Registration"
-msgstr ""
+msgstr "Нова %s реєстрація"
 
+#: web/admin/inc/displayQRcode.inc.php:41
 #: web/admin/inc/displayQRcode.inc.php:42
 msgid "Invitation Token QR Code"
-msgstr ""
+msgstr "QR-код запрошення"
 
 #: web/admin/inc/manageAdmins.inc.php:57
 #, php-format
@@ -1806,11 +2284,13 @@ msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
 "In fact, you shouldn't have come this far!"
 msgstr ""
+"У вас немає необхідних привілеїв для зміни адміністраторів цього %s. "
+"Насправді, вам не слід було заходити так далеко!"
 
 #: web/admin/inc/manageAdmins.inc.php:95
 #, php-format
 msgid "Administrators for IdP '%s'"
-msgstr ""
+msgstr "Адміністратори IdP '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:154
 #, php-format
@@ -1818,11 +2298,13 @@ msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
+"Ви %sадміністратор. Ви можете запросити нових адміністраторів, які, у свою "
+"чергу, можуть призначити подальших адміністраторів самостійно."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:123
 #, php-format
 msgid "%s Administrator"
-msgstr ""
+msgstr "%s Адміністратор"
 
 #: web/admin/inc/manageAdmins.inc.php:160
 #, php-format
@@ -1831,50 +2313,53 @@ msgid ""
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
+"Ви адміністратор, якого призначив безпосередньо %s адміністратор.  Ви можете "
+"призначити подальших адміністраторів, але вони, у свою чергу, не можуть "
+"призначити більше адміністраторів."
 
 #: web/admin/inc/manageAdmins.inc.php:160
 msgid "Directly Appointed Administrator"
-msgstr ""
+msgstr "Безпосередньо призначений адміністратором"
 
-#: web/admin/inc/manageAdmins.inc.php:173
+#: web/admin/inc/manageAdmins.inc.php:178
 msgid "User without name"
-msgstr ""
+msgstr "Користувач без імені"
 
-#: web/admin/inc/manageAdmins.inc.php:182
+#: web/admin/inc/manageAdmins.inc.php:181
 #, php-format
 msgid "(originally invited as %s)"
-msgstr ""
+msgstr "(спочатку запрошено як %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:184
+#: web/admin/inc/manageAdmins.inc.php:183
 msgid "(self-appointed)"
-msgstr ""
+msgstr "(самостійно призначений)"
 
-#: web/admin/inc/manageAdmins.inc.php:191
+#: web/admin/inc/manageAdmins.inc.php:195
 msgid "Delete Administrator"
-msgstr ""
+msgstr "Видалити адміністратора"
 
-#: web/admin/inc/manageAdmins.inc.php:205
+#: web/admin/inc/manageAdmins.inc.php:210
 msgid "Pending invitations for this IdP"
-msgstr ""
+msgstr "Запрошення для цього IdP, що очікують на розгляд"
 
-#: web/admin/inc/manageAdmins.inc.php:216
+#: web/admin/inc/manageAdmins.inc.php:221
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr ""
+msgstr "Електронна адреса (адреси) нового адміністратора (розділені комами):"
 
-#: web/admin/inc/manageAdmins.inc.php:216
+#: web/admin/inc/manageAdmins.inc.php:221
 msgid "Invite new administrator"
-msgstr ""
+msgstr "Запросіть нового адміністратора"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:235
 #, php-format
 msgid "Take control of this %s"
-msgstr ""
+msgstr "Візьміть це під контроль %s"
 
-#: web/admin/inc/manageAdmins.inc.php:237
-#: web/admin/inc/manageDBLink.inc.php:204
-#: web/admin/inc/manageNewInst.inc.php:127
+#: web/admin/inc/manageAdmins.inc.php:242
+#: web/admin/inc/manageDBLink.inc.php:203
+#: web/admin/inc/manageNewInst.inc.php:146
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #: web/admin/inc/manageDBLink.inc.php:54
 #, php-format
@@ -1882,75 +2367,79 @@ msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
 msgstr ""
+"У вас немає необхідних привілеїв для управління %s станом зв’язку DB цього "
+"%s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr ""
+msgstr "%s Статус посилання на базу даних для IdP '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr ""
+msgstr "Це %s пов'язано з %s базою даних."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
-msgstr ""
+msgstr "Наступна інформація про IdP зберігається в %s БД і %s БД:"
 
 #: web/admin/inc/manageDBLink.inc.php:97
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
-msgstr ""
+msgstr "Інформація в <strong>%sбазі даних</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:109
 #: web/admin/inc/manageDBLink.inc.php:135
 #, php-format
 msgid "%s Name (%s)"
-msgstr ""
+msgstr "%s Ім'я (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:73
+#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:78
 msgid "Unnamed User"
-msgstr ""
+msgstr "Безіменний користувач"
 
 #: web/admin/inc/manageDBLink.inc.php:120
 msgid "Administrator [invited as]"
-msgstr ""
+msgstr "Адміністратор [запрошений як]"
 
 #: web/admin/inc/manageDBLink.inc.php:138
 msgid "Administrator email"
-msgstr ""
+msgstr "Електронна адреса адміністратора"
 
 #: web/admin/inc/manageDBLink.inc.php:143
 msgid "If this mapping is not correct any more, you can remove the link:"
 msgstr ""
+"Якщо це відображення більше не правильне, ви можете видалити посилання:"
 
 #: web/admin/inc/manageDBLink.inc.php:145
 msgid "Unlink"
-msgstr ""
+msgstr "Від’єднати"
 
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr ""
+msgstr "Це %s ще не пов’язане з  %s базою даних."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
 msgstr ""
+"Це означає, що його профілі недоступні на сторінці завантаження користувача."
 
 #: web/admin/inc/manageDBLink.inc.php:151
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr ""
+msgstr "Ви можете зв’язати його з %s базою даних нижче."
 
 #: web/admin/inc/manageDBLink.inc.php:154
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr ""
+msgstr "Будь ласка, виберіть об'єкт з %s БД, який відповідає даній САТ %s."
 
 #: web/admin/inc/manageDBLink.inc.php:156
 #, php-format
@@ -1958,33 +2447,35 @@ msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
 msgstr ""
+"Особливо перспективні записи (імена в САТ і %s БД збігаються на 100%%) "
+"знаходяться у верхній частині списку."
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Link to this entity?"
-msgstr ""
+msgstr "Посилання на цю організацію?"
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Administrators"
-msgstr ""
+msgstr "Адміністратори"
 
-#: web/admin/inc/manageDBLink.inc.php:193
+#: web/admin/inc/manageDBLink.inc.php:192
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
-msgstr ""
+msgstr "Немає жодного невизначеного %s у зовнішній базі даних для цього %s !"
 
-#: web/admin/inc/manageDBLink.inc.php:195
+#: web/admin/inc/manageDBLink.inc.php:194
 msgid "Create Link"
-msgstr ""
+msgstr "Створити посилання"
 
 #: web/admin/inc/manageNewInst.inc.php:48
 #, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr ""
+msgstr "У вас немає необхідних привілеїв для реєстрації нових %s."
 
 #: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid "%s - Register new %s"
-msgstr ""
+msgstr "%s - Зареєструвати новий %s"
 
 #: web/admin/inc/manageNewInst.inc.php:58
 #, php-format
@@ -1992,6 +2483,8 @@ msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
+"На цій сторінці ви можете додати нове %s до вашого %s. Заповніть форму "
+"нижче, щоб надіслати електронного запрошення новому %s адміністратору."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 #, php-format
@@ -1999,6 +2492,8 @@ msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
+"Ви можете або зареєструвати відоме %s(як визначено в %sбазі даних), або "
+"створити абсолютно нове %s."
 
 #: web/admin/inc/manageNewInst.inc.php:61
 #, php-format
@@ -2006,30 +2501,68 @@ msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
+"Останній, як правило, призначений для %s, який ще перебуває на стадії "
+"тестування, і тому ще не відображається в %sбазі даних."
+
+#: web/admin/inc/manageNewInst.inc.php:68
+msgid "Invitation Details"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:70
+msgid "From database or ad-hoc?"
+msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:71
-msgid "Existing IdP:"
-msgstr ""
-
-#: web/admin/inc/manageNewInst.inc.php:76
-msgid "--- select IdP here ---"
-msgstr ""
-
-#: web/admin/inc/manageNewInst.inc.php:94
-msgid "New IdP"
-msgstr ""
-
-#: web/admin/inc/manageNewInst.inc.php:97
+#: web/admin/inc/manageNewInst.inc.php:104
 msgid "Name"
+msgstr "Ім'я"
+
+#: web/admin/inc/manageNewInst.inc.php:72
+msgid "Type"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:118
+#: web/admin/inc/manageNewInst.inc.php:78
+#, php-format
+msgid "Existing %s:"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:83
+#, php-format
+msgid "--- select %s here ---"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:101
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:108
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:109
+#: web/admin/inc/manageNewInst.inc.php:110
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:131
+#: web/admin/inc/manageNewInst.inc.php:137
 msgid "Administrator's E-Mail:"
+msgstr "Електронна пошта адміністратора:"
+
+#: web/admin/inc/manageNewInst.inc.php:133
+msgid "E-Mail label:"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:123
-msgid "Send invitation"
+#: web/admin/inc/manageNewInst.inc.php:134
+msgid "E-Mail input field:"
 msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:142
+msgid "Send invitation"
+msgstr "Надіслати запрошення"
 
 #.
 #. * *****************************************************************************
@@ -2052,165 +2585,209 @@ msgstr ""
 #.
 #: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
 msgid "No email address provided"
-msgstr ""
+msgstr "Електронна адреса не вказана"
 
 #: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
 msgid "Invitation sent to:"
-msgstr ""
+msgstr "Запрошення надіслане:"
 
 #: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
 msgid "The invitation email could not be sent!"
-msgstr ""
+msgstr "Не вдалося надіслати електронне повідомлення із запрошенням!"
 
 #: web/admin/inc/overview_js.php:94
 msgid "Mail address to invite:"
+msgstr "Електронна адреса для запрошення:"
+
+#: web/admin/inc/profileAutodetectCA.inc.php:43
+msgid "Auto-Detecting root CA for a new profile"
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:114
+#: web/admin/inc/profileAutodetectCA.inc.php:50
+msgid "Valid RADIUS username and realm:"
+msgstr ""
+
+#: web/admin/inc/profileAutodetectCA.inc.php:64
+msgid "Detect root CA"
+msgstr ""
+
+#: web/admin/inc/sendinvite.inc.php:116
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
 "belongs to!"
 msgstr ""
+"Щось не так ... ви %sадміністратор, але не для %sзапитуваного %sналежить!"
 
 #: web/admin/inc/toggleRedirect.inc.php:100
 #, php-format
 msgid "device <strong>%s</strong>"
-msgstr ""
+msgstr "пристрій <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:110
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr ""
+msgstr "Тип EAP <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:117
 msgid "Fine-tuning options for "
-msgstr ""
+msgstr "Параметри точного налаштування для"
 
 #: web/admin/inc/userStats.inc.php:31
 msgid "User Authentication Records"
-msgstr ""
+msgstr "Записи автентифікації користувачів"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Зверніть увагу, що:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "Записи автентифікації видаляються через шість місяців зберігання"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Домен оператора базується на атрибуті RADIUS \"Ім'я оператора\" і не "
+"надсилається усіма гарячими точками"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
-
-#: web/admin/inc/userStats.inc.php:40
-msgid "Timestamp"
-msgstr ""
+"Різні MAC-адреси для кожного облікового запису можуть бути спричинені "
+"рандомізацією MAC-адрес в останніх операційних системах"
 
 #: web/admin/inc/userStats.inc.php:41
-msgid "Credential"
-msgstr ""
+msgid "Timestamp"
+msgstr "Мітка часу"
 
 #: web/admin/inc/userStats.inc.php:42
-msgid "MAC Address"
-msgstr ""
+msgid "Credential"
+msgstr "Повноваження"
 
 #: web/admin/inc/userStats.inc.php:43
-msgid "Result"
-msgstr ""
+msgid "MAC Address"
+msgstr "MAC Адреса"
 
 #: web/admin/inc/userStats.inc.php:44
+msgid "Result"
+msgstr "Результат"
+
+#: web/admin/inc/userStats.inc.php:45
 msgid "Operator Domain"
-msgstr ""
+msgstr "Домен оператора"
 
-#: web/admin/inc/userStats.inc.php:53
+#: web/admin/inc/userStats.inc.php:55
 msgid "Success"
-msgstr ""
+msgstr "Успіх"
 
-#: web/admin/inc/userStats.inc.php:53
+#: web/admin/inc/userStats.inc.php:55
 msgid "Failure"
-msgstr ""
+msgstr "Невдача"
 
-#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
+#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
 msgid "Location"
-msgstr ""
+msgstr "Розташування"
 
-#: web/lib/admin/AbstractMap.php:128
+#: web/lib/admin/AbstractMap.php:143
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
 msgstr ""
+"Інтерфейс завантаження користувача (див. <a href='../'> Тут </a>) "
+"використовує геолокацію, щоб запропонувати  можливу відповідність IDP для "
+"користувача. Чим точніше ви визначите тут місцезнаходження, тим простіше "
+"ваші користувачі знайдуть вас."
 
-#: web/lib/admin/AbstractMap.php:131
+#: web/lib/admin/AbstractMap.php:146
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
 msgstr ""
+"<li>Перетягніть маркер на карті до свого місця, або</li>\n"
+"<li>введіть свою адресу в поле нижче для пошуку, або</li>\n"
+"<li>використовуйте \"Знайди мене!\" кнопку</li>"
 
-#: web/lib/admin/AbstractMap.php:136
+#: web/lib/admin/AbstractMap.php:151
 msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
+msgstr "Для геолокації будемо використовувати координати, позначені маркером."
 
-#: web/lib/admin/AbstractMap.php:140
+#: web/lib/admin/AbstractMap.php:155
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
+"Ви можете ввести <strong>додаткове </strong>місце тут. Ви можете побачити "
+"вже визначені місця в полі \"Загальна інформація\"."
 
-#: web/lib/admin/AbstractMap.php:154
+#: web/lib/admin/AbstractMap.php:169
 msgid "Latitude:"
-msgstr ""
+msgstr "Широта:"
 
-#: web/lib/admin/AbstractMap.php:154
+#: web/lib/admin/AbstractMap.php:169
 msgid "Longitude:"
-msgstr ""
+msgstr "Довгота:"
 
-#: web/lib/admin/MapGoogle.php:133
+#: web/lib/admin/MapGoogle.php:131
 msgid "This is location "
-msgstr ""
+msgstr "Це місце"
 
-#: web/lib/admin/MapGoogle.php:212 web/lib/admin/MapOpenLayers.php:232
+#: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:230
 msgid "nothing entered in the address field"
-msgstr ""
+msgstr "нічого не введено в поле адреси"
 
-#: web/lib/admin/MapGoogle.php:232 web/lib/admin/MapOpenLayers.php:88
+#: web/lib/admin/MapGoogle.php:230 web/lib/admin/MapOpenLayers.php:86
 msgid "locating"
-msgstr ""
+msgstr "розміщення"
 
 #: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
-msgstr ""
+msgstr "Натисніть, щоб побачити місце"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
-msgstr ""
+msgstr "Адреса:"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
-msgstr ""
+msgstr "Знайдіть адресу"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
 #: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
-msgstr ""
+msgstr "Знайдіть мене!"
 
-#: web/lib/admin/MapOpenLayers.php:239
+#: web/lib/admin/MapOpenLayers.php:237
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
 msgstr ""
+"Адреса не знайдена, можливо, спробуйте іншу форму, наприклад, поставити "
+"номер вулиці спереду."
 
-#: web/lib/admin/OptionDisplay.php:183
+#: web/lib/admin/OptionDisplay.php:86
+msgid "Ask User"
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:87
+msgid "Ask User; T&C Pre-Agreed"
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:88
+msgid "Always"
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:89
+msgid "Always; T&C Pre-Agreed"
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2226,8 +2803,21 @@ msgid ""
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
 msgstr ""
+"Цей атрибут можна встановити, якщо ви хочете налаштувати додатковий SSID, "
+"крім стандартних SSID для %s. Майже завжди поганою ідеєю не використовувати "
+"SSID за замовчуванням. Єдиний виняток - якщо у вас є приміщення з "
+"перекриттям радіосигналу з іншою %sточкою доступу. Типові помилки щодо "
+"додаткових ідентифікаторів SSID включають: Я хочу мати локальний SSID для "
+"своїх користувачів. Набагато краще використовувати SSID за замовчуванням та "
+"окремі групи користувачів з VLAN. Цей підхід має дві переваги: ​​1) ваші "
+"користувачі будуть правильно %sналаштовувати, оскільки це їх повсякденний "
+"SSID; 2) якщо ви використовуєте власне ім'я та рекламуєте це як надмірно "
+"захищене, ваші користувачі можуть в якийсь момент переїхати в інше місце, де "
+"трапляється таке саме ім'я SSID. Тоді їх можуть ввести в оману, повіривши, "
+"що вони підключаються до додатково захищеної мережі, коли вони цього не "
+"роблять."
 
-#: web/lib/admin/OptionDisplay.php:185
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2236,13 +2826,26 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Формат цього параметра: IPv4|IPv6|ім'я хосту: порт. Примушення користувачів "
+"через власний фільтр вмісту є значним вторгненням до самовизначення "
+"користувачів. У нього також є технічні проблеми. Будь ласка, уважно "
+"прочитайте обговорення %s, перш ніж вказати проксі-сервер за допомогою цієї "
+"опції. Наразі ця функція є експериментальною та діє лише на установників "
+"Apple."
 
-#: web/lib/admin/OptionDisplay.php:188
+#: web/lib/admin/OptionDisplay.php:254
 #, php-format
-msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
+msgid ""
+"If you are also using %s, then your own realm is automatically tagged with "
+"the VLAN you choose, there is no need to add it here manually."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:190
+#: web/lib/admin/OptionDisplay.php:255
+#, php-format
+msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
+msgstr "Приймаючи участь у OpenRoaming, ви погоджуєтесь з тим, що %s"
+
+#: web/lib/admin/OptionDisplay.php:257
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -2250,50 +2853,56 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Зверніть увагу, що ваша вимога інформувати користувачів про Загальні "
+"положення та умови OpenRoaming виконується, коли ви направляєте своїх "
+"кінцевих користувачів на %s портал завантаження для завантаження програми "
+"встановлення. Будь-який інший спосіб забезпечення інсталяторів повинен "
+"подавати цю інформацію через власний канал."
 
-#: web/lib/admin/OptionDisplay.php:192
+#: web/lib/admin/OptionDisplay.php:259
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Ви також знаєте, що для найкращої технічної сумісності вам потрібно додати "
+"запис DNS до зони DNS вашої RADIUS області."
 
-#: web/lib/admin/OptionDisplay.php:194
+#: web/lib/admin/OptionDisplay.php:261
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Прочитайте інструкції у вікі."
 
-#: web/lib/admin/OptionDisplay.php:283
+#: web/lib/admin/OptionDisplay.php:366
 msgid "select language"
-msgstr ""
+msgstr "Виберіть мову"
 
-#: web/lib/admin/OptionDisplay.php:284 web/lib/admin/UIElements.php:158
+#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:178
 msgid "default/other languages"
-msgstr ""
+msgstr "за замовчуванням/інші мови"
 
-#: web/lib/admin/OptionDisplay.php:364
+#: web/lib/admin/OptionDisplay.php:442
 msgid "(default/other languages)"
-msgstr ""
+msgstr "(за замовчуванням/інші мови)"
 
-#: web/lib/admin/OptionDisplay.php:399
+#: web/lib/admin/OptionDisplay.php:477
 msgid "file content"
-msgstr ""
+msgstr "вміст файлу"
 
-#. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:212
 msgid "on"
-msgstr ""
+msgstr "увімкнути"
 
-#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:212
 msgid "off"
-msgstr ""
+msgstr "вимкнути"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/lib/admin/OptionParser.php:214 web/lib/admin/OptionParser.php:219
+#: web/lib/admin/OptionParser.php:220 web/lib/admin/OptionParser.php:225
 #, php-format
 msgid "%dx %s"
-msgstr ""
+msgstr "%d x %s"
 
-#: web/lib/admin/OptionParser.php:224
+#: web/lib/admin/OptionParser.php:230
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2301,295 +2910,327 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
+"Ви не встановили значення 'мову за замовчуванням' для %s. Це означає, що ми "
+"можемо відобразити цей рядок тільки для інсталяторів, які знаходяться "
+"<strong>саме </strong>на тій мові, яку ви налаштували. Для всіх інших мов, "
+"ви можете захотіти відредагувати профіль ще раз і заповнити мовне поле 'за "
+"замовчуванням/інше'."
 
-#: web/lib/admin/PageDecoration.php:52
+#: web/lib/admin/PageDecoration.php:69
 msgid "You are:"
-msgstr ""
+msgstr "Ви є:"
 
-#: web/lib/admin/PageDecoration.php:55
+#: web/lib/admin/PageDecoration.php:72
 msgid "Go to your Profile page"
-msgstr ""
+msgstr "Перейдіть на свою сторінку профілю"
 
-#: web/lib/admin/PageDecoration.php:56
+#: web/lib/admin/PageDecoration.php:73
 msgid "Logout"
-msgstr ""
+msgstr "Вийти"
 
-#: web/lib/admin/PageDecoration.php:58
+#: web/lib/admin/PageDecoration.php:75
 msgid "Start page"
-msgstr ""
+msgstr "Початкова сторінка"
 
-#: web/lib/admin/PageDecoration.php:82
+#: web/lib/admin/PageDecoration.php:99
 msgid "View this page in"
-msgstr ""
+msgstr "Переглянути цю сторінку в"
 
-#: web/lib/admin/PageDecoration.php:143
+#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
+#: web/lib/admin/PageDecoration.php:167
 #, php-format
 msgid "Administrator Interface - %s"
-msgstr ""
+msgstr "Інтерфейс адміністратора - %s"
 
-#: web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:170
 #, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr ""
+msgstr "Інтерфейс адміністратора - %s Управління користувачами"
 
-#: web/lib/admin/PageDecoration.php:149
+#: web/lib/admin/PageDecoration.php:173
 msgid "Administrator Interface"
-msgstr ""
+msgstr "Інтерфейс адміністратора"
 
-#: web/lib/admin/PageDecoration.php:152
+#: web/lib/admin/PageDecoration.php:176
 msgid "Management of User Details"
-msgstr ""
+msgstr "Управління даними користувача"
 
-#: web/lib/admin/PageDecoration.php:155
+#: web/lib/admin/PageDecoration.php:179
 #, php-format
 msgid "Administrator Interface - %s Management"
-msgstr ""
+msgstr "Інтерфейс адміністратора - %s управління"
 
-#: web/lib/admin/PageDecoration.php:158
+#: web/lib/admin/PageDecoration.php:182
 #, php-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Ласкаво просимо до %s"
 
-#: web/lib/admin/PageDecoration.php:163
+#: web/lib/admin/PageDecoration.php:187
 msgid "CIC"
-msgstr ""
+msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:166
+#: web/lib/admin/PageDecoration.php:190
 msgid "Diagnostics"
-msgstr ""
+msgstr "Діагностика"
 
-#: web/lib/admin/PageDecoration.php:250
+#: web/lib/admin/PageDecoration.php:274
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s Повідомлення про конфіденційність"
 
-#: web/lib/admin/UIElements.php:70
+#: web/lib/admin/UIElements.php:86
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
-#: web/lib/admin/UIElements.php:71
-msgid "SSID (with WPA/TKIP)"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:72
+#: web/lib/admin/UIElements.php:87
 msgid "HS20 Consortium OI"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:75
-msgid "Additional SSID"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:76
-msgid "Additional SSID (with WPA/TKIP)"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:79
-msgid "Additional HS20 Consortium OI"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:82
-msgid "Support: Web"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:83
-msgid "Support: EAP Types"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:84
-msgid "Support: Phone"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:85
-msgid "Support: E-Mail"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:88
-msgid "Logo URL"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:89
-msgid "Logo image"
-msgstr ""
+msgstr "Консорціум HS20 OI"
 
 #: web/lib/admin/UIElements.php:90
-msgid "Configure Wired Ethernet"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:91
-msgid "Name (CN) of Authentication Server"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:92
-msgid "Enable device assessment"
-msgstr ""
+msgid "Additional SSID"
+msgstr "Додатковий SSID"
 
 #: web/lib/admin/UIElements.php:93
-msgid "Terms of Use"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:94
-msgid "CA Certificate URL"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:95
-msgid "CA Certificate File"
-msgstr ""
+msgid "Additional HS20 Consortium OI"
+msgstr "Додатковий HS20 консорціум OI"
 
 #: web/lib/admin/UIElements.php:96
-msgid "Profile Display Name"
-msgstr ""
+msgid "Support: Web"
+msgstr "Підтримка: Інтернет"
 
 #: web/lib/admin/UIElements.php:97
-msgid "Production-Ready"
-msgstr ""
+msgid "Support: EAP Types"
+msgstr "Підтримка: EAP типи"
 
 #: web/lib/admin/UIElements.php:98
-msgid "Admin Accepted Terms of Use"
-msgstr ""
+msgid "Support: Phone"
+msgstr "Підтримка: Телефон"
 
 #: web/lib/admin/UIElements.php:99
-msgid "Extra text on downloadpage for device"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:100
-msgid "Redirection Target"
-msgstr ""
+msgid "Support: E-Mail"
+msgstr "Підтримка: електронна пошта"
 
 #: web/lib/admin/UIElements.php:101
-msgid "Extra text on downloadpage for EAP method"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:102
-msgid "Turn on selection of EAP-TLS User-Name"
+#, php-format
+msgid "%s Acronym"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:103
-msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr ""
+msgid "Logo URL"
+msgstr "URL-адреса логотипу"
 
 #: web/lib/admin/UIElements.php:104
-msgid "Profile Description"
-msgstr ""
+msgid "Logo image"
+msgstr "Зображення логотипу"
 
 #: web/lib/admin/UIElements.php:105
-msgid "Custom Installer Name Suffix"
-msgstr ""
+msgid "Configure Wired Ethernet"
+msgstr "Налаштуйте дротовий Ethernet"
 
 #: web/lib/admin/UIElements.php:106
-msgid "Opt-In to OpenRoaming"
-msgstr ""
+msgid "Name (CN) of Authentication Server"
+msgstr "м'я (CN) сервера автентифікації"
+
+#: web/lib/admin/UIElements.php:107
+msgid "Enable device assessment"
+msgstr "Увімкнути оцінку пристрою"
 
 #: web/lib/admin/UIElements.php:108
-msgid "Real Name"
-msgstr ""
+msgid "Terms of Use"
+msgstr "Умови користування"
 
 #: web/lib/admin/UIElements.php:109
-msgid "E-Mail Address"
-msgstr ""
+msgid "CA Certificate URL"
+msgstr "URL-адреса сертифіката ЦС"
 
 #: web/lib/admin/UIElements.php:110
-msgid "Remove/Disable SSID"
-msgstr ""
+msgid "CA Certificate File"
+msgstr "Файл сертифіката ЦС"
 
 #: web/lib/admin/UIElements.php:111
-msgid "Mandatory Content Filtering Proxy"
-msgstr ""
+msgid "Profile Display Name"
+msgstr "Відображуване ім’я профілю"
 
 #: web/lib/admin/UIElements.php:112
-msgid "Custom CSS file for User Area"
-msgstr ""
+msgid "Production-Ready"
+msgstr "Готовий до виробництва"
 
 #: web/lib/admin/UIElements.php:113
-#, php-format
-msgid "%s Logo"
+msgid "Admin Accepted IdP Terms of Use"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:114
-msgid "Preferred Skin for User Area"
+msgid "Admin Accepted SP Terms of Use"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:115
-#, php-format
-msgid "Include %s branding in installers"
-msgstr ""
+msgid "Extra text on downloadpage for device"
+msgstr "Додатковий текст на сторінці завантаження для пристрою"
+
+#: web/lib/admin/UIElements.php:116
+msgid "Redirection Target"
+msgstr "Мета переадресації"
 
 #: web/lib/admin/UIElements.php:117
-#, php-format
-msgid "%s Homepage"
-msgstr ""
+msgid "Extra text on downloadpage for EAP method"
+msgstr "Додатковий текст на сторінці завантаження для методу EAP"
 
 #: web/lib/admin/UIElements.php:118
-#, php-format
-msgid "Custom text in %s Invitations"
-msgstr ""
+msgid "Turn on selection of EAP-TLS User-Name"
+msgstr "Увімкніть вибір EAP-TLS Ім'я користувача"
 
 #: web/lib/admin/UIElements.php:119
-#, php-format
-msgid "Enable %s"
-msgstr ""
+msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
+msgstr "Використовуйте GEANT посилання для TTLS (Windows 8 і 10)"
 
 #: web/lib/admin/UIElements.php:120
-#, php-format
-msgid "%s: Do not terminate EAP"
-msgstr ""
+msgid "Profile Description"
+msgstr "Опис профілю"
 
 #: web/lib/admin/UIElements.php:121
-#, php-format
-msgid "%s: max users per profile"
-msgstr ""
+msgid "Custom Installer Name Suffix"
+msgstr "Суфікс імені власного інсталятора"
 
 #: web/lib/admin/UIElements.php:122
+msgid "OpenRoaming"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:124
+msgid "Real Name"
+msgstr "Справжнє ім'я"
+
+#: web/lib/admin/UIElements.php:125
+msgid "E-Mail Address"
+msgstr "Адреса електронної пошти"
+
+#: web/lib/admin/UIElements.php:126
+msgid "Remove/Disable SSID"
+msgstr "Видалення/вимкнення SSID"
+
+#: web/lib/admin/UIElements.php:127
+msgid "Mandatory Content Filtering Proxy"
+msgstr "Обов'язкова фільтрація контенту проксі-серверів"
+
+#: web/lib/admin/UIElements.php:128
+msgid "Custom CSS file for User Area"
+msgstr "Спеціальний файл CSS для користувацької області"
+
+#: web/lib/admin/UIElements.php:129
+#, php-format
+msgid "%s Logo"
+msgstr "%s Логотип"
+
+#: web/lib/admin/UIElements.php:130
+msgid "Preferred Skin for User Area"
+msgstr "Вподобана оболонка для користувацької області"
+
+#: web/lib/admin/UIElements.php:131
+#, php-format
+msgid "Include %s branding in installers"
+msgstr "Включіть %sсамоідентифікацію в програми встановлення"
+
+#: web/lib/admin/UIElements.php:133
+#, php-format
+msgid "%s Homepage"
+msgstr "%s Домашня сторінка"
+
+#: web/lib/admin/UIElements.php:134
+#, php-format
+msgid "Custom text in %s Invitations"
+msgstr "Спеціальний текст %s у запрошеннях"
+
+#: web/lib/admin/UIElements.php:135
+#, php-format
+msgid "Enable %s"
+msgstr "Увімкнути %s"
+
+#: web/lib/admin/UIElements.php:136
+#, php-format
+msgid "%s: Do not terminate EAP"
+msgstr "%s: Не припиняти EAP"
+
+#: web/lib/admin/UIElements.php:137
+#, php-format
+msgid "%s: max users per profile"
+msgstr "%s: максимум користувачів на профіль"
+
+#: web/lib/admin/UIElements.php:138
 #, php-format
 msgid "Mint %s with CA on creation"
+msgstr "Під час створення поставте мітку %s з ЦС"
+
+#: web/lib/admin/UIElements.php:139
+#, php-format
+msgid "OpenRoaming: Allow %s Opt-In"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:224
+#: web/lib/admin/UIElements.php:140
+msgid "OpenRoaming: Custom NAPTR Target"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:143
+msgid "VLAN for own users"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:145
+msgid "Custom Operator-Name attribute"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:244
 #, php-format
 msgid "General %s details"
-msgstr ""
+msgstr "Загальні %s деталі"
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:262
 msgid "Global Helpdesk Details"
-msgstr ""
+msgstr "Деталі глобальної довідкової служби"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:341
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr ""
+msgstr "Під час отримання сертифіката з бази даних сталася помилка!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:350
 msgid "There was an error processing the certificate!"
+msgstr "Під час обробки сертифіката сталася помилка!"
+
+#: web/lib/admin/UIElements.php:358
+msgid "Root CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:358
+msgid "Intermediate CA"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:360
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "Це сертифікат <strong>СЕРВЕРА</strong>!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:377
 msgid "Preview of logo file"
-msgstr ""
+msgstr "Попередній перегляд файлу логотипу"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:391
+#: web/lib/admin/UIElements.php:394
 msgid "There was an error while retrieving the file from the database!"
-msgstr ""
+msgstr "Під час отримання файлу з бази даних сталася помилка!"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:400
 msgid "File exists"
-msgstr ""
+msgstr "Файл існує"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:400
 msgid "Preview"
-msgstr ""
+msgstr "Попередній перегляд"
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:418
 msgid "Remark"
-msgstr ""
+msgstr "Зауваження"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:419
 msgid "Warning!"
-msgstr ""
+msgstr "Увага!"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:420
 msgid "Error!"
-msgstr ""
+msgstr "Помилка!"

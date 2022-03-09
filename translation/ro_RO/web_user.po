@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-02 08:26+0100\n"
-"PO-Revision-Date: 2021-01-12 05:55+0000\n"
-"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>\n"
+"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"PO-Revision-Date: 2022-02-15 18:16+0000\n"
+"Last-Translator: Transifex Bot <>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -201,13 +201,13 @@ msgstr ""
 msgid "Documentation"
 msgstr "Documentație "
 
-#: web/user/faq.inc.php:28 web/user/faq.php:25
+#: web/user/faq.inc.php:29 web/user/faq.php:25
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
 "Organizația mea nu este listată. Nu pot să le folosesc pe oricare dintre "
 "celelalte?"
 
-#: web/user/faq.inc.php:29 web/user/faq.php:26
+#: web/user/faq.inc.php:30 web/user/faq.php:26
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -222,11 +222,11 @@ msgstr ""
 "aibe loc. Folosind un program diferit de instalare dintr-o organizație "
 "diferită este <i>mai mult ca sigur să nu functioneze</i>! "
 
-#: web/user/faq.inc.php:33 web/user/faq.php:30
+#: web/user/faq.inc.php:34 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
 msgstr "Ce pot să fac ca organizația mea să fie listată?"
 
-#: web/user/faq.inc.php:34 web/user/faq.php:31
+#: web/user/faq.inc.php:35 web/user/faq.php:31
 #, php-format
 msgid ""
 "Contact %s administrators within your organisation and request that they add "
@@ -237,12 +237,12 @@ msgstr ""
 "aceștia să adauge organizația lor în sistem. Pentru a finaliza lucrurile, va "
 "dura cel mult o oră. "
 
-#: web/user/faq.inc.php:38 web/user/faq.php:35
+#: web/user/faq.inc.php:39 web/user/faq.php:35
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr "Dispozitivul meu nu este listat! Asta înseamnă că nu pot să fac %s?"
 
-#: web/user/faq.inc.php:39 web/user/faq.php:36
+#: web/user/faq.inc.php:40 web/user/faq.php:36
 #, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
@@ -302,7 +302,7 @@ msgstr ""
 "Din această cauză %s programele de instalare sunt semnate digital de către "
 "%s.  Atenție la un mesaj de sistem care confirmă acest lucru. "
 
-#: web/user/faq.inc.php:52 web/user/faq.php:57
+#: web/user/faq.inc.php:51 web/user/faq.php:57
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
@@ -311,7 +311,7 @@ msgstr ""
 "descărcat în mod obișnuit și, eventual, dăunător. Ar trebuii să fiu "
 "îngrijorat?"
 
-#: web/user/faq.inc.php:53 web/user/faq.php:58
+#: web/user/faq.inc.php:52 web/user/faq.php:58
 msgid ""
 "Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
 "The warning merely means that the file has not yet been downloaded by enough "
@@ -324,7 +324,7 @@ msgstr ""
 "ar fi destul de ciudat pentru a-l considera considerat „sigur”). Acest mesaj "
 "singur nu este o problemă de securitate. "
 
-#: web/user/faq.inc.php:53 web/user/faq.php:58
+#: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
@@ -333,14 +333,14 @@ msgstr ""
 "Cât timp fișierul are semnatura validată de către %s, descărcarea fișierului "
 "este sigură."
 
-#: web/user/faq.inc.php:53 web/user/faq.php:58
+#: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
 "Vă rog să verificați întrebările frecvente de la Microsoft în legătura cu "
 "SmartScreen-ul la %s."
 
-#: web/user/faq.inc.php:57 web/user/faq.php:72
+#: web/user/faq.inc.php:55 web/user/faq.php:72
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
@@ -349,7 +349,7 @@ msgstr ""
 "Pot vedea %s o conexiune și dispozitivul meu este configurat dar acesta nu "
 "se conectează, din ce căuza este problema?"
 
-#: web/user/faq.inc.php:58 web/user/faq.php:62
+#: web/user/faq.inc.php:56 web/user/faq.php:62
 #, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
@@ -371,22 +371,22 @@ msgstr ""
 "problema, administratorii ar trebui să poată urmări conexiunile.\n"
 " "
 
-#: web/user/faq.inc.php:62 web/user/faq.php:77
+#: web/user/faq.inc.php:60 web/user/faq.php:77
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
 msgstr "Am o întrebare despre web site. Pe cine ar trebuii să contactez?"
 
-#: web/user/faq.inc.php:63 web/user/faq.php:78
+#: web/user/faq.inc.php:61 web/user/faq.php:78
 #, php-format
 msgid "You should send a mail to %s."
 msgstr "Ar trebuii să trimiți un mail către %s."
 
-#: web/user/faq.inc.php:73 web/user/faq.php:46
+#: web/user/faq.inc.php:72 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Ce este acest lucru %s?"
 
-#: web/user/faq.inc.php:74
+#: web/user/faq.inc.php:73
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -453,7 +453,7 @@ msgstr ""
 #. 'text'=>sprintf(_(""))
 #. ));
 #.
-#: web/user/faq.php:95 web/skins/modern/user/cat_info.php:79
+#: web/user/faq.php:95 web/skins/modern/user/cat_info.php:80
 msgid "Frequently Asked Questions"
 msgstr "Întrebări frecvente"
 
@@ -465,7 +465,7 @@ msgstr "Termeni de utilizare"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(din motive legale, Termenii de utilizare sunt numai în limba engleză)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:106
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:111
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bine ai venit la %s"
@@ -474,8 +474,8 @@ msgstr "Bine ai venit la %s"
 msgid "View this page in"
 msgstr "Vizualizați pagina în"
 
-#: web/4013.php:53 web/404.php:52 web/skins/modern/Menu.php:48
-#: web/skins/modern/Menu.php:122
+#: web/4013.php:53 web/404.php:52 web/skins/modern/Menu.php:49
+#: web/skins/modern/Menu.php:144
 msgid "Start page"
 msgstr "Porniți pagina "
 
@@ -522,17 +522,17 @@ msgstr ""
 "Se uită la tine. Greșeala ta? Eroarea ta? Cine știe! Poate ar trebuii să te "
 "duci înapoi la <a href='%s'> Pagina de Start</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:292
+#: web/tou.php:76 web/skins/modern/Divs.php:348
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Note private %s"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:85
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Bine ați venit la bordul %s comunității de utilizatori!"
 
-#: web/lib/user/TextTemplates.php:85
+#: web/lib/user/TextTemplates.php:86
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -540,12 +540,12 @@ msgstr ""
 "Descărcarea ar trebuii sa înceapă curând. În caz că apare o problemă cu "
 "descărcarea automată vă rog să folosiți direct acestă <a href=''>adresă</a>."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Stimate utilizator din %s, "
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:88
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -559,7 +559,7 @@ msgstr ""
 "introduceți numele de utilizator și parola sau certificatul personal) - și o "
 "sa fiți online!"
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:89 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -570,58 +570,63 @@ msgstr ""
 "întotdeauna asistența %s. Vor diagnostica problema și vă vor ajuta . Puteți "
 "ajunge la ei prin mijloacele prezentate mai sus."
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:93
+msgid "eduroam Terms and Conditions"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:95
+msgid "eduroam Privacy Policy"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:99
+msgid "OpenRoaming Terms and Conditions"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:101
+msgid "OpenRoaming Privacy Policy"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:106
 #, php-format
 msgid ""
-"When connecting to %s hotspots, the following <a href='%s'>Terms and "
-"Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
+"Please remember that when connecting to %s hotspots, the following <a "
+"href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
-"Când vă conectați la hostspot-urile %s, se aplică următorii <a "
-"href='%s'>Termeni și condiții</a> și <a href='%s'>Notă de confidențialitate</"
-"a>."
 
-#. this would actually be a checkbox which grays out the actual download button until ACKed
-#: web/lib/user/TextTemplates.php:103
-msgid "I agree to be bound by these Terms and Conditions."
-msgstr "Sunt de acord să respect acești Termeni și condiții de utilizare."
-
-#: web/lib/user/TextTemplates.php:104 web/skins/modern/div_user_welcome.php:41
+#. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
+#: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Înapoi la descărcări"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:110
 #, php-format
 msgid ""
-"we would like to warmly welcome you among the several million users of %s! "
+"We would like to warmly welcome you among the several million users of %s! "
 "From now on, you will be able to use internet access resources on thousands "
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
-"Am vrea sa vă spunem bine ați venit printre milioanele de utilizator din %s! "
-"De acum înainte, vei putea folosi accesul la internet la foarte multe  "
-"universitați, centre de cercetare și alte locuri de pe glob. Toate acestea "
-"gratis!"
 
-#: web/lib/user/TextTemplates.php:107
+#: web/lib/user/TextTemplates.php:112
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Conectați dispozitivul la %s"
 
-#: web/lib/user/TextTemplates.php:108
+#: web/lib/user/TextTemplates.php:113
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s instalarea este mai ușoară"
 
-#: web/lib/user/TextTemplates.php:109
+#: web/lib/user/TextTemplates.php:114
 msgid "Custom built for your organisation"
 msgstr "Personalizat pentru organizația dumneavoastră"
 
-#: web/lib/user/TextTemplates.php:110
+#: web/lib/user/TextTemplates.php:115
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Apasă aici pentru a descărca programul de instalare %s "
 
-#: web/lib/user/TextTemplates.php:111
+#: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
@@ -630,28 +635,32 @@ msgstr ""
 "%s asigură acces la foarte multe rețele de tip Wi-Fi hotspot din jurul "
 "pământului, gratis. <a href='%s'> Învată mai multe </a>"
 
-#: web/lib/user/TextTemplates.php:112
+#: web/lib/user/TextTemplates.php:117
 msgid "Select the user group"
 msgstr "Selectați grupul de utilizatori"
 
-#: web/lib/user/TextTemplates.php:113
+#: web/lib/user/TextTemplates.php:118
 msgid "select another"
 msgstr "selectați altul"
 
-#: web/lib/user/TextTemplates.php:114
+#: web/lib/user/TextTemplates.php:119
 msgid "Choose another installer to download"
 msgstr "Alegeți alt program de instalare pentru a descărca"
 
-#: web/lib/user/TextTemplates.php:115
+#: web/lib/user/TextTemplates.php:120
+msgid "Choose an installer to download"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:121
 msgid "All platforms"
 msgstr "Toate platformele "
 
-#: web/lib/user/TextTemplates.php:116
+#: web/lib/user/TextTemplates.php:122
 #, php-format
 msgid "Download your %s installer"
 msgstr "Descărcați programul dumneavoastră de instalare %s"
 
-#: web/lib/user/TextTemplates.php:117
+#: web/lib/user/TextTemplates.php:123
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -661,19 +670,18 @@ msgstr ""
 "pagină de asistență locală . <br>Când apăsați click pe <b>Continuare</b> , "
 "această pagină de asistență va fi deschisă într-o nouă fereastră / filă."
 
-#: web/lib/user/TextTemplates.php:118
-#: web/skins/modern/accountstatus/accountstatus.php:226
-#: web/skins/modern/user/js/cat_js.php:318
-#: web/skins/modern/user/js/cat_js.php:326
+#: web/lib/user/TextTemplates.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:229
+#: web/skins/modern/user/js/cat_js.php:88
 msgid "Continue"
 msgstr "Continuare"
 
-#: web/lib/user/TextTemplates.php:119
+#: web/lib/user/TextTemplates.php:125
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Semnat digital de organizația care coordonează %s"
 
-#: web/lib/user/TextTemplates.php:120
+#: web/lib/user/TextTemplates.php:126
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -683,7 +691,7 @@ msgstr ""
 "trimis de către suportul IT.  Vă rog să vorbiți cu departamentul IT pentru a "
 "avea acces la acest link."
 
-#: web/lib/user/TextTemplates.php:121
+#: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -692,11 +700,11 @@ msgstr ""
 "Acest site vă oferă programele de instalare %s pentru multe organizații, "
 "click aici pentru a vedea dacă organizația dumneavoastră este pe listă."
 
-#: web/lib/user/TextTemplates.php:122
+#: web/lib/user/TextTemplates.php:128
 msgid "Custom built for you"
 msgstr "Personalizat pentru tine"
 
-#: web/lib/user/TextTemplates.php:124
+#: web/lib/user/TextTemplates.php:130
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Semnat digital de organizația care coordonează %s :%s"
@@ -725,78 +733,78 @@ msgstr ""
 "să vă folosiți datele dumneavoastră (adică să vă folosiți 'numele de "
 "utilizator si parola' sau 'certificatul personal') - și o sa fiți online!"
 
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Autentifică "
 
-#: web/skins/modern/Menu.php:51
+#: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Despre"
 
-#: web/skins/modern/Menu.php:52 web/skins/modern/Menu.php:53
-#: web/skins/modern/Menu.php:54
+#: web/skins/modern/Menu.php:53 web/skins/modern/Menu.php:54
+#: web/skins/modern/Menu.php:55
 #, php-format
 msgid "About %s"
 msgstr "Despre %s"
 
-#: web/skins/modern/Menu.php:58
+#: web/skins/modern/Menu.php:59
 msgid "Language"
 msgstr "Limba"
 
-#: web/skins/modern/Menu.php:60 web/skins/modern/Menu.php:63
-#: web/skins/modern/user/cat_info.php:69
+#: web/skins/modern/Menu.php:61 web/skins/modern/Menu.php:64
+#: web/skins/modern/user/cat_info.php:70
 msgid "Help"
 msgstr "Ajutor"
 
-#: web/skins/modern/Menu.php:61
+#: web/skins/modern/Menu.php:62
 msgid "My institution is not listed"
 msgstr "Instituția mea nu este pe listă"
 
-#: web/skins/modern/Menu.php:61 web/skins/modern/Menu.php:62
-#: web/skins/modern/Menu.php:64 web/skins/modern/Menu.php:65
-#: web/skins/modern/Menu.php:66
+#: web/skins/modern/Menu.php:62 web/skins/modern/Menu.php:63
+#: web/skins/modern/Menu.php:65 web/skins/modern/Menu.php:66
+#: web/skins/modern/Menu.php:67
 msgid "FAQ"
 msgstr "Întrebări frecvente"
 
-#: web/skins/modern/Menu.php:62
+#: web/skins/modern/Menu.php:63
 msgid "My device is not listed"
 msgstr "Dispozitivul meu nu este pe listă"
 
-#: web/skins/modern/Menu.php:64
+#: web/skins/modern/Menu.php:65
 msgid "What is eduroam"
 msgstr "Ce este eduroam"
 
-#: web/skins/modern/Menu.php:66
+#: web/skins/modern/Menu.php:67
 msgid "Contact"
 msgstr "Contact"
 
-#: web/skins/modern/Menu.php:67
+#: web/skins/modern/Menu.php:68
 msgid "Diagnostics"
 msgstr "Diagnostice"
 
-#: web/skins/modern/Menu.php:71
+#: web/skins/modern/Menu.php:72
 msgid "Manage"
 msgstr "Administrare"
 
-#: web/skins/modern/Menu.php:72
+#: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin access"
 msgstr "%s accesul administratorului "
 
-#: web/skins/modern/Menu.php:73
+#: web/skins/modern/Menu.php:74
 #, php-format
 msgid "%s admin:<br>manage your IdP"
 msgstr "%sadmin<br>administrează IdP dumneavoastră"
 
-#: web/skins/modern/Menu.php:74 web/skins/modern/Menu.php:75
+#: web/skins/modern/Menu.php:75 web/skins/modern/Menu.php:76
 msgid "Become a CAT developer"
 msgstr "Poți să devi un dezvoltator CAT"
 
-#: web/skins/modern/Menu.php:79
+#: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Termeni de utilizare "
 
-#: web/skins/modern/accountstatus/accountstatus.php:79
+#: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -805,16 +813,16 @@ msgstr ""
 "descărcat înainte. Vă rugăm să solicitați un nou jeton de la administratorul "
 "dumneavoastră."
 
-#: web/skins/modern/accountstatus/accountstatus.php:79
+#: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to re-use download link"
 msgstr "Încercați să reutilizați link-ul de descărcare"
 
-#: web/skins/modern/accountstatus/accountstatus.php:90
+#: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr "Sunteți un utilizator nou fără istoricul de %s acreditare."
 
-#: web/skins/modern/accountstatus/accountstatus.php:96
+#: web/skins/modern/accountstatus/accountstatus.php:99
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
@@ -822,7 +830,7 @@ msgstr[0] "Aveți <strong>%d</strong>valide%s credențiale"
 msgstr[1] "Aveti <strong>%d</strong>valide%scredențiale"
 msgstr[2] "Aveți<strong>%d</strong>curente valide%scredențiale."
 
-#: web/skins/modern/accountstatus/accountstatus.php:100
+#: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
@@ -830,12 +838,12 @@ msgstr[0] "<strong>%d</strong>din credențiale nu mai sunt valide."
 msgstr[1] "<strong>%d</strong>din credențiale nu mai sunt valide."
 msgstr[2] "<strong>%d</strong>din credențiale nu mai sunt valide."
 
-#: web/skins/modern/accountstatus/accountstatus.php:102
+#: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."
 msgstr "Vreau sa văd detaliile"
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:111
+#: web/skins/modern/accountstatus/accountstatus.php:114
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -844,7 +852,7 @@ msgstr ""
 "Jetonul dumneavoastră de invitație este valabil pentru mai multe dispozitive "
 "%d de activități ( %dau fost deja folosite)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:114
+#: web/skins/modern/accountstatus/accountstatus.php:117
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -858,7 +866,7 @@ msgstr ""
 "„User Agent”), vă rugăm să anulați aceste modificări. Puteți reveni la "
 "această pagină; linkul de invitație nu a fost încă utilizat."
 
-#: web/skins/modern/accountstatus/accountstatus.php:121
+#: web/skins/modern/accountstatus/accountstatus.php:124
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -872,13 +880,13 @@ msgstr ""
 "Puteți vizita mai târziu această pagină cu un sistem de operare acceptat; "
 "linkul de invitație nu a fost încă utilizat."
 
-#: web/skins/modern/accountstatus/accountstatus.php:133
+#: web/skins/modern/accountstatus/accountstatus.php:136
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Poți să descarci un program de instalare personalizat %s"
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:135
+#: web/skins/modern/accountstatus/accountstatus.php:138
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -889,7 +897,7 @@ msgstr ""
 "folosit<span class='emph'>doar pe acest dispozitiv (%s)</span>, și nu "
 "este<span class='emph'>permis să fie transmis</span>informația cu nimeni"
 
-#: web/skins/modern/accountstatus/accountstatus.php:136
+#: web/skins/modern/accountstatus/accountstatus.php:139
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -901,7 +909,7 @@ msgstr ""
 "fi revocate și veți putea fi sancționat de către administratorul "
 "dumneavoastră local %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:137
+#: web/skins/modern/accountstatus/accountstatus.php:140
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -911,17 +919,17 @@ msgstr ""
 "import. Acest lucru se întâmplă o singură dată în timpul instalării. Nu "
 "trebuie să scrieți acest PIN."
 
-#: web/skins/modern/accountstatus/accountstatus.php:142
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Import PIN: %s"
 msgstr "Importă PIN:%s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:147
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Apasă aici pentru a descărca %s programul de instalare!"
 
-#: web/skins/modern/accountstatus/accountstatus.php:152
+#: web/skins/modern/accountstatus/accountstatus.php:155
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -933,11 +941,11 @@ msgstr ""
 "utiliza acest link. Vă rugăm să cereți administratorului dvs. să vă "
 "elibereze un nou link de invitație."
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:162
 msgid "Account information not found"
 msgstr "Informațiile despre cont nu au fost găsite"
 
-#: web/skins/modern/accountstatus/accountstatus.php:160
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -946,7 +954,7 @@ msgstr ""
 "Linkul de invitație pe care l-ați urmat nu mapează nicio invitație pe care o "
 "avem în fișier."
 
-#: web/skins/modern/accountstatus/accountstatus.php:160
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -960,8 +968,8 @@ msgstr ""
 "logare cu un certificat de client (selectați un certificat cu un nume care "
 "se termină în „…%s”)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:193
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/accountstatus/accountstatus.php:196
+#: web/skins/modern/user/js/cat_js.php:83
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
@@ -969,8 +977,8 @@ msgstr ""
 "Dacă o sa mai întâlniți probleme, atunci puteți obține asistență de la "
 "organizația dumneavoatră la:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:195
-#: web/skins/modern/user/js/cat_js.php:287
+#: web/skins/modern/accountstatus/accountstatus.php:198
+#: web/skins/modern/user/js/cat_js.php:84
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
@@ -978,60 +986,60 @@ msgstr ""
 "Dacă întâlniți probleme ar trebuii să-i întrebați pe cei care v-au dat "
 "contul pentru ajutor."
 
-#: web/skins/modern/accountstatus/accountstatus.php:211
+#: web/skins/modern/accountstatus/accountstatus.php:214
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Pagina persoanală  %s a contului dumneavoastră"
 
-#: web/skins/modern/accountstatus/accountstatus.php:247
+#: web/skins/modern/accountstatus/accountstatus.php:250
 msgid "Current login tokens"
 msgstr "Jetoane de autentificare curente"
 
-#: web/skins/modern/accountstatus/accountstatus.php:248
+#: web/skins/modern/accountstatus/accountstatus.php:251
 msgid "Previous login tokens"
 msgstr "Jetoane anterioare de logare"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:252
 msgid "Revoked login tokens"
 msgstr "Jetoane revocate de logare"
 
-#: web/skins/modern/accountstatus/accountstatus.php:250
+#: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Serial Number"
 msgstr "Număr de serie"
 
-#: web/skins/modern/accountstatus/accountstatus.php:250
+#: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:250
+#: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Device Type"
 msgstr "Tipul dispozitivului"
 
-#: web/skins/modern/accountstatus/accountstatus.php:250
+#: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Issue Date"
 msgstr "Data emiterii problemei"
 
-#: web/skins/modern/accountstatus/accountstatus.php:250
+#: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Expiry Date"
 msgstr "Data expirării"
 
-#: web/skins/modern/accountstatus/accountstatus.php:260
+#: web/skins/modern/accountstatus/accountstatus.php:263
 msgid "invalid token"
 msgstr "Jeton invalid "
 
-#: web/skins/modern/accountstatus/accountstatus.php:272
+#: web/skins/modern/accountstatus/accountstatus.php:275
 msgid "revoke"
 msgstr "Revocat"
 
-#: web/skins/modern/accountstatus/accountstatus.php:286
+#: web/skins/modern/accountstatus/accountstatus.php:289
 msgid "The details are displayed below."
 msgstr "Detaliile sunt afișate mai jos."
 
-#: web/skins/modern/accountstatus/accountstatus.php:292
+#: web/skins/modern/accountstatus/accountstatus.php:295
 msgid "Really revoke this access credential?"
 msgstr "Revocați aceast credențial de acces?"
 
-#: web/skins/modern/user/cat_info.php:99
+#: web/skins/modern/user/cat_info.php:100
 #, php-format
 msgid ""
 "You must have received an invitation from your %s %s before being able to "
@@ -1040,15 +1048,15 @@ msgstr ""
 "Trebuie să fi primit o invitație de la %s%sdvs. înainte de a vă putea "
 "gestiona%s. În acest caz, vă rugăm să continuați și să vă autentificați."
 
-#: web/skins/modern/user/cat_info.php:101
+#: web/skins/modern/user/cat_info.php:102
 msgid "Please authenticate yourself and login"
 msgstr "Vă rugăm să vă autentificați și să vă conectați"
 
-#: web/skins/modern/user/cat_info.php:106
+#: web/skins/modern/user/cat_info.php:107
 msgid "Login"
 msgstr "Autentificare"
 
-#: web/skins/modern/user/cat_info.php:107
+#: web/skins/modern/user/cat_info.php:108
 msgid ""
 "Did you forget with which Identity Provider you logged in to the system? We "
 "can try to find out if you specify the email address with which you were "
@@ -1060,10 +1068,11 @@ msgstr ""
 "în sistem în caseta de mai jos. Este posibil să nu funcționeze dacă ați fost "
 "invitat de pe un site web al unei terțe părți prin intermediul AdminAPI."
 
-#: web/skins/modern/user/cat_info.php:108
+#: web/skins/modern/user/cat_info.php:109
 msgid "Get IdP Reminder"
 msgstr "Primește o notificare IdP"
 
+#. print "idp = $idpId;\n";
 #: web/skins/modern/user/js/cat_js.php:48
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
@@ -1074,19 +1083,112 @@ msgstr ""
 "Administratorii de sistem au fost anunțați. Vom încerca să avem grijă de "
 "problemă cât mai curând posibil."
 
-#: web/skins/modern/user/js/cat_js.php:62
+#: web/skins/modern/user/js/cat_js.php:78
+msgid "no matching data found"
+msgstr "Nu s-au găsit date potrivite"
+
+#: web/skins/modern/user/js/cat_js.php:79
+msgid "select"
+msgstr "Selectați"
+
+#: web/skins/modern/user/js/cat_js.php:80
+msgid "WWW:"
+msgstr "WWW:"
+
+#: web/skins/modern/user/js/cat_js.php:81
+msgid "email:"
+msgstr "e-mail:"
+
+#: web/skins/modern/user/js/cat_js.php:82
+msgid "tel:"
+msgstr "tel:"
+
+#: web/skins/modern/user/js/cat_js.php:85
+msgid ""
+"This device cannot be configured with the settings used in your organisation."
+msgstr ""
+" Acest dispozitiv nu poate fi configurat cu setările utilizate în "
+"organizația dumneavoastră"
+
+#: web/skins/modern/user/js/cat_js.php:86
+msgid ""
+"Your site administrator has specified that this device should be configured "
+"with resources located on a local page. When you click <b>Continue</b> this "
+"page will be opened in a new window/tab."
+msgstr ""
+"Administratorul site-ului dvs. a specificat că acest dispozitiv trebuie "
+"configurat cu resurse situate pe o pagină locală. Când faceți clic pe "
+"<b>Continuare</b>această pagină va fi deschisă într-o fereastră / filă nouă."
+
+#: web/skins/modern/user/js/cat_js.php:89
+msgid "Close"
+msgstr "Închide"
+
+#: web/skins/modern/user/js/cat_js.php:90
+msgid "No providers found for this email"
+msgstr "Nu au fost găsiți furnizori pentru acest e-mail"
+
+#: web/skins/modern/user/js/cat_js.php:91
+msgid "Your IdP is:"
+msgstr "IdP tău este:"
+
+#: web/skins/modern/user/js/cat_js.php:92
+msgid "Your IdP could be one of:"
+msgstr "IdP tău ar putea fi :"
+
+#: web/skins/modern/user/js/cat_js.php:93
+msgid "Missing email address"
+msgstr "Lipsește adresa de e-mail"
+
+#: web/skins/modern/user/js/cat_js.php:94
+msgid "This entry was last updated at:"
+msgstr "Această înregistrare a fost actualizată :"
+
+#: web/skins/modern/user/js/cat_js.php:95
+msgid ""
+"If you intend to download an installer which also enables OpenRoaming then "
+"you must accept OpenRoaming Terms and Conditions."
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:96
+msgid ""
+"If you select installers with OpenRoaming support, remember to indicate your "
+"consent."
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:97
+msgid "The installer has built-in OpenRoaming support."
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:98
+#, php-format
+msgid ""
+"I want to use OpenRoaming and have read and accept <a href='%s' "
+"target='_blank'>%s</a>"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:99
+#, php-format
+msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:100
+msgid "OpenRoaming is not supported on this device"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:105
 msgid "Organisation"
 msgstr "Organizația"
 
-#: web/skins/modern/user/js/cat_js.php:63
+#: web/skins/modern/user/js/cat_js.php:106
 msgid "Select your organisation"
 msgstr "Selectați organizația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:64
+#: web/skins/modern/user/js/cat_js.php:107
 msgid "Help, my organisation is not on the list"
 msgstr "Ajutor, organizația mea nu se află pe listă"
 
-#: web/skins/modern/user/js/cat_js.php:65
+#: web/skins/modern/user/js/cat_js.php:108
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1097,129 +1199,66 @@ msgstr ""
 "locali. Dacă organizația dvs. nu se află pe listă, atunci îndoiți-le să "
 "adauge informații în %sbaza de date."
 
-#: web/skins/modern/user/js/cat_js.php:66
+#: web/skins/modern/user/js/cat_js.php:109
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localizați-mă mai precis folosind locația-Geo HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:67
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Show organisations in"
 msgstr "Afișați organizații în"
 
-#: web/skins/modern/user/js/cat_js.php:68
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "all countries"
 msgstr "Toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:69
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "Sau căutați o organizație, de exemplu Universitatea din Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:70
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "show all countries"
 msgstr "Arătați toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:71
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "Results limited to"
 msgstr "Rezultate limitate la"
 
-#: web/skins/modern/user/js/cat_js.php:72
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "entries - show more"
 msgstr "Intrări - arată mai multe"
 
-#: web/skins/modern/user/js/cat_js.php:73
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Nearby"
 msgstr "Din apropiere "
 
-#: web/skins/modern/user/js/cat_js.php:74
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "Location timeout"
 msgstr "Întreruperea locației"
 
-#: web/skins/modern/user/js/cat_js.php:75
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "Could not get your position"
 msgstr "Nu s-a putut afla pozitia dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:76
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Your browser has denied access to your location"
 msgstr ""
 "Motorul dumneavoastră de căutare a respins accesul la locația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:77
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Unknown location error"
 msgstr "Eroare de locație necunoscută"
 
-#: web/skins/modern/user/js/cat_js.php:78
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "You are here:"
 msgstr "Dumneavoastră sunteți aici:"
 
-#: web/skins/modern/user/js/cat_js.php:79
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Getting your location..."
 msgstr "Obținem adresa dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:80
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Nearby providers shown on top."
 msgstr "Furnizori din apropiere afișați în partea de sus."
-
-#: web/skins/modern/user/js/cat_js.php:128
-#: web/skins/modern/user/js/cat_js.php:265
-msgid "no matching data found"
-msgstr "Nu s-au găsit date potrivite"
-
-#: web/skins/modern/user/js/cat_js.php:142
-msgid "select"
-msgstr "Selectați"
-
-#: web/skins/modern/user/js/cat_js.php:277
-msgid "This entry was last updated at:"
-msgstr "Această înregistrare a fost actualizată :"
-
-#: web/skins/modern/user/js/cat_js.php:279
-msgid "WWW:"
-msgstr "WWW:"
-
-#: web/skins/modern/user/js/cat_js.php:281
-msgid "email:"
-msgstr "e-mail:"
-
-#: web/skins/modern/user/js/cat_js.php:283
-msgid "tel:"
-msgstr "tel:"
-
-#: web/skins/modern/user/js/cat_js.php:305
-#: web/skins/modern/user/js/cat_js.php:331
-msgid ""
-"This device cannot be configured with the settings used in your organisation."
-msgstr ""
-" Acest dispozitiv nu poate fi configurat cu setările utilizate în "
-"organizația dumneavoastră"
-
-#: web/skins/modern/user/js/cat_js.php:318
-msgid ""
-"Your site administrator has specified that this device should be configured "
-"with resources located on a local page. When you click <b>Continue</b> this "
-"page will be opened in a new window/tab."
-msgstr ""
-"Administratorul site-ului dvs. a specificat că acest dispozitiv trebuie "
-"configurat cu resurse situate pe o pagină locală. Când faceți clic pe "
-"<b>Continuare</b>această pagină va fi deschisă într-o fereastră / filă nouă."
-
-#: web/skins/modern/user/js/cat_js.php:332
-msgid "Close"
-msgstr "Închide"
-
-#: web/skins/modern/user/js/cat_js.php:429
-msgid "Missing email address"
-msgstr "Lipsește adresa de e-mail"
-
-#: web/skins/modern/user/js/cat_js.php:443
-msgid "No providers found for this email"
-msgstr "Nu au fost găsiți furnizori pentru acest e-mail"
-
-#: web/skins/modern/user/js/cat_js.php:448
-msgid "Your IdP is:"
-msgstr "IdP tău este:"
-
-#: web/skins/modern/user/js/cat_js.php:450
-msgid "Your IdP could be one of:"
-msgstr "IdP tău ar putea fi :"
 
 #. *
 #. The OS objects define individual frames

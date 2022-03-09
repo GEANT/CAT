@@ -13,8 +13,6 @@ if ($_SERVER['REMOTE_ADDR'] == "{{ cat_ip }}" &&
   } else {
     if (isset($_REQUEST['operatorname'])) {
       $opn = trim($_REQUEST['operatorname']);
-    } else {
-      $opn = OPNAME_PREFIX . trim($_REQUEST['instid']) . '-' . trim($_REQUEST['deploymentid']) . OPNAME_SUFFIX;
     }
     if (isset($_REQUEST['vlan']) && isset($_REQUEST['realmforvlan']) &&
         is_array($_REQUEST['realmforvlan'])) {

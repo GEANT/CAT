@@ -347,3 +347,15 @@ CREATE TABLE `diagnosticrun` (
   `concluded` TINYINT(1) DEFAULT 0,
   PRIMARY KEY (`test_id`))
 ENGINE = InnoDB CHARSET=utf8;
+
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country` varchar(16) DEFAULT NULL,
+  `realm` varchar(255) DEFAULT NULL,
+  `operatorname` varchar(255) DEFAULT NULL,
+  `mac` varchar(17) DEFAULT NULL,
+  `cui` varchar(255) DEFAULT NULL,
+  `result` varchar(4) DEFAULT NULL,
+  `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

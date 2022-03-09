@@ -50,6 +50,7 @@ if (!isset($_GET['deployment_id'])) {
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
+error_log('MGW edit_hotspot '.serialize($_POST));
 if (isset($_POST['submitbutton'])) {
     switch ($_POST['submitbutton']) {
         case web\lib\common\FormElements::BUTTON_TERMSOFUSE_NEEDACCEPTANCE:
@@ -107,6 +108,11 @@ if (isset($_POST['submitbutton'])) {
                 }
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
                 exit(0);
+            case web\lib\common\FormElements::BUTTON_REMOVESP:
+                error_log("MGW Remove deployment ".serialize($deployment));
+                $deployment->remove();
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+                exit(0);
             case web\lib\common\FormElements::BUTTON_ACTIVATE:
                 if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
                     $response = $deployment->setRADIUSconfig();
@@ -146,6 +152,16 @@ if (isset($_POST['submitbutton'])) {
                 exit(0);
             default:
                 throw new Exception("Unknown button action requested!");
+        }
+    }
+    if (isset($_POST['command'])) {
+        switch ($_POST['command']) {
+        case web\lib\common\FormElements::BUTTON_CLOSE:
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            exit(0);
+        default:
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            exit(0);
         }
     }
     $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;

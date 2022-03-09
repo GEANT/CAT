@@ -93,7 +93,7 @@ const guiTexts = {
   "missingEmail": "<?php $cat->javaScriptEscapedEcho(_("Missing email address")) ?>",
   "entryUpdate": "<?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:")) ?>",
   "openRoamingTouWarning": "<?php $cat->javaScriptEscapedEcho(_("If you intend to download an installer which also enables OpenRoaming then you must accept OpenRoaming Terms and Conditions.")) ?>",
-  "openRoamingText1": "<?php $cat->javaScriptEscapedEcho(_("If you select installers with OpenRoaming support, remember to mark you consent.")) ?>",
+  "openRoamingText1": "<?php $cat->javaScriptEscapedEcho(_("If you select installers with OpenRoaming support, remember to indicate your consent.")) ?>",
   "openRoamingText2": "<?php $cat->javaScriptEscapedEcho(_("The installer has built-in OpenRoaming support.")) ?>",
   "openRoamingText3": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I want to use OpenRoaming and have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",
   "openRoamingText4": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",

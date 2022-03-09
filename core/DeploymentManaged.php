@@ -308,6 +308,32 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
+     * retrieves usage statistics for the deployment
+     * 
+     * @param int $backlog how many seconds back in time should we look
+     * @param int $limit   max number of entries to retrieve (if supplied, backlog will be ignored)
+     * @return array of arrays: activity_time, realm, mac, result
+     * @throws Exception
+     */
+    public function retrieveStatistics(int $backlog, int $limit = 0)
+    {
+        // find a server near him (list of all servers with capacity, ordered by distance)
+        // first, if there is a pool of servers specifically for this federation, prefer it
+        // only check the consortium pool group we want to attach to
+        // TODO: if we also collect stats from OpenRoaming hosts, differentiate the logs!
+        $opName = $this->getOperatorName();
+        if ($limit !== 0) {
+            $conditional1 = "";
+            $conditional2 = "DESC LIMIT $limit";
+        } else {
+            $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND)";
+            $conditional2 = "";
+        }
+        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
+        return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
+    }
+        
+    /**
      * initialises a new SP
      * 
      * @return array details of the SP as generated during initialisation
@@ -400,7 +426,18 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
-     * marks the deployment as activated
+     * removes the deployment.
+     * 
+     * @return void
+     */
+    public function remove()
+    {
+        $this->databaseHandle->exec("DELETE from deployment WHERE deployment_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE from deployment_option WHERE deployment_id = $this->identifier");
+    }
+    
+    /**
+     * marks the deployment as active.
      * 
      * @return void
      */
@@ -623,9 +660,7 @@ class DeploymentManaged extends AbstractDeployment
         if ($remove) {
             $toPostTemplate = $toPostTemplate . 'remove=1&';
         } else {
-            if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
-                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
-            }
+            $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                 $allRealms = $this->getAllRealms();
                 if (!empty($allRealms)) {
