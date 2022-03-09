@@ -340,7 +340,7 @@ class DeploymentManaged extends AbstractDeployment
         // and make up a shared secret that is halfways readable
         $futureSecret = $this->randomString(16, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = '" . $ourserver . "', radius_instance_2 = '" . $ourSecondServer . "', port_instance_1 = $foundFreePort1, port_instance_2 = $foundFreePort2, secret = '$futureSecret', consortium = '$this->consortium' WHERE deployment_id = $this->identifier");
-        return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourserver];
+        return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer];
     }
 
     /**
