@@ -151,7 +151,8 @@ class UIElements extends \core\common\Entity {
             throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         \core\common\Entity::outOfThePotatoes();
-        return $find[0];
+        // none of the strings have HTML in them, only translators can provide own text for it -> no threat, but complained about by the security review
+        return htmlspecialchars($find[0]);
     }
 
     /**
