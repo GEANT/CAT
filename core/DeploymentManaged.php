@@ -329,7 +329,7 @@ class DeploymentManaged extends AbstractDeployment
             $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND)";
             $conditional2 = "";
         }
-        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
+        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }
         
