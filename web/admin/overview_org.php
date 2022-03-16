@@ -445,6 +445,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
             <?php $tablecaption = _("Hotspot Usage Statistics");?>
             <h1><?php echo $tablecaption; ?></h1>
             <h2><?php echo _("5 most recent authentications");?></h2>
+            <p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");?></p>
             <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr style='text-align: left;'>
@@ -453,6 +454,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
         <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
+        <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
     </tr>
     <?php
     $userAuthData = $deploymentObject->retrieveStatistics(0,5);
@@ -463,6 +465,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 . "<td>".$oneRecord['mac']."</td>"
                 . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
+                . "<td>".$oneRecord['ap_id']."</td>"
                 . "</tr>";
     }
     ?>
