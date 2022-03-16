@@ -34,6 +34,7 @@ TIME_F = "%Y%m%d%H%M%S"
 DATE_F = "%Y%m%d"
 NL = "\n"
 REPLY_USER_NAME = "%{reply:User-Name}"
+NAS_ID = "%{base64:%{NAS-Identifier}/%{NAS-IP-Address}/%{NAS-IPv6-Address}/%{Called-Station-Id}}"
 OPERATOR_NAME = "        Operator-Name = "
 UNLANG_VLAN = "        %s ( Stripped-User-Domain == '%s' ) {" + NL + \
               "            update reply {" + NL + \
@@ -111,6 +112,7 @@ def make_conf(data):
                               'port': _port,
                               'secret': _secret,
                               'operatorname': _operatorname,
+                              'nas_id': NAS_ID,
                               'vlans': _realm_vlan,
                               'reply_username': REPLY_USER_NAME})
     with open(TEMP_DIR + 'site_' + str(_port), 'w') as _out:
