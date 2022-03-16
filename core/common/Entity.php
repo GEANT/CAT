@@ -341,9 +341,11 @@ abstract class Entity
             $theCatalogue = Entity::determineOwnCatalogue($trace);
             textdomain($theCatalogue);
             bindtextdomain($theCatalogue, ROOT . "/translation/");
+            bind_textdomain_codeset($theCatalogue, "UTF-8");
         } else {
             textdomain($catalogue);
             bindtextdomain($catalogue, ROOT . "/translation/");
+            bind_textdomain_codeset($catalogue, "UTF-8");
         }
     }
 

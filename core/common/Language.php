@@ -78,6 +78,7 @@ class Language
         $loggerInstance->debug(4, ROOT . "\n");
         textdomain($domain);
         bindtextdomain($domain, ROOT . "/translation/");
+        bind_textdomain_codeset($domain, "UTF-8");
         return $olddomain;
     }
 
