@@ -37,6 +37,7 @@ switch ($backlog) {
 ?>
 
 <h1><?php $tablecaption = _("Deployment Usage Records"); echo $tablecaption; ?></h1>
+<p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");?></p>
 <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr>
@@ -45,6 +46,7 @@ switch ($backlog) {
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
         <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
+        <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
     </tr>
     <?php
     $userAuthData = $deployment->retrieveStatistics($backlogTime);
@@ -56,6 +58,7 @@ switch ($backlog) {
                 . "<td>".$oneRecord['mac']."</td>"
                 . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
+                . "<td>".$oneRecord['ap_id']."</td>"
                 . "</tr>";
     }
     ?>
