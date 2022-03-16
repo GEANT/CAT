@@ -101,7 +101,7 @@ class DeploymentClassic extends AbstractDeployment
      * 
      * @return void
      */
-    public function destroy()
+    public function remove()
     {
         // we can't delete data from the eduroam DB
     }
