@@ -95,7 +95,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 </p>
                 <?php
                     echo '<div id="before_stage_1"><h3>' . _("The system needs some information on your home institution - issuer of your account") . '</h3>';
-                    echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<strong>realm.tld</strong>):");
+                    echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<strong>realm.tld</strong>'):");
                 ?>
                 <input type='text' name='user_realm' id='user_realm' value=''>
                 <?php
