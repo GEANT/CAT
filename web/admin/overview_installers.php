@@ -89,12 +89,14 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                                        <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
+                                 </form>
                                      ";
                 if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && isset($factory->device->options['hs20']) && $factory->device->options['hs20'] == 1) {
                 $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&openroaming=1&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
+                                  </form>
                                      ";
                 }
                 
@@ -110,7 +112,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                 if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
                     if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE)) {
-                        echo "$downloadform</form>";
+                        echo "$downloadform";
                         $defaultisset = TRUE;
                     }
                     echo "</td>";
@@ -148,7 +150,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                             }
                             
                         }
-                        echo "</form></td>";
+                        echo "</td>";
                         $defaultisset = TRUE;
                     } else {
                         echo "<td class='compat_secondary'></td>";
