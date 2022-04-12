@@ -458,6 +458,7 @@ the info button (.more_info_b) just pop up the device info window
 
 function deviceButtonClick(button) {
   var device_id = button.attr("name");
+  var setOpenRoaming = 0;
   var info_id = 'info_'+device_id;
   if (button.hasClass("guess_os")) { // main download buttons first
     info_id = 'info_g_'+device_id;
@@ -470,7 +471,10 @@ function deviceButtonClick(button) {
     if (button.hasClass('hasAdditonalInfo')) {
       $('#'+info_id).show(100);
     } else {
-      doDownload(device_id,0);
+      if (button.hasClass("dev_or") && $("#openroaming_check").prop("checked") == true) {
+        setOpenRoaming = 1;
+      } 
+      doDownload(device_id,setOpenRoaming);
     }
   } else if (button.hasClass("other_os")) { // now the full list download buttons
       changeDevice(device_id);  
