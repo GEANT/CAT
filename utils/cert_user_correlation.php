@@ -53,7 +53,7 @@ $query = $dbConn->exec("SELECT c.cn as cn, u.username as username FROM silverbul
 
 $values = [];
 echo "INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES \n";
-foreach (mysqli_fetch_all($query, MYSQLI_NUM) as $oneRow) {
+foreach (mysqli_fetch_all(/** @scrutinizer ignore-type */ $query, MYSQLI_NUM) as $oneRow) {
     $values[] = "(\"".$oneRow[0]."\", \"Hashed-Username\", \":=\", "."\"".sha1($oneRow[1])."\")";
 }
 echo implode(",\n", $values).";\n";
