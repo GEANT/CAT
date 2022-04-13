@@ -148,7 +148,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         foreach(\core\common\EAP::listKnownEAPTypes() as $eapType) {
             if ($eapType->isPasswordRequired() || $eapType->isPasswordOptional()) {
                 $this->specialities['internal:verify_userinput_suffix'][serialize($eapType->getArrayRep())] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
-                $this->specialities['media:openroaming'][serialize($eapType->getArrayRep())] = _("OpenRoaming is not provisioned due to severe UI limitations during install time.");
                 $this->specialities['media:consortium_OI'][serialize($eapType->getArrayRep())] = _("Passpoint networks are not provisioned due to severe UI limitations during install time.");
             }
         }
