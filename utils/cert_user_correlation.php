@@ -49,17 +49,11 @@ $dbConn = core\DBConnection::handle("INST");
 
 $query = $dbConn->exec("SELECT c.cn as cn, u.username as username FROM silverbullet_user u, silverbullet_certificate c WHERE c.silverbullet_user_id = u.id AND c.revocation_status = 'NOT_REVOKED' AND c.expiry > NOW()");
 
-// make mysqldump compatible output
-
-echo "# CREATE TABLE user_correlation  ( 
-#   `cn` VARCHAR(128) NULL COMMENT '', 
-#   `namehash` VARCHAR(45) NOT NULL COMMENT '', 
-#   PRIMARY KEY (`cn`)  COMMENT '',
-#   ) ENGINE = InnoDB CHARSET=utf8;\n";
+// make "radcheck" table compatible output
 
 $values = [];
-echo "INSERT IGNORE INTO user_correlation (cn, namehash) VALUES \n";
+echo "INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES \n";
 foreach (mysqli_fetch_all($query, MYSQLI_NUM) as $oneRow) {
-    $values[] = "( \"".$oneRow[0]."\", "."\"".sha1($oneRow[1])."\")";
+    $values[] = "(\"".$oneRow[0]."\", \"Hashed-Username\", \":=\", "."\"".sha1($oneRow[1])."\")";
 }
 echo implode(",\n", $values).";\n";
