@@ -54,7 +54,7 @@ foreach (mysqli_fetch_all(/** @scrutinizer ignore-type */ $query, MYSQLI_NUM) as
     foreach ($radiusDbs as $dbIndex => $oneRadiusDb) {
         $res = $oneRadiusDb->exec("INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES (?, 'CUI-Source-Username', ':=', ?)", "ss", $cn, $user);
         if ($res === TRUE) {
-            echo "Created correlation pair $cn -> $username on $dbIndex.\n";
+            echo "Created correlation pair $cn -> $user on $dbIndex.\n";
         }
     }
 }
