@@ -392,7 +392,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
         // the engine knows the format of its own serial numbers, no reason to get excited
         $caEngine->triggerNewOCSPStatement(/** @scrutinizer ignore-type */ $certObject->serial);
         // let the RADIUS users know the actual username for CUI generation
-        $radiusDbs = core\DBConnection::handle("RADIUS"); // is an array of server conns
+        $radiusDbs = DBConnection::handle("RADIUS"); // is an array of server conns
         foreach ($radiusDbs as $oneRadiusDb) {
             $oneRadiusDb->exec("INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES (?, 'CUI-Source-Username', ':=', ?)", "ss", ($profile->getUserById($invitationObject->userId))[$invitationObject->userId] , $csr["USERNAME"]);
         }
