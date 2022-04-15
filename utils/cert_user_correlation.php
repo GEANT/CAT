@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -39,21 +40,21 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
  * of actual cleartext is not required for the RADIUS server - it just needs
  * to see the same value for the same user.
  * 
- * It's preferred to do this asynchronously with a regular table export rather
- * than immediate queries from the RADIUS servers, to avoid blocking 
- * dependencies on the web server part (RADIUS server cluster has and needs 
- * higher availability guarantees than web)
+ * Pushing this regularly (and on user creation) avoids blocking dependencies on
+ * the web server part (RADIUS server cluster has and needs higher availability
+ * guarantees than web)
  */
 
 $dbConn = core\DBConnection::handle("INST");
-
 $query = $dbConn->exec("SELECT c.cn as cn, u.username as username FROM silverbullet_user u, silverbullet_certificate c WHERE c.silverbullet_user_id = u.id AND c.revocation_status = 'NOT_REVOKED' AND c.expiry > NOW()");
-
-// make "radcheck" table compatible output
-
-$values = [];
-echo "INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES \n";
+$radiusDbs = core\DBConnection::handle("RADIUS"); // is an array of server conns
 foreach (mysqli_fetch_all(/** @scrutinizer ignore-type */ $query, MYSQLI_NUM) as $oneRow) {
-    $values[] = "(\"".$oneRow[0]."\", \"Hashed-Username\", \":=\", "."\"".sha1($oneRow[1])."\")";
+    $cn = $oneRow[0];
+    $user = $oneRow[1];
+    foreach ($radiusDbs as $dbIndex => $oneRadiusDb) {
+        $res = $oneRadiusDb->exec("INSERT IGNORE INTO radcheck (username, attribute, op, value) VALUES (?, 'CUI-Source-Username', ':=', ?)", "ss", $cn, $user);
+        if ($res === TRUE) {
+            echo "Created correlation pair $cn -> $username on $dbIndex.\n";
+        }
+    }
 }
-echo implode(",\n", $values).";\n";
