@@ -44,9 +44,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
     $preflist = $my_profile->getEapMethodsinOrderOfPreference();
     ?>
-    <h1><?php $tablecaption = sprintf(_("Device compatiblity matrix for %s of %s "), $profile_name, $inst_name); echo $tablecaption;?></h1>
+    <h1><?php $tablecaption = sprintf(_("Device compatiblity matrix for %s of %s "), $profile_name, $inst_name);
+    echo $tablecaption; ?></h1>
     <table class="compatmatrix">
-        <caption><?php echo $tablecaption;?></caption>
+        <caption><?php echo $tablecaption; ?></caption>
         <tr>
             <th scope='col'></th>
             <th scope='col'><?php echo _("Device"); ?></th>
@@ -79,27 +80,28 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
                         </form>
                         </td>";
-            $factory = new \core\DeviceFactory($index);                       
+            $factory = new \core\DeviceFactory($index);
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $footnotesForDevEapCombo = [];
                 $display_footnote = FALSE;
                 $langObject = new \core\common\Language();
-                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
+                $downloadform = "<span style='display:ruby;'>";
+                $formDiffs = ["" => sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name'])];  /* eduroam */
+                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && isset($factory->device->options['hs20']) && $factory->device->options['hs20'] == 1) {
+                    $formDiffs["<input type='hidden' name='openroaming'  value='1'/>"] = sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']); /* eduroam + OpenRoaming */
+                }
+
+                foreach ($formDiffs as $inputField => $text) {
+                    $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
-                                       <button class='download'>" . sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
+                                       $inputField
+                                       <button class='download'>$text</button>
                                  </form>
                                      ";
-                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && isset($factory->device->options['hs20']) && $factory->device->options['hs20'] == 1) {
-                $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&openroaming=1&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
-                                       <input type='hidden' name='device' value='$index'/>
-                                       <input type='hidden' name='generatedfor'  value='admin'/>
-                                       <button class='download'>" . sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']) . "</button>
-                                  </form>
-                                     ";
                 }
-                
+                $downloadform .= "</span>";
                 // first of all: if redirected, indicate by color
 
                 $redirectAttribs = [];
@@ -125,11 +127,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         foreach ($optionlist->availableOptions() as $oneOption) {
                             $value = $my_profile->getAttributes($oneOption)[0] ?? FALSE;
                             if (
-                                    // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
-                                    // look for the attribute either in the Profile properties or in the device properties
-                                    ($value != FALSE || isset($factory->device->attributes[$oneOption])) 
-                                    && isset($factory->device->specialities[$oneOption])
-                                ) {
+                            // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
+                            // look for the attribute either in the Profile properties or in the device properties
+                                    ($value != FALSE || isset($factory->device->attributes[$oneOption])) && isset($factory->device->specialities[$oneOption])
+                            ) {
                                 if (isset($factory->device->specialities[$oneOption][serialize($method->getArrayRep())])) {
                                     $footnotesForDevEapCombo[] = $factory->device->specialities[$oneOption][serialize($method->getArrayRep())];
                                 } else if (!is_array($factory->device->specialities[$oneOption])) {
@@ -146,9 +147,8 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                                     $distinctFootnotes[$num_footnotes] = $oneFootnote;
                                 }
                                 $numberToDisplay = array_keys($distinctFootnotes, $oneFootnote);
-                                echo "(".$numberToDisplay[0].")";
+                                echo "(" . $numberToDisplay[0] . ")";
                             }
-                            
                         }
                         echo "</td>";
                         $defaultisset = TRUE;
@@ -163,10 +163,11 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         }
         ?>
     </table>
-    <p><strong><?php $tablecaption2 = _("Legend:"); echo $tablecaption2; ?></strong></p>
+    <p><strong><?php $tablecaption2 = _("Legend:");
+        echo $tablecaption2; ?></strong></p>
     <table class="compatmatrix">
-        <caption><?php echo $tablecaption2;?></caption>
-        <tr><th scope="col"><?php echo _("Colour");?></th><th scope='col'><?php echo _("Meaning");?></th></tr>
+        <caption><?php echo $tablecaption2; ?></caption>
+        <tr><th scope="col"><?php echo _("Colour"); ?></th><th scope='col'><?php echo _("Meaning"); ?></th></tr>
         <tr><td class="compat_redirected">&nbsp;&nbsp;&nbsp;</td> <td><?php echo _("redirection is set"); ?></td></tr>
         <tr><td class="compat_default">&nbsp;&nbsp;&nbsp;</td>    <td><?php echo _("will be offered on download site"); ?></td></tr>
         <tr><td class="compat_secondary">&nbsp;&nbsp;&nbsp;</td>  <td><?php echo _("configured, but not preferred EAP type"); ?></td></tr>
