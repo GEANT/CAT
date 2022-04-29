@@ -376,6 +376,8 @@ class SilverbulletCertificate extends EntityWithDBProperties
         openssl_pkcs12_export($cert, $exportedNoInterm, $privateKey, $importPassword, []);
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
+        $pkey_3des = "";
+        openssl_pkey_export($privateKey, $pkey_3des, $importPassword, [ "encrypt_key_cipher" => OPENSSL_CIPHER_3DES ]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         // we need the *real* expiry date, not just the day-approximation
         $x509 = new \core\common\X509();
@@ -397,6 +399,9 @@ class SilverbulletCertificate extends EntityWithDBProperties
             "certdata" => $exportedCertProt,
             "certdata_nointermediate" => $exportedNoInterm,
             "certdataclear" => $exportedCertClear,
+            "cert_PEM" => $parsedCert['pem'],
+            "cert_DER" => $parsedCert['der'],
+            "pkey_3des" => $pkey_3des,
             // Scrutinizer thinks this needs to be a string, but a resource is just fine
             "sha1" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha1"),
             "sha256" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha256"),
