@@ -55,6 +55,24 @@ NM_AVAILABLE = True
 CRYPTO_AVAILABLE = True
 DEBUG_ON = False
 
+parser = argparse.ArgumentParser(description='eduroam linux installer.')
+parser.add_argument('--debug', '-d', action='store_true', dest='debug',
+                    default=False, help='set debug flag')
+parser.add_argument('--username', '-u', action='store', dest='username',
+                    help='set username')
+parser.add_argument('--password', '-p', action='store', dest='password',
+                    help='set text_mode flag')
+parser.add_argument('--silent', '-s', action='store_true', dest='silent',
+                    help='set silent flag')
+parser.add_argument('--pfxfile', action='store', dest='pfx_file',
+                    help='set path to user certificate file')
+parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
+                    help='generate wpa_supplicant config file without configuring the system')
+ARGS = parser.parse_args()
+if ARGS.debug:
+    DEBUG_ON = True
+    print("Running debug mode")
+
 
 def debug(msg) -> None:
     """Print debugging messages to stdout"""
@@ -145,41 +163,24 @@ def run_installer() -> None:
     This is the main installer part. It tests for MN availability
     gets user credentials and starts a proper installer.
     """
-    global DEBUG_ON
+    global ARGS
     global NM_AVAILABLE
     username = ''
     password = ''
     silent = False
     pfx_file = ''
     wpa_conf = False
-    parser = argparse.ArgumentParser(description='eduroam linux installer.')
-    parser.add_argument('--debug', '-d', action='store_true', dest='debug',
-                        default=False, help='set debug flag')
-    parser.add_argument('--username', '-u', action='store', dest='username',
-                        help='set username')
-    parser.add_argument('--password', '-p', action='store', dest='password',
-                        help='set text_mode flag')
-    parser.add_argument('--silent', '-s', action='store_true', dest='silent',
-                        help='set silent flag')
-    parser.add_argument('--pfxfile', action='store', dest='pfx_file',
-                        help='set path to user certificate file')
-    parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
-                        help='generate wpa_supplicant config file without configuring the system')
-    args = parser.parse_args()
-    if args.debug:
-        DEBUG_ON = True
-        print("Running debug mode")
 
-    if args.username:
-        username = args.username
-    if args.password:
-        password = args.password
-    if args.silent:
-        silent = args.silent
-    if args.pfx_file:
-        pfx_file = args.pfx_file
-    if args.wpa_conf:
-        wpa_conf = args.wpa_conf
+    if ARGS.username:
+        username = ARGS.username
+    if ARGS.password:
+        password = ARGS.password
+    if ARGS.silent:
+        silent = ARGS.silent
+    if ARGS.pfx_file:
+        pfx_file = ARGS.pfx_file
+    if ARGS.wpa_conf:
+        wpa_conf = ARGS.wpa_conf
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
