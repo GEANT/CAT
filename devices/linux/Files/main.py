@@ -553,7 +553,14 @@ class InstallerData(object):
                                              stderr=subprocess.PIPE)
             out, _ = shell_command.communicate()
             if shell_command.returncode != 0:
-                return False
+                debug("first password run failed")
+                command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
+                       'pass:' + self.password, '-nokeys', '-clcerts']
+                shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
+                                             stderr=subprocess.PIPE)
+                out, err = shell_command1.communicate()
+                if shell_command1.returncode != 0:
+                    return False
             if Config.use_other_tls_id:
                 return True
             out_str = out.decode('utf-8').strip()
