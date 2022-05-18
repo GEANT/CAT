@@ -680,7 +680,10 @@ echo $mapCode->htmlHeadCode();
                             </span>
                         </div>
                     </form>
-                    <?php if (count($myfed->getAttributes("fed:openroaming")) > 0) {
+                    
+                    <?php 
+                    /*
+                    if (count($myfed->getAttributes("fed:openroaming")) > 0) {
                         ?>
                         &nbsp;
                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -694,6 +697,7 @@ echo $mapCode->htmlHeadCode();
                         </form>
                         <?php
                     }
+                    */
                 }
             }
             ?>
