@@ -160,7 +160,7 @@ def get_config_path() -> str:
 
 def run_installer() -> None:
     """
-    This is the main installer part. It tests for MN availability
+    This is the main installer part. It tests for NM availability
     gets user credentials and starts a proper installer.
     """
     global ARGS
