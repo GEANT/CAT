@@ -36,10 +36,12 @@ $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $myfed = new \core\Federation($my_inst->federation);
 
 if (!isset($_GET['deployment_id'])) {
-    if (isset($_POST['consortium']) && ( $_POST['consortium'] == "eduroam" ||
+    /*if (isset($_POST['consortium']) && ( $_POST['consortium'] == "eduroam" ||
             ( $_POST['consortium'] == "OpenRoaming" && count($myfed->getAttributes("fed:openroaming")) > 0 )
             )
-    ) {
+    ) {*/
+    if (isset($_POST['consortium']) &&  $_POST['consortium'] == "eduroam")
+    {
         $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
         header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
         exit(0);
@@ -50,7 +52,6 @@ if (!isset($_GET['deployment_id'])) {
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-error_log('MGW edit_hotspot '.serialize($_POST));
 if (isset($_POST['submitbutton'])) {
     switch ($_POST['submitbutton']) {
         case web\lib\common\FormElements::BUTTON_TERMSOFUSE_NEEDACCEPTANCE:
