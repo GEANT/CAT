@@ -90,7 +90,6 @@ if (isset($_POST['submitbutton'])) {
     }
 }
 ?>
-
 <h1>
     <?php printf(_("Administrators for IdP '%s'"), $my_inst->name); ?>
 </h1>
@@ -195,6 +194,11 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
                     <button type='submit' name='submitbutton' class='delete' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>'><?php echo _("Delete Administrator") ?></button>
                 </form>
             </td>
+            <?php
+            if ($oneowner['MAIL'] == "SELF-APPOINTED") {
+                echo "<td><a href='overview_org.php?inst_id=".$my_inst->identifier."' target='_blank'>"._("Enter Organisation")."</td>";
+            }
+            ?>
         </tr>
         <?php
     }
