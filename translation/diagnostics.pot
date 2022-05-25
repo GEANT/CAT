@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-29 08:39+0200\n"
+"POT-Creation-Date: 2022-05-25 15:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -982,7 +982,7 @@ msgstr ""
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:102
