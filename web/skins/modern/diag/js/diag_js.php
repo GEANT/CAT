@@ -28,6 +28,7 @@
     var global_info = new Array();
     global_info[L_OK] = "<?php echo _("All connectivity tests passed"); ?>";
     global_info[L_WARN] = "<?php echo _("There were some warnings from connectivity tests"); ?>";
+    global_info[L_REMARK] = "<?php echo _("There were some remarks from connectivity tests"); ?>";
     global_info[L_ERROR] = "<?php echo _("There were some errors from connectivity tests"); ?>";
     function countryAddSelect(selecthead, select, type) {
         if (selecthead !== '') {
@@ -302,7 +303,6 @@
             $('#run_tests').hide();
             $('#test_area').html(running);
         }
-        console.log(wherefrom);
         udp_req = run_udp(realm, user, token);
         if (data.totest && data.totest.length > 0) {
             dynamic_req = run_dynamic(realm, data.totest, token);
@@ -388,7 +388,6 @@
                 if (data.status) {
                     realmFound = 1;
                 }
-                console.log("now run connection tests");
                 runConnectionTests(data, realm, user, token, 'show');
             },
             error: function (error) {
