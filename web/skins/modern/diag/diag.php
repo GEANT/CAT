@@ -162,6 +162,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                              _("eduroam® admin access is needed") . "</a>";
                     }
                 ?>
+                <div id="realm_problem">
+                </div>
             </div> 
             </div>
                 <input type="hidden" name="lang" id="lang"/>
@@ -502,7 +504,9 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 
             },
             error: function (error) {
-                alert('Error');
+                inProgress(0);
+                $('#realm_problem').html('This realm does not exist.');
+                $('#realm_problem').css('color', 'red');
             }
         });
         return false;
@@ -701,6 +705,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     });
     $(document).on('keyup change', '#admin_realm' , function() {
             if ($('#admin_realm').val().length == 0 || (!isEmail($(this).val(), true) && !isDomain($(this).val()))) {
+                $('#realm_problem').html('');
                 $('#admin_realm').addClass('error_input');
                 $('#realm_in_db_admin').hide();
                 $('#tests_info_area').html('');
