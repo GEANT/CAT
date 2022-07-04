@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Rimas Kudelis <rimas@kudelis.lt>, 2016\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/"
 "eduroam_devel/cat/language/lt_LT/)\n"
 "Language: lt_LT\n"
@@ -291,39 +291,39 @@ msgstr "Pietų Afrika"
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
 msgstr ""
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
 msgstr ""
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
 msgstr ""
 

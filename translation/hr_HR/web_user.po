@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: dsafar <dsafar@srce.hr>, 2012-2013\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -459,7 +459,7 @@ msgstr "Pogledajte stranicu u"
 #: web/4013.php:53 web/404.php:52 web/skins/modern/Menu.php:49
 #: web/skins/modern/Menu.php:144
 msgid "Start page"
-msgstr "Početak stranice"
+msgstr "Početna stranica"
 
 #: web/4013.php:57
 msgid "Maybe this is the CAT you are looking for..."
@@ -549,19 +549,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:93
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "eduroam Uvjeti i odredbe"
 
 #: web/lib/user/TextTemplates.php:95
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "eduroam Politika privatnosti"
 
 #: web/lib/user/TextTemplates.php:99
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "OpenRoaming Uvjeti i odredbe"
 
 #: web/lib/user/TextTemplates.php:101
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "OpenRoaming Politika privatnosti"
 
 #: web/lib/user/TextTemplates.php:106
 #, php-format
@@ -569,6 +569,8 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Ne zaboravite da prilokom povezivanja na %s točke, primijeniti sljedeće <a "
+"href='%s'>Uvjete i odredbe</a> i <a href='%s'>Obavijest o privatnosti</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
@@ -583,6 +585,10 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Željeli bismo vas srdačno pozdraviti među nekoliko milijuna korisnika %s! Od "
+"sada ćete moći koristiti na tisuće resursa za pristup internetu od "
+"sveučilišta, istraživačkih centara i drugih mjesta diljem svijeta. Sve to "
+"potpuno besplatno!"
 
 #: web/lib/user/TextTemplates.php:112
 #, php-format
@@ -686,32 +692,6 @@ msgstr "Prilagođeno za Vas"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalno potpisano od organizacije koja koordinira %s: %s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
-"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
-"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
-"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
-"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autenticiranje"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Informacije"
@@ -778,6 +758,32 @@ msgstr "Postani CAT razvijatelj"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Uvjeti korištenja"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
+"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
+"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
+"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
+"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autenticiranje"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -1114,16 +1120,20 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Ako namjeravate preuzeti instalacijski program koji također omogućuje "
+"OpenRoaming onda morate prihvatiti OpenRoaming Uvjete i odredbe."
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Ako odaberete instalatere s podrškom za OpenRoaming, ne zaboravite navesti "
+"svoj pristanak."
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Installer ima ugrađenu podršku za OpenRoaming."
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1131,15 +1141,17 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Želim koristiti OpenRoaming i pročitao sam i prihvatio <a href='%s' "
+"target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Pročitao sam i prihvatio <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "OpenRoaming nije podržan na ovom uređaju"
 
 #: web/skins/modern/user/js/cat_js.php:105
 msgid "Organisation"

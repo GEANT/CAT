@@ -13,9 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-16 18:51+0000\n"
-"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
+"2013,2015,2018-2019,2022\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
 "Language: cs_CZ\n"
@@ -295,41 +296,39 @@ msgstr "Jihoafrická republika"
 msgid "Unnamed Entity"
 msgstr "Nepojmenovaná entita"
 
-#: core/DeploymentManaged.php:467
-#, fuzzy
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr "Deaktivace profilu byla úspěšná"
+msgstr "Deaktivace profilu proběhla v pořádku"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
 msgstr "Aktivace/úprava profilu byla úspěšná"
 
-#: core/DeploymentManaged.php:469
-#, fuzzy
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
 msgstr "Deaktivace profilu selhala"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
 msgstr "Aktivace/úprava profilu byla selhala"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
 msgstr "na obou RADIUS serverech: hlavním i záložním"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
 msgstr "na hlavním RADIUS serveru"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
 msgstr "na záložním RADIUS serveru"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
 msgstr "Problém aktualizace profilu RADIUS byl opraven"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
 msgstr "Problém s aktualizací profilu RADIUS"
 

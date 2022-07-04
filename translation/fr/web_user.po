@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/eduroam_devel/cat/language/"
 "fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:36
@@ -71,6 +72,7 @@ msgid_plural ""
 "TCP/80</li>"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -80,6 +82,7 @@ msgid_plural ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: web/user/about_cat.inc.php:98
 #, php-format
@@ -558,26 +561,6 @@ msgstr ""
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr ""
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr ""
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr ""
@@ -645,6 +628,26 @@ msgstr ""
 msgid "Terms of use"
 msgstr ""
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr ""
+
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
@@ -666,6 +669,7 @@ msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
@@ -673,6 +677,7 @@ msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."

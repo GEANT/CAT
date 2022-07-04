@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-16 19:48+0000\n"
-"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, 2016-2019,2022\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
 "Language: cs_CZ\n"
@@ -703,33 +703,6 @@ msgstr "Vytvořeno pro vás"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálně podepsáno organizací koordinující %s - %s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"rádi bychom vás srdečně přivítali ve společnosti několika miliónů uživatelů "
-"eduroam®! Od této chvíle budete moci používat přístup k internetu na tisici "
-"univerzitách, výzkumných centrech a dalších místech po celém světě. A to vše "
-"úplně zdarma!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
-"sítě eduroam® ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské "
-"jméno a heslo nebo osobní certifikát) - a jste připojeni!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Přihlašování"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "O"
@@ -796,6 +769,33 @@ msgstr "Staňte se vývojařem CAT"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Podmínky používaní"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"rádi bychom vás srdečně přivítali ve společnosti několika miliónů uživatelů "
+"eduroam®! Od této chvíle budete moci používat přístup k internetu na tisici "
+"univerzitách, výzkumných centrech a dalších místech po celém světě. A to vše "
+"úplně zdarma!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
+"sítě eduroam® ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské "
+"jméno a heslo nebo osobní certifikát) - a jste připojeni!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Přihlašování"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -1140,7 +1140,6 @@ msgstr ""
 "přijmout Smluvní podmínky."
 
 #: web/skins/modern/user/js/cat_js.php:96
-#, fuzzy
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."

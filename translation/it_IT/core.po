@@ -3,25 +3,26 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2018
+# Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018-2019
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
-# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015
+# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2022
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 #: core/CAT.php:108
 #, php-format
@@ -293,41 +294,41 @@ msgstr "Sud Africa"
 msgid "Unnamed Entity"
 msgstr "Entità senza nome"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Disattivazione del profilo riuscita"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Attivazione/Modifica del profilo effettuata"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Disattivazione del profilo non riuscita"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Attivazione/Modifica del profilo fallita"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "su entrambe i RADIUS server: primario e secondario"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "sul server RADIUS primario"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "Sul server RADIUS di backup"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Problema con l'aggiornamento del profilo RADIUS risolto"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Problema nell'aggiornamento del profilo Radius"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -355,7 +356,7 @@ msgstr "(dismesso) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s e %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -378,6 +379,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Salve,\n"
+"\n"
+"l'invito per il nuovo %s %s nella tua %s federazione %s è stato usato e il "
+"%s è stato creato in %s.\n"
+"\n"
+"Ci faceva piacere informarti.\n"
+"\n"
+"Cordiali saluti,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -527,27 +538,27 @@ msgstr "Identity Provider"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Wi-Fi Hotspot"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Fornitore di Servizi"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "partecipante"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "organizzazione"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "entità"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -561,11 +572,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"Un %s %s ti ha inviotato a gestire il futuro %s  \"%s\" (%s). L' "
+"organizazzione sarà un %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "un %s %s  ti ha invitato a gestire il %s  \"%s\". Questo è un %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

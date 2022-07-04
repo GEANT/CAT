@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-23 13:41+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:57+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018-2020,2022\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
 "Language: de_DE\n"
@@ -249,6 +249,22 @@ msgstr ""
 msgid "Test"
 msgstr "Test"
 
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
+#, php-format
+msgid "%s via Passpoint"
+msgstr "%s via Passpoint"
+
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Dieses Modul ist nur ein Beispiel. Es erzeugt eine ZIP Datei die alle "
+"Zertifikate, die Informationsdateien, das Logo (sofern diese vom "
+"Administrator angegeben wurden) und sämtliche konfigurierten Attribute "
+"enthält."
+
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Dieses Gerät unterstützt keinen Zwangs-HTTPS-Proxy."
@@ -266,43 +282,35 @@ msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 msgid ""
-"OpenRoaming is not provisioned due to severe UI limitations during install "
-"time."
-msgstr ""
-"OpenRoaming wird nicht unterstützt wegen erheblicher Mängel in der "
-"Benutzerschnittstelle während der Installation."
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:152
-msgid ""
 "Passpoint networks are not provisioned due to severe UI limitations during "
 "install time."
 msgstr ""
 "Passpoint Netzwerke werden nicht unterstützt wegen erheblicher Mängel in der "
 "Benutzerschnittstelle während der Installation."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:176
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:175
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Netzwerkprofil '%s' von '%s' - bereitgestellt von %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:181
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:180
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "%s Konfiguration für den IdP '%s' - bereitgestellt von %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:232
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:231
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr "Wichtig: Ihr Benutzername muss genau mit '...@%s' enden!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr "Wichtig: Ihr Benutzername muss ein @ enthalten und auf ...%s enden!"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -312,15 +320,15 @@ msgstr ""
 "Identitätsprovider beschreibt. Bitte prüfen Sie die Dokumentation Ihres "
 "Identitätsproviders bezüglich Ihres Benutzernamens."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:267
 msgid "Unnamed Organisation"
 msgstr "Organisation ohne Namen"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:269
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
 msgid "Unnamed Profile"
 msgstr "Profil ohne Namen"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:340
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:339
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -328,7 +336,7 @@ msgstr ""
 "Der Import funktioniert am Besten, wenn Sie den eingebauten Browser (Safari) "
 "benutzen."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:342
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:341
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -336,99 +344,99 @@ msgstr ""
 "Das Profil installiert sich, sobald Sie auf den Knopf drücken. Sie werden an "
 "einigen Stellen um Bestätigung bzw. Eingaben gebeten:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
 msgid "to install the profile"
 msgstr "um das Profil zu installieren"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:345
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "CA Zertifikat Ihres Identitätsproviders"
 msgstr[1] "CA Zertifikate Ihres Identitätsproviders"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:347
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:346
 #, php-format
 msgid "(%d times)"
 msgstr "(%d mal)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:349
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 "um den Benutzernamen und das Passwort einzugeben die Ihnen von Ihrer "
 "Organisation gegeben wurden"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:352
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:351
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
 msgstr ""
 "(jeweils %d mal, denn %d SSIDs und %d Passpoint Netzwerke werden installiert)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
 #, php-format
 msgid "%s - SSID %s"
 msgstr "%s - SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:558
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s Konfiguration für das Netzwerk %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
 #, php-format
 msgid "%s - Wired Network"
 msgstr "%s - Kabelgebundenes Netzwerk"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:570
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s Konfiguration für Kabelnetzwerke"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
 #, php-format
 msgid "%s - RCOI"
 msgstr "%s - RCOI"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:588
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
 msgstr "%s Konfiguration (Passpoint RCOI)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:653
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Dieses Netzwerk sollte nicht weiter genutzt werden, nachdem die Einrichtung "
 "von %s abgeschlossen ist"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:655
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:654
 msgid "Disabled WiFi network"
 msgstr "Deaktiviertes WLAN Netzwerk"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:754
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
 msgid "User certificate"
 msgstr "Nutzerzertifikat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:809
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "Das %s CA Zertifikat "
 
 #. / example: "Identity Provider CA #1 (Root)"
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:813
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "%s CA #%d (%s)"
 msgstr "%s CA #%d (%s)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Root"
 msgstr "Wurzel"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Intermediate"
 msgstr "Zwischenstelle"
 
@@ -457,8 +465,8 @@ msgstr ""
 "jegliche Rückmeldung vonstatten; das neue Netzwerk taucht nach Abschluss in "
 "Ihrer Gerätekonfiguration auf. "
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/Device_XML.php:73
-#: devices/xml/DeviceXML.php:87
+#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -497,6 +505,9 @@ msgid ""
 "directory (possibly the .config in your home directory) and will copy your "
 "server certificates there."
 msgstr ""
+"Das Installationsprogramm erzeugt ein Unterverzeichnis namens cat_installer "
+"in Ihrem Konfigurationsverzeichnis (typischerweise .config/) und kopiert die "
+"Serverzertifikate dort hin."
 
 #: devices/linux/DeviceLinux.php:92 devices/linux/DeviceLinuxSh.php:93
 msgid ""
@@ -811,22 +822,6 @@ msgstr ""
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s Installationsprogramm für %s"
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
-#, php-format
-msgid "%s via Passpoint"
-msgstr "%s via Passpoint"
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
-msgstr ""
-"Dieses Modul ist nur ein Beispiel. Es erzeugt eine ZIP Datei die alle "
-"Zertifikate, die Informationsdateien, das Logo (sofern diese vom "
-"Administrator angegeben wurden) und sämtliche konfigurierten Attribute "
-"enthält."
 
 #: devices/redirect_dev/DeviceRedirectDev.php:44
 msgid ""

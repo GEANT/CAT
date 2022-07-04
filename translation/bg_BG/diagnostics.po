@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2022\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -417,20 +417,24 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Моля, спрете да нарушавате правилата възможно най-скоро като изброявате IdP, "
+"асоциирани с тази област."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[ТЕХНИЧЕСКИ ПРОБЛЕМ] Администраторът подозира, че има технически проблем с "
+"Вашия IdP"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Уважаеми IdP администратор,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "администратор на организация е заявил диагностика за област %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -438,6 +442,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Проверките на свързаността в реално време установиха, че областта изглежда "
+"работи с допустими параметри, но администраторът настоя да се свърже с вас "
+"за допълнителната информация по-долу."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -445,18 +452,21 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Проверките на свързаността в реално време установиха, че областта наистина "
+"има оперативен проблем в този момент. Моля, вижте допълнителната информация "
+"по-долу."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Начален час на удостоверяване/опит за потребителска сесия:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "MAC адреса на крайния потребител в запитването:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Допълнителни коментари:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -546,7 +556,7 @@ msgstr "Издател"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Политики"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -734,11 +744,11 @@ msgstr "още"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Тестът е неуспешен"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "Клиентски сертификат"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
@@ -774,7 +784,7 @@ msgstr "Останалите тестове за това CA са пропусн
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Тестовете бяха пропуснати, заради грешки, възникнали преди това."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -1157,8 +1167,10 @@ msgstr ""
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Коя е областта, част от Вашия акаунт (частта след @ от 'Вашето потребителско "
+"име@<strong>област.tld</strong>'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1207,19 +1219,21 @@ msgstr "Средства за администратори на eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Каква е същността на проблема?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Допускам, че има технически проблем в конкретния IdP"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
-msgstr ""
+msgstr "Искам да докладвам злоупотреба с мрежови ресурси от роуминг потребител"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
 msgstr ""
+"Допускам, че има технически проблем за един от моите потребители в "
+"конкретната SP"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1229,15 +1243,15 @@ msgstr "Тази услуга е само за оторизирани админ
 msgid "eduroam® admin access is needed"
 msgstr "необходим е достъп на администратор на eduroam®"
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr "Изведете списъка с институциите"
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr "Изберете институция:"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -1246,153 +1260,153 @@ msgstr ""
 "Базата данни не съдържа информация, която да Ви помогне за избраната за тази "
 "държава област . Трябва да посочите областта, която Ви интересува."
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr "Не може да търси в базата данни. Не може да търси в базата данни. "
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Проверете дали тази област е регистрирана"
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Проверете тази област"
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr "Друго местоположение"
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr "Изведете списъка с областите"
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr "Проверете областта(ите):"
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
 msgstr "Област:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr "Областта се тества"
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr "Резултатите от диагностичните тестове за избраните области"
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr "Възникна неизвестен проблем "
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr "Този тест включва проверка на следната област "
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr "Този тест включва проверка на следните области"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr "Вие трябва да докладвате това на"
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr "eduroam администратора подава отчета си"
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP контактува с IdP поради технически проблеми или злоупотреба"
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr "Причина"
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr "Време на събитието"
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr "Идентификатор на повикващата станция"
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr "Допълнително описание"
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "Имейл за връзка с докладващ"
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Резултат от тест"
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "неуспех"
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "успешно"
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672
-msgid "Email to IdP administrators "
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:674
-msgid "send successfully"
-msgstr ""
+msgstr "Тестов URL"
 
 #: web/skins/modern/diag/diag.php:676
-msgid "not sent - failure while sending"
-msgstr ""
+msgid "Email to IdP administrators "
+msgstr "Изпратете имейл до администраторите на IdP"
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:678
+msgid "send successfully"
+msgstr "изпращането е успешно"
+
+#: web/skins/modern/diag/diag.php:680
+msgid "not sent - failure while sending"
+msgstr "не е изпратено - неуспех по време на изпращане"
+
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP се свързва със SP, поради технически проблеми или злоупотреба"
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr "Operator-Name на SP"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr "Външен ID на потребителя"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr "IdP е-мейл"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr "Как да се свържете с потребителя"
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Грешен формат на областта"
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr "Грешен формат на е-мейл"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr "MAC адресът е непълен"
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr "Грешен формат на външен ID"
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr "Грешен символен низ е даден като OperatorName"
 
@@ -1448,7 +1462,7 @@ msgstr "Тестване на област за: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Тестове за свързаност на OpenRoaming"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1460,11 +1474,11 @@ msgstr "DNS проверки"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "Проверка на OpenRoaming DNS"
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "Не е конфигуриран тест за свързаност OpenRoaming"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1485,11 +1499,11 @@ msgstr "Повторете тестовете за динамичната свъ
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Повторете тестовете за свързаност OpenRoaming"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "все още не е изпълнен"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1670,43 +1684,45 @@ msgstr "Моля посочете и-мейл адрес, на който SP м�
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Предполагаме технически проблем с IdP"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
+msgstr "Ние допускаме, че има технически проблем с IdP, работещ с областта"
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
+"Диагностичният тест на CAT беше стартиран за тази област по време на "
+"отчитането.\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "Общият резултат беше"
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "За да видите детайлите, отидете на"
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Детайлите за докладвания проблем са следните"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "цифров запис на времето, в което е настъпило събитие"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "MAC адрес на клиента"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "допълнителни коментари"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "Може да докладвате инцидента на"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1827,17 +1843,17 @@ msgstr ""
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Час на тестовете:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Повторете тестовете за свързване"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Липсва token, не могат да бъдат представени данни"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
-msgstr ""
+msgstr "Token-ът в заявката не съществува, не могат да бъдат представени данни"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Minseok Jang <msjang@kisti.re.kr>, 2018
+# Minseok Jang <msjang@kisti.re.kr>, 2018,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Minseok Jang <msjang@kisti.re.kr>, 2018,2022\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ko_KR/)\n"
 "Language: ko_KR\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: core/CAT.php:108
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "공개되지 않은 %s Git 리비전"
 
 #: core/CAT.php:122
 #, php-format
@@ -289,67 +289,67 @@ msgstr "남아프리카"
 msgid "Unnamed Entity"
 msgstr "이름이 없는 엔티티"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "프로필을 비활성화 성공"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "프로필 활성화/수정 성공"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "프로필 비활성화 실패"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "프로필 활성화/수정 실패"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "기본 및 백업 RADIUS 서버 모두에서"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "기본 RADIUS 서버에서"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "백업 RADIUS 서버에서"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "RADIUS 프로필 업데이트 문제가 해결됨"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "RADIUS 프로필 업데이트 문제"
 
 #: core/DeviceConfig.php:249
 #, php-format
 msgid "your local %s support"
-msgstr ""
+msgstr "로컬 %s 지원"
 
 #: core/DeviceConfig.php:250
 #, php-format
 msgid "your local %s support page"
-msgstr ""
+msgstr "로컬 %s 지원 페이지"
 
 #: core/DeviceConfig.php:288
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
+msgstr "죄송합니다. 추가\b적인 정보가 없습니다."
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
 #: core/Federation.php:92
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(지원중단) %s"
 
 #. / IdP and SP
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s 그리고 %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -377,7 +377,7 @@ msgstr ""
 #: core/Federation.php:299
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "%s가 당신의 페더레이션에서 생성됨"
 
 #: core/IdP.php:397
 #, php-format
@@ -396,16 +396,16 @@ msgstr ""
 #: core/IdP.php:406
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s가 당신의 페더레이션에서 삭제됨"
 
 #: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "당신의 %s 접속이 준비됨"
 
 #: core/SilverbulletInvitation.php:249
 msgid "Hello!"
-msgstr ""
+msgstr "안녕하세요!"
 
 #: core/SilverbulletInvitation.php:251
 #, php-format
@@ -500,15 +500,15 @@ msgstr "계정관리기관(IdP)"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "와이파이 핫스팟"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "핫스팟"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "서비스 제공자"
 
 #: core/common/Entity.php:127
 msgid "participant"
@@ -516,11 +516,11 @@ msgstr ""
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "기관"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "엔티티"
 
 #: core/common/OutsideComm.php:291
 #, php-format

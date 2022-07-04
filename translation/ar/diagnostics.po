@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2021
 # Abdulmonem Al Kharusi <abdulmonem@omren.om>, 2021
-# Warda Al Habsi <warda@omren.om>, 2021
+# Warda Al Habsi <mozartt33@gmail.com>, 2021
+# Raiya Al Rashdi <raiya@omren.om>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Warda Al Habsi <warda@omren.om>, 2021\n"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/eduroam_devel/teams/11799/"
 "ar/)\n"
 "Language: ar\n"
@@ -1011,7 +1011,7 @@ msgstr ""
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:102
@@ -1080,168 +1080,168 @@ msgstr ""
 msgid "eduroam® admin access is needed"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:672
+#: web/skins/modern/diag/diag.php:676
 msgid "Email to IdP administrators "
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:674
+#: web/skins/modern/diag/diag.php:678
 msgid "send successfully"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:676
+#: web/skins/modern/diag/diag.php:680
 msgid "not sent - failure while sending"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr ""
 

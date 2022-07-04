@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jørn Åne <yorn@uninett.no>, 2015
-# Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020
+# ffec5bdd8bc4b91afb3a1750da9849ce_15f9003 <c249bc393dbe3bb0ade43bf3e20b7f8c_224491>, 2015
+# Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020,2022\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -543,19 +543,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:93
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "eduroam vilkår og betingelser"
 
 #: web/lib/user/TextTemplates.php:95
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "eduroam Privacy Policy"
 
 #: web/lib/user/TextTemplates.php:99
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "OpenRoaming vilkår og betingelser"
 
 #: web/lib/user/TextTemplates.php:101
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "OpenRoaming Privacy Policy"
 
 #: web/lib/user/TextTemplates.php:106
 #, php-format
@@ -563,6 +563,8 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Husk at ved tilkobling til %s hotspots så gjelder følgende <a "
+"href='%s'>Vilkår og betingelser</a> og <a href='%s'>Privacy Notice</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
@@ -577,6 +579,9 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Hjertlig velkommen blant flere millioner %s brukere! Fra nå av har du "
+"Intenett tilgang fra tusener av universiteter, forskningssentre og mange "
+"andre steder på globen. Alt dette helt gratis!"
 
 #: web/lib/user/TextTemplates.php:112
 #, php-format
@@ -620,7 +625,7 @@ msgstr "Velg en annen installer for nedlasting"
 
 #: web/lib/user/TextTemplates.php:120
 msgid "Choose an installer to download"
-msgstr ""
+msgstr "Velg en profil for nedlasting"
 
 #: web/lib/user/TextTemplates.php:121
 msgid "All platforms"
@@ -678,33 +683,6 @@ msgstr "Spesielt bygget for deg"
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalt signert av organisasjonen som koordinerer %s: %s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"vi ønsker deg velkommen blant flere millioner eduroam® brukere! Fra nå av "
-"har du internett aksess hos tusenvis av universiteter, forskningssentre og "
-"mange andre steder over hele verden. Alt dette helt uten kostnad!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Når du nå har lastet ned og installert en klient konfigurator, trenger du "
-"bare å finne en %s hotspot i nærheten og oppgi dine credentials (et fancy "
-"ord for 'brukernavn og passord' eller 'personlig sertifikat') - og du er på "
-"nett!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autentiserer"
 
 #: web/skins/modern/Menu.php:52
 msgid "About"
@@ -772,6 +750,33 @@ msgstr "Bli CAT utvikler"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Brukervilkår"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"vi ønsker deg velkommen blant flere millioner eduroam® brukere! Fra nå av "
+"har du internett aksess hos tusenvis av universiteter, forskningssentre og "
+"mange andre steder over hele verden. Alt dette helt uten kostnad!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Når du nå har lastet ned og installert en klient konfigurator, trenger du "
+"bare å finne en %s hotspot i nærheten og oppgi dine credentials (et fancy "
+"ord for 'brukernavn og passord' eller 'personlig sertifikat') - og du er på "
+"nett!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autentiserer"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -1104,16 +1109,18 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Om du vil laste ned en profil som inkluderer OpenRoaming må du akseptere "
+"OpenRoaming vilkår og betingelser."
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
-msgstr ""
+msgstr "Om du velger profiler med OpenRoaming støtte, husk å gi ditt samtykke."
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Profilen har innebygget OpenRoaming støtte."
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1121,15 +1128,17 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Jeg ønsker å bruke OpenRoaming og har lest og aksepterer <a href='%s' "
+"target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Jeg har lest og aksepterer <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "OpenRoaming er ikke støttet på denne enheten"
 
 #: web/skins/modern/user/js/cat_js.php:105
 msgid "Organisation"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ingimar Jonsson <ingimar@hi.is>, 2015,2018,2020
+# Ingimar Jonsson <ingimar@hi.is>, 2015,2018,2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-23 11:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:57+0000\n"
+"Last-Translator: Ingimar Jonsson <ingimar@hi.is>, 2015,2018,2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/eduroam_devel/"
 "cat/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -41,7 +41,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:194
 msgid "Apple device"
-msgstr ""
+msgstr "Tæki frá Apple"
 
 #: devices/Devices-template.php:205 devices/Devices-template.php:221
 #: devices/Devices-template.php:237 devices/Devices-template.php:253
@@ -137,7 +137,7 @@ msgstr ""
 
 #: devices/Devices-template.php:409
 msgid "Android 11 and higher"
-msgstr ""
+msgstr "Android 11 og nýrra"
 
 #: devices/Devices-template.php:416 devices/Devices-template.php:430
 #: devices/Devices-template.php:443 devices/Devices-template.php:458
@@ -164,11 +164,11 @@ msgstr "sem staðbundið niðurhal"
 
 #: devices/Devices-template.php:424
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Android 8 til 10"
 
 #: devices/Devices-template.php:437
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 til 7"
 
 #: devices/Devices-template.php:451
 msgid "Android 10.0 Q"
@@ -232,6 +232,18 @@ msgstr ""
 msgid "Test"
 msgstr "Prufa"
 
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
+#, php-format
+msgid "%s via Passpoint"
+msgstr ""
+
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Tækið styður ekki þvingaða stillingu á HTTPS staðgengli."
@@ -245,54 +257,48 @@ msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 msgid ""
-"OpenRoaming is not provisioned due to severe UI limitations during install "
-"time."
-msgstr ""
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:152
-msgid ""
 "Passpoint networks are not provisioned due to severe UI limitations during "
 "install time."
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:176
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:175
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Snið fyrir net samskipan '%s' af '%s' - látið í té af %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:181
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:180
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "%s snið fyrir auðkennisveitu '%s' - látið í té af %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:232
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:231
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
 "to use there and enter the username in the correct format."
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:267
 msgid "Unnamed Organisation"
 msgstr "Ónefnd stofnun"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:269
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
 msgid "Unnamed Profile"
 msgstr "Ónefnt snið"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:340
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:339
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -300,100 +306,100 @@ msgstr ""
 "Besta útkoman næst með því að nota innbyggða vafrann (Safari) til þess að "
 "opna skrána með stillingum."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:342
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:341
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
 msgid "to install the profile"
 msgstr "til þess setja inn sniðið"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:345
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:347
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:346
 #, php-format
 msgid "(%d times)"
 msgstr "(%d sinnum)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:349
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:352
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:351
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
 #, php-format
 msgid "%s - SSID %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:558
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
 #, php-format
 msgid "%s - Wired Network"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:570
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
 #, php-format
 msgid "%s configuration for wired network"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
 #, php-format
 msgid "%s - RCOI"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:588
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:653
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:655
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:654
 msgid "Disabled WiFi network"
 msgstr "Óvirkt þráðlaust net"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:754
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
 msgid "User certificate"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:809
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
 #, php-format
 msgid "The %s Certification Authority"
 msgstr ""
 
 #. / example: "Identity Provider CA #1 (Root)"
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:813
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "%s CA #%d (%s)"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Root"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Intermediate"
 msgstr ""
 
@@ -416,8 +422,8 @@ msgid ""
 "added to the preferred networks."
 msgstr ""
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/Device_XML.php:73
-#: devices/xml/DeviceXML.php:87
+#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -697,18 +703,6 @@ msgstr ""
 msgid "%s installer for %s"
 msgstr ""
 
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
-#, php-format
-msgid "%s via Passpoint"
-msgstr ""
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
-msgstr ""
-
 #: devices/redirect_dev/DeviceRedirectDev.php:44
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
@@ -739,62 +733,66 @@ msgstr ""
 
 #: devices/ms/Files/common.inc:150
 msgid "Your system is ready."
-msgstr ""
+msgstr "Kerfið er tilbúið."
 
 #: devices/ms/Files/common.inc:151
 msgid "Network installation had errors."
-msgstr ""
+msgstr "Villa við uppsetningu á neti."
 
 #: devices/ms/Files/common.inc:151 devices/ms/Files/common.inc:976
 msgid "Please contact ${SUPPORT}."
-msgstr ""
+msgstr "Vinsamlegast hafðu samband við ${SUPPORT}."
 
 #: devices/ms/Files/common.inc:159
 msgid "Accept"
-msgstr ""
+msgstr "Samþykkja"
 
 #: devices/ms/Files/common.inc:160
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
 msgstr ""
+"Ef þú samþykkir skilyrðin þá skaltu smella á Samþykkja og síðan á Uppsetning "
+"til þess að halda áfram."
 
 #: devices/ms/Files/common.inc:166
 msgid "Finish"
-msgstr ""
+msgstr "Ljúka"
 
 #: devices/ms/Files/common.inc:199
 msgid "searching for certificate"
-msgstr ""
+msgstr "leita að skírteini"
 
 #: devices/ms/Files/common.inc:261
 msgid "installing certificate"
-msgstr ""
+msgstr "er að setja inn skírteini"
 
 #: devices/ms/Files/common.inc:267
 msgid "could not install certificate"
-msgstr ""
+msgstr "gat ekki sett inn skírteini"
 
 #: devices/ms/Files/common.inc:474
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
+"Snið án TKIP eru æskileg. Vinsamlegast notaðu slík snið ef þú hefur tök á."
 
 #: devices/ms/Files/common.inc:476
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
+"Snið án TKIP er æskilegt. Vinsamlegast notaðu slíkt snið ef þú hefur tök á."
 
 #: devices/ms/Files/common.inc:482 devices/ms/Files/common.inc:490
 msgid "This installer has been prepared for ${ORGANISATION}"
-msgstr ""
+msgstr "Uppsetning hefur verið undirbúin fyrir ${ORGANISATION}"
 
 #: devices/ms/Files/common.inc:483
 msgid "The installer will create the following wireless profiles:"
-msgstr ""
+msgstr "Uppsetning mun búa til eftirfarandi snið fyrir þráðlaust samband:"
 
 #: devices/ms/Files/common.inc:491
 msgid "The installer will create the wireless profile:"
-msgstr ""
+msgstr "Uppsetning býr til snið fyrir þráðlaust samband."
 
 #: devices/ms/Files/common.inc:585
 msgid ""
@@ -829,7 +827,7 @@ msgstr ""
 
 #: devices/ms/Files/common.inc:657
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr ""
+msgstr "Ekkert þráðlaust netkort fannst. Uppsetning hefur því stöðvast."
 
 #: devices/ms/Files/common.inc:663
 msgid ""
@@ -839,19 +837,19 @@ msgstr ""
 
 #: devices/ms/Files/common.inc:679
 msgid "Do you want to enable access on wired interfaces?"
-msgstr ""
+msgstr "Vilt þú virkja aðgang á víruðu netkorti?"
 
 #: devices/ms/Files/common.inc:720
 msgid "Profiles installation"
-msgstr ""
+msgstr "Uppsetning sniðs"
 
 #: devices/ms/Files/common.inc:739
 msgid "Checking for profile $R8"
-msgstr ""
+msgstr "Athuga hvort snið $R8 sé til staðar"
 
 #: devices/ms/Files/common.inc:747
 msgid "found profile $R8"
-msgstr ""
+msgstr "snið $R8 fannst"
 
 #: devices/ms/Files/common.inc:776
 msgid ""

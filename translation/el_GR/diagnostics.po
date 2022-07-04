@@ -5,18 +5,18 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
-# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2019
 # Halil Adem <hadem@noc.grnet.gr>, 2019
-# Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2021
+# Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2022
+# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2021\n"
+"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>, 2022\n"
 "Language-Team: Greek (Greece) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/el_GR/)\n"
 "Language: el_GR\n"
@@ -435,20 +435,24 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Παρακαλώ σταματήστε την παραβίαση πολιτικής ΑΜΕΣΑ με το να καταχωρίσεται τον "
+"IdP o οποίος σχετίζεται με αυτό το realm."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[ΤΕΧΝΙΚΟ ΠΡΟΒΛΗΜΑ] Ο Διαχειριστής υποπτεύετε ότι ο IdP σας έχει τεχνικό "
+"πρόβλημα."
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Αγαπητέ διαχειρηστή IdP ,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "ένας διαχειριστής οργανισμού αιτήθηκε διαγνωστικά για το realm  %s. "
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -456,6 +460,10 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Οι έλεγχοι διασυνδεσιμότητας πραγματικού χρόνου έκριναν ότι το realm "
+"φαίνεται να λειτουργεί με αποδεκτές παραμέτρους , αλλά ο διαχειριστής "
+"επέμεινε να επικοινωνήσει μαζί σας για τις παρακάτω συμπληρωματικές "
+"πληροφορίες. "
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -463,18 +471,21 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Οι έλεγχοι διασυνδεσιμότητας πραγματικού χρόνου έκριναν ότι το realm έχει "
+"όντως ένα πρόβλημα λειτουργίας στο συγκεκριμένο χρονικό διάστημα . Παρακαλώ "
+"δείτε τις παρακάτω συμπληρωματικές οδηγίες."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Timestamp Αυθεντικοποίησης/Απόπειρας του session του χρήστη:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "MAC address του φερόμενου τελικού χρήστη:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Επιπλέον Σχόλια:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -565,7 +576,7 @@ msgstr "Εκδότης"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Πολιτικές"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -754,11 +765,11 @@ msgstr "περισσότερα"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Το test απέτυχε"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "Client certificate"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
@@ -795,7 +806,7 @@ msgstr "Οι υπόλοιπες δοκιμές για αυτό το CA θα πα
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Αυτά τα test αγνοήθηκαν λόγο προηγούμενων σφαλμάτων."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -1185,8 +1196,10 @@ msgstr ""
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Ποιος είναι ο τομέας στο λογαριασμό χρήστη σας (το τμήμα που ακολουθεί το @ "
+"στο 'your.username@@<strong>realm.tld</strong>'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1238,19 +1251,19 @@ msgstr "Εργαλεία για διαχειριστές eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Ποια είναι η φύση του προβλήματος; "
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Υποψιάζομαι τεχνικό πρόβλημα σε συγκεκριμένο IdP"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
-msgstr ""
+msgstr "Θέλω να καταγγείλω κατάχρηση του δικτύου από έναν roaming χρήστη"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
-msgstr ""
+msgstr "Υποψιάζομαι τεχνικό πρόβλημα για έναν χρήστη μου σε συγκεκριμένο SP"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1260,15 +1273,15 @@ msgstr "Η υπηρεσία αυτή είναι μόνο για ταυτοποι
 msgid "eduroam® admin access is needed"
 msgstr "χρειάζεται διαχειριστική πρόσβαση eduroam®"
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr "Ανάκτηση λίστας ιδρυμάτων"
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr "Επιλέξτε ίδρυμα:"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -1278,7 +1291,7 @@ msgstr ""
 "βοηθήσουμε στην επιλογή τομέα γι αυτή τη χώρα. Θα πρέπει να παρέχετε τομέα "
 "για τον οποίο ενδιαφέρεστε."
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
@@ -1286,147 +1299,147 @@ msgstr ""
 "Δεν μπορεί να γίνει αναζήτηση στη βάση δεδομένων. Θα πρέπει να παρέχετε "
 "τομέα για τον οποίο ενδιαφέρεστε."
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Ελέγξτε αν το realm είναι καταχωρημένο"
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Ελέγξτε αυτό το realm"
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr "Άλλγη τοποθεσία"
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr "Λήψη λίστας τομέων"
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr "Ελέγξετε τομέα(εις):"
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
 msgstr "Τομέας:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr "Εκτέλεση δοκιμών τομέα"
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr "Αποτελέσματα διαγνωστικών για τους επιλεγμένους τομείς"
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr "Προέκυψε άγνωστο πρόβλημα"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο του ακόλουθου τομέα"
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο των ακόλουθων τομέων"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr "Θα πρέπει να το αναφέρετε  στο"
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr "υποβολή αναφοράς διαχειριστή eduroam"
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "Επικοινωνία SP με IdP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr "Αιτία"
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr "Χρονοσήμανση συμβάντος"
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr "Επιπρόσθετη περιγραφή"
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "Ένα email επικοινωνίας του καταγγέλων"
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Αποτέλεσμα του Test"
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "αποτυχία"
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "επιτυχία"
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672
-msgid "Email to IdP administrators "
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:674
-msgid "send successfully"
-msgstr ""
+msgstr "Test URL"
 
 #: web/skins/modern/diag/diag.php:676
-msgid "not sent - failure while sending"
-msgstr ""
+msgid "Email to IdP administrators "
+msgstr "Email στον διαχειριστή του IdP"
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:678
+msgid "send successfully"
+msgstr "στάλθηκε επιτυχώς"
+
+#: web/skins/modern/diag/diag.php:680
+msgid "not sent - failure while sending"
+msgstr "δεν στάλθηκε - αποτυχία κατά την αποστολή"
+
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "Επικοινωνία IdP με SP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr "Operator-Name του SP"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr "εξωτερικό ID Χρήστη"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr "IdP email"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr "Πώς να επικοινωνήσετε με το χρήστη"
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Λάθος format του realm"
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr "Λάθος μορφή email"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr "Η MAC address είναι ελλιπής"
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr "Λάθος μορφή του εξωτερικού ID"
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr "Εσφαλμένη συμβολοσειρά δόθηκε ως OperatorName"
 
@@ -1482,7 +1495,7 @@ msgstr "Δοκιμές τομέα για: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "OpenRoaming test συνδεσιμότητας"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1490,15 +1503,15 @@ msgstr "Ζωντανές δοκιμές σύνδεσης"
 
 #: web/diag/action_realmcheck.php:559
 msgid "DNS checks"
-msgstr ""
+msgstr "DNS checks"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "OpenRoaming DNS checks"
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "Το test συνδεσιμότητας για το OpenRoaming δεν έχει διαμορφωθεί"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1519,11 +1532,11 @@ msgstr "Επαναλάβετε τις δοκιμές δυναμικής συνδ
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Επαναλάβετε τα test διαθεσιμότητας OpenRoaming"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "μη εφαρμοσμένο ακόμα"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1710,43 +1723,45 @@ msgstr ""
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Υποψιάστηκε τεχνικό πρόβλημα με τον IdP"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr ""
+"Υποψιαζόμαστε ένα τεχνικό πρόβλημα σχετικά με την διαχείριση του realm από "
+"τον IdP "
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
-msgstr ""
+msgstr "Το διαγνωστικό test CAT για αυτό το realm έτρεξε κατά την αναφορά .\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "Το συνολικό αποτέλεσμα ήταν"
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "Για να δείτε λεπτομέρειες πηγαίντε στο"
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Οι λεπτομέρειες για το αναφερθέν πρόβλημα είναι οι εξής"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "Χρονοσήμανση"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "client MAC address"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "επιπλέον σχόλια"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "Μπορείτε να επικοινωνήσετε με αυτόν που ανέφερε το περιστατικό στα"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1871,17 +1886,19 @@ msgstr ""
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Tests χρονοσήμανσης"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Επαναλάβετε τα test συνδεσιμότητας"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Λύπει το token , δεν μπορούν να παρουσιαστούν δεδομένα"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
+"Το token που περιέχεται στην αίτηση δεν υπάρχει , δεν μπορούν να "
+"παρουσιαστούν δεδομένα"

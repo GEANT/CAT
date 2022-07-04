@@ -5,18 +5,18 @@
 #
 # Translators:
 # tuukka, 2018
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2021
 # Tomi Salmi, 2022
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2022
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Jari Miettinen <Jari.Miettinen@csc.fi>, 2022\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2022\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -412,20 +412,23 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Lopeta käyttöehtojen rikkomisen luettelemalla tähän toimialueeseen liittyvä "
+"IdP."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[TEKNINEN ONGELMA] Ylläpitäjä epäilee että IdP:ssäsi on teknisiä ongelmia"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Hyvä IdP-admin,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "organisaation ylläpitäjä pyysi diagnostiikkaa toimialueelle %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -433,6 +436,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Reaaliaikaisten tarkastuksen mukaan yhteys on kunnossa tälle toimialueelle "
+"hyväksyttävillä parametreilla, mutta ylläpitäjä vaatii olemaan sinuun "
+"yhteydessä alla olevilla lisätiedoilla."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -440,18 +446,20 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Reaaliaikaisten tarkastuksen mukaan yhteydellä näytäisi olevan ongelmia "
+"tällä hetkellä. Katso lisätiedot alta. "
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Autentikoinnin/autentikointiyrityksen aikaleima:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "Kyseisen käyttäjän MAC-osoite:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Muita kommentteja:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -541,7 +549,7 @@ msgstr "Asettaja"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Politiikka"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -730,7 +738,7 @@ msgstr "lisää"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Testi epäonnistui"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
@@ -772,7 +780,7 @@ msgstr "Loput tämän CA:n testit ohitetaan"
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Nämä testit ohitetiin aikaisempien virheiden vuoksi."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -1145,8 +1153,11 @@ msgstr "Järjestelmä kysyy muutamia kotiorganisaatioosi liittyviä kysymyksiä"
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Mikä on käyttäjätunnuksesi toimialueosa (käyttäjätunnus on muotoa "
+"kayttajatunnus@organisaatio.fi ja @-merkin jälkeinen osa "
+"<strong>organisaatio.fi</strong>haetaan)?"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1194,19 +1205,19 @@ msgstr "eduroam-ylläpitäjien työkalut"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Mikä on ongelman luonne?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Epäilen, että tietyllä IdP:llä on tekninen ongelma."
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
-msgstr ""
+msgstr "Haluan ilmoittaa verkkovierailijan verkkoresurssien väärinkäytöstä"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
-msgstr ""
+msgstr "Epäilen, että käyttäjälläni on tekninen ongelma tietyllä SP:llä."
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1216,15 +1227,15 @@ msgstr "Tämä palvelu on vain sisäänkirjautuneille ylläpitäjille."
 msgid "eduroam® admin access is needed"
 msgstr "eduroam® ylläpito-oikeudet tarvitaan."
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr "Haetaan organisaatioluettelo"
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr "Valitse organisaatio:"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -1233,7 +1244,7 @@ msgstr ""
 "Tietokannasta puuttuu tietoja, jolla toimialueen valitseminen helpottuisi. "
 "Sinun on syötettävä toimialue (realm) josta olet kiinnostunut."
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
@@ -1241,147 +1252,147 @@ msgstr ""
 "Tietokantahaku epäonnistui, ole hyvä ja syötä toimialue (realm), josta olet "
 "kiinnostunut."
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Tarkista, onko tämä toimialue rekisteröity"
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Tarkista tämä toimialue"
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr "Muu sijainti"
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr "Haetaan toimialueluettelo "
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr "Tarkista toimialue(t):"
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
 msgstr "Toimialue:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr "Ajetaan toimialueen testit"
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr "Diagnostiikan tulokset valituille toimialueille"
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr "Tuntematon ongelma ilmeni"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr "Sinun pitäisi ilmoittaa asiasta"
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr "raportin lähettäminen eduroam ylläpitäjälle"
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP on yhteydessä IdP:hen teknisten ongelmien tai väärinkäytön takia."
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr "Syy"
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr "Tapahtuman aikaleima"
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr "Laitteen tunniste"
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr "Lisäkuvaus"
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "Sähköpostiosoite toimittajalle yhteydenottoa varten"
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Testitulos"
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "epäonnistui"
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "onnistui"
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672
-msgid "Email to IdP administrators "
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:674
-msgid "send successfully"
-msgstr ""
+msgstr "Testi-URL"
 
 #: web/skins/modern/diag/diag.php:676
-msgid "not sent - failure while sending"
-msgstr ""
+msgid "Email to IdP administrators "
+msgstr "Sähköposti IdP-ylläpitäjille"
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:678
+msgid "send successfully"
+msgstr "lähetetty onnistuneesti"
+
+#: web/skins/modern/diag/diag.php:680
+msgid "not sent - failure while sending"
+msgstr "ei lähetetty - lähetys epäonnistui"
+
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP on yhteydessä SP:hen teknisten ongelmien tai väärinkäytön takia."
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr "SP:n tunniste"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr "Käyttäjän ulkoinen identiteetti"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr "IdP:n sähköpostiosoite"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr "Yhteydenotto käyttäjään"
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Toimialue (realm) on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr "Sähköpostiosoite on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr "MAC-osoite on epätäydellinen"
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr "Ulkoinen identiteetti on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr "Tunniste (Operator-Name) on väärin"
 
@@ -1436,7 +1447,7 @@ msgstr "Realmin testaus: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "OpenRoaming-yhteyksien tarkistukset"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1448,11 +1459,11 @@ msgstr "DNS-tarkistukset"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "OpenRoamingin DNS-tarkistukset"
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "OpenRoaming-yhteyksien tarkistukset eivät ole määriteltyjä"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1473,11 +1484,11 @@ msgstr "Toista dynaamiset yhteystarkastukset"
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Toista OpenRoaming-yhteyksien tarkistukset"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "ei vielä toteutettu"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1657,43 +1668,44 @@ msgstr "Määritä sähköpostiosoite, johon SP voi ottaa sinuun yhteyttä"
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Epäillään, että IdP:llä on tekninen ongelma"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
+msgstr "Epäillään, että IdP:llä on tekninen ongelma toimialueen käsittelyssä."
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
+"CAT-tarkistukset tehtiin tälle toimialueelle raportoinnin yhteydessä.\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "Kokonaistulokset olivat"
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "Katso yksityiskohdat tästä "
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Ilmoitetun ongelman yksityiskohdat ovat seuraavat"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "aikaleima"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "asiakkaan (päätelaitteen) MAC-osoite"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "muita kommentteja"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "Voit ottaa yhteyttä tapahtuman toimittajaan osoitteessa"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1812,17 +1824,18 @@ msgstr ""
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Tarkistusten aikaleima:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Toista yhteystarkastukset."
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Tunniste (token) puuttuu, tietoja ei voida esittää"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
+"Pyynnössä annettu tunniste (token) ei ole olemassa, tietoja ei voida esittää"

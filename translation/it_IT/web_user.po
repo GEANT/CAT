@@ -3,28 +3,30 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2021
+# Daniele Albrizio <dalbrizio@gmail.com>, 2021-2022
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
-# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018,2020
+# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018,2020,2022
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2013
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:36
@@ -100,6 +102,9 @@ msgstr[0] ""
 msgstr[1] ""
 "<li><b>%s</b> (i punti di distribuzione della  CRL Distribution Point per il "
 "certificato del sito), anche TCP/80</li>"
+msgstr[2] ""
+"<li><b>%s</b> (i punti di distribuzione della  CRL Distribution Point per il "
+"certificato del sito), anche TCP/80</li>"
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -111,6 +116,9 @@ msgstr[0] ""
 "<li><b>%s</b> (il OCSP Responder per il certificato del sito), anche TCP/80</"
 "li>"
 msgstr[1] ""
+"<li><b>%s</b> (Gli OCSP Responder per il certificato del sito), anche "
+"TCP/80</li>"
+msgstr[2] ""
 "<li><b>%s</b> (Gli OCSP Responder per il certificato del sito), anche "
 "TCP/80</li>"
 
@@ -338,8 +346,8 @@ msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
 msgstr ""
-"Ricevo la rete %s, il mio dispositivo è configurato ma non si connette, "
-"quale è la causa?"
+"Ricevo la rete %s, il mio dispositivo è configurato ma non si connette, qual "
+"è la causa?"
 
 #: web/user/faq.inc.php:56 web/user/faq.php:62
 #, php-format
@@ -561,19 +569,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:93
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "eduroam Termini e Condizioni"
 
 #: web/lib/user/TextTemplates.php:95
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "eduroam Privacy Policy"
 
 #: web/lib/user/TextTemplates.php:99
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "Openroaming Termini e condizioni"
 
 #: web/lib/user/TextTemplates.php:101
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "OpenRoaming Privacy Policy"
 
 #: web/lib/user/TextTemplates.php:106
 #, php-format
@@ -581,6 +589,8 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Si ricorda che  connettendosi al htospot %s , Si applicano i seguenti   <a "
+"href='%s'>Termini e Condizioni</a> e <a href='%s'>Privacy Notice</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
@@ -595,6 +605,9 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Ti diamo il benvenuto fra i milioni di utenti di %s! Da ora in poi potrai "
+"usare l'accesso internet in migliaia di università, centri di ricerca ed "
+"altri luoghi sparsi per il mondo.Tutto questo completamente gratis!"
 
 #: web/lib/user/TextTemplates.php:112
 #, php-format
@@ -698,34 +711,6 @@ msgstr "Link personalizzato costruito per te"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Firmato digitalmente dall'organizzazione che coordina %s: %s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"vorremmo darti un caloroso benvenuto tra i diversi milioni di utenti di "
-"eduroam®! D'ora in poi, sarai in grado di utilizzare le risorse di accesso a "
-"Internet in migliaia di università, centri di ricerca e altri luoghi in "
-"tutto il mondo. Tutto questo completamente gratis!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Ora che hai scaricato e installato un configuratore del client, tutto ciò "
-"che devi fare è trovare un hotspot eduroam® nelle vicinanze e inserire le "
-"credenziali utente (questo è il nostro appellativo stravagante per \"nome "
-"utente e password\" o \"certificato personale\") - ed essere in linea!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autenticazione"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Informazioni"
@@ -769,7 +754,7 @@ msgstr "Contatti"
 
 #: web/skins/modern/Menu.php:68
 msgid "Diagnostics"
-msgstr "Dignostica"
+msgstr "Diagnostica"
 
 #: web/skins/modern/Menu.php:72
 msgid "Manage"
@@ -792,6 +777,34 @@ msgstr "Diventa sviluppatore di CAT"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Termini di utilizzo"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"vorremmo darti un caloroso benvenuto tra i diversi milioni di utenti di "
+"eduroam®! D'ora in poi, sarai in grado di utilizzare le risorse di accesso a "
+"Internet in migliaia di università, centri di ricerca e altri luoghi in "
+"tutto il mondo. Tutto questo completamente gratis!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Ora che hai scaricato e installato un configuratore del client, tutto ciò "
+"che devi fare è trovare un hotspot eduroam® nelle vicinanze e inserire le "
+"credenziali utente (questo è il nostro appellativo stravagante per \"nome "
+"utente e password\" o \"certificato personale\") - ed essere in linea!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autenticazione"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -817,6 +830,7 @@ msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] "Hai <strong>%d</strong> credenziali %s valide al momento."
 msgstr[1] "Hai <strong>%d</strong> credenziali %s valide al momento."
+msgstr[2] "Hai <strong>%d</strong> credenziali %s valide al momento."
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
@@ -824,6 +838,7 @@ msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] "<strong>%d</strong> delle tue credenziali non sono più valide."
 msgstr[1] "<strong>%d</strong> delle tue credenziali non sono più valide."
+msgstr[2] "<strong>%d</strong> delle tue credenziali non sono più valide."
 
 #: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."
@@ -1137,16 +1152,20 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Se si scarica il programma di installazione con il supporto OpenRoaming, "
+"allora si devono accettare anche i relativi termini e condizioni"
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Se selezioni programmi di installazione con supporto OpenRoaming, ricorda di "
+"esprimere il tuo consenso. "
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "L'installatore include il supporto per OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1154,15 +1173,17 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Voglio usare  OpenRoaming ed ho letto e accetto <a href='%s' target='_blank'>"
+"%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Ho letto ed accetto  <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "OpenRoaming non è supportato per questo dispositivo"
 
 #: web/skins/modern/user/js/cat_js.php:105
 msgid "Organisation"

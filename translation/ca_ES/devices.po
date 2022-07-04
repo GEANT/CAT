@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-23 11:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:57+0000\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2022\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -245,6 +245,21 @@ msgstr ""
 msgid "Test"
 msgstr "Prova"
 
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
+#, php-format
+msgid "%s via Passpoint"
+msgstr "%s via Passpoint"
+
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"L'instal.lador és només un exemple. Produeix un arxiu comprimit  que conté "
+"els certificats de l'IdP, arxius d'informació i logo (si l'administrador ho "
+"ha definit) i un bolcat dels atributs disponibles."
+
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Aquest dispositiu no permet configurar un proxy HTTPS obligatori."
@@ -261,31 +276,23 @@ msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 msgid ""
-"OpenRoaming is not provisioned due to severe UI limitations during install "
-"time."
-msgstr ""
-"No s'ha configurat OpenRoaming degut a limitacions greus a la UI mentre "
-"s'instal·lava."
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:152
-msgid ""
 "Passpoint networks are not provisioned due to severe UI limitations during "
 "install time."
 msgstr ""
 "Les xarxes Passpoint no s'han configurat degut a limitacions greus mentre "
 "s'instal·lava."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:176
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:175
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Perfil de configuració de xarxa '%s' de '%s' - proveït per %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:181
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:180
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "Configuració d'%s per a l'IdP '%s' - proveït per %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:232
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:231
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
@@ -293,7 +300,7 @@ msgstr ""
 "%s' !"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
@@ -301,7 +308,7 @@ msgstr ""
 "Avís important: el vostre identificador HA DE contenir una '@' i acabar "
 "en ...%s !"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -311,15 +318,15 @@ msgstr ""
 "yy és el sufix que identifica el vostre proveïdor d'identitat. Esbrineu el "
 "que heu de fer servir i introduïu-lo en el format correcte."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:267
 msgid "Unnamed Organisation"
 msgstr "Organització sense nom"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:269
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
 msgid "Unnamed Profile"
 msgstr "Perfil sense nom"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:340
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:339
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -327,7 +334,7 @@ msgstr ""
 "Per als millors resultats, feu servir el navegador preinstal·lat (Safari) "
 "per a obrir el fitxer de configuració."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:342
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:341
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -335,98 +342,98 @@ msgstr ""
 "El perfil s'instal·larà un cop cliqueu el botó. Se us demanarà confirmació "
 "en diferents punts:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
 msgid "to install the profile"
 msgstr "per a instal·lar el perfil"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:345
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "per a acceptar l'autoritat de certificació del servidor"
 msgstr[1] "per a acceptar les autoritats de certificació del servidor"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:347
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:346
 #, php-format
 msgid "(%d times)"
 msgstr "(%d vegades)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:349
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 "per a entrar l'identificador i contrasenya facilitats per la vostra "
 "institució"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:352
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:351
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
 msgstr ""
 "(%d vegades cada un, perquè s'ha instal·lat %d SSIDs i %d xarxes Passpoint)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
 #, php-format
 msgid "%s - SSID %s"
 msgstr "%s - SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:558
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s configuració per a la xarxa %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
 #, php-format
 msgid "%s - Wired Network"
 msgstr "%s - Xarxa de cable"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:570
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Configuració de %s per a una xarxa de cable"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
 #, php-format
 msgid "%s - RCOI"
 msgstr "%s - RCOI"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:588
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
 msgstr "Configuració de %s (Passpoint RCOI)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:653
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Aquest SSID no s'hauria de fer servir un cop configurada l'arrencada de %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:655
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:654
 msgid "Disabled WiFi network"
 msgstr "Xarxa WiFi inhabilitada"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:754
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
 msgid "User certificate"
 msgstr "Certificat d'usuari"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:809
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "L'autoritat de certificació %s"
 
 #. / example: "Identity Provider CA #1 (Root)"
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:813
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "%s CA #%d (%s)"
 msgstr "%s CA #%d (%s)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Root"
 msgstr "Root"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Intermediate"
 msgstr "Intermèdia"
 
@@ -454,8 +461,8 @@ msgstr ""
 "importació no genera avisos; les noves definicions s'afegiran a les xarxes "
 "preferides."
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/Device_XML.php:73
-#: devices/xml/DeviceXML.php:87
+#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -467,7 +474,7 @@ msgstr ""
 #: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
-msgstr ""
+msgstr "He llegit i accepto la Política d'ús d'OpenRoaming a %s"
 
 #: devices/linux/DeviceLinux.php:85 devices/linux/DeviceLinuxSh.php:86
 #, php-format
@@ -487,7 +494,6 @@ msgid "The installer will configure access to:"
 msgstr "L'instal·lador configurarà l'accés a:"
 
 #: devices/linux/DeviceLinux.php:90 devices/linux/DeviceLinuxSh.php:91
-#, fuzzy
 msgid ""
 "The installer will create cat_installer sub-directory in your config "
 "directory (possibly the .config in your home directory) and will copy your "
@@ -792,21 +798,6 @@ msgstr ""
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instal·lador %s per a %s"
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
-#, php-format
-msgid "%s via Passpoint"
-msgstr "%s via Passpoint"
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
-msgstr ""
-"L'instal.lador és només un exemple. Produeix un arxiu comprimit  que conté "
-"els certificats de l'IdP, arxius d'informació i logo (si l'administrador ho "
-"ha definit) i un bolcat dels atributs disponibles."
 
 #: devices/redirect_dev/DeviceRedirectDev.php:44
 msgid ""

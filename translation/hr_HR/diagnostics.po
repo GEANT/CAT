@@ -5,17 +5,17 @@
 #
 # Translators:
 # dsafar <dsafar@srce.hr>, 2018
-# Dubravko Penezic <dpenezic@gmail.com>, 2020
 # eduroam_devel <stefan.winter@restena.lu>, 2022
+# Dubravko Penezic <dpenezic@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2022\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -106,7 +106,7 @@ msgid ""
 "validate this certificate."
 msgstr ""
 "Barem jedan certifikat u lancu potpisan je s MD5 algoritmom Mnogi operativni "
-"sustavi, uključujući Apple iOS, neće uspješno velidirati certifikat."
+"sustavi, uključujući Apple iOS, neće uspješno validirati certifikat."
 
 #: core/diag/AbstractTest.php:431
 msgid ""
@@ -115,7 +115,7 @@ msgid ""
 "validate this certificate."
 msgstr ""
 "Barem jedan certifikat u lancu potpisan je s SHA-1 algoritmom.Mnogi "
-"operativni sustavi, uključujući Apple iOS, neće uspješno velidirati "
+"operativni sustavi, uključujući Apple iOS, neće uspješno validirati "
 "certifikat."
 
 #: core/diag/AbstractTest.php:438
@@ -404,20 +404,24 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"molimo zaustavite kršenje pravila odmah ,navođenjem IdP-a koji je povezan s "
+"domenom."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[TEHNIČKI PROBLEM] Administrator sumnja na tehnički problem s vašim "
+"davateljem identiteta"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Poštovani IdP administratore,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "administrator organizacije zatražio je dijagnostiku za domenu %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -425,6 +429,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Real-time provjera povezivanja ustanovila je da realm radi s prihvatljivim "
+"parametrima, ali administrator je inzistirao kontaktirati vas s dodatnim "
+"informacijama ispod."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -432,18 +439,20 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Real-time provjera povezivanja ustanovila je da realm zaista ima operativnih "
+"problema u ovom trenutku. Molimo pogledajte dodatne informacije ispod."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Timestamp autentifikacije/pokušaja korisničke sesije:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "MAC adresa dotičnog krajnjeg korisnika:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Dodatni komentari:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -533,7 +542,7 @@ msgstr "Izdavač"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Politike"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -719,11 +728,11 @@ msgstr "dalje"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Test neuspješan"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "Klijentski certifikat"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
@@ -760,7 +769,7 @@ msgstr "Ostatak testova za ovo certifikacijsko tijelo je preskočen"
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Ovi testovi preskočeni su zbog prošlih grešaka."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -1137,7 +1146,7 @@ msgstr "račun"
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:102
@@ -1186,19 +1195,21 @@ msgstr "Alati za aduroam administratore"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Koja je priroda problema?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Sumnjam na tehnički problem kod određenog davatelja identiteta"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
-msgstr ""
+msgstr "Želim prijaviti zlouporabu mreže od strane korisnika u roamingu"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
 msgstr ""
+"Sumnjam na tehnički problem za jednog od mojih korisnika na određenom "
+"davatelju usluge"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1208,174 +1219,174 @@ msgstr "Ova usluga je samo za autenticirane administratore"
 msgid "eduroam® admin access is needed"
 msgstr "potreban eduroam® admin pristup"
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr "Preuzimanje liste ustanova"
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr "Izaberite ustanovu:"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
-"Baza ne sadrži  informacije potrebne kako bi se ralm dohvatio s popisa "
+"Baza ne sadrži informacije potrebne kako bi se ralm dohvatio s popisa "
 "odabrane države. Molim specificirajte realm."
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr "Nemoguće je koristiti pretraživanje baze. Molim specificirajte realm."
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Provjeri dal je domena registrirana"
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Provjeri ovu domenu"
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr "Druga lokacija"
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr "Preuzimanje liste realm-ova"
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr "Provjerite realm/ove"
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr "Pokrenuti su testovi realm-ova"
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr "Rezultati testova za izabrane realm-ove"
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr "Nepoznati problem"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr "Ovaj test uključuje provjeru sljedećeg realm-a"
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr "Ovaj test uključuje provjeru sljedećih realm-ova"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr "Ovo bi trebali prijaviti"
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr "podnošenje izvješća administracije"
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 "Davatelj usluge kontaktira davatelja identiteta zbog tehničkih problema ili "
 "zloupotrebe"
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr "Razlog"
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr "Timestamp događaja"
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr "Dodatni opis"
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "E-mail za kontaktiranje"
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Rezultat testa"
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "pogreška"
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "uspjeh"
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672
-msgid "Email to IdP administrators "
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:674
-msgid "send successfully"
-msgstr ""
+msgstr "Testni URL"
 
 #: web/skins/modern/diag/diag.php:676
-msgid "not sent - failure while sending"
-msgstr ""
+msgid "Email to IdP administrators "
+msgstr "Email administratoru davatelja identiteta"
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:678
+msgid "send successfully"
+msgstr "uspješno poslano"
+
+#: web/skins/modern/diag/diag.php:680
+msgid "not sent - failure while sending"
+msgstr "nije poslano - pogreška kod slanja"
+
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 "Davatelj identiteta kontaktira davatelja usluge zbog tehničkih problema ili "
 "zloupotrebe"
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr "SP naziv"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr "Korisnički vanjski ID"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr "Idp email"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr "Način kontaktiranja korinika"
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Pogrešan format domene"
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr "Pogrešan format e-mail adrese"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr "MAC adresa je nepotpuna"
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr "Pogrešan format vanjskog ID-a"
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr "Pogrešan unos polja OperatorName"
 
@@ -1431,7 +1442,7 @@ msgstr "Provjera realma za: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "OpenRoaming test povezivanja"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1443,11 +1454,11 @@ msgstr "Provjera DNS-a"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "OpenRoaming DNS provjera"
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "Test povezivanja OpenRoaminga nije konfiguriran"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1468,11 +1479,11 @@ msgstr "Ponovite dinamički test povezanosti"
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Ponovi OpenRoamin test povezivanja"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "još nije implementirano"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1654,43 +1665,43 @@ msgstr ""
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Sumnjamo na tehnički problem s IdP-om"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
+msgstr "Sumnjamo na tehnički problem s IdP-om koji upravlja domenom"
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
-msgstr ""
+msgstr "CAT diagnostic test za ovu domenu je izvršen tijekom izvještavanja.\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "Ukupni rezultat je "
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "Da bi vidjeli detalje idite na "
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Detalji o prijavljenom problemu su"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "timestamp"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "MAC adresa klijenta"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "dodatni komentari"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "Možete prijaviti incident na"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1734,7 +1745,7 @@ msgid ""
 msgstr ""
 "<strong>Test NEUSPJEŠAN</strong>: zahtjev je odbijen odmah, bez EAP "
 "komunikacije. Ili ste pogrešno unjeli korisničku oznako, ili postoji "
-"ozbiljna greška na varen RADIUS poslužitelju."
+"ozbiljna greška na vašen RADIUS poslužitelju."
 
 #: web/diag/radius_tests.php:200 web/diag/radius_tests.php:242
 #, php-format
@@ -1778,8 +1789,8 @@ msgid ""
 msgstr ""
 "<strong>Test NEUSPJEŠAN</strong>: test je odbijen odmah nakon upita, bez EAP "
 "konverzacije. Ovo nemora nužno značiti grešku: ako RADIUS poslužitelj "
-"zahtjeva da korisnička oznaka u vanjskoj i unutrašnjo ljusci bude ista, "
-"onsda je taj rezultat očekivan. "
+"zahtjeva da korisnička oznaka u vanjskoj i unutrašnjo ljusci bude ista, onda "
+"je taj rezultat očekivan. "
 
 #: web/diag/radius_tests.php:250
 msgid "unhandled error"
@@ -1808,17 +1819,17 @@ msgstr ""
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Vrijeme testiranja:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Ponovi test povezivanja"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Nedostaje token, nema podataka za prikaz"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
-msgstr ""
+msgstr "Token poslan u zahtjevu ne postoji, nema podataka za prikaz"

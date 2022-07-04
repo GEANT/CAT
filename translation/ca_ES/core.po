@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-18 07:45+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015,2018-2019,2022\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -291,41 +291,39 @@ msgstr "Sudàfrica"
 msgid "Unnamed Entity"
 msgstr "Entitat sense nom"
 
-#: core/DeploymentManaged.php:467
-#, fuzzy
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
 msgstr "Perfil desactivat correctament"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
 msgstr "Activació/modificació del perfil correcte"
 
-#: core/DeploymentManaged.php:469
-#, fuzzy
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
 msgstr "Ha fallat la desactivació del perfil"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
 msgstr "Ha fallat l'activació/modificació del perfil"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
 msgstr "en ambdós servidors RADIUS: primari i backup"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
 msgstr "al servidor RADIUS primari"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
 msgstr "al servidor RADIUS de backup"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
 msgstr "Resolt el problema en l'acualització del perfil RADIUS"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
 msgstr "Problema en l'actualització del perfil RADIUS"
 

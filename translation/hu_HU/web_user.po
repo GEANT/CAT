@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2018-2020\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -685,34 +685,6 @@ msgstr "Neked rendelésre készített"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálisan aláírta a szervezet, amelyet  %s:%s koordinál."
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Szeretettel üdvözöljük az eduroam® több millió felhasználóját! Mostantól "
-"internetes hozzáférési erőforrásokat használhat az egyetemek, "
-"kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen "
-"ingyen!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Most, hogy letöltötte és telepítette az ügyfélkonfigurátort, mindössze "
-"annyit kell tennie, hogy találjon egy eduroam® hotspotot a környéken, és "
-"írja be a felhasználói hitelesítő adatait (ez a \"username és jelszó\" vagy "
-"\"személyes tanúsítványunk\") - és máris elérhető!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Azonosítás folyamatban"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Névjegy"
@@ -779,6 +751,34 @@ msgstr "Légy CAT fejlesztő!"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Szeretettel üdvözöljük az eduroam® több millió felhasználóját! Mostantól "
+"internetes hozzáférési erőforrásokat használhat az egyetemek, "
+"kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen "
+"ingyen!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Most, hogy letöltötte és telepítette az ügyfélkonfigurátort, mindössze "
+"annyit kell tennie, hogy találjon egy eduroam® hotspotot a környéken, és "
+"írja be a felhasználói hitelesítő adatait (ez a \"username és jelszó\" vagy "
+"\"személyes tanúsítványunk\") - és máris elérhető!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Azonosítás folyamatban"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""

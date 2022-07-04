@@ -4,7 +4,7 @@
 #
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2020
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2020,2022
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
@@ -12,9 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, "
+"2018-2020,2022\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -571,19 +572,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:93
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "Regulamin eduroam"
 
 #: web/lib/user/TextTemplates.php:95
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "Polityka prywatności eduroam"
 
 #: web/lib/user/TextTemplates.php:99
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "Regulamin OpenRoamingu"
 
 #: web/lib/user/TextTemplates.php:101
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "Polityka prywatności OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:106
 #, php-format
@@ -591,6 +592,9 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Proszę pamiętać, że podczas łączenia do hotspotów  %s, ma zastosowanie "
+"następujący <a href='%s'>Regulamin</a> i <a href='%s'>Informacja o "
+"Prywatności</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
@@ -605,6 +609,9 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Serdecznie witamy wśród kilku milionów użytkowników %s! Dzięki temu będziesz "
+"mógł korzystać z dostępu do internetu w wielu uniwersytetach, centrach "
+"badawczych i innych miejscach na świecie - wszystko całkowicie za darmo. "
 
 #: web/lib/user/TextTemplates.php:112
 #, php-format
@@ -708,34 +715,6 @@ msgstr "Przygotowane specjalnie dla Ciebie"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Podpisane cyfrowo przez instytucję zarządzającą %s: %s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
-"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
-"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
-"uzyskujesz bez żadnych opłat!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
-"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
-"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
-"i będziesz podłączony!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Czekam na uwierzytelnienie"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Informacje"
@@ -802,6 +781,34 @@ msgstr "Dołącz do programistów CAT"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Warunki korzystania"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
+"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
+"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
+"uzyskujesz bez żadnych opłat!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
+"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
+"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
+"i będziesz podłączony!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Czekam na uwierzytelnienie"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -1142,16 +1149,20 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Jeśli chcesz pobrać instalator, który umożliwia użycie OpenRomingu, musisz "
+"zaakceptować Regulamin OpenRoamingu."
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Jeśli wybrałeś instalatory wspierające OpenRoaming, pamiętaj o wyrażeniu "
+"zgody."
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Instalator ma wbudowane wsparcie OpenRoamingu."
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1159,15 +1170,17 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Chcę korzystać z OpenRoamingu oraz zapoznałem się i zaakceptowałem <a "
+"href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Zapoznałem się i zaakceptowałem <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "Na tym urządzeniu nie jest wspierany OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:105
 msgid "Organisation"

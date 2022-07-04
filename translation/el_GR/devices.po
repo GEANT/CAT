@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018-2019
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 # Vicky Kons <vickyk@admin.grnet.gr>, 2016
 # Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018-2020
-# Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2020-2021
+# Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-23 11:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:57+0000\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -250,6 +250,22 @@ msgstr ""
 msgid "Test"
 msgstr "Δοκιμή"
 
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
+#, php-format
+msgid "%s via Passpoint"
+msgstr "%s μέσω Passpoint"
+
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
+"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
+"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
+"όλων των διαθεσίμων ορισμάτων."
+
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
@@ -268,34 +284,30 @@ msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 msgid ""
-"OpenRoaming is not provisioned due to severe UI limitations during install "
-"time."
-msgstr ""
-
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:152
-msgid ""
 "Passpoint networks are not provisioned due to severe UI limitations during "
 "install time."
 msgstr ""
+"Τα δίκτυα Passpoint δεν εγκαθίστανται λόγω εκτεταμένων περιορισμών UI κατά "
+"την διάρκεια της εγκατάστασης."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:176
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:175
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Προφίλ ρύθμισης δικτύου '%s' από '%s' - παρέχεται από %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:181
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:180
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "%s διαμόρφωση για IdP '%s' - παρέχεται από %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:232
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:231
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
 "Σημαντική Σημείωση: το username ΠΡΕΠΕΙ να τελειώνει ακριβώς σε  '...@%s' !"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
@@ -303,7 +315,7 @@ msgstr ""
 "Σημαντική Σημείωση: το username ΠΡΕΠΕΙ να περιέχει ένα '@' και να τελειώνει "
 "σε ...%s !"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -314,15 +326,15 @@ msgstr ""
 "Ταυτότητας σας. Παρακαλώ βρείτε τι να χρησιμοποιήσετε εκεί και "
 "πληκτρολογήστε το όνομα χρήστη στη σωστή μορφή."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:267
 msgid "Unnamed Organisation"
 msgstr "Ανώνυμος Οργανισμός"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:269
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:268
 msgid "Unnamed Profile"
 msgstr "Ανώνυμο Προφίλ"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:340
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:339
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -330,7 +342,7 @@ msgstr ""
 "Για καλύτερα αποτελέσματα, χρησιμοποιήστε τον προεγκαταστημένο φυλλομετρητή "
 "(Safari) για να ανοίξετε το αρχείο ρυθμίσεων."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:342
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:341
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -338,109 +350,111 @@ msgstr ""
 "Το προφίλ θα εγκατασταθεί μόνο του αφού κάνετε κλικ (ή ταπ) στο κουμπί. Θα "
 "ερωτηθείτε για επιβεβαίωση/εισαγωγή σε διάφορα σημεία:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
 msgid "to install the profile"
 msgstr "για εγκατάσταση προφίλ"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:345
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "να αποδεχτούν την αρχή πιστοποίησης του εξυπηρετητή"
 msgstr[1] "να αποδεχτούν τις αρχές πιστοποίησης του εξυπηρετητή"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:347
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:346
 #, php-format
 msgid "(%d times)"
 msgstr "(%d φορές)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:349
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 "για να εισάγετε το όνομα χρήστη και τον κωδικό που σας έχει δοθεί από τον "
 "οργανισμό σας"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:352
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:351
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
 msgstr ""
+"(%d φορές το καθένα, επειδή %d SSIDs και %d δίκτυα Passpoint είναι "
+"εγκατεστημένα)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
 #, php-format
 msgid "%s - SSID %s"
-msgstr ""
+msgstr "%s - SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:558
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "διαμόρφωση %s για το όνομα δικτύου %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
 #, php-format
 msgid "%s - Wired Network"
-msgstr ""
+msgstr "%s - Ενσύρματο Δίκτυο"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:570
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s διαμόρφωση για ενσύρματο δίκτυο"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
 #, php-format
 msgid "%s - RCOI"
-msgstr ""
+msgstr "%s - RCOI"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:588
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
-msgstr ""
+msgstr "%s παραμετροποίηση (Passpoint RCOI)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:653
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Αυτό το SSID δεν πρέπει να χρησιμοποιηθεί μετά από το bootstrapping του %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:655
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:654
 msgid "Disabled WiFi network"
 msgstr "Απενεργοποιημένο δίκτυο WiFi"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:754
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
 msgid "User certificate"
-msgstr ""
+msgstr "πιστοποιητικό Χρήστη"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:809
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "Η Αρχή Πιστοποίησης %s"
 
 #. / example: "Identity Provider CA #1 (Root)"
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:813
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "%s CA #%d (%s)"
 msgstr "%s CA #%d (%s)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Root"
 msgstr "Root"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Intermediate"
 msgstr "Ενδιάμεσο"
 
 #: devices/chromebook/DeviceChromebook.php:61 devices/linux/DeviceLinux.php:48
 #: devices/linux/DeviceLinuxSh.php:38
 msgid "This device does not support provisioning of OpenRoaming."
-msgstr ""
+msgstr "Αυτή η συσκευή δεν υποστηρίζει την εγκατάσταση OpenRoaming."
 
 #: devices/chromebook/DeviceChromebook.php:62 devices/linux/DeviceLinux.php:49
 #: devices/linux/DeviceLinuxSh.php:39
 msgid "This device does not support provisioning of Passpoint networks."
-msgstr ""
+msgstr "Αυτή η συσκευή δεν υποστηρίζει την εγκατάσταση δικτύων Passpoint"
 
 #: devices/chromebook/DeviceChromebook.php:304
 msgid ""
@@ -457,8 +471,8 @@ msgstr ""
 "εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα προστεθούν στα "
 "προτιμώμενα δίκτυα."
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/Device_XML.php:73
-#: devices/xml/DeviceXML.php:87
+#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -470,7 +484,7 @@ msgstr ""
 #: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
-msgstr ""
+msgstr "Έχω διαβάσει και αποδέχομαι τους όρους χρήσης OpenRoaming στο %s."
 
 #: devices/linux/DeviceLinux.php:85 devices/linux/DeviceLinuxSh.php:86
 #, php-format
@@ -487,7 +501,7 @@ msgstr ""
 
 #: devices/linux/DeviceLinux.php:86 devices/linux/DeviceLinuxSh.php:87
 msgid "The installer will configure access to:"
-msgstr ""
+msgstr "Το πακέτο εγκατάστασης θα παραμετροποιήσει την πρόσβαση στο:"
 
 #: devices/linux/DeviceLinux.php:90 devices/linux/DeviceLinuxSh.php:91
 msgid ""
@@ -495,6 +509,9 @@ msgid ""
 "directory (possibly the .config in your home directory) and will copy your "
 "server certificates there."
 msgstr ""
+"Το πακέτο εγκατάστασης θα δημιουργήσει έναν υποφάκελο .cat_installer στο "
+"config directory (πιθανότατα στο .config του home directory σας) και θα "
+"αντιγράψει εκεί τα πιστοποιητικά εξυπηρετητή."
 
 #: devices/linux/DeviceLinux.php:92 devices/linux/DeviceLinuxSh.php:93
 msgid ""
@@ -505,6 +522,13 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the cat_installer directory."
 msgstr ""
+"Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό σε "
+"μορφή αρχείου p12. Θα πρέπει να προμηθευτείτε αυτό το πιστοποιητικό από τον "
+"οργανισμό σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πώς "
+"μπορείτε να προμηθευτείτε αυτό το πιστοποιητικό. Τέτοια αρχεία "
+"πιστοποιητικών προστατεύονται με κωδικό. Θα πρέπει να έχετε διαθέσιμο "
+"αμφότερα το αρχείο και τον κωδικό κατά την εγκατάσταση. Το αρχείο p12 θα "
+"αντιγραφεί επίσης στο φάκελο .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/DeviceLinux.php:94 devices/linux/DeviceLinuxSh.php:95
@@ -680,7 +704,7 @@ msgstr ""
 #: devices/linux/DeviceLinuxSh.php:137
 #, php-format
 msgid "Directory %s exists; some of its files may be overwritten."
-msgstr ""
+msgstr "Ο φάκελος %s υπάρχει ήδη· μερικά αρχεία του μπορεί να αντικατασταθούν."
 
 #: devices/linux/DeviceLinuxSh.php:151
 #, php-format
@@ -688,6 +712,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@%s'. Please enter the "
 "username in the correct format."
 msgstr ""
+"Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@%s'. Παρακαλώ "
+"εισάγετε το όνομα χρήστη στη σωστή μορφή."
 
 #: devices/linux/DeviceLinuxSh.php:152
 #, php-format
@@ -695,11 +721,13 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'%s'. Please enter the username in the correct format."
 msgstr ""
+"Σφάλμα: Το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@institutionID' "
+"και να λήγει σε '%s'. Παρακαλώ εισάγετε το όνομα χρήστη στη σωστή μορφή."
 
 #: devices/linux/DeviceLinuxSh.php:344
 #, php-format
 msgid "This installer has been prepared for %s"
-msgstr ""
+msgstr "Το πακέτο εγκατάστασης έχει προετοιμαστεί για %s"
 
 #: devices/linux/DeviceLinuxSh.php:373
 #, php-format
@@ -707,11 +735,15 @@ msgid ""
 "This installer will only work properly if you are a member of %s and the "
 "user group: %s."
 msgstr ""
+"Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του "
+"%s και της ομάδας χρηστών %s."
 
 #: devices/linux/DeviceLinuxSh.php:375
 #, php-format
 msgid "This installer will only work properly if you are a member of %s."
 msgstr ""
+"Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του "
+"%s."
 
 #: devices/ms/DeviceVista7.php:49 devices/ms/DeviceW8W10.php:59
 msgid ""
@@ -726,12 +758,18 @@ msgid ""
 "While OpenRoaming can be configured, it is possible that the Wi-Fi hardware "
 "does not support it; then the network definition is ignored."
 msgstr ""
+"Ενώ το OpenRoaming μπορεί να παραμετροποιηθεί, είναι πιθανό ο εξοπλισμός Wi-"
+"Fi να μην το υποστηρίζει· στην συνέχεια ο ορισμός του δικτύου θα "
+"παραλειφθεί. "
 
 #: devices/ms/DeviceVista7.php:51 devices/ms/DeviceW8W10.php:61
 msgid ""
 "While Passpoint networks can be configured, it is possible that the Wi-Fi "
 "hardware does not support it; then the network definition is ignored."
 msgstr ""
+"Ενώ τα δίκτυα Passpoint μπορούν να παραμετροποιηθούν, είναι πιθανό ο "
+"εξοπλισμός Wi-Fi να μην τα υποστηρίζει· στην συνέχεια ο ορισμός του δικτύου "
+"θα παραλειφθεί. "
 
 #: devices/ms/WindowsCommon.php:229
 #, php-format
@@ -781,22 +819,6 @@ msgstr ""
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s πακέτο εγκατάστασης για %s"
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
-#, php-format
-msgid "%s via Passpoint"
-msgstr ""
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
-msgstr ""
-"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
-"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
-"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
-"όλων των διαθεσίμων ορισμάτων."
 
 #: devices/redirect_dev/DeviceRedirectDev.php:44
 msgid ""

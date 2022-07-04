@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# martins <ms@uakom.sk>, 2013,2015
+# martins <ms@uakom.sk>, 2013,2015,2022
 # martins <ms@uakom.sk>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: martins <ms@uakom.sk>, 2013,2015,2022\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sk_SK/)\n"
 "Language: sk_SK\n"
@@ -24,12 +24,12 @@ msgstr ""
 #: core/CAT.php:108
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Nepublikovaná GIT verzia %s"
 
 #: core/CAT.php:122
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Verzia <a href='%s'>%s</a>"
 
 #: core/CAT.php:136
 msgid "Andorra"
@@ -289,43 +289,43 @@ msgstr "Južná Afrika"
 
 #: core/CAT.php:477 core/IdPlist.php:79
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Nepomenovaná entita"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Deaktivácia profilu bola úspešná"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Aktivácia/úprava profilu bola úspešná"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Deaktivácia profilu zlyhala"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Aktivácia/úprava profilu zlyhala"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "na oboch RADIUS serveroch: hlavnom aj záložnom"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "na hlavnom RADIUS serveri"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "na záložnom RADIUS serveri"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Problém aktualizácie profilu RADIUS bol opravený"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Problém s aktualizáciou profilu RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -353,7 +353,7 @@ msgstr ""
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s a %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -488,61 +488,61 @@ msgstr "EAP-pwd"
 #. different wording, no translation, sorry
 #: core/common/Entity.php:120
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Národný prevádzovateľ roamingu"
 
 #: core/common/Entity.php:121
 msgid "identity provider"
-msgstr ""
+msgstr "poskytovateľ identít"
 
 #: core/common/Entity.php:122 core/common/Entity.php:128
 msgid "organisation"
-msgstr ""
+msgstr "organizácia"
 
 #: core/common/Entity.php:123
 msgid "Identity Provider"
-msgstr ""
+msgstr "Poskytovateľ identít"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Wi-Fi Hotspot"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Poskytovateľ služieb"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "účastník"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "organizácia"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "entita"
 
 #: core/common/OutsideComm.php:291
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "%s %s, %s \"%s\" vás pozval spoločne spravovať %s"
 
 #: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
-msgstr ""
+msgstr "%s %s vás pozval spravovať %s \"%s\" (%s). Organizácia bude %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "%s %s vás pozval spravovať %s  \"%s\". Toto je %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format
@@ -559,22 +559,24 @@ msgstr "Zdravím,"
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
+"manuálne. Prosím, neodpovedajte na túto správu, bola odoslaná z adresy "
+"určenej iba na zasielanie pozvánok."
 
 #: core/common/OutsideComm.php:311
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Ďalšia správa od vášho správcu %s:"
 
 #: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%s správca"
 
 #: core/common/OutsideComm.php:322
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "manuálne. Odpovedaním na túto správu oslovíte správcu %s."
 
 #: core/common/OutsideComm.php:328
 #, php-format
@@ -582,6 +584,8 @@ msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
+"Ak sa chcete stať správcom uvedeného %s, kliknite prosím na nasledujúci "
+"odkaz:"
 
 #: core/common/OutsideComm.php:330
 #, php-format
@@ -623,7 +627,7 @@ msgstr ""
 #: core/common/OutsideComm.php:372
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: boli ste pozvaný spravovať %s"
 
 #: web/lib/common/InputValidation.php:43
 msgid "Input validation error: "
@@ -631,7 +635,7 @@ msgstr "Chyba na vstupe:"
 
 #: web/lib/common/InputValidation.php:270
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Doména je prázdna!"
 
 #: web/lib/common/InputValidation.php:279
 msgid "Realm contains an @ sign!"

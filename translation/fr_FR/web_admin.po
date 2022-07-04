@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2022
 # Christian Claveleira <christian.claveleira@renater.fr>, 2019
 # dominique.launay <dominique.launay@renater.fr>, 2012-2013,2015,2019
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2019
 # dominique.launay <dominique.launay@renater.fr>, 2012
 # Emmanuel Halbwachs <Emmanuel.Halbwachs@obspm.fr>, 2019
 # Emmanuel HALBWACHS <Emmanuel.Halbwachs@obspm.fr>, 2019
+# Geoffroy ARNOUD, 2022
 # J.-M.Kubek <jean-marie.kubek@univ-jfc.fr>, 2015
 # Joël Kwan <joel.kwan@univ-reunion.fr>, 2018
 # Jonathan CHATRIOT <jonathan.chatriot@ac-lille.fr>, 2019
@@ -21,16 +22,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 17:14+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:29+0000\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2022\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #: web/admin/action_enrollment.php:44 web/admin/action_enrollment.php:48
 #: web/admin/action_enrollment.php:63 web/admin/action_enrollment.php:64
@@ -86,17 +88,19 @@ msgstr ""
 #: web/admin/action_generate_zone.php:41
 #, php-format
 msgid "%s: RADIUS/TLS superglue zone management"
-msgstr ""
+msgstr "%s : zone de management superglue RADIUS/TLS"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_generate_zone.php:56
 msgid "DNS NAPTR certificate management"
-msgstr ""
+msgstr "Gestion des certificats DNS NAPTR"
 
 #: web/admin/action_generate_zone.php:66
 msgid ""
 "You do not have the necessary privileges to request NAPTR superglue zones."
 msgstr ""
+"Vous n'avez pas les privilèges nécessaires pour demander des zones superglue "
+"NAPTR."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/action_req_certificate.php:41
@@ -209,33 +213,33 @@ msgstr "Modification %s des informations pour ' %s '"
 msgid "%s Properties"
 msgstr "%s Propriétés"
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:189
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
 #: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
 msgid "Property Type"
-msgstr ""
+msgstr "Type de propriété"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:190
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
-msgstr ""
+msgstr "Langue si applicable"
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:191
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
 #: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
 msgid "Property Value"
-msgstr ""
+msgstr "Valeur de la propiété"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:248
+#: web/lib/admin/UIElements.php:249
 msgid "Country:"
 msgstr "Pays :"
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:224
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -243,13 +247,13 @@ msgstr "Pays :"
 msgid "Add new option"
 msgstr "Ajouter une nouvelle option"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:228
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Sauvegarder les données"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:228
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -273,69 +277,69 @@ msgid "Continue to dashboard"
 msgstr "Continuer vers le tableau de bord"
 
 #. terms of use popup, going interactive
-#: web/admin/edit_hotspot.php:58
+#: web/admin/edit_hotspot.php:60
 #, php-format
 msgid "%s: %s Terms of Use"
-msgstr ""
+msgstr "%s: %s Conditions d'utilisation"
 
-#: web/admin/edit_hotspot.php:68
+#: web/admin/edit_hotspot.php:70
 msgid "Terms of Use Acceptance"
-msgstr ""
+msgstr "Acceptation des conditions d'utilisation"
 
 #. Appending terms of use popup
-#: web/admin/edit_hotspot.php:76 web/admin/edit_silverbullet.php:695
+#: web/admin/edit_hotspot.php:78 web/admin/edit_silverbullet.php:695
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Conditions d'utilisation"
 
-#: web/admin/edit_hotspot.php:83 web/admin/edit_silverbullet.php:702
+#: web/admin/edit_hotspot.php:85 web/admin/edit_silverbullet.php:702
 msgid "I have read and agree to the terms."
 msgstr "J'ai lu et j'accepte les conditions."
 
-#: web/admin/edit_hotspot.php:85 web/admin/edit_silverbullet.php:704
+#: web/admin/edit_hotspot.php:87 web/admin/edit_silverbullet.php:704
 msgid "Continue"
 msgstr "Continuer"
 
-#: web/admin/edit_hotspot.php:86 web/admin/edit_silverbullet.php:705
+#: web/admin/edit_hotspot.php:88 web/admin/edit_silverbullet.php:705
 msgid "Abort"
 msgstr "Annuler"
 
-#: web/admin/edit_hotspot.php:154
+#: web/admin/edit_hotspot.php:171
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: Assistant de configuration (étape 3)"
 
-#: web/admin/edit_hotspot.php:167
+#: web/admin/edit_hotspot.php:184
 #, php-format
 msgid "Editing %s deployment"
-msgstr ""
+msgstr "Modification du déploiement %s"
 
-#: web/admin/edit_hotspot.php:181
+#: web/admin/edit_hotspot.php:198
 msgid "Options for this deployment"
-msgstr ""
+msgstr "Options pour ce déploiement"
 
-#: web/admin/edit_hotspot.php:197
+#: web/admin/edit_hotspot.php:214
 msgid "Custom Operator-Name:"
-msgstr ""
+msgstr "Operator-name personnalisé : "
 
-#: web/admin/edit_hotspot.php:208
+#: web/admin/edit_hotspot.php:225
 #, php-format
 msgid "VLAN tag for own users%s:"
-msgstr ""
+msgstr "Tag VLAN pour ses propres utilisateurs %s :"
 
-#: web/admin/edit_hotspot.php:208
+#: web/admin/edit_hotspot.php:225
 msgid "(unset with '0')"
-msgstr ""
+msgstr "(désactivé avec '0')"
 
 #: web/admin/edit_participant.php:42
 #, php-format
 msgid "%s: %s enrollment wizard (step 2)"
-msgstr ""
+msgstr "%s: %s assistant de configuration (étape 2)"
 
 #: web/admin/edit_participant.php:76
 #, php-format
 msgid "Step 2: General Information about your %s"
-msgstr ""
+msgstr "Étape 2 : informations générales relatives à votre %s"
 
 #: web/admin/edit_participant.php:83
 #, php-format
@@ -398,7 +402,7 @@ msgstr ""
 "pas d'un nom dans la langue exacte dans laquelle l'utilisateur demande un "
 "téléchargement."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:262
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:263
 msgid "Media Properties"
 msgstr "Propriétés réseau"
 
@@ -425,6 +429,7 @@ msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Ce SSID sera toujours configuré pour WPA2/AES: %s."
 msgstr[1] "Ces SSIDs seront toujours configurés pour WPA2/AES : %s."
+msgstr[2] "Ces SSIDs seront toujours configurés pour WPA2/AES : %s."
 
 #: web/admin/edit_participant.php:149
 #, php-format
@@ -432,6 +437,8 @@ msgid ""
 "It is also possible to define custom additional SSIDs with the option '%s' "
 "below."
 msgstr ""
+"Il est aussi possible de définir des SSIDs supplémentaires avec l'option "
+"'%s' ci dessous."
 
 #: web/admin/edit_participant.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -462,6 +469,7 @@ msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] "Le Consortium OIs suivant sera toujours configuré : %s."
 msgstr[1] "Les Consortium OIs suivants seront toujours configurés : %s."
+msgstr[2] "Les Consortium OIs suivants seront toujours configurés : %s."
 
 #: web/admin/edit_participant.php:166
 #, php-format
@@ -567,6 +575,8 @@ msgid ""
 "This is the contact point for your organisation. It may be displayed "
 "publicly."
 msgstr ""
+"Il s'agit du point de contact de votre établissement. Il pourra être diffusé "
+"de manière publique."
 
 #: web/admin/edit_participant.php:201
 msgid "Providing at least a local support e-mail contact is required."
@@ -789,7 +799,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:182
 msgid "Basic Realm Information"
-msgstr ""
+msgstr "Informations de base sur le domaine"
 
 #: web/admin/edit_profile.php:184 web/admin/edit_profile.php:192
 msgid "Realm:"
@@ -797,7 +807,7 @@ msgstr "Domaine :"
 
 #: web/admin/edit_profile.php:185
 msgid "Realm input field"
-msgstr ""
+msgstr "Champ de saisie du domaine"
 
 #: web/admin/edit_profile.php:226
 msgid "Realm Options"
@@ -835,15 +845,15 @@ msgstr ""
 
 #: web/admin/edit_profile.php:240
 msgid "Username Handling Options"
-msgstr ""
+msgstr "Options de traitement de l'identifiant"
 
 #: web/admin/edit_profile.php:242
 msgid "Option name"
-msgstr ""
+msgstr "Nom de l'option"
 
 #: web/admin/edit_profile.php:243
 msgid "Option checkbox"
-msgstr ""
+msgstr "Case à cocher"
 
 #: web/admin/edit_profile.php:246
 msgid "Outer Identity Handling"
@@ -918,7 +928,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:368
 msgid "EAP type support"
-msgstr ""
+msgstr "Support des méthodes EAP"
 
 #: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
@@ -965,6 +975,10 @@ msgstr[1] ""
 "Les options %s sont déjà définie globalement dans le fournisseur d'identité. "
 "Si vous les paramétrez au niveau du profil, ces options remplaceront les "
 "globales."
+msgstr[2] ""
+"Les options %s sont déjà définie globalement dans le fournisseur d'identité. "
+"Si vous les paramétrez au niveau du profil, ces options remplaceront les "
+"globales."
 
 #: web/admin/edit_profile.php:469
 msgid ""
@@ -978,7 +992,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Edit Profile - Result"
-msgstr ""
+msgstr "%s: Mise à jour du profil - Résultat"
 
 #: web/admin/edit_profile_result.php:56
 #, php-format
@@ -991,11 +1005,11 @@ msgstr "Attributs soumis pour ce profil"
 
 #: web/admin/edit_profile_result.php:117 web/admin/edit_user_result.php:77
 msgid "Overall Result"
-msgstr ""
+msgstr "Résultat global"
 
 #: web/admin/edit_profile_result.php:118 web/admin/edit_user_result.php:78
 msgid "Details"
-msgstr ""
+msgstr "Détails"
 
 #: web/admin/edit_profile_result.php:125
 #, php-format
@@ -1186,40 +1200,54 @@ msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
+"Les informations du profil ne comprennent pas le domaine, donc aucune "
+"vérification DNS pour OpenRoaming ne peut être exécutée."
 
 #: web/admin/edit_profile_result.php:288
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr ""
+"La cible SRV d'un enregistrement NAPTR pour OpenRoaming est inattendue."
 
 #: web/admin/edit_profile_result.php:300
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
+"Les noms d'hôtes DNS des enregistrements SRV ne résolvent pas d'adresses IP. "
+"OpenRoaming ne fonctionnera pas."
 
 #: web/admin/edit_profile_result.php:324
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
+"En se connectant aux serveurs d'authentifications OpenRoaming découverts, "
+"ils avaient tous des erreurs. OpenRoaming ne fonctionnera probablement pas."
 
 #: web/admin/edit_profile_result.php:327
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
+"En se connectant aux serveurs d'authentifications OpenRoaming découverts, "
+"seul un sous-ensemble de ces points de terminaison n'avait pas d'erreur."
 
 #: web/admin/edit_profile_result.php:335
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
+"Au moins une réponse DNS n'a PAS été sécurisée par DNSSEC. Les fournisseurs "
+"de service OpenRoaming peuvent refuser de se connecter au serveur "
+"d'authentification."
 
 #: web/admin/edit_profile_result.php:339
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
 msgstr ""
+"Les diagnostics OpenRoaming initiaux sur la partie DNS (y compris DNSSEC) "
+"sont satisfaisant."
 
 #: web/admin/edit_profile_result.php:352
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -1335,7 +1363,7 @@ msgid "Manage %s users"
 msgstr "Gérer les utilisateurs de %s"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:167
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
 msgid "User"
 msgstr "Utilisateur"
 
@@ -1348,7 +1376,7 @@ msgid "User/Token Expiry"
 msgstr "Expiration de l'utilisateur/du jeton"
 
 #: web/admin/edit_silverbullet.php:397 web/admin/edit_silverbullet.php:404
-#: web/admin/inc/manageAdmins.inc.php:168
+#: web/admin/inc/manageAdmins.inc.php:167
 msgid "Actions"
 msgstr "Actions"
 
@@ -1407,6 +1435,7 @@ msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
 msgstr[0] "(montrer les %d certificats révoqués)"
 msgstr[1] "(montrer les %d certificats révoqués)"
+msgstr[2] "(montrer les %d certificats révoqués)"
 
 #: web/admin/edit_silverbullet.php:505
 #, php-format
@@ -1414,6 +1443,7 @@ msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
 msgstr[0] "(montrer les %d certificats expirés)"
 msgstr[1] "(montrer les %d certificats expirés)"
+msgstr[2] "(montrer les %d certificats expirés)"
 
 #: web/admin/edit_silverbullet.php:519
 #, php-format
@@ -1604,7 +1634,7 @@ msgstr "Attributs soumises"
 
 #: web/admin/edit_user_result.php:72
 msgid "Submitted attributes for this user"
-msgstr ""
+msgstr "Attributs soumis pour l'utilisateur"
 
 #: web/admin/edit_user_result.php:88
 msgid "Continue to user overview page"
@@ -1637,7 +1667,8 @@ msgstr "Demander un nouveau certificat"
 msgid "%s: %s Management"
 msgstr "%s : Gestion de %s"
 
-#: web/admin/overview_federation.php:47 web/admin/overview_org.php:474
+#: web/admin/overview_federation.php:47 web/admin/overview_org.php:528
+#: web/admin/overview_sp.php:77
 #, php-format
 msgid "%s Overview"
 msgstr "Vue globale de %s"
@@ -1689,19 +1720,21 @@ msgstr "Téléchargements"
 msgid "Admin"
 msgstr "Administrateur"
 
-#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:110
+#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:109
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Envoyé avec un protocole sécurisé (chiffré)."
 msgstr[1] "Envoyés avec un protocole sécurisé (chiffré)."
+msgstr[2] "Envoyés avec un protocole sécurisé (chiffré)."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Envoyé en clair (non chiffré)."
 msgstr[1] "Envoyés en clair (non chiffré)."
+msgstr[2] "Envoyés en clair (non chiffré)."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:116
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
@@ -1709,25 +1742,26 @@ msgstr ""
 "Une partie des courriels ont été envoyés avec un protocole chiffré, le reste "
 "en clair"
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Le courrier d'invitation a été envoyé avec succès."
 msgstr[1] "Les courriels d'invitation ont été envoyés avec succès."
+msgstr[2] "Les courriels d'invitation ont été envoyés avec succès."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
 msgstr "Envoyé avec succès."
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
 msgstr "Aucun courriel d'invitation n'a pu être envoyé !"
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
 msgstr "Erreur d'envoi !"
 
-#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
@@ -1735,14 +1769,17 @@ msgstr[0] ""
 "Celui envoyé avec succès l'a été avec un protocole sécurisé (chiffré)."
 msgstr[1] ""
 "Ceux envoyés avec succès l'ont été avec un protocole sécurisé (chiffré)."
+msgstr[2] ""
+"Ceux envoyés avec succès l'ont été avec un protocole sécurisé (chiffré)."
 
-#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "Celui envoyé avec succès l'a été en clair (sans chiffrement)."
 msgstr[1] "Ceux envoyés avec succès l'ont été en clair (sans chiffrement)."
+msgstr[2] "Ceux envoyés avec succès l'ont été en clair (sans chiffrement)."
 
-#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1750,7 +1787,7 @@ msgstr ""
 "Une partie des courriels envoyés avec succès l'on été avec un protocole "
 "chiffré, le reste en clair."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1759,21 +1796,21 @@ msgstr ""
 "Quelques courriels d'invitation ont été envoyés avec succès (%s au total), "
 "les autres ont échoué."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
 msgstr "Succès partiel."
 
-#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:144
+#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 "L'adresse de destination du courriel d'invitation était non conforme, aucune "
 "invitation n'a été envoyée !"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Erreur : résultat inconnu de code d'invitation !?!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
 msgstr "Résultat inconnu !"
 
@@ -1781,8 +1818,10 @@ msgstr "Résultat inconnu !"
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
+"Diagnostiquer la joignabilité et les paramètres de connexion de tout %s %s"
 
-#: web/admin/overview_federation.php:224 web/admin/overview_user.php:232
+#: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
+#: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
 msgstr "C'est parti !"
 
@@ -1793,11 +1832,11 @@ msgstr "Besoin d'aide ? Reportez-vous au <a href='%s'>%s manuel</a>"
 
 #: web/admin/overview_federation.php:237
 msgid "Participant Details"
-msgstr ""
+msgstr "Détails des participants"
 
 #: web/admin/overview_federation.php:239
 msgid "Configured / Visible / OpenRoaming"
-msgstr ""
+msgstr "État (Configuré - Visible - OpenRoaming)"
 
 #: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
@@ -1846,7 +1885,7 @@ msgstr "Invitations en attente dans la %s :"
 msgid "Revoke Invitation"
 msgstr "Révoquer l'invitation"
 
-#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:213
+#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
 msgstr "(expire le %s)"
@@ -1865,65 +1904,65 @@ msgstr "Matrice de compatibilité des systèmes"
 msgid "Device compatiblity matrix for %s of %s "
 msgstr "Matrice de compatibilité des appareils pour le profil %s de %s "
 
-#: web/admin/overview_installers.php:52
+#: web/admin/overview_installers.php:53
 msgid "Device"
 msgstr "Appareil"
 
-#: web/admin/overview_installers.php:60
+#: web/admin/overview_installers.php:61
 msgid "EAP-Type-specific options..."
 msgstr "Options spécifiques à la méthode EAP..."
 
-#: web/admin/overview_installers.php:79
+#: web/admin/overview_installers.php:80
 msgid "Device-specific options..."
 msgstr "Options spécifiques de l'appareil..."
 
-#: web/admin/overview_installers.php:91
+#: web/admin/overview_installers.php:90
 #, php-format
 msgid "%s<br/>Installer"
-msgstr ""
+msgstr "Installeur <br/> %s"
 
-#: web/admin/overview_installers.php:97
+#: web/admin/overview_installers.php:92
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
-msgstr ""
+msgstr "Installeur <br/> %s + OpenRoaming"
 
-#: web/admin/overview_installers.php:164
+#: web/admin/overview_installers.php:166
 msgid "Legend:"
 msgstr "Légende :"
 
-#: web/admin/overview_installers.php:167
+#: web/admin/overview_installers.php:170
 msgid "Colour"
-msgstr ""
+msgstr "Couleur"
 
-#: web/admin/overview_installers.php:167
+#: web/admin/overview_installers.php:170
 msgid "Meaning"
-msgstr ""
+msgstr "Signification"
 
-#: web/admin/overview_installers.php:168
+#: web/admin/overview_installers.php:171
 msgid "redirection is set"
 msgstr "La redirection est activée"
 
-#: web/admin/overview_installers.php:169
+#: web/admin/overview_installers.php:172
 msgid "will be offered on download site"
 msgstr "sera proposé sur le site de téléchargement"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "configured, but not preferred EAP type"
 msgstr "configuré, mais pas de méthode EAP préférée"
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "incomplete configuration"
 msgstr "configuration incomplète"
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "not supported by CAT"
 msgstr "non supporté par CAT"
 
-#: web/admin/overview_installers.php:176
+#: web/admin/overview_installers.php:179
 msgid "Footnotes:"
 msgstr "Notes de bas de page :"
 
-#: web/admin/overview_installers.php:185
+#: web/admin/overview_installers.php:188
 msgid "Return to dashboard"
 msgstr "Revenir au tableau de bord"
 
@@ -1934,12 +1973,12 @@ msgstr "Information nécessaire !"
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "You can create up to %d users."
-msgstr ""
+msgstr "Vous pouvez créer jusqu'à %d utilisateurs."
 
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "Their credentials will carry the name <strong>%s</strong>."
-msgstr ""
+msgstr "Leurs identifiants porteront le nom <strong>%s</strong>."
 
 #: web/admin/overview_org.php:62
 msgid "Manage User Base"
@@ -1954,7 +1993,7 @@ msgstr "Profil : %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Méthodes EAP</strong> (par ordre de préférence) :"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:417
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:418
 msgid "OK"
 msgstr "OK"
 
@@ -2020,161 +2059,274 @@ msgstr "Souhaitez-vous vraiment supprimer ce profil %s?"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: web/admin/overview_org.php:245
+#: web/admin/overview_org.php:245 web/admin/overview_sp.php:49
 msgid "Successfully set profile"
-msgstr ""
+msgstr "Le profil a été défini avec succès"
 
-#: web/admin/overview_org.php:246
+#: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occured during profile update"
-msgstr ""
+msgstr "Un problème est survenu lors de la mise à jour du profil"
 
-#: web/admin/overview_org.php:274
+#: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
-msgstr ""
+msgstr "inactif"
 
-#: web/admin/overview_org.php:274
+#: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "active"
-msgstr ""
+msgstr "actif"
 
 #: web/admin/overview_org.php:277
 msgid "Deployment Details"
-msgstr ""
+msgstr "Détails du déploiement"
 
-#: web/admin/overview_org.php:285
+#: web/admin/overview_org.php:285 web/admin/overview_sp.php:155
 msgid "Your primary RADIUS server"
-msgstr ""
+msgstr "Votre serveur RADIUS primaire"
 
 #: web/admin/overview_org.php:288 web/admin/overview_org.php:312
+#: web/admin/overview_sp.php:158 web/admin/overview_sp.php:182
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 #: web/admin/overview_org.php:294 web/admin/overview_org.php:318
+#: web/admin/overview_sp.php:164 web/admin/overview_sp.php:188
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 #: web/admin/overview_org.php:298 web/admin/overview_org.php:321
+#: web/admin/overview_sp.php:168 web/admin/overview_sp.php:191
 msgid "RADIUS port number: "
-msgstr ""
+msgstr "Port RADIUS numéro :"
 
-#: web/admin/overview_org.php:309
+#: web/admin/overview_org.php:309 web/admin/overview_sp.php:179
 msgid "Your backup RADIUS server"
-msgstr ""
+msgstr "Votre serveur RADIUS secondaire"
 
-#: web/admin/overview_org.php:333
+#: web/admin/overview_org.php:333 web/admin/overview_sp.php:203
 msgid "RADIUS shared secret"
-msgstr ""
+msgstr "Secret partagé RADIUS"
 
-#: web/admin/overview_org.php:339
+#: web/admin/overview_org.php:339 web/admin/overview_sp.php:209
 msgid "Custom Operator-Name"
-msgstr ""
+msgstr "Operator-Name personnalisé"
 
-#: web/admin/overview_org.php:347
+#: web/admin/overview_org.php:347 web/admin/overview_sp.php:216
 msgid "VLAN tag for own users"
-msgstr ""
+msgstr "Tag VLAN pour ses propres utilisateurs"
 
-#: web/admin/overview_org.php:356 web/lib/admin/UIElements.php:144
+#: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
+#: web/lib/admin/UIElements.php:144
 msgid "Realm to be considered own users"
-msgstr ""
+msgstr "Domaine à considérer comme étant ses propres utilisateurs"
 
-#: web/admin/overview_org.php:366
+#: web/admin/overview_org.php:366 web/admin/overview_sp.php:235
 msgid "Advanced Configuration"
-msgstr ""
+msgstr "Configuration avancée"
 
-#: web/admin/overview_org.php:370
+#: web/admin/overview_org.php:370 web/admin/overview_sp.php:239
 #, php-format
 msgid "Do you really want to deactivate the %s deployment?"
-msgstr ""
+msgstr "Souhaitez-vous vraiment désactiver ce déploiement %s?"
 
-#: web/admin/overview_org.php:371
+#: web/admin/overview_org.php:371 web/admin/overview_sp.php:240
 msgid "Deactivate"
-msgstr ""
+msgstr "Désactiver"
 
-#: web/admin/overview_org.php:379
+#: web/admin/overview_org.php:379 web/admin/overview_sp.php:248
 msgid "Activation failure."
-msgstr ""
+msgstr "Echec d'activation."
 
-#: web/admin/overview_org.php:382
+#: web/admin/overview_org.php:382 web/admin/overview_sp.php:251
 msgid "Activation failure for your primary RADIUS server."
-msgstr ""
+msgstr "Echec d'activation pour votre serveur RADIUS primaire."
 
-#: web/admin/overview_org.php:384
+#: web/admin/overview_org.php:384 web/admin/overview_sp.php:253
 msgid "Activation failure for your backup RADIUS server."
-msgstr ""
+msgstr "Echec d'activation pour votre serveur RADIUS secondaire."
 
 #: web/admin/overview_org.php:396
 msgid "Accept Terms of Use"
-msgstr ""
+msgstr "Accepter les conditions d'utilisation"
 
-#: web/admin/overview_org.php:403
+#: web/admin/overview_org.php:401 web/admin/overview_org.php:433
+#, php-format
+msgid "Do you really want to remove this %s deployment?"
+msgstr "Voulez-vous vraiment supprimer ce déploiement %s ?"
+
+#: web/admin/overview_org.php:402 web/admin/overview_org.php:434
+msgid "Remove deployment"
+msgstr "Supprimer le déploiement"
+
+#: web/admin/overview_org.php:411 web/admin/overview_sp.php:265
 msgid "Activate"
-msgstr ""
+msgstr "Activer"
 
-#: web/admin/overview_org.php:411
+#: web/admin/overview_org.php:419 web/admin/overview_sp.php:273
 msgid "Failure during deactivation, your request is queued for handling"
 msgstr ""
+"Echec lors de la désactivation, votre demande est mise en attente de "
+"traitement"
 
-#: web/admin/overview_org.php:414
+#: web/admin/overview_org.php:422 web/admin/overview_sp.php:276
 msgid ""
 "Deactivation failure for your primary RADIUS server, your request is queued."
 msgstr ""
+"Echec de désactivation pour votre serveur RADIUS primaire, votre demande est "
+"mise en file d'attente."
 
-#: web/admin/overview_org.php:416
+#: web/admin/overview_org.php:424 web/admin/overview_sp.php:278
 msgid ""
 "Deactivation failure for your backup RADIUS server, your request is queued."
 msgstr ""
+"Echec de désactivation pour votre serveur RADIUS secondaire, votre demande "
+"est mise en file d'attente."
 
-#: web/admin/overview_org.php:449
-#, php-format
-msgid "%s: %s Dashboard"
+#: web/admin/overview_org.php:445
+msgid "Hotspot Usage Statistics"
+msgstr "Statistiques d'utilisation des hotspots"
+
+#: web/admin/overview_org.php:447
+msgid "5 most recent authentications"
+msgstr "Les 5 authentifications les plus récentes"
+
+#: web/admin/overview_org.php:448 web/admin/inc/deploymentStats.inc.php:40
+msgid ""
+"(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
+"IPv6-Address/Called-Station-Id)"
 msgstr ""
+"(l'identifiant AP est un triplet constitué de NAS-Identifier/NAS-IP-Address/"
+"NAS-IPv6-Address/Called-Station-Id)"
+
+#: web/admin/overview_org.php:452 web/admin/inc/deploymentStats.inc.php:44
+msgid "Timestamp (UTC)"
+msgstr "Horodatage (UTC)"
+
+#: web/admin/overview_org.php:453 web/admin/inc/deploymentStats.inc.php:45
+msgid "Realm"
+msgstr "Domaine"
+
+#: web/admin/overview_org.php:454 web/admin/inc/deploymentStats.inc.php:46
+#: web/admin/inc/userStats.inc.php:43
+msgid "MAC Address"
+msgstr "Adresse MAC "
+
+#: web/admin/overview_org.php:455 web/admin/inc/deploymentStats.inc.php:47
+msgid "Chargeable-User-Identity"
+msgstr "Chargeable-User-Identity"
+
+#: web/admin/overview_org.php:456 web/admin/inc/deploymentStats.inc.php:48
+#: web/admin/inc/userStats.inc.php:44
+msgid "Result"
+msgstr "Résultat"
+
+#: web/admin/overview_org.php:457 web/admin/inc/deploymentStats.inc.php:49
+msgid "AP Identifier"
+msgstr "Identifiant AP"
+
+#: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
+#: web/admin/inc/userStats.inc.php:55
+msgid "Success"
+msgstr "Succès"
+
+#: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
+#: web/admin/inc/userStats.inc.php:55
+msgid "Failure"
+msgstr "Échec"
+
+#: web/admin/overview_org.php:474
+msgid "Last hour"
+msgstr "Dernière heure"
 
 #: web/admin/overview_org.php:477
+msgid "Last 30 days"
+msgstr "30 derniers jours"
+
+#: web/admin/overview_org.php:480
+msgid "Last 6 months"
+msgstr "6 derniers mois"
+
+#: web/admin/overview_org.php:503 web/admin/overview_sp.php:44
+#, php-format
+msgid "%s: %s Dashboard"
+msgstr "%s : Tableau de bord du %s "
+
+#: web/admin/overview_org.php:531 web/admin/overview_sp.php:79
 #, php-format
 msgid "%s general settings"
 msgstr "Paramètres généraux pour %s"
 
-#: web/admin/overview_org.php:479
+#: web/admin/overview_org.php:533
 msgid "Edit ..."
-msgstr ""
+msgstr "Editer ..."
 
-#: web/admin/overview_org.php:502 web/admin/overview_org.php:608
+#: web/admin/overview_org.php:556 web/admin/overview_org.php:662
 #, php-format
 msgid "%s: %s Deployment Details"
-msgstr ""
+msgstr "%s : Détails du déploiement du %s"
 
-#: web/admin/overview_org.php:528
+#: web/admin/overview_org.php:582
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Ajouter un profil %s..."
 
-#: web/admin/overview_org.php:543
+#: web/admin/overview_org.php:597
 msgid "New RADIUS/EAP profile (manual setup) ..."
-msgstr ""
+msgstr "Nouveau profil RADIUS/EAP (configuration manuelle) ..."
 
-#: web/admin/overview_org.php:550
+#: web/admin/overview_org.php:604
 msgid "New RADIUS/EAP profile (autodetect server details) ..."
-msgstr ""
+msgstr "Nouveau profil RADIUS/EAP (détails du serveur autodétecté) ..."
 
 #. no profiles yet.
-#: web/admin/overview_org.php:561
+#: web/admin/overview_org.php:615
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr "Il n'y a pas encore de profils pour votre %s."
 
-#: web/admin/overview_org.php:586
+#: web/admin/overview_org.php:640
 msgid "User Downloads"
 msgstr "Téléchargements utilisateurs"
 
-#: web/admin/overview_org.php:619 web/admin/overview_org.php:631
+#: web/admin/overview_org.php:673 web/admin/overview_sp.php:309
 #, php-format
 msgid "Add %s deployment ..."
-msgstr ""
+msgstr "Ajouter %s déploiement..."
+
+#: web/admin/overview_org.php:677
+msgid "Helpdesk mail address is required but missing!"
+msgstr " L'adresse mail du service d'assistance est requise mais manquante !"
 
 #. no profiles yet.
-#: web/admin/overview_org.php:645
+#: web/admin/overview_org.php:708 web/admin/overview_sp.php:130
 #, php-format
 msgid "There are not yet any known deployments for your %s."
-msgstr ""
+msgstr "Il n'y a pas encore de déploiement connu pour votre %s."
+
+#: web/admin/overview_sp.php:81
+#, php-format
+msgid "Edit general %s details"
+msgstr "Modifier les paramètres généraux pour %s"
+
+#: web/admin/overview_sp.php:100
+msgid "Available Support actions"
+msgstr "Actions de support disponibles"
+
+#: web/admin/overview_sp.php:105
+#, php-format
+msgid "Diagnose reachability and connection parameters of %ss"
+msgstr "Diagnostiquer les paramètres d'accessibilité et de connexion de %s"
+
+#. SW: APPROVED
+#: web/admin/overview_sp.php:116
+#, php-format
+msgid "Check %s server status"
+msgstr "Vérifier l'état du serveur %s"
+
+#. no profiles yet.
+#: web/admin/overview_sp.php:133
+#, php-format
+msgid "Deployments for this %s"
+msgstr "Déploiements pour ce %s"
 
 #: web/admin/overview_user.php:30
 #, php-format
@@ -2192,7 +2344,7 @@ msgstr "Éditer les informations utilisateur"
 #: web/admin/overview_user.php:81
 #, php-format
 msgid "Click here for %s management tasks"
-msgstr "Cliquer ici pour les tâches d'administration de %s"
+msgstr "Cliquer ici pour les tâches d'administration d'%s"
 
 #: web/admin/overview_user.php:84
 msgid "Click here to access the superadmin page"
@@ -2215,11 +2367,13 @@ msgstr[0] ""
 "suivant :"
 msgstr[1] ""
 "Vous êtes en train d'administrer les <strong>%d</strong> %s suivants :"
+msgstr[2] ""
+"Vous êtes en train d'administrer les <strong>%d</strong> %s suivants :"
 
 #: web/admin/overview_user.php:129
 #, php-format
 msgid "%s Management Overview"
-msgstr ""
+msgstr "Aperçu de la gestion des %s"
 
 #: web/admin/overview_user.php:132
 #, php-format
@@ -2228,11 +2382,11 @@ msgstr "Autres administrateurs de ce %s"
 
 #: web/admin/overview_user.php:135
 msgid "Management"
-msgstr ""
+msgstr "Gestion"
 
 #: web/admin/overview_user.php:142
 msgid "Danger Zone"
-msgstr ""
+msgstr "Zone de danger"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:154
@@ -2244,8 +2398,9 @@ msgstr "%s %s : liste %s"
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vous et %d autre(s) utilisateur(s)"
+msgstr[1] "Vous et %d autre(s) utilisateur(s)"
+msgstr[2] "Vous et %d autre(s) utilisateur(s)"
 
 #: web/admin/overview_user.php:206
 #, php-format
@@ -2308,6 +2463,10 @@ msgstr ""
 msgid "New %s Registration"
 msgstr "Nouvel enregistrement pour %s"
 
+#: web/admin/inc/deploymentStats.inc.php:39
+msgid "Deployment Usage Records"
+msgstr "Enregistrements de l'utilisation des déploiements"
+
 #: web/admin/inc/displayQRcode.inc.php:41
 #: web/admin/inc/displayQRcode.inc.php:42
 msgid "Invitation Token QR Code"
@@ -2322,12 +2481,12 @@ msgstr ""
 "Vous n'avez pas les habilitations requises pour modifier les administrateurs "
 "de ce %s. En fait, vous n'auriez jamais dû arriver jusqu'ici !"
 
-#: web/admin/inc/manageAdmins.inc.php:95
+#: web/admin/inc/manageAdmins.inc.php:94
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Administrateurs pour le fournisseur d'identité '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:154
+#: web/admin/inc/manageAdmins.inc.php:153
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2337,12 +2496,12 @@ msgstr ""
 "administrateurs, qui à leur tour pourront eux-mêmes désigner d'autres "
 "administrateurs."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:123
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:123
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrateur de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:160
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2353,46 +2512,50 @@ msgstr ""
 "Vous pouvez désigner d'autres administrateurs, mais ceux-ci ne pourront pas "
 "désigner eux-mêmes d'autres administrateurs."
 
-#: web/admin/inc/manageAdmins.inc.php:160
+#: web/admin/inc/manageAdmins.inc.php:159
 msgid "Directly Appointed Administrator"
 msgstr "Administrateur désigné directement"
 
-#: web/admin/inc/manageAdmins.inc.php:178
+#: web/admin/inc/manageAdmins.inc.php:177
 msgid "User without name"
 msgstr "Utilisateurs sans nom"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:180
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(invité initialement comme %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:182
 msgid "(self-appointed)"
 msgstr "(auto-désigné)"
 
-#: web/admin/inc/manageAdmins.inc.php:195
+#: web/admin/inc/manageAdmins.inc.php:194
 msgid "Delete Administrator"
 msgstr "Supprimer l'administrateur"
 
-#: web/admin/inc/manageAdmins.inc.php:210
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Enter Organisation"
+msgstr "Indiquez votre établissement"
+
+#: web/admin/inc/manageAdmins.inc.php:214
 msgid "Pending invitations for this IdP"
 msgstr "Invitation en attente pour ce fournisseur d'identité"
 
-#: web/admin/inc/manageAdmins.inc.php:221
+#: web/admin/inc/manageAdmins.inc.php:225
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
 "Adresse(s) de courriel du nouvel administrateur (séparées par des virgules) :"
 
-#: web/admin/inc/manageAdmins.inc.php:221
+#: web/admin/inc/manageAdmins.inc.php:225
 msgid "Invite new administrator"
 msgstr "Inviter un nouvel administrateur"
 
-#: web/admin/inc/manageAdmins.inc.php:235
+#: web/admin/inc/manageAdmins.inc.php:239
 #, php-format
 msgid "Take control of this %s"
 msgstr "Prendre le contrôle de ce %s"
 
-#: web/admin/inc/manageAdmins.inc.php:242
+#: web/admin/inc/manageAdmins.inc.php:246
 #: web/admin/inc/manageDBLink.inc.php:203
 #: web/admin/inc/manageNewInst.inc.php:146
 msgid "Close"
@@ -2553,11 +2716,11 @@ msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:68
 msgid "Invitation Details"
-msgstr ""
+msgstr "Détails de l'invitation"
 
 #: web/admin/inc/manageNewInst.inc.php:70
 msgid "From database or ad-hoc?"
-msgstr ""
+msgstr "Depuis la base de données ou directement ?"
 
 #: web/admin/inc/manageNewInst.inc.php:71
 #: web/admin/inc/manageNewInst.inc.php:104
@@ -2566,33 +2729,33 @@ msgstr "Nom"
 
 #: web/admin/inc/manageNewInst.inc.php:72
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: web/admin/inc/manageNewInst.inc.php:78
 #, php-format
 msgid "Existing %s:"
-msgstr ""
+msgstr "%s existant :"
 
 #: web/admin/inc/manageNewInst.inc.php:83
 #, php-format
 msgid "--- select %s here ---"
-msgstr ""
+msgstr "--- sélectionner le/la/l' %s ici ---"
 
 #: web/admin/inc/manageNewInst.inc.php:101
 #, php-format
 msgid "New %s"
-msgstr ""
+msgstr "Nouveau/el/elle %s"
 
 #: web/admin/inc/manageNewInst.inc.php:108
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s et %s"
 
 #: web/admin/inc/manageNewInst.inc.php:109
 #: web/admin/inc/manageNewInst.inc.php:110
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: web/admin/inc/manageNewInst.inc.php:131
 #: web/admin/inc/manageNewInst.inc.php:137
@@ -2601,11 +2764,11 @@ msgstr "Adresse de courriel de l'administrateur :"
 
 #: web/admin/inc/manageNewInst.inc.php:133
 msgid "E-Mail label:"
-msgstr ""
+msgstr "Libellé email:"
 
 #: web/admin/inc/manageNewInst.inc.php:134
 msgid "E-Mail input field:"
-msgstr ""
+msgstr "Champ de saisie de l'email:"
 
 #: web/admin/inc/manageNewInst.inc.php:142
 msgid "Send invitation"
@@ -2648,15 +2811,15 @@ msgstr "Adresse de courriel pour l'invitation :"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:43
 msgid "Auto-Detecting root CA for a new profile"
-msgstr ""
+msgstr "Détection automatique de l'AC racine du nouveau profil"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:50
 msgid "Valid RADIUS username and realm:"
-msgstr ""
+msgstr "Identifiant et nom de domaine RADIUS valides :"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:64
 msgid "Detect root CA"
-msgstr ""
+msgstr "Détecter l'AC racine"
 
 #: web/admin/inc/sendinvite.inc.php:116
 #, php-format
@@ -2719,25 +2882,9 @@ msgstr "Horodatage"
 msgid "Credential"
 msgstr "Donnée d'identification"
 
-#: web/admin/inc/userStats.inc.php:43
-msgid "MAC Address"
-msgstr "Adresse MAC "
-
-#: web/admin/inc/userStats.inc.php:44
-msgid "Result"
-msgstr "Résultat"
-
 #: web/admin/inc/userStats.inc.php:45
 msgid "Operator Domain"
 msgstr "Opérateur de domaine"
-
-#: web/admin/inc/userStats.inc.php:55
-msgid "Success"
-msgstr "Succès"
-
-#: web/admin/inc/userStats.inc.php:55
-msgid "Failure"
-msgstr "Échec"
 
 #: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
 msgid "Location"
@@ -2826,19 +2973,19 @@ msgstr ""
 
 #: web/lib/admin/OptionDisplay.php:86
 msgid "Ask User"
-msgstr ""
+msgstr "Demander à l'utilisateur"
 
 #: web/lib/admin/OptionDisplay.php:87
 msgid "Ask User; T&C Pre-Agreed"
-msgstr ""
+msgstr "Demander à l'utilisateur, CGU pré-approuvées"
 
 #: web/lib/admin/OptionDisplay.php:88
 msgid "Always"
-msgstr ""
+msgstr "Toujours accepter"
 
 #: web/lib/admin/OptionDisplay.php:89
 msgid "Always; T&C Pre-Agreed"
-msgstr ""
+msgstr "Toujours accepter, CGU pré-approuvées"
 
 #: web/lib/admin/OptionDisplay.php:251
 #, php-format
@@ -2892,6 +3039,9 @@ msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
+"Si vous utilisez également %s, alors votre propre domaine est "
+"automatiquement étiqueté avec le VLAN que vous avez choisi, il n'est pas "
+"nécessaire de l'ajouter manuellement."
 
 #: web/lib/admin/OptionDisplay.php:255
 #, php-format
@@ -2931,7 +3081,7 @@ msgstr "Lisez les instructions dans le wiki."
 msgid "select language"
 msgstr "sélectionner la langue"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:178
+#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:179
 msgid "default/other languages"
 msgstr "défaut/autres langues"
 
@@ -2943,11 +3093,11 @@ msgstr "(défaut/autres langues)"
 msgid "file content"
 msgstr "contenu du fichier"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:212
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
 msgid "on"
 msgstr "activé"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:212
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
 msgid "off"
 msgstr "désactivé"
 
@@ -3069,7 +3219,7 @@ msgstr "Support : Courriel"
 #: web/lib/admin/UIElements.php:101
 #, php-format
 msgid "%s Acronym"
-msgstr ""
+msgstr "%s acronyme"
 
 #: web/lib/admin/UIElements.php:103
 msgid "Logo URL"
@@ -3113,11 +3263,11 @@ msgstr "Prêt pour la production"
 
 #: web/lib/admin/UIElements.php:113
 msgid "Admin Accepted IdP Terms of Use"
-msgstr ""
+msgstr "Acceptation des CGU IdP par l'administrateur"
 
 #: web/lib/admin/UIElements.php:114
 msgid "Admin Accepted SP Terms of Use"
-msgstr ""
+msgstr "Acceptation des CGU SP par l'administrateur"
 
 #: web/lib/admin/UIElements.php:115
 msgid "Extra text on downloadpage for device"
@@ -3149,7 +3299,7 @@ msgstr "Suffixe pour le nom de l'installateur personnalisé"
 
 #: web/lib/admin/UIElements.php:122
 msgid "OpenRoaming"
-msgstr ""
+msgstr "OpenRoaming"
 
 #: web/lib/admin/UIElements.php:124
 msgid "Real Name"
@@ -3218,79 +3368,79 @@ msgstr "Intégrer %s avec l'AC à la création"
 #: web/lib/admin/UIElements.php:139
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
-msgstr ""
+msgstr "OpenRoaming: autoriser le choix pour %s"
 
 #: web/lib/admin/UIElements.php:140
 msgid "OpenRoaming: Custom NAPTR Target"
-msgstr ""
+msgstr "Openroaming : cible NAPTR personnalisée"
 
 #: web/lib/admin/UIElements.php:143
 msgid "VLAN for own users"
-msgstr ""
+msgstr "VLAN pour ses propres utilisateurs"
 
 #: web/lib/admin/UIElements.php:145
 msgid "Custom Operator-Name attribute"
-msgstr ""
+msgstr "Attribut Operator-Name spécifique"
 
-#: web/lib/admin/UIElements.php:244
+#: web/lib/admin/UIElements.php:245
 #, php-format
 msgid "General %s details"
 msgstr "Informations générales pour %s"
 
-#: web/lib/admin/UIElements.php:262
+#: web/lib/admin/UIElements.php:263
 msgid "Global Helpdesk Details"
 msgstr "Détails généraux de l'assistance Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:341
+#: web/lib/admin/UIElements.php:342
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 "Une erreur est survenue lors de la récupération du certificat depuis la base "
 "de données !"
 
-#: web/lib/admin/UIElements.php:350
+#: web/lib/admin/UIElements.php:351
 msgid "There was an error processing the certificate!"
 msgstr "Erreur lors du traitement du certificat!"
 
-#: web/lib/admin/UIElements.php:358
+#: web/lib/admin/UIElements.php:359
 msgid "Root CA"
-msgstr ""
+msgstr "AC racine"
 
-#: web/lib/admin/UIElements.php:358
+#: web/lib/admin/UIElements.php:359
 msgid "Intermediate CA"
-msgstr ""
+msgstr "AC intermédiaire"
 
-#: web/lib/admin/UIElements.php:360
+#: web/lib/admin/UIElements.php:361
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "C'est un certificat <strong>SERVEUR</strong> !"
 
-#: web/lib/admin/UIElements.php:377
+#: web/lib/admin/UIElements.php:378
 msgid "Preview of logo file"
 msgstr "Aperçu du logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:394
+#: web/lib/admin/UIElements.php:395
 msgid "There was an error while retrieving the file from the database!"
 msgstr ""
 "Une erreur est apparue au moment de la récupération du fichier depuis la "
 "base de données."
 
-#: web/lib/admin/UIElements.php:400
+#: web/lib/admin/UIElements.php:401
 msgid "File exists"
 msgstr "Le fichier existe déjà"
 
-#: web/lib/admin/UIElements.php:400
+#: web/lib/admin/UIElements.php:401
 msgid "Preview"
 msgstr "Aperçu"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:419
 msgid "Remark"
 msgstr "Remarque"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:420
 msgid "Warning!"
 msgstr "Attention !"
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:421
 msgid "Error!"
 msgstr "Erreur !"

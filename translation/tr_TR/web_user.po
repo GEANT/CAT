@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: M. Uğur YILMAZ <muy1970@gmail.com>, 2018\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
 "Language: tr_TR\n"
@@ -682,34 +682,6 @@ msgstr "Sizin için özel olarak oluşturulmuştur"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Organizasyon tarafından dijital olarak imzalanmış kordinatlar %s:%s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"'eduroam®'un birkaç milyon kullanıcısı arasında sizi sıcak bir şekilde "
-"ağırlamak isteriz! Bundan sonra, binlerce üniversite, araştırma merkezi ve "
-"dünyanın dört bir yanındaki diğer yerlerde internet erişim kaynaklarını "
-"kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Artık bir istemci yapılandırıcıyı indirip kurduğunuza göre, tek yapmanız "
-"gereken, yakınınızda bir eduroam®  kablosuz internet erişim noktası bulmak "
-"ve kullanıcı bilgilerinizi ('kullanıcı adı ve parola' veya 'kişisel "
-"sertifika') girerek çevrimiçi olmak!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Kimlik doğrulanıyor"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Hakkında"
@@ -776,6 +748,34 @@ msgstr "CAT geliştiricisi ol"
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
 msgstr "Kullanım kuralları"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"'eduroam®'un birkaç milyon kullanıcısı arasında sizi sıcak bir şekilde "
+"ağırlamak isteriz! Bundan sonra, binlerce üniversite, araştırma merkezi ve "
+"dünyanın dört bir yanındaki diğer yerlerde internet erişim kaynaklarını "
+"kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Artık bir istemci yapılandırıcıyı indirip kurduğunuza göre, tek yapmanız "
+"gereken, yakınınızda bir eduroam®  kablosuz internet erişim noktası bulmak "
+"ve kullanıcı bilgilerinizi ('kullanıcı adı ve parola' veya 'kişisel "
+"sertifika') girerek çevrimiçi olmak!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Kimlik doğrulanıyor"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""

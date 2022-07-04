@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2021
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2022
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2012
@@ -13,16 +13,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2022\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #: core/CAT.php:108
 #, php-format
@@ -294,41 +295,41 @@ msgstr "Afrique du Sud"
 msgid "Unnamed Entity"
 msgstr "Entité sans nom"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "La désactivation du profil a réussi"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Activation/modification du profil réussie"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "La désactivation du profil a échoué"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "L'activation/modification du profil a échoué"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "sur les deux serveurs RADIUS : primaire et secondaire"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "sur le serveur RADIUS primaire"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "sur le serveur RADIUS secondaire"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Problème de mise à jour du profil RADIUS corrigé"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Problème de mise à jour du profil RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -356,7 +357,7 @@ msgstr "(abandonné) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s et %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -379,6 +380,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Bonjour,\n"
+"\n"
+"L'invitation pour le nouveau %s %s dans votre %s fédération %s a été "
+"utilisée et %s a été crée dans %s.\n"
+"\n"
+"Nous pensons que cette information vous est utile.\n"
+"\n"
+"Bien cordialement,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -511,7 +522,7 @@ msgstr "EAP-pwd"
 #. different wording, no translation, sorry
 #: core/common/Entity.php:120
 msgid "National Roaming Operator"
-msgstr "opérateur national de mobilité"
+msgstr "Opérateur National de Mobilité"
 
 #: core/common/Entity.php:121
 msgid "identity provider"
@@ -527,27 +538,27 @@ msgstr "Fournisseur d'Identité"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Hotspot Wi-Fi"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Fournisseur de service"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "participant"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "établissement"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "organisme"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -561,11 +572,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"un %s %s vous a invité à gérer la future %s \"%s\" (%s). Cet établissement "
+"sera un %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "un %s %s vous a invité à gérer %s\"%s\". Ceci est un %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

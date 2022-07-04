@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ingimar Jonsson <ingimar@hi.is>, 2020
+# Ingimar Jonsson <ingimar@hi.is>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Ingimar Jonsson <ingimar@hi.is>, 2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/eduroam_devel/"
 "cat/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -287,43 +287,43 @@ msgstr "Suður Afríka"
 
 #: core/CAT.php:477 core/IdPlist.php:79
 msgid "Unnamed Entity"
-msgstr "Ónefnd Eining"
+msgstr "Ónefnt"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Tókst að gera snið óvirkt"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Virkjun/breyting á sniði tókst"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Ekki tókst að gera snið óvirkt"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Virkjun/breyting á sniði mistókst"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "á báðum RADIUS þjónum: aðal og vara"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "Á aðal RADIUS þjóni"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "Á vara RADIUS þjóni"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Uppfærsla á RADIUS sniðið löguð"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Vandamál við uppfærslu á RADIUS sniði"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -350,7 +350,7 @@ msgstr "(aflagt) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s og %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -373,6 +373,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Halló,\n"
+"\n"
+"boðið fyrir nýja %s%s í %s %shefur verið notað og %s var búið til í %s.\n"
+"Við vildum láta þig vita.\n"
+"Bestu kveðjur,\n"
+"\n"
+"%s "
 
 #. / organisation
 #: core/Federation.php:299
@@ -519,27 +526,27 @@ msgstr "Auðkennsiveita"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Þráðlaus Heitur Reitur"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Heitur Reitur"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Þjónustuveita"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "þátttakandi"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "stofnun"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "eining"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -553,11 +560,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"%s %s hefur boðið þér að hafa umsjón með væntanlegri %s  \"%s\" (%s). Sú "
+"stofnun verður %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "%s %s hefur boðið þér að hafa umsjón með %s  \"%s\". Þetta er %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

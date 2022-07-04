@@ -11,16 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:16+0000\n"
-"Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 10:56+0000\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:36
@@ -95,6 +96,9 @@ msgstr[0] ""
 msgstr[1] ""
 "<li><b>%s</b> (o CRL Distribution Point para este certificado do site), "
 "também a porta TCP/80</li>"
+msgstr[2] ""
+"<li><b>%s</b> (o CRL Distribution Point para este certificado do site), "
+"também a porta TCP/80</li>"
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -106,6 +110,9 @@ msgstr[0] ""
 "<li><b>%s</b> (o OCSP Responder para este certificado do site), também a "
 "porta TCP/80</li>"
 msgstr[1] ""
+"<li><b>%s</b> (o OCSP Responder para este certificado do site), também a "
+"porta TCP/80</li>"
+msgstr[2] ""
 "<li><b>%s</b> (o OCSP Responder para este certificado do site), também a "
 "porta TCP/80</li>"
 
@@ -687,34 +694,6 @@ msgstr "Feito à medida para si"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Assinado digitalmente pela organização que coordena %s: %s"
 
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"queremos dar-lhe um caloroso bem vindo para junto dos vários milhões de "
-"utilizadores eduroam®! De agora em diante, vai poder usar os recursos do "
-"acesso à Internet de Universidades, centros de pesquisa e outros locais por "
-"todo o globo. Tudo isto, de forma completamente gratuita!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Agora que descarregou e instalou um cliente de configuração, tudo o que "
-"necessita é encontrar um hotspot eduroam® nas proximidades e fornecer as "
-"suas credenciais de utilizador (este é um nome pomposo para 'nome de "
-"utilizador e palavra-passe' ou 'certificado pessoal')  - e esteja ligado!"
-
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "A autenticar"
-
 #: web/skins/modern/Menu.php:52
 msgid "About"
 msgstr "Sobre"
@@ -782,6 +761,34 @@ msgstr "Torne-se um CAT Developer"
 msgid "Terms of use"
 msgstr "Termos de utilização"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"queremos dar-lhe um caloroso bem vindo para junto dos vários milhões de "
+"utilizadores eduroam®! De agora em diante, vai poder usar os recursos do "
+"acesso à Internet de Universidades, centros de pesquisa e outros locais por "
+"todo o globo. Tudo isto, de forma completamente gratuita!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Agora que descarregou e instalou um cliente de configuração, tudo o que "
+"necessita é encontrar um hotspot eduroam® nas proximidades e fornecer as "
+"suas credenciais de utilizador (este é um nome pomposo para 'nome de "
+"utilizador e palavra-passe' ou 'certificado pessoal')  - e esteja ligado!"
+
+#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "A autenticar"
+
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
@@ -805,6 +812,7 @@ msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] "Tem atualmente <strong>%d</strong> credencial %s válida."
 msgstr[1] "Tem atualmente <strong>%d</strong> credenciais %s válidas."
+msgstr[2] "Tem atualmente <strong>%d</strong> credenciais %s válidas."
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
@@ -812,6 +820,7 @@ msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] "<strong>%d</strong> das suas credenciais já não é válida."
 msgstr[1] "<strong>%d</strong> das suas credenciais já não são válidas"
+msgstr[2] "<strong>%d</strong> das suas credenciais já não são válidas"
 
 #: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."

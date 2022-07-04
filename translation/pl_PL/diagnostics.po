@@ -5,17 +5,17 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2020
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2022
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>, 2022\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2022\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -421,20 +421,25 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Proszę natychmiast zaprzestać naruszania polityki bezpieczeństwa i "
+"opublikować nazwę dostawcy tożsamości odpowiedzialnego za ten realm."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[PROBLEM TECHNICZNY] Administrator podejrzewa problem techniczny dotyczący "
+"Twojego dostawcy tożsamości - IdP"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Administratorze IdP,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
 msgstr ""
+"administrator jednej z instytucji poprosił o zdiagnozowanie realmu %s. "
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -442,6 +447,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Sprawdzenie połączeń tego realmu w czasie rzeczywistym pokazało, że łączność "
+"przebiega poprawnie, jednak administrator prosi o kontakt w celu przekazania "
+"dodatkowych informacji, pokazanych poniżej."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -449,18 +457,20 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Sprawdzenie połączeń tego realmu w czasie rzeczywistym pokazało, że obecnie "
+"połączenie nie jest możliwe. Poniżej prezentujemy dodatkowe informacje."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Data i czas uwierzytelnienia/próby dostępu w sesji użytkownika:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "Adres MAC użytkownika końcowego:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Dodatkowy komentarz:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -551,7 +561,7 @@ msgstr "Wystawca"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Zasady postępowania"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -739,11 +749,11 @@ msgstr "więcej"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Nieudany test"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "Certyfikat klienta"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
@@ -779,7 +789,7 @@ msgstr "Pominięto pozostałe testy certyfikatów wystawionych przez ten urząd"
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Kolejne testy zostały pominięte z powodu wcześniejszych błędów."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -1155,8 +1165,10 @@ msgstr ""
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
-"username@<strong>realm.tld</strong>):"
+"username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Jaki jest realm w nazwie użytkownika  (napis za  @ of 'your.username@1realm."
+"tld1'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1206,19 +1218,21 @@ msgstr "Narzędzia dla administratorów eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Na czym polega problem?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
 msgstr ""
+"Podejrzewam, że występuje problem techniczny u jednego z dostawców tożsamości"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
 msgstr ""
+"Chcę zgłosić nadużycie sieci przez jednego z użytkowników roamingowych "
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
-msgstr ""
+msgstr "Podejrzewam problem techniczny u użytkownika SP - dostawcy usługi"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1230,15 +1244,15 @@ msgstr ""
 msgid "eduroam® admin access is needed"
 msgstr "Niezbędny jest dostęp administracyjny eduroam®"
 
-#: web/skins/modern/diag/diag.php:238 web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
 msgstr "Pobieranie listy instytucji"
 
-#: web/skins/modern/diag/diag.php:256 web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
 msgstr "Wybierz instytucję:"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -1247,157 +1261,157 @@ msgstr ""
 "Baza danych nie zawiera informacji, która mogłaby pomóc w wyborze realmu dla "
 "tego kraju. Prosimy o podanie realmu."
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr "Nie można przeszukać bazy danych. Musisz podać realm."
 
-#: web/skins/modern/diag/diag.php:302
+#: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Sprawdzenie czy realm jest zarejestrowany"
 
-#: web/skins/modern/diag/diag.php:304 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Sprawdzenie realmu"
 
-#: web/skins/modern/diag/diag.php:353
+#: web/skins/modern/diag/diag.php:355
 msgid "Other location"
 msgstr "Inna lokalizacja"
 
-#: web/skins/modern/diag/diag.php:387
+#: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
 msgstr "Pobieranie listy realmów"
 
-#: web/skins/modern/diag/diag.php:399
+#: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
 msgstr "Zaznacz realm(y):"
 
-#: web/skins/modern/diag/diag.php:411
+#: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:463 web/skins/modern/diag/diag.php:522
+#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
 msgstr "Testowanie realmu"
 
-#: web/skins/modern/diag/diag.php:570
+#: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
 msgstr "Wyniki diagnostyki przeprowadzonej dla wskazanego realmu"
 
-#: web/skins/modern/diag/diag.php:571
+#: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
 msgstr "Wystąpił nieznany błąd"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
 msgstr "Test obejmuje sprawdzenie następującego realmu"
 
-#: web/skins/modern/diag/diag.php:576
+#: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
 msgstr "Test obejmuje sprawdzenie następujących realmów"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
 msgstr "Prosimy o przesłanie raportu do"
 
-#: web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
 msgstr "przesłanie raportu do administratora eduroam"
 
-#: web/skins/modern/diag/diag.php:657
+#: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 "Dostawca usługi - SP kontaktuje się z dostawcą tożsamości - IdP z powodu "
 "problemów technicznych lub stwierdzonego nadużycia"
 
-#: web/skins/modern/diag/diag.php:659 web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
 msgstr "Powód"
 
-#: web/skins/modern/diag/diag.php:660 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
 msgstr "Data i czas zdarzenia"
 
-#: web/skins/modern/diag/diag.php:661 web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:662 web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
 msgstr "Dodatkowy opis"
 
-#: web/skins/modern/diag/diag.php:663
+#: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "Email do kontaktu ze zgłaszającym"
 
-#: web/skins/modern/diag/diag.php:664
+#: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Wynik testu"
 
-#: web/skins/modern/diag/diag.php:666 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "niepowodzenie"
 
-#: web/skins/modern/diag/diag.php:668 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "sukces"
 
-#: web/skins/modern/diag/diag.php:671
+#: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672
-msgid "Email to IdP administrators "
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:674
-msgid "send successfully"
-msgstr ""
+msgstr "Testowany URL"
 
 #: web/skins/modern/diag/diag.php:676
-msgid "not sent - failure while sending"
-msgstr ""
+msgid "Email to IdP administrators "
+msgstr "Email administratora"
 
-#: web/skins/modern/diag/diag.php:681
+#: web/skins/modern/diag/diag.php:678
+msgid "send successfully"
+msgstr "wysłano"
+
+#: web/skins/modern/diag/diag.php:680
+msgid "not sent - failure while sending"
+msgstr "nie udało się wysłanie"
+
+#: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 "IdP kontaktuje się z SP z powodu problemów technicznych lub stwierdzenia "
 "nadużycia"
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
 msgstr "Operator-Name dostawcy usługi"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
 msgstr "Zewnętrzny identyfikator użytkownika"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
 msgstr "email IdP"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
 msgstr "Jak skontaktować się z użytkownikiem"
 
-#: web/skins/modern/diag/diag.php:715
+#: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Zły format realmu"
 
-#: web/skins/modern/diag/diag.php:725 web/skins/modern/diag/diag.php:747
+#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
 msgstr "Błędna postać maila"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
 msgstr "Adres urządzenia jest niekompletny"
 
-#: web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
 msgstr "Błędna postać zewnętrznego identyfikatora"
 
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
 msgstr "Błędna postać nazwy w Operator-Name"
 
@@ -1454,7 +1468,7 @@ msgstr "Testowanie realmu dla: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "OpenRoaming - testy łączności"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1466,11 +1480,11 @@ msgstr "Sprawdzanie wpisów w DNS"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "OpenRoaming - sprawdzenia DNS "
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "Testy łączności OpenRoaming nie są skonfigurowane"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1491,11 +1505,11 @@ msgstr "Powtórz testy dynamiczne"
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Powtórz testy łączności OpenRoaming"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "jeszcze nie zaimplementowane"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1685,43 +1699,45 @@ msgstr ""
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Podejrzewamy problem techniczny u dostawcy tożsamości"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr ""
+"Podejrzewamy problem techniczny u dostawcy tożsamości obsługującego ten realm"
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
+"Na etapie raportowania wykonano test diagnostyczny CAT dla tego realmu.\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "Całkowity wynik to"
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "Aby zobaczyć szczegóły, przejdź do"
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Opis zgłoszonego problemu jest następujący:"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "data i czas"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "adres MAC klienta"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "dodatkowy komentarz"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "adres kontaktowy do zgłaszającego problem"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1845,17 +1861,17 @@ msgstr ""
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Data i czas testów:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Powtórz testy łączności"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Brak tokena identyfikującego testy, dane nie mogą być pokazane"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
-msgstr ""
+msgstr "Nie istnieje token podany w zleceniu, dane nie mogą być pokazane"

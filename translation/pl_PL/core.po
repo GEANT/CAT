@@ -4,16 +4,17 @@
 #
 # Translators:
 # , 2012-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019,2022
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, "
+"2018-2019,2022\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -294,41 +295,41 @@ msgstr "RPA"
 msgid "Unnamed Entity"
 msgstr "Nienazwana jednostka"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Powiodła się dezaktywacja profilu"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Powiodła się aktywacja/modyfikacja profilu"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Nie udała się dezaktywacja profilu"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Nie udała się aktywacja/modyfikacja profilu"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "na obu serwerach RADIUS: podstawowym i zapasowym"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "na podstawowym serwerze RADIUS"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "na zapasowym serwerze RADIUS"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "udało się naprawić problem dotyczący aktualizacji profilu RADIUS"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "nie udało się zaktualizować profilu RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -355,7 +356,7 @@ msgstr "(wycofane) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s i %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -378,6 +379,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Witaj,\n"
+"\n"
+"Zostało wykorzystane zaproszenie do nowej  %s %s w Twojej %s federacji %s i "
+"utworzono %s w %s.\n"
+"\n"
+"\n"
+"\n"
+"Pozdrawiamy,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -522,27 +533,27 @@ msgstr "Dostawca tożsamości"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Hotspot Wi-Fi"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Dostawca usługi"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "uczestnik"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "instytucja"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "podmiot"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -556,11 +567,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+" %s %s zaprosił Ciebie do zarządzania powstającą%s  \"%s\" (%s). Instytucją "
+"prowadzącą będzie %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr " %s %s zaprosił Ciebie do zarządzania %s  \"%s\". Jest to %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

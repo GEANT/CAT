@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2020
+# Raiya Al Rashdi <raiya@omren.om>, 2020,2022
 # eduroam_devel <stefan.winter@restena.lu>, 2018
-# Warda Al Habsi <warda@omren.om>, 2020
+# Warda Al Habsi <mozartt33@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-15 18:21+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020,2022\n"
 "Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
@@ -292,41 +292,41 @@ msgstr "جنوب أفريقيا"
 msgid "Unnamed Entity"
 msgstr "حقل غير معرف"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "تم إلغاء تفعيل الملف الشخصي بنجاح"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "تم تفعيل / تعديل الملف الشخصي بنجاح"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "فشل إلغاء تفعيل الملف الشخصي"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "فشل تفعيل / تعديل الملف الشخصي"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "على كل من خوادم RADIUS: الأساسي و الاحتياطي"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "على خادم RADIUS الأساسي"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "على خادم RADIUS الأحتياطي"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "تم إصلاح مشكلة تحديث ملف تعريف RADIUS"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr " مشكلة تحديث ملف تعريف RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -352,7 +352,7 @@ msgstr "(منتهي) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s و %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -375,6 +375,15 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"مرحبا،\n"
+"\n"
+"تم استخدام دعوة %s %s الجديدة في اتحاد %s %s  الخاص بك وتم إنشاء %s في %s.\n"
+"\n"
+"نظن أنك قد ترغب في معرفة ذلك.\n"
+"\n"
+"مع أطيب التحيات،\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -519,27 +528,27 @@ msgstr "مزود هوية"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "نقطة اتصال Wi-Fi"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "نقطة اتصال "
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "مقدم الخدمة"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "مشترك"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "منظمة"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "كيان"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -553,11 +562,12 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"لقد قام %s %s بدعوتك لإدارة %s المستقبلية \"%s\" (%s). ستكون المنظمة %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "لقد قام %s %s بدعوتك لإدارة %s \"%s\". هذا ال%s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

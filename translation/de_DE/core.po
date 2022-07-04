@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-23 13:21+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2019,2022\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
 "Language: de_DE\n"
@@ -292,41 +292,39 @@ msgstr "Südafrika"
 msgid "Unnamed Entity"
 msgstr "Entität ohne Namen"
 
-#: core/DeploymentManaged.php:467
-#, fuzzy
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr "Anlegen/Änderung des Profils erfolgreich"
+msgstr "Deaktivierung des Profils erfolgreich"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
 msgstr "Anlegen/Änderung des Profils erfolgreich"
 
-#: core/DeploymentManaged.php:469
-#, fuzzy
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr "Anlegen/Ändern des Profils fehlgeschlagen"
+msgstr "Deaktivierung des Profils fehlgeschlagen"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
 msgstr "Anlegen/Ändern des Profils fehlgeschlagen"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
 msgstr "auf beiden RADIUS Servern: primär und sekundär"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
 msgstr "auf dem primären RADIUS Server"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
 msgstr "auf dem sekundären RADIUS Server"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
 msgstr "Problem beim Aktualisieren des RADIUS Profils behoben"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
 msgstr "Problem beim Aktualisieren des RADIUS Profils"
 
@@ -573,11 +571,15 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"Ein %s %s hat Sie eingeladen, den zukünftigen %s \"%s\" (%s) zu "
+"administrieren. Die Organisation wird ein %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr ""
+"Ein %s %s hat Sie eingeladen, den %s \"%s\" zu administrieren. Das ist ein "
+"%s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

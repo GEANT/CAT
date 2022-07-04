@@ -5,21 +5,23 @@
 # Translators:
 # Alberto Martínez Setién, 2013,2015,2018
 # Alberto Martínez Setién, 2019,2022
+# David Moreno, 2022
 # José Manuel Macías, 2012,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 14:50+0100\n"
-"PO-Revision-Date: 2022-02-16 09:57+0000\n"
-"Last-Translator: Alberto Martínez Setién\n"
+"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"PO-Revision-Date: 2011-10-27 11:00+0000\n"
+"Last-Translator: David Moreno, 2022\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 #: core/CAT.php:108
 #, php-format
@@ -291,41 +293,43 @@ msgstr "Sudáfrica"
 msgid "Unnamed Entity"
 msgstr "Entidad sin nombre"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Perfil desactivado con éxito"
 
-#: core/DeploymentManaged.php:467
+#: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Perfil activado/modificado con éxito"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "La desactivación del perfil ha fallado"
 
-#: core/DeploymentManaged.php:469
+#: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "La activación/modificación del perfil ha fallado"
 
-#: core/DeploymentManaged.php:473
+#: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "en ambos servidores RADIUS: principal y respaldo"
 
-#: core/DeploymentManaged.php:476
+#: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "en el servidor RADIUS principal"
 
-#: core/DeploymentManaged.php:478
+#: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "en el servidor RADIUS de respaldo"
 
-#: core/DeploymentManaged.php:486
+#: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
 msgstr ""
+"Se ha corregido el problema ocurrido durante la actualización del perfil "
+"RADIUS"
 
-#: core/DeploymentManaged.php:488
+#: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Ha ocurrido un problema durante la actualización del perfil RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -352,7 +356,7 @@ msgstr "%s (descontinuado)"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s y %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -375,6 +379,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hola,\n"
+"\n"
+"La invitación para el nuevo %s %s en tu %s federación %s ha sido usada y el "
+"%s fue creado en %s.\n"
+"\n"
+"Pensamos que podrías querer saberlo.\n"
+"\n"
+"Atentamente,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -523,11 +537,11 @@ msgstr "Proveedor de Identidad"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Punto de acceso inalámbrico"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Punto de acceso"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
@@ -558,11 +572,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"un %s %s te ha invitado para gestionar el futuro %s \"%s\" (%s). La "
+"organización será una %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "Un %s %s te ha invitado para gestionar el %s \"%s\". Esto es un %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format
