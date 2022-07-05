@@ -219,7 +219,8 @@ class UserAPI extends CAT
             throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $showHidden!");
         }
         foreach (\devices\Devices::listDevices() as $device => $deviceProperties) {
-            if (\core\common\Entity::getAttributeValue($deviceProperties, 'options', 'hidden') === 1 && $showHidden === 0) {
+            $hidden = \core\common\Entity::getAttributeValue($deviceProperties, 'options', 'hidden');
+            if (($hidden === 1 || $hidden === 2) && $showHidden === 0) {
                 continue;
             }
             $count++;
@@ -544,7 +545,8 @@ class UserAPI extends CAT
      */
     private function returnDevice($devId, $device)
     {
-        if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
+        $hidden = \core\common\Entity::getAttributeValue($device, 'options', 'hidden');
+        if ($hidden !== 1 && $hidden !== 2) {
             $this->loggerInstance->debug(4, "Browser_id: $devId\n");
             if (isset($device['options']['hs20']) && $device['options']['hs20'] === 1) {
                 $hs20 = 1;

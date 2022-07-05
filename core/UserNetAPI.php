@@ -222,7 +222,8 @@ class UserNetAPI extends UserAPI
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
         foreach ($thedevices as $D) {
-            if (\core\common\Entity::getAttributeValue($D, 'options', 'hidden') === 1) {
+            $hidden = \core\common\Entity::getAttributeValue($D, 'options', 'hidden');
+            if ($hidden === 1 || $hidden === 2) {
                 continue;
             }
             if ($D['id'] === '0') { // This is a global profile level redirect therefore no device name is available
