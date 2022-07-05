@@ -125,7 +125,7 @@ abstract class Entity
         $dummy_hotspot2 = _("Hotspot");
         $dummy_hotspot3 = _("Service Provider");
         $dummy_organisation1 = _("participant");
-        $dummy_organisation2 = _("organisation");
+        $dummy_organisation2 = _("Organisation");
         $dummy_organisation2a = _("organization");
         $dummy_organisation3 = _("entity");
         // and do something useless with the strings so that there's no "unused" complaint
