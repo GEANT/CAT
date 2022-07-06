@@ -99,6 +99,9 @@ const guiTexts = {
   "openRoamingText4": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",
   "openRoamingDisabled": "<?php $cat->javaScriptEscapedEcho(_("OpenRoaming is not supported on this device")) ?>",
   "downloadAnother": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_CHOOSE_ANOTHER]) ?>",
+  "downloadFor": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_FOR_MESSAGE]) ?>",
+  "eduroamOnly": "<?php $cat->javaScriptEscapedEcho(_("eduroam only")) ?>",
+  "eduroamAndOR": "<?php $cat->javaScriptEscapedEcho(_("eduroam and OpenRoaming")) ?>",
 };
 
 var discoTextStrings = {
@@ -411,7 +414,7 @@ function resetOpenRoaming(mainOs, hs20) {
         $("#or_text_2").html(guiTexts.openRoamingText3);
         $("#g_"+mainOs).show();
         handlePreagreed();
-        $("#download_button_header_"+mainOs).html("eduroam only");
+        $("#download_button_header_"+mainOs).html(guiTexts.eduroamOnly);
         $("#g_"+mainOs).show();
         $("#g_or_"+mainOs).show();
       } else {
@@ -421,12 +424,12 @@ function resetOpenRoaming(mainOs, hs20) {
       break;
     case 'always':
       if (hs20 == "1") {
-        $("#download_button_header_"+mainOs).html("eduroam and OpenRoaming");
+        $("#download_button_header_"+mainOs).html(guiTexts.eduroamAndOR);
         $("#or_text_1").html(guiTexts.openRoamingText2);
         $("#or_text_2").html(guiTexts.openRoamingText4);
         handlePreagreed();
         $("#g_"+mainOs).hide();
-        $("#download_button_header_"+mainOs).html("eduroam and OpenRoaming");
+        $("#download_button_header_"+mainOs).html(guiTexts.eduroamAndOR);
         $("#g_or_"+mainOs).show();
       } else {
         $("#openroaming_tou").hide();
@@ -629,7 +632,7 @@ function updateGuessOsDiv(device) {
 
   $("#download_text_1").empty();
   if (device != null) {
-      $("#download_text_1").append("<div>Download installer for "+device.display+"</div>")
+      $("#download_text_1").append("<div>"+guiTexts.downloadFor+" "+device.display+"</div>")
       $("#download_text_1").css('background-image', 'url("'+vendorlogo+device.group+'.png")');
       if (device.status > 0) {
         $("#device_message").html(guiTexts.unconfigurable);
@@ -639,13 +642,13 @@ function updateGuessOsDiv(device) {
       div1 = "<div>\
           <div class='button_wrapper'>\
             <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
-              <div class='download_button_text_1' id='download_button_header_"+device.id+"'>eduroam only\
+              <div class='download_button_text_1' id='download_button_header_"+device.id+"'>"+guiTexts.eduroamOnly+"\
               /div>\
             </button>\
           </div>\
           <div class='button_wrapper'>\
             <button name='"+device.id+"' class='guess_os dev_or' id='g_or_"+device.id+"'>\
-              <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>eduroam and OpenRoaming\
+              <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>"+guiTexts.eduroamAndOR+"\
               </div>\
             </button>\
           </div>\
