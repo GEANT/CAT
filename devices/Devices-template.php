@@ -58,8 +58,10 @@ class Devices extends \core\common\Entity {
      *         switch sign to 0, of course.
      * - 'no_cache' if defined and equal to 1 will block installer caching - useful
      *         for device development, should not be used in production
-     * - 'hidden' if defined and equal to 1 will hide the device form listing - 
-     *         useful for device development 
+     * - 'hidden' if defined and equal to 1 or 2 will hide the device from listing - 
+     *         value 1 will leave the device on the admin list of downloads,
+     *         value 2 will hide the device also form the admin list
+     *         devices with hidden == 2 will still be active for direct downloads
      * - 'redirect if defined and equal to 1 will only show the device on the listing
      *         if device redirect has been defined by the admin
      * - 'message' if defined will cause a display of the contents of this option as
@@ -127,8 +129,8 @@ class Devices extends \core\common\Entity {
         $retArray = [
             'w10' => [
                 'group' => "microsoft",
-                'display' => _("MS Windows 10"),
-                'match' => 'Windows NT 10',
+                'display' => _("MS Windows 8 and newer"),
+                'match' => 'Windows NT (6.[._][23])|(1[01]))',
                 'directory' => 'ms',
                 'module' => 'W8W10',
                 'signer' => 'ms_windows_sign',
@@ -137,11 +139,12 @@ class Devices extends \core\common\Entity {
                     'device_id' => 'W10',
                     'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'mime' => 'application/x-dosexec',
+                    'hs20' => 1,
                 ],
             ],
             'w8' => [
                 'group' => "microsoft",
-                'display' => _("MS Windows 8, 8.1"),
+                'display' => _("MS Windows 8"),
                 'match' => 'Windows NT 6[._][23]',
                 'directory' => 'ms',
                 'module' => 'W8W10',
@@ -151,6 +154,8 @@ class Devices extends \core\common\Entity {
                     'device_id' => 'W8',
                     'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'mime' => 'application/x-dosexec',
+                    'hs20' => 0,
+                    'hidden' => 2,
                 ],
             ],
             'w7' => [
@@ -177,16 +182,7 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'Vista',
                     'mime' => 'application/x-dosexec',
-                ],
-            ],
-            'win-rt' => [
-                'group' => "microsoft",
-                'display' => _("Windows RT"),
-                'directory' => 'redirect_dev',
-                'module' => 'RedirectDev',
-                'options' => [
-                    'hidden' => 0,
-                    'redirect' => 1,
+                    'hidden' => 2,
                 ],
             ],
             'apple_global' => [
@@ -213,7 +209,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -229,7 +225,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -245,7 +241,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -261,7 +257,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -276,7 +272,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -291,7 +287,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -306,7 +302,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -321,7 +317,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -336,7 +332,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -351,7 +347,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'MobileconfigIos7plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'sign' => 1,
                     'device_id' => 'iOS',
                     'mime' => 'application/x-apple-aspen-config',
@@ -406,9 +402,9 @@ class Devices extends \core\common\Entity {
             ],
             'android_recent' => [
                 'group' => "android",
-                'display' => _("Android 11 and higher"),
-                'match' => 'Android 1[1-9]',
-                'directory' => 'xml',
+                'display' => _("Android 8 and higher"),
+                'match' => 'Android ([89]|1[0-9])',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
                     'mime' => 'application/eap-config',
@@ -418,25 +414,27 @@ class Devices extends \core\common\Entity {
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],            
-            
+
             'android_8_10' => [
                 'group' => "android",
                 'display' => _("Android 8 to 10"),
                 'match' => 'Android ([89]|10)',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "geteduroam",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
                 ],
-            ],  
+            ],              
+
             'android_4_7' => [
                 'group' => "android",
                 'display' => _("Android 4.3 to 7"),
                 'match' => 'Android [4-7]',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
                     'mime' => 'application/eap-config',
@@ -450,10 +448,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 10.0 Q"),
                 'match' => 'Android 10',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -464,10 +462,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 9.0 Pie"),
                 'match' => 'Android 9',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -478,10 +476,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 8.0 Oreo"),
                 'match' => 'Android 8',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -492,10 +490,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 7.0 Nougat"),
                 'match' => 'Android 7',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -506,10 +504,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 6.0 Marshmallow"),
                 'match' => 'Android 6',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -520,10 +518,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 5.0 Lollipop"),
                 'match' => 'Android 5',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Lollipop',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -534,10 +532,10 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 4.4 KitKat"),
                 'match' => 'Android 4\.[4-9]',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'KitKat',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
@@ -548,32 +546,24 @@ class Devices extends \core\common\Entity {
                 'group' => "android",
                 'display' => _("Android 4.3"),
                 'match' => 'Android 4\.3',
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'KitKat',
                 'options' => [
-                    'hidden' => 1,
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
-            'android_legacy' => [
-                'group' => "android",
-                'display' => _("Android"),
-                'match' => 'Android',
-                'directory' => 'redirect_dev',
-                'module' => 'RedirectDev',
-                'options' => [
-                    'redirect' => 1,
-                ],
-            ],
+
             'eap-config' => [
                 'group' => "eap-config",
                 'display' => _("EAP config"),
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'XMLAll',
                 'options' => [
+                    'hidden' => 2,
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("This option provides an EAP config XML file, which can be consumed by the eduroamCAT app for Android.")),
                 ],
@@ -581,12 +571,24 @@ class Devices extends \core\common\Entity {
             'eap-generic' => [
                 'group' => "eap-config",
                 'display' => _("EAP generic"),
-                'directory' => 'xml',
+                'directory' => 'eap_config',
                 'module' => 'Generic',
                 'options' => [
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by the GetEduroam applications.")),
-                    'hidden' => 1,
+                    'hidden' => 2,
+                    'hs20' => 1,
+                ],
+            ],
+            'eap-config-full' => [
+                'group' => "eap-config",
+                'display' => _("EAP config"),
+                'directory' => 'eap_config',
+                'module' => 'XMLAll',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("This option provides an EAP config XML file with multiple EAPIdentityProvider elements and all language versions")),
+                    'hs20' => 1,
                 ],
             ],
             'test' => [
@@ -598,67 +600,6 @@ class Devices extends \core\common\Entity {
                     'hidden' => 1,
                 ],
             ],
-        /*
-
-            'xml-ttls-pap'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile TTLS-PAP"),
-                'directory'=>'xml',
-                'module'=>'XML_TTLS_PAP',
-                'options'=>[
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-
-            'xml-ttls-mschap2'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile TTLS-MSCHAPv2"),
-                'directory'=>'xml',
-                'module'=>'XML_TTLS_MSCHAP2',
-                'options'=> [
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-
-            'xml-peap'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile PEAP"),
-                'directory'=>'xml',
-                'module'=>'XML_PEAP',
-                    'options'=> [
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-
-            'xml-tls'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile TLS"),
-                'directory'=>'xml',
-                'module'=>'XML_TLS',
-                'options'=> [
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-
-            'xml-pwd'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile PWD"),
-                'directory'=>'xml',
-                'module'=>'XML_PWD',
-                'options'=> [
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-                'xml-all'=> [
-                'group' => "generic",
-                'display'=>_("Generic profile ALL EAPs"),
-                'directory'=>'xml',
-                'module'=>'XML_ALL',
-                'options'=> [
-                    'mime'=>'application/eap-config',
-                ],
-            ],
-        */
         ];
         \core\common\Entity::outOfThePotatoes();
         return $retArray;
