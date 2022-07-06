@@ -233,10 +233,10 @@ $(document).on('click', '#realmcheck' , function() {
         $helptext = "";
     }
     ?>
-    <table class='user_overview' style='border:0px;'>
+    <table class='user_overview' style='border:0px; width:unset'>
         <caption><?php echo _("Participant Details");?></caption>
         <tr>
-            <th scope='col'><?php echo _("Configured / Visible / OpenRoaming"); ?></th>
+            <th scope='col' style="width:13em"><?php echo _("Configured / Visible / OpenRoaming"); ?></th>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
 
             <?php
