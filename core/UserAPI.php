@@ -529,6 +529,7 @@ class UserAPI extends CAT
                 continue;
             }
             if (preg_match('/'.$device['match'].'/', $browser)) {
+                $this->loggerInstance->debug(5, "Matched: $devId\n".$device['match']."\n".$browser."\n");
                 return $this->returnDevice($devId, $device);
             }
         }
