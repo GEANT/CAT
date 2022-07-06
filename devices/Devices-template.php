@@ -380,7 +380,7 @@ class Devices extends \core\common\Entity {
             ],
             'linux_sh' => [
                 'group' => "linux",
-                'display' => _("Linux"),
+                'display' => "Linux - Bash script (beta)",
                 'match' => 'Linux(?!.*Android)',
                 'directory' => 'linux',
                 'module' => 'LinuxSh',
