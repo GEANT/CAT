@@ -25,8 +25,6 @@ This directory contains additional files for Windows installer modules.
 Varous utilities to be included in the installer code:
   GEANTLink - GIT submodule link to the GEANTLink binary
   WLANSetEAPUserData - EAP credential loading utility from https://github.com/rozmansi/WLANSetEAPUserData
-  Aruba_Networks_EAP-pwd_x32.msi - EAP-pwd installer binary in 32 bit version
-  Aruba_Networks_EAP-pwd_x64.msi - EAP-pwd installer binary in 64 bit version
   check_wired.cmd - utility to check status of wired 802.1X subsystem
   wlan_test.exe - utility for checking wireless status of Windows
   install_wired.cmd - install wired profile - a wrappr around netsh
