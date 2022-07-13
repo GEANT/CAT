@@ -49,6 +49,7 @@ const DOWNLOAD_ALLPLATFORMS = 1051;
 const DOWNLOAD_MESSAGE = 1052;
 const DOWNLOAD_REDIRECT = 1053;
 const DOWNLOAD_REDIRECT_CONTINUE = 1054;
+const DOWNLOAD_FOR_MESSAGE = 1055;
 const SB_GO_AWAY = 1060;
 const SB_FRONTPAGE_BIGDOWNLOADBUTTON = 1061;
 const SB_FRONTPAGE_ROLLER_CUSTOMBUILT= 1062;
@@ -120,6 +121,7 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[DOWNLOAD_CHOOSE] = _("Choose an installer to download");
         $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
         $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[DOWNLOAD_FOR_MESSAGE] = _("Download your installer for");
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), \config\ConfAssistant::CONSORTIUM['display_name']);
