@@ -73,6 +73,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
         foreach (\devices\Devices::listDevices() as $index => $description) {
 
+            $factory = new \core\DeviceFactory($index);
+            if (isset($factory->device->options['hidden']) && $factory->device->options['hidden'] === 2) {
+                continue;
+            }
             echo "<tr>";
             echo "<td align='center'><img src='../resources/images/vendorlogo/" . $description['group'] . ".png' alt='logo'></td><td>" . $description['display'] . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
@@ -80,7 +84,6 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
                         </form>
                         </td>";
-            $factory = new \core\DeviceFactory($index);
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $footnotesForDevEapCombo = [];
