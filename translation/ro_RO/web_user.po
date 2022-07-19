@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
@@ -465,7 +465,7 @@ msgstr "Termeni de utilizare"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(din motive legale, Termenii de utilizare sunt numai în limba engleză)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:111
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:112
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bine ai venit la %s"
@@ -527,12 +527,12 @@ msgstr ""
 msgid "%s Privacy Notice"
 msgstr "Note private %s"
 
-#: web/lib/user/TextTemplates.php:85
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Bine ați venit la bordul %s comunității de utilizatori!"
 
-#: web/lib/user/TextTemplates.php:86
+#: web/lib/user/TextTemplates.php:87
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -540,12 +540,12 @@ msgstr ""
 "Descărcarea ar trebuii sa înceapă curând. În caz că apare o problemă cu "
 "descărcarea automată vă rog să folosiți direct acestă <a href=''>adresă</a>."
 
-#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Stimate utilizator din %s, "
 
-#: web/lib/user/TextTemplates.php:88
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -559,7 +559,7 @@ msgstr ""
 "introduceți numele de utilizator și parola sau certificatul personal) - și o "
 "sa fiți online!"
 
-#: web/lib/user/TextTemplates.php:89 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -570,23 +570,23 @@ msgstr ""
 "întotdeauna asistența %s. Vor diagnostica problema și vă vor ajuta . Puteți "
 "ajunge la ei prin mijloacele prezentate mai sus."
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:106
+#: web/lib/user/TextTemplates.php:107
 #, php-format
 msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
@@ -594,11 +594,11 @@ msgid ""
 msgstr ""
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
-#: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Înapoi la descărcări"
 
-#: web/lib/user/TextTemplates.php:110
+#: web/lib/user/TextTemplates.php:111
 #, php-format
 msgid ""
 "We would like to warmly welcome you among the several million users of %s! "
@@ -607,26 +607,26 @@ msgid ""
 "of this completely free of charge!"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:112
+#: web/lib/user/TextTemplates.php:113
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Conectați dispozitivul la %s"
 
-#: web/lib/user/TextTemplates.php:113
+#: web/lib/user/TextTemplates.php:114
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s instalarea este mai ușoară"
 
-#: web/lib/user/TextTemplates.php:114
+#: web/lib/user/TextTemplates.php:115
 msgid "Custom built for your organisation"
 msgstr "Personalizat pentru organizația dumneavoastră"
 
-#: web/lib/user/TextTemplates.php:115
+#: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Apasă aici pentru a descărca programul de instalare %s "
 
-#: web/lib/user/TextTemplates.php:116
+#: web/lib/user/TextTemplates.php:117
 #, php-format
 msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
@@ -635,32 +635,36 @@ msgstr ""
 "%s asigură acces la foarte multe rețele de tip Wi-Fi hotspot din jurul "
 "pământului, gratis. <a href='%s'> Învată mai multe </a>"
 
-#: web/lib/user/TextTemplates.php:117
+#: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
 msgstr "Selectați grupul de utilizatori"
 
-#: web/lib/user/TextTemplates.php:118
+#: web/lib/user/TextTemplates.php:119
 msgid "select another"
 msgstr "selectați altul"
 
-#: web/lib/user/TextTemplates.php:119
+#: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
 msgstr "Alegeți alt program de instalare pentru a descărca"
 
-#: web/lib/user/TextTemplates.php:120
+#: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
 msgstr ""
 
-#: web/lib/user/TextTemplates.php:121
+#: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
 msgstr "Toate platformele "
 
-#: web/lib/user/TextTemplates.php:122
+#: web/lib/user/TextTemplates.php:123
 #, php-format
 msgid "Download your %s installer"
 msgstr "Descărcați programul dumneavoastră de instalare %s"
 
-#: web/lib/user/TextTemplates.php:123
+#: web/lib/user/TextTemplates.php:124
+msgid "Download your installer for"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:125
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -670,18 +674,18 @@ msgstr ""
 "pagină de asistență locală . <br>Când apăsați click pe <b>Continuare</b> , "
 "această pagină de asistență va fi deschisă într-o nouă fereastră / filă."
 
-#: web/lib/user/TextTemplates.php:124
+#: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
 #: web/skins/modern/user/js/cat_js.php:88
 msgid "Continue"
 msgstr "Continuare"
 
-#: web/lib/user/TextTemplates.php:125
+#: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Semnat digital de organizația care coordonează %s"
 
-#: web/lib/user/TextTemplates.php:126
+#: web/lib/user/TextTemplates.php:128
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -691,7 +695,7 @@ msgstr ""
 "trimis de către suportul IT.  Vă rog să vorbiți cu departamentul IT pentru a "
 "avea acces la acest link."
 
-#: web/lib/user/TextTemplates.php:127
+#: web/lib/user/TextTemplates.php:129
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -700,11 +704,11 @@ msgstr ""
 "Acest site vă oferă programele de instalare %s pentru multe organizații, "
 "click aici pentru a vedea dacă organizația dumneavoastră este pe listă."
 
-#: web/lib/user/TextTemplates.php:128
+#: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
 msgstr "Personalizat pentru tine"
 
-#: web/lib/user/TextTemplates.php:130
+#: web/lib/user/TextTemplates.php:132
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Semnat digital de organizația care coordonează %s :%s"
@@ -1176,19 +1180,27 @@ msgstr ""
 msgid "OpenRoaming is not supported on this device"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:105
+#: web/skins/modern/user/js/cat_js.php:103
+msgid "eduroam only"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:104
+msgid "eduroam and OpenRoaming"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"
 msgstr "Organizația"
 
-#: web/skins/modern/user/js/cat_js.php:106
+#: web/skins/modern/user/js/cat_js.php:109
 msgid "Select your organisation"
 msgstr "Selectați organizația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:107
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Help, my organisation is not on the list"
 msgstr "Ajutor, organizația mea nu se află pe listă"
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:111
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1199,64 +1211,64 @@ msgstr ""
 "locali. Dacă organizația dvs. nu se află pe listă, atunci îndoiți-le să "
 "adauge informații în %sbaza de date."
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localizați-mă mai precis folosind locația-Geo HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Show organisations in"
 msgstr "Afișați organizații în"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "all countries"
 msgstr "Toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "Sau căutați o organizație, de exemplu Universitatea din Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "show all countries"
 msgstr "Arătați toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "Results limited to"
 msgstr "Rezultate limitate la"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "entries - show more"
 msgstr "Intrări - arată mai multe"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Nearby"
 msgstr "Din apropiere "
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Location timeout"
 msgstr "Întreruperea locației"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Could not get your position"
 msgstr "Nu s-a putut afla pozitia dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Your browser has denied access to your location"
 msgstr ""
 "Motorul dumneavoastră de căutare a respins accesul la locația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Unknown location error"
 msgstr "Eroare de locație necunoscută"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "You are here:"
 msgstr "Dumneavoastră sunteți aici:"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Getting your location..."
 msgstr "Obținem adresa dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Nearby providers shown on top."
 msgstr "Furnizori din apropiere afișați în partea de sus."
 

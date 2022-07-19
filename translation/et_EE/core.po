@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2022\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
@@ -517,7 +517,7 @@ msgstr "riigi rändlusteenuse vahendaja"
 msgid "identity provider"
 msgstr "identiteedipakkuja"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "asutus"
 
@@ -540,6 +540,10 @@ msgstr "Teenusepakkuja"
 #: core/common/Entity.php:127
 msgid "participant"
 msgstr "osaleja"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Asutus"
 
 #: core/common/Entity.php:129
 msgid "organization"

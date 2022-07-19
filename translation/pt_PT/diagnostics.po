@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Pedro Simões <psimoes@fccn.pt>, 2018
 # esmeralda <epires@fccn.pt>, 2022
+# Pedro Simões <psimoes@fccn.pt>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: esmeralda <epires@fccn.pt>, 2022\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2022\n"
 "Language-Team: Portuguese (Portugal) (https://www.transifex.com/"
 "eduroam_devel/teams/11799/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -128,6 +128,9 @@ msgid ""
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
+"Pelo menos um certificado na cadeia tinha uma chave pública com menos de "
+"2048 bits. Muitos sistemas operativos recentes consideram isso inaceitável e "
+"não validarão o certificado do servidor."
 
 #: core/diag/AbstractTest.php:445
 msgid ""
@@ -327,13 +330,13 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:602
 msgid "No certificate at all was sent by the server."
-msgstr ""
+msgstr "Nenhum certificado foi enviado pelo servidor."
 
 #: core/diag/AbstractTest.php:609
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
-msgstr ""
+msgstr "Não foi possível determinar a versão TLS que foi usada na troca EAP."
 
 #: core/diag/AbstractTest.php:616
 msgid ""
@@ -341,12 +344,17 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"O servidor não suporta as versões TLS contemporâneas TLSv1.2 ou TLSv1.3. Os "
+"sistemas operativos de clientes modernos podem recusar-se a autenticar no "
+"servidor!"
 
 #: core/diag/AbstractTest.php:620
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"O nome do servidor esperado conforme o registro SRV não corresponde a nenhum "
+"nome de servidor no certificado que foi alcançado!"
 
 #: core/diag/Logopath.php:120
 msgid "[eduroam Diagnostics]"
@@ -416,20 +424,25 @@ msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Por favor, pare a violação da política o mais rápido possível listando o IdP "
+"associado a este domínio."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
 msgstr ""
+"[PROBLEMA TÉCNICO] O administrador suspeita de um problema técnico com seu "
+"IdP"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Caro administrador do IdP,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
 msgstr ""
+"um administrador da organização solicitou diagnósticos para o domínio %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -437,6 +450,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"As verificações de conectividade em tempo real determinaram que o domínio "
+"parece estar a funcionar com parâmetros aceitáveis, mas o administrador "
+"insistiu em entrar em contacto com as informações complementares abaixo."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -444,18 +460,21 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"As verificações de conectividade em tempo real determinaram que o domínio "
+"tem mesmo um problema operacional agora. Consulte as informações "
+"complementares abaixo."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Data/hora de autenticação/tentativa da sessão do utilizador:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "Endereço MAC do utilizador em questão:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Comentários Adicionais:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
@@ -486,19 +505,19 @@ msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:132
 msgid "All tests passed."
-msgstr ""
+msgstr "Todos os testes passaram."
 
 #: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:133
 msgid "There were some warnings."
-msgstr ""
+msgstr "Existiram alguns alertas."
 
 #: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
 msgid "There were some errors."
-msgstr ""
+msgstr "Existiram alguns erros."
 
 #: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
 msgid "There were some remarks."
-msgstr ""
+msgstr "Existem algumas observações."
 
 #: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:113
 msgid "PASS"
@@ -546,7 +565,7 @@ msgstr "Emissor"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "Políticas"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
@@ -588,12 +607,15 @@ msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Este domínio possui registros NAPTR, mas nenhum está relacionado a este "
+"consórcio de roaming."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:586
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
+"Este domínio tem %dregistos NAPTR relacionados a este consórcio de roaming."
 
 #: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:592
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
@@ -685,6 +707,12 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Essa verificação envia um pedido para o domínio através de vários pontos de "
+"entrada da infraestrutura de roaming. A terá o atributo ''Operator-Name' e "
+"terá mais de 1500 Bytes para detetar dois problemas comuns de configuração. "
+"Como não temos credenciais reais para o domínio, não podemos autenticar com "
+"êxito - portanto, o resultado esperado é para obter um Access-Reject após "
+"ter passado por uma conversação EAP."
 
 #: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:734
 #: web/diag/action_realmcheck.php:877
@@ -694,7 +722,7 @@ msgstr "Testes a partir de: %s"
 
 #: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:161
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Conectado a um servidor indeterminado"
 
 #: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
 #: web/diag/action_realmcheck.php:268 web/diag/action_realmcheck.php:379
@@ -723,11 +751,11 @@ msgstr "mais"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "Teste falhou"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "Certificado do cliente"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
@@ -763,7 +791,7 @@ msgstr "Os restantes testes para esta CA foram ignorados"
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Esses testes foram ignorados devido a erros anteriores."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
@@ -978,6 +1006,11 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at your home organisation, but can not be used when roaming. %s"
 msgstr ""
+"Se o roaming não funcionar constantemente, é muito provável que a "
+"configuração do seu dispositivo esteja incorreta. Os erros típicos que "
+"causam esse sintoma incluem: usar um nome de utilizador externo sem o sufixo "
+"@realm.tld - esses podem funcionar na sua organização, mas não podem ser "
+"usados em roaming. %s"
 
 #: core/diag/Sociopath.php:98
 msgid "Did you recently change the configuration on your device?"
@@ -1002,7 +1035,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:103
 msgid "Did you recently change your password?"
-msgstr ""
+msgstr "Alterou a sua password recentemente?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -1011,6 +1044,8 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Ao alterar a sua password, também precisa fornecer a nova password na "
+"configuração do dispositivo."
 
 #: core/diag/Sociopath.php:108
 msgid "If you use more than one device: do your other devices still work?"
@@ -1145,6 +1180,8 @@ msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Qual é o domínio da sua conta de utilizador (a parte por após o @ de 'nome."
+"utilizador@realm.tld'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1192,19 +1229,21 @@ msgstr "Ferramentas para administradores eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Qual é a natureza do seu problema?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Suspeito de um problema técnico em um IdP específico"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
-msgstr ""
+msgstr "Desejo reportar abuso de recursos de rede por um utilizador em roaming"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
 msgstr ""
+"Suspeito de um problema técnico para um dos meus utilizadores em um "
+"determinado SP"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
@@ -1228,24 +1267,29 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"A base de dados não tem as informações necessárias para ajudá-lo na seleção "
+"de domínios para este país. Tem de fornecer o domínio em que está "
+"interessado."
 
 #: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Não é possível pesquisar na base de dados. Tem que fornecer o domínio em que "
+"está interessado."
 
 #: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Verifique se este domínio está registado"
 
 #: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
 msgid "Check this realm"
-msgstr ""
+msgstr "Verificar este realm "
 
 #: web/skins/modern/diag/diag.php:355
 msgid "Other location"
-msgstr ""
+msgstr "Outra localização "
 
 #: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
@@ -1309,35 +1353,35 @@ msgstr "Descrição adicional"
 
 #: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "Um e-mail para entrar em contacto com quem reportou"
 
 #: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "Resultado do teste "
 
 #: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
 msgid "failure"
-msgstr ""
+msgstr "falha"
 
 #: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
 msgid "success"
-msgstr ""
+msgstr "sucesso"
 
 #: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
+msgstr "URL de teste"
 
 #: web/skins/modern/diag/diag.php:676
 msgid "Email to IdP administrators "
-msgstr ""
+msgstr "E-mail para administradores de IdP"
 
 #: web/skins/modern/diag/diag.php:678
 msgid "send successfully"
-msgstr ""
+msgstr "enviado com sucesso "
 
 #: web/skins/modern/diag/diag.php:680
 msgid "not sent - failure while sending"
-msgstr ""
+msgstr "não enviado - falha ao enviar"
 
 #: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
@@ -1361,7 +1405,7 @@ msgstr "Como contactar o utilizador"
 
 #: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Formato errado do realm"
 
 #: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
@@ -1433,7 +1477,7 @@ msgstr "Teste de Realm para: %s"
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Testes de conectividade OpenRoaming"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
@@ -1445,11 +1489,11 @@ msgstr "Verificação de DNS"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "Verificações de DNS OpenRoaming"
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "O teste de conectividade OpenRoaming não está configurado"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
@@ -1470,11 +1514,11 @@ msgstr "Repetir testes de conetividade dinâmica"
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Repita os testes de conectividade OpenRoaming"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "ainda não implementado "
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1551,140 +1595,151 @@ msgstr "Submeter credenciais"
 #: web/diag/action_realmcheck.php:895
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "Regressar à área %s do administrador"
 
 #: web/diag/adminQuery.php:32
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Suspeito de um problema técnico com o IdP"
 
 #: web/diag/adminQuery.php:33
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "Um utilizador deste IdP supostamente violou direitos de autor"
 
 #: web/diag/adminQuery.php:34
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
+"Um utilizador deste IdP realizou operações de rede maliciosas (spam, "
+"DDoS, ...)"
 
 #: web/diag/adminQuery.php:37
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"O utilizador alega problemas de conectividade, mas foi autenticado com "
+"sucesso"
 
 #: web/diag/adminQuery.php:38
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "O utilizador alega que o porto obrigatória não está aberto"
 
 #: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
 msgid "Select your problem"
-msgstr ""
+msgstr "Escolha o seu problema "
 
 #: web/diag/adminQuery.php:76
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Qual é o domínio do IdP em questão?"
 
 #: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "Qual é a data/hora da autenticação da sessão do utilizador em causa?"
 
 #: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "Qual é o endereço MAC da sessão do utilizador em questão?"
 
 #: web/diag/adminQuery.php:96
 msgid "Additional comments"
-msgstr ""
+msgstr "Comentários adicionais"
 
 #: web/diag/adminQuery.php:100
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
+"Especifique um endereço de e-mail pelo qual o IdP possa entrar em contacto "
+"com você"
 
 #: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Agora pode enviar a sua consulta"
 
 #: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
 msgid "Send"
-msgstr ""
+msgstr "Enviar "
 
 #: web/diag/adminQuery.php:128
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Identifique o SP por um dos seguintes meios"
 
 #: web/diag/adminQuery.php:132
 msgid "SP Operator-Name attribute"
-msgstr ""
+msgstr "Atributo SP Operator-Name"
 
 #: web/diag/adminQuery.php:136
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Escolha o SP manualmente: "
 
 #: web/diag/adminQuery.php:139
 msgid "click to select country and organisation"
-msgstr ""
+msgstr "clique para escolher o país e a organização "
 
 #: web/diag/adminQuery.php:145
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "pelo menos descreva a localização do SP"
 
 #: web/diag/adminQuery.php:149
 msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgstr "Qual é o ID externo da sessão do utilizador em questão?"
 
 #: web/diag/adminQuery.php:164
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "Comentários adicionais sobre o problema"
 
 #: web/diag/adminQuery.php:168
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
+"Tem algum contacto pelo qual o utilizador pretenda ser contactado pelo SP?"
 
 #: web/diag/adminQuery.php:172
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
+"Especifique um endereço de e-mail no qual o SP possa entrar em contato com "
+"você"
 
 #: web/diag/adminQuery.php:246
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "Suspeitamos de um problema técnico com o IdP"
 
 #: web/diag/adminQuery.php:247
 msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
+msgstr "Suspeitamos de um problema técnico com o IdP que trata do domínio"
 
 #: web/diag/adminQuery.php:249
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
+"O teste de diagnóstico CAT foi executado para este domínio durante o "
+"relatório.\n"
 
 #: web/diag/adminQuery.php:250
 msgid "The overall result was "
-msgstr ""
+msgstr "O resultado geral foi "
 
 #: web/diag/adminQuery.php:256
 msgid "To see details go to "
-msgstr ""
+msgstr "Para ver detalhes ir a "
 
 #: web/diag/adminQuery.php:258
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "Os detalhes do problema relatado são os seguintes"
 
 #: web/diag/adminQuery.php:259
 msgid "timestamp"
-msgstr ""
+msgstr "timestamp"
 
 #: web/diag/adminQuery.php:260
 msgid "client MAC address"
-msgstr ""
+msgstr "endereço MAC do cliente"
 
 #: web/diag/adminQuery.php:262
 msgid "additional comments"
-msgstr ""
+msgstr "comentários adicionais"
 
 #: web/diag/adminQuery.php:264
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "Pode entrar em contacto com quem reportou o incidente em"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
@@ -1804,20 +1859,24 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>AVISO</strong>: o nome do servidor conforme descoberto no registo "
+"SRV não corresponde a nenhum nome no certificado do servidor!"
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Timestamp dos testes:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Repita os testes de conectividade"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Token em falta, nenhuma informação pode ser apresentada"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
+"O token fornecido no pedido não existe, nenhuma informação pode ser "
+"apresentada"

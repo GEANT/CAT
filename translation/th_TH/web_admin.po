@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Thai (Thailand) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1622,57 +1622,57 @@ msgstr ""
 msgid "EAP-Type-specific options..."
 msgstr ""
 
-#: web/admin/overview_installers.php:80
+#: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
 msgstr ""
 
-#: web/admin/overview_installers.php:90
+#: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:92
+#: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:166
+#: web/admin/overview_installers.php:169
 msgid "Legend:"
 msgstr ""
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Colour"
 msgstr ""
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Meaning"
 msgstr ""
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "redirection is set"
 msgstr ""
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
 msgstr ""
 
-#: web/admin/overview_installers.php:173
+#: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
 msgstr ""
 
-#: web/admin/overview_installers.php:174
+#: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
 msgstr ""
 
-#: web/admin/overview_installers.php:175
+#: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
 msgstr ""
 
-#: web/admin/overview_installers.php:179
+#: web/admin/overview_installers.php:182
 msgid "Footnotes:"
 msgstr ""
 
-#: web/admin/overview_installers.php:188
+#: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
 msgstr ""
 

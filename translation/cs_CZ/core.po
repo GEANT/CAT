@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
 "2013,2015,2018-2019,2022\n"
@@ -519,7 +519,7 @@ msgstr "Národní provozovatel roamingu"
 msgid "identity provider"
 msgstr "poskytovatel identit"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "organizace"
 
@@ -542,6 +542,10 @@ msgstr "Service Provider"
 #: core/common/Entity.php:127
 msgid "participant"
 msgstr "účastník"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Organizace"
 
 #: core/common/Entity.php:129
 msgid "organization"

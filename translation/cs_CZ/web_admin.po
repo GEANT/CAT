@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, 2016,2018-2019,2022\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
@@ -101,7 +101,7 @@ msgstr ""
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Správa RADIUS/TLS certifikátů pro %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
@@ -576,7 +576,7 @@ msgstr ""
 #: web/admin/edit_participant_result.php:38
 #: web/admin/edit_profile_result.php:249
 msgid "Greetings, "
-msgstr ""
+msgstr "Vítejte,"
 
 #: web/admin/edit_participant_result.php:56
 #, php-format
@@ -806,7 +806,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:246
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Manipulace s vnější identitou"
 
 #: web/admin/edit_profile.php:252
 msgid "Enable Anonymous Outer Identity:"
@@ -954,7 +954,7 @@ msgstr ""
 
 #: web/admin/edit_profile_result.php:118 web/admin/edit_user_result.php:78
 msgid "Details"
-msgstr ""
+msgstr "Detaily"
 
 #: web/admin/edit_profile_result.php:125
 #, php-format
@@ -1549,7 +1549,7 @@ msgstr ""
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Vyžádejte si nový certifikát"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1795,57 +1795,57 @@ msgstr "Zařízení"
 msgid "EAP-Type-specific options..."
 msgstr "Nastavení metody EAP..."
 
-#: web/admin/overview_installers.php:80
+#: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
 msgstr "Nastavení zařízení..."
 
-#: web/admin/overview_installers.php:90
+#: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
 msgstr "%s<br/>Instalátor"
 
-#: web/admin/overview_installers.php:92
+#: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
 msgstr "%s + OpenRoaming<br/>Instalátor"
 
-#: web/admin/overview_installers.php:166
+#: web/admin/overview_installers.php:169
 msgid "Legend:"
 msgstr "Legenda:"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Colour"
 msgstr "Barva"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Meaning"
 msgstr "Význam"
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "redirection is set"
 msgstr "přesměrování je nastaveno"
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
 msgstr "bude nabídnuto ke stažení na veřejné stránce"
 
-#: web/admin/overview_installers.php:173
+#: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
 msgstr "nakonfigurovaná, ale nepreferovaná metoda EAP"
 
-#: web/admin/overview_installers.php:174
+#: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
 msgstr "nekompletní konfigurace"
 
-#: web/admin/overview_installers.php:175
+#: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
 msgstr "nepodporovaný v CAT"
 
-#: web/admin/overview_installers.php:179
+#: web/admin/overview_installers.php:182
 msgid "Footnotes:"
 msgstr "Poznámky pod čarou:"
 
-#: web/admin/overview_installers.php:188
+#: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
 msgstr "Návrat na hlavní stránku"
 
@@ -1979,7 +1979,7 @@ msgstr ""
 
 #: web/admin/overview_org.php:309 web/admin/overview_sp.php:179
 msgid "Your backup RADIUS server"
-msgstr ""
+msgstr "Váš záložní RADIUS server"
 
 #: web/admin/overview_org.php:333 web/admin/overview_sp.php:203
 msgid "RADIUS shared secret"
@@ -2902,7 +2902,7 @@ msgstr ""
 
 #: web/lib/admin/OptionDisplay.php:261
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Přečtěte si prosím instrukce na wiki"
 
 #: web/lib/admin/OptionDisplay.php:366
 msgid "select language"

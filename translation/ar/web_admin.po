@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2021-2022\n"
 "Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -331,6 +331,10 @@ msgid ""
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
+"مرحبًا أيها الوافد الجديد. %s جديد بالنسبة لنا. سيطرح عليك هذا المعالج عدة "
+"أسئلة عنه، حتى نتمكن من إنشاء ملفات تعريف جميلة لك في النهاية. جميع "
+"المعلومات الواردة أدناه اختيارية ، ولكن من المهم ملء أكبر عدد ممكن من الحقول "
+"لصالح المستخدمين النهائيين."
 
 #: web/admin/edit_participant.php:115
 msgid "General Information"
@@ -508,6 +512,11 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
+"إذا أدخلت قيمة هنا ، فستتم إضافتها إلى برامج التثبيت لجميع المستخدمين لديك ، "
+"وسيتم عرضها في صفحة التنزيل. إذا كنت لديك مكاتب مساعدة \"دعم فني\" منفصلة "
+"لمجموعات مختلفة من المستخدمين (نسمي هذا \"ملفات التعريف\") ، حدد معلومات "
+"مكتب المساعدة \"الدعم الفني\" لكل ملف تعريف لاحقًا في هذا المعالج. إذا لم يكن "
+"لديك مكتب مساعدة على الإطلاق ، فاترك هذه الحقول فارغة."
 
 #: web/admin/edit_participant.php:198
 #, php-format
@@ -709,6 +718,8 @@ msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
+"يعد هذا مفيدًا إذا كنت تريد استخدام وحدة التحقق من الصحة في وقت لاحق ، والتي "
+"تختبر قابلية الوصول إلى مجال realm الخاص بك في البنية التحتية لـ %s."
 
 #: web/admin/edit_profile.php:175
 msgid ""
@@ -748,6 +759,8 @@ msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
+"في بعض الأنظمة، يمكن لبرنامج التثبيت اقتراح نهايات اسم المستخدم و / أو "
+"التحقق من ادخال المستخدم لاحقة المجال realm suffix."
 
 #: web/admin/edit_profile.php:232
 msgid ""
@@ -756,6 +769,10 @@ msgid ""
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
+"تحتاج ميزة التحقق من المجال realm إلى معرفة معرف خارجي قد يحصل بالفعل على "
+"إمكانية للمصادقة. إذا سمح خادم RADIUS الخاص بك فقط بتحديد تمرير أسماء "
+"المستخدمين، فمن المفيد توفير المعلومات حول اسم المستخدم (المعرف الخارجي) "
+"الذي يمكننا استخدامه للاختبار."
 
 #: web/admin/edit_profile.php:240
 msgid "Username Handling Options"
@@ -1724,57 +1741,57 @@ msgstr "جهاز"
 msgid "EAP-Type-specific options..."
 msgstr ""
 
-#: web/admin/overview_installers.php:80
+#: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
 msgstr ""
 
-#: web/admin/overview_installers.php:90
+#: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:92
+#: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:166
+#: web/admin/overview_installers.php:169
 msgid "Legend:"
 msgstr ""
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Colour"
 msgstr ""
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Meaning"
 msgstr ""
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "redirection is set"
 msgstr ""
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
 msgstr ""
 
-#: web/admin/overview_installers.php:173
+#: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
 msgstr ""
 
-#: web/admin/overview_installers.php:174
+#: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
 msgstr ""
 
-#: web/admin/overview_installers.php:175
+#: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
 msgstr ""
 
-#: web/admin/overview_installers.php:179
+#: web/admin/overview_installers.php:182
 msgid "Footnotes:"
 msgstr ""
 
-#: web/admin/overview_installers.php:188
+#: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
 msgstr ""
 

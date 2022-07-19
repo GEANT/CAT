@@ -5,15 +5,15 @@
 # Translators:
 # esmeralda <epires@fccn.pt>, 2015
 # esmeralda <epires@fccn.pt>, 2012
-# Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018
+# Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018,2022
 # Pedro Simões <psimoes@fccn.pt>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -23,103 +23,107 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
 
-#: devices/Devices-template.php:130
-msgid "MS Windows 10"
-msgstr "MS Windows 10"
+#: devices/Devices-template.php:132
+msgid "MS Windows 8 and newer"
+msgstr "Windows 8 ou posterior"
 
-#: devices/Devices-template.php:144
-msgid "MS Windows 8, 8.1"
-msgstr "MS Windows 8, 8.1"
+#: devices/Devices-template.php:147
+msgid "MS Windows 8"
+msgstr "MS Windows 8"
 
-#: devices/Devices-template.php:158
+#: devices/Devices-template.php:163
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:171
+#: devices/Devices-template.php:176
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:184
-msgid "Windows RT"
-msgstr "Windows RT"
-
-#: devices/Devices-template.php:194
+#: devices/Devices-template.php:190
 msgid "Apple device"
-msgstr ""
+msgstr "Dispositivo Apple"
 
-#: devices/Devices-template.php:205 devices/Devices-template.php:221
-#: devices/Devices-template.php:237 devices/Devices-template.php:253
-#: devices/Devices-template.php:268 devices/Devices-template.php:283
-#: devices/Devices-template.php:298 devices/Devices-template.php:313
-#: devices/Devices-template.php:328 devices/Devices-template.php:343
+#: devices/Devices-template.php:201 devices/Devices-template.php:217
+#: devices/Devices-template.php:233 devices/Devices-template.php:249
+#: devices/Devices-template.php:264 devices/Devices-template.php:279
+#: devices/Devices-template.php:294 devices/Devices-template.php:309
+#: devices/Devices-template.php:324 devices/Devices-template.php:339
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
+"Durante a instalação, primeiro será solicitado que insira as configurações "
+"do certificado e, aí, precisará inserir o PIN de importação mostrado nesta "
+"página. Mais tarde, será solicitado a escrever a sua password para permitir "
+"alterações no perfil, desta vez é a password do seu computador."
 
-#: devices/Devices-template.php:210
+#: devices/Devices-template.php:206
 msgid "Apple macOS Catalina"
-msgstr ""
+msgstr "macOS Catalina da Apple"
 
-#: devices/Devices-template.php:226
+#: devices/Devices-template.php:222
 msgid "Apple macOS Mojave"
-msgstr ""
+msgstr "macOS Mojave da Apple"
 
-#: devices/Devices-template.php:242
+#: devices/Devices-template.php:238
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:258
+#: devices/Devices-template.php:254
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:273
+#: devices/Devices-template.php:269
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:288
+#: devices/Devices-template.php:284
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:303
+#: devices/Devices-template.php:299
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:318
+#: devices/Devices-template.php:314
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:333
+#: devices/Devices-template.php:329
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:348
+#: devices/Devices-template.php:344
 msgid "Apple iOS mobile device (iOS 7-11)"
-msgstr ""
+msgstr "Dispositivo móvel Apple iOS (iOS 7-11)"
 
-#: devices/Devices-template.php:358
+#: devices/Devices-template.php:354
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
 "password to the certificate and there you need to enter the import PIN shown "
 "on this page."
 msgstr ""
+"Durante a instalação, será solicitado que insira a sua password - este é o "
+"código de segurança do seu dispositivo! Mais tarde, será solicitada a "
+"password do certificado e será necessário inserir o PIN de importação "
+"mostrado nesta página."
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:359
 msgid "Apple iOS mobile device (iOS 5 and 6)"
-msgstr ""
+msgstr "Dispositivo móvel Apple iOS (iOS 5 e 6)"
 
-#: devices/Devices-template.php:377 devices/Devices-template.php:387
+#: devices/Devices-template.php:373
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:398
+#: devices/Devices-template.php:394
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:404
+#: devices/Devices-template.php:400
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -133,16 +137,16 @@ msgstr ""
 "silenciosamente; a nova definição de rede será adicionada às redes "
 "preferidas."
 
-#: devices/Devices-template.php:409
-msgid "Android 11 and higher"
-msgstr ""
+#: devices/Devices-template.php:405
+msgid "Android 8 and higher"
+msgstr "Android 8 ou superior"
 
-#: devices/Devices-template.php:416 devices/Devices-template.php:430
-#: devices/Devices-template.php:443 devices/Devices-template.php:458
-#: devices/Devices-template.php:472 devices/Devices-template.php:486
-#: devices/Devices-template.php:500 devices/Devices-template.php:514
-#: devices/Devices-template.php:528 devices/Devices-template.php:542
-#: devices/Devices-template.php:556
+#: devices/Devices-template.php:412 devices/Devices-template.php:427
+#: devices/Devices-template.php:441 devices/Devices-template.php:456
+#: devices/Devices-template.php:470 devices/Devices-template.php:484
+#: devices/Devices-template.php:498 devices/Devices-template.php:512
+#: devices/Devices-template.php:526 devices/Devices-template.php:540
+#: devices/Devices-template.php:554
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -150,90 +154,103 @@ msgid ""
 "from these sites: %s and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
 msgstr ""
+"Antes de avançar com a instalação em sistemas Android, certifique-se que tem "
+"instalada a aplicação %s. Esta aplicação está disponível nestes sites: %s e "
+"usará o ficheiro de configuração descarregado do CAT para criar todas as "
+"configurações necessárias."
 
-#: devices/Devices-template.php:418 devices/Devices-template.php:432
-#: devices/Devices-template.php:445 devices/Devices-template.php:460
-#: devices/Devices-template.php:474 devices/Devices-template.php:488
-#: devices/Devices-template.php:502 devices/Devices-template.php:516
-#: devices/Devices-template.php:530 devices/Devices-template.php:544
-#: devices/Devices-template.php:558
+#: devices/Devices-template.php:414 devices/Devices-template.php:429
+#: devices/Devices-template.php:443 devices/Devices-template.php:458
+#: devices/Devices-template.php:472 devices/Devices-template.php:486
+#: devices/Devices-template.php:500 devices/Devices-template.php:514
+#: devices/Devices-template.php:528 devices/Devices-template.php:542
+#: devices/Devices-template.php:556
 msgid "as local download"
 msgstr "como download local"
 
-#: devices/Devices-template.php:424
+#: devices/Devices-template.php:420
 msgid "Android 8 to 10"
-msgstr ""
+msgstr "Anroid 8 ao 10"
 
-#: devices/Devices-template.php:437
+#: devices/Devices-template.php:435
 msgid "Android 4.3 to 7"
-msgstr ""
+msgstr "Android 4.3 ao 7"
 
-#: devices/Devices-template.php:451
+#: devices/Devices-template.php:449
 msgid "Android 10.0 Q"
-msgstr ""
+msgstr "Android 10.0 Q"
 
-#: devices/Devices-template.php:465
+#: devices/Devices-template.php:463
 msgid "Android 9.0 Pie"
-msgstr ""
+msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:479
+#: devices/Devices-template.php:477
 msgid "Android 8.0 Oreo"
-msgstr ""
+msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:493
+#: devices/Devices-template.php:491
 msgid "Android 7.0 Nougat"
-msgstr ""
+msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:507
+#: devices/Devices-template.php:505
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:521
+#: devices/Devices-template.php:519
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:535
+#: devices/Devices-template.php:533
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:549
+#: devices/Devices-template.php:547
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:563
-msgid "Android"
-msgstr "Android"
-
-#: devices/Devices-template.php:573
+#: devices/Devices-template.php:562 devices/Devices-template.php:585
 msgid "EAP config"
 msgstr "Configuração EAP"
 
-#: devices/Devices-template.php:578
+#: devices/Devices-template.php:568
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
+"Esta opção fornece um ficheiro XML de configuração EAP, que pode ser "
+"consumido pela aplicação eduroamCAT para Android."
 
-#: devices/Devices-template.php:583
+#: devices/Devices-template.php:573
 msgid "EAP generic"
-msgstr ""
+msgstr "EAP genérico"
 
-#: devices/Devices-template.php:588
+#: devices/Devices-template.php:578
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
+"Esta opção fornece um ficheiro XML de configuração EAP genérico, que pode "
+"ser consumido pelas aplicações GetEduroam."
 
-#: devices/Devices-template.php:594
+#: devices/Devices-template.php:590
+#, php-format
+msgid ""
+"This option provides an EAP config XML file with multiple "
+"EAPIdentityProvider elements and all language versions"
+msgstr ""
+"Esta opção fornece um ficheiro XML de configuração EAP com vários elementos "
+"EAPIdentityProvider e todas as versões de idioma"
+
+#: devices/Devices-template.php:596
 msgid "Test"
 msgstr "Teste"
 
 #: devices/PP_OSU_XML/DevicePPOSUXML.php:111
 #, php-format
 msgid "%s via Passpoint"
-msgstr ""
+msgstr "%s via Passpoint"
 
 #: devices/PP_OSU_XML/DevicePPOSUXML.php:296
 msgid ""
@@ -266,6 +283,8 @@ msgid ""
 "Passpoint networks are not provisioned due to severe UI limitations during "
 "install time."
 msgstr ""
+"As redes de Passpoint não são aprovisionadas devido a limitações graves da "
+"interface de utilizador durante a instalação."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:175
 #, php-format
@@ -281,6 +300,8 @@ msgstr "%s configuração para o IdP '%s' - fornecida por %s"
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
+"Aviso importante: seu nome de usuário TEM DE terminar exatamente com '...@"
+"%s'!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
@@ -288,6 +309,8 @@ msgstr ""
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
 msgstr ""
+"Aviso importante: seu nome de usuário TEM DE conter um '@' e terminar "
+"com ... %s!"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
@@ -353,12 +376,12 @@ msgstr ""
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
-msgstr ""
+msgstr "(%d vezes cada, porque %d SSIDs e %d redes Passpoint são instaladas)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
 #, php-format
 msgid "%s - SSID %s"
-msgstr ""
+msgstr "%s - SSID %s"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
 #, php-format
@@ -368,7 +391,7 @@ msgstr "%s configurações para a rede %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
 #, php-format
 msgid "%s - Wired Network"
-msgstr ""
+msgstr "%s - Rede Cablada"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
 #, php-format
@@ -378,12 +401,12 @@ msgstr "%s configuração para rede cablada"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
 #, php-format
 msgid "%s - RCOI"
-msgstr ""
+msgstr "%s - RCOI"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
-msgstr ""
+msgstr "Configuração %s (Passpoint RCOI)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
 #, php-format
@@ -399,36 +422,38 @@ msgstr "Rede WiFi desativada"
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
 msgid "User certificate"
-msgstr ""
+msgstr "Certificado do utilizador"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
 #, php-format
 msgid "The %s Certification Authority"
-msgstr ""
+msgstr "A Autoridade de Certificação %s"
 
 #. / example: "Identity Provider CA #1 (Root)"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "%s CA #%d (%s)"
-msgstr ""
+msgstr "%s CA #%d (%s)"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermediate"
 
 #: devices/chromebook/DeviceChromebook.php:61 devices/linux/DeviceLinux.php:48
 #: devices/linux/DeviceLinuxSh.php:38
 msgid "This device does not support provisioning of OpenRoaming."
 msgstr ""
+"Este dispositivo não oferece suporte ao aprovisionamento de OpenRoaming."
 
 #: devices/chromebook/DeviceChromebook.php:62 devices/linux/DeviceLinux.php:49
 #: devices/linux/DeviceLinuxSh.php:39
 msgid "This device does not support provisioning of Passpoint networks."
 msgstr ""
+"Este dispositivo não oferece suporte ao aprovisionamento de redes Passpoint."
 
 #: devices/chromebook/DeviceChromebook.php:304
 msgid ""
@@ -438,6 +463,10 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"O instalador é um ficheiro com a extensão '.onc'. Faça o download, abra o "
+"Chrome e navegue até o URL chrome://net-internals/#chromeos. A seguir, use o "
+"botão 'Importar ficheiro ONC'. A importação é silenciosa; as novas "
+"definições de rede serão adicionadas às redes preferenciais."
 
 #: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
 #: devices/xml/Device_XML.php:73
@@ -452,7 +481,7 @@ msgstr ""
 #: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
-msgstr ""
+msgstr "Li e concordo com os Termos de Utilização do OpenRoaming em %s."
 
 #: devices/linux/DeviceLinux.php:85 devices/linux/DeviceLinuxSh.php:86
 #, php-format
@@ -469,7 +498,7 @@ msgstr ""
 
 #: devices/linux/DeviceLinux.php:86 devices/linux/DeviceLinuxSh.php:87
 msgid "The installer will configure access to:"
-msgstr ""
+msgstr "O instalador configurará o acesso a:"
 
 #: devices/linux/DeviceLinux.php:90 devices/linux/DeviceLinuxSh.php:91
 msgid ""
@@ -477,6 +506,9 @@ msgid ""
 "directory (possibly the .config in your home directory) and will copy your "
 "server certificates there."
 msgstr ""
+"O instalador criará a subdiretoria cat_installer na sua pasta de "
+"configuração (possivelmente o .config na sua diretoria inicial) e copiará os "
+"seus certificados de servidor para lá."
 
 #: devices/linux/DeviceLinux.php:92 devices/linux/DeviceLinuxSh.php:93
 msgid ""
@@ -487,6 +519,12 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the cat_installer directory."
 msgstr ""
+"Para se ligar à rede, precisará de um certificado pessoal na forma de um "
+"ficheiro p12. Deve obter este certificado da sua organização. Consulte a "
+"página de suporte para saber como obter este certificado. Esses ficheiros de "
+"certificado são protegidos por password. Deve ter o ficheiro e a password "
+"disponíveis durante o processo de instalação. O seu ficheiro p12 também será "
+"copiado para a diretoria cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/DeviceLinux.php:94 devices/linux/DeviceLinuxSh.php:95
@@ -668,6 +706,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@%s'. Please enter the "
 "username in the correct format."
 msgstr ""
+"Erro: o seu nome de utilizador deve estar no formato 'xxx@%s'. Insira o nome "
+"de utilizador no formato correto."
 
 #: devices/linux/DeviceLinuxSh.php:152
 #, php-format
@@ -675,11 +715,13 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'%s'. Please enter the username in the correct format."
 msgstr ""
+"Erro: o seu nome de utilizador deve estar no formato 'xxx@institutionID' e "
+"terminar com '%s'. Insira o nome de utilizador no formato correto."
 
 #: devices/linux/DeviceLinuxSh.php:344
 #, php-format
 msgid "This installer has been prepared for %s"
-msgstr ""
+msgstr "Este instalador foi preparado para %s"
 
 #: devices/linux/DeviceLinuxSh.php:373
 #, php-format
@@ -708,12 +750,16 @@ msgid ""
 "While OpenRoaming can be configured, it is possible that the Wi-Fi hardware "
 "does not support it; then the network definition is ignored."
 msgstr ""
+"Embora o OpenRoaming possa ser configurado, é possível que o hardware Wi-Fi "
+"não o suporte; então a definição de rede é ignorada."
 
 #: devices/ms/DeviceVista7.php:51 devices/ms/DeviceW8W10.php:61
 msgid ""
 "While Passpoint networks can be configured, it is possible that the Wi-Fi "
 "hardware does not support it; then the network definition is ignored."
 msgstr ""
+"Embora as redes Passpoint possam ser configuradas, é possível que o hardware "
+"Wi-Fi não o suporte; então a definição de rede é ignorada."
 
 #: devices/ms/WindowsCommon.php:229
 #, php-format
@@ -737,8 +783,14 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
+"Além do instalador <strong>%s</strong> também irá configurar o acesso à "
+"seguinte rede:"
 msgstr[1] ""
+"Além do instalador <strong>%s</strong> também irá configurar o acesso às "
+"seguintes redes:"
 msgstr[2] ""
+"Além do instalador <strong>%s</strong> também irá configurar o acesso às "
+"seguintes redes:"
 
 #: devices/ms/WindowsCommon.php:238
 msgid ""
@@ -775,6 +827,10 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
+"Este instalador é apenas um exemplo. Ele produz um ficheiro zip com os "
+"certificados do IdP, arquivos de informações e logótipo (se tal tiver sido "
+"definido pelo administrador do IdP) e um dump de todos os atributos "
+"disponíveis. O instalador é chamado com%d SSIDs para configurar."
 
 #: devices/ms/Files/common.inc:148
 #, php-format
@@ -860,6 +916,9 @@ msgid ""
 "problems accessing network. We suggest that you quit this installation, "
 "update your Windows and try again"
 msgstr ""
+"O seu Windows 10 não foi atualizado, o que significa que provavelmente terá "
+"problemas para aceder à rede. Sugerimos que saia desta instalação, atualize "
+"o seu Windows e tente novamente"
 
 #: devices/ms/Files/common.inc:592
 msgid ""
@@ -1066,7 +1125,7 @@ msgstr "Password de certificado incorrecta$\\r$\\ntente novamente"
 
 #: devices/ms/Files/common.inc:1264
 msgid "Username contained some trailing spaces which were removed."
-msgstr ""
+msgstr "O nome de utilizador tinha espaços à direita que foram removidos."
 
 #: devices/ms/Files/common.inc:1299
 msgid ""
@@ -1107,7 +1166,7 @@ msgstr "Password em falta"
 
 #: devices/ms/Files/common.inc:1445
 msgid "Password mismatch"
-msgstr ""
+msgstr "Passwords diferentes"
 
 #: devices/ms/Files/common.inc:1538 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
