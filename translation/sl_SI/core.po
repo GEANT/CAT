@@ -7,6 +7,7 @@
 # blazdivjak <blaz.divjak@gmail.com>, 2012
 # Blaž Divjak <blaz.divjak@guest.arnes.si>, 2012
 # blazdivjak <blaz.divjak@gmail.com>, 2013
+# Janez Kadivec, 2022
 # Kaja Kumer <kaja.kumer@arnes.si>, 2018
 # rokpapez <rok.papez@arnes.si>, 2015
 # rokpapez <rok.papez@arnes.si>, 2012
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>, 2018\n"
+"Last-Translator: Janez Kadivec, 2022\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -29,12 +30,12 @@ msgstr ""
 #: core/CAT.php:108
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Neizdana revizija Git %s"
 
 #: core/CAT.php:122
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr "Izdan/a <a href='%s'>%s</a>"
+msgstr "Izdaja <a href='%s'>%s</a>"
 
 #: core/CAT.php:136
 msgid "Andorra"
@@ -214,7 +215,7 @@ msgstr "Venezuela"
 
 #: core/CAT.php:181
 msgid "Default"
-msgstr "Privzeti"
+msgstr "Privzeto"
 
 #: core/CAT.php:182
 msgid "Armenia"
@@ -234,7 +235,7 @@ msgstr "Ekvador"
 
 #: core/CAT.php:186
 msgid "Hong Kong"
-msgstr "Hong Kong"
+msgstr "Hongkong"
 
 #: core/CAT.php:187
 msgid "Kenya"
@@ -298,66 +299,66 @@ msgstr "Neimenovana entiteta"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Profil je bil uspešno deaktiviran"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Profil je bil uspešno aktiviran/spremenjen"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Profila ni bilo mogoče deaktivirati"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Profila ni bilo mogoče aktivirati/spremeniti"
 
 #: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "na obeh strežnikih RADIUS: osnovnem in nadomestnem"
 
 #: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "na osnovnem strežniku RADIUS"
 
 #: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "na nadomestnem strežniku RADIUS"
 
 #: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Težava s posodobitvijo profila RADIUS je bila odpravljena"
 
 #: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Težava s posodobitvijo profila RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
 msgid "your local %s support"
-msgstr "vaša lokalna podpora %s"
+msgstr "vaša lokalna podpora za %s"
 
 #: core/DeviceConfig.php:250
 #, php-format
 msgid "your local %s support page"
-msgstr "stran vaše lokalne podpore %s"
+msgstr "stran vaše lokalne podpore za %s"
 
 #: core/DeviceConfig.php:288
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
-"Oprostite, to se ne bi smelo zgoditi - dodatne informacije niso na voljo"
+"Oprostite, to se ne bi smelo zgoditi; dodatne informacije niso na voljo"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
 #: core/Federation.php:92
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(ukinjeno) %s"
 
 #. / IdP and SP
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s in %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -380,12 +381,22 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Pozdravljeni,\n"
+"\n"
+"povabilo za novega %s %s v vaši %s federaciji %s je uporabljen in %s je bil "
+"ustvarjen v %s.\n"
+"\n"
+"Menilo smo, da vas bo to morda zanimalo.\n"
+"\n"
+"Lep pozdrav,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "%s je bil ustvajen v vaši federaciji"
 
 #: core/IdP.php:397
 #, php-format
@@ -400,16 +411,25 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Pozdravljeni,\n"
+"\n"
+"%s %s v vaši %s federaciji %s je bil izbrisan iz %s.\n"
+"\n"
+"Menili smo, da vas bo to morda zanimalo.\n"
+"\n"
+"Lep pozdrav,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:406
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s v vaši federaciji je bil izbrisan"
 
 #: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
-msgstr "Vaš %s dostop je pripravljen"
+msgstr "Dostop do %s je pripravljen"
 
 #: core/SilverbulletInvitation.php:249
 msgid "Hello!"
@@ -420,9 +440,7 @@ msgstr "Pozdravljeni!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
-"Nova %s poverilnica za dostop je bila ustvarjena s strani skrbnika vašega "
-"omrežja."
+msgstr "Skrbnik omrežja je za vas ustvaril novo poverilnico za dostop do %s."
 
 #: core/SilverbulletInvitation.php:253
 #, php-format
@@ -431,9 +449,10 @@ msgid ""
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
-"Prosimo, sledite naslednji povezavi na napravi, na kateri želite omogočiti "
-"%s, da pridobite ustrezen %s program za namestitev, ki je prilagojen za vas. "
-"Odprite povezavo s kopiranjem v brskalnik ali skenirajte pripeto QR kodo."
+"Sedite spodnji povezavi v napravi, v kateri želite omogočiti %s, da "
+"pridobite ustrezen namestitveni program%s, prilagojen za vas. Povezavo lahko "
+"kliknete, jo prekopirate in prilepite v brskalnik ali skenirate priloženo "
+"kodo QR."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:255
@@ -443,9 +462,9 @@ msgid ""
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
-"Prosimo, shranite to sporočilo ali povezavo za prihodnjo uporabo. Po izbiri "
-"\"%s\" programa za namestitev, lahko to povezavo uporabite za pridobivanje "
-"podatkov o statusu vašega %s računa."
+"Shranite to e-poštno sporočilo ali zaznamujte povezavo za prihodnjo uporabo. "
+"Ko izberete namestitveni program %s, lahko s to povezavo pridobite podatke o "
+"stanju svojega računa za %s."
 
 #: core/SilverbulletInvitation.php:257
 msgid "Regards,"
@@ -463,11 +482,11 @@ msgstr ""
 #: core/SilverbulletInvitation.php:342
 #, php-format
 msgid "%s Invitation System"
-msgstr "%s Sistem povabil"
+msgstr "Sistem povabil %s"
 
 #: core/User.php:166
 msgid "Feedback"
-msgstr "Povratna informacija"
+msgstr "Povratne informacije"
 
 #: core/common/EAP.php:371
 msgid "PEAP-MSCHAPv2"
@@ -508,43 +527,47 @@ msgstr "Nacionalni ponudnik gostovanja"
 msgid "identity provider"
 msgstr "ponudnik identitete"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "organizacija"
 
 #: core/common/Entity.php:123
 msgid "Identity Provider"
-msgstr "ponudnik identitete"
+msgstr "Ponudnik identitete"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Dostopna točka Wi-Fi"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Dostopna točka"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Ponudnik storitev"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "udeleženec"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Organizacija"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "organizacija"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "enota"
 
 #: core/common/OutsideComm.php:291
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr "%s %s%s \"%s\" vas je povabil k upravljanju %s skupaj z njim."
+msgstr "%s iz %s %s \"%s\" vas je povabil, da skupaj z njim upravljate %s."
 
 #: core/common/OutsideComm.php:292
 #, php-format
@@ -552,11 +575,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"%s %s vas je povabil, da upravljate prihodnji %s  \"%s\" (%s). Organizacija "
+"bo %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "%s %s vas je povabil, da upravljate %s  \"%s\". To je %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format
@@ -573,56 +598,57 @@ msgstr "Pozdravljeni,"
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
-"ročno. Ne odgovarjajte na to sporočilo; naslov pošiljatelja je namenjen "
-"zgolj za obveščanje."
+"ročno. Ne odgovarjajte na to sporočilo; naslov je namenjen zgolj za "
+"pošiljanje."
 
 #: core/common/OutsideComm.php:311
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr "Dodatno sporočilo vašega %s skrbnika:"
+msgstr "Dodatno sporočilo skrbnika za %s:"
 
 #: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s administrator"
-msgstr "%s skrbnik"
+msgstr "Skrbnik za %s"
 
 #: core/common/OutsideComm.php:322
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
-"ročno. Z odgovorom na to sporočilo boste kontaktirali svoje %s skrbnike."
+"ročno. Če odgovorite na to sporočilo, boste kontaktirali svoje skrbnike za "
+"%s."
 
 #: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr "Za vlogo skrbnika tega %s, kliknite na sledečo povezavo:"
+msgstr "Če želite biti navedeni kot skrbnik za ta %s, kliknite to povezavo:"
 
 #: core/common/OutsideComm.php:330
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr "Če povezava ne deluje, lahko obiščete skrbniški vmesnik %s na"
+msgstr "Če povezava ne deluje, lahko obiščete skrbniški vmesnik %s na naslovu"
 
 #: core/common/OutsideComm.php:332
 msgid "and enter the invitation token"
-msgstr "in prepišite žeton iz povabila"
+msgstr "in vnesite žeton iz povabila"
 
 #: core/common/OutsideComm.php:334
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
-"Tega sporočila NE posredujte, dokler žeton ne poteče- v nasprotnem primeru "
-"prejemniki žeton lahko koristijo v vašem imenu!"
+"Tega sporočila NE posredujte, dokler žeton ne poteče, sicer lahko prejemniki "
+"izkoristijo žeton v vašem imenu."
 
 #: core/common/OutsideComm.php:335
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr "Želimo vam obilo zabavnih trenutkov z %s."
+msgstr "Želimo vam obilo zabavnih trenutkov z izdelkom %s."
 
 #: core/common/OutsideComm.php:336
 #, php-format
@@ -631,14 +657,14 @@ msgid ""
 "\n"
 "Your friendly folks from %s Operations"
 msgstr ""
-"Z lepimi pozdravi,\n"
+"Lep pozdrav,\n"
 "\n"
-"Ekipa operativnega centra %s"
+"ekipa operativnega centra %s"
 
 #: core/common/OutsideComm.php:372
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr "%spovabljeni ste bili k upravljanju%s"
+msgstr "%s, povabljeni ste bili, da upravljate %s"
 
 #: web/lib/common/InputValidation.php:43
 msgid "Input validation error: "
@@ -646,24 +672,24 @@ msgstr "Napaka pri preverjanju vnosa:"
 
 #: web/lib/common/InputValidation.php:270
 msgid "Realm is empty!"
-msgstr "Kraljestvo je prazno!"
+msgstr "Področje je prazno."
 
 #: web/lib/common/InputValidation.php:279
 msgid "Realm contains an @ sign!"
-msgstr "Domena vsebuje znak @!"
+msgstr "Domena vsebuje znak @."
 
 #: web/lib/common/InputValidation.php:280
 msgid "Realm begins with a . (dot)!"
-msgstr "Domena se začne z znakom . (pika)!"
+msgstr "Domena se začne z znakom . (pika)."
 
 #: web/lib/common/InputValidation.php:281
 msgid "Realm ends with a . (dot)!"
-msgstr "Domena se konča z znakom . (pika)!"
+msgstr "Domena se konča z znakom . (pika)."
 
 #: web/lib/common/InputValidation.php:282
 msgid "Realm contains spaces!"
-msgstr "Domena vsebuje presledke!"
+msgstr "Področje vsebuje presledke."
 
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
-msgstr "Domena ne vsebuje vsaj ene . (pike)!"
+msgstr "Področje ne vsebuje vsaj ene . (pike)."

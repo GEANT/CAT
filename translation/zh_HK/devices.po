@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/eduroam_devel/"
@@ -18,35 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: devices/Devices-template.php:130
-msgid "MS Windows 10"
+#: devices/Devices-template.php:132
+msgid "MS Windows 8 and newer"
 msgstr ""
 
-#: devices/Devices-template.php:144
-msgid "MS Windows 8, 8.1"
+#: devices/Devices-template.php:147
+msgid "MS Windows 8"
 msgstr ""
 
-#: devices/Devices-template.php:158
+#: devices/Devices-template.php:163
 msgid "MS Windows 7"
 msgstr ""
 
-#: devices/Devices-template.php:171
+#: devices/Devices-template.php:176
 msgid "MS Windows Vista"
 msgstr ""
 
-#: devices/Devices-template.php:184
-msgid "Windows RT"
-msgstr ""
-
-#: devices/Devices-template.php:194
+#: devices/Devices-template.php:190
 msgid "Apple device"
 msgstr ""
 
-#: devices/Devices-template.php:205 devices/Devices-template.php:221
-#: devices/Devices-template.php:237 devices/Devices-template.php:253
-#: devices/Devices-template.php:268 devices/Devices-template.php:283
-#: devices/Devices-template.php:298 devices/Devices-template.php:313
-#: devices/Devices-template.php:328 devices/Devices-template.php:343
+#: devices/Devices-template.php:201 devices/Devices-template.php:217
+#: devices/Devices-template.php:233 devices/Devices-template.php:249
+#: devices/Devices-template.php:264 devices/Devices-template.php:279
+#: devices/Devices-template.php:294 devices/Devices-template.php:309
+#: devices/Devices-template.php:324 devices/Devices-template.php:339
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -54,47 +50,47 @@ msgid ""
 "the profile, this time it is your computer password."
 msgstr ""
 
-#: devices/Devices-template.php:210
+#: devices/Devices-template.php:206
 msgid "Apple macOS Catalina"
 msgstr ""
 
-#: devices/Devices-template.php:226
+#: devices/Devices-template.php:222
 msgid "Apple macOS Mojave"
 msgstr ""
 
-#: devices/Devices-template.php:242
+#: devices/Devices-template.php:238
 msgid "Apple macOS High Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:258
+#: devices/Devices-template.php:254
 msgid "Apple macOS Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:273
+#: devices/Devices-template.php:269
 msgid "Apple OS X El Capitan"
 msgstr ""
 
-#: devices/Devices-template.php:288
+#: devices/Devices-template.php:284
 msgid "Apple OS X Yosemite"
 msgstr ""
 
-#: devices/Devices-template.php:303
+#: devices/Devices-template.php:299
 msgid "Apple OS X Mavericks"
 msgstr ""
 
-#: devices/Devices-template.php:318
+#: devices/Devices-template.php:314
 msgid "Apple OS X Mountain Lion"
 msgstr ""
 
-#: devices/Devices-template.php:333
+#: devices/Devices-template.php:329
 msgid "Apple OS X Lion"
 msgstr ""
 
-#: devices/Devices-template.php:348
+#: devices/Devices-template.php:344
 msgid "Apple iOS mobile device (iOS 7-11)"
 msgstr ""
 
-#: devices/Devices-template.php:358
+#: devices/Devices-template.php:354
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -102,19 +98,19 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:359
 msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr ""
 
-#: devices/Devices-template.php:377 devices/Devices-template.php:387
+#: devices/Devices-template.php:373
 msgid "Linux"
 msgstr ""
 
-#: devices/Devices-template.php:398
+#: devices/Devices-template.php:394
 msgid "Chrome OS"
 msgstr ""
 
-#: devices/Devices-template.php:404
+#: devices/Devices-template.php:400
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -123,16 +119,16 @@ msgid ""
 "network definitions will be added to the preferred networks."
 msgstr ""
 
-#: devices/Devices-template.php:409
-msgid "Android 11 and higher"
+#: devices/Devices-template.php:405
+msgid "Android 8 and higher"
 msgstr ""
 
-#: devices/Devices-template.php:416 devices/Devices-template.php:430
-#: devices/Devices-template.php:443 devices/Devices-template.php:458
-#: devices/Devices-template.php:472 devices/Devices-template.php:486
-#: devices/Devices-template.php:500 devices/Devices-template.php:514
-#: devices/Devices-template.php:528 devices/Devices-template.php:542
-#: devices/Devices-template.php:556
+#: devices/Devices-template.php:412 devices/Devices-template.php:427
+#: devices/Devices-template.php:441 devices/Devices-template.php:456
+#: devices/Devices-template.php:470 devices/Devices-template.php:484
+#: devices/Devices-template.php:498 devices/Devices-template.php:512
+#: devices/Devices-template.php:526 devices/Devices-template.php:540
+#: devices/Devices-template.php:554
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -141,82 +137,85 @@ msgid ""
 "to create all necessary settings."
 msgstr ""
 
-#: devices/Devices-template.php:418 devices/Devices-template.php:432
-#: devices/Devices-template.php:445 devices/Devices-template.php:460
-#: devices/Devices-template.php:474 devices/Devices-template.php:488
-#: devices/Devices-template.php:502 devices/Devices-template.php:516
-#: devices/Devices-template.php:530 devices/Devices-template.php:544
-#: devices/Devices-template.php:558
+#: devices/Devices-template.php:414 devices/Devices-template.php:429
+#: devices/Devices-template.php:443 devices/Devices-template.php:458
+#: devices/Devices-template.php:472 devices/Devices-template.php:486
+#: devices/Devices-template.php:500 devices/Devices-template.php:514
+#: devices/Devices-template.php:528 devices/Devices-template.php:542
+#: devices/Devices-template.php:556
 msgid "as local download"
 msgstr ""
 
-#: devices/Devices-template.php:424
+#: devices/Devices-template.php:420
 msgid "Android 8 to 10"
 msgstr ""
 
-#: devices/Devices-template.php:437
+#: devices/Devices-template.php:435
 msgid "Android 4.3 to 7"
 msgstr ""
 
-#: devices/Devices-template.php:451
+#: devices/Devices-template.php:449
 msgid "Android 10.0 Q"
 msgstr ""
 
-#: devices/Devices-template.php:465
+#: devices/Devices-template.php:463
 msgid "Android 9.0 Pie"
 msgstr ""
 
-#: devices/Devices-template.php:479
+#: devices/Devices-template.php:477
 msgid "Android 8.0 Oreo"
 msgstr ""
 
-#: devices/Devices-template.php:493
+#: devices/Devices-template.php:491
 msgid "Android 7.0 Nougat"
 msgstr ""
 
-#: devices/Devices-template.php:507
+#: devices/Devices-template.php:505
 msgid "Android 6.0 Marshmallow"
 msgstr ""
 
-#: devices/Devices-template.php:521
+#: devices/Devices-template.php:519
 msgid "Android 5.0 Lollipop"
 msgstr ""
 
-#: devices/Devices-template.php:535
+#: devices/Devices-template.php:533
 msgid "Android 4.4 KitKat"
 msgstr ""
 
-#: devices/Devices-template.php:549
+#: devices/Devices-template.php:547
 msgid "Android 4.3"
 msgstr ""
 
-#: devices/Devices-template.php:563
-msgid "Android"
-msgstr ""
-
-#: devices/Devices-template.php:573
+#: devices/Devices-template.php:562 devices/Devices-template.php:585
 msgid "EAP config"
 msgstr ""
 
-#: devices/Devices-template.php:578
+#: devices/Devices-template.php:568
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
 
-#: devices/Devices-template.php:583
+#: devices/Devices-template.php:573
 msgid "EAP generic"
 msgstr ""
 
-#: devices/Devices-template.php:588
+#: devices/Devices-template.php:578
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
 
-#: devices/Devices-template.php:594
+#: devices/Devices-template.php:590
+#, php-format
+msgid ""
+"This option provides an EAP config XML file with multiple "
+"EAPIdentityProvider elements and all language versions"
+msgstr ""
+
+#: devices/Devices-template.php:596
 msgid "Test"
 msgstr ""
 

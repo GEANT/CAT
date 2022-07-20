@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-08 09:22+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -219,6 +219,18 @@ msgstr ""
 msgid "Test"
 msgstr ""
 
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
+#, php-format
+msgid "%s via Passpoint"
+msgstr ""
+
+#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
@@ -395,8 +407,8 @@ msgid ""
 "added to the preferred networks."
 msgstr ""
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/Device_XML.php:73
-#: devices/xml/DeviceXML.php:87
+#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
+#: devices/xml/Device_XML.php:73
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -674,18 +686,6 @@ msgstr ""
 #: devices/ms/WindowsCommon.php:403 devices/ms/WindowsCommon.php:404
 #, php-format
 msgid "%s installer for %s"
-msgstr ""
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:111
-#, php-format
-msgid "%s via Passpoint"
-msgstr ""
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:296
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
 msgstr ""
 
 #: devices/redirect_dev/DeviceRedirectDev.php:44

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Iryna Rykhalska <irina@uran.ua>, 2021-2022\n"
 "Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/eduroam_devel/"
@@ -523,7 +523,7 @@ msgstr "Національний оператор роумінгу"
 msgid "identity provider"
 msgstr "Постачальник посвідчень"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "Організація"
 
@@ -547,13 +547,17 @@ msgstr "Постачальник послуг"
 msgid "participant"
 msgstr "учасник"
 
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Організація"
+
 #: core/common/Entity.php:129
 msgid "organization"
 msgstr "організація"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr "структура"
+msgstr "Суб'єкт"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -666,24 +670,24 @@ msgstr "Помилка перевірки входу:"
 
 #: web/lib/common/InputValidation.php:270
 msgid "Realm is empty!"
-msgstr "Область порожня!"
+msgstr "Домен порожній!"
 
 #: web/lib/common/InputValidation.php:279
 msgid "Realm contains an @ sign!"
-msgstr "Область містить знак @! "
+msgstr "Домен містить знак @! "
 
 #: web/lib/common/InputValidation.php:280
 msgid "Realm begins with a . (dot)!"
-msgstr "Область починається з . (крапка)!"
+msgstr "Домен починається з . (крапка)!"
 
 #: web/lib/common/InputValidation.php:281
 msgid "Realm ends with a . (dot)!"
-msgstr "Область закінчується . (крапка)!"
+msgstr "Домен закінчується . (крапка)!"
 
 #: web/lib/common/InputValidation.php:282
 msgid "Realm contains spaces!"
-msgstr "Область містить пробіли!"
+msgstr "Домен містить пробіли!"
 
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
-msgstr "область не містить принаймні одну . (крапку)!"
+msgstr "Домен не містить принаймні одну . (крапку)!"

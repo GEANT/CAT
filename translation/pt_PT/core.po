@@ -5,15 +5,15 @@
 # Translators:
 # esmeralda <epires@fccn.pt>, 2015
 # esmeralda <epires@fccn.pt>, 2012
-# Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018
+# Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018,2022
 # Pedro Simões <psimoes@fccn.pt>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: core/CAT.php:108
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Revisão Git %s não lançada"
 
 #: core/CAT.php:122
 #, php-format
@@ -295,39 +295,39 @@ msgstr "Entidade sem nome"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Desativação de perfil com sucesso"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Ativação/Alteração de perfil com sucesso"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Desativação de perfil falhou"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Ativação/Alteração de perfil falhou"
 
 #: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "em ambos os servidores de RADIUS: primário e secundário"
 
 #: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "no servidor primário de RADIUS"
 
 #: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "no servidor secundário de RADIUS"
 
 #: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "Corrigido o problema de atualização do perfil RADIUS"
 
 #: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "Problema de atualização do perfil RADIUS"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -348,13 +348,13 @@ msgstr ""
 #: core/Federation.php:92
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(descontinuado) %s"
 
 #. / IdP and SP
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s e %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -377,12 +377,22 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Olá,\n"
+"\n"
+"o convite para o novo %s%s na sua %s federação %s foi usado e o %sfoi criado "
+"em %s. \n"
+"\n"
+"Pensamos que gostaria de saber. \n"
+"\n"
+"Atenciosamente,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr " %s na sua federação foi criado"
 
 #: core/IdP.php:397
 #, php-format
@@ -397,11 +407,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Olá,\n"
+"\n"
+"o %s %s na sua federação %s %s foi eliminado de %s.\n"
+"\n"
+"\n"
+"Pensamos que gostaria de saber.\n"
+"\n"
+"Atenciosamente,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:406
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s na sua federação foi apagado"
 
 #: core/SilverbulletInvitation.php:236
 #, php-format
@@ -506,7 +526,7 @@ msgstr "National Roaming Operator"
 msgid "identity provider"
 msgstr "fornecedor de identidade"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "organização"
 
@@ -516,27 +536,31 @@ msgstr "Fornecedor de Identidade"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Hotspot Wi-Fi"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Fornecedor de Serviço"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "participante"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Organização"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "organização"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "entidade"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -550,11 +574,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+"um %s %s convidou-o para gerir o futuro %s \"%s\" (%s). A organização será "
+"um %s."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr "um %s%s convidou-o para gerir o %s \"%s\". Isto é um %s."
 
 #: core/common/OutsideComm.php:295
 #, php-format

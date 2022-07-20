@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020,2022\n"
 "Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -518,7 +518,7 @@ msgstr "مشغل التجوال الوطني"
 msgid "identity provider"
 msgstr "مزود هوية"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "مؤسسة"
 
@@ -541,6 +541,10 @@ msgstr "مقدم الخدمة"
 #: core/common/Entity.php:127
 msgid "participant"
 msgstr "مشترك"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "المؤسسة"
 
 #: core/common/Entity.php:129
 msgid "organization"

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Janos Mohacsi <mohacsi@niif.hu>, 2012,2019
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022
 # Pozsonyi Dóra <pozsonyi@niif.hu>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2012,2019\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -292,39 +292,39 @@ msgstr "Azonosítatlan entitás"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr ""
+msgstr "Profile deaktáválsa sikeres"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr ""
+msgstr "Profile aktiválás/módosítás sikeres."
 
 #: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr ""
+msgstr "Profile deaktiváls nem sikerült"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr ""
+msgstr "Profile aktiválás/módosítás nem sikerült"
 
 #: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
-msgstr ""
+msgstr "mindkettő RADIUS szerveren (elsődleges és másodlagos is)"
 
 #: core/DeploymentManaged.php:515
 msgid "on primary RADIUS server"
-msgstr ""
+msgstr "az elsődleges RADIUS szerveren"
 
 #: core/DeploymentManaged.php:517
 msgid "on backup RADIUS server"
-msgstr ""
+msgstr "a második RADIUS szerveren"
 
 #: core/DeploymentManaged.php:525
 msgid "RADIUS profile update problem fixed"
-msgstr ""
+msgstr "RADIUS profile frissítéss probléma javításra került "
 
 #: core/DeploymentManaged.php:527
 msgid "RADIUS profile update problem"
-msgstr ""
+msgstr "RADIUS profile frissítési probléma"
 
 #: core/DeviceConfig.php:249
 #, php-format
@@ -351,7 +351,7 @@ msgstr "(megszüntetett) %s"
 #: core/Federation.php:265 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s és %s"
 
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
@@ -374,6 +374,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hello,\n"
+"\n"
+"Az új  %s %s meghívó  a te %s föderációban %s felhasználásra került és  a %s "
+"létrejött  %s -ban.\n"
+"\n"
+"Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"\n"
+"Üdvözlettel,\n"
+"\n"
+"%s"
 
 #. / organisation
 #: core/Federation.php:299
@@ -511,7 +521,7 @@ msgstr "Nemzeti Roaming Szolgáltató"
 msgid "identity provider"
 msgstr "Azonosító Szolgáltató"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "Szervezet"
 
@@ -521,27 +531,31 @@ msgstr "Azonosító Szolgáltató"
 
 #: core/common/Entity.php:124
 msgid "Wi-Fi Hotspot"
-msgstr ""
+msgstr "Wi-Fi Hotspot"
 
 #: core/common/Entity.php:125
 msgid "Hotspot"
-msgstr ""
+msgstr "Hotspot"
 
 #: core/common/Entity.php:126
 msgid "Service Provider"
-msgstr ""
+msgstr "Szolgáltató"
 
 #: core/common/Entity.php:127
 msgid "participant"
-msgstr ""
+msgstr "résztvevő"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Szervezet"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr ""
+msgstr "szervezet"
 
 #: core/common/Entity.php:130
 msgid "entity"
-msgstr ""
+msgstr "bejegyzés"
 
 #: core/common/OutsideComm.php:291
 #, php-format
@@ -555,11 +569,13 @@ msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
+" %s %s meghívott, hogy jövőben menedzseld %s  \"%s\" (%s). A szervezet   %s "
+"lesz."
 
 #: core/common/OutsideComm.php:293
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
-msgstr ""
+msgstr " %s %s meghívott, hogy jövőben menedzseld %s  \"%s\"  Ez a   %s ."
 
 #: core/common/OutsideComm.php:295
 #, php-format

@@ -6,15 +6,16 @@
 # Alberto Martínez Setién, 2018
 # Alberto Martínez Setién, 2019-2020
 # David Moreno, 2022
+# Francisco J. Medina Jimenez <fran@ugr.es>, 2022
 # José Manuel Macías, 2012-2013,2015
 # José Manuel Macías, 2019,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: José Manuel Macías, 2019,2022\n"
+"Last-Translator: Francisco J. Medina Jimenez <fran@ugr.es>, 2022\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -461,7 +462,7 @@ msgstr "Términos de uso"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(por motivos legales, los Términos de Uso están sólo en inglés)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:111
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:112
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bienvenido a %s"
@@ -524,12 +525,12 @@ msgstr ""
 msgid "%s Privacy Notice"
 msgstr "Aviso de privacidad de %s"
 
-#: web/lib/user/TextTemplates.php:85
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "¡Bienvenido a bordo de la comunidad de usuarios de %s!"
 
-#: web/lib/user/TextTemplates.php:86
+#: web/lib/user/TextTemplates.php:87
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -537,12 +538,12 @@ msgstr ""
 "La descarga comenzará en breve. En caso de que haya algún problema con la "
 "descarga automática usa este <a href=''>enlace directo</a>."
 
-#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Estimado usuario de %s,"
 
-#: web/lib/user/TextTemplates.php:88
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -556,7 +557,7 @@ msgstr ""
 "usuario y contraseña\" o a tu \"certificado personal\"). ¡Y ya estarás "
 "conectado!"
 
-#: web/lib/user/TextTemplates.php:89 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -568,23 +569,23 @@ msgstr ""
 "ayudarte. Puedes contactar con ellos a través de las vías mostradas en la "
 "parte superior."
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
 msgstr "Términos y Condiciones de eduroam"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
 msgstr "Política de Privacidad de eduroam"
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
 msgstr "Términos y Condiciones de OpenRoaming"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
 msgstr "Política de Privacidad de OpenRoaming"
 
-#: web/lib/user/TextTemplates.php:106
+#: web/lib/user/TextTemplates.php:107
 #, php-format
 msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
@@ -595,11 +596,11 @@ msgstr ""
 "href='%s'> el Aviso de Privacidad </a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
-#: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Volver a la zona de descargas"
 
-#: web/lib/user/TextTemplates.php:110
+#: web/lib/user/TextTemplates.php:111
 #, php-format
 msgid ""
 "We would like to warmly welcome you among the several million users of %s! "
@@ -612,26 +613,26 @@ msgstr ""
 "universidades, centros de investigación y otros lugares de todo el mundo. "
 "¡Siendo todo completamente gratuito!"
 
-#: web/lib/user/TextTemplates.php:112
+#: web/lib/user/TextTemplates.php:113
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Conecta tu dispositivo a %s"
 
-#: web/lib/user/TextTemplates.php:113
+#: web/lib/user/TextTemplates.php:114
 #, php-format
 msgid "%s installation made easy:"
 msgstr "La instalación de %s hecha fácil:"
 
-#: web/lib/user/TextTemplates.php:114
+#: web/lib/user/TextTemplates.php:115
 msgid "Custom built for your organisation"
 msgstr "Instalador construido para tu organización"
 
-#: web/lib/user/TextTemplates.php:115
+#: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Haz clic aquí para descargar tu instalador de %s"
 
-#: web/lib/user/TextTemplates.php:116
+#: web/lib/user/TextTemplates.php:117
 #, php-format
 msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
@@ -640,32 +641,36 @@ msgstr ""
 "%s permite el acceso a miles de puntos Wi-Fi del mundo, sin cargo alguno. <a "
 "href='%s'>Aquí puedes saber más</a>"
 
-#: web/lib/user/TextTemplates.php:117
+#: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
 msgstr "Selecciona el grupo de usuarios"
 
-#: web/lib/user/TextTemplates.php:118
+#: web/lib/user/TextTemplates.php:119
 msgid "select another"
 msgstr "selecciona otra"
 
-#: web/lib/user/TextTemplates.php:119
+#: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
 msgstr "Elige otro instalador que quieras descargar"
 
-#: web/lib/user/TextTemplates.php:120
+#: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
 msgstr "Elige un instalador para descargar"
 
-#: web/lib/user/TextTemplates.php:121
+#: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
 msgstr "Todas las plataformas"
 
-#: web/lib/user/TextTemplates.php:122
+#: web/lib/user/TextTemplates.php:123
 #, php-format
 msgid "Download your %s installer"
 msgstr "Descarga el instalador para %s"
 
-#: web/lib/user/TextTemplates.php:123
+#: web/lib/user/TextTemplates.php:124
+msgid "Download your installer for"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:125
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -675,18 +680,18 @@ msgstr ""
 "local.<br>Cuando hagas click en <b>Continuar</b> esta página de soporte se "
 "abrirá en una nueva ventana o pestaña."
 
-#: web/lib/user/TextTemplates.php:124
+#: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
 #: web/skins/modern/user/js/cat_js.php:88
 msgid "Continue"
 msgstr "Continuar"
 
-#: web/lib/user/TextTemplates.php:125
+#: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Firmado digitalmente por la organización que coordina %s"
 
-#: web/lib/user/TextTemplates.php:126
+#: web/lib/user/TextTemplates.php:128
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -696,7 +701,7 @@ msgstr ""
 "enviado desde tu equipo de soporte. Por favor, habla con tu departamento de "
 "TI para obtener este enlace."
 
-#: web/lib/user/TextTemplates.php:127
+#: web/lib/user/TextTemplates.php:129
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -705,11 +710,11 @@ msgstr ""
 "Este sitio proporciona instaladores de %s para muchas organizaciones. Haz "
 "clic aquí para ver si la tuya está en la lista."
 
-#: web/lib/user/TextTemplates.php:128
+#: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
 msgstr "Paquete construido para tí"
 
-#: web/lib/user/TextTemplates.php:130
+#: web/lib/user/TextTemplates.php:132
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Firmado digitalmente por la organización que coordina %s: %s"
@@ -1188,19 +1193,27 @@ msgstr "He leído y aceptado <a href='%s' target='_blank'>%s</a>"
 msgid "OpenRoaming is not supported on this device"
 msgstr "Este dispositivo no soporta OpenRoaming"
 
-#: web/skins/modern/user/js/cat_js.php:105
+#: web/skins/modern/user/js/cat_js.php:103
+msgid "eduroam only"
+msgstr "solo eduroam"
+
+#: web/skins/modern/user/js/cat_js.php:104
+msgid "eduroam and OpenRoaming"
+msgstr "eduroam y OpenRoaming"
+
+#: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"
 msgstr "Organización"
 
-#: web/skins/modern/user/js/cat_js.php:106
+#: web/skins/modern/user/js/cat_js.php:109
 msgid "Select your organisation"
 msgstr "Selecciona tu organización"
 
-#: web/skins/modern/user/js/cat_js.php:107
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Help, my organisation is not on the list"
 msgstr "Ayuda, mi organización no está en la lista"
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:111
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1211,63 +1224,63 @@ msgstr ""
 "administradores de %s. Si tu organización no está en la lista, solicítales "
 "que añadan la información a la base de datos de %s."
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localízame con mayor fiabilidad usando geolocalización HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Show organisations in"
 msgstr "Mostrar organizaciones en"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "all countries"
 msgstr "todos los países"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "o busca una organización, por ejemplo, Universidad de Sevilla"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "show all countries"
 msgstr "mostrar todos los países"
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "Results limited to"
 msgstr "Resultados limitados a "
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "entries - show more"
 msgstr "entradas - mostrar más"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Nearby"
 msgstr "Próximo"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Location timeout"
 msgstr "Expirado el tiempo de espera para la localización"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Could not get your position"
 msgstr "No se pudo determinar tu posición"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Your browser has denied access to your location"
 msgstr "Tu navegador ha denegado el acceso a tu localización"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Unknown location error"
 msgstr "Error de localización desconocida"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "You are here:"
 msgstr "Te encuentras aquí:"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Getting your location..."
 msgstr "Obteniendo tu localización..."
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Nearby providers shown on top."
 msgstr "Los proveedores cercanos se muestran primero."
 

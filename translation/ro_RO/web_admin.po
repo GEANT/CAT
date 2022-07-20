@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
@@ -1866,57 +1866,57 @@ msgstr "Dispozitiv"
 msgid "EAP-Type-specific options..."
 msgstr "Opțiuni specifice tipului EAP"
 
-#: web/admin/overview_installers.php:80
+#: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
 msgstr "Opțiuni specifice dispozitivului"
 
-#: web/admin/overview_installers.php:90
+#: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:92
+#: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
 msgstr ""
 
-#: web/admin/overview_installers.php:166
+#: web/admin/overview_installers.php:169
 msgid "Legend:"
 msgstr "Legendă:"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Colour"
 msgstr ""
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Meaning"
 msgstr ""
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "redirection is set"
 msgstr "redirecționarea este setată"
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
 msgstr "o să fie oferit pe pagina de descărcare"
 
-#: web/admin/overview_installers.php:173
+#: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
 msgstr "configurat, dar nu este tipul EAP preferat"
 
-#: web/admin/overview_installers.php:174
+#: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
 msgstr "configurare incompletă"
 
-#: web/admin/overview_installers.php:175
+#: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
 msgstr "nesuportat de către CAT"
 
-#: web/admin/overview_installers.php:179
+#: web/admin/overview_installers.php:182
 msgid "Footnotes:"
 msgstr "Note de subsol:"
 
-#: web/admin/overview_installers.php:188
+#: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
 msgstr "Întoarceți-vă la panoul de control"
 

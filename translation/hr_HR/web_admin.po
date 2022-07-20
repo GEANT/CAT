@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, "
 "2012-2013,2015-2016,2018-2020,2022\n"
@@ -1833,57 +1833,57 @@ msgstr "Uređaj"
 msgid "EAP-Type-specific options..."
 msgstr "Opcije EAP tipa"
 
-#: web/admin/overview_installers.php:80
+#: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
 msgstr "Opcije uređaja"
 
-#: web/admin/overview_installers.php:90
+#: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
 msgstr "%s<br/>Installer"
 
-#: web/admin/overview_installers.php:92
+#: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
 msgstr "%s + OpenRoaming<br/>Installer"
 
-#: web/admin/overview_installers.php:166
+#: web/admin/overview_installers.php:169
 msgid "Legend:"
 msgstr "Legenda:"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Colour"
 msgstr "Boja"
 
-#: web/admin/overview_installers.php:170
+#: web/admin/overview_installers.php:173
 msgid "Meaning"
 msgstr "Značenje"
 
-#: web/admin/overview_installers.php:171
+#: web/admin/overview_installers.php:174
 msgid "redirection is set"
 msgstr "postavljena redirekcija"
 
-#: web/admin/overview_installers.php:172
+#: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
 msgstr "biti će ponuđeno na sjedištu za dohvat"
 
-#: web/admin/overview_installers.php:173
+#: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
 msgstr "konfiguriran , ali nije osnovni EAP tip"
 
-#: web/admin/overview_installers.php:174
+#: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
 msgstr "nepotpuna konfiguracija"
 
-#: web/admin/overview_installers.php:175
+#: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
 msgstr "nije podržano u CAT-u"
 
-#: web/admin/overview_installers.php:179
+#: web/admin/overview_installers.php:182
 msgid "Footnotes:"
 msgstr "Bilješke:"
 
-#: web/admin/overview_installers.php:188
+#: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
 msgstr "Povratak na kontrolnu ploču"
 
@@ -2067,11 +2067,11 @@ msgstr "Prihvatite Uvjete korištenja"
 #: web/admin/overview_org.php:401 web/admin/overview_org.php:433
 #, php-format
 msgid "Do you really want to remove this %s deployment?"
-msgstr ""
+msgstr "Da li stvarno želiš maknuti %s nadogradnju?"
 
 #: web/admin/overview_org.php:402 web/admin/overview_org.php:434
 msgid "Remove deployment"
-msgstr ""
+msgstr "Makni nadogradnju"
 
 #: web/admin/overview_org.php:411 web/admin/overview_sp.php:265
 msgid "Activate"
@@ -2097,25 +2097,27 @@ msgstr ""
 
 #: web/admin/overview_org.php:445
 msgid "Hotspot Usage Statistics"
-msgstr ""
+msgstr "Hotspot statistika korištenja"
 
 #: web/admin/overview_org.php:447
 msgid "5 most recent authentications"
-msgstr ""
+msgstr "5 zadnjih autentikacija"
 
 #: web/admin/overview_org.php:448 web/admin/inc/deploymentStats.inc.php:40
 msgid ""
 "(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
 "IPv6-Address/Called-Station-Id)"
 msgstr ""
+"(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
+"IPv6-Address/Called-Station-Id)"
 
 #: web/admin/overview_org.php:452 web/admin/inc/deploymentStats.inc.php:44
 msgid "Timestamp (UTC)"
-msgstr ""
+msgstr "Vrijeme (UTC)"
 
 #: web/admin/overview_org.php:453 web/admin/inc/deploymentStats.inc.php:45
 msgid "Realm"
-msgstr ""
+msgstr "realm"
 
 #: web/admin/overview_org.php:454 web/admin/inc/deploymentStats.inc.php:46
 #: web/admin/inc/userStats.inc.php:43
@@ -2124,7 +2126,7 @@ msgstr "MAC adresa"
 
 #: web/admin/overview_org.php:455 web/admin/inc/deploymentStats.inc.php:47
 msgid "Chargeable-User-Identity"
-msgstr ""
+msgstr "Chargeable-User-Identity"
 
 #: web/admin/overview_org.php:456 web/admin/inc/deploymentStats.inc.php:48
 #: web/admin/inc/userStats.inc.php:44
@@ -2133,7 +2135,7 @@ msgstr "Rezultat"
 
 #: web/admin/overview_org.php:457 web/admin/inc/deploymentStats.inc.php:49
 msgid "AP Identifier"
-msgstr ""
+msgstr "Oznaka APa"
 
 #: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
@@ -2147,15 +2149,15 @@ msgstr "Neuspješno"
 
 #: web/admin/overview_org.php:474
 msgid "Last hour"
-msgstr ""
+msgstr "Zadnji sat"
 
 #: web/admin/overview_org.php:477
 msgid "Last 30 days"
-msgstr ""
+msgstr "Zadnjih 30 dana"
 
 #: web/admin/overview_org.php:480
 msgid "Last 6 months"
-msgstr ""
+msgstr "Zadnjih 6 mjeseci"
 
 #: web/admin/overview_org.php:503 web/admin/overview_sp.php:44
 #, php-format
@@ -2207,7 +2209,7 @@ msgstr "Dodaj %s implementaciju..."
 
 #: web/admin/overview_org.php:677
 msgid "Helpdesk mail address is required but missing!"
-msgstr ""
+msgstr "Helpdesk mail adresa je potrebna, ali nedostaje"
 
 #. no profiles yet.
 #: web/admin/overview_org.php:708 web/admin/overview_sp.php:130
@@ -2227,7 +2229,7 @@ msgstr "Operacije podrške"
 #: web/admin/overview_sp.php:105
 #, php-format
 msgid "Diagnose reachability and connection parameters of %ss"
-msgstr ""
+msgstr "Diagnose reachability and connection parameters of %ss"
 
 #. SW: APPROVED
 #: web/admin/overview_sp.php:116
@@ -2239,7 +2241,7 @@ msgstr "Provjerite %s status poslužitelja"
 #: web/admin/overview_sp.php:133
 #, php-format
 msgid "Deployments for this %s"
-msgstr ""
+msgstr "Nadogradnja za  %s"
 
 #: web/admin/overview_user.php:30
 #, php-format
@@ -2371,7 +2373,7 @@ msgstr "Registracija novog %s"
 
 #: web/admin/inc/deploymentStats.inc.php:39
 msgid "Deployment Usage Records"
-msgstr ""
+msgstr "Popis nadogradnji"
 
 #: web/admin/inc/displayQRcode.inc.php:41
 #: web/admin/inc/displayQRcode.inc.php:42
@@ -2440,7 +2442,7 @@ msgstr "Obriši administratora"
 
 #: web/admin/inc/manageAdmins.inc.php:199
 msgid "Enter Organisation"
-msgstr ""
+msgstr "Unesi instituciju"
 
 #: web/admin/inc/manageAdmins.inc.php:214
 msgid "Pending invitations for this IdP"

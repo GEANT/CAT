@@ -4,15 +4,15 @@
 #
 # Translators:
 # András Jákó <jako.andras@eik.bme.hu>, 2017
-# Janos Mohacsi <mohacsi@niif.hu>, 2018-2020
+# Janos Mohacsi <mohacsi@niif.hu>, 2018-2020,2022
 # Pozsonyi Dóra <pozsonyi@niif.hu>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2018-2020\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2018-2020,2022\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -444,7 +444,7 @@ msgstr "Felhasználási feltételek"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(jogi okok miatt a Használati Feltételek angol nyelvű)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:111
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:112
 #, php-format
 msgid "Welcome to %s"
 msgstr "Üdvözli az %s"
@@ -506,25 +506,25 @@ msgstr ""
 msgid "%s Privacy Notice"
 msgstr "%s  Adatvédelmi nyilatkozat"
 
-#: web/lib/user/TextTemplates.php:85
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Üdvözöljük a %s felhasználói közösségben!"
 
-#: web/lib/user/TextTemplates.php:86
+#: web/lib/user/TextTemplates.php:87
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 "A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus "
-"letöltéssel, akkor használd a direkt linket: <a href=''>link</a>."
+"letöltéssel, akkor kérjük használja a direkt linket: <a href=''>link</a>."
 
-#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Tisztelt %s felhasználó!"
 
-#: web/lib/user/TextTemplates.php:88
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -532,51 +532,55 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
-"Most, hogy letöltöttél és telepítettél egy konfiguráló eszközt, mindössze "
-"annyit kell tenned, hogy megtaláld a közelben az  %s hotspotot, és add meg "
-"felhasználó hitelesítő adatait (ez a \"username és jelszó\" vagy \"személyes "
-"tanúsítványod\") - és máris online lehetsz!"
+"Most, hogy letöltötte és telepítette a konfiguráló eszközt, mindössze annyit "
+"kell tennie, hogy megtalálja a közelben az  %s hotspotot, és megadja "
+"személyes felhasználó hitelesítő adatait (ez a \"username és jelszó\" vagy "
+"\"személyes tanúsítványa\") - és máris online lehet!"
 
-#: web/lib/user/TextTemplates.php:89 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
-"A szolgáltatás használatában bármilyen probléma merülne fel vedd fel a "
-"kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és "
-"segítenek elhárítani azt. Elérhetőségük fentebb látható."
+"Amennyiben a szolgáltatás használatában bármilyen probléma merülne fel vegye "
+"fel a kapcsolatot a %s hibabejelentőjével. A bejelentést követően "
+"diagnosztizálják a problémát és segítenek az elhárításban azt. Elérhetőségük "
+"fentebb látható."
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "eduroam Felhasználási Feltételek"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "eduroam adatkezelési szabályzat"
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "OpenRoaming Felhasználási Feltételek"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "OpenRoaming adatkezelési szabályzat"
 
-#: web/lib/user/TextTemplates.php:106
+#: web/lib/user/TextTemplates.php:107
 #, php-format
 msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Figyelem! Amenyiben a  %s hotspot-hoz csatlakozol, akkor  <a href='%s'> "
+"Felhasználási feltételek</a> és <a href='%s'>adatkezelési szabályzat</a> "
+"érvényes."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
-#: web/lib/user/TextTemplates.php:109 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Vissza a letöltéshez"
 
-#: web/lib/user/TextTemplates.php:110
+#: web/lib/user/TextTemplates.php:111
 #, php-format
 msgid ""
 "We would like to warmly welcome you among the several million users of %s! "
@@ -584,27 +588,30 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Üdvözlünk a %s több millió felhasználója között! Mostantól hozzáférhet az "
+"internethez  egyetemek, kutatóközpontok és más helyszínek ezrein szerte a "
+"világon. Mindez teljesen ingyen!"
 
-#: web/lib/user/TextTemplates.php:112
+#: web/lib/user/TextTemplates.php:113
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Csatlakoztassa eszközét a következőhöz:  %s"
 
-#: web/lib/user/TextTemplates.php:113
+#: web/lib/user/TextTemplates.php:114
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s telepítés könnyű lett:"
 
-#: web/lib/user/TextTemplates.php:114
+#: web/lib/user/TextTemplates.php:115
 msgid "Custom built for your organisation"
 msgstr "egyedileg a szervezetedre számára készített"
 
-#: web/lib/user/TextTemplates.php:115
+#: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Kattintson ide a %s telepítőjének letöltéséhez"
 
-#: web/lib/user/TextTemplates.php:116
+#: web/lib/user/TextTemplates.php:117
 #, php-format
 msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
@@ -613,32 +620,36 @@ msgstr ""
 "%s hozzáférést biztosít  ezernyi Wi-Fi hozzáférési ponthoz a világon "
 "ingyenesen. <a href='%s'>Tudj meg többet</a>"
 
-#: web/lib/user/TextTemplates.php:117
+#: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
 msgstr "Válaszd ki a felhasználói csoportot"
 
-#: web/lib/user/TextTemplates.php:118
+#: web/lib/user/TextTemplates.php:119
 msgid "select another"
 msgstr "válassz másikat"
 
-#: web/lib/user/TextTemplates.php:119
+#: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
 msgstr "Válasszon egy másik telepítőt a letöltéshez"
 
-#: web/lib/user/TextTemplates.php:120
-msgid "Choose an installer to download"
-msgstr ""
-
 #: web/lib/user/TextTemplates.php:121
+msgid "Choose an installer to download"
+msgstr "Válasszon  egy telelepítőt"
+
+#: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
 msgstr "Minden platform"
 
-#: web/lib/user/TextTemplates.php:122
+#: web/lib/user/TextTemplates.php:123
 #, php-format
 msgid "Download your %s installer"
 msgstr "%s telepítő letöltése"
 
-#: web/lib/user/TextTemplates.php:123
+#: web/lib/user/TextTemplates.php:124
+msgid "Download your installer for"
+msgstr "Telepító letöltése a következőhöz: "
+
+#: web/lib/user/TextTemplates.php:125
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -647,18 +658,18 @@ msgstr ""
 "A helyi rendszergazda átirányítást adott a helyi támogatási oldalra.<br> A "
 "<b>Tovább </b>gombra kattintva a támogatási oldal új ablakban nyílik meg."
 
-#: web/lib/user/TextTemplates.php:124
+#: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
 #: web/skins/modern/user/js/cat_js.php:88
 msgid "Continue"
 msgstr "Tovább"
 
-#: web/lib/user/TextTemplates.php:125
+#: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digitálisan aláírta a%s-ot koordináló szervezet "
 
-#: web/lib/user/TextTemplates.php:126
+#: web/lib/user/TextTemplates.php:128
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -667,7 +678,7 @@ msgstr ""
 "A1 %s telepítőjét az IT-támogatásból személyre szabott meghívón keresztül "
 "töltheti le. Kérjük, forduljon az IT részleghez, hogy megkapja ezt a linket."
 
-#: web/lib/user/TextTemplates.php:127
+#: web/lib/user/TextTemplates.php:129
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -676,11 +687,11 @@ msgstr ""
 "Ez a webhely sok szervezet számára   kínál %stelepítőt, kattints ide, hogy "
 "megnézd, a tiéd a listán van-e."
 
-#: web/lib/user/TextTemplates.php:128
+#: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
 msgstr "Neked rendelésre készített"
 
-#: web/lib/user/TextTemplates.php:130
+#: web/lib/user/TextTemplates.php:132
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálisan aláírta a szervezet, amelyet  %s:%s koordinál."
@@ -759,10 +770,9 @@ msgid ""
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
-"Szeretettel üdvözöljük az eduroam® több millió felhasználóját! Mostantól "
-"internetes hozzáférési erőforrásokat használhat az egyetemek, "
-"kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen "
-"ingyen!"
+"Üdvözlünk az eduroam több millió felhasználója között! Mostantól hozzáférhet "
+"az internethez  egyetemek, kutatóközpontok és más helyszínek ezrein szerte a "
+"világon. Mindez teljesen ingyen!"
 
 #: web/skins/modern/div_user_welcome.php:36
 msgid ""
@@ -942,8 +952,7 @@ msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
-"Ha problémákat tapasztalsz, akkor közvetlen segítséget kaphatsz "
-"szervezetedtől a következő címen:"
+"Amennyiben problémát tapasztal, akkor jelezze az alább elérhetőségeken:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
 #: web/skins/modern/user/js/cat_js.php:84
@@ -951,8 +960,8 @@ msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr ""
-"Ha problémákat tapasztalsz, kérdezd meg azokat, akiktől segítséget kaptál az "
-"azonosítód kapcsán."
+"Ha problémát tapasztal, kérdezze meg azokat, akiktől segítséget kapott az "
+"azonosítójs kapcsán."
 
 #: web/skins/modern/accountstatus/accountstatus.php:214
 #, php-format
@@ -1116,16 +1125,20 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Egy olyan telepítőt kíván letölteni, amely támogatja az OpenRomaingot is, "
+"ezért el kell fogadni az OpenRoaming felhasználási feltételeket is."
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Ha olyan telepítőt választ, amely OpenRoaming-ot is támogatja, akkor ne "
+"felejtse el ezt jóváhagyólag jelezni,"
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "A telepítő támogatja a OpenRoaming-ot."
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1133,29 +1146,39 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Szeretném használni az OpenRoaming-ot és elolvastam és és elfogadom <a "
+"href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Elolvastam és elfogadom<a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "OpenRoaming nem támogatott ezen az eszközön"
 
-#: web/skins/modern/user/js/cat_js.php:105
+#: web/skins/modern/user/js/cat_js.php:103
+msgid "eduroam only"
+msgstr "Csak eduroam"
+
+#: web/skins/modern/user/js/cat_js.php:104
+msgid "eduroam and OpenRoaming"
+msgstr "eduroam és OpenRoaming"
+
+#: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"
 msgstr "Szervezet"
 
-#: web/skins/modern/user/js/cat_js.php:106
+#: web/skins/modern/user/js/cat_js.php:109
 msgid "Select your organisation"
 msgstr "Válaszd ki a szervezetedet"
 
-#: web/skins/modern/user/js/cat_js.php:107
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Help, my organisation is not on the list"
 msgstr "Segítség, a szervezetem nincs a listán"
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:111
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1166,66 +1189,66 @@ msgstr ""
 "támaszkodik. Ha a szervezeted nem szerepel a listán, akkor kérd meg őket, "
 "hogy adjanak hozzá információkat az %s adatbázishoz."
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr ""
 "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Show organisations in"
 msgstr "Szervezetek listája:"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "all countries"
 msgstr "minden ország"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "or search for an organisation, for example University of Oslo"
 msgstr ""
 "vagy keress egy szervezetet, például az Budapest Műszaki és "
 "Gazdaságtudományi Egyetem"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "show all countries"
 msgstr "Mutass minden országot"
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "Results limited to"
 msgstr "Az eredmények számának korlátja:"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "entries - show more"
 msgstr "bejegyzések - mutass még"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Nearby"
 msgstr "közeli"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Location timeout"
 msgstr "helymeghatározási időtúllépés"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Could not get your position"
 msgstr "Nem tudom meghatározni a poziciód"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Your browser has denied access to your location"
 msgstr "A böngésző visszautasította a helyinformációkhoz való hozzáférést."
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Unknown location error"
 msgstr "Ismeretlen helymeghatározási hiba"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "You are here:"
 msgstr "Itt vagy:"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Getting your location..."
 msgstr "Helymeghatározás folyamatban..."
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 

@@ -61,9 +61,9 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
 <div id='wrap' style='background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "beta.png"); ?>");'>
 <form id="cat_form" name="cat_form" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
 <?php
-require dirname(__DIR__) . '/diag/js/diag_js.php';
 echo $divs->divHeading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
+require dirname(__DIR__) . '/diag/js/diag_js.php';
 ?>
 <div id="main_page">
     <div id="loading_ico">

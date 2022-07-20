@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
@@ -528,7 +528,7 @@ msgstr "Operatore di Roaming Nazionale"
 msgid "identity provider"
 msgstr "identity provider"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "organizzazione"
 
@@ -551,6 +551,10 @@ msgstr "Fornitore di Servizi"
 #: core/common/Entity.php:127
 msgid "participant"
 msgstr "partecipante"
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Organizzazione"
 
 #: core/common/Entity.php:129
 msgid "organization"

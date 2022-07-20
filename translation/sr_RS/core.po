@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 12:30+0200\n"
+"POT-Creation-Date: 2022-07-19 16:20+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: marko <marko.stojakovic@rcub.bg.ac.rs>, 2012\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
@@ -503,7 +503,7 @@ msgstr "Nacionalni Roming Operator"
 msgid "identity provider"
 msgstr "davalac identiteta"
 
-#: core/common/Entity.php:122 core/common/Entity.php:128
+#: core/common/Entity.php:122
 msgid "organisation"
 msgstr "organizacija"
 
@@ -526,6 +526,10 @@ msgstr ""
 #: core/common/Entity.php:127
 msgid "participant"
 msgstr ""
+
+#: core/common/Entity.php:128
+msgid "Organisation"
+msgstr "Organizacija"
 
 #: core/common/Entity.php:129
 msgid "organization"
