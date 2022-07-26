@@ -130,7 +130,7 @@ class Devices extends \core\common\Entity {
             'w10' => [
                 'group' => "microsoft",
                 'display' => _("MS Windows 8 and newer"),
-                'match' => 'Windows NT (6.[._][23])|(1[01]))',
+                'match' => 'Windows NT ((6.[._][23])|(1[01]))',
                 'directory' => 'ms',
                 'module' => 'W8W10',
                 'signer' => 'ms_windows_sign',
