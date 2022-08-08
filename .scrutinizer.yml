@@ -219,8 +219,21 @@ build:
                       'nomenclature_hotspot' => 'Hotspot',
                       'homepage' => 'https://www.eduroam.org',
                       'nomenclature_participant' => 'Customer',
-                      'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
+                      'networks' => [
+                           'eduroam®'     => [
+                              'ssid' => ['eduroam'], 
+                              'oi' => [ '001bc50460' /* eduroam RCOI */ 
+                            ], 
+                            'condition' => TRUE],
+                            'OpenRoaming® (%REALM%)' => [
+                              'ssid' => [],     /* OpenRoaming has left SSIDs behind */
+                              'oi' => [
+                                  '5A03BA0000', /* OpenRoaming/AllIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                                  '5A03BA0800', /* OpenRoaming/EduIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                            ],
+                            'condition' => 'internal:openroaming',],
+                      ],
                       ];
                       const SILVERBULLET = [
                       'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
@@ -228,7 +241,8 @@ build:
                       const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
                       const NSIS_VERSION = 3;
                       const USE_KEYWORDS = true;
-                      const PRELOAD_IDPS = true;                      
+                      const PRELOAD_IDPS = true;  
+                    
                       }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "
