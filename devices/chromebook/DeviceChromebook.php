@@ -202,7 +202,7 @@ class DeviceChromebook extends \core\DeviceConfig
         }
 
         $eaparray["Outer"] = $eapPrettyprint["OUTER"];
-        if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
+        if ($eapPrettyprint["INNER"] == "MSCHAPv2" || $eapPrettyprint["INNER"] == "PAP") {
             $eaparray["Inner"] = $eapPrettyprint["INNER"];
         }
         $eaparray["SaveCredentials"] = true;
