@@ -146,11 +146,10 @@ build:
                     - git clone https://github.com/mtrojnar/osslsigncode.git
                     - cd osslsigncode
                     - git checkout 2.3
-                    - mkdir build
-                    - cd build
-                    - cmake -Denable-strict=ON -Denable-pedantic=ON ..
-                    - cmake --build .
-                    - sudo cmake --install . --prefix "/home/scrutinizer/osslsigncode"
+                    - ./autogen.sh
+                    - ./configure
+                    - make
+                    - sudo make install
                     - sudo -H /home/scrutinizer/.pyenv/shims/python3.7 -m pip install pylint distro
             project_setup:
                 override:
