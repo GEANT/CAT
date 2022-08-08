@@ -44,8 +44,8 @@ NAME="Configuration Assistant Tool"
 TIMESTAMP_URL=""
 
 if [ -z "$TIMESTAMP_URL"] ; then
-  osslsigncode -spc "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
+  osslsigncode sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
 else
-  osslsigncode -spc "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
+  osslsigncode sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
 fi
 
