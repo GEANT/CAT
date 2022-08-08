@@ -22,6 +22,9 @@
 # see HOWTO in this directory to learn how to produce the files you need
 # all certificates and key files should be in the directory pointed to by MY_PATH
 
+# adapt path to osslsigncode
+OSSL_PATH=/home/scrutinizer/osslsigncode/bin/osslsigncode
+
 # MY_PATH - Full path to the directory in which the certificates and keys are located
 # Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
 # The directory must be accessible by the Apache proceess
@@ -44,8 +47,8 @@ NAME="Configuration Assistant Tool"
 TIMESTAMP_URL=""
 
 if [ -z "$TIMESTAMP_URL"] ; then
-  osslsigncode sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
+  $OSSL_PATH sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
 else
-  osslsigncode sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
+  $OSSL_PATH sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
 fi
 

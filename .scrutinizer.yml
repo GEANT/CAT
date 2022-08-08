@@ -134,7 +134,7 @@ build:
                             host: ci.test
             dependencies:
                 before:
-                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl shellcheck
+                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl shellcheck cmake libssl-dev libcurl4-openssl-dev
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set download_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set cache_dir /tmp
                     - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set temp_dir /tmp
@@ -146,10 +146,11 @@ build:
                     - git clone https://github.com/mtrojnar/osslsigncode.git
                     - cd osslsigncode
                     - git checkout 2.4
-                    - ./autogen.sh
-                    - ./configure
-                    - make
-                    - sudo make install
+                    - mkdir build
+                    - cd build
+                    - cmake -Denable-strict=ON -Denable-pedantic=ON ..
+                    - cmake --build .
+                    - sudo cmake --install . --prefix "/home/scrutinizer/osslsigncode"
                     - sudo -H /home/scrutinizer/.pyenv/shims/python3.7 -m pip install pylint distro
             project_setup:
                 override:
