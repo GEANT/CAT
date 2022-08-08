@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-08 08:34+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Lithuanian (Lithuania) (https://www.transifex.com/"
@@ -1014,7 +1014,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:121
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:113
 msgid "Testing realm"
 msgstr ""
 
@@ -1626,4 +1626,160 @@ msgstr ""
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
+msgstr ""
+
+#.
+#. * *****************************************************************************
+#. * Contributions to this work were made on behalf of the GÉANT project, a
+#. * project that has received funding from the European Union’s Framework
+#. * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+#. * Horizon 2020 research and innovation programme under Grant Agreements No.
+#. * 691567 (GN4-1) and No. 731122 (GN4-2).
+#. * On behalf of the aforementioned projects, GEANT Association is the sole owner
+#. * of the copyright in all material which was developed by a member of the GÉANT
+#. * project. GÉANT Vereniging (Association) is registered with the Chamber of
+#. * Commerce in Amsterdam with registration number 40535155 and operates in the
+#. * UK as a branch of GÉANT Vereniging.
+#. *
+#. * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
+#. * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+#. *
+#. * License: see the web/copyright.inc.php file in the file structure or
+#. *          <base_url>/copyright.php after deploying the software
+#.
+#: web/skins/modern/diag/js/diag_js.php:29
+msgid "All connectivity tests passed"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:30
+msgid "There were some warnings from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:31
+msgid "There were some remarks from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:32
+#, fuzzy
+msgid "There were some errors from connectivity tests"
+msgstr "Testo metu aptikta klaidų."
+
+#: web/skins/modern/diag/js/diag_js.php:42
+msgid "Select institiution:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:68
+msgid "Select country or region:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:76
+msgid "Fetching country/region list"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:137
+msgid "Yes"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:138
+msgid "No"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:139
+msgid "I don't know"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:170
+msgid "Diagnostic tests results for selected realm"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:173
+msgid "The result for tested realm:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:175
+msgid "The system identified"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:177
+msgid "suspected areas which potentially can cause a problem."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:178
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:185
+msgid "Your device configuration is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:188
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:191
+msgid "The network environment around you is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:194
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:197
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:200
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:203
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:206
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:209
+msgid "The communication to the top-level server is down"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:212
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:215
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:218
+msgid "This realm does not exist"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:296
+msgid "Running connectivity tests for this realm"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:297
+msgid "New tests results are available, click to see"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:422
+#: web/skins/modern/diag/js/diag_js.php:430
+msgid "See details"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:432
+msgid "If you want to report your problem, fill fields bellow."
 msgstr ""
