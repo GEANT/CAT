@@ -145,7 +145,7 @@ build:
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
                     - git clone https://github.com/mtrojnar/osslsigncode.git
                     - cd osslsigncode
-                    - git checkout 2.4
+                    - git checkout 2.3
                     - mkdir build
                     - cd build
                     - cmake -Denable-strict=ON -Denable-pedantic=ON ..
