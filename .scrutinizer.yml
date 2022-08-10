@@ -516,7 +516,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux_sh\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.sh --no-verbose
                   title: "Generating a Linux (Bash) installer via API call"
                 - 
-                  command: shellcheck -S error /home/scrutinizer/artifacts/LinuxInstaller.sh
+                  command: shellcheck -e SC2034,SC2086,SC2059,SC2181,SC2162,SC2166,SC2128,SC2196 /home/scrutinizer/artifacts/LinuxInstaller.sh
                   title: "Checking whether output is a error-free Bash script"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
