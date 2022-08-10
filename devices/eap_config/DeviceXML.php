@@ -519,7 +519,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * sets the server-side credentials for a given EAP type
      * 
-     * @param \devices\XML\Type $eaptype the EAP type
+     * @param one of the tupples defined in /core/common/EAP
      * @return \core\DeviceXMLmain
      */
     private function getServerSideCredentials($eap)
