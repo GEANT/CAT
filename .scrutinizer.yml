@@ -522,7 +522,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
                   title: "Generating an eap-config XML file via API call"
                 - 
-                  command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
+                  command: xmlstarlet val -s "/home/scrutinizer/build/devices/eap_config/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
                   title: "Checking whether output is well-formed XML and validates against Schema"
                 - 
                   command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/8.0.22/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/8.0.22/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
