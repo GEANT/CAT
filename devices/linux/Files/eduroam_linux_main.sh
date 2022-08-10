@@ -387,7 +387,7 @@ function get_p12_credentials {
     save_sb_pfx
   else
     if [ ! -z "$silent" ] ; then
-      if [ ! -z "PFX_FILE" ] ; then
+      if [ ! -z "$PFX_FILE" ] ; then
         alert "PFX is missning." # TODO
         exit 1
       fi
