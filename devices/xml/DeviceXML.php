@@ -81,6 +81,12 @@ abstract class DeviceXML extends \core\DeviceConfig {
      * 
      * @return string
      */
+    
+    /**
+     * A flag to penable correct handling if TTLS-MSCHAP
+     */
+    public $eduroamCATcompatibility = TRUE; 
+
     public function writeDeviceInfo() {
         \core\common\Entity::intoThePotatoes();
         $out = "<p>";
