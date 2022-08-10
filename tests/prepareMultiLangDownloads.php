@@ -34,7 +34,7 @@ foreach (\config\Master::LANGUAGES as $lang => $details) {
                 $bashLines .= "/home/scrutinizer/.pyenv/versions/3.7.2/bin/pylint -E $filename || exit 4\n";
                 break;
             case "eap-config":
-                $bashLines .= "xmlstarlet val -s \"/home/scrutinizer/build/devices/xml/eap-metadata.xsd\" \"$filename\" || exit 5\n";
+                $bashLines .= "xmlstarlet val -s \"/home/scrutinizer/build/devices/eap_config/eap-metadata.xsd\" \"$filename\" || exit 5\n";
                 break;
         }
     }
