@@ -31,7 +31,7 @@ foreach (\config\Master::LANGUAGES as $lang => $details) {
                 $bashLines .= "openssl smime -verify -in $filename -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4 || exit 3\n";
                 break;
             case "linux":
-                $bashLines .= "pylint -E $filename || exit 4\n";
+                $bashLines .= "/home/scrutinizer/.pyenv/versions/3.7.2/bin/pylint -E $filename || exit 4\n";
                 break;
             case "eap-config":
                 $bashLines .= "xmlstarlet val -s \"/home/scrutinizer/build/devices/xml/eap-metadata.xsd\" \"$filename\" || exit 5\n";
