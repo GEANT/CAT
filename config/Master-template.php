@@ -178,15 +178,16 @@ class Master
             'et' => ['display' => 'Eesti', 'locale' => 'et_EE.utf8', 'latin_based' => TRUE],
             'fr' => ['display' => 'Français', 'locale' => 'fr_FR.utf8', 'latin_based' => TRUE],
             'hr' => ['display' => 'Hrvatski', 'locale' => 'hr_HR.utf8', 'latin_based' => TRUE],
-            'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE],
             'it' => ['display' => 'Italiano', 'locale' => 'it_IT.utf8', 'latin_based' => TRUE],
+            'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE],
             'nb' => ['display' => 'Norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE],
             'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE],
             'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE],
-            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE],
-            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE],
+//            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE],
+//            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE],
             'fi' => ['display' => 'Suomi', 'locale' => 'fi_FI.utf8', 'latin_based' => TRUE],
-            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE],
+//            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE],
+            'uk' => ['display' => 'Українська', 'locale' => 'uk_UA.utf8', 'latin_based' => FALSE],
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. There are even more in the "translation/" subdir.
 //
