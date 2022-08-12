@@ -8,6 +8,7 @@
 # blazdivjak <blaz.divjak@gmail.com>, 2012
 # Blaž Divjak <blaz.divjak@guest.arnes.si>, 2012
 # blazdivjak <blaz.divjak@gmail.com>, 2013
+# Janez Kadivec, 2022
 # Kaja Kumer <kaja.kumer@arnes.si>, 2018
 # rokpapez <rok.papez@arnes.si>, 2015
 # rokpapez <rok.papez@arnes.si>, 2012
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
-"Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>, 2018\n"
+"Last-Translator: Janez Kadivec, 2022\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -32,19 +33,19 @@ msgstr ""
 #: web/admin/action_enrollment.php:44 web/admin/action_enrollment.php:48
 #: web/admin/action_enrollment.php:63 web/admin/action_enrollment.php:64
 msgid "Error creating new IdP binding!"
-msgstr "Napaka pri izdelavi nove povezave z IdP!"
+msgstr "Napaka pri ustvarjanju nove povezave s ponudnikom identitete."
 
 #: web/admin/action_enrollment.php:44
 msgid "This page needs to be called with a valid invitation token!"
-msgstr "Do te strani lahko dostopate samo s povabilom."
+msgstr "Do te strani lahko dostopate samo z veljavnim žetonom vabila."
 
 #: web/admin/action_enrollment.php:48
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
 msgstr ""
-"Poslusili ste se registrirati  brez povabila. Do storitve lahko dostopate "
-"samo s povabilom."
+"Poskusili ste izvesti samopostrežno registracijo, toda ta uvedba ne dovoli "
+"samopostrežne storitve."
 
 #: web/admin/action_enrollment.php:67
 #, php-format
@@ -53,9 +54,8 @@ msgid ""
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
-"Oprostite ta žeton je že bil uporabljen. %s je že ustvarjen. Če ste dobili "
-"povabilo preko liste za pošiljanje elektronske pošte ga je nekdo uporabil "
-"pred vami."
+"Ta žeton je žal bil že uporabljen. %s je že ustvarjen. Če ste dobili vabilo "
+"prek seznama za pošiljanje elektronske pošte, ga je nekdo uporabil pred vami."
 
 #: web/admin/action_enrollment.php:70
 #, php-format
@@ -63,8 +63,8 @@ msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
-"Oprostite ta žeton je potekel. Žetoni s povabilom so veljavni 24ur. %s "
-"administrator vam lahko ustvari novega."
+"Ta žeton je žal potekel. Žetoni vabil so veljavni 24 ur. Skrbnik za %s vam "
+"lahko ustvari novega."
 
 #: web/admin/action_enrollment.php:73
 msgid ""
@@ -72,113 +72,116 @@ msgid ""
 "a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
 msgstr ""
-"Oprostite… na vpisno stran ste prišli brez veljavnega žetona. Ali ste "
-"zlonamrenež? Če ne, pojdite na <a href='overview_user.php'>svojo stran s "
-"profilom</a>."
+"Na prijavno stran ste žal prišli brez veljavnega žetona. Ali ste zlonamerni? "
+"Če niste, pojdite na <a href='overview_user.php'>svojo stran profila</a>."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/action_generate_zone.php:41
 #, php-format
 msgid "%s: RADIUS/TLS superglue zone management"
-msgstr ""
+msgstr "%s: upravljanje nadomestnega območja RADIUS/TLS"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_generate_zone.php:56
 msgid "DNS NAPTR certificate management"
-msgstr ""
+msgstr "Upravljanje potrdil DNS NAPTR"
 
 #: web/admin/action_generate_zone.php:66
 msgid ""
 "You do not have the necessary privileges to request NAPTR superglue zones."
-msgstr ""
+msgstr "Nimate potrebnih pooblastil, da bi zahtevali nadomestna območja NAPTR."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/action_req_certificate.php:41
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "%s: upravljanje potrdil RADIUS/TLS za %s"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_req_certificate.php:56
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
-msgstr ""
+msgstr "Upravljanje potrdil RADIUS/TLS za %s"
 
 #: web/admin/action_req_certificate.php:66
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
-msgstr ""
+msgstr "Nimate potrebnih pooblastil, da bi lahko zahtevali potrdila strežnika."
 
 #: web/admin/action_req_certificate.php:107
 msgid "Requesting a certificate with the following properties"
-msgstr ""
+msgstr "Zahteva za potrdilo z naslednjimi lastnostmi"
 
 #: web/admin/action_req_certificate.php:109
 msgid "Policy OIDs: "
-msgstr ""
+msgstr "OID-ji pravilnikov:"
 
 #: web/admin/action_req_certificate.php:110
 msgid "Distinguished Name: "
-msgstr ""
+msgstr "Razločevalno ime:"
 
 #: web/admin/action_req_certificate.php:111
 msgid ""
 "Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
 "&lt;someone@somewhere.xy&gt;')."
 msgstr ""
+"Podatki za stik prosilca: izhajali bodo iz baze podatkov eduroam (z uporabo "
+"korena 'Someone, &lt;someone@somewhere.xy&gt;')."
 
-#: web/admin/action_req_certificate.php:127
+#: web/admin/action_req_certificate.php:128
 msgid "The certificate was requested."
-msgstr ""
+msgstr "Zahtevano je bilo potrdilo."
 
-#: web/admin/action_req_certificate.php:130
+#: web/admin/action_req_certificate.php:131
 msgid "Back to Certificate Overview"
-msgstr ""
+msgstr "Nazaj na pregled potrdila"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:139
+#: web/admin/action_req_certificate.php:140
 msgid "1. Certificate Holder Details"
-msgstr ""
+msgstr "1. Podrobnosti lastnika potrdila"
 
-#: web/admin/action_req_certificate.php:141
-#: web/admin/action_req_certificate.php:162
+#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:163
 #, php-format
 msgid "Certificate for %s role"
-msgstr ""
+msgstr "Potrdilo za vlogo %s"
 
-#: web/admin/action_req_certificate.php:150
-#: web/admin/action_req_certificate.php:164
+#: web/admin/action_req_certificate.php:151
+#: web/admin/action_req_certificate.php:165
 msgid "---PLEASE CHOOSE---"
-msgstr ""
-
-#: web/admin/action_req_certificate.php:179
-msgid "2. CSR generation"
-msgstr ""
+msgstr "---IZBERITE---"
 
 #: web/admin/action_req_certificate.php:180
+msgid "2. CSR generation"
+msgstr "2. Ustvarjanje CSR-ja"
+
+#: web/admin/action_req_certificate.php:181
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
-
-#: web/admin/action_req_certificate.php:182
-msgid "3. Submission"
-msgstr ""
+"Eden od načinov za ustvarjanje sprejemljive zahteve za potrdilo je prek "
+"enovrstičnega openssl:"
 
 #: web/admin/action_req_certificate.php:183
-msgid "Please paste your CSR here:"
-msgstr ""
+msgid "3. Submission"
+msgstr "3. Pošiljanje"
 
 #: web/admin/action_req_certificate.php:184
-msgid "Send request"
-msgstr ""
+msgid "Please paste your CSR here:"
+msgstr "CSR prilepite sem:"
 
-#: web/admin/action_req_certificate.php:187
+#: web/admin/action_req_certificate.php:185
+msgid "Send request"
+msgstr "Pošlji zahtevo"
+
+#: web/admin/action_req_certificate.php:188
 msgid "Back to Overview Page"
-msgstr ""
+msgstr "Nazaj na stran za pregled"
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45 web/admin/edit_participant.php:44
@@ -190,36 +193,36 @@ msgstr "%s: Urejanje %s '%s'"
 #: web/admin/edit_federation.php:60 web/admin/edit_participant.php:78
 #, php-format
 msgid "Editing %s information for '%s'"
-msgstr "Urejanje %s informacij za '%s'"
+msgstr "Urejanje informacij o %s za '%s'"
 
 #: web/admin/edit_federation.php:64 web/admin/edit_federation.php:85
 #, php-format
 msgid "%s Properties"
-msgstr "%s Lastnosti"
+msgstr "Lastnosti %s"
 
 #: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
 #: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
 msgid "Property Type"
-msgstr ""
+msgstr "Vrsta lastnosti"
 
 #: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
-msgstr ""
+msgstr "Jezik, če je ustrezno"
 
 #: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
 #: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
 msgid "Property Value"
-msgstr ""
+msgstr "Vrednost lastnosti"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:249
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Država:"
 
@@ -241,13 +244,13 @@ msgstr "Shrani podatke"
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
-msgstr "Prezri spremembe"
+msgstr "Zavrzi spremembe"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:39
 #, php-format
 msgid "%s: %s Customisation (submission completed)"
-msgstr "%s:%s Prilagajanje (sprememba je končana)"
+msgstr "Prilagajanje %s:%s (pošiljanje je končano)"
 
 #: web/admin/edit_federation_result.php:49
 #, php-format
@@ -258,77 +261,77 @@ msgstr "Poslani atributi za %s'%s'"
 #: web/admin/edit_participant_result.php:169
 #: web/admin/edit_profile_result.php:347
 msgid "Continue to dashboard"
-msgstr "Nadaljuj v pregledno ploščo"
+msgstr "Nadaljuj na nadzorno ploščo"
 
 #. terms of use popup, going interactive
 #: web/admin/edit_hotspot.php:60
 #, php-format
 msgid "%s: %s Terms of Use"
-msgstr ""
+msgstr "%s: Pogoji uporabe %s"
 
 #: web/admin/edit_hotspot.php:70
 msgid "Terms of Use Acceptance"
-msgstr ""
+msgstr "Sprejem pogojev uporabe"
 
 #. Appending terms of use popup
 #: web/admin/edit_hotspot.php:78 web/admin/edit_silverbullet.php:695
 #, php-format
 msgid "%s - Terms of Use"
-msgstr "%s - Pogoji uporabe"
+msgstr "%s – pogoji uporabe"
 
 #: web/admin/edit_hotspot.php:85 web/admin/edit_silverbullet.php:702
 msgid "I have read and agree to the terms."
-msgstr "Prebral sem pogoje uporabe in se z njimi strinjam."
+msgstr "Prebral(-a) sem pogoje uporabe in soglašam z njimi."
 
 #: web/admin/edit_hotspot.php:87 web/admin/edit_silverbullet.php:704
 msgid "Continue"
-msgstr "Nadaljuj."
+msgstr "Nadaljuj"
 
 #: web/admin/edit_hotspot.php:88 web/admin/edit_silverbullet.php:705
 msgid "Abort"
-msgstr ""
+msgstr "Prekini"
 
 #: web/admin/edit_hotspot.php:171
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: Čarovnik za včlanitev (3. korak)"
 
 #: web/admin/edit_hotspot.php:184
 #, php-format
 msgid "Editing %s deployment"
-msgstr ""
+msgstr "Urejanje uvedbe %s"
 
 #: web/admin/edit_hotspot.php:198
 msgid "Options for this deployment"
-msgstr ""
+msgstr "Možnosti za to uvedbo"
 
 #: web/admin/edit_hotspot.php:214
 msgid "Custom Operator-Name:"
-msgstr ""
+msgstr "Ime operaterja po meri:"
 
 #: web/admin/edit_hotspot.php:225
 #, php-format
 msgid "VLAN tag for own users%s:"
-msgstr ""
+msgstr "Oznaka VLAN za lastne uporabnike %s:"
 
 #: web/admin/edit_hotspot.php:225
 msgid "(unset with '0')"
-msgstr ""
+msgstr "(razveljavi z '0')"
 
 #: web/admin/edit_participant.php:42
 #, php-format
 msgid "%s: %s enrollment wizard (step 2)"
-msgstr ""
+msgstr "%s: Čarovnik za včlanitev %s (2. korak)"
 
 #: web/admin/edit_participant.php:76
 #, php-format
 msgid "Step 2: General Information about your %s"
-msgstr ""
+msgstr "2. korak: Splošne informacije o %s"
 
 #: web/admin/edit_participant.php:83
 #, php-format
 msgid "%s general properties"
-msgstr "%s Splošne lastnosti"
+msgstr "Splošne lastnosti %s"
 
 #: web/admin/edit_participant.php:110
 #, php-format
@@ -338,10 +341,10 @@ msgid ""
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Pozdravljen, nov uporabnik. %s je nov za nas. Čarovnik vam bo zastavil par "
-"vprašanj o tem, da vam lahko na koncu ustvarimo čudovite profile. Vse "
-"spodnje informacije so neobvezne, vendar je pomembno, da izpolnite čim več "
-"polj v korist vaših končnih uporabnikov."
+"Pozdravljen, novi uporabnik. %s je nov za nas. Čarovnik vam bo zastavil "
+"nekaj vprašanj, da vam bomo lahko na koncu ustvarili čudovite profile. Vse "
+"spodnje informacije so izbirne, vendar je pomembno, da v korist končnih "
+"uporabnikov izpolnite čim več polj."
 
 #: web/admin/edit_participant.php:115
 msgid "General Information"
@@ -353,7 +356,7 @@ msgid ""
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Nekatere lastnosti so veljavne v vseh profilih uvajanja. To je kraj, kjer "
+"Nekatere lastnosti so veljavne v vseh profilih uvedbe. To je mesto, kjer "
 "lahko te lastnosti opišete na podroben način. Zahtevane informacije se "
 "uporabljajo na naslednji način:"
 
@@ -364,10 +367,11 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
-"<strong>Logotip</strong>: Logotip je vključen v nameščevalnik kjer je to "
-"mogoče. Sprejemamo vse oblike zapisa logotipa, za najboljše rezultate "
-"priporočamo SVG. V primeru, da ne naložite logotipa bo uporabljen privzeti "
-"(glej gornji desni rob spletne strani)."
+"<strong>Logotip</strong>: ko pošljete logotip, ga bomo vključili  v vse "
+"namestitvene programe, ki omogočajo logotip po meri. Sprejemamo vse oblike "
+"slik, toda za najboljše rezultate priporočamo, da uporabite obliko SVG. Če "
+"ne naložite logotipa, bomo uporabili splošnega (glejte zgornji desni kot te "
+"strani)."
 
 #: web/admin/edit_participant.php:122
 #, php-format
@@ -377,12 +381,12 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
-"<strong>Ime</strong>: %s ima lahko imena v več jezikih. Priporočljivo je, da "
-"vedno nastavite vsaj jezik »privzeto/drugo«, ker se uporablja kot "
-"nadomestno, če sistem nima imena v natančnem jeziku, za katerega uporabnik "
+"<strong>Ime</strong>: %s ima lahko imena v več jezikih. Priporočamo, da "
+"vedno vnesete vsaj \"privzeti/drugi\" jezik, ker je uporabljen kot "
+"nadomestek, če sistem nima imena v natančnem jeziku, v katerem uporabnik "
 "zahteva prenos."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:263
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Lastnosti medijev"
 
@@ -392,16 +396,16 @@ msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
 msgstr ""
-"V tej sekciji določite, katerem mediju  %s je potrebno konfigurirati na "
+"V tem razdelku določite, na katerem mediju naj bo konfiguriran %s v "
 "uporabniških napravah."
 
 #: web/admin/edit_participant.php:141
 msgid "Additional SSIDs:"
-msgstr "Dodatni SSIDji:"
+msgstr "Dodatni nizi SSID:"
 
 #: web/admin/edit_participant.php:141
 msgid "SSIDs:"
-msgstr "SSIDji:"
+msgstr "SSID-i:"
 
 #: web/admin/edit_participant.php:148
 #, php-format
@@ -410,18 +414,18 @@ msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Za WPA2/AES bomo vedno nastavili SSID: %s."
 msgstr[1] "Za WPA2/AES bomo vedno nastavili SSID-ja: %s."
 msgstr[2] "Za WPA2/AES bomo vedno nastavili SSID-je: %s."
-msgstr[3] "Za WPA2/AES bomo vedno nastavili SSID-je: %s."
+msgstr[3] "Za WPA2/AES bomo vedno nastavili te SSID-e: %s."
 
 #: web/admin/edit_participant.php:149
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the option '%s' "
 "below."
-msgstr ""
+msgstr "S spodnjo možnostjo '%s' lahko definirate tudi dodatne SSID-e po meri."
 
 #: web/admin/edit_participant.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
-msgstr "Določite keteri SSIDji naj bodo nastavljeni v nameščevalniku."
+msgstr "Določite, kateri SSID-i bodo konfigurirani v namestitvenih programih."
 
 #: web/admin/edit_participant.php:153
 msgid ""
@@ -429,16 +433,17 @@ msgid ""
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
-"Privzeto nastavimo SSIDje le s šifriranjem WPA2/AES. Nastavitev '(z WPA/"
-"TKIP)' uporabite, če želite dodati podporo za WPA/TKIP, kjer je to možno."
+"Privzeto konfiguriramo SSID-e samo s šifriranjem WPA2/AES. Če uporabite "
+"možnost '(z WPA/TKIP)', lahko določite, naj vključimo podporo za starejšo "
+"različico WPA/TKIP, kjer je to možno."
 
 #: web/admin/edit_participant.php:157
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr "Dodaten Hotspot 2.0/ Konzorcij za prehodne točke:"
+msgstr "Dodaten Hotspot 2.0/Konzorcij za prehodne točke:"
 
 #: web/admin/edit_participant.php:157
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr "Hotspot 2.0 / Konzorcij za prehodne točke:"
+msgstr "Hotspot 2.0/Konzorcij za prehodne točke:"
 
 #: web/admin/edit_participant.php:164
 #, php-format
@@ -447,26 +452,25 @@ msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] "Vedno bomo konfigurirali te konzorcijske OIs:%s"
 msgstr[1] "Vedno bomo konfigurirali te konzorcijske OIs:%s"
 msgstr[2] "Vedno bomo konfigurirali te konzorcijske OIs:%s"
-msgstr[3] "Vedno bomo konfigurirali te konzorcijske OIs:%s"
+msgstr[3] "Vedno bomo konfigurirali te OI-je konzorcija: %s"
 
 #: web/admin/edit_participant.php:166
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
-msgstr ""
-"Prav tako je mogoče določiti dodatne dodatne OI z možnostjo '%s' spodaj."
+msgstr "S spodnjo možnostjo '%s' je mogoče definirati dodatne OI-je po meri."
 
 #: web/admin/edit_participant.php:168
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
-"Prosimo, določite, katere konzorcijske OI je treba konfigurirati v "
-"namestitvenih programih."
+"Določite, kateri OI-ji konzorcija naj bodo konfigurirani v namestitvenih "
+"programih."
 
 #: web/admin/edit_participant.php:171
 msgid "Support for wired IEEE 802.1X:"
-msgstr "Podpora za žično IEEE 802.1X:"
+msgstr "Podpora za žično omrežje IEEE 802.1X:"
 
 #: web/admin/edit_participant.php:172
 msgid ""
@@ -476,15 +480,15 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
-"Če želite svoje uporabniške naprave konfigurirati s podporo IEEE 802.1X za "
+"Če želite konfigurirati svoje uporabniške naprave s podporo IEEE 802.1X za "
 "žični ethernet, označite ustrezno polje. Upoštevajte, da je zaradi tega "
-"proces namestitve na nekaterih platformah nekoliko težji (Windows: potrebuje "
-"skrbniške pravice; Apple: poskus namestitve profila z žično podporo na "
-"napravi brez aktivne ethernet kartice ne bo uspel.)"
+"postopek namestitve na nekaterih platformah nekoliko težji (Windows: "
+"potrebujete skrbniške pravice; Apple: poskus namestitve profila z žično "
+"podporo v napravi brez aktivne ethernetne kartice ne bo uspel.)"
 
 #: web/admin/edit_participant.php:174
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr "Odstranjevanje SSID-jev"
+msgstr "Odstranjevanje zagonskih/vgrajenih SSID-ov:"
 
 #: web/admin/edit_participant.php:175
 msgid ""
@@ -492,22 +496,22 @@ msgid ""
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
-"Če za distribucijo konfiguracij uporabljate zaporniški portal, boste morda "
-"želeli odklopiti/onemogočiti SSID po postopku zagona. S to možnostjo bo SSID "
-"odstranjen ali pa bo opredeljen kot »Samo ročno povezovanje«."
+"Če za distribucijo konfiguracij uporabljate zaprti portal, boste po končanem "
+"postopku zagona morda želeli odstraniti konfiguracijo/onemogočiti SSID. S to "
+"možnostjo bo SSID odstranjen ali opredeljen kot »Samo ročno povezovanje«."
 
 #: web/admin/edit_participant.php:187
 msgid "Helpdesk Details for all users"
-msgstr "Informacije o pomoči uporabnikom"
+msgstr "Podrobnosti službe za pomoč uporabnikom za vse uporabnike"
 
 #: web/admin/edit_participant.php:190
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
 msgstr ""
-"To sekcijo lahko uporabite za vnaševanje pogojev uporabe za svoje uporabnike "
-"in prikaz podrobnosti o tem, kako lahko vaši uporabniki dostopajo do vaše "
-"lokalne službe za pomoč."
+"V tem razdelku lahko vnesete pogoje uporabe za svoje uporabnike in prikažete "
+"podrobnosti o tem, kako lahko uporabniki dostopajo do vaše lokalne službe za "
+"pomoč uporabnikom."
 
 #: web/admin/edit_participant.php:194
 #, php-format
@@ -515,8 +519,8 @@ msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Ponujate podporo za pomoč uporabnikom za svoje uporabnike? Če je tako, bi "
-"bilo lepo, če bi nas usmerili na to službo za pomoč."
+"Ali svojim uporabnikom nudite storitve službe za pomoč uporabnikom? Če jih, "
+"bomo veseli, če nas boste usmerili na to službo za pomoč uporabnikom."
 
 #: web/admin/edit_participant.php:196
 msgid ""
@@ -526,27 +530,28 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
-"Tu vnešena informacija bo dodana v nameščevalnike za vse vaše uporabnike in "
-"bo prikazana na strani za prenose. Če uporabljate ločene službe za pomoč "
-"uporabnikom za različne uporabniške skupine (to imenujemo »profili«), v tem "
-"čarovniku navedite podatke o profilu za posamezne uporabniške skupine. Če ne "
-"nudite podpore, pustite ta polja prazna."
+"Informacije, ki jih vnesete tukaj, bodo dodane v namestitvene programe za "
+"vse vaše uporabnike in bodo prikazane na strani za prenose. Če uporabljate "
+"ločene službe za pomoč uporabnikom za različne uporabniške skupine (to "
+"imenujemo »profili«), pozneje v tem čarovniku navedite podatke za posamezne "
+"profile. Če ne nudite podpore, pustite ta polja prazna."
 
 #: web/admin/edit_participant.php:198
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
-msgstr "Pri %s pošiljanju navedite vsaj en lokalni elektronski naslov."
+msgstr "Za uvedbe %s morate podati vsaj lokalni elektronski naslov."
 
 #: web/admin/edit_participant.php:198
 msgid ""
 "This is the contact point for your organisation. It may be displayed "
 "publicly."
 msgstr ""
+"To je kontaktna točka za vašo organizacijo in je lahko prikazana javno."
 
 #: web/admin/edit_participant.php:201
 msgid "Providing at least a local support e-mail contact is required."
-msgstr "Zagotoviti je treba vsaj lokalni podporni elektronski naslov."
+msgstr "Podati morate vsaj elektronski naslov za lokalno podporo."
 
 #: web/admin/edit_participant.php:201
 msgid "This is the contact point for your end users' level 1 support."
@@ -558,13 +563,13 @@ msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
 msgstr ""
-"Ko ste prepričani, da je vse nastavljeno ustrezno, kliknite na %sNaprej …%s"
+"Ko ste prepričani, da je vse pravilno nastavljeno, kliknite%sNadaljuj …%s"
 
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_participant_result.php:36
 #: web/admin/edit_profile_result.php:233
 msgid "To whom it may concern,"
-msgstr ""
+msgstr "Spoštovani,"
 
 #: web/admin/edit_participant_result.php:37
 #: web/admin/edit_profile_result.php:248
@@ -572,11 +577,14 @@ msgid ""
 "This mail is merely a cross-check because these changes can be security-"
 "relevant. If the change was expected, you do not need to take any action."
 msgstr ""
+"to sporočilo je zgolj navzkrižno preverjanje, ker so lahko te spremembe "
+"povezane z varnostjo. Če je bila sprememba pričakovana, vam ni treba "
+"narediti ničesar."
 
 #: web/admin/edit_participant_result.php:38
 #: web/admin/edit_profile_result.php:249
 msgid "Greetings, "
-msgstr ""
+msgstr "Lep pozdrav,"
 
 #: web/admin/edit_participant_result.php:56
 #, php-format
@@ -586,23 +594,27 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"%s %s/%s/(predhodno imenovan) '%s' je izbrisal vse lastnosti in začenja "
+"znova. To pomeni, da ga ni več mogoče prepoznati po imenu in lahko v "
+"prihodnosti uporabi drugo ime. Če in ko se bo zgodila sprememba imena, boste "
+"prejeli še eno sporočilo."
 
 #: web/admin/edit_participant_result.php:61
 #: web/admin/edit_participant_result.php:106
 #: web/admin/edit_profile_result.php:254
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s: V %s je bila opravljena večja sprememba"
 
 #: web/admin/edit_participant_result.php:68
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr "%s : Čarovnik za vpis v IdP (korak 2 je zaključen) "
+msgstr "%s: Čarovnik za včlanitev ponudnika identitete (2. korak je končan) "
 
 #: web/admin/edit_participant_result.php:75
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
-msgstr "Vpisani atributi za IdP '%s'"
+msgstr "Poslani atributi za ponudnika identitete '%s'"
 
 #. send a notification/alert mail to someone we know is in charge
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
@@ -611,11 +623,12 @@ msgstr "Vpisani atributi za IdP '%s'"
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
 msgstr ""
+"v %s %s/%s/(predhodno imenovanem) '%s', so bile opravljene večje spremembe."
 
 #: web/admin/edit_participant_result.php:98
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "%s je spremenil svoje ime Podrobnosti so navedene spodaj:"
 
 #: web/admin/edit_participant_result.php:115
 #: web/admin/edit_participant_result.php:120
@@ -626,16 +639,17 @@ msgstr "(WPA2/AES)"
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
-"Vaši nameščevalniki bodo nastavili naslednje SSIDje: <strong>%s</strong>"
+"Vaši namestitveni programi bodo konfigurirali naslednje SSID-e: <strong>%s</"
+"strong>"
 
 #: web/admin/edit_participant_result.php:130
 msgid "SSIDs configured"
-msgstr "SSIDji nastavljeni"
+msgstr "Konfigurirani SSID-i"
 
 #: web/admin/edit_participant_result.php:134
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr "Vaši nameščevalniki bodo nastavili vmesnike."
+msgstr "Vaši namestitveni programi bodo konfigurirali žične vmesnike."
 
 #: web/admin/edit_participant_result.php:134
 msgid "Wired configured"
@@ -646,13 +660,13 @@ msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
-"Ne moremo zagnati nameščevalnikov, saj ni bil izbran noben brezžični SSID "
-"niti žični vmesnik, kot cilj!"
+"Namestitvenih programov ne moremo ustvariti, ker ni bil kot cilj izbran "
+"noben brezžični SSID, niti žični vmesnik."
 
 #: web/admin/edit_participant_result.php:157
 #, php-format
 msgid "Continue to %s properties"
-msgstr "Nadaljujte na %s lastnosti."
+msgstr "Nadaljujte na lastnosti %s."
 
 #: web/admin/edit_participant_result.php:160
 #, php-format
@@ -661,26 +675,26 @@ msgid ""
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
-"Niste poslali e-poštnega naslova. To je potrebno za %s. Pojdite na %s "
-"nadzorno ploščo in uredite svoje nastavitve za pomoč, tako da vključite e-"
-"poštni naslov za pomoč."
+"E-poštnega naslova niste poslali. To je potrebno za %s. Pojdite na nadzorno "
+"ploščo %s in uredite nastavitve službe za pomoč uporabnikom tako, da "
+"vključite e-poštni naslov službe za pomoč uporabnikom. "
 
 #: web/admin/edit_participant_result.php:160
 msgid "No support e-mail!"
-msgstr "Ni podpore e-pošte!"
+msgstr "Ni e-poštnega naslova za podporo."
 
 #: web/admin/edit_participant_result.php:165
 msgid "Continue to RADIUS/EAP profile definition"
-msgstr "Nadaljujte z definicijo profila RADIUS / EAP"
+msgstr "Nadaljuj na definicijo profila RADIUS/EAP"
 
 #: web/admin/edit_profile.php:35
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
-msgstr "%s: Čarovnik za vnos IdP (Korak 3)"
+msgstr "%s: Čarovnik za včlanitev ponudnika identitete (3. korak)"
 
 #: web/admin/edit_profile.php:144
 msgid "Step 3: Defining a user group profile"
-msgstr "Korak 3: Določite profil za skupino uporabnikov"
+msgstr "3. korak: Definiranje profila za skupino uporabnikov"
 
 #: web/admin/edit_profile.php:146
 #, php-format
@@ -698,13 +712,13 @@ msgid ""
 "page. After we are done, the wizard is finished and you will be taken to the "
 "main IdP administration page."
 msgstr ""
-"Sedaj bomo določili profil za skupino uporabnikov. Z ustreznim gumbom lahko "
-"dodate poljubno število profilov. Po zaključku boste prestavljeni na glavno "
-"skrbniško stran za IdP."
+"Zdaj bomo določili profil za skupine uporabnikov. Z izbiro ustreznega gumba "
+"lahko dodate poljubno število profilov. Po zaključku čarovnika se boste "
+"vrnili na glavno skrbniško stran ponudnika identitete."
 
 #: web/admin/edit_profile.php:166
 msgid "Profile Name and RADIUS realm"
-msgstr "Ime profila in domene RADIUS"
+msgstr "Ime profila in področje RADIUS"
 
 #: web/admin/edit_profile.php:169
 msgid ""
@@ -712,9 +726,9 @@ msgid ""
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
 msgstr ""
-"Najprej potrebujemo naziv profila. Naziv bo prikazano končnim uporabnikom, "
-"zato uporabite opisna naziv kot je 'Predavatelji', 'Študentje Biotehniške "
-"fakultete', itn."
+"Najprej potrebujemo ime profila, ki bo prikazano končnim uporabnikom, zato "
+"uporabite opisno ime, na primer 'Predavatelji', 'Študenti biotehniške "
+"fakultete', itd."
 
 #: web/admin/edit_profile.php:170
 msgid ""
@@ -722,12 +736,13 @@ msgid ""
 "is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
-"Nastavite lahko daljši opis komu je profil namenjen. Če ga nastavite, bo "
-"prikazan na strani za prenos potem, ko uporabnik izbere profil s seznama."
+"Podate lahko tudi daljše besedilo, ki opisuje, komu je namenjen profil. Če "
+"ga podate, bo prikazan na strani za prenos potem, ko uporabnik izbere ime "
+"profila na seznamu."
 
 #: web/admin/edit_profile.php:171
 msgid "You can also tell us your RADIUS realm. "
-msgstr "Lahko vpišete tudi svojo domeno RADIUS."
+msgstr "Sporočite nam lahko tudi svoje področje RADIUS."
 
 #: web/admin/edit_profile.php:173
 #, php-format
@@ -735,32 +750,32 @@ msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
-"To je uporabno če želite kasneje uporabiti modul za preverjanja, ki "
-"preverjajo dosegljivost vaše domene v infrastrukturi %s."
+"To je uporabno, če želite pozneje uporabiti modul za preverjanje zdravja, ki "
+"preveri dosegljivost vašega področja v infrastrukturi %s."
 
 #: web/admin/edit_profile.php:175
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
-"Če želite podporo za anonimno identiteto, morate vnesti ime domene (glej "
-"spodaj)."
+"Če želite podporo za anonimne zunanje identitete, morate vnesti ime področja "
+"(glejte spodaj)."
 
 #: web/admin/edit_profile.php:182
 msgid "Basic Realm Information"
-msgstr ""
+msgstr "Osnovne informacije o področju"
 
 #: web/admin/edit_profile.php:184 web/admin/edit_profile.php:192
 msgid "Realm:"
-msgstr "Domena:"
+msgstr "Področje:"
 
 #: web/admin/edit_profile.php:185
 msgid "Realm input field"
-msgstr ""
+msgstr "Polje za vnos področja"
 
 #: web/admin/edit_profile.php:226
 msgid "Realm Options"
-msgstr "Možnosti kraljestva"
+msgstr "Možnosti področja"
 
 #: web/admin/edit_profile.php:230
 #, php-format
@@ -768,17 +783,18 @@ msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
-"Nekateri nameščevalci podpirajo funkcijo z imenom »Anonimna zunanja "
-"identiteta«. Če ne veste, kaj je to, preberite <a href='%s'>ta članek</a>."
+"Nekateri namestitveni programi podpirajo funkcijo, imenovano »Anonimna "
+"zunanja identiteta«. Če ne veste, kaj je to, preberite <a href='%s'>ta "
+"članek</a>."
 
 #: web/admin/edit_profile.php:231
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
-"Na nekaterih platformah lahko nameščevalniki predlagajo končnice "
-"uporabniških imen in / ali preverijo, da vnešeni podatki vsebujejo končnico "
-"kraljestva."
+"Na nekaterih platformah lahko namestitveni programi predlagajo pripone "
+"uporabniških imen in/ali preverijo, ali vneseni podatki vsebujejo pripono "
+"področja."
 
 #: web/admin/edit_profile.php:232
 msgid ""
@@ -787,26 +803,26 @@ msgid ""
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
-"Funkcija preverjanja območja mora poznati zunanji ID, ki dejansko dobi "
-"možnost overjanja. Če vaš strežnik RADIUS dovoljuje samo izbrana uporabniška "
-"imena, je koristno, da pridobite informacije, katere od (zunanjih) "
-"uporabniških imen, lahko uporabimo za testiranje."
+"Funkcija preverjanja področja mora poznati zunanji ID, ki dejansko dobi "
+"možnost preverjanja pristnosti. Če vaš strežnik RADIUS dovoli samo izbrana "
+"uporabniška imena, je koristno, da pridobite informacije, katera od teh "
+"(zunanjih) uporabniških imen lahko uporabimo za preskušanje."
 
 #: web/admin/edit_profile.php:240
 msgid "Username Handling Options"
-msgstr ""
+msgstr "Možnosti obravnavanja uporabniških imen"
 
 #: web/admin/edit_profile.php:242
 msgid "Option name"
-msgstr ""
+msgstr "Ime možnosti"
 
 #: web/admin/edit_profile.php:243
 msgid "Option checkbox"
-msgstr ""
+msgstr "Potrditveno polje možnosti"
 
 #: web/admin/edit_profile.php:246
 msgid "Outer Identity Handling"
-msgstr ""
+msgstr "Obravnavanje zunanje identitete"
 
 #: web/admin/edit_profile.php:252
 msgid "Enable Anonymous Outer Identity:"
@@ -814,23 +830,23 @@ msgstr "Omogoči anonimno zunanjo identiteto:"
 
 #: web/admin/edit_profile.php:270
 msgid "Use special Outer Identity for realm checks:"
-msgstr "Uporabite posebno zunanjo identiteto za preverjanje kraljestva:"
+msgstr "Uporabite posebno zunanjo identiteto za preverjanje področja:"
 
 #: web/admin/edit_profile.php:285
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "Obravnavanje notranje identitete (uporabniškega imena)"
 
 #: web/admin/edit_profile.php:291
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "Uveljavi pripono področja v uporabniškem imenu"
 
 #: web/admin/edit_profile.php:309
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "Uveljavi natančno področje v uporabniškem imenu"
 
 #: web/admin/edit_profile.php:319
 msgid "Installer Download Location"
-msgstr "Lokacija za prenos nameščevalnika"
+msgstr "Lokacija za prenos namestitvenega programa"
 
 #: web/admin/edit_profile.php:323
 msgid ""
@@ -842,20 +858,21 @@ msgid ""
 "profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
-"CAT ima mesto za prenose h končnim uporabnikom. Tam pridobijo, na primer, "
-"informacije za pomoč uporabnikom. CAT lahko tudi nemudoma nudi prenos "
-"nameščevalnikov za profile. V nasprotnem primeru lahko vneste naslov lastne "
-"spletne strani, kamor naj bodo vaši uporabniki preusmerjeni. Kot skrbnik "
-"lahko potem še vedno prenesete profile, ki jih lahko umestite v omenjenje "
-"spletne strani (preverite gumb 'Združljivostna matrika') v pregledni plošči."
+"CAT ima mesto za prenose končnim uporabnikom. Tam lahko na primer izvejo več "
+"o informacijah za pomoč uporabnikom, ki ste jih vnesli predhodno. CAT lahko "
+"tudi takoj ponudi prenos namestitvenih programov za profil. Če tega ne "
+"želite, lahko vnesete naslov spletnega mesta, na katerega želite preusmeriti "
+"svoje uporabnike. Kot skrbnik lahko še vedno prenesete profile in jih "
+"postavite na to stran (glejte gumb 'Združljivostna matrika') na nadzorni "
+"plošči."
 
 #: web/admin/edit_profile.php:329
 msgid "Redirect end users to own web page:"
-msgstr "Preusmeri uporabnike na lastno spletno stran:"
+msgstr "Preusmerite končne uporabnike na svojo spletno stran:"
 
 #: web/admin/edit_profile.php:342
 msgid "Supported EAP types"
-msgstr "Podprte metode EAP"
+msgstr "Podprte vrste EAP"
 
 #: web/admin/edit_profile.php:345
 msgid ""
@@ -865,19 +882,19 @@ msgid ""
 "highest priority; only if the user's device can't use that EAP type, we will "
 "use an EAP type further down in the list."
 msgstr ""
-"Sedaj moramo izvedeti katere metode EAP podpira vaš IdP. V primeru, da "
-"podpirate več metod EAP lahko vsakemu določite prioriteto (1=najvišja). "
-"Orodje vedno ustvari samodejni nameščevalnik za metodo EAP z najvišjo "
-"prioriteto; samo v primeru, ko uporabnikova naprava ne podpira metode EAP z "
-"višjo prioriteto, bo uporabljena metoda EAP z nižjo prioriteto."
+"Zdaj moramo izvedeti, katere vrste EAP podpira vaš ponudnik identitete. Če "
+"podpirate več vrst EAP, lahko za vsako določite prioriteto (1 je najvišja). "
+"To orodje vedno ustvari samodejni namestitveni program za vrsto EAP z "
+"najvišjo prioriteto; samo v primeru, če uporabnikova naprava ne podpira te "
+"vrste EAP, bomo uporabili vrsto EAP, ki je nižje na seznamu."
 
 #: web/admin/edit_profile.php:368
 msgid "EAP type support"
-msgstr ""
+msgstr "Podpora za vrsto EAP"
 
 #: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
-msgstr "Podprte metode EAP za ta profil"
+msgstr "Podprte vrste EAP za ta profil"
 
 #: web/admin/edit_profile.php:385
 msgid ""
@@ -885,17 +902,17 @@ msgid ""
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
-"Uporabite \"povleci &amp; spusti\" da bi označili metodo EAP in jo "
-"premaknili v podprto (zeleno) območje. Prirotete se določijo samodejno, "
-"odvisno kam ste \"spustili\" metodo."
+"Uporabite način \"povleci in spusti\", da označite metodo EAP in jo "
+"premaknete v podprto (zeleno) območje. Prioritete se določijo samodejno, "
+"odvisno od tega, kam \"spustite\" metodo."
 
 #: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
-msgstr "Nepodprte metode EAP"
+msgstr "Nepodprte vrste EAP"
 
 #: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
-msgstr "Pomoč uporabnikom za ta profil"
+msgstr "Podrobnosti službe za pomoč uporabnikom za ta profil"
 
 #: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
@@ -903,7 +920,7 @@ msgstr "Podrobnosti EAP za ta profil"
 
 #: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
-msgstr "Lastnosti medijev"
+msgstr "Lastnosti medijev za ta profil"
 
 #: web/admin/edit_profile.php:456
 #, php-format
@@ -923,47 +940,48 @@ msgstr[2] ""
 "Nastavitve %s so že nastavljene za ravni IdP. Če jih nastavite na ravni "
 "profila, bodo prepisale privzete nastaviteve na ravni IdP."
 msgstr[3] ""
-"Nastavitve %s so že nastavljene za ravni IdP. Če jih nastavite na ravni "
-"profila,  bodo prepisale privzete nastavitve na ravni IdP."
+"Možnosti %s so že nastavljene na ravni ponudnika identitete. Če jih "
+"nastavite na ravni profila, bodo te nastavitve prepisale nastavitve na ravni "
+"ponudnika identitete."
 
 #: web/admin/edit_profile.php:469
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
-"Ko ste prepričani, da je vse pravilno nastavljeno, kliknite na 'Shrani "
-"podatke' in vrnjeni boste v pregledno ploščo IdP."
+"Ko ste prepričani, da je vse pravilno nastavljeno, kliknite 'Shrani podatke' "
+"in vrnili se boste na stran z nadzorno ploščo ponudnika identitete."
 
 #: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Edit Profile - Result"
-msgstr ""
+msgstr "%s: Uredi profil – rezultat"
 
 #: web/admin/edit_profile_result.php:56
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
-msgstr "%s: Čarovnik profila (korak 3 opravljen)"
+msgstr "%s: Čarovnik za profile (3. korak je končan)"
 
 #: web/admin/edit_profile_result.php:111
 msgid "Submitted attributes for this profile"
-msgstr "Vpisani atributi za ta profil"
+msgstr "Poslani atributi za ta profil"
 
 #: web/admin/edit_profile_result.php:117 web/admin/edit_user_result.php:77
 msgid "Overall Result"
-msgstr ""
+msgstr "Splošen rezultat"
 
 #: web/admin/edit_profile_result.php:118 web/admin/edit_user_result.php:78
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: web/admin/edit_profile_result.php:125
 #, php-format
 msgid "Realm: <strong>%s</strong>"
-msgstr "Domena: <strong>%s</strong>"
+msgstr "Področje: <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:132
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
-msgstr "Anonimne zunanje identitete ni moč vključiti: domena ni vpisana!"
+msgstr "Anonimnih zunanjih identitet ni mogoče vklopiti: področje manjka."
 
 #: web/admin/edit_profile_result.php:135
 #, php-format
@@ -976,7 +994,7 @@ msgstr ""
 
 #: web/admin/edit_profile_result.php:135 web/admin/edit_profile_result.php:150
 msgid "ON"
-msgstr "VKLJUČENA"
+msgstr "VKLOPLJENA"
 
 #: web/admin/edit_profile_result.php:139
 #, php-format
@@ -985,7 +1003,7 @@ msgstr "Anonimna zunanja identiteta je <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:139
 msgid "OFF"
-msgstr "IZKLJUČENA"
+msgstr "IZKLOPLJENA"
 
 #. no anon outer ID, and no realm suffix verification? Bad idea!
 #: web/admin/edit_profile_result.php:141
@@ -998,10 +1016,18 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Brez anonimne identitete bo kot zunanja identiteta uporabljeno dejansko "
+"uporabniško ime, ki bo tudi osnova za usmerjanje zahtev. Da bi to lahko "
+"delovalo, mora imeti uporabniško ime pravilno pripono področja. Toda "
+"preverjanje pripone področja je IZKLOPLJENO. Prosilci ne bodo preverjali, "
+"ali uporabniška imena vsebujejo področje, in napake, kot je uporabniško ime "
+"'johndoe', ki ne bo delovalo v primerih gostovanja, ne bodo prepovedane. "
+"Morda boste želeli označiti polje \"Uveljavi pripono področja v uporabniškem "
+"imenu\"."
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
-msgstr "Uporabniškega imena ni mogoče konfigurirati: manjka kraljestvo!"
+msgstr "Uporabniškega imena ni mogoče konfigurirati: področje manjka."
 
 #: web/admin/edit_profile_result.php:150
 #, php-format
@@ -1009,18 +1035,18 @@ msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
-"Posebno uporabniško ime za preverjanje kraljestva je <strong>%s</strong> , "
+"Posebno uporabniško ime za preverjanje področja je <strong>%s</strong>, "
 "vrednost je <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:154
 msgid "No special username for realm checks is configured."
 msgstr ""
-"Za preverjanje kraljestva ni konfigurirano nobeno posebno uporabniško ime."
+"Za preverjanje področja ni konfigurirano nobeno posebno uporabniško ime."
 
 #: web/admin/edit_profile_result.php:162
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "Del s področjem MORA biti točno '...@%s'."
 
 #: web/admin/edit_profile_result.php:164
 #, php-format
@@ -1028,24 +1054,28 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"Del s področjem se MORA končati z '%s', toda podpodročja so dovoljena (npr. "
+"'user@%s' in 'user@<...>.%s' sta sprejemljiva)."
 
 #: web/admin/edit_profile_result.php:167
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"Če je mogoče, bodo prosilci preverili, ali vnos uporabniškega imena vsebuje "
+"skladenjsko pravilno področje."
 
 #: web/admin/edit_profile_result.php:176
 msgid "Redirection can't be activated - you did not specify a target location!"
-msgstr "Preusmeritve ni moč vključiti - niste določili ciljne lokacije!"
+msgstr "Preusmeritve ni mogoče aktivirati – niste določili ciljne lokacije."
 
 #: web/admin/edit_profile_result.php:178
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
 msgstr ""
-"Preusmeritve ni mogoče aktivirati - cilj mora biti popoln URL, ki se začne s "
-"http: // ali https: //!"
+"Preusmeritve ni mogoče aktivirati – cilj mora biti popoln URL, ki se začne s "
+"http:// ali https://."
 
 #: web/admin/edit_profile_result.php:190
 #, php-format
@@ -1063,25 +1093,26 @@ msgstr "Preusmeritev je nastavljena na <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:196
 msgid "Redirection is <strong>OFF</strong>"
-msgstr "Preumeritev je <strong>IZKLJUČENA</strong>"
+msgstr "Preusmeritev je <strong>IZKLOPLJENA</strong>"
 
 #: web/admin/edit_profile_result.php:214
 msgid "Supported EAP Type: "
-msgstr "Podprte metode EAP:"
+msgstr "Podprta vrsta EAP:"
 
 #: web/admin/edit_profile_result.php:222
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
-msgstr "Podprte metode EAP: <strong>%s</strong> manjka podatek %s !"
+msgstr ""
+"Podprta vrsta EAP: v <strong>%s</strong> manjkajo zahtevani podatki %s."
 
 #: web/admin/edit_profile_result.php:222
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
 msgstr ""
-"Metoda EAP je bila dodana profilu, toda dopisati morate manjkajoče "
-"informacije predno se lahko ustvari nameščevalnik."
+"Vrsta EAP je bila dodana profilu, toda manjkajoče informacije morate "
+"dopolniti, preden lahko ustvarimo namestitveni program."
 
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
 #: web/admin/edit_profile_result.php:235
@@ -1090,6 +1121,7 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"v profilu uvedbe RADIUS %s %s/%s/'%s' so bile opravljene večje spremembe."
 
 #: web/admin/edit_profile_result.php:237
 msgid ""
@@ -1098,64 +1130,84 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"OPOZORILO! Dodan je bil nov korenski overitelj potrdil, ki ima popolnoma "
+"enako ime kot obstoječ korenski overitelj potrdil. To lahko (ne pa nujno) "
+"pomeni, da gre za poskus vstavljanja nepooblaščenega korena zaupanja, ki se "
+"pretvarja, da je pristen. Podrobnosti najdete spodaj:"
 
 #: web/admin/edit_profile_result.php:241
 msgid "A new trusted root CA was added. The details are below:"
 msgstr ""
+"Dodan je bil zaupanja vreden korenski overitelj potrdil. Podrobnosti najdete "
+"spodaj:"
 
 #: web/admin/edit_profile_result.php:245
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
 msgstr ""
+"Dodano je bilo novo sprejemljivo ime strežnika za strežnik preverjanja "
+"pristnosti. Podrobnosti najdete spodaj:"
 
 #: web/admin/edit_profile_result.php:267
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
+"Informacije profila ne vključujejo področja, zato ni mogoče izvršiti "
+"preverjanj DNS za OpenRoaming."
 
 #: web/admin/edit_profile_result.php:288
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
-msgstr ""
+msgstr "Cilj SRV zapisa OpenRoaming NAPTR je nepričakovan."
 
 #: web/admin/edit_profile_result.php:300
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
+"Imena gostiteljev DNS v zapisih SRV se ne razrešijo v dejanske IP-je "
+"gostiteljev. OpenRoaming ne bo deloval."
 
 #: web/admin/edit_profile_result.php:324
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
+"Pri povezovanju z odkritimi končnimi točkami OpenRoaming je v vseh prišlo do "
+"napak. OpenRoaming najverjetneje ne bo deloval."
 
 #: web/admin/edit_profile_result.php:327
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
+"Pri povezovanju z odkritimi končnimi točkami OpenRoaming samo v podnaboru "
+"končnih točk ni bilo napak."
 
 #: web/admin/edit_profile_result.php:335
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
+"Vsaj en odgovor DNS ni bil zaščiten z uporabo DNSSEC. APN-ji OpenRoaming "
+"lahko zavrnejo povezavo s končno točko."
 
 #: web/admin/edit_profile_result.php:339
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
 msgstr ""
+"Začetna diagnostika za del DNS v OpenRoaming (vključno z DNSSEC) je bila "
+"uspešna."
 
 #: web/admin/edit_profile_result.php:352
 msgid "Continue to Installer Fine-Tuning and Download"
-msgstr "Nadaljujte k podrobnim nastavitvam nameščevalnika in prenosu"
+msgstr "Nadaljujte na natančno nastavitev namestitvenega programa in prenos"
 
 #: web/admin/edit_silverbullet.php:237
 msgid "Insecure mail domain!"
-msgstr "Nezanesljiva poštna domena!"
+msgstr "Nezanesljiva poštna domena."
 
 #: web/admin/edit_silverbullet.php:238
 #, php-format
@@ -1164,8 +1216,8 @@ msgid ""
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
 msgstr ""
-"Poštna domena poštnega naslova <strong>%s</strong>  ni varna: nekateri ali "
-"vsi poštni strežniki ne sprejemajo šifriranih povezav (brez dosledne podpore "
+"Poštna domena poštnega naslova <strong>%s</strong> ni varna: nekateri ali "
+"vsi poštni strežniki ne sprejemajo šifriranih povezav (brez skladne podpore "
 "za STARTTLS)."
 
 #: web/admin/edit_silverbullet.php:239
@@ -1173,8 +1225,8 @@ msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
-"Vabilo bi bilo treba poslati v čisti obliki prek interneta. Lahko ga prebere "
-"in zlorabi vsakdo, ki je v tranzitu."
+"Vabilo je treba poslati kot čisto besedilo prek interneta, kjer ga lahko "
+"prebere in zlorabi vsakdo, ki je v tranzitu."
 
 #: web/admin/edit_silverbullet.php:240
 msgid "Do you want the system to send this mail anyway?"
@@ -1182,25 +1234,25 @@ msgstr "Ali želite, da sistem vseeno pošlje to elektronsko sporočilo?"
 
 #: web/admin/edit_silverbullet.php:242
 msgid "DO NOT SEND"
-msgstr "Ne pošlji!"
+msgstr "NE POŠLJI"
 
 #: web/admin/edit_silverbullet.php:249
 msgid "Send anyway."
-msgstr "Pošlji vseeno."
+msgstr "Vseeno pošlji."
 
 #: web/admin/edit_silverbullet.php:300
 #, php-format
 msgid "Managing %s users"
-msgstr "Upravljanje %s uporabnikov."
+msgstr "Upravljanje uporabnikov %s."
 
 #: web/admin/edit_silverbullet.php:340
 #, php-format
 msgid "Current %s users"
-msgstr "Trenutni %s uporabniki."
+msgstr "Trenutni uporabniki %s"
 
 #: web/admin/edit_silverbullet.php:349
 msgid "Assigned Realm"
-msgstr "Dodeljeno kraljestvo"
+msgstr "Dodeljeno področje"
 
 #: web/admin/edit_silverbullet.php:352
 msgid "Total number of active users allowed"
@@ -1220,35 +1272,35 @@ msgstr "Elektronsko sporočilo je bilo uspešno poslano."
 
 #: web/admin/edit_silverbullet.php:369
 msgid "E-mail OK."
-msgstr "Elektronski naslov OK."
+msgstr "Elektronski naslov je v redu."
 
 #: web/admin/edit_silverbullet.php:372
 msgid "The e-mail was NOT sent."
-msgstr "Elektronsko sporočilo ni bilo poslano."
+msgstr "Elektronsko sporočilo NI bilo poslano."
 
 #: web/admin/edit_silverbullet.php:372
 msgid "E-mail not OK."
-msgstr "Elektronski naslov ni OK."
+msgstr "Elektronski naslov ni v redu."
 
 #: web/admin/edit_silverbullet.php:375
 msgid "The SMS was sent successfully."
-msgstr "Sporočilo je bilo poslano uspešno."
+msgstr "Sporočilo je bilo uspešno poslano."
 
 #: web/admin/edit_silverbullet.php:375
 msgid "SMS OK."
-msgstr "Sporočilo OK."
+msgstr "Sporočilo je v redu."
 
 #: web/admin/edit_silverbullet.php:378
 msgid "The SMS was NOT sent."
-msgstr "Sporočilo ni bilo poslano."
+msgstr "Sporočilo NI bilo poslano."
 
 #: web/admin/edit_silverbullet.php:378
 msgid "SMS not OK."
-msgstr "Sporočilo ni OK."
+msgstr "Sporočilo ni v redu."
 
 #: web/admin/edit_silverbullet.php:381
 msgid "Only a fragment of the SMS was sent. You should re-send it."
-msgstr "Poslan je bil samo del sporočila. Pošljite ga ponovno."
+msgstr "Poslan je bil samo del sporočila. Pošljite ga znova."
 
 #: web/admin/edit_silverbullet.php:381
 msgid "SMS Fragment."
@@ -1257,7 +1309,7 @@ msgstr "Del sporočila."
 #: web/admin/edit_silverbullet.php:388
 #, php-format
 msgid "Manage %s users"
-msgstr "Upravljanje %s uporabnikov"
+msgstr "Upravljanje uporabnikov %s"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
 #: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
@@ -1266,7 +1318,7 @@ msgstr "Uporabnik"
 
 #: web/admin/edit_silverbullet.php:395
 msgid "Token/Certificate details"
-msgstr "Žeton/Podatki o certifikatu"
+msgstr "Podrobnosti žetona/potrdila"
 
 #: web/admin/edit_silverbullet.php:396
 msgid "User/Token Expiry"
@@ -1275,23 +1327,23 @@ msgstr "Potek uporabnika/žetona"
 #: web/admin/edit_silverbullet.php:397 web/admin/edit_silverbullet.php:404
 #: web/admin/inc/manageAdmins.inc.php:167
 msgid "Actions"
-msgstr "Akcije"
+msgstr "Dejanja"
 
 #: web/admin/edit_silverbullet.php:402
 msgid "Certificate details"
-msgstr ""
+msgstr "Podrobnosti potrdila"
 
 #: web/admin/edit_silverbullet.php:403
 msgid "User Expiry"
-msgstr ""
+msgstr "Potek uporabnika"
 
 #: web/admin/edit_silverbullet.php:445
 msgid "REVOKED"
-msgstr "Preklican."
+msgstr "PREKLICAN"
 
 #: web/admin/edit_silverbullet.php:450
 msgid "EXPIRED"
-msgstr "Potekel."
+msgstr "POTEKEL"
 
 #: web/admin/edit_silverbullet.php:461
 msgid "Device:"
@@ -1307,11 +1359,11 @@ msgstr "CN:"
 
 #: web/admin/edit_silverbullet.php:464
 msgid "Expiry:"
-msgstr "Trajanje:"
+msgstr "Potek:"
 
 #: web/admin/edit_silverbullet.php:465
 msgid "Issued:"
-msgstr "Izdan:"
+msgstr "Izdano:"
 
 #: web/admin/edit_silverbullet.php:477
 #, php-format
@@ -1319,6 +1371,8 @@ msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"Zadevna naprava bo prenehala delovati s %s. Preklica ni mogoče razveljaviti. "
+"Ste prepričani, da želite izvesti to dejanje?"
 
 #: web/admin/edit_silverbullet.php:478 web/admin/edit_silverbullet.php:550
 msgid "Revoke"
@@ -1328,24 +1382,26 @@ msgstr "Prekliči"
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(show %d revoked certificate)"
+msgstr[1] "(show %d revoked certificates)"
+msgstr[2] "(show %d revoked certificates)"
+msgstr[3] "(pokaži preklicana potrdila %d)"
 
 #: web/admin/edit_silverbullet.php:505
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(show %d expired certificate)"
+msgstr[1] "(show %d expired certificates)"
+msgstr[2] "(show %d expired certificates)"
+msgstr[3] "(pokaži potekla potrdila %d)"
 
 #: web/admin/edit_silverbullet.php:519
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
+"Žeton vabila %s je pripravljen za pošiljanje. Izberite, kako ga želite "
+"poslati:"
 
 #: web/admin/edit_silverbullet.php:521
 msgid "E-Mail:"
@@ -1357,19 +1413,19 @@ msgstr "Lokalni poštni odjemalec"
 
 #: web/admin/edit_silverbullet.php:526
 msgid "Send with CAT"
-msgstr ""
+msgstr "Pošlji s CAT"
 
 #: web/admin/edit_silverbullet.php:529
 msgid "SMS:"
-msgstr ""
+msgstr "SMS:"
 
 #: web/admin/edit_silverbullet.php:533
 msgid "Send in SMS..."
-msgstr "Pošlji kot sporočilo."
+msgstr "Pošlji v sporočilu SMS ..."
 
 #: web/admin/edit_silverbullet.php:536
 msgid "Manual:"
-msgstr ""
+msgstr "Ročno:"
 
 #: web/admin/edit_silverbullet.php:537
 msgid "Copy to Clipboard"
@@ -1377,11 +1433,11 @@ msgstr "Kopiraj v odložišče"
 
 #: web/admin/edit_silverbullet.php:540
 msgid "Display QR code"
-msgstr "Prikaži QR kodo"
+msgstr "Prikaži kodo QR"
 
 #: web/admin/edit_silverbullet.php:546
 msgid "Expiry Date:"
-msgstr "Datum poteka"
+msgstr "Datum poteka:"
 
 #: web/admin/edit_silverbullet.php:546
 msgid "Activations remaining:"
@@ -1394,7 +1450,7 @@ msgstr "%d od %d"
 
 #: web/admin/edit_silverbullet.php:569
 msgid "Update"
-msgstr ""
+msgstr "Posodobi"
 
 #: web/admin/edit_silverbullet.php:576
 #, php-format
@@ -1404,6 +1460,10 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"Vse trenutno aktivne naprave bodo prenehale delovati s %s. Tega ni mogoče "
+"razveljaviti. Uporabnika sicer lahko znova aktivirate pozneje, vendar mu "
+"morate zagotoviti nove žetone vabil. Ste prepričani, da želite izvesti to "
+"dejanje?"
 
 #: web/admin/edit_silverbullet.php:585
 msgid "Deactivate User"
@@ -1411,12 +1471,12 @@ msgstr "Deaktiviraj uporabnika"
 
 #: web/admin/edit_silverbullet.php:590
 msgid "Show Authentication Records"
-msgstr ""
+msgstr "Pokaži zapise preverjanja pristnosti"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:595
 msgid "New Invitation"
-msgstr "Novo povabilo"
+msgstr "Novo vabilo"
 
 #: web/admin/edit_silverbullet.php:596
 msgid "Activations:"
@@ -1425,15 +1485,15 @@ msgstr "Aktivacije:"
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:603
 msgid "Delete User"
-msgstr ""
+msgstr "Izbriši uporabnika"
 
 #: web/admin/edit_silverbullet.php:619
 msgid "Current Users"
-msgstr ""
+msgstr "Trenutni uporabniki"
 
 #: web/admin/edit_silverbullet.php:622
 msgid "Previous Users"
-msgstr ""
+msgstr "Prejšnji uporabniki"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:631
@@ -1445,45 +1505,44 @@ msgid ""
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
-"Zavedati se morate, da so ustvarjeni računi še vedno veljavni naslednjih %s "
-"dni. Če so vsi zgoraj prikazani računi, še vedno veljavni, prosimo potrdite "
-"s kljukico spodnje polje in pritisnite »Shrani«. Če so kateri koli zgoraj "
-"prikazani računi zastareli, jih izklopite s pritiskom ustreznega gumba, "
-"preden pritisnite »Shrani«."
+"Zavedati se morate, da so ustvarjeni računi veljavni še toliko dni: %s. Če "
+"so vsi zgoraj prikazani računi še vedno aktivni, označite spodnje polje in "
+"pritisnite »Shrani«. Če so kateri koli zgoraj prikazani računi zastareli, "
+"jih pred tem izklopite s pritiskom ustreznega gumba."
 
 #: web/admin/edit_silverbullet.php:639
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
-"Preveril sem, da so vsi konfigurirani uporabniki še vedno upravičeni do %s."
+"Preveril sem, ali so vsi konfigurirani uporabniki še vedno upravičeni do %s."
 
 #: web/admin/edit_silverbullet.php:641
 msgid "Save"
-msgstr ""
+msgstr "Shrani"
 
 #: web/admin/edit_silverbullet.php:651 web/admin/edit_silverbullet.php:666
 msgid "Add new user"
-msgstr "Dodaj novega uporabnika."
+msgstr "Dodaj novega uporabnika"
 
 #: web/admin/edit_silverbullet.php:654
 msgid "Import users from CSV file"
-msgstr "Uvozite uporabnike iz CSV datodeke"
+msgstr "Uvozi uporabnike iz datoteke CSV"
 
 #: web/admin/edit_silverbullet.php:661
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
-"Da ustvarite novega uporabnika, prosimo vtipkajte želeno uporabniško ime in "
-"datum poteka veljavnosti."
+"Če želite ustvariti novega uporabnika, vnesite želeno uporabniško ime in "
+"datum poteka."
 
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
-"V CSV datoteki je potrebno navesti vrednosti, ločene z vejico: uporabniško "
-"ime, datum poteka veljavnosti \"yyyy-mm-dd\", število žetonov (neobvezno):"
+"V datoteki CSV morate podati z vejicami razmejene vrednosti: uporabniško "
+"ime, datum poteka v obliki \"llll-mm-dd\", število žetonov (neobvezno):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
@@ -1492,7 +1551,7 @@ msgstr "Uvozi uporabnike"
 #: web/admin/edit_silverbullet.php:718
 #, php-format
 msgid "Back to %s page"
-msgstr ""
+msgstr "Nazaj na stran %s"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
@@ -1508,66 +1567,67 @@ msgstr "Vaši atributi"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr "Atributi uporabnika - povzetek vnešenih podatkov"
+msgstr "Atributi uporabnika – povzetek vnesenih podatkov"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr "Stran je bila odprta z nepopolnimi parametri. Prijavite to kot napako."
+msgstr ""
+"Stran je bila poklicana z nezadostnimi podatki. Prijavite to kot napako."
 
 #: web/admin/edit_user_result.php:38
 msgid "Submitted attributes"
-msgstr "Vpisani atributi"
+msgstr "Poslani atributi"
 
 #: web/admin/edit_user_result.php:72
 msgid "Submitted attributes for this user"
-msgstr ""
+msgstr "Poslani atributi za tega uporabnika"
 
 #: web/admin/edit_user_result.php:88
 msgid "Continue to user overview page"
-msgstr "Nadaljuj na pregledno stran uporabnika"
+msgstr "Nadaljuj na stran s pregledom uporabnika"
 
 #. Logout failed. Tell the user to close the browser.
 #: web/admin/logout_check.php:47
 msgid "Incomplete Logout"
-msgstr "Nepopolna odjava."
+msgstr "Nepopolna odjava"
 
 #: web/admin/logout_check.php:48
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
-"Nismo vas mogli odjaviti iz vseh vaših sej. Če želite biti popolnoma "
-"prepričani, da ste se odjavili, morate zapreti spletni brskalnik."
+"Nismo vas mogli odjaviti iz vseh vaših sej. Če se želite prepričati, da ste "
+"odjavljeni, morate zapreti spletni brskalnik."
 
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "Informacije o potrdilu za %s %s"
 
 #: web/admin/overview_certificates.php:92
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Zahteva za novo potrdilo"
 
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
-msgstr "%s:%s Upravljanje"
+msgstr "Upravljanje %s:%s"
 
 #: web/admin/overview_federation.php:47 web/admin/overview_org.php:528
 #: web/admin/overview_sp.php:77
 #, php-format
 msgid "%s Overview"
-msgstr "%s Pregled"
+msgstr "Pregled %s"
 
 #: web/admin/overview_federation.php:51 web/admin/overview_user.php:50
 msgid "Your Personal Information"
-msgstr "Vaše osebne informacije"
+msgstr "Vaši osebni podatki"
 
 #: web/admin/overview_federation.php:62 web/admin/overview_user.php:64
 msgid "Unique Identifier"
-msgstr "Enolični ID"
+msgstr "Edinstveni identifikator"
 
 #: web/admin/overview_federation.php:67 web/admin/overview_user.php:69
 msgid "click to display"
@@ -1576,12 +1636,12 @@ msgstr "kliknite za prikaz"
 #: web/admin/overview_federation.php:77
 #, php-format
 msgid "You are not a %s manager."
-msgstr "Niste %s uporavitelj."
+msgstr "Niste upravitelj za %s."
 
 #: web/admin/overview_federation.php:88
 #, php-format
 msgid "%s Properties: %s"
-msgstr "%s Lasnosti: %s"
+msgstr "Lastnosti %s: %s"
 
 #: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
@@ -1590,11 +1650,11 @@ msgstr "Država"
 #: web/admin/overview_federation.php:124
 #, php-format
 msgid "%s Statistics: %s"
-msgstr "%s Statistika: %s"
+msgstr "Statistični podatki %s: %s"
 
 #: web/admin/overview_federation.php:129
 msgid "IdPs Total"
-msgstr "Skupaj IdP-jev"
+msgstr "Skupno število ponudnikov identitete"
 
 #: web/admin/overview_federation.php:130
 msgid "Public Download"
@@ -1614,7 +1674,7 @@ msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Sporočilo je bilo poslano preko šifrirane povezave"
 msgstr[1] "Sporočila so bila poslana preko šifrirane povezave"
 msgstr[2] "Sporočila so bila poslana preko šifrirane povezave."
-msgstr[3] "Sporočila so bila poslana preko šifrirane povezave"
+msgstr[3] "Sporočila so bila poslana z varnim prenosom (šifriranjem)."
 
 #: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
@@ -1622,15 +1682,15 @@ msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Sporočilo je bilo poslano preko šifrirane povezave"
 msgstr[1] "Sporočila so bila poslana preko šifrirane povezave"
 msgstr[2] "Sporočila so bila poslana preko šifrirane povezave"
-msgstr[3] "Sporočila so bila poslana brez šifrirane povezave."
+msgstr[3] "Sporočila so bila poslana kot čisto besedilo (brez šifriranja)."
 
 #: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
-"Podskupina elektronskih sporočil je bila poslana s šifrirano povezavo, "
-"ostala pa ne."
+"Podnabor elektronskih sporočil je bil poslan s šifrirano povezavo, ostala pa "
+"kot čisto besedilo."
 
 #: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
@@ -1638,19 +1698,19 @@ msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "E-pošta s povabilom je bila uspešno odposlana."
 msgstr[1] "E-pošta s povabili je bila uspešno odposlana."
 msgstr[2] "E-pošta s povabili je bila uspešno odposlana."
-msgstr[3] "E-pošta s povabili je bila uspešno odposlana."
+msgstr[3] "Vsa e-poštna vabila so bila uspešno poslana."
 
 #: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
-msgstr "Poslano uspešno."
+msgstr "Uspešno poslano"
 
 #: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
-msgstr "Elektronska povabila niso bila poslana."
+msgstr "Elektronska vabila niso bila poslana."
 
 #: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
-msgstr "Napaka v pošiljanju"
+msgstr "Napaka pri pošiljanju."
 
 #: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
@@ -1663,7 +1723,7 @@ msgstr[1] ""
 msgstr[2] ""
 "Uspešno poslana sporočila so bila odposlana preko šifrirane povezave."
 msgstr[3] ""
-"Uspešno poslana sporočila so bila odposlana preko šifrirane povezave."
+"Uspešno poslana sporočila so bila poslana z varnim prenosom (šifriranjem)."
 
 #: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
@@ -1678,16 +1738,16 @@ msgstr[2] ""
 "Uspešno poslana sporočila so bila odposlana preko klasične povezave (ni "
 "šifrirano)."
 msgstr[3] ""
-"Uspešno poslana sporočila so bila odposlana preko klasične povezave (ni "
-"šifrirano)."
+"Uspešno poslana sporočila so bila poslana kot čisto besedilo (brez "
+"šifriranja)."
 
 #: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
-"Podskupina uspešno poslanih elektronskih sporočil je bila poslana s "
-"šifrirano povezavo, ostala ne."
+"Podnabor uspešno poslanih elektronskih sporočil je bil poslan s šifrirano "
+"povezavo, ostala pa kot čisto besedilo."
 
 #: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
@@ -1695,54 +1755,54 @@ msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
-"Nekatera e-poštna sporočila vabila so bila uspešno poslana (%s skupaj), "
-"druga niso bila odposlana."
+"Nekatera e-poštna vabila so bila uspešno poslana (skupaj %s), druga pa ne."
 
 #: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
-msgstr "Delni uspeh"
+msgstr "Delno uspešno."
 
 #: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr "Elektronski naslov je nepravilen. Povabilo ni bilo poslano."
+msgstr "Elektronski naslov je napačen. Vabilo ni bilo poslano."
 
 #: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
-msgstr "Napaka: nepoznana koda povabila!?!"
+msgstr "Napaka: neznana koda vabila."
 
 #: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
-msgstr "Nepoznan rezultat!"
+msgstr "Nepoznan rezultat."
 
 #: web/admin/overview_federation.php:221
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
+"Diagnosticirajte dosegljivost in parametre povezave za kateri koli %s %s"
 
 #: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
-msgstr "Pojdi!"
+msgstr "Naprej."
 
 #: web/admin/overview_federation.php:231
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
-msgstr "Potrebujete pomoč? Pomagajte si s <a href='%s'>%s priročnikom</a>"
+msgstr "Potrebujete pomoč? Pomagajte si s <a href='%s'>priročnikom za %s</a>"
 
 #: web/admin/overview_federation.php:237
 msgid "Participant Details"
-msgstr ""
+msgstr "Podrobnosti udeleženca"
 
 #: web/admin/overview_federation.php:239
 msgid "Configured / Visible / OpenRoaming"
-msgstr ""
+msgstr "Konfigurirano/vidno/OpenRoaming"
 
 #: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
-#: web/lib/admin/UIElements.php:132
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
-msgstr "%s Ime"
+msgstr "Ime %s"
 
 #: web/admin/overview_federation.php:246
 #, php-format
@@ -1751,7 +1811,7 @@ msgstr "Status sinhronizacije baze podatkov %s"
 
 #: web/admin/overview_federation.php:252
 msgid "Administrator Management"
-msgstr "Upravljanje skrbnika"
+msgstr "Upravljanje skrbnikov"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
 #: web/admin/overview_federation.php:261
@@ -1761,47 +1821,47 @@ msgstr "Naslednji %s so v %s%s:"
 
 #: web/admin/overview_federation.php:330
 msgid "Manage DB Link"
-msgstr "Upravljaj povezavo baze"
+msgstr "Upravljanje povezave baze podatkov"
 
 #: web/admin/overview_federation.php:336
 msgid "Linked"
-msgstr "Povezan"
+msgstr "Povezana"
 
 #: web/admin/overview_federation.php:339
 msgid "NOT linked"
-msgstr "NI povezan"
+msgstr "Nepovezana"
 
 #: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
-msgstr "Dodaj/odstrani skrbnika"
+msgstr "Dodaj/odstrani skrbnike"
 
 #: web/admin/overview_federation.php:367
 #, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Čakajoča povabila v %s:"
+msgstr "Čakajoča vabila v %s:"
 
 #: web/admin/overview_federation.php:384
 msgid "Revoke Invitation"
-msgstr "Prekliči povabilo"
+msgstr "Prekliči vabilo"
 
 #: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(poteče %s)"
 
 #: web/admin/overview_federation.php:404
 #, php-format
 msgid "Register a new %s!"
-msgstr "Registriraj novega %s!"
+msgstr "Registriraj novega %s."
 
 #: web/admin/overview_installers.php:27
 msgid "Device Compatibility matrix"
-msgstr "Matrika združljivih naprav"
+msgstr "Matrika združljivosti naprav"
 
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
-msgstr "Matrika združljivih naprav za %s od %s"
+msgstr "Matrika združljivosti naprav za %s od %s"
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -1809,21 +1869,21 @@ msgstr "Naprava"
 
 #: web/admin/overview_installers.php:61
 msgid "EAP-Type-specific options..."
-msgstr "Nastavitve metode EAP…"
+msgstr "Možnosti, specifične za vrsto EAP ..."
 
 #: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
-msgstr "Nastavitve naprave…"
+msgstr "Možnosti, specifične za napravo …"
 
 #: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
-msgstr ""
+msgstr "Namestitveni program %s<br/>"
 
 #: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
-msgstr ""
+msgstr "Namestitveni program %s + OpenRoaming<br/>"
 
 #: web/admin/overview_installers.php:169
 msgid "Legend:"
@@ -1831,53 +1891,53 @@ msgstr "Legenda:"
 
 #: web/admin/overview_installers.php:173
 msgid "Colour"
-msgstr ""
+msgstr "Barva"
 
 #: web/admin/overview_installers.php:173
 msgid "Meaning"
-msgstr ""
+msgstr "Pomen"
 
 #: web/admin/overview_installers.php:174
 msgid "redirection is set"
-msgstr "nastavljena je preusmeritev"
+msgstr "preusmeritev je nastavljena"
 
 #: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
-msgstr "bo na voljo na strani za prenos"
+msgstr "bo na voljo na spletem mestu za prenos"
 
 #: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
-msgstr "nastavljena, vendar nezaželena metoda EAP"
+msgstr "je konfiguriran, vendar ni zaželena vrsta EAP"
 
 #: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
-msgstr "nepopolna nastavitev"
+msgstr "nepopolna konfiguracija"
 
 #: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
-msgstr "CAT metode ne podpira"
+msgstr "CAT ne zagotavlja podpore"
 
 #: web/admin/overview_installers.php:182
 msgid "Footnotes:"
-msgstr "Zabeležke:"
+msgstr "Sprotne opombe:"
 
 #: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
-msgstr "Nazaj v pregledno ploščo"
+msgstr "Nazaj na nadzorno ploščo"
 
 #: web/admin/overview_org.php:42 web/admin/overview_org.php:107
 msgid "Information needed!"
-msgstr "Pomanjkljive informacije!"
+msgstr "Potrebne so informacije."
 
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "You can create up to %d users."
-msgstr ""
+msgstr "Ustvarite lahko do toliko uporabnikov: %d."
 
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "Their credentials will carry the name <strong>%s</strong>."
-msgstr ""
+msgstr "Njihove poverilnice se bodo imenovale <strong>%s</strong>."
 
 #: web/admin/overview_org.php:62
 msgid "Manage User Base"
@@ -1890,19 +1950,19 @@ msgstr "Profil: %s"
 
 #: web/admin/overview_org.php:97
 msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr "<strong>Metode EAP</strong> (urejeno po prioriteti):"
+msgstr "<strong>Vrste EAP</strong> (v prednostnem vrstnem redu):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:418
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
-msgstr "OK"
+msgstr "V redu"
 
 #: web/admin/overview_org.php:123
 msgid "Options on EAP Method/Device level are in effect."
-msgstr "Na ravni metode EAP je v veljavi močnejša nastavitev."
+msgstr "V veljavi so možnosti na ravni metode EAP/naprave."
 
 #: web/admin/overview_org.php:133
 msgid "Option override on profile level is in effect."
-msgstr "Na ravni profila je v veljavi močenjša nastavitev."
+msgstr "V veljavi je prepis možnosti na ravni profila."
 
 #: web/admin/overview_org.php:136
 msgid "The information in this profile is incomplete."
@@ -1910,7 +1970,7 @@ msgstr "Informacije v tem profilu so nepopolne."
 
 #: web/admin/overview_org.php:140
 msgid "This profile is shown on the user download interface."
-msgstr "Ta profil je prikazan uporabnikom na strani za prenose."
+msgstr "Ta profil je prikazan v uporabniškem vmesniku za prenose."
 
 #: web/admin/overview_org.php:143
 #, php-format
@@ -1919,25 +1979,25 @@ msgid ""
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
 msgstr ""
-"Čeprav imamo vse potrebne informacije za prikaz, ta profil NI prikazan "
-"uporabnikom na strani za prenose. Za vključitev profila, dodajte atribut \"%s"
-"\" in ga ustrezno odkljukajte."
+"Čeprav imamo vse potrebne informacije za prikaz, ta profil NI prikazan v "
+"uporabniškem vmesniku za prenose. Če želite omogočiti profil, dodajte "
+"atribut \"%s\" in označite ustrezno polje."
 
 #: web/admin/overview_org.php:174
 msgid "The realm can only be checked if you configure the realm!"
-msgstr "Domeno lahko preverite le, če jo nastavite!"
+msgstr "Področje lahko preverite samo, če ga konfigurirate."
 
 #: web/admin/overview_org.php:175
 msgid "Check realm reachability"
-msgstr "Preveri dosegljivost domene"
+msgstr "Preveri dosegljivost področja"
 
 #: web/admin/overview_org.php:182
 msgid "You have not fully configured any supported EAP types!"
-msgstr "Niste nastavili nobene metode EAP!"
+msgstr "V celoti niste konfigurirali nobene podprte vrste EAP."
 
 #: web/admin/overview_org.php:183
 msgid "Installer Fine-Tuning and Download"
-msgstr "Podrobne nastavitve nameščevalnika in prenos"
+msgstr "Natančna nastavitev namestitvenega programa in prenos"
 
 #: web/admin/overview_org.php:192
 msgid "Edit"
@@ -1946,7 +2006,7 @@ msgstr "Uredi"
 #: web/admin/overview_org.php:195
 #, php-format
 msgid "Do you really want to delete the profile %s?"
-msgstr "Ali res želite zbrisati profil %s?"
+msgstr "Ali res želite izbrisati profil %s?"
 
 #: web/admin/overview_org.php:196
 msgid "Delete"
@@ -1954,243 +2014,251 @@ msgstr "Izbriši"
 
 #: web/admin/overview_org.php:245 web/admin/overview_sp.php:49
 msgid "Successfully set profile"
-msgstr ""
+msgstr "Uspešno nastavljen profil"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occured during profile update"
-msgstr ""
+msgstr "Med posodabljanjem profila je prišlo do nekaj težav"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
-msgstr ""
+msgstr "neaktivno"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "active"
-msgstr ""
+msgstr "aktivno"
 
 #: web/admin/overview_org.php:277
 msgid "Deployment Details"
-msgstr ""
+msgstr "Podrobnosti uvedbe"
 
 #: web/admin/overview_org.php:285 web/admin/overview_sp.php:155
 msgid "Your primary RADIUS server"
-msgstr ""
+msgstr "Primarni strežnik RADIUS"
 
 #: web/admin/overview_org.php:288 web/admin/overview_org.php:312
 #: web/admin/overview_sp.php:158 web/admin/overview_sp.php:182
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 #: web/admin/overview_org.php:294 web/admin/overview_org.php:318
 #: web/admin/overview_sp.php:164 web/admin/overview_sp.php:188
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 #: web/admin/overview_org.php:298 web/admin/overview_org.php:321
 #: web/admin/overview_sp.php:168 web/admin/overview_sp.php:191
 msgid "RADIUS port number: "
-msgstr ""
+msgstr "Številka vrat RADIUS:"
 
 #: web/admin/overview_org.php:309 web/admin/overview_sp.php:179
 msgid "Your backup RADIUS server"
-msgstr ""
+msgstr "Nadomestni strežnik RADIUS"
 
 #: web/admin/overview_org.php:333 web/admin/overview_sp.php:203
 msgid "RADIUS shared secret"
-msgstr ""
+msgstr "Skupna skrivnost RADIUS"
 
 #: web/admin/overview_org.php:339 web/admin/overview_sp.php:209
 msgid "Custom Operator-Name"
-msgstr ""
+msgstr "Ime operaterja po meri"
 
 #: web/admin/overview_org.php:347 web/admin/overview_sp.php:216
 msgid "VLAN tag for own users"
-msgstr ""
+msgstr "Oznaka VLAN za vaše uporabnike"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:144
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
-msgstr ""
+msgstr "Področje, o katerem razmislite za lastne uporabnike"
 
 #: web/admin/overview_org.php:366 web/admin/overview_sp.php:235
 msgid "Advanced Configuration"
-msgstr ""
+msgstr "Napredna konfiguracija"
 
 #: web/admin/overview_org.php:370 web/admin/overview_sp.php:239
 #, php-format
 msgid "Do you really want to deactivate the %s deployment?"
-msgstr ""
+msgstr "Ali res želite deaktivirati uvedbo %s?"
 
 #: web/admin/overview_org.php:371 web/admin/overview_sp.php:240
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktiviraj"
 
 #: web/admin/overview_org.php:379 web/admin/overview_sp.php:248
 msgid "Activation failure."
-msgstr ""
+msgstr "Napaka aktiviranja."
 
 #: web/admin/overview_org.php:382 web/admin/overview_sp.php:251
 msgid "Activation failure for your primary RADIUS server."
-msgstr ""
+msgstr "Napaka aktiviranja za primarni strežnik RADIUS."
 
 #: web/admin/overview_org.php:384 web/admin/overview_sp.php:253
 msgid "Activation failure for your backup RADIUS server."
-msgstr ""
+msgstr "Napaka aktiviranja za nadomestni strežnik RADIUS."
 
 #: web/admin/overview_org.php:396
 msgid "Accept Terms of Use"
-msgstr ""
+msgstr "Sprejmi pogoje uporabe"
 
 #: web/admin/overview_org.php:401 web/admin/overview_org.php:433
 #, php-format
 msgid "Do you really want to remove this %s deployment?"
-msgstr ""
+msgstr "Ali res želite odstraniti to uvedbo %s?"
 
 #: web/admin/overview_org.php:402 web/admin/overview_org.php:434
 msgid "Remove deployment"
-msgstr ""
+msgstr "Odstrani uvedbo"
 
 #: web/admin/overview_org.php:411 web/admin/overview_sp.php:265
 msgid "Activate"
-msgstr ""
+msgstr "Aktiviraj"
 
 #: web/admin/overview_org.php:419 web/admin/overview_sp.php:273
 msgid "Failure during deactivation, your request is queued for handling"
 msgstr ""
+"Napaka med deaktiviranjem. Vaša zahteva je uvrščena v čakalno vrsto "
+"obravnave."
 
 #: web/admin/overview_org.php:422 web/admin/overview_sp.php:276
 msgid ""
 "Deactivation failure for your primary RADIUS server, your request is queued."
 msgstr ""
+"Napaka deaktiviranja za primarni strežnik RADIUS. Vaša zahteva je bila "
+"uvrščena v čakalno vrsto."
 
 #: web/admin/overview_org.php:424 web/admin/overview_sp.php:278
 msgid ""
 "Deactivation failure for your backup RADIUS server, your request is queued."
 msgstr ""
+"Napaka deaktiviranja za nadomestni strežnik RADIUS. Vaša zahteva je bila "
+"uvrščena v čakalno vrsto."
 
 #: web/admin/overview_org.php:445
 msgid "Hotspot Usage Statistics"
-msgstr ""
+msgstr "Statistični podatki uporabe dostopne točke"
 
 #: web/admin/overview_org.php:447
 msgid "5 most recent authentications"
-msgstr ""
+msgstr "5 nedavnih preverjanj pristnosti"
 
 #: web/admin/overview_org.php:448 web/admin/inc/deploymentStats.inc.php:40
 msgid ""
 "(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
 "IPv6-Address/Called-Station-Id)"
 msgstr ""
+"(Identifikator dostopne točke je zbirka identifikatorjev NAS/naslovov IP NAS/"
+"naslovov IPv6 NAS/ID-ja poklicane postaje, ki je razmejena z znaki /)"
 
 #: web/admin/overview_org.php:452 web/admin/inc/deploymentStats.inc.php:44
 msgid "Timestamp (UTC)"
-msgstr ""
+msgstr "Časovni žig (UTC)"
 
 #: web/admin/overview_org.php:453 web/admin/inc/deploymentStats.inc.php:45
 msgid "Realm"
-msgstr ""
+msgstr "Področje"
 
 #: web/admin/overview_org.php:454 web/admin/inc/deploymentStats.inc.php:46
 #: web/admin/inc/userStats.inc.php:43
 msgid "MAC Address"
-msgstr ""
+msgstr "Naslov MAC"
 
 #: web/admin/overview_org.php:455 web/admin/inc/deploymentStats.inc.php:47
 msgid "Chargeable-User-Identity"
-msgstr ""
+msgstr "Plačljiva identiteta uporabnika"
 
 #: web/admin/overview_org.php:456 web/admin/inc/deploymentStats.inc.php:48
 #: web/admin/inc/userStats.inc.php:44
 msgid "Result"
-msgstr ""
+msgstr "Rezultat"
 
 #: web/admin/overview_org.php:457 web/admin/inc/deploymentStats.inc.php:49
 msgid "AP Identifier"
-msgstr ""
+msgstr "Identifikator dostopne točke"
 
 #: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Success"
-msgstr ""
+msgstr "Uspešno"
 
 #: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Failure"
-msgstr ""
+msgstr "Neuspešno"
 
 #: web/admin/overview_org.php:474
 msgid "Last hour"
-msgstr ""
+msgstr "Zadnja ura"
 
 #: web/admin/overview_org.php:477
 msgid "Last 30 days"
-msgstr ""
+msgstr "Zadnjih 30 dni"
 
 #: web/admin/overview_org.php:480
 msgid "Last 6 months"
-msgstr ""
+msgstr "Zadnjih 6 mesecev"
 
 #: web/admin/overview_org.php:503 web/admin/overview_sp.php:44
 #, php-format
 msgid "%s: %s Dashboard"
-msgstr ""
+msgstr "%s: Nadzorna plošča %s"
 
 #: web/admin/overview_org.php:531 web/admin/overview_sp.php:79
 #, php-format
 msgid "%s general settings"
-msgstr "%s splošne nastavitve."
+msgstr "Splošne nastavitve %s"
 
 #: web/admin/overview_org.php:533
 msgid "Edit ..."
-msgstr ""
+msgstr "Uredi ..."
 
 #: web/admin/overview_org.php:556 web/admin/overview_org.php:662
 #, php-format
 msgid "%s: %s Deployment Details"
-msgstr ""
+msgstr "%s: Podrobnosti uvedbe %s"
 
 #: web/admin/overview_org.php:582
 #, php-format
 msgid "Add %s profile ..."
-msgstr "Dodaj %s profil..."
+msgstr "Dodaj profil %s ..."
 
 #: web/admin/overview_org.php:597
 msgid "New RADIUS/EAP profile (manual setup) ..."
-msgstr ""
+msgstr "Nov profil RADIUS/EAP (ročna nastavitev) ..."
 
 #: web/admin/overview_org.php:604
 msgid "New RADIUS/EAP profile (autodetect server details) ..."
-msgstr ""
+msgstr "Nov profil RADIUS/EAP (samodejno zaznane podrobnosti strežnika) ..."
 
 #. no profiles yet.
 #: web/admin/overview_org.php:615
 #, php-format
 msgid "There are not yet any profiles for your %s."
-msgstr "Za vas še ni %s profila."
+msgstr "Za vaš %s še ni na voljo profilov."
 
 #: web/admin/overview_org.php:640
 msgid "User Downloads"
-msgstr "Prenosi uporabnikov"
+msgstr "Uporabniški prenosi"
 
 #: web/admin/overview_org.php:673 web/admin/overview_sp.php:309
 #, php-format
 msgid "Add %s deployment ..."
-msgstr ""
+msgstr "Dodaj uvedbo %s ..."
 
 #: web/admin/overview_org.php:677
 msgid "Helpdesk mail address is required but missing!"
-msgstr ""
+msgstr "Poštni naslov službe za pomoč uporabnikom je zahtevan, vendar manjka."
 
 #. no profiles yet.
 #: web/admin/overview_org.php:708 web/admin/overview_sp.php:130
 #, php-format
 msgid "There are not yet any known deployments for your %s."
-msgstr ""
+msgstr "Za vaš %s še ni znanih uvedb."
 
 #: web/admin/overview_sp.php:81
 #, php-format
 msgid "Edit general %s details"
-msgstr "Uredi splošne nastavitve %s"
+msgstr "Uredi splošne podrobnosti %s"
 
 #: web/admin/overview_sp.php:100
 msgid "Available Support actions"
@@ -2199,19 +2267,19 @@ msgstr "Možni načini podpore"
 #: web/admin/overview_sp.php:105
 #, php-format
 msgid "Diagnose reachability and connection parameters of %ss"
-msgstr ""
+msgstr "Diagnosticirajte dosegljivost in parametre povezave za %ss"
 
 #. SW: APPROVED
 #: web/admin/overview_sp.php:116
 #, php-format
 msgid "Check %s server status"
-msgstr "Preverite stanje %s strežnika"
+msgstr "Preverite stanje strežnika %s"
 
 #. no profiles yet.
 #: web/admin/overview_sp.php:133
 #, php-format
 msgid "Deployments for this %s"
-msgstr ""
+msgstr "Uvedba za ta %s"
 
 #: web/admin/overview_user.php:30
 #, php-format
@@ -2229,16 +2297,16 @@ msgstr "Uredi podrobnosti uporabnika"
 #: web/admin/overview_user.php:81
 #, php-format
 msgid "Click here for %s management tasks"
-msgstr "kliknite tukaj za %s upravljanje nalog."
+msgstr "Kliknite tukaj za naloge upravljanja %s"
 
 #: web/admin/overview_user.php:84
 msgid "Click here to access the superadmin page"
-msgstr "Kliknite tukaj za dostop do strani superskrbnik "
+msgstr "Kliknite tukaj za dostop do strani nadskrbnika"
 
 #: web/admin/overview_user.php:97
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
-msgstr ""
+msgstr "(Potrebujete pomoč? Glejte <a href='%s'>priročnik za skrbnike %s</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:106
@@ -2247,41 +2315,41 @@ msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Upravljate naslednje  <span style='display:none'>%d</span>%s :"
 msgstr[1] "Upravljate naslednje <span style='display:none'>%d</span>%s :"
-msgstr[2] "Upravljate naslednje <span style='display:none'>%d</span>%s :"
+msgstr[2] "Upravljate naslednje <strong>%d</strong> %s:"
 msgstr[3] "Upravljate naslednje <strong>%d</strong>%s:"
 
 #: web/admin/overview_user.php:129
 #, php-format
 msgid "%s Management Overview"
-msgstr ""
+msgstr "Pregled upravljanja %s"
 
 #: web/admin/overview_user.php:132
 #, php-format
 msgid "Other admins of this %s"
-msgstr "Drugi skrbniki %s"
+msgstr "Drugi skrbniki za ta %s"
 
 #: web/admin/overview_user.php:135
 msgid "Management"
-msgstr ""
+msgstr "Upravljanje"
 
 #: web/admin/overview_user.php:142
 msgid "Danger Zone"
-msgstr ""
+msgstr "Nevarno območje"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:154
 #, php-format
 msgid "%s %s: %s list"
-msgstr "%s%s: %s seznam"
+msgstr "Seznam %s%s: %s"
 
 #: web/admin/overview_user.php:192
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "You and %d other user"
+msgstr[1] "You and %d other users"
+msgstr[2] "You and %d other users"
+msgstr[3] "Vi in še toliko drugih uporabnikov: %d"
 
 #: web/admin/overview_user.php:206
 #, php-format
@@ -2290,7 +2358,7 @@ msgid ""
 "invitation token from the %s administrator!"
 msgstr ""
 "Ko izbrišete %s, ga ne morete ponovno ustvariti sami. Potrebujete nov žeton "
-"povabila od %s skrbnika."
+"vabila, ki vam ga bo poslal skrbnik za %s."
 
 #: web/admin/overview_user.php:206
 #, php-format
@@ -2309,13 +2377,13 @@ msgid ""
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
-"To dejanje bo izbrisalo vse lastnosti %s in ponovno začelo izvajati "
-"konfiguracijo od začetka. Ali res želite ponastaviti vse nastavitve za %s%s?"
+"S tem dejanjem boste izbrisali vse lastnosti %s in vzpostavili konfiguracijo "
+"od začetka. Ali res želite ponastaviti vse nastavitve za %s%s?"
 
 #: web/admin/overview_user.php:209
 #, php-format
 msgid "Reset all %s settings"
-msgstr "Ponastavi vse %s nastavitve"
+msgstr "Ponastavi vse nastavitve %s"
 
 #: web/admin/overview_user.php:221
 #, php-format
@@ -2326,29 +2394,28 @@ msgstr "Ne upravljate nobenega %s."
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
-msgstr ""
-"Prosim vas, da svojega %s skrbnika pozovete, da vam dodeli pravice kot %s "
-"skrbnik."
+msgstr "Svojega skrbnika za %s prosite, da vas povabi kot skrbnika za %s."
 
 #: web/admin/overview_user.php:229
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr "Ste prejeli povabilo, da upravljate s%s? Prosim prilepite ga tu:"
+msgstr ""
+"Ali ste prejeli žeton vabila za upravljanje %s? Prilepite ga na to mesto:"
 
 #: web/admin/overview_user.php:241
 #, php-format
 msgid "New %s Registration"
-msgstr "Nova %s registracija."
+msgstr "Nova registracija %s"
 
 #: web/admin/inc/deploymentStats.inc.php:39
 msgid "Deployment Usage Records"
-msgstr ""
+msgstr "Zapisi uporabe uvedbe"
 
 #: web/admin/inc/displayQRcode.inc.php:41
 #: web/admin/inc/displayQRcode.inc.php:42
 msgid "Invitation Token QR Code"
-msgstr "QR koda vabila"
+msgstr "QR koda žetona vabila"
 
 #: web/admin/inc/manageAdmins.inc.php:57
 #, php-format
@@ -2356,13 +2423,13 @@ msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
 "In fact, you shouldn't have come this far!"
 msgstr ""
-"Nimate potrebnih pravic za urejanje skrbnikov tega %s. Pravzaprav ne bi "
-"smeli biti tu."
+"Nimate potrebnih privilegijev za spreminjanje skrbnikov tega %s. Pravzaprav "
+"sploh ne bi smeli priti tako daleč."
 
 #: web/admin/inc/manageAdmins.inc.php:94
 #, php-format
 msgid "Administrators for IdP '%s'"
-msgstr "Skrbniki za IdP '%s'"
+msgstr "Skrbniki za ponudnika identitete '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:153
 #, php-format
@@ -2370,13 +2437,13 @@ msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
-"Ste %s skrbnik. Povabite lahko nove skrbnike, ki lahko samostojno določijo "
-"nove skrbnike."
+"Ste skrbnik za %s. Povabite lahko nove skrbnike, ki lahko samostojno "
+"določijo nove skrbnike."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:123
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
-msgstr "%s Skrbnik"
+msgstr "Skrbnik za %s"
 
 #: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
@@ -2385,8 +2452,8 @@ msgid ""
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
-"S strani %s skrbnika ste bili neposredno določeni za skrbnika. Lahko dodate "
-"nove skrbnike, toda ti ne morejo dodajati novih skrbnikov."
+"Ste skrbnik, ki ga je neposredno imenoval skrbnik za %s. Dodate lahko nove "
+"skrbnike, vendar ti ne morejo dodajati novih skrbnikov."
 
 #: web/admin/inc/manageAdmins.inc.php:159
 msgid "Directly Appointed Administrator"
@@ -2399,27 +2466,27 @@ msgstr "Uporabnik brez imena"
 #: web/admin/inc/manageAdmins.inc.php:180
 #, php-format
 msgid "(originally invited as %s)"
-msgstr "(povabljen kot %s)"
+msgstr "(izvirno povabljen kot %s)"
 
 #: web/admin/inc/manageAdmins.inc.php:182
 msgid "(self-appointed)"
-msgstr "(samo-oklican)"
+msgstr "(lastnoročno imenovan)"
 
 #: web/admin/inc/manageAdmins.inc.php:194
 msgid "Delete Administrator"
-msgstr "Odstrani skrbnika"
+msgstr "Izbriši skrbnika"
 
 #: web/admin/inc/manageAdmins.inc.php:199
 msgid "Enter Organisation"
-msgstr ""
+msgstr "Vnesite organizacijo"
 
 #: web/admin/inc/manageAdmins.inc.php:214
 msgid "Pending invitations for this IdP"
-msgstr "Odprta povabila za ta IdP"
+msgstr "Čakajoča vabila za tega ponudnika identitete"
 
 #: web/admin/inc/manageAdmins.inc.php:225
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr "Novi elektronski naslovi skrbnikov (ločeni z vejico):"
+msgstr "Novi elektronski naslovi skrbnikov (razmejeni z vejico):"
 
 #: web/admin/inc/manageAdmins.inc.php:225
 msgid "Invite new administrator"
@@ -2428,7 +2495,7 @@ msgstr "Povabi novega skrbnika"
 #: web/admin/inc/manageAdmins.inc.php:239
 #, php-format
 msgid "Take control of this %s"
-msgstr "Prevzemite nadzor nad %s"
+msgstr "Prevzemite nadzor nad tem %s"
 
 #: web/admin/inc/manageAdmins.inc.php:246
 #: web/admin/inc/manageDBLink.inc.php:203
@@ -2441,34 +2508,38 @@ msgstr "Zapri"
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr "Nimate ustreznih pravic za upravljanje %s DB stanja povezave %s."
+msgstr ""
+"Nimate potrebnih pravic za upravljanje stanja povezave baze podatkov %s za "
+"ta %s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr "%s status povezave z bazo podatkov za IdP '%s'"
+msgstr "Stanje povezave baze podatkov %s za ponudnika identitete '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr "Ta %s je povezana s %s bazo podatkov."
+msgstr "Ta %s je povezan z bazo podatkov %s."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
-msgstr "Naslednje informacije o IdP so shranjene v bazi %s in bazi %s:"
+msgstr ""
+"Naslednje informacije o ponudniku identitete so shranjene v bazi podatkov %s "
+"in bazi podatkov %s:"
 
 #: web/admin/inc/manageDBLink.inc.php:97
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
-msgstr "Podatki v <strong>bazi podatkov %s</strong>"
+msgstr "Informacije v <strong>bazi podatkov %s</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:109
 #: web/admin/inc/manageDBLink.inc.php:135
 #, php-format
 msgid "%s Name (%s)"
-msgstr "%s Ime (%s)"
+msgstr "Ime %s (%s)"
 
 #: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:78
 msgid "Unnamed User"
@@ -2493,25 +2564,25 @@ msgstr "Odstrani povezavo"
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr "Ta %s še ni povezana s%s bazo podatkov."
+msgstr "Ta %s še ni povezan z bazo podatkov%s."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
 msgstr ""
-"To pomeni, da njeni profili niso na voljo na uporabniški strani za prenos."
+"To pomeni, da njegovi profili niso na voljo na uporabniški strani za prenose."
 
 #: web/admin/inc/manageDBLink.inc.php:151
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr "Lahko jo povežete z bazo podatkov %s spodaj."
+msgstr "Povežete ga lahko s spodnjo bazo podatkov %s."
 
 #: web/admin/inc/manageDBLink.inc.php:154
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr "Prosim izberite entiteto iz %s DB, ki ustreza CAT %s"
+msgstr "V bazi podatkov %s izberite entiteto, ki ustreza temu CAT %s."
 
 #: web/admin/inc/manageDBLink.inc.php:156
 #, php-format
@@ -2519,21 +2590,21 @@ msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
 msgstr ""
-"Posebno obetavni vnosi  (imena v CAT in bazi %s se 100%% ujemajo), so na "
-"vrhu seznama."
+"Posebno obetavni vnosi (imena v CAT in bazi podatkov %s se 100 %% ujemajo) "
+"so na vrhu seznama."
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Link to this entity?"
-msgstr "Povžem s to entiteto?"
+msgstr "Se želite povezati s to entiteto?"
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Administrators"
-msgstr "Skrbnik"
+msgstr "Skrbniki"
 
 #: web/admin/inc/manageDBLink.inc.php:192
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
-msgstr "V zunanji podatkovni bazi za %s to ni nobenih enot %s!"
+msgstr "V zunanji bazi podatkov ni nobenega nepreslikanega %s za ta %s."
 
 #: web/admin/inc/manageDBLink.inc.php:194
 msgid "Create Link"
@@ -2542,12 +2613,12 @@ msgstr "Ustvari povezavo"
 #: web/admin/inc/manageNewInst.inc.php:48
 #, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr "Nimate ustreznik pravic za registracijo novega %s"
+msgstr "Nimate ustreznih privilegijev za registracijo novih %s."
 
 #: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid "%s - Register new %s"
-msgstr "%s - Registrirajte novega %s"
+msgstr "%s – Registrirajte novega %s"
 
 #: web/admin/inc/manageNewInst.inc.php:58
 #, php-format
@@ -2555,8 +2626,8 @@ msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
-"Na tej strani lahko dodate nove %s v vašo %s. Prosimo izpolnite spodnji "
-"obrazec, da pošljete povabilo novemu %s skrbniku."
+"Na tej strani lahko dodate nove %s v svoj %s. Izpolnite spodnji obrazec, da "
+"pošljete e-poštno vabilo novemu skrbniku za %s."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 #, php-format
@@ -2564,8 +2635,8 @@ msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
-"Lahko registrirate znani %s ( kot je določeno v %s bazi podatkov) ali "
-"ustvarite popolnoma nove %s."
+"Registrirate lahko znan %s (kot je določen v bazi podatkov %s) ali ustvarite "
+"povsem nov %s."
 
 #: web/admin/inc/manageNewInst.inc.php:61
 #, php-format
@@ -2573,16 +2644,16 @@ msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
-"Slednji je običajno za %s, ki je ševedno v fazi testiranja in tako ni viden "
-"v %s bazi podatkov."
+"Slednji je običajno namenjen za %s, ki je še vedno v fazi preskušanja, zato "
+"še ni viden v bazi podatkov %s."
 
 #: web/admin/inc/manageNewInst.inc.php:68
 msgid "Invitation Details"
-msgstr ""
+msgstr "Podrobnosti vabila"
 
 #: web/admin/inc/manageNewInst.inc.php:70
 msgid "From database or ad-hoc?"
-msgstr ""
+msgstr "Iz baze podatkov ali priložnosten?"
 
 #: web/admin/inc/manageNewInst.inc.php:71
 #: web/admin/inc/manageNewInst.inc.php:104
@@ -2591,22 +2662,22 @@ msgstr "Ime"
 
 #: web/admin/inc/manageNewInst.inc.php:72
 msgid "Type"
-msgstr ""
+msgstr "Vrsta"
 
 #: web/admin/inc/manageNewInst.inc.php:78
 #, php-format
 msgid "Existing %s:"
-msgstr ""
+msgstr "Obstoječ %s:"
 
 #: web/admin/inc/manageNewInst.inc.php:83
 #, php-format
 msgid "--- select %s here ---"
-msgstr ""
+msgstr "--- %s izberite tukaj ---"
 
 #: web/admin/inc/manageNewInst.inc.php:101
 #, php-format
 msgid "New %s"
-msgstr ""
+msgstr "Nov %s"
 
 #: web/admin/inc/manageNewInst.inc.php:108
 #, php-format
@@ -2617,24 +2688,24 @@ msgstr "%s in %s"
 #: web/admin/inc/manageNewInst.inc.php:110
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: web/admin/inc/manageNewInst.inc.php:131
 #: web/admin/inc/manageNewInst.inc.php:137
 msgid "Administrator's E-Mail:"
-msgstr "E-pošta skrbnika:"
+msgstr "E-poštni naslov skrbnika:"
 
 #: web/admin/inc/manageNewInst.inc.php:133
 msgid "E-Mail label:"
-msgstr ""
+msgstr "E-poštna oznaka:"
 
 #: web/admin/inc/manageNewInst.inc.php:134
 msgid "E-Mail input field:"
-msgstr ""
+msgstr "Polje za vnos e-poštnega naslova:"
 
 #: web/admin/inc/manageNewInst.inc.php:142
 msgid "Send invitation"
-msgstr "Pošlji povabilo"
+msgstr "Pošlji vabilo"
 
 #.
 #. * *****************************************************************************
@@ -2657,38 +2728,39 @@ msgstr "Pošlji povabilo"
 #.
 #: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
 msgid "No email address provided"
-msgstr "Niste navedli e-poštnega naslova"
+msgstr "E-poštnega naslova niste podali"
 
 #: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
 msgid "Invitation sent to:"
-msgstr "Vabilo poslano k:"
+msgstr "Vabilo poslano za:"
 
 #: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
 msgid "The invitation email could not be sent!"
-msgstr "E-pošte s povabilom ni bilo moč poslati."
+msgstr "E-pošte z vabilom ni bilo mogoče poslati."
 
 #: web/admin/inc/overview_js.php:94
 msgid "Mail address to invite:"
-msgstr "E-poštni naslov za povabilo:"
+msgstr "E-poštni naslov za vabilo:"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:43
 msgid "Auto-Detecting root CA for a new profile"
-msgstr ""
+msgstr "Samodejno odkrivanje korenskega overitelja potrdil za nov profil"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:50
 msgid "Valid RADIUS username and realm:"
-msgstr ""
+msgstr "Veljavno uporabniško ime in področje RADIUS:"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:64
 msgid "Detect root CA"
-msgstr ""
+msgstr "Odkrij korenskega overitelja potrdil"
 
 #: web/admin/inc/sendinvite.inc.php:116
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
 "belongs to!"
-msgstr "Nekaj je narobe, ste %s skrbnik, ampak ne za izbrano %s, ki pripada %s"
+msgstr ""
+"Nekaj je šlo narobe. Ste skrbnik za %s, ne pa tudi za %s, ki mu pripada %s."
 
 #: web/admin/inc/toggleRedirect.inc.php:100
 #, php-format
@@ -2698,49 +2770,55 @@ msgstr "naprava <strong>%s</strong>"
 #: web/admin/inc/toggleRedirect.inc.php:110
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr "Metode EAP <strong>%s</strong>"
+msgstr "Vrsta EAP <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:117
 msgid "Fine-tuning options for "
-msgstr "Podrobne nastavitve za"
+msgstr "Natančna nastavitev možnosti za"
 
 #: web/admin/inc/userStats.inc.php:31
 msgid "User Authentication Records"
-msgstr ""
+msgstr "Zapisi preverjanja pristnosti uporabnikov"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Upoštevajte naslednje:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
 msgstr ""
+"Zapisi preverjanja pristnosti so izbrisani v šestih mesecih po obdobju "
+"hranjenja"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Domena operaterja temelji na atributu RADIUS 'Operator-Name' in je ne "
+"pošljejo vse dostopne točke"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Razlog za različne naslove MAC za poverilnice je naključno uvrščanje "
+"naslovov MAC v nedavnih operacijskih sistemih"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Timestamp"
-msgstr ""
+msgstr "Časovni žig"
 
 #: web/admin/inc/userStats.inc.php:42
 msgid "Credential"
-msgstr ""
+msgstr "Poverilnica"
 
 #: web/admin/inc/userStats.inc.php:45
 msgid "Operator Domain"
-msgstr ""
+msgstr "Domena operaterja"
 
-#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
+#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:99
 msgid "Location"
 msgstr "Lokacija"
 
@@ -2750,9 +2828,9 @@ msgid ""
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
 msgstr ""
-"Vmesnik za prenos k uporabniku (glej <a href='../'>tu</a>), z uporabo "
-"geolokacije uporabniku priporoča ustrezne IdP-je. Natančeje boste vpisali "
-"lokacijo, lažje vas bodo uporabniki našli."
+"Uporabniški vmesnik za prenose (glejte <a href='../'>tukaj</a>) s pomočjo "
+"geolokacije uporabniku priporoči ustrezne ponudnike identitete. Natančneje "
+"kot boste tukaj vpisali lokacijo, lažje vas bodo uporabniki našli."
 
 #: web/lib/admin/AbstractMap.php:146
 msgid ""
@@ -2760,13 +2838,13 @@ msgid ""
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
 msgstr ""
-"<li>Povlecite označevalnik na vašo lokacijo,ali</li>\n"
-"<li>vnesite naslov vaše organizacije v spodnje polje za poizvedbo, ali</li>\n"
-"<li>uporabite gumb 'Lociraj me!'</li>"
+"<li>Povlecite zemljevidno oznako na svojo lokacijo ali</li>\n"
+"<li>vnesite naslov v spodnje polje za iskanje ali </li>\n"
+"<li>uporabite gumb 'Najdi me!'</li>"
 
 #: web/lib/admin/AbstractMap.php:151
 msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr "Uporabili bomo koordinate, ki jih je določil označevalnik geolokacije."
+msgstr "Uporabili bomo koordinate, določene z oznako geolokacije."
 
 #: web/lib/admin/AbstractMap.php:155
 msgid ""
@@ -2774,7 +2852,7 @@ msgid ""
 "already defined locations in the 'General Information' field."
 msgstr ""
 "Vnesete lahko <strong>dodatno</strong> lokacijo. Obstoječe lokacije si lahko "
-"ogledate v polju 'Splošne lastnosti organizacije'."
+"ogledate v polju 'Splošne informacije'."
 
 #: web/lib/admin/AbstractMap.php:169
 msgid "Latitude:"
@@ -2790,15 +2868,15 @@ msgstr "To je lokacija"
 
 #: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:230
 msgid "nothing entered in the address field"
-msgstr "nič ni bilo vpisano v polje z naslovom"
+msgstr "polje naslova je prazno"
 
 #: web/lib/admin/MapGoogle.php:230 web/lib/admin/MapOpenLayers.php:86
 msgid "locating"
-msgstr "lokacija"
+msgstr "iskanje"
 
 #: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
-msgstr "Kliknite za izpis lokacije"
+msgstr "Kliknite, da prikažete lokacijo"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
@@ -2811,31 +2889,31 @@ msgstr "Poišči naslov"
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
 #: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
-msgstr "Lociraj me!"
+msgstr "Najdi me!"
 
 #: web/lib/admin/MapOpenLayers.php:237
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
 msgstr ""
-"Naslova ni mogoče najti, poskusite z drugo obliko, na primer, da številko "
-"ulice postavite spredaj."
+"Naslova ni bilo mogoče najti. Poskusite uporabiti drugo obliko, na primer "
+"takšno, pri kateri je številka ulice spredaj."
 
 #: web/lib/admin/OptionDisplay.php:86
 msgid "Ask User"
-msgstr ""
+msgstr "Vprašaj uporabnika"
 
 #: web/lib/admin/OptionDisplay.php:87
 msgid "Ask User; T&C Pre-Agreed"
-msgstr ""
+msgstr "Vprašaj uporabnika; vnaprej dogovorjene določbe in pogoji"
 
 #: web/lib/admin/OptionDisplay.php:88
 msgid "Always"
-msgstr ""
+msgstr "Vedno"
 
 #: web/lib/admin/OptionDisplay.php:89
 msgid "Always; T&C Pre-Agreed"
-msgstr ""
+msgstr "Vedno; vnaprej dogovorjene določbe in pogoji"
 
 #: web/lib/admin/OptionDisplay.php:251
 #, php-format
@@ -2853,16 +2931,17 @@ msgid ""
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
 msgstr ""
-"Atribut lahko nastavite, če želite poleg privzetega SSID %s še dodatni SSID. "
-"Skoraj vedno je neuporaba privzetega SSID slaba izbira. Izjema je le, če se "
-"vaše omrežje prekriva z drugim omrežjem %s. Tipične napake pri izbiri "
-"dodatnih SSID so: Želim lokalni SSID za svoje uporabnike. Veliko bolje je "
-"obdržati privzeti SSID in ločevati uporabnike z VLANi. Ta pristop ima dvoje "
-"prednosti: 1) Vaši uporabniki si bodo pravilno namestili %s, saj je njihov "
-"vsakodnevni SSID; 2) če uporabite prikrojeno ime in ga oznanjate kot dodatno "
-"varnega, lahko vaši uporabniki zaidejo drugam, kjer obstaja SSID z enakim "
-"imenom. Mislili bodo, da se povezujejo v vaše zelo varno omrežje, ko pa se v "
-"resnici ne bodo."
+"Atribut lahko nastavite, če želite poleg privzetih SSID-ov za %s "
+"konfigurirati še dodatni SSID. Neuporaba privzetega SSID-a je skoraj vedno "
+"slaba izbira. Izjema so le lokacije, na katerih se radijski signal prekriva "
+"z drugo dostopno točko %s. Značilne zmote glede dodatnih SSID-ov so: Želim "
+"imeti lokalni SSID za svoje uporabnike. Veliko bolje je obdržati privzeti "
+"SSID in ločiti skupine uporabnikov z omrežji VLAN. Ta pristop ima dve "
+"prednosti: 1) vaši uporabniki bodo pravilno konfigurirali %s, ker gre za "
+"njihov vsakodnevni SSID; 2) če uporabite ime po meri in ga označite kot "
+"izjemno varnega, lahko vaši uporabniki zaidejo na drugo mesto, ki uporablja "
+"enako ime SSID. Mislili bodo, da se povezujejo z vašim izjemno varnim "
+"omrežjem, vendar se v resnici ne bodo."
 
 #: web/lib/admin/OptionDisplay.php:253
 #, php-format
@@ -2873,6 +2952,11 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Oblika te možnosti je IPv4|IPv6|hostname:port. Če uporabnike prisilite, da "
+"uporabijo vaš filter vsebine, gre za velik poseg v njihovo možnost "
+"odločanja. Poleg tega vsebuje tudi tehnične težave. Preden podate strežnik "
+"proxy s to možnostjo, temeljito preberite razpravo na %s. Ta funkcija je "
+"trenutno eksperimentalna in deluje samo v namestitvenih programih Apple."
 
 #: web/lib/admin/OptionDisplay.php:254
 #, php-format
@@ -2880,11 +2964,13 @@ msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
+"Če uporabljate tudi %s, je vaše področje samodejno označeno z VLAN po vaši "
+"izbiri, zato ga tukaj ni treba dodati ročno."
 
 #: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
-msgstr ""
+msgstr "Če omogočite OpenRoaming, soglašate, da vas zavezuje %s."
 
 #: web/lib/admin/OptionDisplay.php:257
 #, php-format
@@ -2894,22 +2980,29 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"Upoštevajte, da je vaša zahteva glede obveščanja uporabnikov o določbah in "
+"pogojih za končne uporabnike OpenRoaming izpolnjena, ko jih preusmerite na "
+"portal za prenos %s, kjer lahko prenesejo namestitveni program. Kateri koli "
+"drugi način nudenja namestitvenih programov mora prikazati te informacije "
+"prek svojega kanala."
 
 #: web/lib/admin/OptionDisplay.php:259
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"Upoštevati morate tudi, da morate za najboljše vzajemno tehnično delovanje "
+"dodati vnos DNS v območje DNS v področju RADIUS."
 
 #: web/lib/admin/OptionDisplay.php:261
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "Preberite navodila v wikiju."
 
 #: web/lib/admin/OptionDisplay.php:366
 msgid "select language"
 msgstr "izberite jezik"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:179
+#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "privzeti/drugi jeziki"
 
@@ -2921,20 +3014,20 @@ msgstr "(privzeti/drugi jezik(i))"
 msgid "file content"
 msgstr "vsebina datoteke"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
 msgid "on"
-msgstr "vklop"
+msgstr "vklopljeno"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
 msgid "off"
-msgstr "izklop"
+msgstr "izklopljeno"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
 #: web/lib/admin/OptionParser.php:220 web/lib/admin/OptionParser.php:225
 #, php-format
 msgid "%dx %s"
-msgstr "%dx %s"
+msgstr "%d x %s"
 
 #: web/lib/admin/OptionParser.php:230
 #, php-format
@@ -2944,18 +3037,18 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
-"Niste nastavili vrednosti privzetega jezika za %s, zato lahko prikažemo samo "
-"ta niz za nameščevalnike, ki so <strong>samo</strong> v nastavljenem jeziku. "
-"Za podporo vseh ostalih jezikov dopolnite ta profil in vnesite ustrezno "
-"vrednost v jezikovno polje za 'privzeto/drugo'."
+"Niste nastavili vrednosti 'privzetega jezika' za %s, zato lahko prikažemo ta "
+"niz samo za namestitvene programe, ki so <strong>natančno</strong> v "
+"konfiguriranem jeziku. Za vse druge jezike boste morda želeli urediti profil "
+"in izpolniti polje 'privzetega/drugega' jezika."
 
 #: web/lib/admin/PageDecoration.php:69
 msgid "You are:"
-msgstr "Uporabnik: "
+msgstr "Ste: "
 
 #: web/lib/admin/PageDecoration.php:72
 msgid "Go to your Profile page"
-msgstr "Pojdite na stran svojega profila"
+msgstr "Pojdite na stran profila"
 
 #: web/lib/admin/PageDecoration.php:73
 msgid "Logout"
@@ -2967,22 +3060,22 @@ msgstr "Začetna stran"
 
 #: web/lib/admin/PageDecoration.php:99
 msgid "View this page in"
-msgstr "Oglej si stran v"
+msgstr "Oglejte si to stran v"
 
 #: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
 #: web/lib/admin/PageDecoration.php:167
 #, php-format
 msgid "Administrator Interface - %s"
-msgstr "Administratorski vmesnik - %s"
+msgstr "Skrbniški vmesnik – %s"
 
 #: web/lib/admin/PageDecoration.php:170
 #, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr "Administratorski vmesnik - %s Upravljanje uporabnikov"
+msgstr "Skrbniški vmesnik – upravljanje uporabnikov %s"
 
 #: web/lib/admin/PageDecoration.php:173
 msgid "Administrator Interface"
-msgstr "Administratorski vmesnik"
+msgstr "Skrbniški vmesnik"
 
 #: web/lib/admin/PageDecoration.php:176
 msgid "Management of User Details"
@@ -2991,12 +3084,12 @@ msgstr "Upravljanje podrobnosti uporabnika"
 #: web/lib/admin/PageDecoration.php:179
 #, php-format
 msgid "Administrator Interface - %s Management"
-msgstr "Administrator Interface - %s skrbnik"
+msgstr "Skrbniški vmesnik – upravljanje %s"
 
 #: web/lib/admin/PageDecoration.php:182
 #, php-format
 msgid "Welcome to %s"
-msgstr "Dobrodošli v%s"
+msgstr "Dobrodošli v %s"
 
 #: web/lib/admin/PageDecoration.php:187
 msgid "CIC"
@@ -3009,7 +3102,7 @@ msgstr "Diagnostika"
 #: web/lib/admin/PageDecoration.php:274
 #, php-format
 msgid "%s Privacy Notice"
-msgstr "%s obvestilo o zasebnosti"
+msgstr "Obvestilo o zasebnosti %s"
 
 #: web/lib/admin/UIElements.php:86
 msgid "SSID"
@@ -3020,250 +3113,249 @@ msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
 #: web/lib/admin/UIElements.php:90
-msgid "Additional SSID"
-msgstr "Dodatni SSID"
-
-#: web/lib/admin/UIElements.php:93
 msgid "Additional HS20 Consortium OI"
 msgstr "Dodatni HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:93
 msgid "Support: Web"
-msgstr "Podpora: Splet"
+msgstr "Podpora: splet"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:94
 msgid "Support: EAP Types"
-msgstr "Podpora: Metode EAP"
+msgstr "Podpora: vrste EAP"
+
+#: web/lib/admin/UIElements.php:95
+msgid "Support: Phone"
+msgstr "Podpora: telefon"
+
+#: web/lib/admin/UIElements.php:96
+msgid "Support: E-Mail"
+msgstr "Podpora: e-pošta"
 
 #: web/lib/admin/UIElements.php:98
-msgid "Support: Phone"
-msgstr "Podpora: Telefon"
-
-#: web/lib/admin/UIElements.php:99
-msgid "Support: E-Mail"
-msgstr "Podpora: E-Pošta"
-
-#: web/lib/admin/UIElements.php:101
 #, php-format
 msgid "%s Acronym"
-msgstr ""
+msgstr "Kratica za %s"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:100
 msgid "Logo URL"
 msgstr "URL logotipa"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:101
 msgid "Logo image"
 msgstr "Slika logotipa"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:102
 msgid "Configure Wired Ethernet"
-msgstr "Konfigurirajte ethernet"
+msgstr "Konfigurirajte žični ethernet"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:103
 msgid "Name (CN) of Authentication Server"
-msgstr "Ime (CN) Avtentikacijskega strežnika"
+msgstr "Ime (CN) strežnika za preverjanje pristnosti"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:104
 msgid "Enable device assessment"
 msgstr "Omogočite ocenjevanje naprave"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:105
 msgid "Terms of Use"
 msgstr "Pogoji uporabe"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:106
 msgid "CA Certificate URL"
-msgstr "URL do certifikata CA"
+msgstr "URL potrdila overitelja potrdil"
+
+#: web/lib/admin/UIElements.php:107
+msgid "CA Certificate File"
+msgstr "Datoteka potrdila overitelja potrdil"
+
+#: web/lib/admin/UIElements.php:108
+msgid "Profile Display Name"
+msgstr "Ime za prikaz profila"
+
+#: web/lib/admin/UIElements.php:109
+msgid "Production-Ready"
+msgstr "Pripravljen za produkcijo"
 
 #: web/lib/admin/UIElements.php:110
-msgid "CA Certificate File"
-msgstr "Datoteka certifikata CA"
+msgid "Admin Accepted IdP Terms of Use"
+msgstr "Skrbnik je sprejel pogoje ponudnika identitete"
 
 #: web/lib/admin/UIElements.php:111
-msgid "Profile Display Name"
-msgstr "Naziv profila"
+msgid "Admin Accepted SP Terms of Use"
+msgstr "Skrbnik je sprejel pogoje ponudnika storitev"
 
 #: web/lib/admin/UIElements.php:112
-msgid "Production-Ready"
-msgstr "Produkcijski"
+msgid "Extra text on downloadpage for device"
+msgstr "Dodatno besedilo na strani za prenos za napravo"
 
 #: web/lib/admin/UIElements.php:113
-msgid "Admin Accepted IdP Terms of Use"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:114
-msgid "Admin Accepted SP Terms of Use"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:115
-msgid "Extra text on downloadpage for device"
-msgstr "Dodatno besedilo na prenosni strani za napravo"
-
-#: web/lib/admin/UIElements.php:116
 msgid "Redirection Target"
 msgstr "Cilj preusmeritve"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:114
 msgid "Extra text on downloadpage for EAP method"
-msgstr "Dodatno besedilo na prenosni strani za metodo EAP"
+msgstr "Dodatno besedilo na strani za prenos za metodo EAP"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:115
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Vklopite izbiro uporabniškega imena EAP-TLS"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:116
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr ""
+msgstr "Uporabite GEANTlink za TTLS (Windows 8 in 10)"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:117
 msgid "Profile Description"
 msgstr "Opis profila"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
-msgstr "Pripomoček za namestitev po meri"
+msgstr "Pripona imena namestitvenega programa po meri"
+
+#: web/lib/admin/UIElements.php:119
+msgid "OpenRoaming"
+msgstr "OpenRoaming"
+
+#: web/lib/admin/UIElements.php:121
+msgid "Real Name"
+msgstr "Resnično ime"
 
 #: web/lib/admin/UIElements.php:122
-msgid "OpenRoaming"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:124
-msgid "Real Name"
-msgstr "Ime in priimek"
-
-#: web/lib/admin/UIElements.php:125
 msgid "E-Mail Address"
 msgstr "E-poštni naslov"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Odstrani/onemogoči SSID"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
-msgstr "Obvezno filtriranje vsebine"
+msgstr "Proxy za obvezno filtriranje vsebine"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
-msgstr "CSS po meri za uporabnike"
+msgstr "Datoteka CSS po meri za uporabniško področje"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
-msgstr "%s Logo"
+msgstr "Logotip %s"
+
+#: web/lib/admin/UIElements.php:127
+msgid "Preferred Skin for User Area"
+msgstr "Želena preobleka za uporabniško področje"
+
+#: web/lib/admin/UIElements.php:128
+#, php-format
+msgid "Include %s branding in installers"
+msgstr "Vključite znamko %s v namestitvene programe"
 
 #: web/lib/admin/UIElements.php:130
-msgid "Preferred Skin for User Area"
-msgstr "Prednostna tema za uporabnike"
+#, php-format
+msgid "%s Homepage"
+msgstr "Začetna stran %s"
 
 #: web/lib/admin/UIElements.php:131
 #, php-format
-msgid "Include %s branding in installers"
-msgstr "Vključite brskanje %s v nameščevalnike"
+msgid "Custom text in %s Invitations"
+msgstr "Besedilo po meri v vabilih %s"
+
+#: web/lib/admin/UIElements.php:132
+#, php-format
+msgid "Enable %s"
+msgstr "Omogoči %s"
 
 #: web/lib/admin/UIElements.php:133
 #, php-format
-msgid "%s Homepage"
-msgstr "%s Domača stran"
+msgid "%s: Do not terminate EAP"
+msgstr "%s: ne prekinjajte EAP"
 
 #: web/lib/admin/UIElements.php:134
 #, php-format
-msgid "Custom text in %s Invitations"
-msgstr "Besedilo po meri v %s povabila"
+msgid "%s: max users per profile"
+msgstr "%s: največje število uporabnikov na profil"
 
 #: web/lib/admin/UIElements.php:135
 #, php-format
-msgid "Enable %s"
-msgstr "Onemogoči %s"
+msgid "Mint %s with CA on creation"
+msgstr "Pri izdelavi ustvari %s z overiteljem potrdil"
 
 #: web/lib/admin/UIElements.php:136
 #, php-format
-msgid "%s: Do not terminate EAP"
-msgstr "%s: Ne prekinjajte EAP"
+msgid "OpenRoaming: Allow %s Opt-In"
+msgstr "OpenRoaming: dovoli sodelovanje v %s"
 
 #: web/lib/admin/UIElements.php:137
-#, php-format
-msgid "%s: max users per profile"
-msgstr "%s: največ uporabnikov na profil"
-
-#: web/lib/admin/UIElements.php:138
-#, php-format
-msgid "Mint %s with CA on creation"
-msgstr "%s CA ob kreiranju"
-
-#: web/lib/admin/UIElements.php:139
-#, php-format
-msgid "OpenRoaming: Allow %s Opt-In"
-msgstr ""
+msgid "OpenRoaming: Custom NAPTR Target"
+msgstr "OpenRoaming: cilj NAPTR po meri"
 
 #: web/lib/admin/UIElements.php:140
-msgid "OpenRoaming: Custom NAPTR Target"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:143
 msgid "VLAN for own users"
-msgstr ""
+msgstr "VLAN za lastne uporabnike"
 
-#: web/lib/admin/UIElements.php:145
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
-msgstr ""
+msgstr "Atribut Operator-Name po meri"
 
-#: web/lib/admin/UIElements.php:245
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
-msgstr "Splošne %s nastavitve"
+msgstr "Splošne nastavitve za %s"
 
-#: web/lib/admin/UIElements.php:263
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
-msgstr "Splošne podrobnosti podpore uporabnikom"
+msgstr "Splošne podrobnosti službe za pomoč uporabnikom"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:342
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr "Pri pridobivanju certifikata iz baze podatkov je prišlo do napake!"
+msgstr "Pri pridobivanju potrdila iz baze podatkov je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:351
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
-msgstr "Napaka pri obdelavi certifikata!"
+msgstr "Pri obdelavi potrdila je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
-msgstr ""
+msgstr "Korenski overitelj potrdil."
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
-msgstr ""
+msgstr "Vmesni overitelj potrdil"
 
-#: web/lib/admin/UIElements.php:361
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr "To je <strong>SERVER</strong> certifikat!"
+msgstr "To je potrdilo <strong>STREŽNIKA</strong>."
 
-#: web/lib/admin/UIElements.php:378
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
-msgstr "Predogled logotipa"
+msgstr "Predogled datoteke logotipa"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:395
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
-msgstr "Pri pridobivanju datoteke iz baze podatkov je prišlo do napake!"
+msgstr "Pri pridobivanju datoteke iz baze podatkov je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Datoteka obstaja"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Predogled"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Opomba"
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Opozorilo!"
 
-#: web/lib/admin/UIElements.php:421
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Napaka!"
+
+#~ msgid "Additional SSID"
+#~ msgstr "Dodatni SSID"

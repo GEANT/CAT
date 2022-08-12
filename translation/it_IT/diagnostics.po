@@ -5,8 +5,8 @@
 #
 # Translators:
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
-# Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2022
+# Giuseppe De Marco <giuseppe.demarco@unical.it>, 2022
 # Daniele Albrizio <daniele@albrizio.it>, 2022
 # Daniele Albrizio <dalbrizio@gmail.com>, 2022
 #
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2022\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
@@ -987,7 +987,7 @@ msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"Hai mai usato la rete con successo, ad es. nella tua organizzazione di "
+"Hai mai usato la rete con successo, ad esempio nella tua organizzazione di "
 "appartenenza senza il roaming?"
 
 #. that's good, but it doesn't mean strikingly much
@@ -1164,7 +1164,7 @@ msgstr "Sei un"
 msgid "end-user"
 msgstr "utente finale"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr "o"
 
@@ -1211,7 +1211,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:105
 msgid "Click to select your country/region and organisation"
-msgstr "Clicca per selezionare il tuo paese/regione e organizzazione"
+msgstr "Clicca per selezionare il tuo paese/regione e la tua organizzazione"
 
 #: web/skins/modern/diag/diag.php:112
 msgid ""
@@ -1226,7 +1226,7 @@ msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 "Fai clic per selezionare una posizione in cui hai un problema con eduroam"
 
-#: web/skins/modern/diag/diag.php:121
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr "Sto testando il realm"
 
@@ -1303,7 +1303,7 @@ msgstr ""
 msgid "Check if this realm is registered"
 msgstr "Controlla se questo realm è registrato"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr "Controlla questo realm"
 
@@ -1379,11 +1379,11 @@ msgstr "Un'e-mail per contattare l'autore della segnalazione"
 msgid "Test result"
 msgstr "Risultato del test"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr "fallito"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr "successo"
 
@@ -1617,15 +1617,15 @@ msgstr "Invia le credenziali"
 msgid "Return to %s administrator area"
 msgstr "Ritorna all'area amministratore %s"
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Sospetto un problema tecnico con l'IdP"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Un utente di questo IdP ha presumibilmente violato il diritto d'autore"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1633,80 +1633,80 @@ msgstr ""
 "Un utente di questo IdP ha condotto operazioni di rete dannose (spam, "
 "DDoS, ...)"
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "L'utente sostiene di avere problemi di connettività ma è stato autenticato "
 "con successo"
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr ""
 "L'utente sostiene che una porta obbligatoriamente aperta in realtà non lo è"
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr "Seleziona il tuo problema"
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr "Quel'è il realm dell'IdP in questione?"
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Qual è il timestamp di autenticazione della sessione utente in questione?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr "Qual è l'indirizzo MAC della sessione utente in questione?"
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr "Ulteriori commenti"
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr "Specifica un indirizzo email su cui l'IdP può contattarti"
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr "Adesso puoi inviare la tua richiesta"
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr "Spedisci"
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr "Identifica l'SP con uno dei seguenti mezzi"
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr "Attributo Operator-Name dell'SP"
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr "Selezione l'SP manualmente"
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr "clicca per selezionare Paese ed organizzazione"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr "almeno descrivi la posizione dell'SP"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr "Qual è l'ID esterno della sessione utente in questione?"
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr "Ulteriori considerazioni sul problema"
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1714,49 +1714,49 @@ msgstr ""
 "Avete dei dettagli di contatto con i quali l'utente desidera essere "
 "contattato dall'SP?"
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Specifica un indirizzo email sul quale l'SP può contattarvi"
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr "Sospettato un problema tecnico con l'IdP"
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Sospettiamo un problema tecnico con l'IdP che gestisce il realm"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 "Il test diagnostico CAT è stato eseguito per questo realm durante la "
 "segnalazione.\n"
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr "Il risultato complessivo è stato"
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr "Per vedere i dettagli vai a"
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr "I dettagli del problema segnalato sono i seguenti"
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr "timestamp"
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr "indirizzo MAC del cliente"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr "commenti aggiuntivi"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr "Puoi contattare il segnalatore del problema tramite"
 
@@ -1898,3 +1898,153 @@ msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
 "Il token fornito nella richiesta non esiste, non è possibile presentare dati"
+
+#: web/skins/modern/diag/js/diag_js.php:33
+msgid "All connectivity tests passed"
+msgstr "Tutti i test di connettività superati"
+
+#: web/skins/modern/diag/js/diag_js.php:34
+msgid "There were some warnings from connectivity tests"
+msgstr "Ci sono stati alcuni avvisi dai test di connettività"
+
+#: web/skins/modern/diag/js/diag_js.php:35
+msgid "There were some remarks from connectivity tests"
+msgstr "Dai test di connettività sono risultate alcune osservazioni"
+
+#: web/skins/modern/diag/js/diag_js.php:36
+msgid "There were some errors from connectivity tests"
+msgstr "Dai test di connettività sono risultati alcuni errori"
+
+#: web/skins/modern/diag/js/diag_js.php:46
+msgid "Select institiution:"
+msgstr "Seleziona l'organizzazione:"
+
+#: web/skins/modern/diag/js/diag_js.php:72
+msgid "Select country or region:"
+msgstr "Seleziona paese o regione:"
+
+#: web/skins/modern/diag/js/diag_js.php:80
+msgid "Fetching country/region list"
+msgstr "Recupero elenco paesi/regioni"
+
+#: web/skins/modern/diag/js/diag_js.php:141
+msgid "Yes"
+msgstr "Si"
+
+#: web/skins/modern/diag/js/diag_js.php:142
+msgid "No"
+msgstr "No"
+
+#: web/skins/modern/diag/js/diag_js.php:143
+msgid "I don't know"
+msgstr "Non lo so"
+
+#: web/skins/modern/diag/js/diag_js.php:174
+msgid "Diagnostic tests results for selected realm"
+msgstr "Risultati dei test diagnostici per il realm selezionato"
+
+#: web/skins/modern/diag/js/diag_js.php:177
+msgid "The result for tested realm:"
+msgstr "Il risultato per il realm testato:"
+
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr "Il sistema identificato"
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr "aree sospette che potenzialmente possono causare un problema."
+
+#: web/skins/modern/diag/js/diag_js.php:182
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr ""
+"Accanto alla descrizione del problema mostriamo una probabilità ipotizzata "
+"per questo evento."
+
+#: web/skins/modern/diag/js/diag_js.php:189
+msgid "Your device configuration is broken"
+msgstr "La configurazione del tuo dispositivo è errata"
+
+#: web/skins/modern/diag/js/diag_js.php:192
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr "La rete Wi-Fi nelle tue vicinanze presenta problemi di qualità"
+
+#: web/skins/modern/diag/js/diag_js.php:195
+msgid "The network environment around you is broken"
+msgstr "L'infrastruttura di rete intorno a te è guasta"
+
+#: web/skins/modern/diag/js/diag_js.php:198
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr "Il server RADIUS del fornitore di servizi è la fonte del problema"
+
+#: web/skins/modern/diag/js/diag_js.php:201
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr ""
+"Il server RADIUS nella tua organizzazione di appartenenza non è attualmente "
+"in grado di autenticarti"
+
+#: web/skins/modern/diag/js/diag_js.php:204
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr ""
+"Il server nazionale nel paese/regione che stai visitando non funziona "
+"correttamente"
+
+#: web/skins/modern/diag/js/diag_js.php:207
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+"Il collegamento tra il server nazionale del paese/regione che stai visitando "
+"e il server di livello superiore è interrotto"
+
+#: web/skins/modern/diag/js/diag_js.php:210
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+"Il collegamento tra il server nazionale del paese/regione di appartenenza e "
+"il server di livello superiore è interrotto"
+
+#: web/skins/modern/diag/js/diag_js.php:213
+msgid "The communication to the top-level server is down"
+msgstr "La comunicazione con il server di primo livello è inattiva"
+
+#: web/skins/modern/diag/js/diag_js.php:216
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr ""
+"Il server nazionale nel paese/regione di appartenenza non funziona "
+"correttamente."
+
+#: web/skins/modern/diag/js/diag_js.php:219
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr ""
+"Il server RADIUS della tua organizzazione di appartenenza è la fonte del "
+"problema"
+
+#: web/skins/modern/diag/js/diag_js.php:222
+msgid "This realm does not exist"
+msgstr "Il realm non esiste"
+
+#: web/skins/modern/diag/js/diag_js.php:300
+msgid "Running connectivity tests for this realm"
+msgstr "Esecuzione di test di connettività per questo realm"
+
+#: web/skins/modern/diag/js/diag_js.php:301
+msgid "New tests results are available, click to see"
+msgstr "Sono disponibili nuovi risultati dei test, cliccare per vedere"
+
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
+msgid "See details"
+msgstr "Vedi dettgli"
+
+#: web/skins/modern/diag/js/diag_js.php:436
+msgid "If you want to report your problem, fill fields bellow."
+msgstr "Se vuoi segnalare il tuo problema, compila i campi sottostanti."

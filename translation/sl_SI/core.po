@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Janez Kadivec, 2022\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
@@ -355,7 +355,7 @@ msgid "(discontinued) %s"
 msgstr "(ukinjeno) %s"
 
 #. / IdP and SP
-#: core/Federation.php:265 core/common/OutsideComm.php:281
+#: core/Federation.php:274 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
 msgstr "%s in %s"
@@ -367,7 +367,7 @@ msgstr "%s in %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:282
+#: core/Federation.php:291
 #, php-format
 msgid ""
 "Hi,\n"
@@ -383,20 +383,20 @@ msgid ""
 msgstr ""
 "Pozdravljeni,\n"
 "\n"
-"povabilo za novega %s %s v vaši %s federaciji %s je uporabljen in %s je bil "
+"vabilo za novega %s %s v vaši %s federaciji %s je uporabljeno in %s je bil "
 "ustvarjen v %s.\n"
 "\n"
-"Menilo smo, da vas bo to morda zanimalo.\n"
+"Menili smo, da vas bo to morda zanimalo.\n"
 "\n"
 "Lep pozdrav,\n"
 "\n"
 "%s"
 
 #. / organisation
-#: core/Federation.php:299
+#: core/Federation.php:308
 #, php-format
 msgid "%s in your federation was created"
-msgstr "%s je bil ustvajen v vaši federaciji"
+msgstr "%s je bil ustvarjen v vaši federaciji"
 
 #: core/IdP.php:397
 #, php-format
@@ -450,9 +450,9 @@ msgid ""
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
 "Sedite spodnji povezavi v napravi, v kateri želite omogočiti %s, da "
-"pridobite ustrezen namestitveni program%s, prilagojen za vas. Povezavo lahko "
-"kliknete, jo prekopirate in prilepite v brskalnik ali skenirate priloženo "
-"kodo QR."
+"pridobite ustrezen namestitveni program %s, prilagojen za vas. Povezavo "
+"lahko kliknete, jo prekopirate in prilepite v brskalnik ali skenirate "
+"priloženo kodo QR."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:255
@@ -462,13 +462,13 @@ msgid ""
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
-"Shranite to e-poštno sporočilo ali zaznamujte povezavo za prihodnjo uporabo. "
-"Ko izberete namestitveni program %s, lahko s to povezavo pridobite podatke o "
-"stanju svojega računa za %s."
+"Shranite to e-poštno sporočilo ali dodajte povezavo med zaznamke za "
+"prihodnjo uporabo. Ko izberete namestitveni program %s, lahko s to povezavo "
+"pridobite podatke o stanju svojega računa za %s."
 
 #: core/SilverbulletInvitation.php:257
 msgid "Regards,"
-msgstr "Pozdrav,"
+msgstr "Lep pozdrav,"
 
 #: core/SilverbulletInvitation.php:310
 #, php-format
@@ -476,13 +476,13 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
-"Vaš %s dostop je pripravljen! Kliknite tukaj: %s (na operacijskem sistemu "
-"Android je potrebno predhodno naložiti aplikacijo '%s'!)"
+"Dostop do %s je pripravljen. Kliknite tukaj: %s (v sistemu Android morate "
+"najprej namestiti aplikacijo '%s'!)"
 
 #: core/SilverbulletInvitation.php:342
 #, php-format
 msgid "%s Invitation System"
-msgstr "Sistem povabil %s"
+msgstr "Sistem vabil %s"
 
 #: core/User.php:166
 msgid "Feedback"
@@ -586,7 +586,7 @@ msgstr "%s %s vas je povabil, da upravljate %s  \"%s\". To je %s."
 #: core/common/OutsideComm.php:295
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr "Povabilo je veljavno 24 ur. Velja od zdaj do %s."
+msgstr "Vabilo je veljavno 24 ur. Velja od zdaj do %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:303
@@ -635,7 +635,7 @@ msgstr "Če povezava ne deluje, lahko obiščete skrbniški vmesnik %s na naslov
 
 #: core/common/OutsideComm.php:332
 msgid "and enter the invitation token"
-msgstr "in vnesite žeton iz povabila"
+msgstr "in vnesete žeton vabila"
 
 #: core/common/OutsideComm.php:334
 msgid ""
@@ -676,11 +676,11 @@ msgstr "Področje je prazno."
 
 #: web/lib/common/InputValidation.php:279
 msgid "Realm contains an @ sign!"
-msgstr "Domena vsebuje znak @."
+msgstr "Področje vsebuje znak @."
 
 #: web/lib/common/InputValidation.php:280
 msgid "Realm begins with a . (dot)!"
-msgstr "Domena se začne z znakom . (pika)."
+msgstr "Področje se začne z znakom . (pika)."
 
 #: web/lib/common/InputValidation.php:281
 msgid "Realm ends with a . (dot)!"

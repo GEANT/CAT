@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Iryna Rykhalska <irina@uran.ua>, 2022\n"
 "Language-Team: Ukrainian (Ukraine) (https://www.transifex.com/eduroam_devel/"
@@ -1142,7 +1142,7 @@ msgstr "Ви є"
 msgid "end-user"
 msgstr "кінцевий користувач"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr "чи"
 
@@ -1202,7 +1202,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Натисніть, щоб вибрати місце, в якому у вас проблема з eduroam"
 
-#: web/skins/modern/diag/diag.php:121
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr "Тестування домену"
 
@@ -1279,7 +1279,7 @@ msgstr ""
 msgid "Check if this realm is registered"
 msgstr "Перевірте, чи зареєстрована цей домен"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr "Перевірте цей домен"
 
@@ -1355,11 +1355,11 @@ msgstr "Елетронна пошта для зв'язку з повідомлю
 msgid "Test result"
 msgstr "Результати тесту"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr "Відмова"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr "Успішно"
 
@@ -1592,145 +1592,145 @@ msgstr "Подайте облікові дані"
 msgid "Return to %s administrator area"
 msgstr "Повернутися %s в область адміністратора"
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Я підозрюю, що технічна проблема з IdP ..."
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Користувач з цього IdP нібито порушив авторські права на IdP."
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
 "Користувач цього IdP проводив шкідливі мережеві операції (спам, DDoS, ...)"
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "Користувач заявляє про проблеми з підключенням, але автентифікацію успішно "
 "пройшов"
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr "Користувач стверджує, що обов'язковий відкритий порт не відкритий"
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr "Виберіть свою проблему"
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr "Про який домен IdP іде мова?"
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Яка часова мітка аутентифікації даної користувальницької сесії?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr "Яка MAC-адреса відповідного сеансу користувача?"
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr "Додаткові коментарі"
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Будь ласка, вкажіть адресу електронної пошти, на яку IdP може зв’язатися з "
 "вами"
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr "Тепер ви можете надіслати свій запит"
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr "Надіслати"
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr "Визначте SP одним із наступних способів"
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr "Атрибут Ім'я оператора SP"
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr "Виберіть SP вручну:"
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr "натисніть, щоб вибрати країну та установу"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr "принаймні, опишіть розташування SP"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr "Що таке зовнішній ідентифікатор відповідного сеансу користувача?"
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr "Додаткові коментарі щодо проблеми"
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
 "Чи є у вас якісь контактні дані, за якими користувач бажає зв’язатись з SP?"
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Будь ласка, вкажіть електронну адресу, за якою SP може зв’язатися з вами"
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr "Підозра на технічну проблему з ідентифікатором IdP"
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Ми підозрюємо технічну проблему з IdP, що обробляє домен"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 "Під час складання звіту для цього домену було проведено діагностичний тест "
 "CAT.\n"
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr "Загальний результат був"
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr "Щоб переглянути деталі, перейдіть на"
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr "Нижче наведено відомості про проблему"
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr "тимчасова мітка"
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr "MAC-адреса клієнта"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr "додаткові коментарі"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr "Зв’язатися з повідовлювачем інциденту можна за адресою"
 
@@ -1871,3 +1871,146 @@ msgstr "Маркер відсутній, дані не можуть бути п�
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr "Маркер, вказаний у запиті, не існує, дані не можуть бути представлені"
+
+#: web/skins/modern/diag/js/diag_js.php:33
+msgid "All connectivity tests passed"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:34
+msgid "There were some warnings from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:35
+msgid "There were some remarks from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:36
+msgid "There were some errors from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:46
+msgid "Select institiution:"
+msgstr "Виберіть установу"
+
+#: web/skins/modern/diag/js/diag_js.php:72
+msgid "Select country or region:"
+msgstr "Виберіть країну або регіон"
+
+#: web/skins/modern/diag/js/diag_js.php:80
+msgid "Fetching country/region list"
+msgstr "Отримання списку країн/регіонів"
+
+#: web/skins/modern/diag/js/diag_js.php:141
+msgid "Yes"
+msgstr "Так"
+
+#: web/skins/modern/diag/js/diag_js.php:142
+msgid "No"
+msgstr "Ні"
+
+#: web/skins/modern/diag/js/diag_js.php:143
+msgid "I don't know"
+msgstr "Я не знаю"
+
+#: web/skins/modern/diag/js/diag_js.php:174
+msgid "Diagnostic tests results for selected realm"
+msgstr "Результати діагностичних тестів для вибраної області"
+
+#: web/skins/modern/diag/js/diag_js.php:177
+msgid "The result for tested realm:"
+msgstr "Результат для перевіреної області:"
+
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr "Система ідентифікована"
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr "підозрілі зони, які потенційно можуть викликати проблему."
+
+#: web/skins/modern/diag/js/diag_js.php:182
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr "Поруч з описом проблеми ми показуємо  ймовірність передбачуваної події"
+
+#: web/skins/modern/diag/js/diag_js.php:189
+msgid "Your device configuration is broken"
+msgstr "Конфігурація вашого пристрою порушена"
+
+#: web/skins/modern/diag/js/diag_js.php:192
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr "Мережа Wi-Fi у вашому районі має проблеми з якістю"
+
+#: web/skins/modern/diag/js/diag_js.php:195
+msgid "The network environment around you is broken"
+msgstr "Навколо вас порушено мережеве середовище"
+
+#: web/skins/modern/diag/js/diag_js.php:198
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr "Джерелом проблеми є  RADIUS сервер вашого постачальника послуг"
+
+#: web/skins/modern/diag/js/diag_js.php:201
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr ""
+"На даний момент  RADIUS сервер  вашого домашнього закладу не може "
+"автентифікувати вас"
+
+#: web/skins/modern/diag/js/diag_js.php:204
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr ""
+"Національний сервер у країні/регіоні, який ви відвідуєте, працює неправильно"
+
+#: web/skins/modern/diag/js/diag_js.php:207
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+"Зв’язок між національним сервером країни/регіону, який ви відвідуєте, та "
+"сервером верхнього рівня порушено"
+
+#: web/skins/modern/diag/js/diag_js.php:210
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+"Зв’язок між національним сервером вашої країни/регіону та сервером верхнього "
+"рівня порушено"
+
+#: web/skins/modern/diag/js/diag_js.php:213
+msgid "The communication to the top-level server is down"
+msgstr "Зв’язок із сервером верхнього рівня перерваний"
+
+#: web/skins/modern/diag/js/diag_js.php:216
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr "Національний сервер  вашої країни/регіону не працює належним чином."
+
+#: web/skins/modern/diag/js/diag_js.php:219
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr "Джерелом проблеми є RADIUS сервер вашої домашньої установи"
+
+#: web/skins/modern/diag/js/diag_js.php:222
+msgid "This realm does not exist"
+msgstr "Цієї області не існує"
+
+#: web/skins/modern/diag/js/diag_js.php:300
+msgid "Running connectivity tests for this realm"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:301
+msgid "New tests results are available, click to see"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
+msgid "See details"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:436
+msgid "If you want to report your problem, fill fields bellow."
+msgstr ""

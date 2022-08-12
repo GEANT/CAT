@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Language-Team: Hebrew (Israel) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/he_IL/)\n"
@@ -957,7 +957,7 @@ msgstr ""
 msgid "end-user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr ""
 
@@ -1009,7 +1009,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:121
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr ""
 
@@ -1078,7 +1078,7 @@ msgstr ""
 msgid "Check if this realm is registered"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr ""
 
@@ -1154,11 +1154,11 @@ msgstr ""
 msgid "Test result"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr ""
 
@@ -1378,136 +1378,136 @@ msgstr ""
 msgid "Return to %s administrator area"
 msgstr ""
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr ""
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr ""
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr ""
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr ""
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr ""
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr ""
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr ""
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr ""
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr ""
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr ""
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr ""
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr ""
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr ""
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr ""
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr ""
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr ""
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr ""
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr ""
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr ""
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr ""
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr ""
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr ""
 
@@ -1621,4 +1621,140 @@ msgstr ""
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:33
+msgid "All connectivity tests passed"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:34
+msgid "There were some warnings from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:35
+msgid "There were some remarks from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:36
+msgid "There were some errors from connectivity tests"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:46
+msgid "Select institiution:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:72
+msgid "Select country or region:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:80
+msgid "Fetching country/region list"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:141
+msgid "Yes"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:142
+msgid "No"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:143
+msgid "I don't know"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:174
+msgid "Diagnostic tests results for selected realm"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:177
+msgid "The result for tested realm:"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:182
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:189
+msgid "Your device configuration is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:192
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:195
+msgid "The network environment around you is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:198
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:201
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:204
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:207
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:210
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:213
+msgid "The communication to the top-level server is down"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:216
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:219
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:222
+msgid "This realm does not exist"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:300
+msgid "Running connectivity tests for this realm"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:301
+msgid "New tests results are available, click to see"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
+msgid "See details"
+msgstr ""
+
+#: web/skins/modern/diag/js/diag_js.php:436
+msgid "If you want to report your problem, fill fields bellow."
 msgstr ""

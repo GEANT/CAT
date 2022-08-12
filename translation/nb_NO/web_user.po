@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Håvard Ramberg, 2022
 # ffec5bdd8bc4b91afb3a1750da9849ce_15f9003 <c249bc393dbe3bb0ade43bf3e20b7f8c_224491>, 2015
 # Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>, 2018-2020,2022\n"
+"Last-Translator: Håvard Ramberg, 2022\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -177,7 +178,7 @@ msgstr "Listen er tilgjengelig her:%s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
-msgstr "Legg til en overseyyelse"
+msgstr "Legg til en oversettelse"
 
 #: web/user/devel.inc.php:27
 msgid ""
@@ -289,8 +290,8 @@ msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
-"Windows 'SmartScreen' eller 'Internet Explorer' sier meg at filen kan være "
-"skadelig. Bør jeg være bekymret? "
+"Windows 'SmartScreen' eller 'Internet Explorer' advarer meg om at filen kan "
+"være skadelig. Bør jeg være bekymret? "
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 msgid ""
@@ -302,7 +303,7 @@ msgstr ""
 "I motsetning til hva navnet antyder er ikke 'SmartScreen' veldig smart. "
 "Advarselen betyr bare at filen ikke har blitt lastet ned av mange nok "
 "brukere til at Microsoft anser den som populær (noe som merkelig nok ville "
-"gjøre at den ble ansett som 'safe'). Denne meldingen alene er ikke et "
+"gjøre at den ble ansett som 'trygg'). Denne meldingen alene er ikke et "
 "sikkerhetsproblem."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
@@ -638,7 +639,7 @@ msgstr "Last ned din %s profil"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "Last installasjonsprogram for"
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -1146,11 +1147,11 @@ msgstr "OpenRoaming er ikke støttet på denne enheten"
 
 #: web/skins/modern/user/js/cat_js.php:103
 msgid "eduroam only"
-msgstr ""
+msgstr "Kun for eduroam"
 
 #: web/skins/modern/user/js/cat_js.php:104
 msgid "eduroam and OpenRoaming"
-msgstr ""
+msgstr "eduroam og OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"

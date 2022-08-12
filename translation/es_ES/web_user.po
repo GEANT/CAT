@@ -4,7 +4,7 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2018
-# Alberto Martínez Setién, 2019-2020
+# Alberto Martínez Setién, 2019-2020,2022
 # David Moreno, 2022
 # Francisco J. Medina Jimenez <fran@ugr.es>, 2022
 # José Manuel Macías, 2012-2013,2015
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Francisco J. Medina Jimenez <fran@ugr.es>, 2022\n"
+"Last-Translator: Alberto Martínez Setién, 2019-2020,2022\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -668,7 +668,7 @@ msgstr "Descarga el instalador para %s"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "Descarga el instalador para"
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""

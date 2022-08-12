@@ -8,14 +8,15 @@
 # dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2020
+# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: dsafar <dsafar@srce.hr>, 2012-2013\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, "
+"2012-2013,2015-2016,2018-2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -645,7 +646,7 @@ msgstr "Dohvat  %s konfiguracije"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "Dohvati svoju konfiguraciju za"
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -1159,11 +1160,11 @@ msgstr "OpenRoaming nije podržan na ovom uređaju"
 
 #: web/skins/modern/user/js/cat_js.php:103
 msgid "eduroam only"
-msgstr ""
+msgstr "samo eduroam"
 
 #: web/skins/modern/user/js/cat_js.php:104
 msgid "eduroam and OpenRoaming"
-msgstr ""
+msgstr "eduroam i OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"

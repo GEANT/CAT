@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Håvard Ramberg, 2022
 # ffec5bdd8bc4b91afb3a1750da9849ce_15f9003 <c249bc393dbe3bb0ade43bf3e20b7f8c_224491>, 2015
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 # Tom Ivar Myren <tom.myren@uninett.no>, 2019-2020,2022
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>, 2019-2020,2022\n"
+"Last-Translator: Håvard Ramberg, 2022\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -23,11 +24,11 @@ msgstr ""
 
 #: devices/Devices-template.php:132
 msgid "MS Windows 8 and newer"
-msgstr ""
+msgstr "MS Windows 8 og nyere"
 
 #: devices/Devices-template.php:147
 msgid "MS Windows 8"
-msgstr ""
+msgstr "MS Windows 8"
 
 #: devices/Devices-template.php:163
 msgid "MS Windows 7"
@@ -135,7 +136,7 @@ msgstr ""
 
 #: devices/Devices-template.php:405
 msgid "Android 8 and higher"
-msgstr ""
+msgstr "Android 8 og nyere"
 
 #: devices/Devices-template.php:412 devices/Devices-template.php:427
 #: devices/Devices-template.php:441 devices/Devices-template.php:456
@@ -236,6 +237,8 @@ msgid ""
 "This option provides an EAP config XML file with multiple "
 "EAPIdentityProvider elements and all language versions"
 msgstr ""
+"Dette valget tilbyr en XML-konfigurasjonsfil for EAP med flere "
+"EAPIdentityProvider elementer og alle språkversjoner"
 
 #: devices/Devices-template.php:596
 msgid "Test"
@@ -448,8 +451,7 @@ msgstr ""
 "gjøres i bakgrunnen; den nye nettverksdefinisjonen blir lagt til i "
 "foretrukne nettverk. "
 
-#: devices/eap_config/DeviceXML.php:128 devices/xml/DeviceXML.php:87
-#: devices/xml/Device_XML.php:73
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "

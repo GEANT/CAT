@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 16:20+0200\n"
+"POT-Creation-Date: 2022-08-12 09:11+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018,2022\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
@@ -130,35 +130,35 @@ msgstr ""
 "Στοιχεία επικοινωνίας αιτούντος : θα έρθουν από το eduroam DB "
 "(χρησιμοποιώντας αναφορά Someone, &lt;someone@somewhere.xy&gt;')."
 
-#: web/admin/action_req_certificate.php:127
+#: web/admin/action_req_certificate.php:128
 msgid "The certificate was requested."
 msgstr "Το πιστοποιητικό αιτήθηκε "
 
-#: web/admin/action_req_certificate.php:130
+#: web/admin/action_req_certificate.php:131
 msgid "Back to Certificate Overview"
 msgstr "Πίσω στην επισκόπηση πιστοποιητικού "
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:139
+#: web/admin/action_req_certificate.php:140
 msgid "1. Certificate Holder Details"
 msgstr "1. Λεπτομέρειες Κατόχου Πιστοποιητικού"
 
-#: web/admin/action_req_certificate.php:141
-#: web/admin/action_req_certificate.php:162
+#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:163
 #, php-format
 msgid "Certificate for %s role"
 msgstr "Πιστοποιητικό για τον  %s ρόλο"
 
-#: web/admin/action_req_certificate.php:150
-#: web/admin/action_req_certificate.php:164
+#: web/admin/action_req_certificate.php:151
+#: web/admin/action_req_certificate.php:165
 msgid "---PLEASE CHOOSE---"
 msgstr "---ΠΑΡΑΚΑΛΩ ΕΠΙΛΕΞΤΕ---"
 
-#: web/admin/action_req_certificate.php:179
+#: web/admin/action_req_certificate.php:180
 msgid "2. CSR generation"
 msgstr "2.παραγωγή CSR"
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:181
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -166,19 +166,19 @@ msgstr ""
 "Ένας τρόπος παραγωγής μιας αποδεκτής αίτησης πιστοποιητικού είναι μέσω αυτού "
 "του openssl one-liner:"
 
-#: web/admin/action_req_certificate.php:182
+#: web/admin/action_req_certificate.php:183
 msgid "3. Submission"
 msgstr "3. Αίτηση"
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:184
 msgid "Please paste your CSR here:"
 msgstr "Παρακαλώ επικολλήστε το CSR σας εδώ:"
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:185
 msgid "Send request"
 msgstr "Στείλτε αίτηση"
 
-#: web/admin/action_req_certificate.php:187
+#: web/admin/action_req_certificate.php:188
 msgid "Back to Overview Page"
 msgstr "Πίσω στην σελίδα επισκόπησης"
 
@@ -221,7 +221,7 @@ msgid "Property Value"
 msgstr "Τιμή ιδιοτητας"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:249
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Χώρα:"
 
@@ -386,7 +386,7 @@ msgstr ""
 "άλλο', καθώς χρησιμοποιείται ως εφεδρεία εφόσον το σύστημα δε διαθέτει ένα "
 "όνομα στη γλώσσα στην οποία ο χρήστης ζητά μεταφόρτωση."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:263
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Ιδιότητες Media"
 
@@ -1795,8 +1795,8 @@ msgid "Configured / Visible / OpenRoaming"
 msgstr "Διαμορφωμένο / Ορατό / OpenRoaming"
 
 #: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
-#: web/lib/admin/UIElements.php:132
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "Όνομα %s"
@@ -1949,7 +1949,7 @@ msgstr "Προφίλ: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Τύποι EAP</strong> (κατά σειρά προτίμησης):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:418
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "OK"
 
@@ -2065,7 +2065,7 @@ msgid "VLAN tag for own users"
 msgstr "VLAN tag για δικού σας χρήστες"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:144
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "Realm στο οποίο θα θεωρούνται δικοί σας χρήστες"
 
@@ -2439,7 +2439,7 @@ msgstr ""
 "Είστε ο διαχειριστής %s. Μπορείτε να προσκαλέσετε νέους διαχειριστές, που "
 "μπορούν με τη σειρά τους να διορίσουν και άλλους διαχειριστές μόνοι τους."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:123
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "Διαχειριστής %s"
@@ -2829,7 +2829,7 @@ msgstr "Διαπιστευτήριο"
 msgid "Operator Domain"
 msgstr "Διαχειριστής Τομέα"
 
-#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
+#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:99
 msgid "Location"
 msgstr "Τοποθεσία"
 
@@ -3025,7 +3025,7 @@ msgstr "Διαβάστε τις οδηγίες στο wiki."
 msgid "select language"
 msgstr "επιλογή γλώσσας"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:179
+#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "προεπιλογή/άλλες γλώσσες"
 
@@ -3037,11 +3037,11 @@ msgstr "(προεπιλογή/άλλες γλώσσες)"
 msgid "file content"
 msgstr "περιεχόμενο αρχείου"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "on"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "off"
 
@@ -3137,251 +3137,250 @@ msgid "HS20 Consortium OI"
 msgstr "Αναγνωριστικό OI κοινοπραξίας HS20"
 
 #: web/lib/admin/UIElements.php:90
-msgid "Additional SSID"
-msgstr "Επιπρόσθετο SSID"
-
-#: web/lib/admin/UIElements.php:93
 msgid "Additional HS20 Consortium OI"
 msgstr "Επιπρόσθετο αναγνωριστικό OI κοινοπραξίας HS20"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:93
 msgid "Support: Web"
 msgstr "Υποστήριξη: Διαδίκτυο"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:94
 msgid "Support: EAP Types"
 msgstr "Υποστήριξη: Τύποι EAP"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:95
 msgid "Support: Phone"
 msgstr "Υποστήριξη: Τηλέφωνο"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:96
 msgid "Support: E-Mail"
 msgstr "Υποστήριξη: E-Mail"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:98
 #, php-format
 msgid "%s Acronym"
 msgstr "%s Ακρώνυμο "
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:100
 msgid "Logo URL"
 msgstr "URL λογότυπου"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:101
 msgid "Logo image"
 msgstr "Εικόνα λογότυπου"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:102
 msgid "Configure Wired Ethernet"
 msgstr "Ρύθμιση Ενσύρματου Ethernet"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:103
 msgid "Name (CN) of Authentication Server"
 msgstr "Όνομα (CN) Εξυπηρετητή Πιστοποίησης"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:104
 msgid "Enable device assessment"
 msgstr "Ενεργοποίηση εντοπισμού συσκευών"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:105
 msgid "Terms of Use"
 msgstr "Όροι χρήσης"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:106
 msgid "CA Certificate URL"
 msgstr "URL πιστοποιητικού CA"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:107
 msgid "CA Certificate File"
 msgstr "Αρχείο πιστοποιητικού CA"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:108
 msgid "Profile Display Name"
 msgstr "Εμφανιζόμενο Όνομα Προφίλ"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:109
 msgid "Production-Ready"
 msgstr "Έτοιμο για παραγωγή"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:110
 msgid "Admin Accepted IdP Terms of Use"
 msgstr "Όροι Χρήσης Αποδοχής IdP Διαχειριστή"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:111
 msgid "Admin Accepted SP Terms of Use"
 msgstr "Όροι Χρήσης Αποδοχής SP Διαχειριστή"
 
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:112
 msgid "Extra text on downloadpage for device"
 msgstr "Επιπρόσθετο κείμενο στη σελίδα λήψεων για τη συσκευή"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:113
 msgid "Redirection Target"
 msgstr "Προορισμός Ανακατεύθυνσης"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:114
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Επιπρόσθετο κείμενο για τη μέθοδο EAP"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:115
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Ενεργοποιήστε την επιλογή EAP-TLS User-Name"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:116
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Χρησιμοποιήστε το GEANTlink για TTLS (Window 8 και 10)"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:117
 msgid "Profile Description"
 msgstr "Περιγραφή Προφίλ"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Επίθεμα Ονόματος Προσαρμοσμένου Πακέτου Εγκατάστασης"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Πραγματικό Όνομα"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "Διεύθυνση E-Mail"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Αφαίρεση/Απενεργοποίηση SSID"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Υποχρεωτικός Διακομιστής Μεσολάβησης με Φίλτρο Περιεχομένου"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Προσαρμοσμένο αρχείο CSS για Περιοχή Χρηστών"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "Λογότυπο %s"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Προτιμώμενο Θέμα για Περιοχή Χρηστών"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Προσθήκη σήμανσης %s στα πακέτα εγκατάστασης"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "Αρχική Σελίδα %s"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Προσαρμοσμένο κείμενο στις Προσκλήσεις %s"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "Ενεργοποίηση %s"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Μην τερματίζετε EAP"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: μέγιστος αριθμός χρηστών ανά προφίλ"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Εντύπωση %s με CA κατά τη δημιουργία"
 
-#: web/lib/admin/UIElements.php:139
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Επιτρέψτε %s συμμετοχή"
 
-#: web/lib/admin/UIElements.php:140
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: Custom NAPTR Target"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN tag για δικού σας χρήστες"
 
-#: web/lib/admin/UIElements.php:145
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Custom Operator-Name χαρακτηριστικό"
 
-#: web/lib/admin/UIElements.php:245
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Γενικές λεπτομέρειες %s"
 
-#: web/lib/admin/UIElements.php:263
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Λεπτομέρειες Καθολικού Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:342
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 "Υπήρξε σφάλμα κατά την ανάκτηση του πιστοποιητικού από τη βάση δεδομένων!"
 
-#: web/lib/admin/UIElements.php:351
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Παρουσιάστηκε ένα σφάλμα κατά την επεξεργασία του πιστοποιητικού!"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "Root CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "Intermediate CA"
 
-#: web/lib/admin/UIElements.php:361
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Αυτό είναι ένα πιστοποιητικό <strong>ΕΞΥΠΗΡΕΤΗΤΗ</strong>!"
 
-#: web/lib/admin/UIElements.php:378
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Προεπισκόπηση αρχείου λογότυπου"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:395
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Υπήρξε ένα σφάλμα κατά την ανάκτηση του αρχείου από τη βάση δεδομένων!"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Το αρχείο υπάρχει ήδη"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Παρατήρηση"
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Προειδοποίηση!"
 
-#: web/lib/admin/UIElements.php:421
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Σφάλμα!"
+
+#~ msgid "Additional SSID"
+#~ msgstr "Επιπρόσθετο SSID"
