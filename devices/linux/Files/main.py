@@ -107,29 +107,31 @@ def detect_desktop_environment() -> str:
     """
     Detect what desktop type is used. This method is prepared for
     possible future use with password encryption on supported distros
-
-    the function below was partially copied from
-    https://ubuntuforums.org/showthread.php?t=1139057
     """
-    desktop_environment = 'generic'
+    if os.environ.get('XDG_CURRENT_DESKTOP'):
+        return os.environ.get('XDG_CURRENT_DESKTOP').lower()
+
+    # Depreciated method for older distributions
     if os.environ.get('KDE_FULL_SESSION') == 'true':
-        desktop_environment = 'kde'
-    elif os.environ.get('GNOME_DESKTOP_SESSION_ID'):
-        desktop_environment = 'gnome'
+        return 'kde'
+    
+    if os.environ.get('GNOME_DESKTOP_SESSION_ID'):
+        return 'gnome'
+
+    try:
+        shell_command = subprocess.Popen(['xprop', '-root',
+                                            '_DT_SAVE_MODE'],
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.PIPE)
+        out, err = shell_command.communicate()
+        info = out.decode('utf-8').strip()
+    except (OSError, RuntimeError):
+        pass
     else:
-        try:
-            shell_command = subprocess.Popen(['xprop', '-root',
-                                              '_DT_SAVE_MODE'],
-                                             stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
-            out, _ = shell_command.communicate()
-            info = out.decode('utf-8').strip()
-        except (OSError, RuntimeError):
-            pass
-        else:
-            if ' = "xfce4"' in info:
-                desktop_environment = 'xfce'
-    return desktop_environment
+        if ' = "xfce4"' in info:
+            return 'xfce'
+    
+    return 'generic'
 
 
 def get_system() -> List:
