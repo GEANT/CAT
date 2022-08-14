@@ -128,9 +128,8 @@ def detect_desktop_environment() -> str:
         info = out.decode('utf-8').strip()
     except (OSError, RuntimeError):
         pass
-    else:
-        if ' = "xfce4"' in info:
-            return 'xfce'
+    if ' = "xfce4"' in info:
+        return 'xfce'
     
     return 'generic'
 
