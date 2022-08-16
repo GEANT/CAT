@@ -124,7 +124,7 @@ def detect_desktop_environment() -> str:
                                             '_DT_SAVE_MODE'],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE)
-        out, err = shell_command.communicate()
+        out, _ = shell_command.communicate()
         info = out.decode('utf-8').strip()
     except (OSError, RuntimeError):
         pass
