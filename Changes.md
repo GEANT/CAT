@@ -2,27 +2,27 @@ Changes in 2.1
 =====================
 - [FEATURE #1]  display hotspot usage statistics
 
-Changes in 2.1-alpha1
-=====================
-- [FEATURE #1]  institutions are now an SP, IdP, or both. Creation of unlinked
+- [FEATURE #2]  institutions are now an SP, IdP, or both. Creation of unlinked
                 insts now has a selection to that end; linked insts extract the
                 corresponding info from the external DB; API creations now have
                 to specify the type of inst in AUXATTRIB_INSTTYPE for the API
                 action ACTION_NEWINST
-- [FEATURE #2]  WPA/TKIP is dead. It cannot be configured as a "legacy" SSID any
+- [FEATURE #3]  WPA/TKIP is dead. It cannot be configured as a "legacy" SSID any
                 more. Existing configurations will be converted into a normal
                 additional-SSID as a normal WPA2/AES network
-- [FEATURE #3]  use IMagick unconditionally again. CentOS 8 added that with 8.1
-- [FEATURE #4]  Integrate OpenRoaming Opt-In possibilities
+- [FEATURE #4]  use IMagick unconditionally again. CentOS 8 added that with 8.1
+- [FEATURE #5]  Integrate OpenRoaming Opt-In possibilities
                 * NROs can allow their IdPs to enable OpenRoaming installers
                 * NROs can specify where their custom RADIUS/TLS endpoint is, 
                   if any (else a consortium-wide default is shown)
                 * IdPs can choose to have OpenRoaming Free RCOIs included in
                   their end-user installers either unconditionally or only on
                   explicit user request
-- [FEATURE #5]  add possibility to add OpenRoaming ANP uplinks independently
+- [FEATURE #6]  add possibility to add OpenRoaming ANP uplinks independently
                 from eduroam Managed SP uplinks. Fed op needs to enable the
                 OpenRoaming feature set for this to be exposed to IdPs
+- [FEATURE #7]  introduce a Linux "bash" installer in parallel to the Python
+                one. Disabled by default.
 - [BUGFIX  #1]  don't use the bash "which" to find executables. Does not work
                 with php-fpm
 - [BUGFGIX #2]  do not use the hard-coded term "eduroam" in Apple installers
