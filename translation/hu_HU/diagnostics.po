@@ -5,15 +5,16 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2022
+# Janos Mohacsi <mohacsi@niif.hu>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-12 09:11+0200\n"
+"POT-Creation-Date: 2022-08-16 13:12+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2022\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2022\n"
 "Language-Team: Hungarian (Hungary) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -1824,27 +1825,27 @@ msgstr "Nem tudom"
 
 #: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr "A kiválasztott területre vonatkozó diagnosztikai tesztek eredményei"
+msgstr "A kiválasztott realm-re vonatkozó diagnosztikai tesztek eredményei"
 
 #: web/skins/modern/diag/js/diag_js.php:177
 msgid "The result for tested realm:"
-msgstr "A tartomány tesztelés eredménye:"
+msgstr "A realm tesztelés eredménye:"
 
 #: web/skins/modern/diag/js/diag_js.php:179
 msgid "The system identified"
-msgstr "A rendszer azonosított"
+msgstr "A rendszer azonosításre került"
 
 #: web/skins/modern/diag/js/diag_js.php:181
 msgid "suspected areas which potentially can cause a problem."
-msgstr "A gyanús területek, amelyek potenciálisan problémát okozhatnak."
+msgstr "lehetséges területek, amelyek potenciálisan problémát okozhatnak."
 
 #: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
-"A probléma leírása mellett a rendezvény feltételezett valószínűségét "
-"mutatjuk be."
+"A probléma leírása mellett az esemény feltételezett valószínűségét mutatjuk "
+"be."
 
 #: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
@@ -1852,7 +1853,7 @@ msgstr "A készülék konfigurációja hibás"
 
 #: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr "A környéken található Wi-Fi-hálózat minőségi problémákat okoz"
+msgstr "A környéken található Wi-Fi-hálózat minősége problémákat okoz"
 
 #: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
