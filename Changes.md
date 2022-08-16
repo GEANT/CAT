@@ -23,6 +23,9 @@ Changes in 2.1
                 OpenRoaming feature set for this to be exposed to IdPs
 - [FEATURE #7]  introduce a Linux "bash" installer in parallel to the Python
                 one. Disabled by default.
+- [FEATURE #8]  User Overview changed to have Reset and Remove buttons for orgs
+                now on the overview page
+- [FEATURE #9]  Realm Checks diagnose OpenRoaming readiness if configured.
 - [BUGFIX  #1]  don't use the bash "which" to find executables. Does not work
                 with php-fpm
 - [BUGFGIX #2]  do not use the hard-coded term "eduroam" in Apple installers
