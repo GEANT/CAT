@@ -213,6 +213,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
      */
     public function writeDeviceInfo()
     {
+        \core\common\Entity::intoThePotatoes();
         $networkList = [];
         foreach (array_keys($this->getAttribute('internal:networks')) as $networkName) {
             $networkList[] = $networkName;
@@ -225,7 +226,6 @@ abstract class WindowsCommon extends \core\DeviceConfig
         $configCount = count($configNetworkList);
         $networksCount = count($networkList);
         $out = "<p>";
-        $out .= "$networksCount:";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         $out .= "<p>";
         if ($networksCount > $configCount) {
@@ -240,6 +240,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         }
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your organisation. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
