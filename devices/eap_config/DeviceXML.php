@@ -69,6 +69,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
             \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
             \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate', 'OuterIdentity'],
+            \core\common\EAP::NONE => [],
         ]
     ];
 
@@ -519,7 +520,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * sets the server-side credentials for a given EAP type
      * 
-     * @param one of the tupples defined in /core/common/EAP
+     * @param \devices\XML\Type $eaptype the EAP type
      * @return \core\DeviceXMLmain
      */
     private function getServerSideCredentials($eap)
