@@ -90,7 +90,7 @@ require_once "inc/click_button_js.php";
 
 
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
-        $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
+        $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/6Zg7Bw"; // Managed IdP manual
         }
