@@ -321,7 +321,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     private function generateWlanProfile($networkName, $ssids, $authentication, $encryption, $ois, $hs20 = false)
     {
         if (empty($this->attributes['internal:realm'][0])) {
-            $domainName = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+            $domainName = \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
         } else {
             $domainName = $this->attributes['internal:realm'][0];
         }
