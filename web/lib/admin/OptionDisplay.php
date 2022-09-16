@@ -200,8 +200,6 @@ class OptionDisplay extends \core\common\Entity
             case "media":
                 if ($fedInstance->getAttributes("fed:openroaming") == []) {
                     // no openroaming here
-                    unset($list[array_search("media:openroaming_always", $list)]);
-                    unset($list[array_search("media:openroaming_ask", $list)]);
                     unset($list[array_search("media:openroaming", $list)]);
                 }
                 break;
