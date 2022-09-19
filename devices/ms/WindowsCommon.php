@@ -560,6 +560,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
      * or puts all settings into a single profile
      */
     const separateHS20profiles = true;
+    /**
+     * this constant controls if the system generates sepaarate profiles for every SSID
+     * for it to work, the separateHS20profiles needs also be set to true
+     */
+    const separateSSIDprofiles = true;
     
     public $codePage;
     public $lang;

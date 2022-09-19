@@ -95,6 +95,8 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
                 $delProfiles[] = $ssid.' (TKIP)';
             }
         }
+        // this removes the profile container that we used in CAT 2.1 and removed in 2.1.1
+        $delProfiles[] = sprintf('%s Custom Network', \core\CAT::$nomenclature_participant);
         $this->writeAdditionalDeletes($delProfiles);
         if ($setWired) {
             $this->loggerInstance->debug(4, "Saving LAN profile\n");
@@ -133,13 +135,26 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     {
         $out = '';
         if (!empty($network['ssid'])) {
-            $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
-            $this->saveProfile($windowsProfileSSID, $this->iterator, true);
-            $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
-            $this->iterator++;
+            if ($this::separateSSIDprofiles === true && !empty($network['condition']) && $network['condition'] === 'locally_defined') {
+                $out = "";
+                foreach ($network['ssid'] as $ssid) {
+                    $this->loggerInstance->debug(4, "SSID network: $ssid\n");
+                    $windowsProfileSSID = $this->generateWlanProfile($ssid, [$ssid], 'WPA2', 'AES', [], false);
+                    $this->saveProfile($windowsProfileSSID, $this->iterator, true);
+                    $out .= "!insertmacro define_wlan_profile \"$ssid\" \"AES\" 0\n";
+                    $this->iterator++;                     
+                }
+            } else {
+                $this->loggerInstance->debug(4, "SSID network: $profileName\n");
+                $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
+                $this->saveProfile($windowsProfileSSID, $this->iterator, true);
+                $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
+                $this->iterator++;
+            }
             $profileName .= " via partner";
         }
         if (!empty($network['oi'])) {
+            $this->loggerInstance->debug(4, "RCOI network: $profileName\n");
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
             $this->saveProfile($windowsProfileHS, $this->iterator, true);
             $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
@@ -169,7 +184,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $this->saveProfile($windowsProfile, $this->iterator, false);
         }
         $this->iterator++;
-        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n");
+        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 2\n");
     }
 
     private function saveLogo()

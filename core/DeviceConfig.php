@@ -620,7 +620,7 @@ abstract class DeviceConfig extends \core\common\Entity
             }
         }
         if (!empty($additionalConsortia) || !empty($additionalSSIDs)) {
-            $networks[sprintf('%s Custom Network', CAT::$nomenclature_participant)] = ['ssid' => $additionalSSIDs, 'oi' => $additionalConsortia];
+            $networks[sprintf('%s Custom Network', CAT::$nomenclature_participant)] = ['ssid' => $additionalSSIDs, 'oi' => $additionalConsortia, 'condition' => 'locally_defined'];
         }
         return $networks;
     }
