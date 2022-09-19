@@ -55,8 +55,11 @@ class MsTtlsProfile extends MsEapProfile
     
     private function getPhase2Auth() {
         $element = new \core\DeviceXMLmain();
-        if ($this->innerType == \core\common\EAP::MSCHAP2) {
+        if ($this->innerType == \core\common\EAP::NE_MSCHAP2) {
             $element->setChild('MSCHAPv2Authentication', $this->getWinlogonCred());
+        }
+        if ($this->innerType == \core\common\EAP::NE_PAP) {
+            $element->setChild('PAPAuthentication', '');
         }
         if ($this->innerType == \core\common\EAP::NONE) {
             $element->setChild('PAPAuthentication', '');
