@@ -530,7 +530,17 @@ function handleGuessOs(recognisedDevice) {
     if (recognisedDevice == null)
         return true;
     if(recognisedDevice.redirect != '0') {
-         alert(recognisedDevice.redirect);
+        $('.device_info').html('');
+        $('.more_info_b').hide();
+        $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditonalInfo');
+        i_div = $("#info_g_"+recognisedOS);
+        t =  guiTexts.redirect+
+            "<br><span class='redirect_link'><a href='"+recognisedDevice.redirect+"' target='_blank'>"+guiTexts.continue+"</a></span>";
+        i_div.html(t);
+        $(".redirect_link").click(function(event) {
+         i_div.hide('fast');
+      });
+      return true;
     } 
   // handle devices that canot be configured due to lack of support
   // for required EAP methods
