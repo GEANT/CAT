@@ -31,7 +31,7 @@ class MsLanProfile
         $root = $dom->createElement($rootname);
         $dom->appendChild($root);
         $ns = $dom->createAttributeNS( null, 'xmlns' );
-        $ns->value = "hhttp://www.microsoft.com/networking/LAN/profile/v1";
+        $ns->value = "http://www.microsoft.com/networking/LAN/profile/v1";
         $root->appendChild($ns);        
         \core\DeviceXMLmain::marshalObject($dom, $root, 'WLANprofile', $this->getLANprofile(), '', true);
         $dom->formatOutput = true;
