@@ -38,7 +38,6 @@ class MsTlsProfile extends MsEapProfile
         $element->setChild('CredentialsSource', $this->getCredentialSource());
         $element->setChild('ServerValidation', $this->getTlsServerValidation());
         $element->setChild('DifferentUsername', $this->otherTlsName);
-        $element->setChild('EnableQuarantineChecks', $this->nea);
         return($element);                
     }
     
