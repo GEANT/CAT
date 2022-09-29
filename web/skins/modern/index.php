@@ -43,15 +43,15 @@ $visibility = 'index';
 $divs = new \web\skins\modern\Divs($Gui);
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
+$vendorlogo = $Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/");
+if ($vendorlogo !== FALSE) {
+    print "vendorlogo = '$vendorlogo';\n";
+} else {
+    print "vendorlogo ='';\n";
+}
 if ($operatingSystem) {
     print "recognisedOS = '".$operatingSystem['device'] . "';\n";
     print "recognisedOShs20 = '".$operatingSystem['hs20'] . "';\n";
-    $vendorlogo = $Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/");
-    if ($vendorlogo !== FALSE) {
-        print "vendorlogo = '$vendorlogo';\n";
-    } else {
-        print "vendorlogo ='';\n";
-    }
 }
 
 print 'downloadMessage = "'.$Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_MESSAGE] . '";';
@@ -123,9 +123,7 @@ require "user/js/cat_js.php";
                 <div id="devices">
                     <?php
                         echo $divs->OpenRoamingTou();
-                        if ($operatingSystem) {
-                            echo $divs->divGuessOs($operatingSystem);
-                        }
+                        echo $divs->divGuessOs($operatingSystem);
                         echo $divs->divOtherinstallers();
                     ?>
                 </div> <!-- id="devices" -->
