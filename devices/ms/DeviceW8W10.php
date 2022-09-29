@@ -141,14 +141,20 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
                     $this->loggerInstance->debug(4, "SSID network: $ssid\n");
                     $windowsProfileSSID = $this->generateWlanProfile($ssid, [$ssid], 'WPA2', 'AES', [], false);
                     $this->saveProfile($windowsProfileSSID, $this->iterator, true);
-                    $out .= "!insertmacro define_wlan_profile \"$ssid\" \"AES\" 0\n";
+                    $out .= "!insertmacro define_wlan_profile \"$ssid\" \"AES\" 0 \"0\"\n";
                     $this->iterator++;                     
                 }
             } else {
                 $this->loggerInstance->debug(4, "SSID network: $profileName\n");
                 $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
                 $this->saveProfile($windowsProfileSSID, $this->iterator, true);
-                $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
+                $ssids = '';
+                foreach ($network['ssid'] as $ssid) {
+                    if ($ssid != $profileName) {
+                        $ssids .= '|'.$ssid;
+                    }
+                }
+                $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0 \"$ssids\"\n";
                 $this->iterator++;
             }
             $profileName .= " via partner";
@@ -157,7 +163,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $this->loggerInstance->debug(4, "RCOI network: $profileName\n");
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
             $this->saveProfile($windowsProfileHS, $this->iterator, true);
-            $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
+            $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1 \"0\"\n";
             $this->iterator++;
         }
         return($out);
@@ -184,7 +190,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $this->saveProfile($windowsProfile, $this->iterator, false);
         }
         $this->iterator++;
-        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 2\n");
+        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 2 \"".implode('|', $network['ssid'])."\"\n");
     }
 
     private function saveLogo()

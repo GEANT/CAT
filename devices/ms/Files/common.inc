@@ -89,7 +89,6 @@ Var force_wired
 Var Platform
 Var Netsh
 Var Msiexec
-Var main_ssid
 Var rebootRequired
 Var spacesRemoved
 !ifdef GEANTLink
@@ -184,9 +183,10 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echoNsis( _("Finish"))?>"
 !macroend
 
 
-!macro define_wlan_profile prof enc hs20
+!macro define_wlan_profile prof enc hs20 ssids
   nsArray::Set Profile_names /key=$profile_count "${prof}"
-  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}  
+  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}
+  nsArray::Set Profile_SSIDs /key=$profile_count ${ssids}
   IntOp $profile_count $profile_count + 1
   ${If} ${enc} == "TKIP"
     IntOp $tkip_count $tkip_count + 1
@@ -795,9 +795,9 @@ FunctionEnd
 Function Finish
 Call ShowAllButtons
   
-   ${If} $profile_fail == 1
-     Goto WriteScript
-   ${EndIf}
+;   ${If} $profile_fail == 1
+;     Goto WriteScript
+;   ${EndIf}
    !ifdef DEBUG_CAT
      ${If} $Debug_cat > 0
        Goto WriteScript
@@ -935,6 +935,8 @@ Function InstallProfile
     Pop $R1
     nsArray::Get Profile_states $R0
     Pop $R2
+    nsArray::Get Profile_SSIDs $R0
+    Pop $R5
 ; Assume profile success (profile_result is local to this function, however profile_fail is global)
     Push ${PROFILE_STATE_SUCCESS}
     Pop $profile_result
@@ -1004,6 +1006,26 @@ Function InstallProfile
     ${EndIf}
     ${If} $profile_result == ${PROFILE_STATE_SUCCESS}
         !insertmacro debug_cat 1 "Profile $R1 created"
+;   This is the moment to delete old SSID based profiles related to this particular profile
+        ${If} "$R5" != "0"
+            nsArray::Split ssid_array $R5 | /noempty
+            ${nsArray_ToString} ssid_array $0
+            nsArray::Iterate ssid_array
+            IfErrors Done3
+            Pop $0
+            Pop $R6
+            Push $R6
+            call FindProfile
+            Pop $0
+            ${If} $0 == 0
+               DetailPrint "<?php WindowsCommon::echoNsis(_("deleting profile \$R6"))?>"
+               !insertmacro debug_cat 1 'deleting profile "$R6"'
+              !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R6"'
+               nsArray::Set Commands "netsh wlan delete profile $\"$R6$\"" 
+              nsExec::Exec '"$Netsh" wlan delete profile "$R6"'
+            ${EndIf}
+            Done3:
+        ${EndIf}
         Push 1
         Pop $install_wireless_credentials
         !insertmacro debug_cat 4 "pushing install_wireless_credentials $install_wireless_credentials"
