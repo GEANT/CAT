@@ -397,7 +397,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'Chromebook',
                 'options' => [
                     'mime' => 'application/x-onc',
-                    'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
+                    'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://network'>chrome://network</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
                 ],
             ],
             'android_recent' => [
