@@ -130,12 +130,12 @@ class RADIUSTestsUI extends AbstractTest
                 foreach ($this->allReachabilityResults['realm'][0]->totest as $totest) {
                     $this->hostMap[$totest->host] = $totest->bracketaddr;
                 }
-                $this->rfc7585suite = unserialize($this->allReachabilityResults['realm'][0]->rfc7585suite);
+                $this->rfc7585suite = unserialize(base64_decode($this->allReachabilityResults['realm'][0]->rfc7585suite));
                 $this->srv = $this->allReachabilityResults['realm'][0]->srv;
                 $this->naptr = $this->allReachabilityResults['realm'][0]->naptr;
                 $this->naptrValid = $this->allReachabilityResults['realm'][0]->naptr_valid;
                 $this->hosts = $this->allReachabilityResults['realm'][0]->hosts;
-                $this->testSuite = unserialize($this->allReachabilityResults['realm'][0]->testsuite);
+                $this->testSuite = unserialize(base64_decode($this->allReachabilityResults['realm'][0]->testsuite));
             }
             $this->timestamp = $this->allReachabilityResults['realm'][0]->datetime;
         }
