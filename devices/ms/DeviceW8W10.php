@@ -324,7 +324,12 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
         $outerId = $this->determineOuterIdString();
         $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) === 'on') ? 'true' : 'false';
         $otherTlsName = \core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on' ? 'true' : 'false';
-        $this->useGeantLink = \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id) === 'on' ? true : false;
+        if (isset(\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0]) &&
+             \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on') {
+             $this->useGeantLink = true;
+        } else { 
+             $this->useGeantLink = false;
+        }
         $eapConfig = $this->setEapObject();
         $eapConfig->setInnerType($this->selectedEap['INNER']);
         $eapConfig->setInnerTypeDisplay(\core\common\EAP::eapDisplayName($this->selectedEap)['INNER']);
