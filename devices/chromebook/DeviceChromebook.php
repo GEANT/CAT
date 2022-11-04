@@ -208,6 +208,10 @@ class DeviceChromebook extends \core\DeviceConfig
         $eaparray["SaveCredentials"] = true;
         $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
         $eaparray["UseSystemCAs"] = false;
+        // enumerate the server names to check against with SubjectAlternativeNameMatch
+        foreach ($this->attributes['eap:server_name'] as $oneName) {
+            $eaparray["SubjectAlternativeNameMatch"][] = ["Type" => "DNS", "Value" => $oneName];
+        }
 
         if ($outerId !== NULL) {
             $eaparray["AnonymousIdentity"] = $outerId;
