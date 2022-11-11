@@ -305,7 +305,7 @@ class DeviceChromebook extends \core\DeviceConfig
     {
         \core\common\Entity::intoThePotatoes();
         $out = "<p>";
-        $out .= _("The installer is a file with the extension '.onc'. Please download it, open Chrome, and navigate to the URL <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.");
+        $out .= _("The installer is a file with the extension '.onc'. Please download it, open Chrome, and navigate to the URL <a href='chrome://network'>chrome://network</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.");
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
