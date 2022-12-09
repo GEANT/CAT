@@ -5,10 +5,10 @@ on: [push, pull_request]
 
 jobs:
   python_linting:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -48,8 +48,8 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
-        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
+        python-version: ["3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
     needs: [create_test_data_ttls]
     steps:
       - uses: actions/checkout@v2
@@ -71,4 +71,3 @@ jobs:
           echo "run_installer()" >> devices/linux/Files/main.py
           cd devices/linux/Files/
           python main.py -d -s --username eduroam_user --password eduroam_password
-
