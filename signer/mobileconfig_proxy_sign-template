@@ -29,7 +29,7 @@ PREFIX=/usr/local/share/cat-signer
 # LIB is the location which should be searched for libraries and modules
 LIB="$PREFIX/lib"
 
-# Set PROXY to addreses and ports on which pkcs11proxy are listening
+# Set PROXY to addresses and ports on which pkcs11proxy are listening
 # For each of the proxies you must define corresponding PIN, KEY_ID, CERT and CERTS
 PROXY[1]='tcp://1.1.1.1:2345'
 PROXY[2]='tcp://1.1.1.2:2346'
@@ -38,7 +38,7 @@ PROXY[2]='tcp://1.1.1.2:2346'
 PIN[1]='secretpin1';
 PIN[2]='secretpin2';
 
-# Set KEY_ID to provate key identifiers on the tokens
+# Set KEY_ID to private key identifiers on the tokens
 KEY_ID[1]='keyid1'
 KEY_ID[2]='kyid2'
 

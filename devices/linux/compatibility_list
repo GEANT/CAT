@@ -18,7 +18,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-These distributions have been tested and NM was successfuly configured:
+These distributions have been tested and NM was successfully configured:
 In most cases LiveCD were tested for PEAP installation
 Not all LiveCDs run at the user level therefore some isues may have been
 overlooked.
@@ -64,7 +64,7 @@ PCLinuxOS 2012.02     -  no (based on Drak)
 CentOS 6.2            -  yes
 Mageia 2              -  no (based on Drak)
 Slackware 13.37       -  not tested but live distros like Salix, Zewnwalk use wicd,
-                         while Kongoni workes with a sudo.
+                         while Kongoni works with a sudo.
 
 
 

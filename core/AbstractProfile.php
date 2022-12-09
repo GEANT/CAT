@@ -112,7 +112,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
 
     /**
      * This class also needs to handle frontend operations, so needs its own
-     * access to the FRONTEND datbase. This member stores the corresponding 
+     * access to the FRONTEND database. This member stores the corresponding
      * handle.
      * 
      * @var DBConnection
@@ -541,7 +541,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * Performs a sanity check for a given EAP type - did the admin submit enough information to create installers for him?
      * 
      * @param common\EAP $eaptype the EAP type
-     * @return mixed TRUE if the EAP type is complete; an array of missing attribues if it's incomplete; FALSE if it's incomplete for other reasons
+     * @return mixed TRUE if the EAP type is complete; an array of missing attributes if it's incomplete; FALSE if it's incomplete for other reasons
      */
     public function isEapTypeDefinitionComplete($eaptype)
     {
@@ -671,7 +671,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
     /**
      * prepare profile attributes for device modules
      * Gets profile attributes taking into account the most specific level on which they may be defined
-     * as wel as the chosen language.
+     * as well as the chosen language.
      * can be called with an optional $eap argument
      * 
      * @param array $eap if specified, retrieves all attributes except those not pertaining to the given EAP type

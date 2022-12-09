@@ -22,7 +22,7 @@ This directory contains additional files for Windows installer modules.
 
   README - you are reading it now
 
-Varous utilities to be included in the installer code:
+Various utilities to be included in the installer code:
   GEANTLink - GIT submodule link to the GEANTLink binary
   WLANSetEAPUserData - EAP credential loading utility from https://github.com/rozmansi/WLANSetEAPUserData
   check_wired.cmd - utility to check status of wired 802.1X subsystem
@@ -36,7 +36,7 @@ Graphics:
 
 The NSIS code
    base64.nsh - NSIS module for base64 encoding/decoding (for license, see inline)
-   strrep.nsh - NSIS search/repace macro copied from http://nsis.sourceforge.net/StrRep
+   strrep.nsh - NSIS search/replace macro copied from http://nsis.sourceforge.net/StrRep
    common.inc - common NSIS code for all modules
    eap_w8.inc - W8 and higher specific code
    geant_link.inc - NSIS code snippet for inclusion of GEANTLink
@@ -55,7 +55,7 @@ The constants below are set by the Windows module when it generates the actual i
   CRED - turn on the credentials installation code
   PASSWORD_BASED_CRED - username/password based credentials like PAP od MSCHAPv2
   TLS_CRED - credenials based on certificate
-  SILVERBULLET - use the SilverBullet instalation specifics
+  SILVERBULLET - use the SilverBullet installation specifics
   SB_FINGERPRINT - SilverBullet user certificate SHA-1 fingerprint
   SB_USERNAME - SilverBullet username
 

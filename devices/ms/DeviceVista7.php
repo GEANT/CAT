@@ -62,7 +62,7 @@ class DeviceVista7 extends WindowsCommon
     {
         $dom = textdomain(NULL);
         textdomain("devices");
-        // create certificate files and save their names in $caFiles arrary
+        // create certificate files and save their names in $caFiles array
         $caFiles = $this->saveCertificateFiles('der');
 
         $allSSID = $this->attributes['internal:SSID'];

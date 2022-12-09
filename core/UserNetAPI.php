@@ -36,7 +36,7 @@ namespace core;
 use \Exception;
 
 /**
- * This class collect methods used for comminication via network UserAPI
+ * This class collect methods used for communication via network UserAPI
  * The methods are generally wrappers around more general UserAPI ones
  */
 class UserNetAPI extends UserAPI

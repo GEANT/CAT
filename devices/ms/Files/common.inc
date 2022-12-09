@@ -359,7 +359,7 @@ Function .onInit
       StrCpy $Msiexec "msiexec"
     ${EndIf}
   !endif
-  !insertmacro debug_cat 3 "Platfrom:$Platform"
+  !insertmacro debug_cat 3 "Platform:$Platform"
 
   Call wVersionCheck
   Call Wireless_Check
@@ -691,7 +691,7 @@ Function WiredConfirm
 FunctionEnd
 
 
-; Check for installed EAP metod
+; Check for installed EAP method
   Function CheckEAP
     Pop $R0
     !insertmacro debug_cat 3 "testing for EAP: $R0"
@@ -925,7 +925,7 @@ Function CreateWirelessProfiles
   !endif
 FunctionEnd
 
-; re-install a wireless profile and set the credentials flag if succeded
+; re-install a wireless profile and set the credentials flag if succeeded
 ; Profile counter is passed on stack and popped into $R0
 Function InstallProfile
     Pop $R0
@@ -959,7 +959,7 @@ Function InstallProfile
         Pop $R3
         ${If} $R3 == 1
             IfFileExists "$TEMP\nohs_wlan_prof-$R0.xml" 0 noInstall
-            !insertmacro debug_cat 1 "Retrying installtion with the non-hs profile"
+            !insertmacro debug_cat 1 "Retrying installation with the non-hs profile"
             !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml"
             nsArray::Set Commands "netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml" 
             nsArray::Set Commands "del $TEMP\nohs_wlan_prof-$R0.xml"
@@ -967,7 +967,7 @@ Function InstallProfile
             Pop $R4
             !insertmacro debug_cat 4 "netsh returned $R4"
             ${If} $R4 == 0
-                !insertmacro debug_cat 1 "The non-hs profile suceeded"
+                !insertmacro debug_cat 1 "The non-hs profile succeeded"
                     Push 0
                     Pop $profile_fail
             ${Else}

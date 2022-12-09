@@ -40,7 +40,7 @@ $validator = new \web\lib\common\InputValidation();
 
 if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_match("/overview_federation/", $_SERVER['HTTP_REFERER'])) {
     $dest = "../overview_federation.php";
-} else { // not from fed adin page? destination is overview_user
+} else { // not from fed admin page? destination is overview_user
     $dest = "../overview_user.php";
 }
 

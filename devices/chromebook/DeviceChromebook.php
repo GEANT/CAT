@@ -293,7 +293,7 @@ class DeviceChromebook extends \core\DeviceConfig
     }
 
     /**
-     * prepare module desctiption and usage information
+     * prepare module description and usage information
      * 
      * @return string HTML text to be displayed in the information window
      */

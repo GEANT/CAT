@@ -57,7 +57,7 @@ class MapOpenLayers extends AbstractMap {
         var markersArray = new Array(); // holds  all saved locations
         var extent; // the boundng box for locations
         var selectedMarker; // used to pass information about market to be identified
-        var jmarkers; // set in the sorrounding PHP script as a json array to pass saved locations
+        var jmarkers; // set in the surrounding PHP script as a json array to pass saved locations
         var markersSource = new ol.source.Vector(); // the vector source for locations
         var tmpSource = new ol.source.Vector(); // the vector source for temporaty markers
         var icon = new ol.style.Icon({ // the main location icon
@@ -126,7 +126,7 @@ class MapOpenLayers extends AbstractMap {
             style: markersStyle
         });
         
-// used to set temorary icons
+// used to set temporary icons
         function tmpStyle(feature) {
             var style = new ol.style.Style({
                 image: circle});
@@ -184,9 +184,9 @@ class MapOpenLayers extends AbstractMap {
         markersSource.removeFeature(markersArray[j - 1]);
         }
 
-// the main map display funtion
+// the main map display function
         function generateMap(mapName) {
-        // Instanciate a Map, set the object target to the map DOM id
+        // Instantiate a Map, set the object target to the map DOM id
             map = new ol.Map({
                 controls: ol.control.defaults().extend([
                     new ol.control.FullScreen()

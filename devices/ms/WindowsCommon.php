@@ -69,7 +69,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
     }
 
     /**
-     *  Copy a file from the module location to the temporary directory aplying transcoding.
+     *  Copy a file from the module location to the temporary directory applying transcoding.
      *
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
@@ -291,7 +291,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         $freeTop = 70;
         // $freeBottom is set to how much vertical space we need to leave at the bottom
         // this will depend on the design of the background
-        // we are prefixig the paths with getcwd() wich migh appear unnecessary
+        // we are prefixig the paths with getcwd() which might appear unnecessary
         // but under some conditions appeared to be required
         $freeBottom = 30;
         if (class_exists('\\Gmagick')) { 

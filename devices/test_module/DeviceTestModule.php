@@ -26,7 +26,7 @@
  *
  * The module contains two files
  * in the Files directory. They will illustrate the use of the {@link DeviceConfig::copyFile()} method.
- * One fille will be coppied without the name change, for the second we will provide a new name.
+ * One file will be copied without the name change, for the second we will provide a new name.
  * The API also contains a similar {@link DeviceConfig::translateFile()} method, which is special to Windows installers and not used in this example.
  *
  * This module will collect all certificate files stored in the database for a given profile and will copy them to the working directory.
@@ -57,7 +57,7 @@ namespace devices\test_module;
  *
  * All other methods and properties should be private. This example sets zipInstaller method to protected, so that it can be seen in the documentation.
  *
- * It is important to understand how the device module fits into the whole picture, so here is s short descrption.
+ * It is important to understand how the device module fits into the whole picture, so here is s short description.
  * An external caller (for instance {@link GUI::generateInstaller()}) creates the module device instance and prepares
  * its environment for a given user profile by calling {@link DeviceConfig::setup()} method.
  *      this will:
@@ -98,7 +98,7 @@ class DeviceTestModule extends \core\DeviceConfig {
      */
     public function writeInstaller() {
         $this->loggerInstance->debug(4, "Test Module Installer start\n");
-        // create certificate files and save their names in $cAfiles arrary
+        // create certificate files and save their names in $cAfiles array
         $cAfiles = $this->saveCertificateFiles('der');
         if ($cAfiles === []) {
             $this->loggerInstance->debug(2, "copying of certificates failed\n");
@@ -118,7 +118,7 @@ class DeviceTestModule extends \core\DeviceConfig {
     }
 
     /**
-     * prepare module desctiption and usage information
+     * prepare module description and usage information
      * 
      * @return string HTML text to be displayed in the information window
      */
@@ -126,7 +126,7 @@ class DeviceTestModule extends \core\DeviceConfig {
         \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= sprintf(_("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with %d SSIDs to configure."), $ssidCount);
+        $out .= sprintf(_("This installer is an example only. It produces a zip file containing the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with %d SSIDs to configure."), $ssidCount);
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }

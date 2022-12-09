@@ -238,7 +238,7 @@ class IdP extends EntityWithDBProperties
     /**
      * This function gets the profile count for a given IdP.
      * 
-     * The count could be retreived from the listProfiles method
+     * The count could be retrieved from the listProfiles method
      * but this is less expensive.
      *
      * @return int profile count
@@ -317,7 +317,7 @@ class IdP extends EntityWithDBProperties
      * Only creates the DB entry for the Profile. If you want to add attributes later, see Profile::addAttribute().
      *
      * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
-     * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occured
+     * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occurred
      * @throws Exception
      */
     public function newProfile(string $type)
@@ -487,7 +487,7 @@ Best regards,
     /**
      * Associates the external DB id with a CAT id
      * 
-     * @param string $identifier the external DB id, which can be alpha-numeric
+     * @param string $identifier the external DB id, which can be alphanumeric
      * @return void
      */
     public function setExternalDBId(string $identifier)
