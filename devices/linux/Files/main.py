@@ -472,9 +472,9 @@ class InstallerData(object):
         Get user credentials both username/password and personal certificate
         based
         """
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             self.__get_username_password()
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             self.__get_p12_cred()
 
     def __get_username_password(self) -> None:
@@ -519,7 +519,7 @@ class InstallerData(object):
 
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
-            for cmd in ['zenity', 'kdialog', 'yad']:
+            for cmd in ('zenity', 'kdialog', 'yad'):
                 if self.__check_graphics(cmd) == True:
                     return
         self.graphics = 'tty'
@@ -597,8 +597,7 @@ class InstallerData(object):
             p_count = 0
             pfx_file = ''
             for my_file in my_dir:
-                if my_file.endswith('.p12') or my_file.endswith('*.pfx') or \
-                        my_file.endswith('.P12') or my_file.endswith('*.PFX'):
+                if my_file.endswith(('.p12', '*.pfx', '.P12', '*.PFX')):
                     p_count += 1
                     pfx_file = my_file
             prompt = "personal certificate file (p12 or pfx)"
@@ -750,13 +749,13 @@ class WpaConf(object):
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
         """
 
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
                          f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
                 interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
 
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
                          f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
 
@@ -870,7 +869,7 @@ class CatNMConfigTool(object):
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -960,7 +959,7 @@ class CatNMConfigTool(object):
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             match_key = 'altsubject-matches'
             match_value = server_alt_subject_name_list
         else:
@@ -972,13 +971,13 @@ class CatNMConfigTool(object):
             'ca-cert': dbus.ByteArray(
                 "file://{0}\0".format(self.cacert_file).encode('utf8')),
             match_key: match_value}
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
             if Config.anonymous_identity != '':
                 s_8021x_data['anonymous-identity'] = Config.anonymous_identity
             s_8021x_data['password-flags'] = 0
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(
