@@ -3,6 +3,9 @@ name: Test the eduroam linux installer
 # Trigger the workflow on push or pull request
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   python_linting:
     runs-on: ubuntu-20.04
