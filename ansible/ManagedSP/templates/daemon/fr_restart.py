@@ -61,7 +61,7 @@ def radius_restart():
     sem_restart_suspended.release()
     time.sleep(RESTART_INTERVAL)
     sem_restart_suspended.acquire()
-    
+
 
 logger = init_log()
 

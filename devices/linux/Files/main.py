@@ -102,7 +102,6 @@ except ImportError:
     CRYPTO_AVAILABLE = False
 
 
-
 def detect_desktop_environment() -> str:
     """
     Detect what desktop type is used. This method is prepared for
@@ -185,7 +184,7 @@ def run_installer() -> None:
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
                                    password=password, pfx_file=pfx_file)
-    
+
     if wpa_conf:
         NM_AVAILABLE = False
 
@@ -208,7 +207,7 @@ def run_installer() -> None:
     installer_data.show_info(Messages.installation_finished)
 
 
-class Messages(object):
+class Messages:
     """
     These are initial definitions of messages, but they will be
     overridden with translated strings.
@@ -250,7 +249,7 @@ class Messages(object):
     # "Output written to %s"
 
 
-class Config(object):
+class Config:
     """
     This is used to prepare settings during installer generation.
     """
@@ -277,7 +276,7 @@ class Config(object):
     hint_user_input = False
 
 
-class InstallerData(object):
+class InstallerData:
     """
     General user interaction handling, supports zenity, KDialog, yad and
     standard command-line interface
@@ -472,9 +471,9 @@ class InstallerData(object):
         Get user credentials both username/password and personal certificate
         based
         """
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             self.__get_username_password()
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             self.__get_p12_cred()
 
     def __get_username_password(self) -> None:
@@ -519,8 +518,8 @@ class InstallerData(object):
 
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
-            for cmd in ['zenity', 'kdialog', 'yad']:
-                if self.__check_graphics(cmd) == True:
+            for cmd in ('zenity', 'kdialog', 'yad'):
+                if self.__check_graphics(cmd):
                     return
         self.graphics = 'tty'
 
@@ -555,9 +554,9 @@ class InstallerData(object):
             if shell_command.returncode != 0:
                 debug("first password run failed")
                 command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
-                       'pass:' + self.password, '-nokeys', '-clcerts']
+                            'pass:' + self.password, '-nokeys', '-clcerts']
                 shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
+                                                  stderr=subprocess.PIPE)
                 out, err = shell_command1.communicate()
                 if shell_command1.returncode != 0:
                     return False
@@ -597,8 +596,7 @@ class InstallerData(object):
             p_count = 0
             pfx_file = ''
             for my_file in my_dir:
-                if my_file.endswith('.p12') or my_file.endswith('*.pfx') or \
-                        my_file.endswith('.P12') or my_file.endswith('*.PFX'):
+                if my_file.endswith(('.p12', '*.pfx', '.P12', '*.PFX')):
                     p_count += 1
                     pfx_file = my_file
             prompt = "personal certificate file (p12 or pfx)"
@@ -732,7 +730,7 @@ class InstallerData(object):
         return True
 
 
-class WpaConf(object):
+class WpaConf:
     """
     Prepare and save wpa_supplicant config file
     """
@@ -750,13 +748,13 @@ class WpaConf(object):
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
         """
 
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
                          f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
                 interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
 
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
                          f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
 
@@ -765,8 +763,7 @@ class WpaConf(object):
 
     def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
-        wpa_conf = get_config_path() + \
-                   '/cat_installer/cat_installer.conf'
+        wpa_conf = get_config_path() + '/cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
             for ssid in ssids:
                 net = self.__prepare_network_block(ssid, user_data)
@@ -807,7 +804,7 @@ class IwdConfiguration:
         EAP-PEAP-Phase2-Method=MSCHAPV2
         EAP-PEAP-Phase2-Identity={username}@{realm}
         EAP-PEAP-Phase2-Password={password}
-        
+
         [Settings]
         AutoConnect=true
         """.format(anonymous_identity=Config.anonymous_identity,
@@ -827,7 +824,7 @@ class IwdConfiguration:
         EAP-TTLS-Phase2-Method=Tunneled-PAP
         EAP-TTLS-Phase2-Identity={username}@{realm}
         EAP-TTLS-Phase2-Password={password}
-        
+
         [Settings]
         AutoConnect=true
         """.format(anonymous_identity=Config.anonymous_identity,
@@ -837,7 +834,7 @@ class IwdConfiguration:
                    password=user_data.password)
 
 
-class CatNMConfigTool(object):
+class CatNMConfigTool:
     """
     Prepare and save NetworkManager configuration
     """
@@ -870,7 +867,7 @@ class CatNMConfigTool(object):
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -960,7 +957,7 @@ class CatNMConfigTool(object):
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             match_key = 'altsubject-matches'
             match_value = server_alt_subject_name_list
         else:
@@ -972,13 +969,13 @@ class CatNMConfigTool(object):
             'ca-cert': dbus.ByteArray(
                 "file://{0}\0".format(self.cacert_file).encode('utf8')),
             match_key: match_value}
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
             if Config.anonymous_identity != '':
                 s_8021x_data['anonymous-identity'] = Config.anonymous_identity
             s_8021x_data['password-flags'] = 0
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(
