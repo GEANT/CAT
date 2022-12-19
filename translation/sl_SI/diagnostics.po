@@ -963,7 +963,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:88
 msgid ""
-"Have you ever used the network succesfully, e.g. at your home institution "
+"Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
 "Ste omrežje predhodno uspešno uporabljali npr. v domači organizaciji, ne da "
@@ -975,7 +975,7 @@ msgstr ""
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
-"your device configuation is wrong. %s"
+"your device configuration is wrong. %s"
 msgstr ""
 "Če naprava še nikoli ni delovala s to nastavitvijo, gre najverjetneje za "
 "napačno konfiguracijo. %s"
@@ -1297,7 +1297,7 @@ msgid "Diagnostics results for selected realms"
 msgstr "Rezultati diagnostike za izbrano področje"
 
 #: web/skins/modern/diag/diag.php:575
-msgid "An unknown problem occured"
+msgid "An unknown problem occurred"
 msgstr "Zgodila se je neznana težava"
 
 #: web/skins/modern/diag/diag.php:578
@@ -1746,12 +1746,12 @@ msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Preskus je uspel.</strong>"
 
 #: web/diag/radius_tests.php:177
-msgid "<strong>Test partially successful</strong>: authentication succeded."
+msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 "<strong>Preskus je delno uspel</strong>: preverjanje pristnosti je uspelo."
 
 #: web/diag/radius_tests.php:180
-msgid "<strong>Test FAILED</strong>: authentication succeded."
+msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr "<strong>Preskus NI USPEL</strong>: preverjanje pristnosti je uspelo."
 
 #: web/diag/radius_tests.php:185
@@ -2031,5 +2031,5 @@ msgid "See details"
 msgstr "Za ogled podrobnosti pojdite na"
 
 #: web/skins/modern/diag/js/diag_js.php:432
-msgid "If you want to report your problem, fill fields bellow."
+msgid "If you want to report your problem, fill fields below."
 msgstr ""

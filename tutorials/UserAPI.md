@@ -49,10 +49,10 @@ JSON structure
 
 With the exception of sendLogo, which sends an image, data returned by each called is sent as a JSON encoded array.
 The main array has three entries: <emphasis>status</emphasis>, <emphasis>data</emphasis> and <emphasis>tou</emphasis>.
-The <emphasis>status</emphasis> entry returns the success or failure of the call. If <emphasis>status</emphasis> equals <emphasis>0</emphasis> then the call failes and <emphasis>data</emphasis> could contain an error message. If <emphasis>status</emphasis> equals <emphasis>1</emphasis> then <emphasis>data</emphasis> will contain all returned information.
+The <emphasis>status</emphasis> entry returns the success or failure of the call. If <emphasis>status</emphasis> equals <emphasis>0</emphasis> then the call fails and <emphasis>data</emphasis> could contain an error message. If <emphasis>status</emphasis> equals <emphasis>1</emphasis> then <emphasis>data</emphasis> will contain all returned information.
 The <emphasis>tou</emphasis> entry is just the Terms of Use statement.
 
-In most cases <emphasis>data</emphasis> is an array listing requested objects like languages, countries, IdPs, profiles. See the decriptions of individual actions for more information on the <emphasis>data</emphasis> structure.
+In most cases <emphasis>data</emphasis> is an array listing requested objects like languages, countries, IdPs, profiles. See the descriptions of individual actions for more information on the <emphasis>data</emphasis> structure.
 
 Actions in detail
 -----------------
@@ -83,7 +83,7 @@ Actions in detail
       The result is an array of tuples {"entityID", "title", "country", "geo", "icon", "idp"}.
       <emphasis>geo</emphasis> and <emphasis>icon</emphasis> are optional. <emphasis>idp</emphasis>
       is provided for conformance reasons, but is just a copy of <emphasis>entityID</emphasis>.
-      <emphasis>geo</emphasis> can be either a {"lon", "lat"} tuple or an array of such tupples.
+      <emphasis>geo</emphasis> can be either a {"lon", "lat"} tuple or an array of such tuples.
 
 * listIdentityProviders
   - mandatory arguments:

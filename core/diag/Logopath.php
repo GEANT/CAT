@@ -343,7 +343,7 @@ class Logopath extends AbstractTest {
             }
 
             $handle = \core\common\OutsideComm::mailHandle();
-            // let's identify outselves
+            // let's identify ourselves
             $handle->FromName = \config\Master::APPEARANCE['productname'] . " Real-Time Diagnostics System";
             // add recipients
             foreach (Logopath::CATEGORYBINDING as $arrayName => $functionName) {

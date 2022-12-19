@@ -107,7 +107,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties
 
     /**
      * This class also needs to handle frontend operations, so needs its own
-     * access to the FRONTEND datbase. This member stores the corresponding 
+     * access to the FRONTEND database. This member stores the corresponding 
      * handle.
      * 
      * @var DBConnection
@@ -180,7 +180,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties
     abstract public function activate();
 
     /**
-     * check if RADIUS configuration deamon is listening for requests
+     * check if RADIUS configuration daemon is listening for requests
      *
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */

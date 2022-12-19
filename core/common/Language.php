@@ -68,7 +68,7 @@ class Language
      * Sets the gettext domain
      *
      * @param string $domain the text domain
-     * @return string previous seting so that you can restore it later
+     * @return string previous setting so that you can restore it later
      */
     public function setTextDomain($domain)
     {
@@ -122,7 +122,7 @@ class Language
         $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
         foreach ($langConverted as $tryLang) {
-            // madness! setlocale is completely unflexible. If $tryLang is "en"
+            // madness! setlocale is completely inflexible. If $tryLang is "en"
             // it will fail, because it only knows en_US, en_GB a.s.o.
             // we need to map stuff manually
             $localeTmp = FALSE;
@@ -135,8 +135,8 @@ class Language
                     break;
                 }
             }
-            // make sure that the selected locale is actually instlled on this system
-            // normally this should not be needed, but it is a safeguard agains misconfiguration
+            // make sure that the selected locale is actually installed on this system
+            // normally this should not be needed, but it is a safeguard against misconfiguration
             if ($localeTmp) {
                 if (setlocale(LC_ALL, $localeTmp)) {
                     $theLocale = $localeTmp;
@@ -166,7 +166,7 @@ class Language
      * pick a proper value for a given language
      * @param array $valueArray an array of (locale,content) records
      * @return string localised value corresponding to the chosen
-     * locale or to the defalut locale C if a better mach was not available
+     * locale or to the default locale C if a better match was not available
      */
     public function getLocalisedValue($valueArray)
     {

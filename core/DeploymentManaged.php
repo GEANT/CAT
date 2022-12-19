@@ -612,7 +612,7 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
-     * check if RADIUS configuration deamon is listening for requests
+     * check if RADIUS configuration daemon is listening for requests
      *
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */

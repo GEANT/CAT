@@ -572,7 +572,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                         testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnostics results for selected realms") . '"'; ?>;
-                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem occured") . '"'; ?>;
+                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem occurred") . '"'; ?>;
                         result = result + '</h3>'
                         if (r.length == 1) {
                             result = result + <?php echo '"' . _("This test includes checking of the following realm") . '"'; ?>;

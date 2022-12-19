@@ -49,7 +49,7 @@ def radius_restart():
         while True:
             sem_restart_req.acquire()
             if sem_restart_req.value == 0:
-                logger.info("Sempahore cleared")
+                logger.info("Semaphore cleared")
                 break
     try:
         manager.RestartUnit('radiusd.service', 'fail')
@@ -69,7 +69,7 @@ try:
     sem_js = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
     posix_ipc.unlink_semaphore(SEM_JUST_SLEEPING)
 except Exception as e:
-    logger.info('An exception occured ' + str(e) + ', ' + type(e).__name__)
+    logger.info('An exception occurred ' + str(e) + ', ' + type(e).__name__)
     pass
 sem_restart_req = posix_ipc.Semaphore(SEM_RR, posix_ipc.O_CREAT)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING,

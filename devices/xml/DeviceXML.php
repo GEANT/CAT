@@ -37,7 +37,7 @@ use Exception;
 
 /**
  * This class implements full functionality of the generic XML device
- * the only fuction of the extenstions of this class is to specify
+ * the only function of the extensions of this class is to specify
  * supported EAP methods.
  * Instead of specifying supported EAPS an extension can set $all_eaps to true
  * this will cause the installer to configure all EAP methods supported by 

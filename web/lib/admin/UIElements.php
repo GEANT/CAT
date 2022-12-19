@@ -578,7 +578,7 @@ class UIElements extends \core\common\Entity {
             case \core\common\Entity::L_ERROR:
                 $message = "Your configuration appears to be broken, please fix the errors.";
                 if ($test->fatalError) {
-                    $message .= "<br>Some of the errors prevented running addional tests so rerun after fixing.";
+                    $message .= "<br>Some of the errors prevented running additional tests so rerun after fixing.";
                 }
                 break;
             case \core\common\Entity::L_REMARK:

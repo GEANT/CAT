@@ -23,14 +23,14 @@
 # all certificates and key files should be in the directory pointed to by MY_PATH
 
 # MY_PATH - Full path to the directory in which the certificates and keys are located
-# Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
+# Beware that this directory must be protected against the WEB download, otherwise you keys may be compromised. 
 # The directory must be accessible by the Apache proceess
 if [ "$MY_PATH" == "" ]; then MY_PATH="/home/scrutinizer/vault"; fi
 
 # public key in the SPC format
 if [ "$SPC" == "" ]; then SPC="xxx.spc"; fi
 
-# maching private key, it cannot be password protected
+# matching private key, it cannot be password protected
 if [ "$PRIVKEY" == "" ]; then PRIVKEY="xxx_key.der"; fi
 
 # URL shown to the user requiring more information about your installer

@@ -429,7 +429,7 @@
         }
         var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
         if (level == 0) {
-            info = info + '<br>' + <?php echo "'"._("If you want to report your problem, fill fields bellow.")."'"; ?>;
+            info = info + '<br>' + <?php echo "'"._("If you want to report your problem, fill fields below.")."'"; ?>;
         }
         $('#tests_info_area').html(info);
         

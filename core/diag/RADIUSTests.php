@@ -99,7 +99,7 @@ class RADIUSTests extends AbstractTest {
     private $supportedEapTypes;
 
     /**
-     * Do we run throrough or shallow checks?
+     * Do we run thorough or shallow checks?
      * 
      * @var integer
      */
@@ -488,7 +488,7 @@ class RADIUSTests extends AbstractTest {
         }
         // for TLS version checks, we need to search from bottom to top 
         // eapol_test will always try its highest version first, and can be
-        // pursuaded later on to do less. So look at the end result.
+        // persuaded later on to do less. So look at the end result.
         for ($counter = count($inputarray); $counter > 0; $counter--) {
             switch ($desiredCheck) {
                 case self::LINEPARSE_TLSVERSION:
@@ -765,8 +765,8 @@ network={
 // in that case.
 // we have the following test result possibilities:
 // 1. test against allcerts failed
-// 2. test against allcerts succeded, but against eaponly failed - warn admin
-// 3. test against eaponly succeded, in this case critical errors about expired certs
+// 2. test against allcerts succeeded, but against eaponly failed - warn admin
+// 3. test against eaponly succeeded, in this case critical errors about expired certs
 //    need to be changed to notices, since these certs obviously do tot participate
 //    in server certificate validation.
         if (count($verifyResultAllcerts) == 0 || count($verifyResultEaponly) == 0) {
@@ -1256,7 +1256,7 @@ network={
             $bundle = $this->extractIncomingCertsfromEAP($testresults, $tmpDir);
 // FOR OWN REALMS check:
 // 1) does the incoming chain have a root in one of the configured roots
-//    if not, this is a signficant configuration error
+//    if not, this is a significant configuration error
 // return this with one or more of the CERTPROB_ constants (see defs)
 // TRUST_ROOT_NOT_REACHED
 // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES

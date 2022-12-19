@@ -155,8 +155,8 @@ abstract class Entity
     }
 
     /**
-     * This is a helper fuction to retrieve a value from two-dimensional arrays
-     * The function tests if the value for the first indes is defined and then
+     * This is a helper function to retrieve a value from two-dimensional arrays
+     * The function tests if the value for the first index is defined and then
      * the same with the second and finally returns the value
      * if something on the way is not defined, NULL is returned
      * 
@@ -216,7 +216,7 @@ abstract class Entity
     }
 
     /**
-     * this direcory delete function has been copied from PHP documentation
+     * this directory delete function has been copied from PHP documentation
      * 
      * @param string $dir name of the directory to delete
      * @return void

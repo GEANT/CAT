@@ -939,7 +939,7 @@ msgstr "DESCONECTADA"
 #. no anon outer ID, and no realm suffix verification? Bad idea!
 #: web/admin/edit_profile_result.php:141
 msgid ""
-"Without Anoymous Identity, the actual username will be used as outer "
+"Without Anonymous Identity, the actual username will be used as outer "
 "identity and be the basis for request routing. For that to work, the "
 "username must have a correct realm suffix. Yet, realm suffix verification "
 "has been turned OFF. Supplicants will not verify that usernames contain a "
@@ -1699,7 +1699,7 @@ msgstr "Matriz de compatibilidade de dispositivo"
 
 #: web/admin/overview_installers.php:47
 #, php-format
-msgid "Device compatiblity matrix for %s of %s "
+msgid "Device compatibility matrix for %s of %s "
 msgstr "Matriz de compatibilidade de usuario para %s de %s"
 
 #: web/admin/overview_installers.php:53
@@ -1856,7 +1856,7 @@ msgid "Successfully set profile"
 msgstr ""
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
-msgid "Some problem occured during profile update"
+msgid "Some problem occurred during profile update"
 msgstr ""
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
@@ -2751,7 +2751,7 @@ msgstr ""
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
 "through a content filter of your own is a significant invasion of user self-"
-"determination. It also has technical issues. Please throughly read the "
+"determination. It also has technical issues. Please thoroughly read the "
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""

@@ -940,7 +940,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:88
 msgid ""
-"Have you ever used the network succesfully, e.g. at your home institution "
+"Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
 "Har du tidligere brukt nettet, f.eks på din hjemme institusjon uten roaming?"
@@ -951,7 +951,7 @@ msgstr ""
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
-"your device configuation is wrong. %s"
+"your device configuration is wrong. %s"
 msgstr ""
 "Hvis din enhet aldri har fungert før med dette oppsettet, da er mest "
 "sannsynlig konfigurasjon på din enhet feil. %s"
@@ -1264,7 +1264,7 @@ msgid "Diagnostics results for selected realms"
 msgstr "Diagnostikk resultater for valgte realm"
 
 #: web/skins/modern/diag/diag.php:575
-msgid "An unknown problem occured"
+msgid "An unknown problem occurred"
 msgstr "Det oppstod et ukjent problem"
 
 #: web/skins/modern/diag/diag.php:578
@@ -1696,11 +1696,11 @@ msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Vellykket test</strong>"
 
 #: web/diag/radius_tests.php:177
-msgid "<strong>Test partially successful</strong>: authentication succeded."
+msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr "<strong>Delvis vellykket test</strong>: autentisering fungerte."
 
 #: web/diag/radius_tests.php:180
-msgid "<strong>Test FAILED</strong>: authentication succeded."
+msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr "<strong>Test FEIL</strong>: autentisering fungerte."
 
 #: web/diag/radius_tests.php:185
@@ -1977,5 +1977,5 @@ msgid "See details"
 msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:432
-msgid "If you want to report your problem, fill fields bellow."
+msgid "If you want to report your problem, fill fields below."
 msgstr ""

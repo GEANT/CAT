@@ -48,7 +48,7 @@ class ConfAssistant
      * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
      *                             a profile with these OIs will be added to all installers
      * interworking-domainname-fallback: This will be used in Windows installers for the DomainName setting if
-     *                             the IdP configuration does not suppy its own realm
+     *                             the IdP configuration does not supply its own realm
      * homepage: URL of the consortium's general homepage.
      * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
      *           in the certificate. If left empty, signatures are not advertised even if configured and working
@@ -118,7 +118,7 @@ class ConfAssistant
 
     /** silverbullet options:
      *         default_maxusers: an institution is not allowed to create more than that amount of users
-     *             the value can be overriden as a per-federation option in fed-operator UI
+     *             the value can be overridden as a per-federation option in fed-operator UI
      *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
      *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
      *             if left empty, realms would end in the federation name only
@@ -205,12 +205,12 @@ class ConfAssistant
     /**
      * Determines if DiscoJuice keywords should be used in the discovery service
      * The keywords contain other language variants of the IdP name making it
-     * easier to kollow keyboard serach. Turning this oprion on will add
+     * easier to kollow keyboard search. Turning this oprion on will add
      * about 40% size to the IdP list
      */
     const USE_KEYWORDS = true;
     /**
-     * Determines if the IdP list for DiscoJouce shuld be preloaded in the background
+     * Determines if the IdP list for DiscoJouce should be preloaded in the background
      * at the main page load
      */
     const PRELOAD_IDPS = true;

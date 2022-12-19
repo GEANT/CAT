@@ -174,10 +174,10 @@ switch ($test_type) {
                             break;
                         case \core\common\Entity::L_REMARK:
                         case \core\common\Entity::L_WARN:
-                            $message = _("<strong>Test partially successful</strong>: authentication succeded.").' '.$additional_message[$level];
+                            $message = _("<strong>Test partially successful</strong>: authentication succeeded.").' '.$additional_message[$level];
                             break;
                         case \core\common\Entity::L_ERROR:
-                            $message = _("<strong>Test FAILED</strong>: authentication succeded.").' '.$additional_message[$level];
+                            $message = _("<strong>Test FAILED</strong>: authentication succeeded.").' '.$additional_message[$level];
                             break;
                     }
                     break;

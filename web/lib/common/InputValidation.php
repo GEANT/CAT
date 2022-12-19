@@ -112,7 +112,7 @@ class InputValidation extends \core\common\Entity
 
     /**
      * Checks if the input refers to a known Profile. Optionally also takes an
-     * IdP identifier and then checks if the Profile belongs to the refernced 
+     * IdP identifier and then checks if the Profile belongs to the referenced 
      * IdP
      * 
      * @param mixed    $input         the numeric ID of the Profile in the system
@@ -136,7 +136,7 @@ class InputValidation extends \core\common\Entity
 
     /**
      * Checks if the input refers to a known DeploymentManaged. Optionally also takes an
-     * IdP identifier and then checks if the Profile belongs to the refernced 
+     * IdP identifier and then checks if the Profile belongs to the referenced 
      * IdP
      * 
      * @param mixed     $input the numeric ID of the Deployment in the system
@@ -578,7 +578,7 @@ class InputValidation extends \core\common\Entity
                 $out = NULL;
                 break;
         }
-        if ($out === false) { // an error occured during the filter_input runs; make this NULL instead then
+        if ($out === false) { // an error occurred during the filter_input runs; make this NULL instead then
             $out = NULL;
         }
         return $out;

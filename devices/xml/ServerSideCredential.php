@@ -34,14 +34,14 @@ namespace devices\xml;
 class ServerSideCredential extends XMLElement {
 
     /**
-     * the CA element (multuiple occurences allowed)
+     * the CA element (multuiple occurrences allowed)
      * 
      * @var XMLElement
      */
     protected $CA;
 
     /**
-     * the ServerID element (multiple occurences allowed)
+     * the ServerID element (multiple occurrences allowed)
      * 
      * @var XMLElement
      */

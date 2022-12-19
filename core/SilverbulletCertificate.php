@@ -252,7 +252,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
      */
     public function getBasicInfo()
     {
-        $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
+        $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nonetheless
         foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type', 'annotation'] as $key) {
             $returnArray[$key] = $this->$key;
         }

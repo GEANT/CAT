@@ -55,7 +55,7 @@ class UserAPI extends CAT
      * Prepare the device module environment and send back the link
      * This method creates a device module instance via the {@link DeviceFactory} call, 
      * then sets up the device module environment for the specific profile by calling 
-     * {@link DeviceConfig::setup()} method and finally, called the devide writeInstaller meethod
+     * {@link DeviceConfig::setup()} method and finally, called the device writeInstaller method
      * passing the returned path name.
      * 
      * @param string $device       identifier as in {@link devices.php}
@@ -560,9 +560,9 @@ class UserAPI extends CAT
     }
 
     /**
-     * This methods cheks if the devide has been specified as the HTTP parameters
+     * This method checks if the device has been specified as the HTTP parameters
      * 
-     * @return device id|NULL if correcty specified or FALSE otherwise
+     * @return device id|NULL if correctly specified or FALSE otherwise
      */
     private function deviceFromRequest()
     {

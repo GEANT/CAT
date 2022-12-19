@@ -255,7 +255,7 @@ msgstr "%s via Passpoint"
 
 #: devices/PP_OSU_XML/DevicePPOSUXML.php:296
 msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
+"This installer is an example only. It produces a zip file containing the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
@@ -830,7 +830,7 @@ msgstr ""
 #: devices/test_module/DeviceTestModule.php:129
 #, php-format
 msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
+"This installer is an example only. It produces a zip file containing the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
@@ -1235,7 +1235,7 @@ msgstr ""
 #: devices/ms/Files/geant_link.inc:107
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
-"succesfully."
+"successfully."
 msgstr ""
 "Błąd w instalacji GEANTLink.$\\nWbudowany instalator nie zakończył pracy "
 "poprawnie."
