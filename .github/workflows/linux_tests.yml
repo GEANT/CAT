@@ -13,9 +13,9 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -31,7 +31,7 @@ jobs:
   create_test_data_ttls:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - shell: bash
         run: |
           cat << EOF > create_test_data_ttls.txt
@@ -41,7 +41,7 @@ jobs:
           EOF
           mkdir -p artifacts/
       - name: Create config file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: configuration
           path: create_test_data_ttls.txt
@@ -55,9 +55,9 @@ jobs:
         python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
     needs: [create_test_data_ttls]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -65,7 +65,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r devices/linux/Files/requirements.txt
       - name: Test installer
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: configuration
       - shell: bash
