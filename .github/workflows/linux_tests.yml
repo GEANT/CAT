@@ -55,9 +55,9 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9"]
     needs: [create_test_data_ttls]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -65,7 +65,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r devices/linux/Files/requirements.txt
       - name: Test installer
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: configuration
       - shell: bash
@@ -83,9 +83,9 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
     needs: [create_test_data_ttls]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -93,7 +93,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r devices/linux/Files/requirements.txt
       - name: Test installer
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: configuration
       - shell: bash
