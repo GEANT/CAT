@@ -122,7 +122,7 @@ $langObject = new \core\common\Language();
         }
         echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
         $vettedCsr = $validator->string($_POST['CSR'], true);
-        $newCsrWithMeta = ["CSR" => /* $newCsr */ $vettedCsr, "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
+        $newCsrWithMeta = ["CSR_STRING" => /* $newCsr */ $vettedCsr, "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
         echo "<p>"._("The certificate was requested.")."</p>";
