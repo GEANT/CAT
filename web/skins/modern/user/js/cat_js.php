@@ -278,7 +278,7 @@ function showProfile(prof) {
       $("#profile_desc").hide();
       $("#profile_desc").text('');
     }
-    updateTxt = guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
+    updateTxt = '<span class="user_info">'+guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
     openroamming = 'none';
     preagreed = false;
     if (j.openroaming !== undefined) {
@@ -297,9 +297,9 @@ function showProfile(prof) {
     if (j.local_phone !== undefined && j.local_phone) 
       txt = txt+'<span class="user_info">' + guiTexts.tel + ' ' +j.local_phone+'</span><br/>';
     if (txt) 
-      txt = "<span class='user_info_header'>" + guiTexts.problems + "</span><br/>"+txt;
+      txt = "<span class='user_info_header'>" + guiTexts.problems + "</span><br/>"+txt+updateTxt;
     else
-      txt = "<span class='user_info_header'>" + guiTexts.problemsGeneric + '</span><br/>';
+      txt = "<span class='user_info_header'>" + guiTexts.problemsGeneric + '</span><br/>'+updateTxt;
     $("#user_info").html(txt);
     $("#user_info").show();
     if (j.silverbullet) {
