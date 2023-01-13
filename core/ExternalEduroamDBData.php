@@ -292,7 +292,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         while ($instServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instServerTransaction)) {
             $contactList = $this->dissectCollapsedContacts($instServerResponses->contacts);
             $retval[$instServerResponses->ROid . $instServerResponses->instid] = [
-                "names" => splitNames($instServerResponses->inst_name),
+                "names" => $this->splitNames($instServerResponses->inst_name),
                 "type" => $instServerResponses->type,
                 "servers" => $instServerResponses->servers,
                 "contacts" => $contactList];
