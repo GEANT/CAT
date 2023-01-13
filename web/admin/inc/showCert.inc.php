@@ -41,7 +41,7 @@ $mgmt = new \core\UserManagement();
 
 $engine = new core\common\X509();
 
-$certificate = $engine->der2pem(pem2der($_POST['certdata']));
+$certificate = $engine->der2pem($engine->pem2der($_POST['certdata']));
 
 echo "<pre>$certificate</pre>";
 
