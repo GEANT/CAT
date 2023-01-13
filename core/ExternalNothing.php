@@ -103,4 +103,24 @@ class ExternalNothing implements ExternalLinkInterface
     {
         return $this->listExternalEntitiesByRealm("");
     }
+    /**
+     * get all RADIUS/TLS servers for a given federation, with contacts
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersFederation($tld) {
+        unset($tld); // not needed
+        return [];
+    }
+    
+    /**
+     * get all RADIUS/TLS servers for all institutions within a given federation
+     * including their contact details
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersInstitution($tld) {
+        unset($tld); // not needed
+        return [];
+    }
 }

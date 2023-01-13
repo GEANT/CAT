@@ -87,7 +87,10 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
-                $DN[] = "CN=comes.from.eduroam.db";
+                $externalDb = new \core\ExternalEduroamDBData();
+                $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
+                $serverList = explode(",", array_key_first($serverInfo));
+                $DN[] = "CN=".$serverList[0];
                 $policies[] = "eduroam IdP";
                 $policies[] = "eduroam SP";
                 break;
@@ -98,17 +101,22 @@ $langObject = new \core\common\Language();
                 $DN[] = "C=$country";
                 $DN[] = "O=".$desiredInst->name;
                 $DN[] = "CN=comes.from.eduroam.db";
+                $serverInfo = [];
+                $serverList = [];
                 // TODO: with the info available in CAT 2.1, can also issue SP
                 $policies[] = "eduroam IdP";
                 break;
             default:
                 throw new Exception("Sorry: Unknown level of issuance requested.");
         }
-        echo "<p>" . _("Requesting a certificate with the following properties");
+        echo "<p style='font-size: large'>" . _("Requesting a certificate with the following properties");
         echo "<ul>";
         echo "<li>" . _("Policy OIDs: ") . implode(", ", $policies) . "</li>";
         echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN) . "</li>";
-        echo "<li>" . _("Requester Contact Details: will come from eduroam DB (using stub 'Someone, &lt;someone@somewhere.xy&gt;').") . "</li>";
+        echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
+        $firstName = $serverInfo[array_key_first($serverInfo)][0]["name"];
+        $firstMail = $serverInfo[array_key_first($serverInfo)][0]["mail"];
+        echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
         /* $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
         if (is_resource($ossl)) {
@@ -122,7 +130,13 @@ $langObject = new \core\common\Language();
         }
         echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
         $vettedCsr = $validator->string($_POST['CSR'], true);
-        $newCsrWithMeta = ["CSR_STRING" => /* $newCsr */ $vettedCsr, "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
+        $newCsrWithMeta = [
+            "CSR_STRING" => /* $newCsr */ $vettedCsr, 
+            "USERNAME" => $firstName, 
+            "USERMAIL" => $firstMail, 
+            "SUBJECT" => implode(",", $DN) ,
+            "ALTNAMES" => $serverList,
+            "FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
         echo "<p>"._("The certificate was requested.")."</p>";
@@ -162,8 +176,9 @@ $langObject = new \core\common\Language();
         <br/>
         <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureIdP); ?></input>
         <select name="INST-list" id="INST-list">
-            <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
+            <option value="notset"><?php echo _("---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"); ?></option>
             <?php
+            /**
             $allIdPs = [];
             foreach ($feds as $oneFed) {
                 $fedObject = new \core\Federation($oneFed['value']);
@@ -174,6 +189,8 @@ $langObject = new \core\common\Language();
             foreach ($allIdPs as $id => $name) {
                 echo '<option value="' . $id . '">' . $name . "</option>";
             }
+              
+            **/ 
             ?>
         </select>
         <br/>

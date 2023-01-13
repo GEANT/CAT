@@ -101,6 +101,9 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $altArray = [# Array mit den Subject Alternative Names
                 "email:" . $csr["USERMAIL"]
             ];
+            foreach ($csr["ALTNAMES"] as $oneAltName) {
+                $altArray[] = "DNS:" . $oneAltName;
+            }
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
             $this->loggerInstance->debug(5, "PARAM_1: " . CertificationAuthorityEduPkiServer::EDUPKI_RA_ID . "\n");

@@ -70,27 +70,46 @@ $langObject = new \core\common\Language();
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $oneFed) {
         $theFed = new \core\Federation($oneFed['value']);
-        printf("<p>"._("Certificate Information for %s %s"), $uiElements->nomenclatureFed, $theFed->name)."</p>";
+        printf("<p>" . _("Certificate Information for %s %s"), $uiElements->nomenclatureFed, $theFed->name) . "</p>";
         foreach ($theFed->listTlsCertificates() as $oneCert) {
             if ($oneCert['STATUS'] == "REQUESTED") {
                 $theFed->updateCertificateStatus($oneCert['REQSERIAL']);
             }
         }
         echo "<table>";
-        echo "<tr><th>Request Serial</th><th>Distinguished Name</th><th>Status</th><th>Expiry</th></tr>";
+        echo "<tr><th>Request Serial</th><th>Distinguished Name</th><th>Status</th><th>Expiry</th><th>Download</th></tr>";
         foreach ($theFed->listTlsCertificates() as $oneCert) { // fetch list a second time, in case we got a cert
             $status = $oneCert['STATUS'];
+            echo "<tr>";
+            echo "<td>" . $oneCert['REQSERIAL'] . "</td><td>" . $oneCert['DN'] . "</td><td>" . $status . "</td><td>" . $oneCert['EXPIRY'] . "</td>";
             if ($status == "ISSUED") {
-                $status = "<span onclick='alert(\"".str_replace("\n","\\n",$oneCert['CERT'])."\");'>$status</span>";
+                ?>
+            <td>
+                <form action='inc/showCert.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method="POST">
+                    <input type="hidden" name="certdata" value="<?php echo $oneCert['CERT'];?>"/>
+                <button type="submit">Display</button>
+                </form>
+            <td>
+                <?php
             }
-            echo "<tr><td>".$oneCert['REQSERIAL']."</td><td>".$oneCert['DN']."</td><td>".$status."</td><td>".$oneCert['EXPIRY']."</td></tr>";
+            echo "</tr>";
         }
         echo "</table>";
     }
-    ?>
-    <form action="action_req_certificate.php" method="POST">
-        <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo _("Request new Certificate"); ?></button>
-    </form>
-    <?php
+    $eduroamDb = new \core\ExternalEduroamDBData();
+    foreach ($feds as $oneFed2) {
+        $theFed = new \core\Federation($oneFed2['value']);
+        if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
+            ?>
+            <form action="action_req_certificate.php" method="POST">
+                <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo sprintf(_("Request new Certificate for: %s"), strtoupper($theFed->tld)); ?></button>
+            </form>
+            <?php
+        } else {
+            ?>
+            <span style="color: #red"><?php echo sprintf(_("You can not request certificates because there is no server information for %s in the eduroam DB."), $theFed->tld); ?></span>
+            <?php
+        }
+    }
     echo $deco->footer();
     
