@@ -39,6 +39,10 @@ $dest = "../overview_certificates.php";
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 
-echo "<pre>".$_POST['certdata']."</pre>";
+$engine = new core\common\X509();
+
+$certificate = $engine->der2pem(pem2der($_POST['certdata']));
+
+echo "<pre>$certificate</pre>";
 
 ?>
