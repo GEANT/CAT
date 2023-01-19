@@ -1054,8 +1054,8 @@ Function InstallWiredCred
 FunctionEnd
 
 Function writeTlsUserProfile
+    !insertmacro debug_cat 4 "Creating TLS user profile"
     DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials TLS"))?>"
-    !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
        FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -1084,6 +1084,7 @@ FunctionEnd
 
 
 Function writePeapUserProfle
+    !insertmacro debug_cat 4 "Creating PEAP user profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
