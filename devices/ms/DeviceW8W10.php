@@ -210,7 +210,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $fcontents .= "!define W10\n";
         }
         $fcontents .= "Unicode true\n";
-        if ($this->useGeantLink) {
+        if ($this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
             $eapStr = 'GEANTLink';
         } else {
             $eapStr = \core\common\EAP::eapDisplayName($this->selectedEap)['OUTER'];
