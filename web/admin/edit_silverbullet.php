@@ -672,7 +672,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             <div>
                 <?php echo $formtext; ?>
                 <div class="sb-add-new-user">
-                    <p><?php echo _("Comma separated values should be provided in CSV file: username, expiration date 'yyyy-mm-dd', number of tokens (optional):"); ?></p>
+                    <p><?php echo _("Comma separated values should be provided in CSV file: username, expiration date in the form yyyy-mm-dd, number of tokens (optional):"); ?></p>
                     <div style="margin: 5px 0px 10px 0px;">
                         <input type="file" name="newusers">
                     </div>
