@@ -120,7 +120,7 @@ class MapOpenLayers extends AbstractMap {
             return [style];
         }
         
-// devine the markers layer
+// define the markers layer
         var markersLayer = new ol.layer.Vector({
             source: markersSource,
             style: markersStyle
