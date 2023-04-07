@@ -87,8 +87,8 @@ class Language
      * checks if lang has been declared in the http call
      * if not, checks for saved lang in the SESSION
      * or finally checks browser properties.
-     * Only one of the supported langiages can be set
-     * if a match is not found, the default langiage is used
+     * Only one of the supported languages can be set
+     * if a match is not found, the default language is used
      * @param int $hardSetLang - this is currently not used but will allow to force lang setting if this was ever required
      * @return array the language that was set
      */
