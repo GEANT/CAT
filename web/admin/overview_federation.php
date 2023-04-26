@@ -70,6 +70,10 @@ $(document).on('click', '#realmcheck' , function() {
         </table>
     </div>
 
+    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
+        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management'));?></button>
+    </form>
+
     <?php
     $mgmt = new \core\UserManagement();
 
