@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-04-26 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,71 +91,89 @@ msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr ""
 
-#: web/admin/action_req_certificate.php:107
+#: web/admin/action_req_certificate.php:112
 msgid "Requesting a certificate with the following properties"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:109
+#: web/admin/action_req_certificate.php:114
 msgid "Policy OIDs: "
 msgstr ""
 
-#: web/admin/action_req_certificate.php:110
+#: web/admin/action_req_certificate.php:115
 msgid "Distinguished Name: "
 msgstr ""
 
-#: web/admin/action_req_certificate.php:111
-msgid ""
-"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
-"&lt;someone@somewhere.xy&gt;')."
+#: web/admin/action_req_certificate.php:116
+msgid "subjectAltName:DNS : "
 msgstr ""
 
-#: web/admin/action_req_certificate.php:128
+#: web/admin/action_req_certificate.php:119
+msgid "Requester Contact Details: "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:142
 msgid "The certificate was requested."
 msgstr ""
 
-#: web/admin/action_req_certificate.php:131
+#: web/admin/action_req_certificate.php:145
 msgid "Back to Certificate Overview"
 msgstr ""
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:140
+#: web/admin/action_req_certificate.php:154
 msgid "1. Certificate Holder Details"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:142
-#: web/admin/action_req_certificate.php:163
+#: web/admin/action_req_certificate.php:156
+#: web/admin/action_req_certificate.php:177
 #, php-format
 msgid "Certificate for %s role"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:151
 #: web/admin/action_req_certificate.php:165
 msgid "---PLEASE CHOOSE---"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:179
+msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+msgstr ""
+
+#. *
+#. $allIdPs = [];
+#. foreach ($feds as $oneFed) {
+#. $fedObject = new \core\Federation($oneFed['value']);
+#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
+#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
+#. }
+#. }
+#. foreach ($allIdPs as $id => $name) {
+#. echo '<option value="' . $id . '">' . $name . "</option>";
+#. }
+#.
+#. *
+#: web/admin/action_req_certificate.php:197
 msgid "2. CSR generation"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:181
+#: web/admin/action_req_certificate.php:198
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:200
 msgid "3. Submission"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:201
 msgid "Please paste your CSR here:"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:185
+#: web/admin/action_req_certificate.php:202
 msgid "Send request"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:188
+#: web/admin/action_req_certificate.php:205
 msgid "Back to Overview Page"
 msgstr ""
 
@@ -176,21 +194,21 @@ msgstr ""
 msgid "%s Properties"
 msgstr ""
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:205
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
 #: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
 msgid "Property Type"
 msgstr ""
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
 msgstr ""
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
 #: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
@@ -202,7 +220,7 @@ msgstr ""
 msgid "Country:"
 msgstr ""
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:240
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -210,13 +228,13 @@ msgstr ""
 msgid "Add new option"
 msgstr ""
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr ""
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -267,30 +285,30 @@ msgstr ""
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:171
+#: web/admin/edit_hotspot.php:170
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:184
+#: web/admin/edit_hotspot.php:183
 #, php-format
 msgid "Editing %s deployment"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:198
+#: web/admin/edit_hotspot.php:197
 msgid "Options for this deployment"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:214
+#: web/admin/edit_hotspot.php:213
 msgid "Custom Operator-Name:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 #, php-format
 msgid "VLAN tag for own users%s:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 msgid "(unset with '0')"
 msgstr ""
 
@@ -1333,7 +1351,7 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
-"date 'yyyy-mm-dd', number of tokens (optional):"
+"date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:679
@@ -1395,8 +1413,16 @@ msgstr ""
 msgid "Certificate Information for %s %s"
 msgstr ""
 
-#: web/admin/overview_certificates.php:92
-msgid "Request new Certificate"
+#: web/admin/overview_certificates.php:105
+#, php-format
+msgid "Request new Certificate for: %s"
+msgstr ""
+
+#: web/admin/overview_certificates.php:110
+#, php-format
+msgid ""
+"You can not request certificates because there is no server information for "
+"%s in the eduroam DB."
 msgstr ""
 
 #: web/admin/overview_federation.php:28
@@ -2620,7 +2646,7 @@ msgstr ""
 msgid "Always; T&C Pre-Agreed"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:251
+#: web/lib/admin/OptionDisplay.php:249
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2637,7 +2663,7 @@ msgid ""
 "while they are not."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:253
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2647,19 +2673,19 @@ msgid ""
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:254
+#: web/lib/admin/OptionDisplay.php:252
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:255
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:257
+#: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -2668,37 +2694,37 @@ msgid ""
 "installers needs to present this information via its own channel."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:259
+#: web/lib/admin/OptionDisplay.php:257
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:261
+#: web/lib/admin/OptionDisplay.php:259
 msgid "Read the instructions in the wiki."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:366
+#: web/lib/admin/OptionDisplay.php:364
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:442
+#: web/lib/admin/OptionDisplay.php:440
 msgid "(default/other languages)"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:477
+#: web/lib/admin/OptionDisplay.php:475
 msgid "file content"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr ""
 
