@@ -168,6 +168,7 @@ class Master
          * @var array
          */
         const LANGUAGES = [
+            'ar' => ['display' => 'العربية', 'locale' => 'ar_SA.utf8', 'latin_based' => FALSE],
             'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE],
             'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE],
             'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE],
