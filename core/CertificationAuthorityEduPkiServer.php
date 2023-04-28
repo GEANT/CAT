@@ -16,7 +16,14 @@ use \SoapFault;
 
 class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implements CertificationAuthorityInterface
 {
+    #private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.pem";
+    #private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.clearkey";
+    #private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
+    #private const EDUPKI_RA_ID = 100;
+    #private const EDUPKI_CERT_PROFILE = "eduroam IdP and SP";
+    #private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
+    
     private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
     private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
     private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
