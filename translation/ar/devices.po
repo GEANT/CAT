@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2020-2022
+# Mohamed Al Hajri, 2022-2023
+# Raiya Al Rashdi <raiya@omren.om>, 2020-2023
+# Warda Al Habsi <mozartt33@gmail.com>, 2022
 # Warda Al Habsi <mozartt33@gmail.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2022\n"
-"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"Last-Translator: Mohamed Al Hajri, 2022-2023\n"
+"Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +25,11 @@ msgstr ""
 
 #: devices/Devices-template.php:132
 msgid "MS Windows 8 and newer"
-msgstr ""
+msgstr "نظام التشغيل MS Windows 8 والإصدارات الأحدث"
 
 #: devices/Devices-template.php:147
 msgid "MS Windows 8"
-msgstr ""
+msgstr "MS Windows 8"
 
 #: devices/Devices-template.php:163
 msgid "MS Windows 7"
@@ -124,18 +126,17 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
-"network definitions will be added to the preferred networks."
+"<a href='chrome://network'>chrome://network</a>. Then, use the 'Import ONC "
+"file' button. The import is silent; the new network definitions will be "
+"added to the preferred networks."
 msgstr ""
-"بعد تنزيل الملف، قم بفتح متصفح الكروم وتصفح الرابط: <a href='chrome://net-"
-"internals/#chromeos'>chrome://net-internals/#chromeos</a> بعد ذلك استخدم زر "
-"'Import ONC file'. التنزيل صامت، سيتم إضافة تعريفات الشبكة الجديدة إلى "
-"الشبكات المفضلة."
+" بعد تنزيل الملف، قم بفتح متصفح Chrome والانتقال إلى عنوان <a href='chrome://"
+"network'>chrome://network</a>. ثم استخدم زر \"استيراد ملف ONC\". الاستيراد "
+"صامت. ستتم إضافة تعريفات الشبكة الجديدة إلى الشبكات المفضلة."
 
 #: devices/Devices-template.php:405
 msgid "Android 8 and higher"
-msgstr ""
+msgstr "اندرويد اصدار  8 أو اعلى "
 
 #: devices/Devices-template.php:412 devices/Devices-template.php:427
 #: devices/Devices-template.php:441 devices/Devices-template.php:456
@@ -235,6 +236,8 @@ msgid ""
 "This option provides an EAP config XML file with multiple "
 "EAPIdentityProvider elements and all language versions"
 msgstr ""
+"يوفر هذا الخيار ملف XML لتهيئة EAP مع عناصر EAPIdentityProvider متعددة وجميع "
+"إصدارات اللغات"
 
 #: devices/Devices-template.php:596
 msgid "Test"
@@ -265,9 +268,9 @@ msgid ""
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
 msgstr ""
-"لا يمكن التحقق بشكل فعال من إدخال المستخدم للمقع الاخير بشكل مطابق؛ ولكن إذا "
-"لم يتم ضبط \"شروط الاستخدام\" ، فسيقوم المثبت بعرض تلميح مطابق للمستخدم بدلاً "
-"من ذلك."
+"لا يمكن التحقق بشكل فعال من إدخال المستخدم للمقطع الاخير بشكل مطابق؛ ولكن "
+"إذا لم يتم ضبط \"شروط الاستخدام\" ، فسيقوم المثبت بعرض تلميح مطابق للمستخدم "
+"بدلاً من ذلك."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
 msgid ""
@@ -318,7 +321,7 @@ msgstr "اسم المؤسسة غير معرف"
 msgid "Unnamed Profile"
 msgstr "ملف تعريف غير معرف"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:339
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -326,7 +329,7 @@ msgstr ""
 "للحصول على أفضل النتائج ، يرجى استخدام المتصفح المدمج (Safari) لفتح ملف "
 "الضبط."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:341
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:345
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -334,11 +337,11 @@ msgstr ""
 "سيتم تثبيت ملف التعريف نفسه بعد النقر فوق (أو النقر فوق) الزر. سيُطلب منك "
 "التأكيد / الإدخال في عدة نقاط:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:343
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:347
 msgid "to install the profile"
 msgstr "لتثبيت ملف التعريف"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:344
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:348
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "لقبول هيئات الشهادات الامنية للخادم"
@@ -348,84 +351,84 @@ msgstr[3] "لقبول هيئات الشهادات الامنية للخادم"
 msgstr[4] "لقبول هيئات الشهادات الامنية للخادم"
 msgstr[5] "لقبول هيئات الشهادات الامنية للخادم"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:346
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:350
 #, php-format
 msgid "(%d times)"
 msgstr "(%d مرات)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:353
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr "لإدخال اسم المستخدم وكلمة المرور اللذين قدمتهما مؤسستك"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:351
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:355
 #, php-format
 msgid ""
 "(%d times each, because %d SSIDs and %d Passpoint networks are installed)"
 msgstr "( %d من المرات لكل منهما ، لأنه تم تثبيت %dSSIDs وشبكات Passpoint %d )"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:556
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:560
 #, php-format
 msgid "%s - SSID %s"
 msgstr "%s - SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:561
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s الضبط باسم الشبكة %s "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:568
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:572
 #, php-format
 msgid "%s - Wired Network"
 msgstr "%s - شبكة سلكية"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:569
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:573
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s ضبط الشبكة السلكية "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:586
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:590
 #, php-format
 msgid "%s - RCOI"
 msgstr "%s - RCOI"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:587
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:591
 #, php-format
 msgid "%s configuration (Passpoint RCOI)"
-msgstr ""
+msgstr "تهيئة %s (Passpoint RCOI)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:652
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:656
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "لا ينبغي استخدام هذا SSID بعد التمهيد %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:654
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:658
 msgid "Disabled WiFi network"
 msgstr "تعطيل شبكة واي فاي"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:753
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:757
 msgid "User certificate"
 msgstr "شهادة المستخدم"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:808
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "%s هيئة إصدار الشهادات الأمنية"
 
 #. / example: "Identity Provider CA #1 (Root)"
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:812
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:816
 #, php-format
 msgid "%s CA #%d (%s)"
 msgstr "%s  CA # %d (%s) "
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:819
 msgid "Root"
 msgstr " Root"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:815
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:819
 msgid "Intermediate"
 msgstr "Intermediate"
 
@@ -439,20 +442,19 @@ msgstr "هذا الجهاز لا يدعم توفير OpenRoaming."
 msgid "This device does not support provisioning of Passpoint networks."
 msgstr "لا يدعم هذا الجهاز توفير شبكات Passpoint."
 
-#: devices/chromebook/DeviceChromebook.php:304
+#: devices/chromebook/DeviceChromebook.php:308
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
-"Chrome, and navigate to the URL <a href='chrome://net-internals/"
-"#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC "
-"file' button. The import is silent; the new network definitions will be "
-"added to the preferred networks."
+"Chrome, and navigate to the URL <a href='chrome://network'>chrome://network</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
 msgstr ""
-"المثبت هو ملف بصيغة onc. يرجى تنزيله ثم فتح متصفح Chrome والانتقال إلى عنوان "
-"<a href='chrome://net-internals/#chromeos'> chrome://net-internals/"
-"#chromeos</a> ثم استخدم زر \"استيراد ملف ONC\". الاستيراد صامت ؛ سيتم إضافة "
-"تعريفات الشبكة الجديدة إلى الشبكات المفضلة."
+"برنامج التثبيت هو ملف بصيغة \".onc\". يرجى تنزيله وفتح Chrome والانتقال إلى "
+"عنوان <a href='chrome://network'>chrome://network</a>. ثم استخدم زر "
+"\"استيراد ملف ONC\". الاستيراد صامت. ستتم إضافة تعريفات الشبكة الجديدة إلى "
+"الشبكات المفضلة."
 
-#: devices/eap_config/DeviceXML.php:128
+#: devices/eap_config/DeviceXML.php:129
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -460,7 +462,7 @@ msgid ""
 msgstr ""
 "هذا الملف للضبط العام في EAP Metadata -00<a href='%s'> IETF</a> بصيغة XML."
 
-#: devices/eap_config/DeviceXML.php:150
+#: devices/eap_config/DeviceXML.php:151
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "لقد قرأت ووافقت على شروط استخدام OpenRoaming في %s."
@@ -500,7 +502,7 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the cat_installer directory."
 msgstr ""
-"من أجل الاتصال بالشبكة ، ستحتاج إلى شهادة شخصية على شكل ملف p12. يجب أن تحصل "
+"من أجل الاتصال بالشبكة، ستحتاج إلى شهادة شخصية على شكل ملف p12. يجب أن تحصل "
 "على هذه الشهادة من مؤسستك. راجع صفحة الدعم لمعرفة كيفية الحصول على هذه "
 "الشهادة. ملفات الشهادات هذه محمية بكلمة مرور. يجب أن يتوفر لديك كل من الملف "
 "وكلمة المرور أثناء عملية التثبيت. سيتم أيضًا نسخ ملف p12 إلى ملف ."
@@ -598,7 +600,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr "ملف الشهادة اأمنية الشخصية (p12 or pfx)"
 
 #: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1138
+#: devices/ms/Files/common.inc:1186
 msgid "All files"
 msgstr "جميع الملفات"
 
@@ -617,8 +619,8 @@ msgid "Write the file"
 msgstr "اكتب الملف"
 
 #: devices/linux/DeviceLinux.php:148 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1284 devices/ms/Files/common.inc:1304
-#: devices/ms/Files/common.inc:1355
+#: devices/ms/Files/common.inc:1332 devices/ms/Files/common.inc:1352
+#: devices/ms/Files/common.inc:1403
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -651,12 +653,12 @@ msgid "This installer has been prepared for {0}"
 msgstr "تم تهيئة هذا المثبت ل {0}"
 
 #: devices/linux/DeviceLinux.php:338 devices/linux/DeviceLinuxSh.php:344
-#: devices/ms/Files/common.inc:486 devices/ms/Files/common.inc:493
+#: devices/ms/Files/common.inc:488 devices/ms/Files/common.inc:495
 msgid "More information and comments:"
 msgstr "المزيد من المعلومات والملاحظات:"
 
 #: devices/linux/DeviceLinux.php:339 devices/linux/DeviceLinuxSh.php:345
-#: devices/ms/Files/common.inc:519
+#: devices/ms/Files/common.inc:521
 msgid "Installer created with software from the GEANT project."
 msgstr "تم إنشاء المثبت ببرنامج من مشروع GEANT."
 
@@ -675,7 +677,7 @@ msgstr " هذا المثبت سيعمل بشكل صحيح فقط إذا كنت �
 #: devices/linux/DeviceLinuxSh.php:137
 #, php-format
 msgid "Directory %s exists; some of its files may be overwritten."
-msgstr "دليل %s موجود ؛ قد يتم التعديل في بعض ملفاته."
+msgstr "دليل %s موجود؛ قد يتم التعديل في بعض ملفاته."
 
 #: devices/linux/DeviceLinuxSh.php:151
 #, php-format
@@ -719,7 +721,7 @@ msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
 msgstr ""
-" الهويات المجهولة لا تستخدم المجال realm كما هو محدد في ملف التعريف - realm "
+" الهويات المجهولة لا تستخدم النطاق realm كما هو محدد في ملف التعريف - realm "
 "مشتقة من ادخال لاحقة اسم المستخدم بدلاً من ذلك."
 
 #: devices/ms/DeviceVista7.php:50 devices/ms/DeviceW8W10.php:60
@@ -727,7 +729,7 @@ msgid ""
 "While OpenRoaming can be configured, it is possible that the Wi-Fi hardware "
 "does not support it; then the network definition is ignored."
 msgstr ""
-"بما انه يمكن تهيئة OpenRoaming ، فمن الممكن ألا تدعمه أجهزة Wi-Fi ؛ ثم يتم "
+"بما انه يمكن تهيئة OpenRoaming، فمن الممكن ألا تدعمه أجهزة Wi-Fi؛ ثم يتم "
 "تجاهل تعريف الشبكة."
 
 #: devices/ms/DeviceVista7.php:51 devices/ms/DeviceW8W10.php:61
@@ -790,7 +792,7 @@ msgstr ""
 "ملفات هذه الشهادات محمية بكلمة مرور. يجب أن يتوفر لديك كل من ملف الشهادة "
 "وكلمة المرور أثناء عملية التثبيت."
 
-#: devices/ms/WindowsCommon.php:403 devices/ms/WindowsCommon.php:404
+#: devices/ms/WindowsCommon.php:409 devices/ms/WindowsCommon.php:410
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s المثبت ل%s"
@@ -815,79 +817,79 @@ msgstr ""
 "ومعلومات وملفات الشعار (إذا تم تحديد ذلك من قبل مسؤول مزود الهوية) ومجموع "
 "البيانات المتاحة. يتم استدعاء المثبت مع %d SSID للضبط."
 
-#: devices/ms/Files/common.inc:148
+#: devices/ms/Files/common.inc:149
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr "مرحبا بك في برنامج تثبيت %s"
 
-#: devices/ms/Files/common.inc:149
+#: devices/ms/Files/common.inc:150
 msgid "Installation complete"
 msgstr "اكتمل التثبيت"
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Network profiles have been installed."
 msgstr "تم تثبيت ملفات تعريف الشبكة"
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Your system is ready."
 msgstr "النظام الخاص بك جاهز."
 
-#: devices/ms/Files/common.inc:151
+#: devices/ms/Files/common.inc:152
 msgid "Network installation had errors."
 msgstr "تثبيت الشبكة به أخطاء."
 
-#: devices/ms/Files/common.inc:151 devices/ms/Files/common.inc:976
+#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1002
 msgid "Please contact ${SUPPORT}."
 msgstr "يرجى التواصل ب${SUPPORT}"
 
-#: devices/ms/Files/common.inc:159
+#: devices/ms/Files/common.inc:160
 msgid "Accept"
 msgstr "قبول"
 
-#: devices/ms/Files/common.inc:160
+#: devices/ms/Files/common.inc:161
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
 msgstr "إذا وافقت على الشروط، حدد قبول ثم انقر على زر التثبيت للمتابعة."
 
-#: devices/ms/Files/common.inc:166
+#: devices/ms/Files/common.inc:167
 msgid "Finish"
 msgstr "إنتهى"
 
-#: devices/ms/Files/common.inc:199
+#: devices/ms/Files/common.inc:201
 msgid "searching for certificate"
 msgstr "البحث عن الشهادة "
 
-#: devices/ms/Files/common.inc:261
+#: devices/ms/Files/common.inc:263
 msgid "installing certificate"
 msgstr "جاري تثبيت الشهادة"
 
-#: devices/ms/Files/common.inc:267
+#: devices/ms/Files/common.inc:269
 msgid "could not install certificate"
 msgstr "لا يمكن تثبيت الشهادة"
 
-#: devices/ms/Files/common.inc:474
+#: devices/ms/Files/common.inc:476
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr "تفضل ملفات التعريف غير TKIP. استخدمهم دائمًا إذا كان لديك الخيار."
 
-#: devices/ms/Files/common.inc:476
+#: devices/ms/Files/common.inc:478
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr "يفضل ملف التعريف غير TKIP. استخدمه دائمًا إذا كان لديك الخيار."
 
-#: devices/ms/Files/common.inc:482 devices/ms/Files/common.inc:490
+#: devices/ms/Files/common.inc:484 devices/ms/Files/common.inc:492
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "تم تهيئة برنامج التثبيت ل {ORGANISATION}$"
 
-#: devices/ms/Files/common.inc:483
+#: devices/ms/Files/common.inc:485
 msgid "The installer will create the following wireless profiles:"
 msgstr "سينشئ برنامج التثبيت ملفات تعريف الاتصال اللاسلكي التالية:"
 
-#: devices/ms/Files/common.inc:491
+#: devices/ms/Files/common.inc:493
 msgid "The installer will create the wireless profile:"
 msgstr "سينشئ برنامج التثبيت ملف تعريف الاتصال اللاسلكي:"
 
-#: devices/ms/Files/common.inc:585
+#: devices/ms/Files/common.inc:587
 msgid ""
 "Your Windows 10 has not been updated which means that you are likely to have "
 "problems accessing network. We suggest that you quit this installation, "
@@ -896,7 +898,7 @@ msgstr ""
 "لم يتم تحديث ويندوز 10 الخاص بك مما يعني أنه من المحتمل أنك تواجه مشاكل في "
 "الوصول إلى الشبكة. نقترح إنهاء هذا التثبيت وتحديث الويندوز والمحاولة مرة أخرى"
 
-#: devices/ms/Files/common.inc:592
+#: devices/ms/Files/common.inc:594
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
@@ -904,7 +906,7 @@ msgstr ""
 "أنت تستخدم ويندوز  WindowsName$ ولكن هذا المثبت مخصص فقط لويندوز 10 "
 "والإصدارات الأحدث. يرجى تنزيل برنامج التثبيت الصحيح والمحاولة مرة أخرى."
 
-#: devices/ms/Files/common.inc:600 devices/ms/Files/common.inc:607
+#: devices/ms/Files/common.inc:602 devices/ms/Files/common.inc:609
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
@@ -912,7 +914,7 @@ msgstr ""
 "أنت تستخدم ويندوز  WindowsName$ ولكن هذا المثبت مخصص فقط لويندوز 8 و 8.1 . "
 "يرجى تنزيل برنامج التثبيت الصحيح والمحاولة مرة أخرى."
 
-#: devices/ms/Files/common.inc:616
+#: devices/ms/Files/common.inc:618
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
@@ -920,7 +922,7 @@ msgstr ""
 "أنت تستخدم ويندوز  WindowsName$ ولكن هذا المثبت مخصص فقط لويندوز فيستا "
 "وويندوز 7. يرجى تنزيل برنامج التثبيت الصحيح والمحاولة مرة أخرى."
 
-#: devices/ms/Files/common.inc:652
+#: devices/ms/Files/common.inc:654
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
@@ -928,12 +930,12 @@ msgstr ""
 "خدمة التهيئة اللاسلكيه لـ Windows غير مفعلة. برنامج التثبيت لا يمكنه "
 "الاستمرار."
 
-#: devices/ms/Files/common.inc:657
+#: devices/ms/Files/common.inc:659
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 "لم يتم العثور على واجهات لاسلكية. لن يتمكن برنامج التثبيت من الاستمرار."
 
-#: devices/ms/Files/common.inc:663
+#: devices/ms/Files/common.inc:665
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
@@ -941,23 +943,23 @@ msgstr ""
 "لم يتم العثور على واجهات لاسلكية. لن يتم تهيئة الاتصال اللاسلكي. هل ترغب في "
 "المتابعة وتهيئة الاتصال على الواجهة السلكية؟"
 
-#: devices/ms/Files/common.inc:679
+#: devices/ms/Files/common.inc:681
 msgid "Do you want to enable access on wired interfaces?"
 msgstr "هل تريد تمكين الوصول الى واجهات سلكية؟"
 
-#: devices/ms/Files/common.inc:720
+#: devices/ms/Files/common.inc:722
 msgid "Profiles installation"
 msgstr "تثبيت ملفات التعريف"
 
-#: devices/ms/Files/common.inc:739
+#: devices/ms/Files/common.inc:741
 msgid "Checking for profile $R8"
 msgstr "التحقق من الملف الشخصي R8 $"
 
-#: devices/ms/Files/common.inc:747
+#: devices/ms/Files/common.inc:749
 msgid "found profile $R8"
-msgstr ""
+msgstr " $R8 وجد ملف التعريف"
 
-#: devices/ms/Files/common.inc:776
+#: devices/ms/Files/common.inc:778
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -965,18 +967,18 @@ msgstr ""
 "سيعمل برنامج التثبيت هذا بشكل صحيح فقط إذا كنت عضوًا في {ORGANISATION}$ وضمن "
 "مجموعة المستخدمين: {USER_GROUP}$ ."
 
-#: devices/ms/Files/common.inc:776 devices/ms/Files/common.inc:779
+#: devices/ms/Files/common.inc:778 devices/ms/Files/common.inc:781
 msgid "Click OK to continue with installation."
 msgstr "انقر على \"موافق\" لمتابعة التثبيت."
 
-#: devices/ms/Files/common.inc:779
+#: devices/ms/Files/common.inc:781
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
 msgstr ""
 "سيعمل برنامج التثبيت هذا بشكل صحيح فقط إذا كنت عضوًا في {ORGANIZATION}$."
 
-#: devices/ms/Files/common.inc:787
+#: devices/ms/Files/common.inc:789
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
@@ -984,7 +986,7 @@ msgstr ""
 "يرجى قراءة المعلومات الإضافية من  {ORGANIZATION}$ والتي سيتم عرضها خلال "
 "لحظات."
 
-#: devices/ms/Files/common.inc:842
+#: devices/ms/Files/common.inc:844
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -997,101 +999,113 @@ msgid ""
 "It will install the profiles. You will need to login to %s with your "
 "username and password."
 msgstr ""
+"الرجاء قراءة هذه الرسالة ، إنها مهمة. $ \\ r $ \\ n قد تكون هناك مشاكل "
+"التثبيت بسبب تثبيت Symantec Endpoint Protection على جهازك. $ \\ r $ \\ n "
+"بينما هذا خطأ معروف في منتج Symantec ، والتي لا يستطيع المثبت القيام بأي "
+"شيء ، هناك حل بديل. $ \\ r $ \\ n عند إغلاق هذه النافذة ، سيخرج المثبّت وسيتم "
+"تشغيل نافذة المستكشف (قد تظهر أسفل النوافذ المفتوحة بالفعل). في هذه "
+"النافذة ، سترى نصًا باسم inst_cat. ابدأ بالنقر نقرًا مزدوجًا ، وسيقوم بتثبيت "
+"الملفات الشخصية. ستحتاج إلى تسجيل الدخول %s باستخدام اسم المستخدم وكلمة "
+"المرور الخاصة بك."
 
-#: devices/ms/Files/common.inc:852
+#: devices/ms/Files/common.inc:854
 msgid "Please restart your system after installation finishes."
 msgstr "الرجاء إعادة تشغيل النظام الخاص بك بعد انتهاء التثبيت."
 
-#: devices/ms/Files/common.inc:876
+#: devices/ms/Files/common.inc:878
 msgid "installing wired profile"
 msgstr "تثبيت ملف تعريف سلكي"
 
-#: devices/ms/Files/common.inc:917 devices/ms/Files/common.inc:937
+#: devices/ms/Files/common.inc:919 devices/ms/Files/common.inc:944
 msgid "deleting profile $R1"
 msgstr "حذف ملف التعريف R1 $"
 
-#: devices/ms/Files/common.inc:946
+#: devices/ms/Files/common.inc:953
 msgid "installing profile $R1"
 msgstr "تثبيت ملف التعريف  R1 $ "
 
-#: devices/ms/Files/common.inc:976
+#: devices/ms/Files/common.inc:1002
 msgid "Profile installation error for $R1."
 msgstr "خطأ في تثبيت ملف التعريف لـ  R1 $"
 
-#: devices/ms/Files/common.inc:1004
+#: devices/ms/Files/common.inc:1021
+msgid "deleting profile $R6"
+msgstr "حذف ملف التعريف $R6"
+
+#: devices/ms/Files/common.inc:1051
 msgid "installing credentials for wired"
 msgstr "تثبيت بيانات الاعتماد للسلكي"
 
-#: devices/ms/Files/common.inc:1010
+#: devices/ms/Files/common.inc:1058
 msgid "installing credentials TLS"
 msgstr "تثبيت بيانات اعتماد TLS"
 
-#: devices/ms/Files/common.inc:1100
+#: devices/ms/Files/common.inc:1148
 msgid "installing credentials for profile $R1"
 msgstr "تثبيت بيانات الاعتماد لملف التعريف R1 $"
 
-#: devices/ms/Files/common.inc:1120 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1168 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "مشكلة في معلومات الدخول الى التثبيت"
 
-#: devices/ms/Files/common.inc:1129
+#: devices/ms/Files/common.inc:1177
 #, php-format
 msgid "%s installer for"
 msgstr "%s المثبت الخاص ب"
 
-#: devices/ms/Files/common.inc:1129
+#: devices/ms/Files/common.inc:1177
 msgid "Install personal certificate"
 msgstr "تثبيت الشهادة الشخصية"
 
-#: devices/ms/Files/common.inc:1132
+#: devices/ms/Files/common.inc:1180
 msgid "Preparing to install personal certificate."
 msgstr "التحضير لتثبيت الشهادة الشخصية."
 
-#: devices/ms/Files/common.inc:1132
+#: devices/ms/Files/common.inc:1180
 msgid "Click OK to continue"
 msgstr "اضغط موافق للاستمرار"
 
-#: devices/ms/Files/common.inc:1138
+#: devices/ms/Files/common.inc:1186
 msgid "Certificate files (*.p12)"
 msgstr "ملفات الشهادة (p12*)"
 
-#: devices/ms/Files/common.inc:1138
+#: devices/ms/Files/common.inc:1186
 msgid "Certificate files (*pfx)"
 msgstr "ملفات الشهادة (pfx*)"
 
-#: devices/ms/Files/common.inc:1141
+#: devices/ms/Files/common.inc:1189
 msgid "certificate password:"
 msgstr "كلمة مرور الشهادة:"
 
-#: devices/ms/Files/common.inc:1143 devices/ms/Files/common.inc:1406
+#: devices/ms/Files/common.inc:1191 devices/ms/Files/common.inc:1454
 msgid "Username:"
 msgstr "اسم المستخدم:"
 
-#: devices/ms/Files/common.inc:1147
+#: devices/ms/Files/common.inc:1195
 msgid "Selected file: $Cert_file"
 msgstr "الملف المحدد: Cert_file$"
 
-#: devices/ms/Files/common.inc:1149
+#: devices/ms/Files/common.inc:1197
 msgid "import password:"
 msgstr "كلمة مرور الإستيراد:"
 
-#: devices/ms/Files/common.inc:1184
+#: devices/ms/Files/common.inc:1232
 msgid "No certificate file selected"
 msgstr "لم يتم اختيار الشهادة الأمنية"
 
-#: devices/ms/Files/common.inc:1188
+#: devices/ms/Files/common.inc:1236
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "كلمة مرور الإستيراد خاطئة$\\r$\\n أدخل الكلمة مرة أخرى"
 
-#: devices/ms/Files/common.inc:1190
+#: devices/ms/Files/common.inc:1238
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "كلمة مرور الشهادة الأمنية خاطئة$\\r$\\n ادخل الكلمة مرة أخرى"
 
-#: devices/ms/Files/common.inc:1264
+#: devices/ms/Files/common.inc:1312
 msgid "Username contained some trailing spaces which were removed."
 msgstr "يحتوي اسم المستخدم على بعض المسافات الزائدة التي تمت إزالتها."
 
-#: devices/ms/Files/common.inc:1299
+#: devices/ms/Files/common.inc:1347
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -1099,7 +1113,7 @@ msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم الخاص بك على شكل 'xxx@${REALM}'. يرجى إدخال "
 "اسم المستخدم بشكل صحيح."
 
-#: devices/ms/Files/common.inc:1301
+#: devices/ms/Files/common.inc:1349
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -1107,38 +1121,38 @@ msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم الخاص بك على شكل 'xxx@institutionID' وينتهي ب "
 "'${REALM}'. يرجى إدخال اسم المستخدم بشكل صحيح."
 
-#: devices/ms/Files/common.inc:1402
+#: devices/ms/Files/common.inc:1450
 msgid "User credentials"
 msgstr "بيانات دخول المستخدم"
 
-#: devices/ms/Files/common.inc:1409
+#: devices/ms/Files/common.inc:1457
 msgid "Password:"
 msgstr "كلمة المرور"
 
-#: devices/ms/Files/common.inc:1412
+#: devices/ms/Files/common.inc:1460
 msgid "Repeat password:"
 msgstr "أعد كلمة المرور:"
 
-#: devices/ms/Files/common.inc:1427
+#: devices/ms/Files/common.inc:1475
 msgid "Missing username"
 msgstr "اسم المستخدم مفقود"
 
-#: devices/ms/Files/common.inc:1439
+#: devices/ms/Files/common.inc:1487
 msgid "Missing password"
 msgstr "كلمة المرور مفقودة"
 
-#: devices/ms/Files/common.inc:1445
+#: devices/ms/Files/common.inc:1493
 msgid "Password mismatch"
 msgstr "عدم تطابق كلمة المرور"
 
-#: devices/ms/Files/common.inc:1538 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1586 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "التثبيت"
 
-#: devices/ms/Files/common.inc:1538
+#: devices/ms/Files/common.inc:1586
 msgid "Checking for existing wireless profiles"
 msgstr "التحقق من وجود ملفات التعريف للشبكات اللاسلكية الحالية"
 

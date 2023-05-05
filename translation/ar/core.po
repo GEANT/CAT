@@ -3,17 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mohamed Al Hajri, 2023
 # Raiya Al Rashdi <raiya@omren.om>, 2020,2022
 # eduroam_devel <stefan.winter@restena.lu>, 2018
+# Warda Al Habsi <mozartt33@gmail.com>, 2022
 # Warda Al Habsi <mozartt33@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020,2022\n"
-"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"Last-Translator: Mohamed Al Hajri, 2023\n"
+"Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -290,23 +292,23 @@ msgstr "جنوب أفريقيا"
 
 #: core/CAT.php:477 core/IdPlist.php:79
 msgid "Unnamed Entity"
-msgstr "حقل غير معرف"
+msgstr "Entity غير معرف"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr "تم إلغاء تفعيل الملف الشخصي بنجاح"
+msgstr "تم إلغاء تفعيل ملف التعريف بنجاح"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr "تم تفعيل / تعديل الملف الشخصي بنجاح"
+msgstr "تم تفعيل / تعديل ملف التعريف بنجاح"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr "فشل إلغاء تفعيل الملف الشخصي"
+msgstr "فشل إلغاء تفعيل ملف التعريف"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr "فشل تفعيل / تعديل الملف الشخصي"
+msgstr "فشل تفعيل / تعديل ملف التعريف"
 
 #: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
@@ -548,7 +550,7 @@ msgstr "المؤسسة"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr "منظمة"
+msgstr "مؤسسة"
 
 #: core/common/Entity.php:130
 msgid "entity"

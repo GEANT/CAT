@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2022\n"
-"Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
+"Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/bg_BG/)\n"
 "Language: bg_BG\n"
 "MIME-Version: 1.0\n"
@@ -1860,19 +1860,19 @@ msgstr "Token-ът в заявката не съществува, не мога�
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "Всички тестове за свързаност минаха"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "Имаше предупреждения от тестовете за свързаност"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "Имаше някои забележки от тестовете за свързаност"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
+msgstr "Имаше грешки от тестовете за свързаност"
 
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
@@ -1988,17 +1988,17 @@ msgstr "Областта не съществува"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "Стартирани са тестове на свързаността за този домейн"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Налични са нови резултати от тестовете, кликнете, за да видите"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "Виж детайлите"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields bellow."
-msgstr ""
+msgstr "Ако искате да докладвате проблема си, попълнете полетета по-долу."

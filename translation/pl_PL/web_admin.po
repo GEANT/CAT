@@ -4,7 +4,7 @@
 #
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2020,2022
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2020,2022-2023
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012,2015-2016,2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
@@ -12,11 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, "
-"2018-2020,2022\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
+"2018-2020,2022-2023\n"
+"Language-Team: Polish (Poland) (http://app.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
@@ -109,55 +109,73 @@ msgid ""
 msgstr ""
 "Nie posiadasz wystarczających uprawnień, by wnioskować o certyfikaty serwera."
 
-#: web/admin/action_req_certificate.php:107
+#: web/admin/action_req_certificate.php:112
 msgid "Requesting a certificate with the following properties"
 msgstr "Żądanie certyfikatu o następujących własnościach"
 
-#: web/admin/action_req_certificate.php:109
+#: web/admin/action_req_certificate.php:114
 msgid "Policy OIDs: "
 msgstr "OID-y polityk:"
 
-#: web/admin/action_req_certificate.php:110
+#: web/admin/action_req_certificate.php:115
 msgid "Distinguished Name: "
 msgstr "Nazwa (Distinguished Name):"
 
-#: web/admin/action_req_certificate.php:111
-msgid ""
-"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
-"&lt;someone@somewhere.xy&gt;')."
-msgstr ""
-"Szczegóły dotyczące danych kontaktowych: zostaną pobrane z bazy eduroam DB "
-"(przy pomocy napisu 'ktoś, &lt;ktoś@gdzieś.xy&gt;')."
+#: web/admin/action_req_certificate.php:116
+msgid "subjectAltName:DNS : "
+msgstr "subjectAltName:DNS :"
 
-#: web/admin/action_req_certificate.php:128
+#: web/admin/action_req_certificate.php:119
+msgid "Requester Contact Details: "
+msgstr "Dane kontaktowe zleceniodawcy:"
+
+#: web/admin/action_req_certificate.php:142
 msgid "The certificate was requested."
 msgstr "Zlecono przygotowanie certyfikatu."
 
-#: web/admin/action_req_certificate.php:131
+#: web/admin/action_req_certificate.php:145
 msgid "Back to Certificate Overview"
 msgstr "Wróć do Przeglądu certyfikatów"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:140
+#: web/admin/action_req_certificate.php:154
 msgid "1. Certificate Holder Details"
 msgstr "1. Szczegóły dotyczące właściciela certyfikatu"
 
-#: web/admin/action_req_certificate.php:142
-#: web/admin/action_req_certificate.php:163
+#: web/admin/action_req_certificate.php:156
+#: web/admin/action_req_certificate.php:177
 #, php-format
 msgid "Certificate for %s role"
 msgstr "Certyfikat dla roli %s"
 
-#: web/admin/action_req_certificate.php:151
 #: web/admin/action_req_certificate.php:165
 msgid "---PLEASE CHOOSE---"
 msgstr "---WYBIERZ---"
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:179
+msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+msgstr ""
+"---FUNKCJONALNOŚĆ NIEZAIMPLEMENTOWANA Z POWODU WYDAJNOŚCI BAZY DANYCH "
+"eduroam---"
+
+#. *
+#. $allIdPs = [];
+#. foreach ($feds as $oneFed) {
+#. $fedObject = new \core\Federation($oneFed['value']);
+#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
+#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
+#. }
+#. }
+#. foreach ($allIdPs as $id => $name) {
+#. echo '<option value="' . $id . '">' . $name . "</option>";
+#. }
+#.
+#. *
+#: web/admin/action_req_certificate.php:197
 msgid "2. CSR generation"
 msgstr "2. Generowanie CSR"
 
-#: web/admin/action_req_certificate.php:181
+#: web/admin/action_req_certificate.php:198
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -165,19 +183,19 @@ msgstr ""
 "Jedną z metod generowania żądania podpisania certyfikatu jest użycie "
 "polecenia openssl:"
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:200
 msgid "3. Submission"
 msgstr "3. Przekazanie"
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:201
 msgid "Please paste your CSR here:"
 msgstr "Wklej tutaj CSR:"
 
-#: web/admin/action_req_certificate.php:185
+#: web/admin/action_req_certificate.php:202
 msgid "Send request"
 msgstr "Przekaż żądanie"
 
-#: web/admin/action_req_certificate.php:188
+#: web/admin/action_req_certificate.php:205
 msgid "Back to Overview Page"
 msgstr "Wróć do strony Przeglądu"
 
@@ -198,24 +216,24 @@ msgstr "Edycja informacji  %s  dotyczącej '%s'"
 msgid "%s Properties"
 msgstr "Własności %s"
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:205
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
-#: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
+#: web/admin/overview_federation.php:97 web/admin/overview_user.php:56
 msgid "Property Type"
 msgstr "Typ własności"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
-#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
+#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:98
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
 msgstr "Język, jeśli ma zastosowanie"
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
-#: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
+#: web/admin/overview_federation.php:99 web/admin/overview_user.php:58
 msgid "Property Value"
 msgstr "Wartość własności"
 
@@ -224,7 +242,7 @@ msgstr "Wartość własności"
 msgid "Country:"
 msgstr "Kraj:"
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:240
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -232,13 +250,13 @@ msgstr "Kraj:"
 msgid "Add new option"
 msgstr "Dodaj nową opcję"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Zapamiętaj dane"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -289,30 +307,30 @@ msgstr "Kontynuuj"
 msgid "Abort"
 msgstr "Przerwij"
 
-#: web/admin/edit_hotspot.php:171
+#: web/admin/edit_hotspot.php:170
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
 msgstr "%s: kreator rejestracji (krok 3)"
 
-#: web/admin/edit_hotspot.php:184
+#: web/admin/edit_hotspot.php:183
 #, php-format
 msgid "Editing %s deployment"
 msgstr "Edytuj instancję %s "
 
-#: web/admin/edit_hotspot.php:198
+#: web/admin/edit_hotspot.php:197
 msgid "Options for this deployment"
 msgstr "Opcje tej instancji:"
 
-#: web/admin/edit_hotspot.php:214
+#: web/admin/edit_hotspot.php:213
 msgid "Custom Operator-Name:"
 msgstr "Spersonalizowany Operator-Name:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 #, php-format
 msgid "VLAN tag for own users%s:"
 msgstr "VLAN dla własnych użytkowników%s:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 msgid "(unset with '0')"
 msgstr "(wyłączenie za pomocą '0')"
 
@@ -1322,7 +1340,7 @@ msgid "Manage %s users"
 msgstr "Zarządzanie użytkownikami %s"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
+#: web/admin/overview_federation.php:149 web/admin/inc/manageAdmins.inc.php:166
 msgid "User"
 msgstr "Nazwa użytkownika"
 
@@ -1549,10 +1567,11 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
-"date 'yyyy-mm-dd', number of tokens (optional):"
+"date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
-"W pliku CSV należy podać oddzielone przecinkami wartości: nazwa użytkownika, "
-"data ważności 'yyyy-mm-dd', liczba tokenów (opcjonalnie): "
+"W pliku CSV należy umieścić następujące wartości odseparowane znakiem "
+"przecinka: nazwa użytkownika, data ważności w postaci yyyy-mm-dd (rok-"
+"miesiąc-dzień), liczba tokenów (opcjonalnie):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
@@ -1615,9 +1634,19 @@ msgstr ""
 msgid "Certificate Information for %s %s"
 msgstr "Dane dotyczące certyfikatu %s %s"
 
-#: web/admin/overview_certificates.php:92
-msgid "Request new Certificate"
-msgstr "Żądanie nowego certyfikatu"
+#: web/admin/overview_certificates.php:105
+#, php-format
+msgid "Request new Certificate for: %s"
+msgstr "Zlecenie dotyczące nowego certyfikatu dla: %s"
+
+#: web/admin/overview_certificates.php:110
+#, php-format
+msgid ""
+"You can not request certificates because there is no server information for "
+"%s in the eduroam DB."
+msgstr ""
+"Nie możesz przekazywać zleceń dotyczących certyfikatów, ponieważ w bazie "
+"eduroam nie ma informacji dotyczących serwera instytucji  %s"
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1642,42 +1671,47 @@ msgstr "Identyfikator"
 msgid "click to display"
 msgstr "kliknij, aby wyświetlić"
 
-#: web/admin/overview_federation.php:77
+#: web/admin/overview_federation.php:74
+#, php-format
+msgid "RADIUS/TLS Certificate management"
+msgstr "Zarządzanie certyfikatami RADIUS/TLS"
+
+#: web/admin/overview_federation.php:81
 #, php-format
 msgid "You are not a %s manager."
 msgstr "Nie jesteś administratorem %s."
 
-#: web/admin/overview_federation.php:88
+#: web/admin/overview_federation.php:92
 #, php-format
 msgid "%s Properties: %s"
 msgstr "Własności %s: %s"
 
-#: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
+#: web/admin/overview_federation.php:104 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
 msgstr "Kraj"
 
-#: web/admin/overview_federation.php:124
+#: web/admin/overview_federation.php:128
 #, php-format
 msgid "%s Statistics: %s"
 msgstr "Statystyki %s: %s"
 
-#: web/admin/overview_federation.php:129
+#: web/admin/overview_federation.php:133
 msgid "IdPs Total"
 msgstr "Razem IdP"
 
-#: web/admin/overview_federation.php:130
+#: web/admin/overview_federation.php:134
 msgid "Public Download"
 msgstr "Pobrania publiczne"
 
-#: web/admin/overview_federation.php:142
+#: web/admin/overview_federation.php:146
 msgid "Downloads"
 msgstr "Pobrania"
 
-#: web/admin/overview_federation.php:143
+#: web/admin/overview_federation.php:147
 msgid "Admin"
 msgstr "Admin"
 
-#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:174 web/admin/inc/manageAdmins.inc.php:109
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Został wysłany w bezpiecznym kanale (zaszyfrowany)."
@@ -1685,7 +1719,7 @@ msgstr[1] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
 msgstr[2] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
 msgstr[3] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:177 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Został wysłany otwartym tekstem (bez szyfrowania)."
@@ -1693,14 +1727,14 @@ msgstr[1] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
 msgstr[2] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
 msgstr[3] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:180 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
 "Część maili została wysłana w sposób zaszyfrowany, a część bez zaszyfrowania."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Powiodła się wysyłka maila z zaproszeniem."
@@ -1708,19 +1742,19 @@ msgstr[1] "Udała się wysyłka wszystkich maili z zaproszeniami."
 msgstr[2] "Udała się wysyłka wszystkich maili z zaproszeniami."
 msgstr[3] "Udała się wysyłka wszystkich maili z zaproszeniami."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
 msgstr "Wysyłka została zabezpieczona (zaszyfrowana)."
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
 msgstr "Nie można wysłać maila żadnego maila z zaproszeniem!"
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
 msgstr "Nie udała się wysyłka!"
 
-#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
+#: web/admin/overview_federation.php:194 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
@@ -1737,7 +1771,7 @@ msgstr[3] ""
 "Maile, które udało się wysłać zostały przekazane w bezpiecznym kanale "
 "(zaszyfrowane)."
 
-#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:197 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] ""
@@ -1753,7 +1787,7 @@ msgstr[3] ""
 "Maile, które udało się wysłać zostały przekazane otwartym tekstem (bez "
 "szyfrowania)."
 
-#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:200 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1761,7 +1795,7 @@ msgstr ""
 "Część pomyślnie wysłanych maili została przesłana w postaci zaszyfrowanej, "
 "reszta otwartym tekstem."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1770,100 +1804,100 @@ msgstr ""
 "Część maili z zaproszeniami została wysłana (łącznie %s), wysyłka "
 "pozostałych nie powiodłą się."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
 msgstr "Częściowy sukces."
 
-#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:208 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 "Adres mailowy, na który ma być wysłane zaproszenie ma niepoprawny format, "
 "nie wysłano zaproszenia!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Błąd: nieznany rezultat zaproszenia?!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
 msgstr "Nieprawidłowy wynik!"
 
-#: web/admin/overview_federation.php:221
+#: web/admin/overview_federation.php:225
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Zdiagnozuj dostępność oraz parametry połączenia %s %s"
 
-#: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
+#: web/admin/overview_federation.php:228 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
 msgstr "Przejdź!"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:235
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr "Potrzebna pomoc? Sprawdź <a href='%s'>podręcznik %s</a>"
 
-#: web/admin/overview_federation.php:237
+#: web/admin/overview_federation.php:241
 msgid "Participant Details"
 msgstr "Szczegóły dotyczące uczestnika"
 
-#: web/admin/overview_federation.php:239
+#: web/admin/overview_federation.php:243
 msgid "Configured / Visible / OpenRoaming"
 msgstr "Skonfigurowany / Widoczny / OpenRoaming"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
+#: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
 #: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "Nazwa %s"
 
-#: web/admin/overview_federation.php:246
+#: web/admin/overview_federation.php:250
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "Rezultat synchronizacji bazy %s"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:256
 msgid "Administrator Management"
 msgstr "Zarządzanie administratorami"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:261
+#: web/admin/overview_federation.php:265
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Następujące %s występują w %s %s:"
 
-#: web/admin/overview_federation.php:330
+#: web/admin/overview_federation.php:334
 msgid "Manage DB Link"
 msgstr "Zarządzaj powiązaniem z bazą"
 
-#: web/admin/overview_federation.php:336
+#: web/admin/overview_federation.php:340
 msgid "Linked"
 msgstr "Powiązane"
 
-#: web/admin/overview_federation.php:339
+#: web/admin/overview_federation.php:343
 msgid "NOT linked"
 msgstr "Nie powiązane"
 
-#: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
+#: web/admin/overview_federation.php:358 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
 msgstr "Dodaj/Usuń Administratorów"
 
-#: web/admin/overview_federation.php:367
+#: web/admin/overview_federation.php:371
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Oczekujące zaproszenia dotyczące instytucji %s:"
 
-#: web/admin/overview_federation.php:384
+#: web/admin/overview_federation.php:388
 msgid "Revoke Invitation"
 msgstr "Odwołaj zaproszenie"
 
-#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
+#: web/admin/overview_federation.php:389 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
 msgstr "(wygasa %s)"
 
-#: web/admin/overview_federation.php:404
+#: web/admin/overview_federation.php:408
 #, php-format
 msgid "Register a new %s!"
 msgstr "Zarejestruj nową instytucję %s!"
@@ -2941,7 +2975,7 @@ msgstr "Zawsze"
 msgid "Always; T&C Pre-Agreed"
 msgstr "Zawsze; Wstępna zgoda na regulamin ustalona wcześniej "
 
-#: web/lib/admin/OptionDisplay.php:251
+#: web/lib/admin/OptionDisplay.php:249
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2970,7 +3004,7 @@ msgstr ""
 "takiej samej nazwie, to automatycznie obdarzą ją takim samym zaufaniem, "
 "narażając się w ten sposób na niebezpieczeństwo."
 
-#: web/lib/admin/OptionDisplay.php:253
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2985,7 +3019,7 @@ msgstr ""
 "dyskusją  %s. Ta funkcjonalność jest obecnie eksperymentalna i ma znaczenie "
 "wyłącznie w instalatorach Apple."
 
-#: web/lib/admin/OptionDisplay.php:254
+#: web/lib/admin/OptionDisplay.php:252
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
@@ -2994,14 +3028,14 @@ msgstr ""
 "Jeśli korzystasz z %s, to Twój własny realm jest automatycznie  łączony ze "
 "wskazanym VLAN -em, nie ma potrzeby dodawania tego ręcznie."
 
-#: web/lib/admin/OptionDisplay.php:255
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
 "Przystępując do inicjatywy OpenRoaming zgadzasz się na akceptowanie warunków "
 "określonych w %s."
 
-#: web/lib/admin/OptionDisplay.php:257
+#: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -3015,7 +3049,7 @@ msgstr ""
 "inny sposób, to informacja odnośnie Regulaminu musi być przekazywania "
 "własnym kanałem."
 
-#: web/lib/admin/OptionDisplay.php:259
+#: web/lib/admin/OptionDisplay.php:257
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
@@ -3024,31 +3058,31 @@ msgstr ""
 "technicznej, należy dodać odpowiedni wpis DNS dotyczący realmu obsługiwanego "
 "przez serwer RADIUS."
 
-#: web/lib/admin/OptionDisplay.php:261
+#: web/lib/admin/OptionDisplay.php:259
 msgid "Read the instructions in the wiki."
 msgstr "Przeczytaj instrukcje na stronach WIKI."
 
-#: web/lib/admin/OptionDisplay.php:366
+#: web/lib/admin/OptionDisplay.php:364
 msgid "select language"
 msgstr "wybierz język"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "domyślny/inne języki"
 
-#: web/lib/admin/OptionDisplay.php:442
+#: web/lib/admin/OptionDisplay.php:440
 msgid "(default/other languages)"
 msgstr "(domyślny/inne języki)"
 
-#: web/lib/admin/OptionDisplay.php:477
+#: web/lib/admin/OptionDisplay.php:475
 msgid "file content"
 msgstr "zawartość pliku"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "włączona"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "wyłączona"
 
@@ -3387,6 +3421,3 @@ msgstr "Uwaga!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Błąd!"
-
-#~ msgid "Additional SSID"
-#~ msgstr "Dodatkowy SSID"

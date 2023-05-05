@@ -5,17 +5,17 @@
 #
 # Translators:
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2022
+# Anne M <anne@eenet.ee>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>, 2022\n"
-"Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
+"Last-Translator: Anne M <anne@eenet.ee>, 2023\n"
+"Language-Team: Estonian (Estonia) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/et_EE/)\n"
 "Language: et_EE\n"
 "MIME-Version: 1.0\n"
@@ -1476,7 +1476,7 @@ msgstr "Korda OpenRoamingu ühenduse teste"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr "ei ole veel evitatud"
+msgstr "ei ole veel kasutusele võetud"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
@@ -1833,19 +1833,19 @@ msgstr "Taotluses esitatud tokenit ei leidu, andmeid ei saa esitada"
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "Ühendustestid olid edukad"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "Ühendustestidel esines hoiatusi"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "Ühendustestidel esines märkusi"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
+msgstr "Ühendustestidel esines vigu"
 
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
@@ -1956,17 +1956,17 @@ msgstr "Domeeni ei ole olemas"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "Domeeni ühendustestide tegemine"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Olemas on uued testitulemused, vaatamiseks klõpsa"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "Vaata täpsemalt"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields bellow."
-msgstr ""
+msgstr "Probleemist teatamiseks täida alltoodud väljad"

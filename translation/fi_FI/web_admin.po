@@ -8,16 +8,16 @@
 # Juha Hopia <juha.hopia@csc.fi>, 2012
 # Tomi Salmi, 2013,2015-2018
 # tuukka, 2014-2015
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020-2022
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, "
-"2018,2020-2022\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
+"2018,2020-2023\n"
+"Language-Team: Finnish (Finland) (http://app.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
 "MIME-Version: 1.0\n"
@@ -102,74 +102,90 @@ msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "Sinulla ei ole riittäviä oikeuksia palvelinvarmenteiden pyytämiseen."
 
-#: web/admin/action_req_certificate.php:107
+#: web/admin/action_req_certificate.php:112
 msgid "Requesting a certificate with the following properties"
 msgstr "Pyydetään varmenne seuraavilla ominaisuuksilla"
 
-#: web/admin/action_req_certificate.php:109
+#: web/admin/action_req_certificate.php:114
 msgid "Policy OIDs: "
 msgstr "Policy OID-arvot:"
 
-#: web/admin/action_req_certificate.php:110
+#: web/admin/action_req_certificate.php:115
 msgid "Distinguished Name: "
 msgstr "Distinguished Name (DN) - tietueen arvo:"
 
-#: web/admin/action_req_certificate.php:111
-msgid ""
-"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
-"&lt;someone@somewhere.xy&gt;')."
-msgstr ""
-"Hakijan yhteystiedot: saadaan eduroam-tietokannasta (haulla 'Nimi, &lt;"
-"nimi@organisaatio.xy&gt;')."
+#: web/admin/action_req_certificate.php:116
+msgid "subjectAltName:DNS : "
+msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:128
+#: web/admin/action_req_certificate.php:119
+msgid "Requester Contact Details: "
+msgstr "Pyytäjän yhteystiedot:"
+
+#: web/admin/action_req_certificate.php:142
 msgid "The certificate was requested."
 msgstr "Varmenne pyydetty."
 
-#: web/admin/action_req_certificate.php:131
+#: web/admin/action_req_certificate.php:145
 msgid "Back to Certificate Overview"
 msgstr "Takaisin varmenteiden yleiskatsaukseen"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:140
+#: web/admin/action_req_certificate.php:154
 msgid "1. Certificate Holder Details"
 msgstr "1. Varmenteen haltijan tiedot"
 
-#: web/admin/action_req_certificate.php:142
-#: web/admin/action_req_certificate.php:163
+#: web/admin/action_req_certificate.php:156
+#: web/admin/action_req_certificate.php:177
 #, php-format
 msgid "Certificate for %s role"
 msgstr "Varmenne %s-roolille"
 
-#: web/admin/action_req_certificate.php:151
 #: web/admin/action_req_certificate.php:165
 msgid "---PLEASE CHOOSE---"
 msgstr "---VALITSE---"
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:179
+msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+msgstr "---EI KÄYTÖSSÄ eduroam tietokannan suorituskyvyn rajoitusten takia---"
+
+#. *
+#. $allIdPs = [];
+#. foreach ($feds as $oneFed) {
+#. $fedObject = new \core\Federation($oneFed['value']);
+#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
+#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
+#. }
+#. }
+#. foreach ($allIdPs as $id => $name) {
+#. echo '<option value="' . $id . '">' . $name . "</option>";
+#. }
+#.
+#. *
+#: web/admin/action_req_certificate.php:197
 msgid "2. CSR generation"
 msgstr "2. CSR-generointi"
 
-#: web/admin/action_req_certificate.php:181
+#: web/admin/action_req_certificate.php:198
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
 "Yksi tapa luoda sopiva varmennepyyntö on seuraavalla openssl-komennolla:"
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:200
 msgid "3. Submission"
 msgstr "3. Lähetys"
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:201
 msgid "Please paste your CSR here:"
 msgstr "Kopioi CSR-pyyntösi tähän:"
 
-#: web/admin/action_req_certificate.php:185
+#: web/admin/action_req_certificate.php:202
 msgid "Send request"
 msgstr "Lähetä pyyntö"
 
-#: web/admin/action_req_certificate.php:188
+#: web/admin/action_req_certificate.php:205
 msgid "Back to Overview Page"
 msgstr "Takaisin yleiskatsaukseen"
 
@@ -190,24 +206,24 @@ msgstr "Muokkaamassa %s:n tietoja: '%s'"
 msgid "%s Properties"
 msgstr "%s-ominaisuudet"
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:205
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
-#: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
+#: web/admin/overview_federation.php:97 web/admin/overview_user.php:56
 msgid "Property Type"
 msgstr "Ominaisuuden tyyppi"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
-#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
+#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:98
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
 msgstr "Kieli tarvittaessa"
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
-#: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
+#: web/admin/overview_federation.php:99 web/admin/overview_user.php:58
 msgid "Property Value"
 msgstr "Ominaisuuden arvo"
 
@@ -216,7 +232,7 @@ msgstr "Ominaisuuden arvo"
 msgid "Country:"
 msgstr "Maa:"
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:240
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -224,13 +240,13 @@ msgstr "Maa:"
 msgid "Add new option"
 msgstr "Lisää uusi vaihtoehto"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Tallenna tiedot"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -281,30 +297,30 @@ msgstr "Jatka"
 msgid "Abort"
 msgstr "Keskeytä"
 
-#: web/admin/edit_hotspot.php:171
+#: web/admin/edit_hotspot.php:170
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
 msgstr "%s: Käyttöönoton apuri (Askel 3)"
 
-#: web/admin/edit_hotspot.php:184
+#: web/admin/edit_hotspot.php:183
 #, php-format
 msgid "Editing %s deployment"
 msgstr "Muuttamassa %s toteutus"
 
-#: web/admin/edit_hotspot.php:198
+#: web/admin/edit_hotspot.php:197
 msgid "Options for this deployment"
 msgstr "Vaihtoehtoja tälle toteutukselle"
 
-#: web/admin/edit_hotspot.php:214
+#: web/admin/edit_hotspot.php:213
 msgid "Custom Operator-Name:"
 msgstr "Omavalintainen käyttönimi (Operator-Name):"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 #, php-format
 msgid "VLAN tag for own users%s:"
 msgstr "VLAN-tagi omille käyttäjille %s:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 msgid "(unset with '0')"
 msgstr "(kytke pois päältä '0':lla) "
 
@@ -1273,7 +1289,7 @@ msgid "Manage %s users"
 msgstr "Hallitse %skäyttäjää"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
+#: web/admin/overview_federation.php:149 web/admin/inc/manageAdmins.inc.php:166
 msgid "User"
 msgstr "Käyttäjä"
 
@@ -1494,10 +1510,10 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
-"date 'yyyy-mm-dd', number of tokens (optional):"
+"date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
 "CSV-tiedostossa on oltava pilkulla erotetut arvot: käyttäjänimi, "
-"vanhentumispäivä \"yyyy-mm-dd\", polettien määrä (valinnainen):"
+"vanhentumispäivä \"yyyy-mm-dd\"-muodossa, polettien määrä (valinnainen):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
@@ -1563,9 +1579,19 @@ msgstr ""
 msgid "Certificate Information for %s %s"
 msgstr "Varmennetiedot %s %s:lle"
 
-#: web/admin/overview_certificates.php:92
-msgid "Request new Certificate"
-msgstr "Pyydä uusi varmenne"
+#: web/admin/overview_certificates.php:105
+#, php-format
+msgid "Request new Certificate for: %s"
+msgstr "Pyydä uusi varmenne: %s:lle"
+
+#: web/admin/overview_certificates.php:110
+#, php-format
+msgid ""
+"You can not request certificates because there is no server information for "
+"%s in the eduroam DB."
+msgstr ""
+"Varmenteita ei voida pyytää, koska palvelintietoja ei ole %s:lle eduroamin "
+"tietokannassa."
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1590,99 +1616,104 @@ msgstr "Yksikäsitteinen Tunniste"
 msgid "click to display"
 msgstr "näytä"
 
-#: web/admin/overview_federation.php:77
+#: web/admin/overview_federation.php:74
+#, php-format
+msgid "RADIUS/TLS Certificate management"
+msgstr "RADIUS/TLS varmennehallinta"
+
+#: web/admin/overview_federation.php:81
 #, php-format
 msgid "You are not a %s manager."
 msgstr "Et ole %smanageri."
 
-#: web/admin/overview_federation.php:88
+#: web/admin/overview_federation.php:92
 #, php-format
 msgid "%s Properties: %s"
 msgstr "%sOminaisuudet: %s"
 
-#: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
+#: web/admin/overview_federation.php:104 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
 msgstr "Maa"
 
-#: web/admin/overview_federation.php:124
+#: web/admin/overview_federation.php:128
 #, php-format
 msgid "%s Statistics: %s"
 msgstr "%sTilastot: %s"
 
-#: web/admin/overview_federation.php:129
+#: web/admin/overview_federation.php:133
 msgid "IdPs Total"
 msgstr "IdP:t yhteensä"
 
-#: web/admin/overview_federation.php:130
+#: web/admin/overview_federation.php:134
 msgid "Public Download"
 msgstr "Lataa"
 
-#: web/admin/overview_federation.php:142
+#: web/admin/overview_federation.php:146
 msgid "Downloads"
 msgstr "Lataukset"
 
-#: web/admin/overview_federation.php:143
+#: web/admin/overview_federation.php:147
 msgid "Admin"
 msgstr "Ylläpitäjä"
 
-#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:174 web/admin/inc/manageAdmins.inc.php:109
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Käytettiin salattua tiedonsiirtoa."
 msgstr[1] "Käytettiin salattua tiedonsiirtoa."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:177 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Lähetys oli selväkielinen (ei salausta)."
 msgstr[1] "Lähetys oli selväkielinen (ei salausta)."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:180 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
 "Osa sähköposteista lähetettiin salatulla tiedonsiirrolla, osa selväkielisinä."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Kutsu lähetettiin onnistuneesti."
 msgstr[1] "Kaikki kutsut lähetty onnistuneesti."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
 msgstr "Lähetetty."
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
 msgstr "Kutsun lähettäminen ei onnistunut!"
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
 msgstr "Ongelma lähetyksessä!"
 
-#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
+#: web/admin/overview_federation.php:194 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] "Onnistunut lähetys tapahtui tiedonsiirto salattuna."
 msgstr[1] "Onnistuneet viestit lähetettiin tiedonsiirto salattuna."
 
-#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:197 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "Onnistunut lähetys tehtiin selväkielisenä (ei salausta)."
 msgstr[1] "Onnistuneet lähetykset tehtiin selväkielisinä (ei salausta)."
 
-#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:200 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
 "Osa sähköposteista lähetettiin salatulla tiedonsiirrolla, osa selväkielisinä."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1691,98 +1722,98 @@ msgstr ""
 "Osa kutsuviesteistä lähetettiin onnistuneesti (yhteensä %s), loput "
 "epäonnistuivat."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
 msgstr "Onnistui osittain."
 
-#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:208 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "Kutsun sähköpostiosoite oli virheellinen, eikä kutsua lähetetty!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Virhe: kutsun tuntematon virhekoodi!?!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
 msgstr "Tuntematon tulos!"
 
-#: web/admin/overview_federation.php:221
+#: web/admin/overview_federation.php:225
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Tarkista saavutettavuus- ja yhteysparametrit %s %s:lle"
 
-#: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
+#: web/admin/overview_federation.php:228 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
 msgstr "Mene!"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:235
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr "Tarvitsetko apua? Katso <a href='%s'>%s käsikirja </a>"
 
-#: web/admin/overview_federation.php:237
+#: web/admin/overview_federation.php:241
 msgid "Participant Details"
 msgstr "Osallistujan tiedot"
 
-#: web/admin/overview_federation.php:239
+#: web/admin/overview_federation.php:243
 msgid "Configured / Visible / OpenRoaming"
 msgstr "Määritelty / Näkyvissä / OpenRoaming"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
+#: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
 #: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "%s Nimi"
 
-#: web/admin/overview_federation.php:246
+#: web/admin/overview_federation.php:250
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "%s Tietokannan synkronointitilanne"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:256
 msgid "Administrator Management"
 msgstr "Ylläpidon hallinta"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:261
+#: web/admin/overview_federation.php:265
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Seuraavat %s ovat sinun %s%s:"
 
-#: web/admin/overview_federation.php:330
+#: web/admin/overview_federation.php:334
 msgid "Manage DB Link"
 msgstr "Tietokannan hallintalinkki"
 
-#: web/admin/overview_federation.php:336
+#: web/admin/overview_federation.php:340
 msgid "Linked"
 msgstr "Yhdistetty"
 
-#: web/admin/overview_federation.php:339
+#: web/admin/overview_federation.php:343
 msgid "NOT linked"
 msgstr "EI yhdistetty"
 
-#: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
+#: web/admin/overview_federation.php:358 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
 msgstr "Lisää/poista ylläpitäjiä"
 
-#: web/admin/overview_federation.php:367
+#: web/admin/overview_federation.php:371
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Avoimet kutsut %s:ssa:"
 
-#: web/admin/overview_federation.php:384
+#: web/admin/overview_federation.php:388
 msgid "Revoke Invitation"
 msgstr "Peruuta kutsu"
 
-#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
+#: web/admin/overview_federation.php:389 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
 msgstr "(vanhenee %s)"
 
-#: web/admin/overview_federation.php:404
+#: web/admin/overview_federation.php:408
 #, php-format
 msgid "Register a new %s!"
 msgstr "Ilmoita uusi %s!"
@@ -2842,7 +2873,7 @@ msgstr "Aina"
 msgid "Always; T&C Pre-Agreed"
 msgstr "Aina; käyttöehdot jo hyväksytty"
 
-#: web/lib/admin/OptionDisplay.php:251
+#: web/lib/admin/OptionDisplay.php:249
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2870,7 +2901,7 @@ msgstr ""
 "toisaalla, jossa sattuu olemaan sama SSID käytössä. He voivat harhautua "
 "luulemaan turvalliseksi verkkoa, joka ei sitä olekaan. "
 
-#: web/lib/admin/OptionDisplay.php:253
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2884,7 +2915,7 @@ msgstr ""
 "haasteita. Luethan huolella keskustelun %s ennen kuin etenet. Ominaisuus on "
 "kokeellinen ja vaikuttaa vain Apple:n asetuksiin."
 
-#: web/lib/admin/OptionDisplay.php:254
+#: web/lib/admin/OptionDisplay.php:252
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
@@ -2893,12 +2924,12 @@ msgstr ""
 "Jos käytetään myös %s, oma toimialueesi merkitään automaattisesti "
 "valitsemallasi VLAN:lla, sitä ei tarvitse lisätä tähän manuaalisesti."
 
-#: web/lib/admin/OptionDisplay.php:255
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr "Liittymällä OpenRoamingiin hyväksyt %s:ssa olevat ehdot."
 
-#: web/lib/admin/OptionDisplay.php:257
+#: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -2911,7 +2942,7 @@ msgstr ""
 "asennusohjelman lataamisen yhteydessä. Jos asennusohjelma tarjotaan toisella "
 "tavalla, käyttöhehdoista on tiedotettava toisella tavalla."
 
-#: web/lib/admin/OptionDisplay.php:259
+#: web/lib/admin/OptionDisplay.php:257
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
@@ -2919,31 +2950,31 @@ msgstr ""
 "Olet myös tietoinen siitä, että paras tekninen yhteentoimivuus saavutetaan "
 "kun lisäät DNS-syötön RADIUS-toimialueellesi."
 
-#: web/lib/admin/OptionDisplay.php:261
+#: web/lib/admin/OptionDisplay.php:259
 msgid "Read the instructions in the wiki."
 msgstr "Lue ohjeet wikistä."
 
-#: web/lib/admin/OptionDisplay.php:366
+#: web/lib/admin/OptionDisplay.php:364
 msgid "select language"
 msgstr "valitse kieli"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "oletus/muut kielet"
 
-#: web/lib/admin/OptionDisplay.php:442
+#: web/lib/admin/OptionDisplay.php:440
 msgid "(default/other languages)"
 msgstr "(oletus/muut kielet)"
 
-#: web/lib/admin/OptionDisplay.php:477
+#: web/lib/admin/OptionDisplay.php:475
 msgid "file content"
 msgstr "tiedoston sisältö"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "on"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "off"
 
@@ -3281,6 +3312,3 @@ msgstr "Varoitus!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Virhe!"
-
-#~ msgid "Additional SSID"
-#~ msgstr "Muu SSID"

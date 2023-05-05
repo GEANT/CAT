@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2020-2021
+# Mohamed Al Hajri, 2022
+# Raiya Al Rashdi <raiya@omren.om>, 2020-2022
+# Warda Al Habsi <mozartt33@gmail.com>, 2022
 # Warda Al Habsi <mozartt33@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2021\n"
-"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"Last-Translator: Warda Al Habsi <mozartt33@gmail.com>, 2022\n"
+"Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -83,12 +85,12 @@ msgid ""
 msgid_plural ""
 "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
 "TCP/80</li>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "<li><b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80</li>"
+msgstr[1] "<b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80<li>"
+msgstr[2] "<li><b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80</li>"
+msgstr[3] "<li><b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80</li>"
+msgstr[4] "<li><b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80</li>"
+msgstr[5] "<li><b>%s</b>(نقاط توزيع CRL لشهادة الموقع) ، وأيضًا TCP / 80</li>"
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -96,12 +98,12 @@ msgid ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
 msgid_plural ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "<li><b>%s</b> (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 801</li>"
+msgstr[1] "<li><b>%s</b>  (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 80</li>"
+msgstr[2] "<li><b>%s</b> (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 801</li>"
+msgstr[3] "<li><b>%s</b> (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 801</li>"
+msgstr[4] "<li><b>%s</b> (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 801</li>"
+msgstr[5] "<li><b>%s</b> (مستجيب OCSP لشهادة الموقع) ، وكذلك TCP / 80</li>"
 
 #: web/user/about_cat.inc.php:98
 #, php-format
@@ -120,6 +122,19 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
 "li></ul>"
 msgstr ""
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
+"Play Store will look broken to users and/or some non-vital functionality "
+"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
+"li></ul>"
 
 #.
 #. * *****************************************************************************
@@ -294,7 +309,7 @@ msgstr ""
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
-msgstr ""
+msgstr "طالما أن الملف يحمل توقيعًا صالحًا من %s، فإن التنزيل آمن."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
@@ -321,6 +336,12 @@ msgid ""
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
 msgstr ""
+"يمكن أن يكون هناك عدد من الأسباب المختلفة. قد لا تكون الشبكة التي تراها "
+"أصلية %s ويتخلى جهازك بصمت عن محاولة الاتصال ؛ قد يكون هناك خطأ ما في تكوين "
+"الشبكة ؛ قد يكون حسابك منتهي الصلاحية ؛ قد تكون هناك مشكلة في الاتصال بخادم "
+"المصادقة المنزلي ؛ ربما تكون قد انتهكت لوائح الشبكة التي تستخدمها وتم رفض "
+"الوصول نتيجة لذلك. يجب عليك الاتصال بمؤسستك والإبلاغ عن المشكلة ، ويجب أن "
+"يكون المسؤولون قادرين على تتبع اتصالاتك."
 
 #: web/user/faq.inc.php:60 web/user/faq.php:77
 #, php-format
@@ -335,7 +356,7 @@ msgstr "يتطلب منك إرسال بريد الكتروني إلى %s."
 #: web/user/faq.inc.php:72 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
-msgstr ""
+msgstr "ما هذا الـ %s على أي حال؟"
 
 #: web/user/faq.inc.php:73
 #, php-format
@@ -381,6 +402,12 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
+"يمكن أن يكون هناك عدد من الأسباب المختلفة. قد لا تكون الشبكة التي تراها "
+"أصلية %s ويتخلى جهازك بصمت عن محاولة الاتصال ؛ قد يكون حسابك منتهي "
+"الصلاحية ؛ ربما تكون قد انتهكت لوائح الشبكة التي تستخدمها وتم رفض الوصول "
+"نتيجة لذلك ؛ أو ربما هناك مشكلة فنية فعلية. لاستبعاد الأخير ، يجب عليك أولاً "
+"زيارة %s أداة التشخيص <a href=''> هنا </a> ، والتي يمكن أن تجد العديد من "
+"أسباب الفشل. كما يسمح لك بالاتصال بمؤسستك وإبلاغهم بالمشكلة."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -420,7 +447,7 @@ msgstr "الصفحة الرئيسية"
 
 #: web/4013.php:57
 msgid "Maybe this is the CAT you are looking for..."
-msgstr ""
+msgstr "ربما هذه هي أداة مساعد التهيئة \"CAT\" التي تبحث عنها ..."
 
 #: web/4013.php:58
 msgid ""
@@ -428,6 +455,8 @@ msgid ""
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
 msgstr ""
+"لكننا لا نريد أن نظهر لك ذلك. يجب أن تكون مصادقًا ومصرحًا لك لمشاهدة هذا "
+"المحتوى. نظرًا لأنك لست كذلك ، فقد حصلت على صفحة الخطأ هذه المعروفة عادةً باسم"
 
 #: web/4013.php:60
 #, php-format
@@ -435,16 +464,19 @@ msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
 msgstr ""
+"خطأك؟ خطأنا؟ من يعرف! ربما يجب عليك العودة إلى <a href='%s'>صفحة البداية.</a>"
 
 #: web/404.php:56
 msgid "This is not the CAT you are looking for."
-msgstr ""
+msgstr "هذه ليست أداة مساعد التهيئة \"CAT\" التي تبحث عنها ..."
 
 #: web/404.php:57
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
 msgstr ""
+"كل ما كنت تتوقع رؤيته في عنوان URL هذا - فهو ليس هنا. الشيء الوحيد هنا هو "
+"الرقم"
 
 #: web/404.php:59
 #, php-format
@@ -452,6 +484,8 @@ msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
+"<a href='%s'>ينظر إليك. خطأك؟ خطأنا؟ من يعرف! ربما يجب عليك العودة إلى صفحة "
+"البداية."
 
 #: web/tou.php:76 web/skins/modern/Divs.php:348
 #, php-format
@@ -468,11 +502,13 @@ msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
+"سيبدأ التنزيل بعد قليل. في حالة وجود مشاكل في التنزيل التلقائي ، يرجى "
+"استخدام هذا الرابط المباشر.<a href=''>رابط التنزيل</a>"
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
-msgstr ""
+msgstr "عزيزي المستخدم من%s،"
 
 #: web/lib/user/TextTemplates.php:89
 #, php-format
@@ -482,6 +518,10 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"الآن بعد أن قمت بتنزيل وتثبيت مُكوِّن عميل ، كل ما عليك فعله هو العثور على نقطة "
+"%s فعالة في المنطقة المجاورة لك وإدخال بيانات اعتماد المستخدم الخاصة بك (هذا "
+"هو اسمنا الرائع لـ \"اسم المستخدم وكلمة المرور\" أو \"الشهادة الشخصية\") - "
+"وأن تكون متصلاً بالإنترنت !"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
 #, php-format
@@ -490,22 +530,25 @@ msgid ""
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
+"إذا واجهتك أية مشكلات في استخدام هذه الخدمة، فيرجى الاتصال دائمًا بمركز الدعم "
+"التابع لـ %s. سيقومون بتشخيص المشكلة ومساعدتك. يمكنك الوصول إليهم عبر "
+"الوسائل الموضحة أعلاه."
 
 #: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "شروط وأحكام eduroam"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "سياسة خصوصية eduroam"
 
 #: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "شروط وأحكام OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "سياسة خصوصية OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:107
 #, php-format
@@ -513,11 +556,13 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"يرجى hgتذكر أنه عند الاتصال بنقاط اتصال %s، تطبق <a href='%s'>الشروط "
+"والأحكام </a>و<a href='%s'>إشعار الخصوصية</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
-msgstr ""
+msgstr "الرجوع إلى التنزيلات"
 
 #: web/lib/user/TextTemplates.php:111
 #, php-format
@@ -527,6 +572,9 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"نود أن نرحب بكم ترحيبا حارا بين عدة ملايين من مستخدمي %s! من الآن، ستتمكن من "
+"استخدام الإنترنت في الآلاف من الجامعات ومراكز الأبحاث والأماكن الأخرى في "
+"جميع أنحاء العالم. كل هذا مجاني تمامًا!"
 
 #: web/lib/user/TextTemplates.php:113
 #, php-format
@@ -558,32 +606,32 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
-msgstr ""
+msgstr "حدد مجموعة المستخدمين"
 
 #: web/lib/user/TextTemplates.php:119
 msgid "select another"
-msgstr ""
+msgstr "اختر آخر"
 
 #: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
-msgstr ""
+msgstr "اختر برنامج تثبيت آخر للتنزيل"
 
 #: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
-msgstr ""
+msgstr "اختر برنامج تثبيت لتنزيله"
 
 #: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
-msgstr ""
+msgstr "جميع المنصات"
 
 #: web/lib/user/TextTemplates.php:123
 #, php-format
 msgid "Download your %s installer"
-msgstr ""
+msgstr "قم بتنزيل برنامج تثبيت %s الخاص بك"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "قم بتنزيل برنامج التثبيت الخاص بك لـ"
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -603,7 +651,7 @@ msgstr "استمر "
 #: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
-msgstr ""
+msgstr "موقعة رقمياً من المنظمة التي تقوم بتنسيق%s"
 
 #: web/lib/user/TextTemplates.php:128
 #, php-format
@@ -611,6 +659,9 @@ msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
 msgstr ""
+"يمكنك تنزيل برنامج تثبيت %s الخاص بك عبر رابط دعوة مخصص يتم إرساله من قبل "
+"فريق الدعم الفني IT لديك. يرجى التحدث إلى قسم تقنية المعلومات IT للحصول على "
+"هذا الرابط."
 
 #: web/lib/user/TextTemplates.php:129
 #, php-format
@@ -618,25 +669,27 @@ msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
+"يوفر هذا الموقع برامج تثبيت %s للعديد من المؤسسات ، انقر هنا لمعرفة ما إذا "
+"كان موقعك في القائمة."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
-msgstr ""
+msgstr "بنيت خصيصا لك"
 
 #: web/lib/user/TextTemplates.php:132
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr ""
+msgstr "تم التوقيع رقمياً من المنظمة التي تقوم بتنسيق %s: %s"
 
 #: web/skins/modern/Menu.php:52
 msgid "About"
-msgstr ""
+msgstr "عن"
 
 #: web/skins/modern/Menu.php:53 web/skins/modern/Menu.php:54
 #: web/skins/modern/Menu.php:55
 #, php-format
 msgid "About %s"
-msgstr ""
+msgstr "عن %s"
 
 #: web/skins/modern/Menu.php:59
 msgid "Language"
@@ -649,7 +702,7 @@ msgstr "المساعدة"
 
 #: web/skins/modern/Menu.php:62
 msgid "My institution is not listed"
-msgstr ""
+msgstr "مؤسستي غير مدرجة"
 
 #: web/skins/modern/Menu.php:62 web/skins/modern/Menu.php:63
 #: web/skins/modern/Menu.php:65 web/skins/modern/Menu.php:66
@@ -659,11 +712,11 @@ msgstr "الأسئلة الشائعة"
 
 #: web/skins/modern/Menu.php:63
 msgid "My device is not listed"
-msgstr ""
+msgstr "جهازي غير مدرج"
 
 #: web/skins/modern/Menu.php:65
 msgid "What is eduroam"
-msgstr "ما هو ايديوروم"
+msgstr "ما هو eduroam"
 
 #: web/skins/modern/Menu.php:67
 msgid "Contact"
@@ -671,11 +724,11 @@ msgstr "اتصل بنا"
 
 #: web/skins/modern/Menu.php:68
 msgid "Diagnostics"
-msgstr ""
+msgstr "التشخيص"
 
 #: web/skins/modern/Menu.php:72
 msgid "Manage"
-msgstr ""
+msgstr "يدير"
 
 #: web/skins/modern/Menu.php:73
 #, php-format
@@ -702,6 +755,9 @@ msgid ""
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"نود أن نرحب بكم ترحيبا حارا بين عدة ملايين من مستخدمي eduroam®! من الآن، "
+"ستتمكن من استخدام  الإنترنت في الآلاف من الجامعات ومراكز الأبحاث والأماكن "
+"الأخرى في جميع أنحاء العالم. كل هذا مجاني تمامًا!"
 
 #: web/skins/modern/div_user_welcome.php:36
 msgid ""
@@ -710,10 +766,14 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"الآن وبعد أن قمت بتنزيل وتثبيت مُكوِّن العميل ، كل ما عليك فعله هو العثور على "
+"نقطة اتصال eduroam® في المنطقة المجاورة لك وإدخال بيانات المستخدم الخاصة بك "
+"(هذا هو اسمنا الرائع لـ \"اسم المستخدم وكلمة المرور\" أو \"الشهادة الشخصية"
+"\") - و كن متصلا بالإنترنت!"
 
 #: web/skins/modern/index.php:86 web/skins/modern/test.php:80
 msgid "Authenticating"
-msgstr ""
+msgstr "المصادقة"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
@@ -725,34 +785,34 @@ msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to re-use download link"
-msgstr ""
+msgstr "حاول إعادة استخدام رابط التنزيل"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
 msgid "You are a new user without a history of %s credentials."
-msgstr ""
+msgstr "أنت مستخدم جديد بدون سجل في بيانات الإعتماد %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:99
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لديك <strong>%d</strong>من أوراق اعتماد %s صالحة حاليًا"
+msgstr[1] "لديك <strong>%d</strong>من أوراق اعتماد %s صالحة حاليًا"
+msgstr[2] "لديك<strong>%d</strong>من أوراق اعتماد %s صالحة حاليًا"
+msgstr[3] "لديك <strong>%d</strong>أوراق اعتماد %s صالحة حاليًا"
+msgstr[4] "لديك <strong>%d</strong> أوراق اعتماد %s صالحة حاليًا"
+msgstr[5] "لديك <strong>%d</strong>بيانات اعتماد %sصالحة حاليًا"
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "<strong>%d</strong> من بيانات الاعتماد الخاصة بك لم تعد صالحة."
+msgstr[1] "<strong>%d</strong>من بيانات الاعتماد الخاصة بك لم تعد صالحة."
+msgstr[2] "<strong>%d</strong> من بيانات الاعتماد الخاصة بك لم تعد صالحة."
+msgstr[3] "<strong>%d</strong> من بيانات الاعتماد الخاصة بك لم تعد صالحة."
+msgstr[4] "<strong>%d</strong> من بيانات الاعتماد الخاصة بك لم تعد صالحة."
+msgstr[5] "<strong>%d</strong> من بيانات الاعتماد الخاصة بك لم تعد صالحة."
 
 #: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."
@@ -788,11 +848,14 @@ msgid ""
 "supported operating system later; the invitation link has not been used up "
 "yet."
 msgstr ""
+"للأسف ، نظام التشغيل الذي يستخدمه جهازك (%s) غير مدعوم حاليًا لحسابات "
+"المستخدمين المستضافة. يمكنك زيارة هذه الصفحة باستخدام نظام تشغيل مدعوم "
+"لاحقًا ؛ لم يتم استخدام رابط الدعوة بعد."
 
 #: web/skins/modern/accountstatus/accountstatus.php:136
 #, php-format
 msgid "You can now download a personalised  %s installation program."
-msgstr ""
+msgstr "يمكنك الآن تنزيل برنامج تثبيت %s مخصص."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:138
@@ -802,6 +865,9 @@ msgid ""
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
+"برنامج التثبيت <span class='emph'> شخصي تمامًا </span>، ولا يستخدم <span "
+"class='emph'>  إلا على هذا الجهاز (%s) </span> ، ولا يُسمح<span class='emph'> "
+"بمشاركة </span> هذه المعلومات مع أي شخص."
 
 #: web/skins/modern/accountstatus/accountstatus.php:139
 #, php-format
@@ -810,6 +876,8 @@ msgid ""
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
 msgstr ""
+"عندما يكتشف النظام إساءة مثل مشاركة بيانات تسجيل الدخول مع الآخرين ، سيتم "
+"إبطال جميع حقوق الوصول الخاصة بك وقد يتم معاقبتك من قبل %s المسؤول المحلي."
 
 #: web/skins/modern/accountstatus/accountstatus.php:140
 msgid ""
@@ -817,11 +885,14 @@ msgid ""
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
 msgstr ""
+"أثناء عملية التثبيت ، سيُطلب منك استيراد رقم التعريف الشخصي PIN التالي. هذا "
+"يحدث مرة واحدة فقط أثناء التثبيت. لا يتعين عليك تدوين رقم التعريف الشخصي PIN "
+"هذا."
 
 #: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Import PIN: %s"
-msgstr ""
+msgstr "استيراد رقم التعريف الشخصي PIN: %s"
 
 #: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
@@ -835,6 +906,9 @@ msgid ""
 "invitation was valid until %s. You cannot use this link any more. Please ask "
 "your administrator to issue you a new invitation link."
 msgstr ""
+"للأسف ، رابط الدعوة %s الذي استخدمته للتو قديم جدًا. كانت دعوة الاشتراك صالحة "
+"حتى %s. لا يمكنك استخدام هذا الرابط بعد الآن. يرجى مطالبة المسؤول بإصدار "
+"رابط دعوة جديد لك."
 
 #: web/skins/modern/accountstatus/accountstatus.php:162
 msgid "Account information not found"
@@ -856,6 +930,10 @@ msgid ""
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
+"يجب عليك استخدام الرابط الدقيق الذي حصلت عليه أثناء التسجيل للوصول إلى هنا. "
+"بدلاً من ذلك ، إذا كان لديك بيانات %s معتمدة بالفعل ، فيمكنك زيارة هذه الصفحة "
+"وقبول السؤال حول تسجيل الدخول باستخدام شهادة العميل (حدد شهادة باسم ينتهي "
+"بـ ...'%s')."
 
 #: web/skins/modern/accountstatus/accountstatus.php:196
 #: web/skins/modern/user/js/cat_js.php:83
@@ -1031,16 +1109,18 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"إذا كنت تنوي تنزيل برنامج التثبيت الذي يمكّن OpenRoaming أيضًا ، فيجب عليك "
+"قبول شروط وأحكام OpenRoaming."
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
-msgstr ""
+msgstr "إذا قمت بتحديد المثبتات مع دعم OpenRoaming ، تذكر أن تشير إلى موافقتك."
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "يحتوي المثبت على دعم OpenRoaming مدمج."
 
 #: web/skins/modern/user/js/cat_js.php:98
 #, php-format
@@ -1048,23 +1128,25 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"أرغب في استخدام OpenRoaming وقد قرأت وقبلت <a href='%s' target='_blank'>%s</"
+"a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "لقد قرأت وقبلت <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:100
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
+msgstr "OpenRoaming غير مدعوم على هذا الجهاز"
 
 #: web/skins/modern/user/js/cat_js.php:103
 msgid "eduroam only"
-msgstr ""
+msgstr "eduroam فقط"
 
 #: web/skins/modern/user/js/cat_js.php:104
 msgid "eduroam and OpenRoaming"
-msgstr ""
+msgstr "eduroam و OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:108
 msgid "Organisation"

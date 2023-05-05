@@ -5,17 +5,17 @@
 #
 # Translators:
 # esmeralda <epires@fccn.pt>, 2022
-# Pedro Simões <psimoes@fccn.pt>, 2022
+# Pedro Simões <psimoes@fccn.pt>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2022\n"
-"Language-Team: Portuguese (Portugal) (https://www.transifex.com/"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2023\n"
+"Language-Team: Portuguese (Portugal) (https://app.transifex.com/"
 "eduroam_devel/teams/11799/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
@@ -1883,19 +1883,19 @@ msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "Todos os testes de conectividade passaram"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "Houve alguns alertas nos testes de conectividade"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "Houve algumas observações nos testes de conectividade"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
+msgstr "Ocorreram alguns erros nos testes de conectividade"
 
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
@@ -1911,7 +1911,7 @@ msgstr "A recolher lista de países/regiões"
 
 #: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
@@ -2009,21 +2009,21 @@ msgstr "O servidor RADIUS da sua instituição de origem é a fonte do problema"
 
 #: web/skins/modern/diag/js/diag_js.php:222
 msgid "This realm does not exist"
-msgstr "O realm não existe"
+msgstr "O domínio não existe"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "A realizar testes de conectividade para este domínio"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Novos resultados de testes estão disponíveis, clique para ver"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "Ver detalhes"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields bellow."
-msgstr ""
+msgstr "Caso queira relatar o seu problema, preencha os campos abaixo."

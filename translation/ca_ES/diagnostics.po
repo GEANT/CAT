@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2022\n"
-"Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
+"Language-Team: Catalan (Spain) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/ca_ES/)\n"
 "Language: ca_ES\n"
 "MIME-Version: 1.0\n"
@@ -1868,19 +1868,19 @@ msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "Superats tots els tests de connectivitat"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "Hi ha avisos en els tests de connectivitat"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "Hi ha indicacions en els tests de connectivitat"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
+msgstr "Hi ha errors en els tests de connectivitat"
 
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
@@ -1998,17 +1998,17 @@ msgstr "Aquest domini no existeix"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "Executant tests de connectivitat per a aquest domini"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Hi ha nou tests disponibles, feu clic per a veure'ls"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "Veure detalls"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields bellow."
-msgstr ""
+msgstr "Si voleu informar del vostre problema ompliu els camps següents."

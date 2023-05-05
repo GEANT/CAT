@@ -6,17 +6,18 @@
 # Translators:
 # Abdulmonem Al Kharusi <abdulmonem@omren.om>, 2021
 # Warda Al Habsi <mozartt33@gmail.com>, 2021
-# Raiya Al Rashdi <raiya@omren.om>, 2022
+# Raiya Al Rashdi <raiya@omren.om>, 2023
+# Mohamed Al Hajri, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 13:12+0200\n"
+"POT-Creation-Date: 2023-05-05 09:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/eduroam_devel/teams/11799/"
+"Last-Translator: Mohamed Al Hajri, 2023\n"
+"Language-Team: Arabic (https://app.transifex.com/eduroam_devel/teams/11799/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +65,7 @@ msgstr "رفض خادم RADIUS على الفور طلب المصادقة في ر
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
-msgstr ""
+msgstr "قام خادم RADIUS برفض طلب المصادقة بعد محادثة EAP."
 
 #: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
 #: web/diag/action_realmcheck.php:130
@@ -86,6 +87,9 @@ msgid ""
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
+"تتضمن سلسلة الشهادات شهادة المرجع المصدق الجذر root CA. لا يخدم هذا أي غرض "
+"مفيد ولكنه قد يزيد من تبادل الحزم packet exchange، مما قد يؤدي إلى المزيد من "
+"عمليات النقل ذهابًا وإيابًا وبالتالي بطء المصادقة."
 
 #: core/diag/AbstractTest.php:410
 msgid "There is more than one server certificate in the chain."
@@ -162,6 +166,10 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
+"يشير الامتداد \"CRL Distribution Point\" في شهادة الخادم إلى موقع لا يمكن "
+"العثور فيه على DER-encoded CRL. تقوم بعض أنظمة التشغيل بفحص صلاحية الشهادة "
+"من خلال الرجوع إلى CRL ولكن تفشل في التحقق من صحة الشهادة. لن يكون التحقق من "
+"صلاحية شهادة الخادم عن طريق CRL ممكنًا."
 
 #: core/diag/AbstractTest.php:473
 msgid "The server certificate was revoked by the CA!"
@@ -174,6 +182,10 @@ msgid ""
 "also contains names which are a proper hostname, and you only use those for "
 "your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
+"تحتوي الشهادة على CN أو subjectAltName: DNS الذي لا يتم تحليله على انه اسم "
+"مضيف Hostname. قد تكون هذه إشكالية لبعض ال supplicants . إذا كانت الشهادة "
+"تحتوي أيضًا على أسماء وهي اسم المضيف Hostname الحقيقي، وكنت تستخدم هذه "
+"الأسماء فقط لتهيئة الـ supplicant ، فيمكنك تجاهل هذا الإشعار بأمان."
 
 #: core/diag/AbstractTest.php:487
 msgid ""
@@ -183,6 +195,10 @@ msgid ""
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
 msgstr ""
+"تحتوي الشهادة على CN أو subjectAltName: DNS الذي يتضمن wildcard ('*'). قد "
+"تكون هذه إشكالية لبعض ال supplicants . إذا كانت الشهادة تحتوي أيضًا على أسماء "
+"وهي wildcardless، وكنت تستخدم هذه الأسماء فقط لتهيئة ال supplicant  ، فيمكنك "
+"تجاهل هذا الإشعار بأمان."
 
 #: core/diag/AbstractTest.php:494
 msgid ""
@@ -199,12 +215,18 @@ msgid ""
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
 msgstr ""
+"هناك شهادة متوسطة \"intermediate certificate\" واحدة على الأقل في ملف تعريف "
+"CAT الخاص بك خارج فترة صلاحيتها (غير صالحة أو منتهية الصلاحية بالفعل) ، ولكن "
+"لم يتم استخدام هذه الشهادة للتحقق من الخادم. ضع في اعتبارك إزالتها من تهيئة "
+"%s الخاص بك."
 
 #: core/diag/AbstractTest.php:508
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
+"تعذر التحقق من شهادة الخادم للمرجع المصدق الجذر root CA الذي قمت بتهيئته في "
+"ملف التعريف الخاص بك!"
 
 #: core/diag/AbstractTest.php:512
 msgid ""
@@ -213,6 +235,11 @@ msgid ""
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
+"لم تكن سلسلة الشهادات كما وردت في EAP كافية للتحقق من الشهادة إلى المرجع "
+"المصدق الجذري  root CA في ملف التعريف الخاص بك. تم التحقق من ذلك باستخدام "
+"المراجع المصدقة الوسيطة intermediate CAs في ملف التعريف الخاص بك. يجب أن "
+"تهتم بإرسال المراجع المصدقة الوسيطة intermediate CAs المطلوبة داخل محادثة "
+"EAP."
 
 #: core/diag/AbstractTest.php:518
 msgid ""
@@ -228,6 +255,9 @@ msgid ""
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
+"يتطابق اسم خادم EAP الذي تم تهيئته مع CN أو subjectAltName: DNS للشهادة "
+"الواردة؛ أفضل الممارسات الحالية هي أن الشهادة يجب أن تحتوي على الاسم في كلا "
+"المكانين."
 
 #: core/diag/AbstractTest.php:532
 msgid ""
@@ -236,6 +266,10 @@ msgid ""
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
 msgstr ""
+"شهادة واحدة على الأقل لا تحتوي على أي BasicConstraints extension; ؛ مما يجعل "
+"الأمر غير واضح ما إذا كانت شهادة CA أم شهادة end-entity. لن يقوم نظام "
+"التشغيل Mac OS X 10.8 (Mountain Lion) على الأقل بالتحقق  من صحة هذه الشهادة "
+"لأغراض EAP!"
 
 #: core/diag/AbstractTest.php:539
 msgid "The server presented a certificate from an unknown authority."
@@ -267,18 +301,25 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
+"يقدم الخادم شفرات Diffie-Hellman (DH) مع مجموعة DH أصغر من 1024 bit. من "
+"المعروف أن نظام التشغيل \"Mac OS X 10.11 \"El Capitan يرفض اتصالات TLS في "
+"هذه الظروف!"
 
 #: core/diag/AbstractTest.php:588
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"تحتوي الشهادة على أكثر من حقل CommonName (CN). هذا يمثل إشكالية على العديد "
+"من supplicants."
 
 #: core/diag/AbstractTest.php:595
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"خوارزمية المفتاح العام \"public key algorithm\" للشهادة غير معروفة للنظام. "
+"يرجى تقديم الشهادة كعينة للمطورين."
 
 #: core/diag/AbstractTest.php:602
 msgid "No certificate at all was sent by the server."
@@ -296,16 +337,20 @@ msgid ""
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"لا يدعم الخادم إصدارات TLS المعاصرة TLSv1.2 أو TLSv1.3. قد ترفض أنظمة تشغيل "
+"العميل الحديثة المصادقة على الخادم!"
 
 #: core/diag/AbstractTest.php:620
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"اسم الخادم المتوقع وفقًا لسجل SRV لا يتطابق مع أي اسم خادم في شهادة الخادم "
+"التي تم الوصول إليها!"
 
 #: core/diag/Logopath.php:120
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[تشخيص eduroam]"
 
 #: core/diag/Logopath.php:122
 msgid ""
@@ -314,6 +359,10 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(هذه الخدمة في مرحلة مبكرة. نعتذر إذا كان هذا التنبيه خاطئًا. إذا كان هو "
+"كذلك، فيرجى إرسال تقرير بالبريد الإلكتروني إلى cat-devel@lists.geant.org، مع "
+"إعادة توجيه الرسالة بالكامل (بما في ذلك \"المشتبه بهم\" وبيانات \"الدليل\" "
+"في النهاية) ، واشرح سبب كونها خاطئة.)"
 
 #: core/diag/Logopath.php:124
 msgid "Yours sincerely,"
@@ -321,15 +370,17 @@ msgstr "تفضلوا بقبول فائق الاحترام،"
 
 #: core/diag/Logopath.php:126
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr "إيد يو روم، خوارزمية تشخيص الجوال التعليمي "
+msgstr "Ed U. Roam، خوارزمية تشخيص eduroam "
 
 #: core/diag/Logopath.php:134
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[POLICYVIOLATION NATIONAL]  موفر هوية IdP بدون بيانات مدخلة في قاعدة بيانات "
+"eduroam"
 
 #: core/diag/Logopath.php:135
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "عزيزي مسؤول NRO،"
 
 #: core/diag/Logopath.php:137
 #, php-format
@@ -338,12 +389,16 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"طلب أحد المستخدمين تشخيصات لنطاق realm %s . أظهرت عمليات التحقق من الاتصال "
+"الفورية أن النطاق realm موجود، لكننا لم نتمكن من العثور على موفر هوية IdP "
+"لهذا النطاق realm في قاعدة بيانات eduroam."
 
 #: core/diag/Logopath.php:139
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"من خلال عدم إدراج الـ IdPs في قاعدة بيانات eduroam، فإنك تنتهك سياسة eduroam."
 
 #: core/diag/Logopath.php:141
 msgid ""
@@ -351,26 +406,31 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"بالإضافة إلى ذلك، هذا يخلق مشاكل تشغيلية. على وجه الخصوص، لا يمكننا توجيه "
+"المستخدمين إلى موفر الهوية IdP الخاص بهم لمزيد من التشخيص / الإرشادات نظرًا "
+"لعدم وجود بيانات تواصل لموفر الهوية في قاعدة البيانات."
 
 #: core/diag/Logopath.php:143
 msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"يُرجى إيقاف انتهاك السياسة حالاً من خلال تسجيل الـIdP المرتبط بهذا النطاق "
+"realm."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
-msgstr ""
+msgstr "[مشكلة فنية] يتوقع المسؤول وجود مشكلة فنية في IdP الخاص بك"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "عزيزي مسؤول الـ IdP،"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "طلب مسؤول مؤسسة تشخيصات النطاق realm لـ %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -378,6 +438,8 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"حددت فحوصات الاتصال أن النطاق realm يبدو أنه يعمل في معلمات \"parameters\" "
+"مقبولة، لكن المسؤول أصر على الاتصال بك لتقديم المعلومات الاضافية أدناه."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -385,23 +447,25 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"حددت فحوصات الاتصال  أن النطاق realm في الواقع يواجه مشكلة تشغيلية في هذا "
+"الوقت. يرجى الاطلاع على المعلومات الاضافية أدناه."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "الطابع الزمني Timestamp للمصادقة/للمحاوله الخاصة باتصال المستخدم:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "عنوان  MAC Address للمستخدم النهائي المعني:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "تعليقات اضافية:"
 
 #: core/diag/RADIUSTests.php:1343
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "متصل بـ %s."
 
 #: core/diag/RADIUSTests.php:1348 web/diag/radius_tests.php:233
 msgid ""
@@ -409,6 +473,8 @@ msgid ""
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>الاختبار ناجح:</strong> تم إجراء محادثة RADIUS ثنائية الاتجاه بشكل "
+"متكرر، وانتهت بـ Access-Reject كما هو مخطط."
 
 #: core/diag/RADIUSTests.php:1353
 msgid ""
@@ -417,96 +483,99 @@ msgid ""
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
+"<strong>الاختبار ناجح جزئيًا</strong>: تم إجراء محادثة RADIUS ثنائية الاتجاه "
+"بشكل متكرر، وانتهت بـ Access-Reject كما هو مخطط. كانت بعض خصائص محاولة "
+"الاتصال دون المستوى المطلوب؛ القائمة أدناه."
 
 #: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:132
 msgid "All tests passed."
-msgstr ""
+msgstr "نجحت جميع الاختبارات."
 
 #: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:133
 msgid "There were some warnings."
-msgstr ""
+msgstr "كانت هناك بعض التحذيرات."
 
 #: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
 msgid "There were some errors."
-msgstr ""
+msgstr "كانت هناك بعض الأخطاء."
 
 #: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
 msgid "There were some remarks."
-msgstr ""
+msgstr "كانت هناك بعض الملاحظات."
 
 #: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:113
 msgid "PASS"
-msgstr ""
+msgstr "نجح"
 
 #: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:114
 msgid "FAIL"
-msgstr ""
+msgstr "فشل"
 
 #: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:155
 msgid "Subject:"
-msgstr ""
+msgstr "Subject:"
 
 #: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:156
 msgid "Issuer:"
-msgstr ""
+msgstr "جهة الإصدار:"
 
 #: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:157
 msgid "Valid from:"
-msgstr ""
+msgstr "صالحة من :"
 
 #: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:158
 msgid "Valid to:"
-msgstr ""
+msgstr "صالحة إلى:"
 
 #: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:159
 msgid "Serial number:"
-msgstr ""
+msgstr "رقم التسلسل:"
 
 #: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:160
 msgid "SHA1 fingerprint:"
-msgstr ""
+msgstr "SHA1 fingerprint:"
 
 #: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:143
 msgid "Server certificate"
-msgstr ""
+msgstr "شهادة الخادم"
 
 #: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:144
 msgid "Subject"
-msgstr ""
+msgstr "Subject"
 
 #: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:145
 msgid "Issuer"
-msgstr ""
+msgstr "جهة الإصدار"
 
 #: core/diag/RADIUSTestsUI.php:111
 msgid "Policies"
-msgstr ""
+msgstr "سياسات"
 
 #: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
 msgid "crlDistributionPoint"
-msgstr ""
+msgstr "crlDistributionPoint"
 
 #: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:149
 msgid "authorityInfoAccess"
-msgstr ""
+msgstr "authorityInfoAccess"
 
 #: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:146
 msgid "SubjectAltName"
-msgstr ""
+msgstr "SubjectAltName"
 
 #: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:542
 #: web/diag/action_realmcheck.php:551 web/diag/show_realmcheck.php:134
 msgid "Overview"
-msgstr ""
+msgstr "نظرة عامة "
 
 #: core/diag/RADIUSTestsUI.php:214
 msgid "DNS chekcs"
-msgstr ""
+msgstr "التحقق من DNS"
 
 #. output in friendly words
 #: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:577
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "التحقق من وجود NAPTR:"
 
 #. return codes specific to NAPTR existence checks
 #. *
@@ -515,98 +584,102 @@ msgstr ""
 #: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
 #: web/diag/action_realmcheck.php:580
 msgid "This realm has no NAPTR records."
-msgstr ""
+msgstr "هذا النطاق 'realm' ليس لديه سجلات NAPTR."
 
 #: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:583
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"يحتوي هذا النطاق realm على سجلات NAPTR، ولكن لا يوجد أي منها مرتبط باتحاد "
+"التجوال هذا."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:586
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
-msgstr ""
+msgstr "هذا النطاق realm لديه سجلات NAPTR  لــ%d متعلقة بإتحاد التجوال هذا."
 
 #: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:592
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-msgstr ""
+msgstr "Checking NAPTR compliance (flag = S and regex = {empty}):"
 
 #: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
 #: web/diag/action_realmcheck.php:599 web/diag/action_realmcheck.php:613
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "تم العثور على NAPTR واحد على الأقل به محتوى غير صالح!"
 
 #: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:607
 msgid "Checking SRVs:"
-msgstr ""
+msgstr "التحقق من SRVs:"
 
 #. print number of successfully retrieved SRV targets
 #: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:616
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "تم اكتشاف أسماء مضيفين لـ %d"
 
 #: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:623
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "التحقق من دقة عنوان IP:"
 
 #: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:629
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr ""
+msgstr "لا يمكن حل اسم مضيف واحد على الأقل!"
 
 #. print number of successfully retrieved SRV targets
 #: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:632
 #, php-format
 msgid "%d IP addresses resolved."
-msgstr ""
+msgstr "%d عناوين IP تم حلها."
 
 #: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:640
 #: web/diag/action_realmcheck.php:642
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "النطاق Realm هو <strong>%s</strong>"
 
 #: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:640
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "مع عدم مواجهة أخطاء في DNS . تهانينا!"
 
 #: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
 msgid "but there were DNS errors! Check them!"
-msgstr ""
+msgstr "ولكن كانت هناك أخطاء في DNS! تحقق منهم!"
 
 #: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"يجب عليك إعادة إجراء الاختبارات بعد إصلاح الأخطاء؛ قد يتم الكشف عن المزيد من "
+"الأخطاء في هذه المرحلة. أسباب الخطأ الدقيقة مذكورة أدناه."
 
 #: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:570
 msgid "Dynamic discovery test is not configured"
-msgstr ""
+msgstr "لم يتم تهيئة اختبار الاكتشاف الديناميكي"
 
 #: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:543
 #: web/diag/action_realmcheck.php:703 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
-msgstr ""
+msgstr "اختبارات الاتصال الثابت"
 
 #: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
 #: web/diag/action_realmcheck.php:415 web/diag/action_realmcheck.php:420
 #: web/diag/action_realmcheck.php:425
 msgid "See the appropriate tab for details."
-msgstr ""
+msgstr "انظر الى علامة التبويب المناسبة للحصول على التفاصيل."
 
 #: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:544
 #: web/diag/action_realmcheck.php:708 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
-msgstr ""
+msgstr "اختبارات الاتصال الديناميكي"
 
 #: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:728
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "اختبارات الاتصال الثابت"
 
 #: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:730
 msgid ""
@@ -617,209 +690,219 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"تُرسل عملية التحقق هذه طلبًا للنطاق realm عبر نقاط دخول مختلفة للبنية الأساسية "
+"لاتحاد التجوال. سيحتوي الطلب على سمة Operator-Name\" attribute\"، وسيكون "
+"أكبر من 1500 Bytes للكشف على مشكلتين شائعتين في التهيئة.<br/> نظرًا لعدم وجود "
+"بيانات اعتماد حقيقية للنطاق realm، لا يمكننا المصادقة بنجاح - لذا فإن "
+"النتيجة المتوقعة هي للحصول على Access-Reject بعد إجراء محادثة EAP."
 
 #: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:734
 #: web/diag/action_realmcheck.php:877
 #, php-format
 msgid "Testing from: %s"
-msgstr ""
+msgstr "الاختبار من: %s"
 
 #: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:161
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "متصل بخادم غير محدد"
 
 #: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
 #: web/diag/action_realmcheck.php:268 web/diag/action_realmcheck.php:379
 #: web/diag/action_realmcheck.php:399 web/diag/action_realmcheck.php:460
 #, php-format
 msgid "elapsed time: %sms."
-msgstr ""
+msgstr "الوقت المنقضي: %s جزء من الثانية."
 
 #: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:390
 #: web/diag/action_realmcheck.php:450
 msgid "Extensions"
-msgstr ""
+msgstr "ملحقات"
 
 #: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:391
 msgid "show server certificate details"
-msgstr ""
+msgstr "إظهار تفاصيل شهادة الخادم"
 
 #: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:788
 msgid "Checking server handshake..."
-msgstr ""
+msgstr "جارٍ التحقق من اتصال الخادم..."
 
 #: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:125
 #: web/diag/show_realmcheck.php:62
 msgid "more"
-msgstr ""
+msgstr "المزيد"
 
 #: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
 msgid "Test failed"
-msgstr ""
+msgstr "فشل الاختبار"
 
 #: core/diag/RADIUSTestsUI.php:430
 msgid "Client certificate"
-msgstr ""
+msgstr "شهادة العميل Client certificate"
 
 #: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
 msgid "expected result: "
-msgstr ""
+msgstr "نتيجة متوقعة:"
 
 #: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate"
-msgstr ""
+msgstr "قَبِل الخادم شهادة العميل هذه"
 
 #: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:122
 msgid "You should update your list of accredited CAs"
-msgstr ""
+msgstr "يجب عليك تحديث قائمة CAs المعتمدة الخاصة بك"
 
 #: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:123
 msgid "Get it from here."
-msgstr ""
+msgstr "احصل عليه من هنا."
 
 #: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:120
 msgid "Server did not accept this client certificate - reason"
-msgstr ""
+msgstr "لم يقبل الخادم شهادة العميل هذه - السبب"
 
 #: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:118
 msgid "Server accepted this client certificate, but should not have"
-msgstr ""
+msgstr "قبل الخادم شهادة العميل هذه، ولكن لا ينبغي أن يقبلها"
 
 #: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:119
 msgid "Server did not accept this client certificate"
-msgstr ""
+msgstr "لم يقبل الخادم شهادة العميل هذه"
 
 #: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:121
 msgid "Rest of tests for this CA skipped"
-msgstr ""
+msgstr "تم تخطي باقي الاختبارات لهذا المرجع المصدق CA"
 
 #: core/diag/RADIUSTestsUI.php:501
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "تم تخطي هذه الاختبارات بسبب أخطاء سابقة."
 
 #: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "اختبارات الاتصال الديناميكي"
 
 #: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:787
 msgid "Some errors were found during the tests, see below"
-msgstr ""
+msgstr "تم العثور على بعض الأخطاء أثناء الاختبارات، انظر أدناه"
 
 #: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:787
 msgid "All tests passed, congratulations!"
-msgstr ""
+msgstr "كل الاختبارات نجحت ، تهانينا!"
 
 #: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:127
 #: web/diag/action_realmcheck.php:788 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
-msgstr ""
+msgstr "عرض معلومات مفصلة لجميع الاختبارات"
 
 #: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
 msgid "Checking if certificates from  CAs are accepted..."
-msgstr ""
+msgstr "التحقق مما إذا كانت الشهادات من CAs مقبولة..."
 
 #: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
+"سيتم اختبار بعض من شهادات العميل للتحقق مما إذا كانت الخوادم مقاومة لبعض "
+"مشكلات الشهادات."
 
 #: core/diag/RFC6614Tests.php:97
 msgid "eduPKI"
-msgstr ""
+msgstr "eduPKI"
 
 #: core/diag/RFC6614Tests.php:98
 msgid "Nicolaus Copernicus University"
-msgstr ""
+msgstr "جامعة نيكولاس كوبرنيكوس"
 
 #: core/diag/RFC6614Tests.php:99
 msgid "accredited"
-msgstr ""
+msgstr "معتمد"
 
 #: core/diag/RFC6614Tests.php:100
 msgid "non-accredited"
-msgstr ""
+msgstr "غير معتمد"
 
 #: core/diag/RFC6614Tests.php:101
 msgid "correct certificate"
-msgstr ""
+msgstr "شهادة أمنية صحيحة"
 
 #: core/diag/RFC6614Tests.php:102
 msgid "certificate with wrong policy OID"
-msgstr ""
+msgstr "شهادة مع سياسة OID خاطئة"
 
 #: core/diag/RFC6614Tests.php:103
 msgid "expired certificate"
-msgstr ""
+msgstr "الشهادة الامنية منتهية الصلاحية"
 
 #: core/diag/RFC6614Tests.php:104
 msgid "revoked certificate"
-msgstr ""
+msgstr "شهادة أمنية ملغاة"
 
 #: core/diag/RFC6614Tests.php:105
 msgid "pass"
-msgstr ""
+msgstr "نجح"
 
 #: core/diag/RFC6614Tests.php:106
 msgid "fail"
-msgstr ""
+msgstr "فشل"
 
 #: core/diag/RFC6614Tests.php:107
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr ""
+msgstr "CA معتمد من eduroam (الآن فقط للاختبارات)"
 
 #: core/diag/RFC6614Tests.php:354
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "لم يتم إنشاء اتصال TLS: تم رفض الاتصال"
 
 #: core/diag/RFC6614Tests.php:356
 msgid "certificate expired"
-msgstr ""
+msgstr "انتهت صلاحية الشهادة الامنية"
 
 #: core/diag/RFC6614Tests.php:358
 msgid "certificate was revoked"
-msgstr ""
+msgstr "تم إلغاء الشهادة الأمنية"
 
 #: core/diag/RFC6614Tests.php:360
 msgid "bad policy"
-msgstr ""
+msgstr "سياسة سيئة"
 
 #: core/diag/RFC6614Tests.php:362
 msgid "unknown authority"
-msgstr ""
+msgstr "جهة الاصدار غير معروفة"
 
 #: core/diag/RFC6614Tests.php:365
 msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
+msgstr "جهة الاصدار غير معروفة أو لا توجد سياسة للشهادة أو مشكلة أخرى"
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
 #.
 #: core/diag/RFC7585Tests.php:162
 msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr ""
+msgstr "تم العثور على سجلات NAPTR، لكن جميعها تشير إلى خدمات غير مرتبطة."
 
 #: core/diag/Sociopath.php:63
 msgid "There is nothing you can do to solve this problem yourself."
-msgstr ""
+msgstr "ليس هناك ما يمكنك فعله لحل هذه المشكلة بنفسك."
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"يرجى التحلي بالصبر وحاول مرة أخرى في وقت لاحق. لا تقم بتغيير إعدادات جهازك."
 
 #: core/diag/Sociopath.php:65
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"تم إبلاغ مشغلي البنية التحتية تلقائيًا وسوف يتحققون من المشكلة في أقرب وقت "
+"ممكن."
 
 #: core/diag/Sociopath.php:67
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
-msgstr ""
+msgstr "حددَ النظام المشكلات المحتملة فيما يتعلق بتهيئة جهازك المحلي."
 
 #: core/diag/Sociopath.php:75
 msgid ""
@@ -827,6 +910,8 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"لا يمكن للنظام العثور على أي معلومات على الإطلاق حول موفر الهوية IdP الذي "
+"وصفته. ربما، هذه المؤسسة غير مشاركة والحساب الذي حاولت استخدامه غير موجود."
 
 #: core/diag/Sociopath.php:76
 msgid ""
@@ -837,6 +922,11 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"من المحتمل أن تكون هناك بعض المشكلات المتعلقة بالجزء اللاسلكي من الشبكة التي "
+"تحاول الاتصال بها. لا تعمل الشبكات اللاسلكية دائمًا بشكل ثابت ومحدد. يتعين "
+"على جميع المستخدمين في موقع معين مشاركة النطاق الترددي bandwidth المتاح، "
+"ويمكن أن يكون للبيئة المحيطة (الجدران الخرسانية والأشياء الموجودة في الطريق "
+"واختلافات الارتفاع) تأثير كبير على تجربة الاتصال الخاصة بك."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -848,12 +938,17 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"يجب عليك استخدام مساعدي التهيئة المناسبين [MGW: تحقق مما إذا كان النطاق "
+"realm موجودًا في CAT، ثم اعرض الرابط للتهيئة] أو اتصل بموفر الهوية IdP [MGW: "
+"عرض بيانات التواصل]."
 
 #: core/diag/Sociopath.php:88
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"هل سبق لك استخدام الشبكة بنجاح، على سبيل المثال في مؤسستك بدون استخدام "
+"التجوال؟"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -863,12 +958,15 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"إذا لم يعمل جهازك من قبل بهذه الإعدادات، فمن المحتمل جدًا أن يكون تهيئة جهازك "
+"خاطئًا.%s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"هل عمل الجهاز سابقًا أثناء التجوال، أي في نقاط اتصال أخرى بعيدًا عن مؤسستك؟"
 
 #. that's good, and somewhat encouraging
 #. that is almost a smoking gun
@@ -880,10 +978,14 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at your home organisation, but can not be used when roaming. %s"
 msgstr ""
+"إذا كان التجوال لا يعمل باستمرار، فمن المحتمل جدًا أن تهيئة جهازك خاطئة. "
+"تتضمن الأخطاء النموذجية التي تسبب هذا العرض ما يلي: استخدام اسم مستخدم "
+"للتوجيه (\"خارجي\") بدون اللاحقة  realm.tld@ والتي من المحتمل أن تعمل في "
+"مؤسستك، ولكن لا يمكن استخدامها أثناء التجوال. %s"
 
 #: core/diag/Sociopath.php:98
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "هل قمت مؤخرًا بتغيير الإعدادت في جهازك؟"
 
 #. that is almost a smoking gun
 #. encouraging
@@ -895,10 +997,14 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"يجب تهيئة الحسابات مرة واحدة فقط، ويمكن استخدامها بعد ذلك في أي مكان في "
+"العالم دون أي تغييرات. إذا قمت بتغيير الاعدادات مؤخرًا، فقد يكون هذا التغيير "
+"خاطئ. لا يجب أبدًا تغيير إعدادات الشبكة إلا إذا طلب منك موفر الهوية IdP؛ حتى "
+"في حالة حدوث مشكلات مؤقتة في تسجيل الدخول."
 
 #: core/diag/Sociopath.php:103
 msgid "Did you recently change your password?"
-msgstr ""
+msgstr "هل قمت مؤخرًا بتغيير كلمة المرور الخاصة بك؟"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -907,10 +1013,12 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"عندما تقوم بتغيير كلمة المرور الخاصة بك ، فإنك تحتاج أيضًا إلى إعادة ضبط كلمة "
+"المرور الجديدة في تهيئة الجهاز."
 
 #: core/diag/Sociopath.php:108
 msgid "If you use more than one device: do your other devices still work?"
-msgstr ""
+msgstr "إذا كنت تستخدم أكثر من جهاز: هل ما زالت أجهزتك الأخرى تعمل؟"
 
 #. seems that all is okay with the account as such
 #. now that is suspicious indeed
@@ -921,12 +1029,17 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"إذا توقفت جميع الأجهزة عن العمل في وقت واحد، فقد تكون هناك مشكلة في حسابك "
+"مثل، ربما انتهت صلاحية حسابك، أو اضطررت لتغيير كلمة المرور؟ ستجد أفضل إجابة "
+"عن هذه الأسئلة من خلال التواصل مع مؤسستك \"IdP\" [MGW: عرض معلومات الاتصال]"
 
 #: core/diag/Sociopath.php:113
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"هل المكان الذي تتواجد فيه حاليًا مزدحم بشكل كبير، أم أن هناك ضغط عالي على "
+"الشبكة؟"
 
 #: core/diag/Sociopath.php:116
 msgid ""
@@ -935,10 +1048,14 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"من المحتمل أن يكون هناك ضغط كبير على الشبكة في هذا الموقع حالياً. قد تضطر إلى "
+"الانتظار حتى تحصل على اتصال أفضل. إذا كنت تعتقد أنه يجب تقويه الشبكة وزيادة "
+"سعتها في هذا المكان، فيجب عليك إبلاغ مزود نقطة الاتصال. [MGW: إضافة معلومات "
+"الاتصال]"
 
 #: core/diag/Sociopath.php:118
 msgid "Does the connection get better when you move around?"
-msgstr ""
+msgstr "هل يتحسن الاتصال عند التحرك في أرجاء المكان؟"
 
 #: core/diag/Sociopath.php:121
 msgid ""
@@ -946,11 +1063,14 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"يجب عليك الانتقال إلى موقع آخر للحصول على تغطية وخدمة أفضل للشبكة. إذا كنت "
+"تعتقد أن المكان المحدد الذي تتواجد فيه يستحق تغطية أفضل ، فيجب عليك إبلاغ "
+"مزود نقطة الاتصال. [MGW: إضافة معلومات الاتصال]"
 
 #: core/diag/Sociopath.php:123
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
-msgstr ""
+msgstr "هل ترى أخطاء تنص على شيء مشابه لـ \"تعذر الحصول على عنوان IP\"؟"
 
 #. gotcha
 #. the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
@@ -960,133 +1080,140 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"تشير الأدلة المتوفرة إلى أنه قد تكون هناك مشكلة في البنية الأساسية لمزود "
+"نقاط الاتصال هذا. لا يوجد شيء يمكنك القيام به لحل هذه المشكلة محليًا. يرجى "
+"التحلي بالصبر والمحاولة مرة أخرى في وقت لاحق."
 
 #: web/skins/modern/diag/diag.php:82
 msgid "Diagnostics site"
-msgstr ""
+msgstr "موقع التشخيص"
 
 #: web/skins/modern/diag/diag.php:85
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
-msgstr ""
+msgstr "سيبذل نظام التشخيص قصارى جهده لتحديد مشاكلك وحلها!"
 
 #: web/skins/modern/diag/diag.php:85
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
+"الرجاء مساعدة النظام من خلال الإجابة على الأسئلة بأكبر قدر ممكن من الدقة."
 
 #: web/skins/modern/diag/diag.php:85
 msgid "Are you a"
-msgstr ""
+msgstr "هل أنت"
 
 #: web/skins/modern/diag/diag.php:86
 msgid "end-user"
-msgstr ""
+msgstr "المستخدم النهائي"
 
 #: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
-msgstr ""
+msgstr "أو"
 
 #: web/skins/modern/diag/diag.php:87
 msgid "eduroam administrator"
-msgstr ""
+msgstr "مسؤول eduroam"
 
 #: web/skins/modern/diag/diag.php:90
 msgid "Tools for End Users"
-msgstr ""
+msgstr "أدوات للمستخدمين النهائيين"
 
 #: web/skins/modern/diag/diag.php:93
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
-msgstr ""
+msgstr "لحل مشكلتك، يُلزم إجراء تشخيصات لنطاق realm فوراً."
 
 #: web/skins/modern/diag/diag.php:97
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
-msgstr ""
+msgstr "يحتاج النظام إلى بعض المعلومات عن مؤسستك - جهة الإصدار لحسابك"
 
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<strong>realm.tld</strong>'):"
 msgstr ""
+"ما هو جزء النطاق realm من حساب المستخدم الخاص بك (الجزء الذي خلف @ "
+"\"<strong>your.username@</strong>realm.tld\"):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
-msgstr ""
+msgstr "كبديل"
 
 #: web/skins/modern/diag/diag.php:103
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "يمكنك تحديد مؤسستك المحلية من القائمة التالية"
 
 #: web/skins/modern/diag/diag.php:105
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "انقر لتحديد بلدك / منطقتك ومؤسستك"
 
 #: web/skins/modern/diag/diag.php:112
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
-msgstr ""
+msgstr "اختياريا، لتحسين الاختبارات، يمكنك تقديم معلومات عن موقعك الحالي"
 
 #: web/skins/modern/diag/diag.php:114
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
+msgstr "انقر لتحديد موقع توجد به مشكلة في eduroam"
 
 #: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
-msgstr ""
+msgstr "إختبار نطاق realm  "
 
 #: web/skins/modern/diag/diag.php:122
 msgid "First stage completed."
-msgstr ""
+msgstr "اكتملت المرحلة الأولى."
 
 #: web/skins/modern/diag/diag.php:127
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
+msgstr "لتضييق نطاق المشكلة، الرجاء الإجابة على الأسئلة القليلة التالية."
 
 #: web/skins/modern/diag/diag.php:132
 msgid "Run tests"
-msgstr ""
+msgstr "إجراء الإختبارات"
 
 #: web/skins/modern/diag/diag.php:137
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "أدوات لمسؤولي eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "ما طبيعة المشكلة؟"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "أظن في وجود مشكلة فنية في IdP معين"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
 msgstr ""
+"أريد الإبلاغ عن إساءة استخدام لموارد الشبكة من قبل  احد مستخدمي التجوال"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
-msgstr ""
+msgstr "أشك أن هناك مشكلة فنية لأحد المستخدمين في SP معين"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "هذه الخدمة فقط للمسؤولين المصدّقين."
 
 #: web/skins/modern/diag/diag.php:162
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "مطلوب دخول مسؤول eduroam"
 
 #: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "جلب قائمة المؤسسات"
 
 #: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
 msgid "Select institution:"
-msgstr ""
+msgstr "اختر المؤسسة:"
 
 #: web/skins/modern/diag/diag.php:279
 msgid ""
@@ -1094,32 +1221,35 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"لا تحتوي قاعدة البيانات على المعلومات اللازمة لمساعدتك في اختيار النطاق "
+"realm لهذا البلد. عليك أن تقدم النطاق realm الذي تهتم به."
 
 #: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"لا يمكن البحث في قاعدة البيانات. يجب عليك أن تقدم النطاق realm الذي تهتم به."
 
 #: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "تحقق مما إذا كان هذا النطاق realm مسجلاً"
 
 #: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
-msgstr ""
+msgstr "تحقق من هذا النطاق realm"
 
 #: web/skins/modern/diag/diag.php:355
 msgid "Other location"
-msgstr ""
+msgstr "موقع آخر"
 
 #: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
-msgstr ""
+msgstr "إستخراج قائمة نطاقات Realm"
 
 #: web/skins/modern/diag/diag.php:401
 msgid "Check realm(s):"
-msgstr ""
+msgstr "التحقق من النطاقات realm(s):"
 
 #: web/skins/modern/diag/diag.php:413
 msgid "Realm:"
@@ -1127,226 +1257,229 @@ msgstr "Realm:"
 
 #: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
 msgid "Running realm tests"
-msgstr ""
+msgstr "إجراء اختبارات للنطاق Realm"
 
 #: web/skins/modern/diag/diag.php:574
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "نتائج التشخيص لنطاقات realms المحددة"
 
 #: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occured"
-msgstr ""
+msgstr "حدثت مشكلة غير معروفة"
 
 #: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "يتضمن هذا الاختبار فحص نطاق realm التالي"
 
 #: web/skins/modern/diag/diag.php:580
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "يتضمن هذا الاختبار فحص نطاقات realms التالية"
 
 #: web/skins/modern/diag/diag.php:590
 msgid "You should report this to"
-msgstr ""
+msgstr "يجب عليك الإبلاغ عن هذا إلى"
 
 #: web/skins/modern/diag/diag.php:658
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "تقديم تقرير مسؤول eduroam"
 
 #: web/skins/modern/diag/diag.php:661
 msgid "SP contacting IdP due to technical problems or abuse"
-msgstr ""
+msgstr "يتصل مقدم الخدمة SP بموفر الهوية IdP  بسبب مشاكل فنية أو إساءة استخدام"
 
 #: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
 msgid "Reason"
-msgstr ""
+msgstr "سبب"
 
 #: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
-msgstr ""
+msgstr "أحداث الطابع الزمني \"timestamp\""
 
 #: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Calling-Station-Id"
 
 #: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
 msgid "Additional description"
-msgstr ""
+msgstr "وصف إضافي"
 
 #: web/skins/modern/diag/diag.php:667
 msgid "An email to contact the reporter"
-msgstr ""
+msgstr "بريد إلكتروني للاتصال بمسؤول التقرير"
 
 #: web/skins/modern/diag/diag.php:668
 msgid "Test result"
-msgstr ""
+msgstr "نتيجة الاختبار"
 
 #: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
-msgstr ""
+msgstr "فشل"
 
 #: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
-msgstr ""
+msgstr "نجح"
 
 #: web/skins/modern/diag/diag.php:675
 msgid "Test URL"
-msgstr ""
+msgstr "اختبار URL"
 
 #: web/skins/modern/diag/diag.php:676
 msgid "Email to IdP administrators "
-msgstr ""
+msgstr "بريد إلكتروني لـمسؤولي IDP"
 
 #: web/skins/modern/diag/diag.php:678
 msgid "send successfully"
-msgstr ""
+msgstr "أرسل بنجاح"
 
 #: web/skins/modern/diag/diag.php:680
 msgid "not sent - failure while sending"
-msgstr ""
+msgstr "لم يتم إرساله - فشل أثناء الإرسال"
 
 #: web/skins/modern/diag/diag.php:685
 msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
+msgstr "يتصل موفر الهوية IdP بمقدم الخدمة SP بسبب مشاكل فنية أو إساءة استخدام"
 
 #: web/skins/modern/diag/diag.php:688
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "اسم مشغل مقدم الخدمة SP's Operator-Name"
 
 #: web/skins/modern/diag/diag.php:689
 msgid "User's outer ID"
-msgstr ""
+msgstr "المعرف الخارجي outer ID للمستخدم"
 
 #: web/skins/modern/diag/diag.php:690
 msgid "IdP email"
-msgstr ""
+msgstr "البريد الإلكتروني لموفر الهوية IdP"
 
 #: web/skins/modern/diag/diag.php:694
 msgid "How to contact the user"
-msgstr ""
+msgstr "كيف تتواصل مع المستخدم"
 
 #: web/skins/modern/diag/diag.php:720
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "صيغة خاطئة للنطاق realm"
 
 #: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
 msgid "Wrong format of email"
-msgstr ""
+msgstr "صيغة خاطئة للبريد الإلكتروني"
 
 #: web/skins/modern/diag/diag.php:743
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "عنوان MAC غير مكتمل"
 
 #: web/skins/modern/diag/diag.php:761
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "صيغة خاطئة لـ outer ID"
 
 #: web/skins/modern/diag/diag.php:770
 msgid "Wrong string given as OperatorName"
-msgstr ""
+msgstr "تم تحديد قيمة String خاطئه كـ إسم مشغل OperatorName"
 
 #: web/diag/action_realmcheck.php:30 web/diag/show_realmcheck.php:37
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
-msgstr ""
+msgstr "التحقق من سلامة الاكتشاف الديناميكي للنطاق realm"
 
 #: web/diag/action_realmcheck.php:72
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"لقد طلبت التحقق من نطاق realm، لكننا لا نعرف نطاق realm لملف التعريف هذا!"
 
 #: web/diag/action_realmcheck.php:81
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
+msgstr "لم يتم تقديم اسم نطاق realm صالح، لا يمكن تنفيذ أي عمليات تحقق!"
 
 #: web/diag/action_realmcheck.php:84
 msgid "STATIC"
-msgstr ""
+msgstr "STATIC"
 
 #: web/diag/action_realmcheck.php:85
 msgid "DYNAMIC"
-msgstr ""
+msgstr "DYNAMIC"
 
 #: web/diag/action_realmcheck.php:115
 msgid "Client certificate:"
-msgstr ""
+msgstr "شهادة العميل Client certificate:"
 
 #: web/diag/action_realmcheck.php:147
 msgid "Certificate policies"
-msgstr ""
+msgstr "سياسات الشهادة"
 
 #: web/diag/action_realmcheck.php:150 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
-msgstr ""
+msgstr "إخفاء المعلومات المفصلة لجميع الاختبارات"
 
 #: web/diag/action_realmcheck.php:213
 msgid "Some required input is missing!"
-msgstr ""
+msgstr "بعض المدخلات المطلوبة مفقودة!"
 
 #: web/diag/action_realmcheck.php:438
 msgid "Server certificate details:"
-msgstr ""
+msgstr "تفاصيل شهادة الخادم:"
 
 #: web/diag/action_realmcheck.php:537 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "اختبار المجال Realm لـ: %s"
 
 #: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
 #: web/diag/action_realmcheck.php:776
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "اختبارات اتصال OpenRoaming"
 
 #: web/diag/action_realmcheck.php:546
 msgid "Live login tests"
-msgstr ""
+msgstr "اختبارات تسجيل الدخول المباشرة"
 
 #: web/diag/action_realmcheck.php:559
 msgid "DNS checks"
-msgstr ""
+msgstr "التحقق من DNS"
 
 #: web/diag/action_realmcheck.php:565
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "التحقق من DNS لـ OpenRoaming "
 
 #: web/diag/action_realmcheck.php:572
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "لم يتم تهيئة اختبار اتصال OpenRoaming"
 
 #: web/diag/action_realmcheck.php:596
 msgid "No issues found."
-msgstr ""
+msgstr "لا توجد مشاكل."
 
 #: web/diag/action_realmcheck.php:725 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
-msgstr ""
+msgstr "كرر اختبارات الاتصال الثابت"
 
 #: web/diag/action_realmcheck.php:739 web/diag/action_realmcheck.php:797
 #: web/diag/action_realmcheck.php:814
 msgid "testing..."
-msgstr ""
+msgstr "إختبار ..."
 
 #: web/diag/action_realmcheck.php:766 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
-msgstr ""
+msgstr "كرر اختبارات الاتصال الديناميكي"
 
 #: web/diag/action_realmcheck.php:766
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "كرر اختبارات اتصال OpenRoaming"
 
 #: web/diag/action_realmcheck.php:817
 msgid "not implemented yet"
-msgstr ""
+msgstr "لم تنفذ بعد"
 
 #: web/diag/action_realmcheck.php:838
 msgid "Live login test"
-msgstr ""
+msgstr "اختبار تسجيل الدخول المباشر"
 
 #: web/diag/action_realmcheck.php:851
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"إذا قمت بإدخال بيانات اعتماد تسجيل دخول معتمدة، فيمكنك اختبار المصادقة "
+"الفعلية من نقاط اختبار الاتصال المختلفة في جميع أنحاء العالم."
 
 #: web/diag/action_realmcheck.php:852
 msgid ""
@@ -1355,6 +1488,11 @@ msgid ""
 "the login with these credentials and the given EAP type actually worked. If "
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
+"سيستخدم الاختبار جميع أنواع EAP التي قمت بتعيينها في معلومات ملفك التعريفي "
+"للتحقق مما إذا كانت أسماء المراجع المصدقة \"CAs\" وأسماء الخوادم المستخدمة "
+"صحيحة ، وبالطبع ما إذا كان تسجيل الدخول باستخدام بيانات الاعتماد هذه ونوع "
+"EAP المحدد قد نجح بالفعل. إذا قمت بتعيين معرف خارجي مجهول \"outer ID\"، "
+"فسيتم استخدامه في الاختبار."
 
 #: web/diag/action_realmcheck.php:853
 msgid ""
@@ -1363,18 +1501,21 @@ msgid ""
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"ملاحظة: لا تقدم لك الأداة حفظ بيانات الاعتماد هذه، ولن يتم حفظها بأي شكل من "
+"الأشكال على الخادم. الرجاء استخدام<strong> حسابات الاختبار المؤقتة </"
+"strong>هنا فقط ؛ تعتبر حسابات الاختبار الصالحة بشكل دائم هنا ضارة!"
 
 #: web/diag/action_realmcheck.php:861
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "أنواع EAP القائمة على كلمة مرور"
 
 #: web/diag/action_realmcheck.php:862
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "اسم المستخدم الحقيقي (inner username):"
 
 #: web/diag/action_realmcheck.php:863
 msgid "Anonymous outer ID (optional):"
-msgstr ""
+msgstr "معرف ID خارجي مجهول (اختياري):"
 
 #: web/diag/action_realmcheck.php:864
 msgid "Password:"
@@ -1382,189 +1523,196 @@ msgstr "كلمة المرور"
 
 #: web/diag/action_realmcheck.php:868
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "أنواع EAP القائمة على الشهادات"
 
 #: web/diag/action_realmcheck.php:869
 msgid "Certificate file (.p12 or .pfx):"
-msgstr ""
+msgstr "ملف الشهادة (.p12 أو .pfx):"
 
 #: web/diag/action_realmcheck.php:870
 msgid "Certificate password, if any:"
-msgstr ""
+msgstr "كلمة مرور الشهادة، إن وجدت:"
 
 #: web/diag/action_realmcheck.php:871
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "اسم المستخدم، إذا كان مختلفًا عن الـ Subject للشهادة:"
 
 #: web/diag/action_realmcheck.php:873
 msgid "Submit credentials"
-msgstr ""
+msgstr "إرسال بيانات الاعتماد"
 
 #: web/diag/action_realmcheck.php:895
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "العودة إلى منطقة إدارة %s"
 
 #: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "أشك في وجود مشكلة فنية في IdP"
 
 #: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "يُزعم أن مستخدمًا من هذا الـIdP انتهك حقوق الطبع والنشر"
 
 #: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
-msgstr ""
+msgstr "أجرى مستخدم من هذا الـ IdP عمليات شبكة ضاره (spam ، DDOS ، ...)"
 
 #: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
-msgstr ""
+msgstr "يشتكي المستخدم من وجود مشاكل في الاتصال ولكن تمت المصادقة عليه بنجاح"
 
 #: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "يدّعِي المستخدم أن المنفذ المفتوح الإلزامي غير مفتوح"
 
 #: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
-msgstr ""
+msgstr "حدد مشكلتك"
 
 #: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "ما هو نطاق realm لـ IdP المعني؟"
 
 #: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
+"ما هو الطابع الزمني timestamp للمصادقة باتصال المستخدم user session المعني؟"
 
 #: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "ما هو عنوان  MAC Address الخاص باتصال المستخدم\"user session\" المعني؟"
 
 #: web/diag/adminQuery.php:98
 msgid "Additional comments"
-msgstr ""
+msgstr "تعليقات اضافية"
 
 #: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
+"يرجى تحديد عنوان بريد إلكتروني يمكن لموفر الهوية IdP من خلاله الاتصال بك"
 
 #: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
-msgstr ""
+msgstr "الآن يمكنك إرسال استفسارك"
 
 #: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
-msgstr ""
+msgstr "إرسال"
 
 #: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "حدد الـSP بإحدى الوسائل التالية"
 
 #: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
-msgstr ""
+msgstr "سمة اسم المشغل/ Operator-Name لمقدم الخدمة SP"
 
 #: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "حدد الـSP يدويًا:"
 
 #: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
-msgstr ""
+msgstr "انقر لتحديد الدولة والمؤسسة"
 
 #: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "على الأقل صِف موقع الـSP"
 
 #: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr ""
+"ما هو عنوان المعرف الخارجي outer ID الخاص باتصال المستخدم\"user session\" "
+"المعني؟"
 
 #: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "ملاحظات إضافية حول المشكلة"
 
 #: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
-msgstr ""
+msgstr "هل لديك أي بيانات تواصل يرغب المستخدم في أن يتصل بها مع مقدم الخدمة؟"
 
 #: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
+"يرجى تحديد عنوان بريد إلكتروني يمكن لمقدم الخدمة SP من خلاله الاتصال بك"
 
 #: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
-msgstr ""
+msgstr "احتمالية وجود مشكلة فنية في IdP"
 
 #: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
+msgstr "إحتمالية وجود مشكلة فنية في الـIdP المالكة للنطاق realm"
 
 #: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
-msgstr ""
+msgstr "تم تشغيل اختبار التشخيص CAT لنطاق realm هذا أثناء الإبلاغ.\n"
 
 #: web/diag/adminQuery.php:252
 msgid "The overall result was "
-msgstr ""
+msgstr "كانت النتيجة الإجمالية"
 
 #: web/diag/adminQuery.php:258
 msgid "To see details go to "
-msgstr ""
+msgstr "لمشاهدة التفاصيل انتقل إلى"
 
 #: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
-msgstr ""
+msgstr "تفاصيل المشكلة المبلغ عنها هي كالتالي"
 
 #: web/diag/adminQuery.php:261
 msgid "timestamp"
-msgstr ""
+msgstr "timestamp"
 
 #: web/diag/adminQuery.php:262
 msgid "client MAC address"
-msgstr ""
+msgstr "عنوان MAC للعميل 'Client'"
 
 #: web/diag/adminQuery.php:264
 msgid "additional comments"
-msgstr ""
+msgstr "تعليقات اضافية"
 
 #: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
-msgstr ""
+msgstr "يمكنك الاتصال بالمسؤول عن تقارير الحوادث على"
 
 #: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
-msgstr ""
+msgstr "كانت بعض خصائص محاولة الاتصال دون المستوى المطلوب. القائمة أدناه."
 
 #: web/diag/radius_tests.php:36
 msgid "Some configuration errors were observed; the list is below."
-msgstr ""
+msgstr "تمت ملاحظة بعض الأخطاء في التهيئة؛ القائمة أدناه."
 
 #: web/diag/radius_tests.php:173
 msgid "<strong>Test successful.</strong>"
-msgstr ""
+msgstr "<strong> نجح الاختبار. </strong>"
 
 #: web/diag/radius_tests.php:177
 msgid "<strong>Test partially successful</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>الاختبار ناجح جزئيًا</strong>: نجحت المصادقة."
 
 #: web/diag/radius_tests.php:180
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>فشل الاختبار</strong>: نجحت المصادقة."
 
 #: web/diag/radius_tests.php:185
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
+"<strong>فشل الاختبار</strong>: تم رفض الطلب. السبب الأكثر احتمالاً هو أنك "
+"أخطأت في كتابة اسم المستخدم و / أو كلمة المرور."
 
 #: web/diag/radius_tests.php:190
 msgid "This method cannot be tested"
@@ -1576,6 +1724,8 @@ msgid ""
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
+"<strong>فشل الاختبار</strong>: تم رفض الطلب على الفور، بدون محادثة EAP. إما "
+"أنك أخطأت في كتابة اسم المستخدم أو أن هناك خطأ في الخادم الخاص بك."
 
 #: web/diag/radius_tests.php:200 web/diag/radius_tests.php:242
 #, php-format
@@ -1583,6 +1733,8 @@ msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
+"<strong>فشل الاختبار</strong>: لا يوجد رد من خادم RADIUS بعد %d ثوانٍ. إما أن "
+"يكون الخادم المسؤول معطلاً ، أو أن التوجيه معطل!"
 
 #: web/diag/radius_tests.php:205 web/diag/radius_tests.php:246
 #, php-format
@@ -1590,6 +1742,8 @@ msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
+"<strong>فشل الاختبار</strong>: كانت هناك محادثة RADIUS ثنائية الاتجاه ، "
+"لكنها لم تنته بعد %d ثواني!"
 
 #: web/diag/radius_tests.php:210
 msgid "<strong>Test FAILED</strong>"
@@ -1601,6 +1755,8 @@ msgid ""
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
+"<strong>الاختبار ناجح جزئيًا:</strong> تم إجراء محادثة RADIUS ثنائية الاتجاه "
+"بشكل متكرر، وانتهت بـ Access-Reject كما هو مخطط."
 
 #: web/diag/radius_tests.php:237
 msgid ""
@@ -1611,6 +1767,11 @@ msgid ""
 "profile settings to get past this hurdle). In all other cases, the server "
 "appears misconfigured or it is unreachable."
 msgstr ""
+"فشل الاختبار: تم رفض الطلب على الفور، بدون محادثة EAP. هذا ليس خطأ بالضرورة: "
+"إذا فرض خادم RADIUS على الهويات الخارجية أن تتوافق مع اسم المستخدم الموجود، "
+"فمن المتوقع أن تكون النتيجة (ملاحظة: يمكنك تهيئة هوية خارجية صالحة في "
+"إعدادات ملفك التعريفي لتتجاوز هذه العقبة). في جميع الحالات الأخرى، يظهر "
+"الخادم بشكل خاطئ أو يتعذر الوصول إليه."
 
 #: web/diag/radius_tests.php:250
 msgid "unhandled error"
@@ -1634,156 +1795,160 @@ msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>تحذير</strong>: اسم الخادم الذي تم اكتشافه في سجل SRV لا يتطابق مع "
+"أي اسم في شهادة الخادم!"
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "الطابع الزمني timestamp للاختبارات:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "كرر اختبارات الاتصال"
 
 #: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "الرمز مفقود، لا يمكن عرض أي بيانات"
 
 #: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
-msgstr ""
+msgstr "الرمز المقدم في الطلب غير موجود، لا يمكن عرض أي بيانات"
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "نجحت جميع اختبارات الاتصال"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "كانت هناك بعض التحذيرات من اختبارات الاتصال"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "كانت هناك بعض الملاحظات من اختبارات الاتصال"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
+msgstr "كانت هناك بعض الأخطاء من اختبارات الاتصال"
 
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
-msgstr ""
+msgstr "اختر المؤسسة:"
 
 #: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
-msgstr ""
+msgstr "حدد البلد أو المنطقة:"
 
 #: web/skins/modern/diag/js/diag_js.php:80
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "جلب قائمة البلد/المنطقة"
 
 #: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #: web/skins/modern/diag/js/diag_js.php:143
 msgid "I don't know"
-msgstr ""
+msgstr "لا أعرف"
 
 #: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "نتائج الاختبارات التشخيصية للنطاق realm المحددة"
 
 #: web/skins/modern/diag/js/diag_js.php:177
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "نتيجة النطاق realm الذي تم اختباره:"
 
 #: web/skins/modern/diag/js/diag_js.php:179
 msgid "The system identified"
-msgstr ""
+msgstr "تم تحديد النظام"
 
 #: web/skins/modern/diag/js/diag_js.php:181
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "المناطق المشبوهه والتي يمكن أن تسبب مشكلة."
 
 #: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
-msgstr ""
+msgstr "بجانب وصف المشكلة سنعرض الاحتمالية المتوقعة من هذا الحدث."
 
 #: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "تهيئة جهازك معطل"
 
 #: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "شبكة Wi-Fi في المنطقة المجاورة بها مشكلات تتعلق بالجودة"
 
 #: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "بيئة شبكة الاتصال المحيطة بك معطلة"
 
 #: web/skins/modern/diag/js/diag_js.php:198
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "مصدر المشكلة هو خادم RADIUS لمزود الخدمة الخاص بك"
 
 #: web/skins/modern/diag/js/diag_js.php:201
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
-msgstr ""
+msgstr "يتعذر حاليًا على خادم RADIUS في مؤسستك على مصادقة حسابك"
 
 #: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
-msgstr ""
+msgstr "الخادم الوطني في البلد/المنطقة التي تزورها لا يعمل بشكل صحيح"
 
 #: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"الارتباط بين الخادم الوطني للبلد/المنطقة التي تزورها وخادم المستوى الأعلى "
+"منقطع"
 
 #: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
-msgstr ""
+msgstr "الارتباط بين الخادم الوطني لبلدك/منطقتك وخادم المستوى الأعلى منقطع"
 
 #: web/skins/modern/diag/js/diag_js.php:213
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "الاتصال بخادم المستوى الأعلى معطل"
 
 #: web/skins/modern/diag/js/diag_js.php:216
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "الخادم الوطني في بلدك/منطقتك لا يعمل بشكل صحيح."
 
 #: web/skins/modern/diag/js/diag_js.php:219
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "مصدر المشكلة هو خادم RADIUS الخاص بمؤسستك "
 
 #: web/skins/modern/diag/js/diag_js.php:222
 msgid "This realm does not exist"
-msgstr ""
+msgstr "هذا النطاق realm غير موجود"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "إجراء اختبارات الاتصال لهذا النطاق realm"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "نتائج اختبارات جديدة متوفرة، انقر للمشاهدة"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "انظر التفاصيل"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields bellow."
-msgstr ""
+msgstr "إذا كنت ترغب في الإبلاغ عن مشكلتك ، فاملأ الحقول أدناه."
