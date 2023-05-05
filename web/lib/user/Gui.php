@@ -57,13 +57,15 @@ class Gui extends \core\UserAPI {
      */
     public function defaultPagePrelude($pagetitle = \config\Master::APPEARANCE['productname_long']) {
         $ourlocale = $this->languageInstance->getLang();
+        $direction = $this->languageInstance->rtl;
         header("Content-Type:text/html;charset=utf-8");
-        echo "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
-          <head lang='" . $ourlocale . "'>
-          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-        echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
-        echo '<script type="text/javascript">ie_version = 0;</script>
+        ?>
+        <!DOCTYPE html>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='<?php echo $ourlocale;?>' <?php echo ($direction ? "dir='rtl'" : "");?>>
+          <head lang='<?php echo $ourlocale;?>'>
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+          <title><?php echo htmlspecialchars($pagetitle);?></title>
+          <script type="text/javascript">ie_version = 0;</script>
 <!--[if IE]>
 <script type="text/javascript">ie_version=1;</script>
 <![endif]-->
@@ -79,7 +81,7 @@ class Gui extends \core\UserAPI {
 <!--[if IE 10]>
 <script type="text/javascript">ie_version=10;</script>
 <![endif]-->
-';
+   <?php
     }
 
     /**

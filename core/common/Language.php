@@ -53,6 +53,11 @@ class Language
     public $locale;
 
     /**
+     * Is the currently set language a right-to-left language?
+     */
+    public $rtl;
+    
+    /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
      *  additionally it also sets static variables $laing_index and $root
@@ -62,6 +67,7 @@ class Language
         $language = $this->setLang();
         $this->LANG = $language[0];
         $this->locale = $language[1];
+        $this->rtl = $language[2];
     }
 
     /**
@@ -118,6 +124,7 @@ class Language
         }
         $langIndex = \config\Master::APPEARANCE['defaultlocale'];
         $theLocale = \config\Master::LANGUAGES[$langIndex]['locale'];
+        $isRtl = \config\Master::LANGUAGES[$langIndex]['rtl'];
         // always add configured default language as the last resort
         $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
@@ -149,7 +156,7 @@ class Language
         $loggerInstance = new \core\common\Logging();
         $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
         $loggerInstance->debug(4, print_r($langConverted, true));
-        return([$langIndex, $theLocale]);
+        return([$langIndex, $theLocale,$isRtl]);
     }
 
     /**

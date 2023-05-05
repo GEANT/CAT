@@ -228,7 +228,7 @@ class PageDecoration extends \core\common\Entity {
         $ourlocale = $this->langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");
         $retval = "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'".($this->langObject->rtl ? "dir='rtl'" : "").">
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
         $cssUrl = \core\CAT::getRootUrlPath() . "/resources/css/cat.css.php";
