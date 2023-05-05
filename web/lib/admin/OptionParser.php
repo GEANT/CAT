@@ -368,7 +368,7 @@ class OptionParser extends \core\common\Entity {
                     continue 2;
                 case \core\Options::TYPECODE_STRING:
                     $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
-                    if (!empty($previsionalContent)) {
+                    if (!empty(trim($previsionalContent))) {
                         $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
                         if ($content === FALSE) {
                             continue 2;
