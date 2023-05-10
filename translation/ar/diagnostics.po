@@ -6,17 +6,17 @@
 # Translators:
 # Abdulmonem Al Kharusi <abdulmonem@omren.om>, 2021
 # Warda Al Habsi <mozartt33@gmail.com>, 2021
-# Raiya Al Rashdi <raiya@omren.om>, 2023
 # Mohamed Al Hajri, 2023
+# Raiya Al Rashdi <raiya@omren.om>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 09:07+0200\n"
+"POT-Creation-Date: 2023-05-10 14:58+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Mohamed Al Hajri, 2023\n"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/eduroam_devel/teams/11799/"
 "ar/)\n"
 "Language: ar\n"
@@ -135,8 +135,8 @@ msgid ""
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
-"لا تحتوي شهادة الخادم على الامتداد \"extKeyUsage: TLS Web Server "
-"Authentication\". ستفشل معظم أنظمة تشغيل مايكروسوفت في التحقق من صحة هذه "
+"لا تحتوي شهادة الخادم على الامتداد 'extKeyUsage: TLS Web Server "
+"Authentication'. ستفشل معظم أنظمة تشغيل مايكروسوفت في التحقق من صحة هذه "
 "الشهادة."
 
 #: core/diag/AbstractTest.php:452
@@ -154,8 +154,8 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"لا يشير امتداد \"CRL Distribution Point\" الخاص بشهادة الخادم إلى عنوان URL "
-"لـ HTTP / HTTPS. قد تفشل بعض أنظمة التشغيل في التحقق من صحة هذه الشهادة. لن "
+"لا يشير امتداد 'CRL Distribution Point' الخاص بشهادة الخادم إلى عنوان URL لـ "
+"HTTP / HTTPS. قد تفشل بعض أنظمة التشغيل في التحقق من صحة هذه الشهادة. لن "
 "يكون التحقق من صلاحية شهادة الخادم مقابل CRL ممكنًا."
 
 #: core/diag/AbstractTest.php:466
@@ -166,7 +166,7 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"يشير الامتداد \"CRL Distribution Point\" في شهادة الخادم إلى موقع لا يمكن "
+"يشير الامتداد 'CRL Distribution Point' في شهادة الخادم إلى موقع لا يمكن "
 "العثور فيه على DER-encoded CRL. تقوم بعض أنظمة التشغيل بفحص صلاحية الشهادة "
 "من خلال الرجوع إلى CRL ولكن تفشل في التحقق من صحة الشهادة. لن يكون التحقق من "
 "صلاحية شهادة الخادم عن طريق CRL ممكنًا."
@@ -302,8 +302,8 @@ msgid ""
 "under these circumstances!"
 msgstr ""
 "يقدم الخادم شفرات Diffie-Hellman (DH) مع مجموعة DH أصغر من 1024 bit. من "
-"المعروف أن نظام التشغيل \"Mac OS X 10.11 \"El Capitan يرفض اتصالات TLS في "
-"هذه الظروف!"
+"المعروف أن نظام التشغيل 'Mac OS X 10.11 'El Capitan يرفض اتصالات TLS في هذه "
+"الظروف!"
 
 #: core/diag/AbstractTest.php:588
 msgid ""
@@ -361,8 +361,8 @@ msgid ""
 msgstr ""
 "(هذه الخدمة في مرحلة مبكرة. نعتذر إذا كان هذا التنبيه خاطئًا. إذا كان هو "
 "كذلك، فيرجى إرسال تقرير بالبريد الإلكتروني إلى cat-devel@lists.geant.org، مع "
-"إعادة توجيه الرسالة بالكامل (بما في ذلك \"المشتبه بهم\" وبيانات \"الدليل\" "
-"في النهاية) ، واشرح سبب كونها خاطئة.)"
+"إعادة توجيه الرسالة بالكامل (بما في ذلك 'المشتبه بهم' وبيانات 'الدليل' في "
+"النهاية) ، واشرح سبب كونها خاطئة.)"
 
 #: core/diag/Logopath.php:124
 msgid "Yours sincerely,"
@@ -691,8 +691,8 @@ msgid ""
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
 "تُرسل عملية التحقق هذه طلبًا للنطاق realm عبر نقاط دخول مختلفة للبنية الأساسية "
-"لاتحاد التجوال. سيحتوي الطلب على سمة Operator-Name\" attribute\"، وسيكون "
-"أكبر من 1500 Bytes للكشف على مشكلتين شائعتين في التهيئة.<br/> نظرًا لعدم وجود "
+"لاتحاد التجوال. سيحتوي الطلب على سمة Operator-Name' attribute'، وسيكون أكبر "
+"من 1500 Bytes للكشف على مشكلتين شائعتين في التهيئة.<br/> نظرًا لعدم وجود "
 "بيانات اعتماد حقيقية للنطاق realm، لا يمكننا المصادقة بنجاح - لذا فإن "
 "النتيجة المتوقعة هي للحصول على Access-Reject بعد إجراء محادثة EAP."
 
@@ -980,7 +980,7 @@ msgid ""
 msgstr ""
 "إذا كان التجوال لا يعمل باستمرار، فمن المحتمل جدًا أن تهيئة جهازك خاطئة. "
 "تتضمن الأخطاء النموذجية التي تسبب هذا العرض ما يلي: استخدام اسم مستخدم "
-"للتوجيه (\"خارجي\") بدون اللاحقة  realm.tld@ والتي من المحتمل أن تعمل في "
+"للتوجيه ('خارجي') بدون اللاحقة  realm.tld@ والتي من المحتمل أن تعمل في "
 "مؤسستك، ولكن لا يمكن استخدامها أثناء التجوال. %s"
 
 #: core/diag/Sociopath.php:98
@@ -1070,7 +1070,7 @@ msgstr ""
 #: core/diag/Sociopath.php:123
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
-msgstr "هل ترى أخطاء تنص على شيء مشابه لـ \"تعذر الحصول على عنوان IP\"؟"
+msgstr "هل ترى أخطاء تنص على شيء مشابه لـ 'تعذر الحصول على عنوان IP'؟"
 
 #. gotcha
 #. the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
@@ -1138,7 +1138,7 @@ msgid ""
 "username@<strong>realm.tld</strong>'):"
 msgstr ""
 "ما هو جزء النطاق realm من حساب المستخدم الخاص بك (الجزء الذي خلف @ "
-"\"<strong>your.username@</strong>realm.tld\"):"
+"'<strong>your.username@</strong>realm.tld'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
@@ -1293,7 +1293,7 @@ msgstr "سبب"
 
 #: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
 msgid "Event's timestamp"
-msgstr "أحداث الطابع الزمني \"timestamp\""
+msgstr "أحداث الطابع الزمني timestamp"
 
 #: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
 msgid "Calling-Station-Id"

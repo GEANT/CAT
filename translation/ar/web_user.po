@@ -4,16 +4,16 @@
 #
 # Translators:
 # Mohamed Al Hajri, 2022
-# Raiya Al Rashdi <raiya@omren.om>, 2020-2022
+# Raiya Al Rashdi <raiya@omren.om>, 2020-2023
 # Warda Al Habsi <mozartt33@gmail.com>, 2022
 # Warda Al Habsi <mozartt33@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 09:07+0200\n"
+"POT-Creation-Date: 2023-05-10 14:58+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Warda Al Habsi <mozartt33@gmail.com>, 2022\n"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2023\n"
 "Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
@@ -289,8 +289,8 @@ msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
-"أخبرني برنامج \"SmartScreen\" الخاص بنظام Windows أو \"Internet Explorer\" "
-"أن الملف لا يتم تنزيله بشكل شائع وربما يكون ضارًا. هل يجب علي القلق؟"
+"أخبرني برنامج 'SmartScreen' الخاص بنظام Windows أو 'Internet Explorer' أن "
+"الملف لا يتم تنزيله بشكل شائع وربما يكون ضارًا. هل يجب علي القلق؟"
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 msgid ""
@@ -299,10 +299,10 @@ msgid ""
 "users to make Microsoft consider it popular (which would strangely enough "
 "make it be considered 'safe'). This message alone is not a security problem."
 msgstr ""
-"على عكس ما يوحي به الاسم ، فإن \"SmartScreen\" ليست ذكية جدًا في الواقع. يعني "
+"على عكس ما يوحي به الاسم ، فإن 'SmartScreen' ليست ذكية جدًا في الواقع. يعني "
 "التحذير فقط أن الملف لم يتم تنزيله من قبل عدد كافٍ من المستخدمين لجعل "
-"مايكروسفت تعتبره شائعًا (وهو ما سيجعله يعتبر \"آمنًا\"). هذه الرسالة وحدها "
-"ليست مشكلة أمنية."
+"مايكروسفت تعتبره شائعًا (وهو ما سيجعله يعتبر 'آمنًا'). هذه الرسالة وحدها ليست "
+"مشكلة أمنية."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
@@ -520,8 +520,8 @@ msgid ""
 msgstr ""
 "الآن بعد أن قمت بتنزيل وتثبيت مُكوِّن عميل ، كل ما عليك فعله هو العثور على نقطة "
 "%s فعالة في المنطقة المجاورة لك وإدخال بيانات اعتماد المستخدم الخاصة بك (هذا "
-"هو اسمنا الرائع لـ \"اسم المستخدم وكلمة المرور\" أو \"الشهادة الشخصية\") - "
-"وأن تكون متصلاً بالإنترنت !"
+"هو اسمنا الرائع لـ 'اسم المستخدم وكلمة المرور' أو 'الشهادة الشخصية') - وأن "
+"تكون متصلاً بالإنترنت !"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
 #, php-format
@@ -768,8 +768,8 @@ msgid ""
 msgstr ""
 "الآن وبعد أن قمت بتنزيل وتثبيت مُكوِّن العميل ، كل ما عليك فعله هو العثور على "
 "نقطة اتصال eduroam® في المنطقة المجاورة لك وإدخال بيانات المستخدم الخاصة بك "
-"(هذا هو اسمنا الرائع لـ \"اسم المستخدم وكلمة المرور\" أو \"الشهادة الشخصية"
-"\") - و كن متصلا بالإنترنت!"
+"(هذا هو اسمنا الرائع لـ 'اسم المستخدم وكلمة المرور' أو 'الشهادة الشخصية') - "
+"و كن متصلا بالإنترنت!"
 
 #: web/skins/modern/index.php:86 web/skins/modern/test.php:80
 msgid "Authenticating"
@@ -836,9 +836,9 @@ msgid ""
 "not been used up yet."
 msgstr ""
 "لسوء الحظ ، لا يمكننا تحديد نظام تشغيل جهازك. إذا قمت بإجراء تعديلات على "
-"جهازك تمنع التعرف عليه (مثل إعدادات \"وكيل المستخدم\" المخصصة) ، يرجى "
-"التراجع عن هذه التعديلات. يمكنك العودة إلى هذه الصفحة مرة أخرى ؛ لم يتم "
-"استخدام رابط الدعوة حتى الآن."
+"جهازك تمنع التعرف عليه (مثل إعدادات 'وكيل المستخدم' المخصصة) ، يرجى التراجع "
+"عن هذه التعديلات. يمكنك العودة إلى هذه الصفحة مرة أخرى ؛ لم يتم استخدام رابط "
+"الدعوة حتى الآن."
 
 #: web/skins/modern/accountstatus/accountstatus.php:124
 #, php-format

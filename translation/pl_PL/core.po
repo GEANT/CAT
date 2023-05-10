@@ -4,17 +4,17 @@
 #
 # Translators:
 # , 2012-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019,2022
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019,2022-2023
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 09:07+0200\n"
+"POT-Creation-Date: 2023-05-10 14:58+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, "
-"2018-2019,2022\n"
+"2018-2019,2022-2023\n"
 "Language-Team: Polish (Poland) (http://app.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -344,7 +344,7 @@ msgstr "strona Twojego lokalnego wparcia %s"
 #: core/DeviceConfig.php:288
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
-"Przepraszamy, to nie powinno się wydarzyć - nie ma dodatkowych informacji"
+"Przepraszamy, to nie powinno się wydarzyć - nie mamy dodatkowych informacji"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
 #: core/Federation.php:92
@@ -381,8 +381,8 @@ msgid ""
 msgstr ""
 "Witaj,\n"
 "\n"
-"Zostało wykorzystane zaproszenie do nowej  %s %s w Twojej %s federacji %s i "
-"utworzono %s w %s.\n"
+"Zostało użyte zaproszenie dla  %s %s w Twojej %s federacji %s i utworzono %s "
+"w %s.\n"
 "\n"
 "\n"
 "\n"
@@ -448,7 +448,7 @@ msgid ""
 msgstr ""
 "Aby skonfigurować własną instalację %s, skorzystaj z następującego linku na "
 "urządzeniu, które chcesz podłączyć do %s. Możesz kliknąć na  link, skopiować "
-"i wkleić go do przeglądarki  lub zeskanować kod QR."
+"link i wkleić do przeglądarki  lub zeskanować kod QR."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:255
@@ -472,7 +472,7 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
-"Twój dostęp do %s został przygotowany! Kliknij tutaj: %s (na Adnroidzie "
+"Twój dostęp do %s został przygotowany! Kliknij tutaj: %s (na Androidzie "
 "zainstaluj najpierw aplikację '%s'!)"
 
 #: core/SilverbulletInvitation.php:342
@@ -482,7 +482,7 @@ msgstr "System zaproszeń %s"
 
 #: core/User.php:166
 msgid "Feedback"
-msgstr "Kontakt"
+msgstr "Komentarz"
 
 #: core/common/EAP.php:371
 msgid "PEAP-MSCHAPv2"
@@ -629,7 +629,7 @@ msgid ""
 "Interface at"
 msgstr ""
 "Jeśli nie działa poniższy link, możesz również przejść do Interfejsu "
-"Administratora %s "
+"administratora %s "
 
 #: core/common/OutsideComm.php:332
 msgid "and enter the invitation token"
@@ -640,13 +640,13 @@ msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
-"NIE przekazuj tego maila dalej zanim token nie utraci ważności, odbiorcy "
-"mogliby z niego skorzystać w Twoim imieniu!"
+"NIE przekazuj nikomu tego maila dopóki token jest ważny, odbiorcy mogliby z "
+"niego skorzystać w Twoim imieniu!"
 
 #: core/common/OutsideComm.php:335
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr "Życzymy Ci wielu przyjemnych chwil z %s."
+msgstr "Życzymy Ci przyjemnego użytkowania %s."
 
 #: core/common/OutsideComm.php:336
 #, php-format

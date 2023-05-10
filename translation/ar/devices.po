@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 09:07+0200\n"
+"POT-Creation-Date: 2023-05-10 14:58+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Mohamed Al Hajri, 2022-2023\n"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2023\n"
 "Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
@@ -131,7 +131,7 @@ msgid ""
 "added to the preferred networks."
 msgstr ""
 " بعد تنزيل الملف، قم بفتح متصفح Chrome والانتقال إلى عنوان <a href='chrome://"
-"network'>chrome://network</a>. ثم استخدم زر \"استيراد ملف ONC\". الاستيراد "
+"network'>chrome://network</a>. ثم استخدم زر 'استيراد ملف ONC'. الاستيراد "
 "صامت. ستتم إضافة تعريفات الشبكة الجديدة إلى الشبكات المفضلة."
 
 #: devices/Devices-template.php:405
@@ -269,7 +269,7 @@ msgid ""
 "corresponding hint to the user instead."
 msgstr ""
 "لا يمكن التحقق بشكل فعال من إدخال المستخدم للمقطع الاخير بشكل مطابق؛ ولكن "
-"إذا لم يتم ضبط \"شروط الاستخدام\" ، فسيقوم المثبت بعرض تلميح مطابق للمستخدم "
+"إذا لم يتم ضبط 'شروط الاستخدام' ، فسيقوم المثبت بعرض تلميح مطابق للمستخدم "
 "بدلاً من ذلك."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:151
@@ -288,7 +288,7 @@ msgstr "تضبيط ملفات تعريف الشبكة '%s' ل '%s' - المقد�
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:180
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
-msgstr "%s الضبط لمزود الهوية '%s'- المقدمن %s"
+msgstr "%s الضبط لمزود الهوية '%s'- المقدم من %s"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:231
 #, php-format
@@ -300,8 +300,7 @@ msgstr "تنبيه مهم: يجب أن ينتهي اسم المستخدم ب '%s
 #, php-format
 msgid ""
 "Important Notice: your username MUST contain an '@' and end with ...%s !"
-msgstr ""
-"ملاحظة مهمة: يجب أن يحتوي اسم المستخدم الخاص بك على \"@\" وينتهي بـ %s !"
+msgstr "ملاحظة مهمة: يجب أن يحتوي اسم المستخدم الخاص بك على '@' وينتهي بـ %s !"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:241
 msgid ""
@@ -449,10 +448,10 @@ msgid ""
 "a>. Then, use the 'Import ONC file' button. The import is silent; the new "
 "network definitions will be added to the preferred networks."
 msgstr ""
-"برنامج التثبيت هو ملف بصيغة \".onc\". يرجى تنزيله وفتح Chrome والانتقال إلى "
-"عنوان <a href='chrome://network'>chrome://network</a>. ثم استخدم زر "
-"\"استيراد ملف ONC\". الاستيراد صامت. ستتم إضافة تعريفات الشبكة الجديدة إلى "
-"الشبكات المفضلة."
+"برنامج التثبيت هو ملف بصيغة 'onc.' . يرجى تنزيله وفتح Chrome والانتقال إلى "
+"عنوان <a href='chrome://network'>chrome://network</a>. ثم استخدم زر 'استيراد "
+"ملف ONC'. الاستيراد صامت. ستتم إضافة تعريفات الشبكة الجديدة إلى الشبكات "
+"المفضلة."
 
 #: devices/eap_config/DeviceXML.php:129
 #, php-format
@@ -625,15 +624,15 @@ msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
 msgstr ""
-"خطأ: يجب أن يكون اسم المستخدم بصيغة \"xxx@institutionID\" على سبيل المثال "
-"\"john@example.net\"!"
+"خطأ: يجب أن يكون اسم المستخدم بصيغة 'xxx@institutionID' على سبيل المثال "
+"'john@example.net'!"
 
 #: devices/linux/DeviceLinux.php:149
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
 msgstr ""
-"خطأ: يجب أن يكون اسم المستخدم بصيغة \"{}@xxx\". الرجاء إدخال اسم المستخدم "
+"خطأ: يجب أن يكون اسم المستخدم بصيغة '{}@xxx'. الرجاء إدخال اسم المستخدم "
 "بالصيغة الصحيحة."
 
 #: devices/linux/DeviceLinux.php:150
@@ -641,7 +640,7 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
 msgstr ""
-"خطأ: يجب أن يكون اسم المستخدم بصيغة \"xxx@institutionID\" وينتهي بـ \"{}\". "
+"خطأ: يجب أن يكون اسم المستخدم بصيغة 'xxx@institutionID' وينتهي بـ '{}'. "
 "الرجاء إدخال اسم المستخدم بالصيغة الصحيحة."
 
 #: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:153
@@ -685,7 +684,7 @@ msgid ""
 "Error: your username must be in the form of 'xxx@%s'. Please enter the "
 "username in the correct format."
 msgstr ""
-"خطأ: يجب أن يكون اسم المستخدم الخاص بك بصيغة \"%s@xxx\". الرجاء إدخال اسم "
+"خطأ: يجب أن يكون اسم المستخدم الخاص بك بصيغة '%s@xxx'. الرجاء إدخال اسم "
 "المستخدم بالصيغة الصحيحة."
 
 #: devices/linux/DeviceLinuxSh.php:152
@@ -694,8 +693,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'%s'. Please enter the username in the correct format."
 msgstr ""
-"خطأ: يجب أن يكون اسم المستخدم الخاص بك بصيغة \"xxx@institutionID\" وينتهي بـ "
-"\"%s\". الرجاء إدخال اسم المستخدم بالصيغة الصحيحة."
+"خطأ: يجب أن يكون اسم المستخدم الخاص بك بصيغة 'xxx@institutionID' وينتهي بـ "
+"'%s'. الرجاء إدخال اسم المستخدم بالصيغة الصحيحة."
 
 #: devices/linux/DeviceLinuxSh.php:344
 #, php-format
