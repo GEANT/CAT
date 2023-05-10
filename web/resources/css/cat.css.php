@@ -22,6 +22,11 @@
 require dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 $colour1 = \config\Master::APPEARANCE['colour1'];
 $colour2 = \config\Master::APPEARANCE['colour2'];
+// we need to know if we are serving a RTL language so we can flip some heading
+// items
+$langInstance = new core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
 header('Content-type: text/css; charset=utf-8');
 ?>
 html {
@@ -73,14 +78,14 @@ button.pressed {
     background:#095e80;
     border-style:inset;
     position: relative;
-    left: 3px;
+    <?php echo $start;?>: 3px;
 }
 
 button.pressedDisabled {
     background:#999;
     border-style:inset;
     position: relative;
-    left: 3px;
+    <?php echo $start;?>: 3px;
 }
 
 button.delete {
@@ -162,8 +167,8 @@ div.infobox {
 div.profilemodulebuttons {
     position: inherit;
     bottom: 5px;
-    right: 5px;
-    text-align: right;
+    <?php echo $end;?>: 5px;
+    text-align: <?php echo $end;?>;
 }
 
 div.profilebox {
@@ -184,14 +189,14 @@ div.consortium_logo {
     display: block;
     position: absolute;
     top:0;
-    right:0;
+    <?php echo $end;?>:0;
     padding-end:20px;
     padding-top:7px;
 }
 
 div.sidebar {
     display: inline;
-    float: right;
+    float: <?php echo $end;?>;
     padding-end: 20px;
 }
 div.sidebar a {
@@ -236,8 +241,8 @@ div.pagecontent div.trick {
 
 div.footer {
     width: 100%;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     bottom: 0;
     position: absolute;
     background: white;
@@ -283,8 +288,8 @@ div#overlay {
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     background-color: #000000;
     opacity: 0.5;
     z-index: 90;
@@ -310,7 +315,7 @@ div.qrbox {
     padding: 15px;
     text-align: start;
     width: 850px;
-    left: 100px;
+    <?php echo $start;?>: 100px;
     top: 50px;
     z-index: 100;
 }
@@ -319,15 +324,15 @@ div#msgbox {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     z-index: 100;
 }
 
 div#msgbox div {
     position: fixed;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
 }
 
 div#msgbox div div.graybox {
@@ -341,12 +346,12 @@ div#msgbox div div.graybox {
 div.graybox img {
     display: block;
     cursor: pointer;
-    float: right;
+    float: <?php echo $end;?>;
     margin: 0px 0px 10px 10px;
 }
 
 img.icon {
-    float: left;
+    float: <?php echo $start;?>;
     margin-end: 5px;
     margin-top: 3px;
 }
@@ -601,14 +606,14 @@ td.vendor img {
     padding-top: 1px;
     padding-bottom: 1px;
     position: relative;
-    left: 640px;
+    <?php echo $start;?>: 640px;
     cursor:pointer;
 }
 
 #loading_ico {
     display: none;
     position: absolute;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     top: 220px;
     z-index: 200;
     text-align: center;
@@ -622,7 +627,7 @@ td.vendor img {
     z-index: 100;
     position: absolute;
     width: 700px;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     text-align: justify;
     top: 200px;
     box-shadow: 5px 5px 5px #666666;
@@ -743,7 +748,7 @@ td.vendor img {
 #main_menu_info { 
                     position: relative;
                     top: 15px;
-                    left: 0px;
+                    <?php echo $start;?>: 0px;
                     padding:10px; padding-start:20px; padding-end:20px;
                     background: #f0f0f0;
                     border: 1px solid #dddddd;
@@ -799,7 +804,7 @@ td.vendor img {
 #idp_logo {
    display:none;
    position:absolute;
-   right:30px;
+   <?php echo $end;?>:30px;
    max-height:150px;
    max-width:150px;
    padding-top:10px;
@@ -822,12 +827,12 @@ td.vendor img {
 #slides img {
     position: absolute;
     top: 145px;
-    right: 60px;
+    <?php echo $end;?>: 60px;
 }
 
 #slides span {
     position: absolute;
-    left: 180px;
+    <?php echo $start;?>: 180px;
     z-index: 20;
 }
 
@@ -845,7 +850,7 @@ td.vendor img {
 
 #line3 {
     top:245px;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     color: maroon;
     font-size:25px;
 }
@@ -967,7 +972,7 @@ table.user_overview td:first-child {
 .download_button_text {
     width: 380px;
     position:absolute;
-    right: 5px;
+    <?php echo $end;?>: 5px;
     padding-top:0px;
 }
 
