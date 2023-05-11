@@ -64,6 +64,7 @@ if (preg_match('/Android/', $userAgent)) {
 }
 require "user/js/roll.php";
 require "user/js/cat_js.php";
+$cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 ?>
     var loading_ico = new Image();
 </script>
@@ -75,7 +76,7 @@ require "user/js/cat_js.php";
 </script>
 <link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/css/discojuice.css"); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
+<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />";
 </head>
 <body>
 <div id="wrap">

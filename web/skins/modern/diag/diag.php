@@ -50,11 +50,11 @@ if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
 require dirname(__DIR__) . '/user/js/cat_js.php';
-
+$cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 ?>
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
+<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />";
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>
