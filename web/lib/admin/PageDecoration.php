@@ -99,7 +99,7 @@ class PageDecoration extends \core\common\Entity {
 
         $retval = "<div class='header'>
             <div id='header_toprow'>
-                <div id='header_captions' style='display:inline-block; float:left; min-width:400px;'>
+                <div id='header_captions' style='display:inline-block; float:$this->start; min-width:400px;'>
                     <h1>$cap1</h1>
                 </div><!--header_captions-->
                 <div id='langselection' style='padding-top:20px; padding-".$this->start.":10px;'>
