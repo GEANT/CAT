@@ -44,6 +44,10 @@ class PageDecoration extends \core\common\Entity {
      */
     private $langObject;
     
+    private $start;
+    
+    private $end;
+    
     /**
      * construct the PageDecoration object
      */
@@ -53,6 +57,9 @@ class PageDecoration extends \core\common\Entity {
         $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
         $this->ui = new UIElements();
+        $this->start = $this->langObject->rtl ? "right" : "left";
+        $this->end = $this->langObject->rtl ? "left" : "right";
+
     }
 
     /**
@@ -95,7 +102,7 @@ class PageDecoration extends \core\common\Entity {
                 <div id='header_captions' style='display:inline-block; float:left; min-width:400px;'>
                     <h1>$cap1</h1>
                 </div><!--header_captions-->
-                <div id='langselection' style='padding-top:20px; padding-left:10px;'>
+                <div id='langselection' style='padding-top:20px; padding-".$this->start.":10px;'>
                     <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
@@ -200,11 +207,11 @@ class PageDecoration extends \core\common\Entity {
         $retval .= "<div class='trick'>"; // closes in footer again
         $retval .= "<div id='secondrow'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
-                <h2 style='padding-left:10px;'>$cap2</h2>
+                <h2 style='padding-".$this->start.":10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
         if (isset(\config\Master::APPEARANCE['MOTD']) && \config\Master::APPEARANCE['MOTD'] != "") {
-            $retval .= "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
+            $retval .= "<div id='header_MOTD' style='display:inline-block; padding-".$this->start.":20px;vertical-align:top;'>
               <p class='MOTD'>" . \config\Master::APPEARANCE['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
@@ -268,12 +275,12 @@ class PageDecoration extends \core\common\Entity {
         <div class='footer'>
             <table style='width:100%'>
                 <tr>
-                    <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
+                    <td style='padding-".$this->start.":20px; padding-".$this->end.":20px; text-align:".$this->start."; vertical-align:top;'>
                         " . $cat->catCopyright . "</td>";
         if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
             $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
-        $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
+        $retval .= "            <td style='padding-".$this->start.":80px; padding-".$this->end.":20px; text-align:".$this->end."; vertical-align:top;'>";
 
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();
