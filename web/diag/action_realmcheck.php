@@ -84,6 +84,10 @@ if ($testedProfile !== NULL) {
 $translate1 = _("STATIC");
 $translate2 = _("DYNAMIC");
 $errorstate = [];
+
+$langInstance = new core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
 ?>
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
 
@@ -457,7 +461,7 @@ $errorstate = [];
                 });
             }
             o = o + cert_data + '</table>';
-            $("#eap_test" + data.hostindex).append('<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; left: 1em">' + v.eap + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-left: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>');
+            $("#eap_test" + data.hostindex).append('<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start;?>: 1em">' + v.eap + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start;?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>');
         });
     }
 
@@ -784,8 +788,8 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     }
                     $resultstoprint = [];
                     if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
-                        $resultstoprint[] = '<div style="align:right; display: none;" id="' . $prefix1 . '_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="' . $prefix1 . '_result_pass">' . _("All tests passed, congratulations!") . '</div>';
-                        $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
+                        $resultstoprint[] = '<div style="align:'.$end.'; display: none;" id="' . $prefix1 . '_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:'.$end.'; display: none;" id="' . $prefix1 . '_result_pass">' . _("All tests passed, congratulations!") . '</div>';
+                        $resultstoprint[] = '<div style="align:'.$end.';"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
                             $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
@@ -819,7 +823,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                             $clientstest[] = "</td></tr></table></span>";
                             $clientstest[] = '</ol>';
                         }
-                        echo '<div style="align:right;">';
+                        echo '<div style="align:'.$end.';">';
                         echo join('', $resultstoprint);
                         echo '<span id="' . $prefix2 . 'clientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
                         print join('', $clientstest);
@@ -875,7 +879,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
                             print "<hr>";
                             printf(_("Testing from: %s"), "<strong>" . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
-                            print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
+                            print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; $start: 20px; bottom: 0px; '></span>";
                             print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
                         }
                         echo "</div>";
