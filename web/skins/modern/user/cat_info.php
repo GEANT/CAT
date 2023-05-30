@@ -51,10 +51,10 @@ switch ($page) {
          " . $Tou['title'] . "
     </h1>
 <div id='tou_1'>" . $Tou['subtitle'] .
-                $Tou['short'] . "
+               '<div style="direction:ltr">' . $Tou['short'] . "</div>
 </div>
 <div id='all_tou_link'><a href='javascript:showTOU()'>Click here to see the full terms</a></div>
-<div id='tou_2' style='display:none; padding-top:20px'>" .
+<div id='tou_2' style='display:none; padding-top:20px; direction:ltr'>" .
                 $Tou['full'] . "
 </div>
 </div>
