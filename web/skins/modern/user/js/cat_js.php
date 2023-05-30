@@ -971,7 +971,9 @@ $(document).ready(function() {
     }
   });
 
-  reset_footer();
+  setTimeout(() => {  reset_footer(); }, 50);
+
+//  reset_footer();
   $( window ).resize(function(event) {
     if ($( window ).width() > 750) {
       $("#menu_top > ul").show();

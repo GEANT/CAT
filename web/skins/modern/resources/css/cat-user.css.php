@@ -22,6 +22,7 @@ require dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . "/confi
 $langInstance = new core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";
+$direction = $langInstance->rtl ? "rtl" : "ltr";
 header('Content-type: text/css; charset=utf-8');
 ?>
 
@@ -572,10 +573,23 @@ div.footer table {
 }
 
 div.footer table td {
-padding-<?php echo $end ?>:20px; 
+    padding-<?php echo $end ?>:20px; 
     padding-<?php echo $start ?>:20px; 
     vertical-align:top;
     position: relative;
+}
+
+
+#eu_text {
+text-align:<?php echo $end ?>;
+padding-<?php echo $start ?>: 60px;
+display: block;
+}
+
+#eu_text a {
+text-decoration:none;
+vertical-align:top;
+text-align: <?php echo $end ?>;
 }
 
 #open_roam_cond {
