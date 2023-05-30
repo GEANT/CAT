@@ -17,6 +17,14 @@
  */
 @CHARSET "UTF-8";
 
+<?php
+// we need to know if we are serving a RTL language so we can flip some heading
+// items
+$langInstance = new core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
+?>
+
 .sb-titled-cell{
     font-weight:bold;
 }
@@ -71,16 +79,16 @@
     margin-bottom:3px;
 }
 .sb-date-picker{
-    padding-right:25px;
+    padding-<?php echo $end;?>:25px;
     width: 140px;
 }
 .sb-date-button{
-    margin-left:-30px;
+    margin-<?php echo $start;?>:-30px;
     min-height: 22px;
-    border-left-style: solid;
+    border-<?php echo $start;?>-style: solid;
     border-top-style: solid;
-    border-right-style: solid;
-    border-right-width: 1px;
+    border-<?php echo $end;?>-style: solid;
+    border-<?php echo $end;?>-width: 1px;
     border-bottom-width: 1px;
     border-radius: 1px;
     box-shadow: 0px 0px 0px #666666;

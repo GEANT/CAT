@@ -327,7 +327,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
     });
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
-<link rel='stylesheet' type='text/css' href='css/silverbullet.css' />
+<link rel='stylesheet' type='text/css' href='css/silverbullet.css.php' />
 </head>
 
 <body>
