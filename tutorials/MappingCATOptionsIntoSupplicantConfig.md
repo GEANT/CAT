@@ -2,7 +2,7 @@ Mapping CAT device options into Supplicant Configuration
 ========================================================
 
 Many of the options that an IdP administrator can configure in CAT are
-self-explanatory and directly map to configuration proprties in supplicants;
+self-explanatory and directly map to configuration properties in supplicants;
 e.g. adding an EAP type "EAP-TTLS" in the admin interface means the EAP type
 TTLS should be configured in the supplicant.
 
