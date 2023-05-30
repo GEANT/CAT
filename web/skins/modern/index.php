@@ -76,7 +76,7 @@ $cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 </script>
 <link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/css/discojuice.css"); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />";
+<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />
 </head>
 <body>
 <div id="wrap">
