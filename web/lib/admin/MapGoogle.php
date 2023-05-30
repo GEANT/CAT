@@ -99,7 +99,7 @@ class MapGoogle extends AbstractMap {
         }
 
         /**
-         * Guess location based on ist name and country
+         * Guess location based on its name and country
          *
          */
         function locator_magic() {
@@ -155,7 +155,7 @@ class MapGoogle extends AbstractMap {
         }
 
         /**
-         * get geo cordinates and address data
+         * get geo coordinates and address data
          * update coordinate and address text fields
          */
         function updateLocation(latlng) {
@@ -275,7 +275,7 @@ class MapGoogle extends AbstractMap {
         }
 
         /**
-         * Google maps innitialize function
+         * Google maps initialize function
          * if mode == 1 then enable editing;
          */
         function load(l) {

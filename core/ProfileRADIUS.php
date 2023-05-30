@@ -230,7 +230,7 @@ class ProfileRADIUS extends AbstractProfile
      * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
      * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
-     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param string $device    identifier of the device in the database. Omit the argument if attribute is valid for all devices.
      * @return void
      */
     private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device)
@@ -261,7 +261,7 @@ class ProfileRADIUS extends AbstractProfile
      * @param string $attrName  name of the attribute to set
      * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param string $device    identifier of the device in the database. Omit the argument if attribute is valid for all devices.
      * @return void
      */
     public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device)

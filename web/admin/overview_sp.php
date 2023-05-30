@@ -47,7 +47,7 @@ require_once "inc/click_button_js.php";
 // RADIUS status icons
 $radiusMessages = [
     \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
-    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
+    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occurred during profile update")],
     ];
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);

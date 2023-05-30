@@ -138,7 +138,7 @@ switch ($_POST['submitbutton']) {
                 $profile->setAnonymousIDSupport(false);
                 echo $uiElements->boxOkay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
                 if ($verify === FALSE) { // no anon outer ID, and no realm suffix verification? Bad idea!
-                    echo $uiElements->boxWarning(_("Without Anoymous Identity, the actual username will be used as outer identity and be the basis for request routing. For that to work, the username must have a correct realm suffix. Yet, realm suffix verification has been turned OFF. Supplicants will not verify that usernames contain a realm, and errors such as username 'johndoe' which will not work in roaming scenarios will not be prohibited. Consider checking the box 'Enforce realm suffix in username'!"));
+                    echo $uiElements->boxWarning(_("Without Anonymous Identity, the actual username will be used as outer identity and be the basis for request routing. For that to work, the username must have a correct realm suffix. Yet, realm suffix verification has been turned OFF. Supplicants will not verify that usernames contain a realm, and errors such as username 'johndoe' which will not work in roaming scenarios will not be prohibited. Consider checking the box 'Enforce realm suffix in username'!"));
                 }
             }
 

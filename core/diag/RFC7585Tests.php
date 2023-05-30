@@ -237,7 +237,7 @@ class RFC7585Tests extends AbstractTest
     }
 
     /**
-     * Tests if all the dicovered NAPTR entries conform to the consortium's requirements
+     * Tests if all the discovered NAPTR entries conform to the consortium's requirements
      * 
      * possible RETVALs:
      * - RETVAL_NOTCONFIGURED; needs \config\Diagnostics::RADIUSTESTS['TLS-discoverytag']
@@ -355,7 +355,7 @@ class RFC7585Tests extends AbstractTest
     public function relevantNAPTRhostnameResolution()
     {
 // make sure the previous tests have been run before we go on
-// preceeding tests will cascade automatically if needed
+// preceding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->relevantNAPTRsrvResolution();
         }
@@ -366,7 +366,7 @@ class RFC7585Tests extends AbstractTest
         }
 // the SRV check may have returned INVALID, but could have found a
 // a working subset of hosts anyway. We should continue checking all 
-// dicovered names.
+// discovered names.
 
         $ipAddrs = [];
         $resolutionErrors = [];

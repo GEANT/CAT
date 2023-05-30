@@ -20,8 +20,8 @@
  */
 
 
-/* General AJAX comment: im many places we do not specfy the json argument in the
- * handler function and do the JSON decoding explicitely. The reason for this
+/* General AJAX comment: im many places we do not specify the json argument in the
+ * handler function and do the JSON decoding explicitly. The reason for this
  * is debugging - it is much easier to dump the raw JSON output fr a quick look.
  * To make the code cleaner it might be a good idea to change these calls in the future.
  */
@@ -125,7 +125,7 @@ var discoTextStrings = {
   "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location...")) ?>",
   "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top.")) ?>",
 };
-var roller; // controlls if the system sliedes apper on the page
+var roller; // controls if the system sliedes apper on the page
 if (roller === undefined)
     roller = 0;
 var noDisco;
@@ -135,7 +135,7 @@ var sbPage;
 if (sbPage === undefined)
     sbPage = 0;
     
-// used to keep the footer at the bottom whle the window is resized
+// used to keep the footer at the bottom while the window is resized
 $.fn.redraw = function() {
   $(this).each(function() {
     var redraw = this.offsetHeight;
@@ -244,7 +244,7 @@ function printP(i,v) {
 
 // showProfile displays a single profile and the corresponding download buttons
 // the argument is the numeric profile identifier
-// Other than hiding unncecessay elements the function is essentialy an AJAX
+// Other than hiding unncecessay elements the function is essentially an AJAX
 // handler for profileAttributes call
 function showProfile(prof) {
   $("#profile_redirect").hide();
@@ -539,7 +539,7 @@ function handleGuessOs(recognisedDevice) {
       });
       return true;
     }
-  // handle devices that canot be configured due to lack of support
+  // handle devices that cannot be configured due to lack of support
   // for required EAP methods
   /*
   if (recognisedDevice.status > 0 && recognisedDevice.redirect == '0') {

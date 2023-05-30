@@ -287,13 +287,13 @@ Content-Transfer-Encoding: base64
     }
 
     /**
-     * prepare module desctiption and usage information
+     * prepare module description and usage information
      * 
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
         $out = "<p>";
-        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes.");
+        $out .= _("This installer is an example only. It produces a zip file containing the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes.");
         return $out;
     }
 

@@ -46,13 +46,13 @@ class Devices extends \core\common\Entity {
     /**
      * This array lists available configuration options for local device management.
      * Values from this array will be taken as defaults.
-     * Do not modify this array unless you really konw what you are doing.
-     * Default values will be overriden by the settings of options inside
+     * Do not modify this array unless you really know what you are doing.
+     * Default values will be overridden by the settings of options inside
      * each device definition
      *
      * - 'sign' - if set to nonzero will cause installer signing if the module
      *         supports this. The default settings for Microsoft and Apple systems
-     *         is 1, since without signing, installation makes liitle sense. Be aware
+     *         is 1, since without signing, installation makes little sense. Be aware
      *         that you need to set up signers and have proper certificates, if
      *         you do not want to do that and you are just testing CAT, then you can
      *         switch sign to 0, of course.
@@ -66,7 +66,7 @@ class Devices extends \core\common\Entity {
      *         if device redirect has been defined by the admin
      * - 'message' if defined will cause a display of the contents of this option as
      *         an additional warning
-     * - 'sb_message' aplickable only in the distribuition of Silverbullet profiles,
+     * - 'sb_message' aplickable only in the distribution of Silverbullet profiles,
      *         if defined will cause a display of the contents of this option as
      *         an additional message. If the 'message' option is also defined then
      *         the sb_message will be displayed in the same window AFTER the contents
@@ -80,7 +80,7 @@ class Devices extends \core\common\Entity {
      * - 'mime' - used to set the MIME type of the installer file;
      *         if not set will default to the value provided by PHP finfo.
      *         The default is unset, so it is not listed in the Options array.
-     * - 'hs20' - if defined and equal to 1 will mark the device as potenially supporting
+     * - 'hs20' - if defined and equal to 1 will mark the device as potentially supporting
      *         Hotspot 2.0.
      * 
      * @var array

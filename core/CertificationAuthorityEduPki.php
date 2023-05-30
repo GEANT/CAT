@@ -140,7 +140,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // the wire, so re-encode it!
             $soapCleartext = $soap->getRawRequest($soapReqnum);
 
-            $this->loggerInstance->debug(5, "Actual received SOAP resonse for getRawRequest was:\n\n");
+            $this->loggerInstance->debug(5, "Actual received SOAP response for getRawRequest was:\n\n");
             $this->loggerInstance->debug(5, $soap->__getLastResponse());
             // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
             // rather than just using the string. Grr.
@@ -318,7 +318,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             $context_params['ssl']['local_pk'] = CertificationAuthorityEduPki::LOCATION_RA_KEY;
             // $context_params['ssl']['passphrase'] = SilverbulletCertificate::EDUPKI_RA_PKEY_PASSPHRASE;
         }
-        // initialse connection to eduPKI CA / eduroam RA
+        // initialise connection to eduPKI CA / eduroam RA
         $soap = new \SoapClient($url, [
             'soap_version' => SOAP_1_1,
             'trace' => TRUE,

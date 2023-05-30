@@ -238,7 +238,7 @@ class AbstractTest extends \core\common\Entity
     const CERTPROB_UNABLE_TO_GET_CRL = 223;
 
     /**
-     * no EAP method could be agreed on, certs could not be extraced
+     * no EAP method could be agreed on, certs could not be extracted
      */
     const CERTPROB_NO_COMMON_EAP_METHOD = -224;
 
@@ -624,28 +624,28 @@ class AbstractTest extends \core\common\Entity
 
     /**
      * turns $this->possibleFailureReasons into something where the sum of all
-     * occurence factors is 1. A bit like a probability distribution, but they
+     * occurrence factors is 1. A bit like a probability distribution, but they
      * are not actual probabilities.
      * 
      * @return void
      */
     protected function normaliseResultSet()
     {
-        // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.
+        // done. return both the list of possible problem sources with their occurrence rating, and the additional findings we collected along the way.
         $totalScores = 0.;
-        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
-            $totalScores += $oneOccurence;
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurrence) {
+            $totalScores += $oneOccurrence;
         }
         $probArray = [];
-        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
-            $probArray[$oneReason] = $oneOccurence / $totalScores;
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurrence) {
+            $probArray[$oneReason] = $oneOccurrence / $totalScores;
         }
         arsort($probArray);
         $this->possibleFailureReasons = $probArray;
     }
 
     // list of elements of the infrastructure which could be broken
-    // along with their occurence probability (guesswork!)
+    // along with their occurrence probability (guesswork!)
     const INFRA_ETLR = "INFRA_ETLR";
     const INFRA_LINK_ETLR_NRO_IDP = "INFRA_LINK_ETLR_NRO_IdP";
     const INFRA_LINK_ETLR_NRO_SP = "INFRA_LINK_ETLR_NRO_SP";

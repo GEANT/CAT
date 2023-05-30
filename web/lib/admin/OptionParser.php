@@ -219,7 +219,7 @@ class OptionParser extends \core\common\Entity {
             /// Example: "5x Support E-Mail"
             $retval .= $this->uiElements->boxOkay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
-        // list all atributes that had errors
+        // list all attributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
             $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int) $count, $uiElements->displayName($name)));

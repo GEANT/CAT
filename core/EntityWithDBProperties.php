@@ -182,7 +182,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity
         $this->updateFreshness();
         $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
         $returnArray = [];
-        // SELECT always returns a resourse, never a boolean
+        // SELECT always returns a resource, never a boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execFlush)) {
             $returnArray[$queryResult->row] = "KILLME";
         }
@@ -313,7 +313,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
                 $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = ?", "i", $row);
-                // SELECT always returns a resourse, never a boolean
+                // SELECT always returns a resource, never a boolean
                 while ($idQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) { // only one row
                     $blobId = $idQuery->id;
                 }

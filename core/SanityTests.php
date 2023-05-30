@@ -25,7 +25,7 @@
  * 
  * This is the definition of the CAT class implementing various configuration
  * tests. 
- * Each test is implemented as a priviate method which needs to be named "test_name_test".
+ * Each test is implemented as a private method which needs to be named "test_name_test".
  * The test returns the results by calling the testReturn method, this passing the return
  * code and the explanatory message. Multiple calls to testReturn are allowed.
  *
@@ -54,7 +54,7 @@ class SanityTests extends CAT
     /* in this section set current CAT requirements */
 
     /**
-     * the minumum required php version 
+     * the minimum required php version 
      * 
      * @var string
      */
@@ -214,7 +214,7 @@ class SanityTests extends CAT
      * This array is used to return the test results.
      * As the 'global' entry it returns the maximum return value
      * from all tests.
-     * Individual tests results are teturned as separate entires
+     * Individual tests results are teturned as separate entries
      * indexed by test names; each value is an array passing "level" and "message"
      * from each of the tests.
      * $test_result is set by the testReturn method
@@ -277,7 +277,7 @@ class SanityTests extends CAT
     
     /**
      * Check if configuration constants from the template are set
-     * in the correcponding config file
+     * in the corresponding config file
      * 
      * @param string $config file basename
      * @return array $failResults
@@ -380,7 +380,7 @@ class SanityTests extends CAT
             $SSPconfig = \SimpleSAML\Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
             if ((int) $sspVersion[0] >= $this->needversionSSP['major'] && (int) $sspVersion[1] >= $this->needversionSSP['minor']) {
-                $this->storeTestResult(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficently recent. You are running " . implode('.', $sspVersion));
+                $this->storeTestResult(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficiently recent. You are running " . implode('.', $sspVersion));
             } else {
                 $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->needversionSSP));
             }
@@ -526,7 +526,7 @@ class SanityTests extends CAT
                     $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
-                $this->storeTestResult(\core\common\Entity::L_REMARK, "PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                $this->storeTestResult(\core\common\Entity::L_REMARK, "PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We strongly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                 break;
             case 2:
                 if (!is_file(\config\Master::GEOIP['geoip2-path-to-autoloader'])) {
@@ -661,7 +661,7 @@ class SanityTests extends CAT
     }
 
     /**
-     * test access to dowloads directories
+     * test access to downloads directories
      * 
      * @return void
      */
@@ -823,7 +823,7 @@ class SanityTests extends CAT
             if ($res1->num_rows == $this->profileOptionCount) {
                 $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
-                $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
+                $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName1 database is reachable but probably not updated to this version of CAT.");
             }
         } catch (Exception $e) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "Connection to the  $databaseName1 database failed");
@@ -837,7 +837,7 @@ class SanityTests extends CAT
                 if ($res2->num_rows == $this->viewAdminCount) {
                     $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
                 } else {
-                    $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
+                    $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName2 is reachable but there is something wrong with the schema");
                 }
             } else {
                 $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
@@ -855,7 +855,7 @@ class SanityTests extends CAT
                     if ($res3->num_rows == $this->viewAdminCount) {
                         $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                     } else {
-                        $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
+                        $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName3 is reachable but there is something wrong with the schema");
                     }
                 } else {
                     $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");

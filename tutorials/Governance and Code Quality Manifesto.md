@@ -187,7 +187,7 @@ are reviewed by a Dev team member.
 
 Build, Delivery and Deployment
 ------------------------------
-CAT does not follow the Continous Deployment paradigm. Releases are 
+CAT does not follow the Continuous Deployment paradigm. Releases are 
 traditionally packaged "tarball" style releases, deployed manually.
 
 Deployment is following DevOps paradigms where the Dev part of the team prepares

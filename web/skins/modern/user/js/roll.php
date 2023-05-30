@@ -41,10 +41,10 @@ var that;
   into a synchroneus program flow.
 
   Add method adds an object to the flow. Each object added to the flow must
-  define an Execute method, and that mathod must call the ProgramFlow nextStep
+  define an Execute method, and that method must call the ProgramFlow nextStep
   method to activate the following step of the program.
   nextStep executes the next step of the flow
-  Sleep pauses the flow for a given number of miliseconds
+  Sleep pauses the flow for a given number of milliseconds
 */
 function ProgramFlow() {
    this.programArray = new Array();

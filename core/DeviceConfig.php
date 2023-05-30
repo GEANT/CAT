@@ -37,14 +37,14 @@ use \Exception;
  * This class defines the API for CAT module writers.
  *
  * A device is a fairly abstract notion. In most cases it represents
- * a particular operating system or a set of operationg systems
+ * a particular operating system or a set of operating systems
  * like MS Windows Vista and newer.
  *
- * The purpose of this class is to preapare a setup for the device configurator,
+ * The purpose of this class is to prepare a setup for the device configurator,
  * collect all necessary information from the database, taking into account
  * limitations, that a given device may present (like a set of supported EAP methods).
  *
- * All that is required from the device module is to produce a conigurator
+ * All that is required from the device module is to produce a configurator
  * file and pass its name back to the API.
  *
  * 
@@ -153,7 +153,7 @@ abstract class DeviceConfig extends \core\common\Entity
      *
      * Sets up the device module environment taking into account the actual profile
      * selected by the user in the GUI. The selected profile is passed as the
-     * Profile $profile argumant.
+     * Profile $profile argument.
      *
      * This method needs to be called after the device instance has been created (the GUI class does that)
      *
@@ -358,10 +358,10 @@ abstract class DeviceConfig extends \core\common\Entity
      *
      * Certificate files will be saved in the module working directory.
      * 
-     * saved certificate file names are avalable under the 'file' index
+     * saved certificate file names are available under the 'file' index
      * additional array entries are indexed as 'sha1', 'md5', and 'root'.
-     * sha1 and md5 are correcponding certificate hashes
-     * root is set to 1 for the CA roor certicicate and 0 otherwise
+     * sha1 and md5 are corresponding certificate hashes
+     * root is set to 1 for the CA roor certificate and 0 otherwise
      * 
      * @param string $format only "der" and "pem" are currently allowed
      * @return array an array of arrays or empty array on error
@@ -430,8 +430,8 @@ abstract class DeviceConfig extends \core\common\Entity
      * Generate installer filename base.
      * Device module should use this name adding an extension.
      * Normally the device identifier follows the Consortium name.
-     * The sting taken for the device identifier equals (by default) to the index in the listDevices array,
-     * but can be overriden with the 'device_id' device option.
+     * The string taken for the device identifier equals (by default) to the index in the listDevices array,
+     * but can be overridden with the 'device_id' device option.
      * 
      * @return string
      */
@@ -545,7 +545,7 @@ abstract class DeviceConfig extends \core\common\Entity
     }
     
     /**
-     * return a list of SSIDs definded in the Config networks block
+     * return a list of SSIDs defined in the Config networks block
      * 
      * @return array $ssids
      */
@@ -564,7 +564,7 @@ abstract class DeviceConfig extends \core\common\Entity
     }
     
     /**
-     * return a list of OIs definded in the Config networks block
+     * return a list of OIs defined in the Config networks block
      * 
      * @return array $ois
      */
@@ -675,7 +675,7 @@ abstract class DeviceConfig extends \core\common\Entity
      * saves the Terms of Use file onto disk
      * 
      * @param string $blob the Terms of Use
-     * @return array with one entry, containging the filename and mime type
+     * @return array with one entry, containing the filename and mime type
      * @throws Exception
      */
     private function saveInfoFile($blob)
@@ -696,7 +696,7 @@ abstract class DeviceConfig extends \core\common\Entity
     /**
      * returns the attributes of the profile for which to generate an installer
      * 
-     * In condensed notion, and most specific level only (i.e. ignores overriden attributes from a higher level)
+     * In condensed notion, and most specific level only (i.e. ignores overridden attributes from a higher level)
      * @param \core\AbstractProfile $profile the Profile in question
      * @return array
      */
@@ -716,12 +716,12 @@ abstract class DeviceConfig extends \core\common\Entity
     /**
      * dumps attributes for debugging purposes
      *
-     * dumpAttibutes method is supplied for debuging purposes, it simply dumps the attribute array
+     * dumpAttributes method is supplied for debugging purposes, it simply dumps the attribute array
      * to a file with name passed in the attribute.
      * @param string $file the output file name
      * @return void
      */
-    protected function dumpAttibutes($file)
+    protected function dumpAttributes($file)
     {
         ob_start();
         print_r($this->attributes);
@@ -755,7 +755,7 @@ abstract class DeviceConfig extends \core\common\Entity
     /**
      * Array passing all options to the device module.
      *
-     * $attrbutes array contains option values defined for the institution and a particular
+     * $attributes array contains option values defined for the institution and a particular
      * profile (possibly overriding one another) ready for the device module to consume.
      * 
      * For each of the options the value is another array of vales (even if only one value is present).

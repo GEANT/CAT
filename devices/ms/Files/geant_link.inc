@@ -104,7 +104,7 @@ Function InstallGEANTLink
   Pop $rebootRequired
   ${Else}
   IfSilent +2
-  MessageBox MB_OK "<?php WindowsCommon::echoNsis( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete succesfully."))?>"
+  MessageBox MB_OK "<?php WindowsCommon::echoNsis( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete successfully."))?>"
   Quit
   ${EndIf}
   Cont2:

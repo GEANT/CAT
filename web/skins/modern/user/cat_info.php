@@ -27,7 +27,7 @@
  *
  * This handles the popups from the main menu. The page argument is saved in the $page variable and used
  * to select the proper handler. If the contents is read form a file which supplies its own title
- * then you need to preappend the returned data with the 'no_title' sting, this will cause
+ * then you need to preappend the returned data with the 'no_title' string, this will cause
  * the receiving end to strip this marker and not add the title by itself.
  *
  */

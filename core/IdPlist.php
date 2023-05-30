@@ -310,7 +310,7 @@ class IdPlist extends common\Entity
     }
     
     /**
-     * Extract Profie attributes for listIdentityProvidersWithProfiles
+     * Extract Profile attributes for listIdentityProvidersWithProfiles
      * 
      * @param object $profile - the row object returned by the profile search
      * @return array the profile attributes

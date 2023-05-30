@@ -44,7 +44,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
     $preflist = $my_profile->getEapMethodsinOrderOfPreference();
     ?>
-    <h1><?php $tablecaption = sprintf(_("Device compatiblity matrix for %s of %s "), $profile_name, $inst_name);
+    <h1><?php $tablecaption = sprintf(_("Device compatibility matrix for %s of %s "), $profile_name, $inst_name);
     echo $tablecaption; ?></h1>
     <table class="compatmatrix">
         <caption><?php echo $tablecaption; ?></caption>

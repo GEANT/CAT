@@ -7,7 +7,7 @@ eduroam Configuration Assistant Tool (CAT) is a user-oriented system helping to 
 
 The CAT database contains information provided by local eduroam admins, i.e. items like supported EAP methods, trusted RADIUS server names, trusted server certificates, etc.
 
-CAT installers are device dependant entities (Windows installers, XML profiles, etc.) which carry all institution related information. Such an installer is created when a user selects his/her institution, possibly also user group and one of supported devices. Installers are provided in a number of supported languages (please help in the translation effort).
+CAT installers are device dependent entities (Windows installers, XML profiles, etc.) which carry all institution related information. Such an installer is created when a user selects his/her institution, possibly also user group and one of supported devices. Installers are provided in a number of supported languages (please help in the translation effort).
 
 * **Device**
 	An operating system instance which covers a group of wireless client devices; it may be just a group of operating systems like "Microsoft Windows Vista and newer" or "Android smartphones" or "iOS devices"

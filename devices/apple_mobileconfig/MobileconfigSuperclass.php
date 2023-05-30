@@ -317,7 +317,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         if ($retval !== 0 || $signing === FALSE) {
             $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
             // we are passing a name that will be then used as a path - this will not exist, hence an error will
-            // be genereated
+            // be generated
             return("no_go");
         }
         \core\common\Entity::outOfThePotatoes();
@@ -692,7 +692,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
             foreach ($netDefinition['ssid'] as $ssid) {
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid, $netName);
             }
-            // mobileconfig network blocks can accomodate a list of RCOIs in one statement, so just call it
+            // mobileconfig network blocks can accommodate a list of RCOIs in one statement, so just call it
             if ($this->selectedEapObject->isPasswordRequired() === FALSE || $netName != 'eduroam®') {
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $netDefinition['oi'], $netName);
             }

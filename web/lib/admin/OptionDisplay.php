@@ -56,7 +56,7 @@ class OptionDisplay extends \core\common\Entity
     private $allLocationCount;
 
     /**
-     * When "fresh" options are displayed (HTML select/otion fields, optionally
+     * When "fresh" options are displayed (HTML select/option fields, optionally
      * with language, and of varying data types) we want to give each option
      * the same prominence and iterate over all options in the list. This
      * variable keeps track how many option HTML code we've already sent, so
@@ -166,7 +166,7 @@ class OptionDisplay extends \core\common\Entity
      * (e.g. OpenRoaming or not, depending on whether the fed operator wants it
      * 
      * @param string $class the type of options requested
-     * @param string $fed   the federation TLD, to determine fed ops prefernce context
+     * @param string $fed   the federation TLD, to determine fed ops preference context
      * @return array the list of options to display
      */
     public static function enumerateOptionsToDisplay($class, $fed)
@@ -233,7 +233,7 @@ class OptionDisplay extends \core\common\Entity
 
     /**
      * produce code for a option-specific tooltip
-     * @param int     $rowid     the number (nonce during page build) of the option 
+     * @param int     $rowid     the number (once during page build) of the option 
      *                           that should get the tooltip
      * @param string  $input     the option name. Tooltip for it will be displayed
      *                           if we have one available.
@@ -248,7 +248,7 @@ class OptionDisplay extends \core\common\Entity
         if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         }
-        $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
+        $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please thoroughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
         $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
         $descriptions["media:openroaming"] = sprintf(_("By opting in to OpenRoaming, you agree to be bound by the %s."), "eduroam Ecosystem Broker OpenRoaming Identity Provider Policy") .
                 " " .
@@ -266,7 +266,7 @@ class OptionDisplay extends \core\common\Entity
 
     /**
      * 
-     * @param int   $rowid the number (nonce during page build) of the option 
+     * @param int   $rowid the number (once during page build) of the option 
      *                     that should get the tooltip
      * @param array $list  elements of the drop-down list
      * @return array HTML code and which option is active
@@ -352,7 +352,7 @@ FOO;
     /**
      * HTML code to display the language selector
      * 
-     * @param int     $rowid       the number (nonce during page build) of the option 
+     * @param int     $rowid       the number (once during page build) of the option 
      *                             that should get the tooltip
      * @param boolean $makeVisible is the language selector to be made visible?
      * @return string
@@ -374,7 +374,7 @@ FOO;
 
     /**
      * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
-     * @param int   $rowid      the number (nonce during page build) of the option 
+     * @param int   $rowid      the number (once during page build) of the option 
      *                          that should get the tooltip
      * @param array $activetype the active datatype that is to be visible
      * @return string

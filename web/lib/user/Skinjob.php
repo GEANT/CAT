@@ -52,7 +52,7 @@ class Skinjob {
      * @param string $selectedSkin the name of the skin to use
      */
     public function __construct($selectedSkin = NULL) {
-        // input may have been garbage. Sanity-check and fall back to default skin if needed
+        // input may have been rubbish. Sanity-check and fall back to default skin if needed
         $actualSkin = \config\Master::APPEARANCE['skins'][0];
         if (in_array($selectedSkin, \config\Master::APPEARANCE['skins'])) {
             $correctIndex = array_search($selectedSkin, \config\Master::APPEARANCE['skins']);

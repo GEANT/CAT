@@ -46,7 +46,7 @@ class Master
          * productname: short display name of the tool
          * productname_long: long display name of the tool
          * from-mail: the "From" in email addresses sent by the tool. Typically an unattended mailbox only for sending.
-         * support-contact/url: URL pointing to CAT support, can be an email address, possibly with some additional attrinutes like body or a help page address
+         * support-contact/url: URL pointing to CAT support, can be an email address, possibly with some additional attributes like body or a help page address
          * support-contact/display: the displayed part of the support contact link.
          * support-contact/developer-mail: email address where development questions should be addressed to
          * abuse-mail: email address where copyright holders can complain. Should be read by a human.
