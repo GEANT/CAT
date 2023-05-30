@@ -43,7 +43,7 @@ require_once "inc/click_button_js.php";
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
 <script type="text/javascript" src="js/eapSorter.js"></script> 
-<link rel='stylesheet' type='text/css' href='css/eapSorter.css' />
+<link rel='stylesheet' type='text/css' href='css/eapSorter.css.php' />
 <!-- EAP sorting code end -->
 <?php
 // initialize inputs

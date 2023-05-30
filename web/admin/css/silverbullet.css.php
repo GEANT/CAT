@@ -1,3 +1,4 @@
+<?php
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -15,15 +16,15 @@
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
  */
-@CHARSET "UTF-8";
 
-<?php
+
 // we need to know if we are serving a RTL language so we can flip some heading
 // items
 $langInstance = new core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";
 ?>
+@CHARSET "UTF-8";
 
 .sb-titled-cell{
     font-weight:bold;

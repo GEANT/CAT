@@ -1,3 +1,4 @@
+<?php
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -18,19 +19,25 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+// we need to know if we are serving a RTL language so we can flip some heading
+// items
+$langInstance = new core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
+?>
 li.eap1 {list-style-type: none;}
 ol.eapmethods { list-style-position: inside; margin: 0; padding: 0px; padding-top: 20px; padding-bottom: 0px; width: 20em; }
 ol.eapmethods li{
     background: #CCF;
-    border-left-style: inset;
-    border-left-width: 1px;
-    border-left-color: #8BBACB;
+    border-<?php echo $begin;?>-style: inset;
+    border-<?php echo $begin;?>-width: 1px;
+    border-<?php echo $begin;?>-color: #8BBACB;
     border-top-style: inset;
     border-top-width: 1px;
     border-top-color: #8BBACB;
-    border-right-style: outset;
-    border-right-width: 2px;
-    border-right-color: #043D52;
+    border-<?php echo $end;?>-style: outset;
+    border-<?php echo $end;?>-width: 2px;
+    border-<?php echo $end;?>-color: #043D52;
     border-bottom-style: outset;
     border-bottom-width: 2px;
     border-bottom-color: #043D52;
@@ -41,8 +48,8 @@ ol.eapmethods li{
     background-position:95% 50%;
     margin: 2px 0px 2px 0px;
     padding: 3px;
-    padding-left: 1em;
-    padding-right: 0px;
+    padding-<?php echo $begin;?>: 1em;
+    padding-<?php echo $end;?>: 0px;
 }
 
 table.eaptable td {
