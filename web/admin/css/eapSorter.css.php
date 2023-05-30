@@ -29,9 +29,9 @@ li.eap1 {list-style-type: none;}
 ol.eapmethods { list-style-position: inside; margin: 0; padding: 0px; padding-top: 20px; padding-bottom: 0px; width: 20em; }
 ol.eapmethods li{
     background: #CCF;
-    border-<?php echo $begin;?>-style: inset;
-    border-<?php echo $begin;?>-width: 1px;
-    border-<?php echo $begin;?>-color: #8BBACB;
+    border-<?php echo $start;?>-style: inset;
+    border-<?php echo $start;?>-width: 1px;
+    border-<?php echo $start;?>-color: #8BBACB;
     border-top-style: inset;
     border-top-width: 1px;
     border-top-color: #8BBACB;
@@ -48,7 +48,7 @@ ol.eapmethods li{
     background-position:95% 50%;
     margin: 2px 0px 2px 0px;
     padding: 3px;
-    padding-<?php echo $begin;?>: 1em;
+    padding-<?php echo $start;?>: 1em;
     padding-<?php echo $end;?>: 0px;
 }
 
