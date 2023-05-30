@@ -28,7 +28,7 @@ use Exception;
 <?php
 
 /**
- * This class parses HTML field input from POST and FILES and extracts valid and authorized options to be set.
+ * This class parses HTML field input from POST and FILES and extracts valid and authorised options to be set.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */

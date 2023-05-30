@@ -439,7 +439,7 @@ Best regards,
                 }
                 $list[] = $oneCandidate;
             }
-            // now see if any of the languages in CAT match the best one we have gotten from DB
+            // now see if any of the languages in CAT match the best one we have got from DB
             $mynames = $this->getAttributes("general:instname");
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {

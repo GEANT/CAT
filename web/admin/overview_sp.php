@@ -300,7 +300,7 @@ $(document).on('click', '#realmcheck' , function() {
 
         $myfed = new \core\Federation($my_inst->federation);
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
-            // the button is grayed out if there's no support email address configured...
+            // the button is greyed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>
             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>

@@ -573,7 +573,7 @@ echo $mapCode->htmlHeadCode();
                 }
 
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
-                    // the button is grayed out if there's no support email address configured...
+                    // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -663,7 +663,7 @@ echo $mapCode->htmlHeadCode();
             <?php
             if ($readonly === FALSE) {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
-                    // the button is grayed out if there's no support email address configured...
+                    // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>

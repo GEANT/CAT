@@ -229,7 +229,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL),
 ('eap:ca_file','certificate of the CA signing the RADIUS server key','file',NULL),
-('eap:server_name','name of authorized RADIUS server','string',NULL),
+('eap:server_name','name of authorised RADIUS server','string',NULL),
 ('general:geo_coordinates','geographical coordinates of the institution or a campus','coordinates',NULL),
 ('general:instname','name of the institution in multiple languages','string','ML'),
 ('general:instshortname','short name of the institution (acronym etc) in multiple languages','string','ML'),
