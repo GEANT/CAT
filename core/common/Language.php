@@ -102,6 +102,7 @@ class Language
     {
         // $langConverted will contain candidates for the language setting in the order
         // of prefference
+        $loggerInstance = new \core\common\Logging();
         $langConverted = [];
         if ($hardSetLang !== 0) {
             $langConverted[] = $hardSetLang;
@@ -124,7 +125,6 @@ class Language
         }
         $langIndex = \config\Master::APPEARANCE['defaultlocale'];
         $theLocale = \config\Master::LANGUAGES[$langIndex]['locale'];
-        $isRtl = \config\Master::LANGUAGES[$langIndex]['rtl'];
         // always add configured default language as the last resort
         $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
@@ -151,9 +151,9 @@ class Language
                 }
             }
         }
+        $isRtl = \config\Master::LANGUAGES[$langIndex]['rtl'];
         putenv("LC_ALL=" . $theLocale);
         $_SESSION['language'] = $langIndex;
-        $loggerInstance = new \core\common\Logging();
         $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
         $loggerInstance->debug(4, print_r($langConverted, true));
         return([$langIndex, $theLocale,$isRtl]);
