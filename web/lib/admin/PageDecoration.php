@@ -255,7 +255,7 @@ class PageDecoration extends \core\common\Entity {
             // (accountstatus courtesy of my good mood. It's userspace not admin space so
             // it shouldn't be using this function any more.)
             $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
-            return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
+            return "<span id='logos'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
         }
