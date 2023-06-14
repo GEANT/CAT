@@ -93,6 +93,9 @@ $langObject = new \core\common\Language();
                 $DN[] = "CN=".$serverList[0];
                 $policies[] = "eduroam IdP";
                 $policies[] = "eduroam SP";
+                $firstName = $serverInfo[array_key_first($serverInfo)][0]["name"];
+                $firstMail = $serverInfo[array_key_first($serverInfo)][0]["mail"];
+
                 break;
             case "INST":
                 $desiredInst = $validator->existingIdP($_POST['INST-list']);
@@ -100,11 +103,26 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=".$desiredInst->name;
-                $DN[] = "CN=comes.from.eduroam.db";
-                $serverInfo = [];
-                $serverList = [];
-                // TODO: with the info available in CAT 2.1, can also issue SP
-                $policies[] = "eduroam IdP";
+                $externalid = $desiredInst->getExternalDBId();
+                $extInsts = $externalDb->listExternalTlsServersInstitution($fed->tld);
+                $serverInfo = $extInsts[$externalid];
+                $serverList = explode(",", $serverInfo["servers"]);
+                $DN[] = "CN=".$serverList[0];
+                switch ($serverInfo["type"]) {
+                    case core\IdP::TYPE_IDPSP:
+                        $policies[] = "eduroam IdP";
+                        $policies[] = "eduroam SP";
+                        break;
+                    case core\IdP::TYPE_IDP:
+                        $policies[] = "eduroam IdP";
+                        break;
+                    case core\IdP::TYPE_SP:
+                        $policies[] = "eduroam SP";
+                        break;
+                }
+                $firstName = $serverInfo["contacts"][0]["name"];
+                $firstMail = $serverInfo["contacts"][0]["mail"];
+
                 break;
             default:
                 throw new Exception("Sorry: Unknown level of issuance requested.");
@@ -114,8 +132,6 @@ $langObject = new \core\common\Language();
         echo "<li>" . _("Policy OIDs: ") . implode(", ", $policies) . "</li>";
         echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN) . "</li>";
         echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
-        $firstName = $serverInfo[array_key_first($serverInfo)][0]["name"];
-        $firstMail = $serverInfo[array_key_first($serverInfo)][0]["mail"];
         echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
         /* $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
@@ -136,6 +152,7 @@ $langObject = new \core\common\Language();
             "USERMAIL" => $firstMail, 
             "SUBJECT" => implode(",", $DN) ,
             "ALTNAMES" => $serverList,
+            "POLICIES" => $policies,
             "FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
@@ -178,7 +195,7 @@ $langObject = new \core\common\Language();
         <select name="INST-list" id="INST-list">
             <option value="notset"><?php echo _("---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"); ?></option>
             <?php
-            /**
+            
             $allIdPs = [];
             foreach ($feds as $oneFed) {
                 $fedObject = new \core\Federation($oneFed['value']);
@@ -190,7 +207,6 @@ $langObject = new \core\common\Language();
                 echo '<option value="' . $id . '">' . $name . "</option>";
             }
               
-            **/ 
             ?>
         </select>
         <br/>

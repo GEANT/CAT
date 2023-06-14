@@ -20,7 +20,9 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     #private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.clearkey";
     #private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
     #private const EDUPKI_RA_ID = 100;
-    #private const EDUPKI_CERT_PROFILE = "eduroam IdP and SP";
+    #private const EDUPKI_CERT_PROFILE_BOTH = "eduroam IdP and SP";
+    #private const EDUPKI_CERT_PROFILE_IDP = "eduroam IdP";
+    #private const EDUPKI_CERT_PROFILE_SP = "eduroam SP";
     #private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
     
@@ -28,7 +30,9 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
     private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
     private const EDUPKI_RA_ID = 700;
-    private const EDUPKI_CERT_PROFILE = "Radius Server SOAP";
+    private const EDUPKI_CERT_PROFILE_BOTH = "Radius Server SOAP";
+    private const EDUPKI_CERT_PROFILE_IDP = "Radius Server SOAP";
+    private const EDUPKI_CERT_PROFILE_SP = "Radius Server SOAP";
     private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
     /**
@@ -104,7 +108,16 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     public function sendRequestToCa($csr, $revocationPin, $expiryDays): int
     {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
-        try {
+        try {            
+            if (in_array("eduroam IdP", $csr["POLICIES"]) && in_array("eduroam SP", $csr["POLICIES"])) {
+                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_BOTH;
+            } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
+                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_IDP;
+            } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
+                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_SP;
+            } else {
+                throw new Exception("Unexpected policies requested.");
+            }
             $altArray = [# Array mit den Subject Alternative Names
                 "email:" . $csr["USERMAIL"]
             ];
@@ -117,7 +130,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR_STRING"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_3: ");
             $this->loggerInstance->debug(5, $altArray);
-            $this->loggerInstance->debug(5, "PARAM_4: " . CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE . "\n");
+            $this->loggerInstance->debug(5, "PARAM_4: " . $profile . "\n");
             $this->loggerInstance->debug(5, "PARAM_5: " . sha1("notused") . "\n");
             $this->loggerInstance->debug(5, "PARAM_6: " . $csr["USERNAME"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERMAIL"] . "\n");
@@ -127,7 +140,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                     CertificationAuthorityEduPkiServer::EDUPKI_RA_ID, # RA-ID
                     $csr["CSR_STRING"], # Request im PEM-Format
                     $altArray, # altNames
-                    CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE, # Zertifikatprofil
+                    $profile, # Zertifikatprofil
                     sha1($revocationPin), # PIN
                     $csr["USERNAME"], # Name des Antragstellers
                     $csr["USERMAIL"], # Kontakt-E-Mail
@@ -160,7 +173,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $soapExpiryChange = $soap->setRequestParameters(
                     $soapReqnum, [
                 "RaID" => CertificationAuthorityEduPkiServer::EDUPKI_RA_ID,
-                "Role" => CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE,
+                "Role" => $profile,
                 "Subject" => $csr['SUBJECT'],
                 "SubjectAltNames" => $altArray,
                 "NotBefore" => (new \DateTime())->format('c'),

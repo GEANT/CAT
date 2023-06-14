@@ -293,7 +293,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             $contactList = $this->dissectCollapsedContacts($instServerResponses->contacts);
             $retval[$instServerResponses->ROid . $instServerResponses->instid] = [
                 "names" => $this->splitNames($instServerResponses->inst_name),
-                "type" => $instServerResponses->type,
+                "type" => array_search($instServerResponses->type, self::TYPE_MAPPING),
                 "servers" => $instServerResponses->servers,
                 "contacts" => $contactList];
         }
