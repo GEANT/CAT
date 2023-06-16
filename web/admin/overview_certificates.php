@@ -102,7 +102,7 @@ $langObject = new \core\common\Language();
         if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
             ?>
             <form action="action_req_certificate.php" method="POST">
-                <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo sprintf(_("Request new Certificate for: %s"), strtoupper($theFed->tld)); ?></button>
+                <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo _("Request new Certificate"); ?></button>
             </form>
             <?php
         } else {
