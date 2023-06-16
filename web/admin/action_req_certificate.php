@@ -36,7 +36,6 @@ $cat = new core\CAT();
 
 $auth->authenticate();
 
-
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
@@ -66,19 +65,28 @@ $langObject = new \core\common\Language();
         echo _("You do not have the necessary privileges to request server certificates.");
         exit(1);
     }
+    $externalDb = new \core\ExternalEduroamDBData();
 // okay... we are indeed entitled to "do stuff"
-    $feds = $user->getAttributes("user:fedadmin");
+    $feds = [];
+    $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
+    foreach ($allAuthorizedFeds as $oneFed) {
+        $fed = $validator->existingFederation($oneFed["value"]);
+        $country = strtoupper($fed->tld);
+        $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
+        if (count($serverInfo) > 0) {
+            $feds[] = $fed;
+        }
+    }
     // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
     // also send user back to the overview page
     if (isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
         // basic sanity checks before we hand this over to openssl
-        $sanitisedCsr = $validator->string($_POST['CSR'] ?? "" , TRUE);
+        $sanitisedCsr = $validator->string($_POST['CSR'] ?? "", TRUE);
         if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
             throw new Exception("Sorry: Unable to parse the submitted public key - no public key inside?");
         }
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
         $policies = [];
-        $externalDb = new \core\ExternalEduroamDBData();
         switch ($_POST['LEVEL'] ?? "") {
             case "NRO":
                 if ($user->isFederationAdmin($_POST['NRO-list']) === FALSE) {
@@ -90,7 +98,7 @@ $langObject = new \core\common\Language();
                 $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
                 $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
                 $serverList = explode(",", array_key_first($serverInfo));
-                $DN[] = "CN=".$serverList[0];
+                $DN[] = "CN=" . $serverList[0];
                 $policies[] = "eduroam IdP";
                 $policies[] = "eduroam SP";
                 $firstName = $serverInfo[array_key_first($serverInfo)][0]["name"];
@@ -98,16 +106,18 @@ $langObject = new \core\common\Language();
 
                 break;
             case "INST":
-                $desiredInst = $validator->existingIdP($_POST['INST-list']);
-                $fed = $validator->existingFederation($desiredInst->federation, $_SESSION['user']);                
-                $country = strtoupper($fed->tld);
+                $matches = [];
+                preg_match('^\[([A-Z][A-Z])\]',$_POST['INST-list'] , $matches);
+                $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
+                if ($user->isFederationAdmin($matches[1]) === FALSE) {
+                    throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
+                }
+                $country = strtoupper($matches[1]);
                 $DN[] = "C=$country";
-                $DN[] = "O=".$desiredInst->name;
-                $externalid = $desiredInst->getExternalDBId();
-                $extInsts = $externalDb->listExternalTlsServersInstitution($fed->tld);
-                $serverInfo = $extInsts[$externalid];
+                $serverInfo = $extInsts[$_POST['INST-list']];
+                $DN[] = "O=" . $serverInfo["names"][0];                
                 $serverList = explode(",", $serverInfo["servers"]);
-                $DN[] = "CN=".$serverList[0];
+                $DN[] = "CN=" . $serverList[0];
                 switch ($serverInfo["type"]) {
                     case core\IdP::TYPE_IDPSP:
                         $policies[] = "eduroam IdP";
@@ -134,94 +144,82 @@ $langObject = new \core\common\Language();
         echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
         echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
-        /* $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
-        if (is_resource($ossl)) {
-            fwrite($pipes[0], $_POST['CSR']);
-            fclose($pipes[0]);
-            $newCsr = stream_get_contents($pipes[1]);
-            fclose($pipes[1]);
-            $retval = proc_close($ossl);
-        } else {
-            throw new Exception("Calling openssl in a fancy way did not work.");
-        }
-        echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
+
         $vettedCsr = $validator->string($_POST['CSR'], true);
         $newCsrWithMeta = [
-            "CSR_STRING" => /* $newCsr */ $vettedCsr, 
-            "USERNAME" => $firstName, 
-            "USERMAIL" => $firstMail, 
-            "SUBJECT" => implode(",", $DN) ,
+            "CSR_STRING" => /* $newCsr */ $vettedCsr,
+            "USERNAME" => $firstName,
+            "USERMAIL" => $firstMail,
+            "SUBJECT" => implode(",", $DN),
             "ALTNAMES" => $serverList,
             "POLICIES" => $policies,
             "FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
-        echo "<p>"._("The certificate was requested.")."</p>";
+        echo "<p>" . _("The certificate was requested.") . "</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
-            <button type="submit"><?php echo _("Back to Certificate Overview");?></button>
+            <button type="submit"><?php echo _("Back to Certificate Overview"); ?></button>
         </form>
-    <?php
-    echo $deco->footer();
-    exit(0);
+        <?php
+        echo $deco->footer();
+        exit(0);
     }
 
     // if we did not get a SAVE button, display UI for a fresh request instead
     ?>
-    <h2><?php echo _("1. Certificate Holder Details");?></h2>
+    <h2><?php echo _("1. Certificate Holder Details"); ?></h2>
     <form action="action_req_certificate.php" method="POST">
-        <input type="radio" name="LEVEL" id="NRO" value="NRO" checked><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureFed); ?></input>
         <?php
-        if (count($feds) == 1) {
-            $fedObject = new \core\Federation($feds[0]['value']);
-            echo " <strong>" . $cat->knownFederations[$fedObject->tld] . "</strong>";
-            echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $fedObject->tld . '"/>';
-        } else {
-            ?>
-            <select name="NRO-list" id="NRO-list">
-                <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
-                <?php
-                foreach ($feds as $oneFed) {
-                    $fedObject = new \core\Federation($oneFed['value']);
-                    echo '<option value="' . strtoupper($fedObject->tld) . '">' . $cat->knownFederations[$fedObject->tld] . "</option>";
-                }
+        switch (count($feds)) {
+            case 0:
+                echo "<strong>"._("None of your NRO servers has complete information in the database.")."</strong><br/>".("At least the DNS names of TLS servers and a role-based contact mail address are required.");
+                break;
+            case 1:
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s role"), $uiElements->nomenclatureFed).'</input>';
+                echo " <strong>" . $cat->knownFederations[$feds[0]->tld] . "</strong>";
+                echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $feds[0]->tld . '"/>';
+                break;
+            default:
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s role"), $uiElements->nomenclatureFed).'</input>';
                 ?>
-            </select>
+                <select name="NRO-list" id="NRO-list">
+                    <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
+                    <?php
+                    foreach ($feds as $oneFed) {
+                        echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                    }
+                    ?>
+                </select>
             <?php
         }
         ?>
         <br/>
         <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureIdP); ?></input>
         <select name="INST-list" id="INST-list">
-            <option value="notset"><?php echo _("---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"); ?></option>
+            <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
             <?php
-            
             $allIdPs = [];
             foreach ($feds as $oneFed) {
-                $fedObject = new \core\Federation($oneFed['value']);
-                foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-                    $extID = $oneIdP['instance']->getExternalDBId();
-                    if ($extID !== FALSE) {
-                    $allIdPs[$oneIdP['entityID']] = "[$extID] ".$oneIdP["title"];
-                    }
+                foreach ($externalDb->listExternalTlsServersInstitution($oneFed->tld) as $id => $oneIdP) {                    
+                        $allIdPs[$id] = "[$id] " . $oneIdP["title"];
                 }
             }
             foreach ($allIdPs as $id => $name) {
                 echo '<option value="' . $id . '">' . $name . "</option>";
             }
-              
             ?>
         </select>
         <br/>
-        <h2><?php echo _("2. CSR generation");?></h2>
-        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:");?></p>
+        <h2><?php echo _("2. CSR generation"); ?></h2>
+        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
         <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
-        <h2><?php echo _("3. Submission");?></h2>
-        <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
+        <h2><?php echo _("3. Submission"); ?></h2>
+<?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
 </form>
-    <form action="overview_certificates.php" method="POST">
-        <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
-    </form>
+<form action="overview_certificates.php" method="POST">
+    <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
+</form>
 <?php
 echo $deco->footer();
