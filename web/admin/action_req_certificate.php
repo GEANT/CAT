@@ -107,7 +107,7 @@ $langObject = new \core\common\Language();
                 break;
             case "INST":
                 $matches = [];
-                preg_match('^\[([A-Z][A-Z])\]',$_POST['INST-list'] , $matches);
+                preg_match('^\[([A-Z][A-Z])\]', $_POST['INST-list'], $matches);
                 $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
                 if ($user->isFederationAdmin($matches[1]) === FALSE) {
                     throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
@@ -115,7 +115,7 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($matches[1]);
                 $DN[] = "C=$country";
                 $serverInfo = $extInsts[$_POST['INST-list']];
-                $DN[] = "O=" . $serverInfo["names"][0];                
+                $DN[] = "O=" . $serverInfo["names"][0];
                 $serverList = explode(",", $serverInfo["servers"]);
                 $DN[] = "CN=" . $serverList[0];
                 switch ($serverInfo["type"]) {
@@ -173,15 +173,15 @@ $langObject = new \core\common\Language();
         <?php
         switch (count($feds)) {
             case 0:
-                echo "<strong>"._("None of your NRO servers has complete information in the database.")."</strong><br/>".("At least the DNS names of TLS servers and a role-based contact mail address are required.");
+                echo "<strong>" . _("None of your NRO servers has complete information in the database.") . "</strong><br/>" . ("At least the DNS names of TLS servers and a role-based contact mail address are required.");
                 break;
             case 1:
-                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s role"), $uiElements->nomenclatureFed).'</input>';
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 echo " <strong>" . $cat->knownFederations[$feds[0]->tld] . "</strong>";
                 echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $feds[0]->tld . '"/>';
                 break;
             default:
-                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s role"), $uiElements->nomenclatureFed).'</input>';
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 ?>
                 <select name="NRO-list" id="NRO-list">
                     <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
@@ -193,22 +193,22 @@ $langObject = new \core\common\Language();
                 </select>
             <?php
         }
+        $allIdPs = [];
+        foreach ($allAuthorizedFeds as $oneFed) {
+            foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
+                $allIdPs[$id] = "[$id] " . $oneIdP["title"];
+            }
+        }
         ?>
         <br/>
-        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureIdP); ?></input>
+        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
         <select name="INST-list" id="INST-list">
             <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
-            <?php
-            $allIdPs = [];
-            foreach ($feds as $oneFed) {
-                foreach ($externalDb->listExternalTlsServersInstitution($oneFed->tld) as $id => $oneIdP) {                    
-                        $allIdPs[$id] = "[$id] " . $oneIdP["title"];
-                }
-            }
-            foreach ($allIdPs as $id => $name) {
-                echo '<option value="' . $id . '">' . $name . "</option>";
-            }
-            ?>
+<?php
+foreach ($allIdPs as $id => $name) {
+    echo '<option value="' . $id . '">' . $name . "</option>";
+}
+?>
         </select>
         <br/>
         <h2><?php echo _("2. CSR generation"); ?></h2>
