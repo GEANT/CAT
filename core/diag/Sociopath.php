@@ -85,10 +85,10 @@ class Sociopath extends AbstractTest
         // let's start the numbering at 1
         $this->qaArray = [
             1 => ["AREA" => AbstractTest::INFRA_DEVICE,
-                "TXT" => _("Have you ever used the network succesfully, e.g. at your home institution without roaming?"),
+                "TXT" => _("Have you ever used the network successfully, e.g. at your home institution without roaming?"),
                 "FACTOR_YES" => 0.8, // that's good, but it doesn't mean strikingly much
                 "FACTOR_NO" => 2, // that's bad, and points strongly to a config on this end
-                "VERDICTLECTURE" => sprintf(_("If your device has never worked before with this setup, then very likely your device configuation is wrong. %s"), $confAssistantText)],
+                "VERDICTLECTURE" => sprintf(_("If your device has never worked before with this setup, then very likely your device configuration is wrong. %s"), $confAssistantText)],
             2 => ["AREA" => AbstractTest::INFRA_DEVICE,
                 "TXT" => _("Did the device previously work when roaming, i.e. at other hotspots away from your home institution?"),
                 "FACTOR_YES" => 0.6, // that's good, and somewhat encouraging
@@ -129,7 +129,7 @@ class Sociopath extends AbstractTest
     }
 
     /**
-     * re-evaluates the occurence factor of the SUSPECTS, taking the answer to the given question into account
+     * re-evaluates the occurrence factor of the SUSPECTS, taking the answer to the given question into account
      * 
      * @param int       $questionNumber number of the question that was answered
      * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
@@ -167,7 +167,7 @@ class Sociopath extends AbstractTest
     }
 
     /**
-     * takes a look at the current occurence factors, and which questions have
+     * takes a look at the current occurrence factors, and which questions have
      * already been asked, then tells the caller which question to ask next.
      * @return string JSON encoded array with info on the next available question
      */

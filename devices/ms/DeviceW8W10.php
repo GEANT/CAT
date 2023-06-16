@@ -29,7 +29,7 @@
  * methods modules. It also performs global operations like preparing
  * and saving cerificates and generating the installers.
  * 
- * Adding a new EAP handler requres defining an extension of the MsEapProfile
+ * Adding a new EAP handler requires defining an extension of the MsEapProfile
  * class. Such an extension is required to define a public getConfig method
  * returning a valid Windows XML <Config> element.
  * Extensions to Files/common.inc will also be required.
@@ -171,7 +171,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     
     /**
      * If separateHS20profiles is false then we should be saving a hs20 profile
-     * containing both OIDs and SSIDs. In addiotion we should also be saving
+     * containing both OIDs and SSIDs. In addition we should also be saving
      * a nohs_... profile. When  the installer runs it first tries the normal
      * profile and if this fails it will try the nohs (if one exists)
      */
@@ -294,7 +294,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     }
 
     /**
-     * Selects the approprate handler for a given EAP type and retirns
+     * Selects the appropriate handler for a given EAP type and retirns
      * an initiated object
      * 
      * @return a profile object

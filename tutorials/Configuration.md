@@ -79,7 +79,7 @@ Here are some extra configuration hints for these packages:
 	
 	unzip them and copy into GeoIP directory changing names to GeoCity.dat and GeoCityv6.dat (the directory is /usr/share/GeoIP or something similar, GeoIP will display an error message if the database is missing and you will be able to guess the required location).
 	
-	arrange for downloads each month (databases are udated on the first Thursday of each month)
+	arrange for downloads each month (databases are updated on the first Thursday of each month)
 	
 	API Version 2:
 	

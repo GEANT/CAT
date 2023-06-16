@@ -988,7 +988,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:88
 msgid ""
-"Have you ever used the network succesfully, e.g. at your home institution "
+"Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
 "Έχετε χρησιμοποιήσει επιτυχώς το δίκτυο στο παρελθόν, π.χ. στο οικείο σας "
@@ -1000,7 +1000,7 @@ msgstr ""
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
-"your device configuation is wrong. %s"
+"your device configuration is wrong. %s"
 msgstr ""
 "Εάν η συσκευή σας δεν λειτούργησε ποτέ με αυτές τις ρυθμίσεις, είναι πολύ "
 "πιθανό η συσκευή σας να έχει εσφαλμένη παραμετροποίηση. %s"
@@ -1332,7 +1332,7 @@ msgid "Diagnostics results for selected realms"
 msgstr "Αποτελέσματα διαγνωστικών για τους επιλεγμένους τομείς"
 
 #: web/skins/modern/diag/diag.php:575
-msgid "An unknown problem occured"
+msgid "An unknown problem occurred"
 msgstr "Προέκυψε άγνωστο πρόβλημα"
 
 #: web/skins/modern/diag/diag.php:578
@@ -1780,11 +1780,11 @@ msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Δοκιμή επιτυχής.</strong>"
 
 #: web/diag/radius_tests.php:177
-msgid "<strong>Test partially successful</strong>: authentication succeded."
+msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr "<strong>Δοκιμή εν μέρει επιτυχής</strong>: επιτυχής ταυτοποίηση."
 
 #: web/diag/radius_tests.php:180
-msgid "<strong>Test FAILED</strong>: authentication succeded."
+msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: επιτυχής ταυτοποίηση."
 
 #: web/diag/radius_tests.php:185
@@ -2049,5 +2049,5 @@ msgid "See details"
 msgstr "Δείτε λεπτομέρειες"
 
 #: web/skins/modern/diag/js/diag_js.php:436
-msgid "If you want to report your problem, fill fields bellow."
+msgid "If you want to report your problem, fill fields below."
 msgstr "Αν θέλετε να αναφέρετε το πρόβλημα σας, συμπληρώστε τα παρακάτω πεδία"

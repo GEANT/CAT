@@ -155,7 +155,7 @@ Var spacesRemoved
 !insertmacro MUI_LANGUAGE "${LANG}"
 
 ;--------------------------------
-; License file
+; Licence file
 !ifdef LICENSE_FILE
 LicenseForceSelection checkbox "<?php WindowsCommon::echoNsis( _("Accept"))?>"
 LicenseText "<?php WindowsCommon::echoNsis(_("If you accept the conditions then select Accept and then click Install to continue."))?>"
@@ -361,7 +361,7 @@ Function .onInit
       StrCpy $Msiexec "msiexec"
     ${EndIf}
   !endif
-  !insertmacro debug_cat 3 "Platfrom:$Platform"
+  !insertmacro debug_cat 3 "Platform:$Platform"
 
   Call wVersionCheck
   Call Wireless_Check
@@ -693,7 +693,7 @@ Function WiredConfirm
 FunctionEnd
 
 
-; Check for installed EAP metod
+; Check for installed EAP method
   Function CheckEAP
     Pop $R0
     !insertmacro debug_cat 3 "testing for EAP: $R0"
@@ -927,7 +927,7 @@ Function CreateWirelessProfiles
   !endif
 FunctionEnd
 
-; re-install a wireless profile and set the credentials flag if succeded
+; re-install a wireless profile and set the credentials flag if succeeded
 ; Profile counter is passed on stack and popped into $R0
 Function InstallProfile
     Pop $R0
@@ -967,7 +967,7 @@ Function InstallProfile
         nsArray::Get Profile_hs20 $R0
         Pop $R3
         ${If} $R3 == 1
-; this means that we have a HS 2.0 - only profile, we need to ingore the error as it
+; this means that we have a HS 2.0 - only profile, we need to ignore the error as it
 ; can be caused by an old card and we do not change the state of profile_fail
             Push ${PROFILE_STATE_IGNORE}
             Pop $profile_result
@@ -975,13 +975,13 @@ Function InstallProfile
 ;            nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_IGNORE}
         ${EndIf}
         ${If} $R3 == 2
-; this means that the HS 2.0 profile can also contan SSIDs so we need to check if the system 
+; this means that the HS 2.0 profile can also contain SSIDs so we need to check if the system 
 ; created also nohs profiles, and if so - use one. For the time being we set the IGNORE
             Push ${PROFILE_STATE_IGNORE}
             Pop $profile_result
             IfFileExists "$TEMP\nohs_wlan_prof-$R0.xml" 0 noInstall
 ; the nohs profile exists so we try to use that
-            !insertmacro debug_cat 1 "Retrying installtion with the non-hs profile"
+            !insertmacro debug_cat 1 "Retrying installation with the non-hs profile"
             !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml"
             nsArray::Set Commands "netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml" 
             nsArray::Set Commands "del $TEMP\nohs_wlan_prof-$R0.xml"
@@ -989,7 +989,7 @@ Function InstallProfile
             Pop $R4
             !insertmacro debug_cat 4 "netsh returned $R4"
             ${If} $R4 == 0
-                !insertmacro debug_cat 1 "The non-hs profile suceeded"
+                !insertmacro debug_cat 1 "The non-hs profile succeeded"
                 Push ${PROFILE_STATE_SUCCESS}
                 Pop $profile_result
             ${Else}

@@ -47,7 +47,7 @@ require_once "inc/click_button_js.php";
 // RADIUS status icons
 $radiusMessages = [
     \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
-    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
+    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occurred during profile update")],
     ];
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
@@ -300,7 +300,7 @@ $(document).on('click', '#realmcheck' , function() {
 
         $myfed = new \core\Federation($my_inst->federation);
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
-            // the button is grayed out if there's no support email address configured...
+            // the button is greyed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>
             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>

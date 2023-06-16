@@ -59,7 +59,7 @@ msgstr ""
 "conséquent, si votre établissement ne figure pas dans la liste, vous ne "
 "pouvez pas utiliser ce système. Veuillez contacter vos administrateurs "
 "d'établissement et essayez de les influencer pour qu'ils ajoutent votre "
-"configuration %sà <span class='edu_cat'>%s</span>."
+"configuration %s à <span class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:45
 #, php-format

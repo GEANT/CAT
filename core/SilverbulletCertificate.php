@@ -252,7 +252,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
      */
     public function getBasicInfo()
     {
-        $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
+        $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nonetheless
         foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type', 'annotation'] as $key) {
             $returnArray[$key] = $this->$key;
         }
@@ -327,7 +327,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
         $inst = new IdP($profile->institution);
         $loggerInstance->debug(5, "tokenStatus: done, got " . $invitationObject->invitationTokenStatus . ", " . $invitationObject->profile . ", " . $invitationObject->userId . ", " . $invitationObject->expiry . ", " . $invitationObject->invitationTokenString . "\n");
         if ($invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_VALID && $invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
-            throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
+            throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have got that far!");
         }
 
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert

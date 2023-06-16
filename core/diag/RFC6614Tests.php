@@ -415,7 +415,7 @@ class RFC6614Tests extends AbstractTest
      * 
      * @param array  $cert  (returned from openssl_x509_parse) 
      * @param string $field the field to search for
-     * @return string value of the extention named $field or ''
+     * @return string value of the extension named $field or ''
      */
     private function getCertificatePropertyField($cert, $field)
     {

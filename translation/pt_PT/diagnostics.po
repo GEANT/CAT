@@ -971,7 +971,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:88
 msgid ""
-"Have you ever used the network succesfully, e.g. at your home institution "
+"Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
 "Alguma vez usou a rede com sucesso, por exemplo, na sua instituição de "
@@ -983,7 +983,7 @@ msgstr ""
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
-"your device configuation is wrong. %s"
+"your device configuration is wrong. %s"
 msgstr ""
 "Se o seu dispositivo nunca funciono antes com esta configuração, então é "
 "muito provável que a configuração do dispositivo esteja errada. %s"
@@ -1312,7 +1312,7 @@ msgid "Diagnostics results for selected realms"
 msgstr "Resultados dos diagnósticos para os realms selecionados"
 
 #: web/skins/modern/diag/diag.php:575
-msgid "An unknown problem occured"
+msgid "An unknown problem occurred"
 msgstr "Ocorreu um problema desconhecido"
 
 #: web/skins/modern/diag/diag.php:578
@@ -1758,12 +1758,12 @@ msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Teste realizado com sucesso.</strong>"
 
 #: web/diag/radius_tests.php:177
-msgid "<strong>Test partially successful</strong>: authentication succeded."
+msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 "<strong>Teste parcialmente bem sucedido</strong>: autenticação com sucesso."
 
 #: web/diag/radius_tests.php:180
-msgid "<strong>Test FAILED</strong>: authentication succeded."
+msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr "<strong>Teste FALHOU</strong>: autenticação bem sucedida."
 
 #: web/diag/radius_tests.php:185
@@ -2025,5 +2025,5 @@ msgid "See details"
 msgstr "Ver detalhes"
 
 #: web/skins/modern/diag/js/diag_js.php:436
-msgid "If you want to report your problem, fill fields bellow."
+msgid "If you want to report your problem, fill fields below."
 msgstr "Caso queira relatar o seu problema, preencha os campos abaixo."

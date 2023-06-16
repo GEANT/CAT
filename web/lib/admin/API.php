@@ -78,7 +78,7 @@ class API {
     const ERROR_MALFORMED_REQUEST = 8;
 
     /**
-     * An internal error occured and the requested action could not be
+     * An internal error occurred and the requested action could not be
      *  performed.
      */
     const ERROR_INTERNAL_ERROR = 9;
@@ -520,7 +520,7 @@ class API {
     }
 
     /**
-     * extracts the first occurence of a given parameter name from the set of inputs
+     * extracts the first occurrence of a given parameter name from the set of inputs
      * 
      * @param array  $inputs   incoming set of arrays
      * @param string $expected attribute that is to be extracted

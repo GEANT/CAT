@@ -2,7 +2,7 @@ Mapping CAT device options into Supplicant Configuration
 ========================================================
 
 Many of the options that an IdP administrator can configure in CAT are
-self-explanatory and directly map to configuration proprties in supplicants;
+self-explanatory and directly map to configuration properties in supplicants;
 e.g. adding an EAP type "EAP-TTLS" in the admin interface means the EAP type
 TTLS should be configured in the supplicant.
 
@@ -73,7 +73,7 @@ maximum helpfulness, the cursor should be placed at the start of the input field
 to allow the user to start typing right away.
 
 This option should also limit the user input, so that the realm cannot be
-changed even if the inteface allows editing.
+changed even if the interface allows editing.
  
 It is only possible to select this checkbox if Realm has been populated by the
 IdP administrator.

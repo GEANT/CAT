@@ -122,7 +122,7 @@ Translations are done on the third-party platform Transifex. The CAT team
 homepage is here: https://www.transifex.com/eduroam_devel/
 
 New languages are accepted into the releases according to the following rule:
-end-user visible areas need to be fully translated (language catalogs "core",
+end-user visible areas need to be fully translated (language catalogues "core",
 "web_user" and "devices". Once a language is included in any patchlevel release
 of a given "major.minor" release train it will continue to be included even if
 translation completeness drops below 100% for these end-user facing areas. When
@@ -187,7 +187,7 @@ are reviewed by a Dev team member.
 
 Build, Delivery and Deployment
 ------------------------------
-CAT does not follow the Continous Deployment paradigm. Releases are 
+CAT does not follow the Continuous Deployment paradigm. Releases are 
 traditionally packaged "tarball" style releases, deployed manually.
 
 Deployment is following DevOps paradigms where the Dev part of the team prepares

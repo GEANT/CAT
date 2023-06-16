@@ -224,7 +224,7 @@ class PageDecoration extends \core\common\Entity {
     /**
      * 
      * @param string  $pagetitle    Title of the page to display
-     * @param boolean $authRequired does the user need to be autenticated to access this page?
+     * @param boolean $authRequired does the user need to be authenticated to access this page?
      * @return string
      */
     public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {

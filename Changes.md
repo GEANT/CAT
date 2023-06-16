@@ -89,7 +89,7 @@ Changes in 2.0.2
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
                 Apple installer, only then do they actually work
 - [BUGFIX  #3]  the admin API action ENDUSER-IDENTIFY now only returns the 
-                correct result set, not additional garbage afterwards
+                correct result set, not additional rubbish afterwards
 - [BUGFIX  #4]  mailto: links are now created correctly on main download page
 - [BUGFIX  #5]  importing silverbullet users with CSV now operational again
 
@@ -197,7 +197,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 - [FEATURE #1]  UserAPI redone. Instead of the "id" as a common argument we now use
                 meaningful names, like idp, profile, device etc.
                 To get the new behaviour you need to set api_version argument to 2.
-- [FEATURE #2]  added createTemporaryDirectory to the Helper to avoind using the came code in several places
+- [FEATURE #2]  added createTemporaryDirectory to the Helper to avoid using the came code in several places
 - [FEATURE #3]  configuration tests rebuilt and extended
 - [FEATURE #4]  realm checks are saved in DB and results shown on federation 
                 overview page
