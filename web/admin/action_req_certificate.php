@@ -78,6 +78,7 @@ $langObject = new \core\common\Language();
         }
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
         $policies = [];
+        $externalDb = new \core\ExternalEduroamDBData();
         switch ($_POST['LEVEL'] ?? "") {
             case "NRO":
                 if ($user->isFederationAdmin($_POST['NRO-list']) === FALSE) {
@@ -87,7 +88,6 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
-                $externalDb = new \core\ExternalEduroamDBData();
                 $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
                 $serverList = explode(",", array_key_first($serverInfo));
                 $DN[] = "CN=".$serverList[0];
@@ -200,7 +200,10 @@ $langObject = new \core\common\Language();
             foreach ($feds as $oneFed) {
                 $fedObject = new \core\Federation($oneFed['value']);
                 foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-                    $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
+                    $extID = $oneIdP['instance']->getExternalDBId();
+                    if ($extID !== FALSE) {
+                    $allIdPs[$oneIdP['entityID']] = "[$extID] ".$oneIdP["title"];
+                    }
                 }
             }
             foreach ($allIdPs as $id => $name) {
