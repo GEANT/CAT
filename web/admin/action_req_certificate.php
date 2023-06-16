@@ -173,7 +173,9 @@ $langObject = new \core\common\Language();
         <?php
         switch (count($feds)) {
             case 0:
-                echo "<strong>" . _("None of your NRO servers has complete information in the database.") . "</strong><br/>" . ("At least the DNS names of TLS servers and a role-based contact mail address are required.");
+                echo "<div>";
+                echo $uiElements->boxRemark("<strong>" . sprintf(_("None of your %s servers has complete information in the database."),$uiElements->nomenclatureFed)."</strong>" . _("At least the DNS names of TLS servers and a role-based contact mail address are required."));
+                echo "</div>";
                 break;
             case 1:
                 echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
@@ -199,6 +201,7 @@ $langObject = new \core\common\Language();
                 $allIdPs[$id] = "[$id] " . $oneIdP["title"];
             }
         }
+        if (count($allIdPs) > 0) {
         ?>
         <br/>
         <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
@@ -210,13 +213,25 @@ foreach ($allIdPs as $id => $name) {
 }
 ?>
         </select>
+        <?php
+        } else {
+            echo "<div>";
+            echo $uiElements->boxRemark(sprintf(_("<strong>No organisation inside your %s has complete information in the database</strong>."." "._("At least the DNS names of TLS servers and a role-based contact mail address are required.")),$uiElements->nomenclatureFed), "No TLS capable org!", true);
+            echo "</div>";
+        }
+        ?>
         <br/>
+        <?php
+        if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
         <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
         <h2><?php echo _("3. Submission"); ?></h2>
 <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
+    <?php
+        }
+        ?>
 </form>
 <form action="overview_certificates.php" method="POST">
     <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
