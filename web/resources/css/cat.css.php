@@ -41,7 +41,7 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    padding-start: 0px;
+    padding-<?php echo $start;?>: 0px;
     min-width: 700px;
     font-size: 11px;
     font-weight: normal;
@@ -93,14 +93,14 @@ button.delete {
 }
 
 .problemdescription {
-    padding-start:40px;
+    padding-<?php echo $start;?>:40px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: lightyellow;
 }
 
 .problemsolution {
-    padding-start:40px;
+    padding-<?php echo $start;?>:40px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: lightgreen;
@@ -190,14 +190,14 @@ div.consortium_logo {
     position: absolute;
     top:0;
     <?php echo $end;?>:0;
-    padding-end:20px;
+    padding-<?php echo $end;?>:20px;
     padding-top:7px;
 }
 
 div.sidebar {
     display: inline;
     float: <?php echo $end;?>;
-    padding-end: 20px;
+    padding-<?php echo $end;?>: 20px;
 }
 div.sidebar a {
     color: white;
@@ -206,7 +206,7 @@ div.sidebar a {
 div.header {
     height: 54px;
     background: #FFFFFF;
-    padding-start:30px;
+    padding-<?php echo $start;?>:30px;
     padding-bottom: 10px;
     color: <?php echo $colour2?>;
 }
@@ -216,8 +216,8 @@ div.pagecontent {
     top: 54px;
     bottom: 50px;
     padding-top: 10px;
-    padding-start: 0px;
-    padding-end: 0px;
+    padding-<?php echo $start;?>: 0px;
+    padding-<?php echo $end;?>: 0px;
     width:100%;
 }
 
@@ -231,13 +231,12 @@ div.pagecontent div.trick {
     color: #FFFFFF;
     min-height:100px;
     overflow: auto;
-    padding-start:20px'
+    padding-<?php echo $start;?>:20px'
 }
 
 #thirdrow {
-    margin: 10px;
-    padding-start: 10px;
-    padding-end: 10px;
+    padding-<?php echo $start;?>: 10px;
+    padding-<?php echo $end;?>: 10px;
 }
 
 div.footer {
@@ -251,7 +250,7 @@ div.footer {
 }
 
 div.footer span {
-   padding-start: 20px;
+   padding-<?php echo $start;?>: 20px;
 }
 
 div.footer table {
@@ -260,7 +259,7 @@ div.footer table {
 
 
 div.footer table td {
-    padding-end:20px; 
+    padding-<?php echo $end;?>:20px; 
     vertical-align:top;
 }
 
@@ -468,7 +467,7 @@ table.authrecord tr.auth-fail {
 }
 
 table.authrecord td {
-    padding-end: 10px;
+    padding-<?php echo $end;?>: 10px;
 }
 
 p.MOTD {
@@ -518,7 +517,7 @@ p.MOTD {
     border-top-width:5px; 
     border-bottom-width:5px; 
     border-color: <?php echo $colour1;?>; 
-    padding-start:30px;
+    padding-<?php echo $start;?>:30px;
 }
 
 .no_borders button.disabledDevice {
@@ -573,8 +572,8 @@ td.vendor img {
 
 .signin_large {
     vertical-align: top;
-    padding-start:20px;
-    padding-end:20px;
+    padding-<?php echo $start;?>:20px;
+    padding-<?php echo $end;?>:20px;
     color: #bfd5dc;
     font-size: 20px;
 }
@@ -602,8 +601,8 @@ td.vendor img {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
-    padding-start: 5px;
-    padding-end: 5px;
+    padding-<?php echo $start;?>: 5px;
+    padding-<?php echo $end;?>: 5px;
     padding-top: 1px;
     padding-bottom: 1px;
     position: relative;
@@ -636,23 +635,23 @@ td.vendor img {
 }
 
 #user_info {
-    padding-start: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     font-size: 11px;  
     font-weight: normal; 
 }
 
 #user_welcome {
     background: #ffffff;
-    padding-start: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     padding-top: 20px; 
-    padding-end: 180px;
+    padding-<?php echo $end;?>: 180px;
     font-size: 12px;  
     font-weight: normal; 
 }
 
 #devices {
     z-index:90;
-    padding-start: 30px;
+    padding-<?php echo $start;?>: 30px;
     font-size: 11px;  
     font-weight: normal;
     position: relative;
@@ -660,15 +659,15 @@ td.vendor img {
 
 #profile_list {
     width: 30em; 
-    padding-start: 10px; 
-    padding-end: 0px; 
+    padding-<?php echo $start;?>: 10px; 
+    padding-<?php echo $end;?>: 0px; 
     background: <?php echo $colour2;?>; 
     color: white; 
     box-shadow: 10px 10px 5px #888888;
 }
 
 #profile_redirect {
-    padding-start: 30px;
+    padding-<?php echo $start;?>: 30px;
     padding-top: 20px;
     font-size: 11px;
     font-weight: normal;
@@ -678,13 +677,13 @@ td.vendor img {
 }
 
 #profiles {
-    padding-start: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     font-size: 11px; 
     padding-bottom: 10px 
 }
 
 #signin {
-    padding-start: 30px;
+    padding-<?php echo $start;?>: 30px;
     padding-top: 10px;
 }
 
@@ -708,7 +707,7 @@ td.vendor img {
     font-size: 14px; 
     padding-top: 4px; 
     padding-bottom: 12px; 
-    padding-start: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     background: <?php echo $colour1;?>; 
     text-align: start; 
     text-shadow: 10px 10px 5px #888888;
@@ -720,7 +719,7 @@ td.vendor img {
     border-top-width:5px;
     border-bottom-width:5px;
     border-color: <?php echo $colour1;?>;
-    padding-start:30px;
+    padding-<?php echo $start;?>:30px;
     color: <?php echo $colour2;?>;
 }
 
@@ -736,7 +735,7 @@ td.vendor img {
 
 #welcome {
     padding: 20px;
-    padding-start: 30px;
+    padding-<?php echo $start;?>: 30px;
     text-align: justify;
     border-bottom-style:solid;
     border-bottom-width:5px;
@@ -750,13 +749,13 @@ td.vendor img {
                     position: relative;
                     top: 15px;
                     <?php echo $start;?>: 0px;
-                    padding:10px; padding-start:20px; padding-end:20px;
+                    padding:10px; padding-<?php echo $start;?>:20px; padding-<?php echo $end;?>:20px;
                     background: #f0f0f0;
                     border: 1px solid #dddddd;
                     margin-start: 25px;
-                    padding-start: 25px;
+                    padding-<?php echo $start;?>: 25px;
                     margin-end: 25px;
-                    padding-end: 25px;
+                    padding-<?php echo $end;?>: 25px;
                     padding-bottom: 10px;
                     vertical-align: top;
                     box-shadow: 5px 5px 5px #666666;
@@ -880,7 +879,7 @@ td.vendor img {
     height:100%;
     border-spacing:0; 
     border-collapse:collapse;
-    padding-start:200px;
+    padding-<?php echo $start;?>:200px;
     padding-top:10px;
 }
 
@@ -889,7 +888,7 @@ td.vendor img {
     border-color: <?php echo $colour1;?>; 
     border-width:5px; 
     min-height:400px; 
-    padding-start: 10px; 
+    padding-<?php echo $start;?>: 10px; 
     vertical-align:top; 
     width:110px; 
     padding-top:30px;
@@ -899,8 +898,8 @@ td.vendor img {
     vertical-align: top;
     height:280px;
     background: #fff;
-    padding-start: 20px;
-    padding-end: 20px;
+    padding-<?php echo $start;?>: 20px;
+    padding-<?php echo $end;?>: 20px;
 }
 
 #user_button_td {
@@ -954,13 +953,13 @@ table.user_overview  {
 table.user_overview th {
     text-align: start;  
     background: #f0f0f0;
-    padding-start: 4px;
-    padding-end: 4px;
+    padding-<?php echo $start;?>: 4px;
+    padding-<?php echo $end;?>: 4px;
 }
 table.user_overview td {
     border-top-style: none;
-    padding-start: 4px;
-    padding-end: 4px;
+    padding-<?php echo $start;?>: 4px;
+    padding-<?php echo $end;?>: 4px;
     padding-top: 0px;
     height: 25px;
 }
@@ -979,8 +978,8 @@ table.user_overview td:first-child {
 
 #download_info {
    background: #f0f0f0;
-   padding-start: 20px;
-   padding-end: 20px;
+   padding-<?php echo $start;?>: 20px;
+   padding-<?php echo $end;?>: 20px;
    padding-top:3px;
    padding-bottom:3px;
 }
