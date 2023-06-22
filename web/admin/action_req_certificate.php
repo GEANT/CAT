@@ -27,7 +27,6 @@
 ?>
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
@@ -107,7 +106,7 @@ $langObject = new \core\common\Language();
                 break;
             case "INST":
                 $matches = [];
-                preg_match('^\[([A-Z][A-Z])\]', $_POST['INST-list'], $matches);
+                preg_match('/^([A-Z][A-Z]).*\-.*/', $_POST['INST-list'], $matches);
                 $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
                 if ($user->isFederationAdmin($matches[1]) === FALSE) {
                     throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
@@ -115,7 +114,12 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($matches[1]);
                 $DN[] = "C=$country";
                 $serverInfo = $extInsts[$_POST['INST-list']];
-                $DN[] = "O=" . $serverInfo["names"][0];
+                if (isset($serverInfo["names"]["en"])) {
+                    $ou = $serverInfo["names"]["en"];
+                } else {
+                    $ou = $serverInfo["names"][$langInstance->getLang()];
+                }
+                $DN[] = "O=$ou";
                 $serverList = explode(",", $serverInfo["servers"]);
                 $DN[] = "CN=" . $serverList[0];
                 switch ($serverInfo["type"]) {
@@ -186,10 +190,12 @@ $langObject = new \core\common\Language();
                 echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 ?>
                 <select name="NRO-list" id="NRO-list">
-                    <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
+                    <option value="notset"><?php echo _("---PPPLEASE CHOOSE---"); ?></option>
                     <?php
                     foreach ($feds as $oneFed) {
-                        echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                        #echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                        echo '<option value="AAA' . strtoupper($oneFed->tld) . '">' . $oneIdP["names"][$langObject->getLang()] . "</option>";
+                        
                     }
                     ?>
                 </select>
@@ -198,7 +204,7 @@ $langObject = new \core\common\Language();
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
-                $allIdPs[$id] = "[$id] " . $oneIdP["title"];
+                $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["names"][$langObject->getLang()];
             }
         }
         if (count($allIdPs) > 0) {

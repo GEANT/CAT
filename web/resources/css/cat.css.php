@@ -235,6 +235,7 @@ div.pagecontent div.trick {
 }
 
 #thirdrow {
+    margin: 10px;
     padding-start: 10px;
     padding-end: 10px;
 }
