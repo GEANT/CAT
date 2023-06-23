@@ -173,7 +173,7 @@ $langObject = new \core\common\Language();
     // if we did not get a SAVE button, display UI for a fresh request instead
     ?>
     <h2><?php echo _("1. Certificate Holder Details"); ?></h2>
-    <form action="action_req_certificate.php" method="POST">
+    <form action="action_req_certificate.php" onsubmit="check_csr();" method="POST">
         <?php
         switch (count($feds)) {
             case 0:
@@ -234,13 +234,49 @@ foreach ($allIdPs as $id => $name) {
         <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
         <h2><?php echo _("3. Submission"); ?></h2>
 <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
-    <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
+    <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"></td><?php echo _("Send request"); ?></button>
     <?php
         }
         ?>
 </form>
+    <div style="margin-left:50em">
 <form action="overview_certificates.php" method="POST">
     <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
 </form>
+    </div>
 <?php
 echo $deco->footer();
+?>
+<script type="text/javascript">
+    function check_csr() {
+        var ok = true;
+        var level = $("input[type='radio'][name='LEVEL']:checked").val();
+        if (level == 'INST') { 
+          var inst = document.getElementById('INST-list').value;
+          if (inst == 'notset') {
+              alert('You have to choose organisation!');
+              ok = false;
+          }
+        }
+        var csr = document.getElementById('CSR').value;
+        if (csr == '') {
+            alert('Your CSR is empty!');
+            ok = false;
+        } else {
+            if (!csr.startsWith('-----BEGIN CERTIFICATE REQUEST-----')) {
+                alert('The CSR must start with -----BEGIN CERTIFICATE REQUEST-----');
+                ok = false;
+            } else {
+                if (!csr.endsWith('-----END CERTIFICATE REQUEST-----')) {
+                    alert('The CSR must end with -----END CERTIFICATE REQUEST-----');
+                    ok = false;
+                }
+            }
+        }
+        if (!ok) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
