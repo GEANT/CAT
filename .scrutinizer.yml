@@ -108,7 +108,7 @@ build:
         analysis:
             environment:
                 php:
-                    version: 8.0.22
+                    version: 8.1.20
             project_setup:
                 override: true
             tests:
@@ -123,7 +123,7 @@ build:
                     TEST_LANGUAGE_VARIANTS: 1
                     DEBIAN_FRONTEND: 'noninteractive'
                 php:
-                    version: 8.0.22
+                    version: 8.1.20
                 hosts:
                     ci.test: 127.0.0.1
                 apache2:
