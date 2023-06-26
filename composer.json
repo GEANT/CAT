@@ -14,5 +14,10 @@
         "chillerlan/php-qrcode": "^4.3",
         "pear/net_dns2": "^1.5",
         "components/jquery": "^3.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "simplesamlphp/composer-module-installer": true
+        }
     }
 }
