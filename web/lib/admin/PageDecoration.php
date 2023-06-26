@@ -267,35 +267,39 @@ class PageDecoration extends \core\common\Entity {
      * 
      * @return string
      */
+    
     public function footer() {
         $cat = new \core\CAT();
         \core\common\Entity::intoThePotatoes();
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
-        <div class='footer'>
-            <table style='width:100%'>
-                <tr>
-                    <td style='padding-".$this->start.":20px; padding-".$this->end.":20px; text-align:".$this->start."; vertical-align:top;'>
-                        " . $cat->catCopyright . "</td>";
-        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
-            $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
-        }
-        $retval .= "            <td style='padding-".$this->start.":80px; padding-".$this->end.":20px; text-align:".$this->end."; vertical-align:top;'>";
+<div class='footer' id='footer'>
+    <table>
+        <tr>
+            <td>" .
+                $cat->catVersion
+               ."
+            </td>";
 
-        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td>".$cat->catCopyrifhtAndLicense."<br><span id='privacy_notice_cons'>".\config\ConfAssistant::CONSORTIUM['display_name']."</span> <a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), '')."</a></td>";
+        }
+        $retval .= "<td>";
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";
         }
+
         $retval .= "
-                    </td>
-                </tr>
-            </table>
+            </td>
+        </tr>
+    </table>
         </div><!-- footer -->
         </div><!-- maincontent -->
         </body>
         </html>";
-        \core\common\Entity::outOfThePotatoes();
+    \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

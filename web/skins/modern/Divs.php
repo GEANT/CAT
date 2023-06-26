@@ -345,7 +345,7 @@ class Divs {
             </td>";
 
         if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
-            $retval .= "<td>".$this->Gui->catCopyrifhtAndLicense."<br><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name'])."</a></td>";
+              $retval .= "<td>".$this->Gui->catCopyrifhtAndLicense."<br><span id='privacy_notice_cons'>".\config\ConfAssistant::CONSORTIUM['display_name']."</span> <a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), '')."</a></td>";
         }
         $retval .= "<td>";
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {

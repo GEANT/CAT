@@ -81,6 +81,10 @@ class CAT extends \core\common\Entity
      * @var string
      */
     public $catCopyright;
+    
+    public $catVersion;
+    
+    public $catCopyrifhtAndLicense;
 
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
@@ -105,7 +109,8 @@ class CAT extends \core\common\Entity
         parent::__construct();
         common\Entity::intoThePotatoes();
 
-        $this->catVersionString = sprintf(_("Unreleased %s Git Revision"), "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>") . "</a>";
+        $this->catVersionString = sprintf("Unreleased %s Git Revision"    , "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>") . "</a>";
+
         if (CAT::RELEASE_VERSION) {
             $major = CAT::VERSION_MAJOR;
             $minor = CAT::VERSION_MINOR;
@@ -119,7 +124,8 @@ class CAT extends \core\common\Entity
             if (CAT::VERSION_EXTRA != "") {
                 $temp_version .= "-$extra";
             }
-            $this->catVersionString = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
+            $this->catVersionString = sprintf("Release <a href='%s'>%s</a>", "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
+
         }
         $product = \config\Master::APPEARANCE['productname'];
         $minYear = self::COPYRIGHT_MIN_YEAR;
@@ -127,7 +133,8 @@ class CAT extends \core\common\Entity
         $holder = self::COPYRIGHT_HOLDER;
         $consortia = self::COPYRIGHT_CONSORTIA;
         $this->catCopyright = "$product - " . $this->catVersionString . " &copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-
+        $this->catCopyrifhtAndLicense = "&copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->catVersion = "$product<br>" . $this->catVersionString;
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
