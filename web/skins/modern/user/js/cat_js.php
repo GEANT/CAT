@@ -100,6 +100,7 @@ const guiTexts = {
   "openRoamingDisabled": "<?php $cat->javaScriptEscapedEcho(_("OpenRoaming is not supported on this device")) ?>",
   "downloadAnother": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_CHOOSE_ANOTHER]) ?>",
   "downloadFor": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_FOR_MESSAGE]) ?>",
+  "eduroam": "<?php $cat->javaScriptEscapedEcho(_(\config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
   "eduroamOnly": "<?php $cat->javaScriptEscapedEcho(_("eduroam only")) ?>",
   "eduroamAndOR": "<?php $cat->javaScriptEscapedEcho(_("eduroam and OpenRoaming")) ?>",
 };
@@ -404,7 +405,7 @@ function resetOpenRoaming(mainOs, hs20) {
   $("#g_or_"+mainOs).hide();
   switch (openroaming) {
     case 'none':
-      $("#download_button_header_"+mainOs).html("eduroam");
+      $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
       $("#g_"+mainOs).show();
       $("#g_or_"+mainOs).hide();
       break;
@@ -418,7 +419,7 @@ function resetOpenRoaming(mainOs, hs20) {
         $("#g_"+mainOs).show();
         $("#g_or_"+mainOs).show();
       } else {
-          $("#download_button_header_"+mainOs).html("eduroam");        
+          $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
       }
       $("#g_"+mainOs).show();
       break;
@@ -433,7 +434,7 @@ function resetOpenRoaming(mainOs, hs20) {
         $("#g_or_"+mainOs).show();
       } else {
         $("#openroaming_tou").hide();
-        $("#download_button_header_"+mainOs).html("eduroam");
+        $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
         $("#g_"+mainOs).show();
       }
       break; 
