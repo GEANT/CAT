@@ -100,9 +100,9 @@ const guiTexts = {
   "openRoamingDisabled": "<?php $cat->javaScriptEscapedEcho(_("OpenRoaming is not supported on this device")) ?>",
   "downloadAnother": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_CHOOSE_ANOTHER]) ?>",
   "downloadFor": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_FOR_MESSAGE]) ?>",
-  "eduroam": "<?php $cat->javaScriptEscapedEcho(_(\config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
-  "eduroamOnly": "<?php $cat->javaScriptEscapedEcho(_("eduroam only")) ?>",
-  "eduroamAndOR": "<?php $cat->javaScriptEscapedEcho(_("eduroam and OpenRoaming")) ?>",
+  "consortium": "<?php $cat->javaScriptEscapedEcho(_(\config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
+  "consortiumOnly": "<?php $cat->javaScriptEscapedEcho(sprintf(_("%s only"), \config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
+  "consortiumAndOR": "<?php $cat->javaScriptEscapedEcho(sprintf(_("%s and OpenRoaming"), \config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
 };
 
 var discoTextStrings = {
@@ -405,7 +405,7 @@ function resetOpenRoaming(mainOs, hs20) {
   $("#g_or_"+mainOs).hide();
   switch (openroaming) {
     case 'none':
-      $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
+      $("#download_button_header_"+mainOs).html(guiTexts.consortium);
       $("#g_"+mainOs).show();
       $("#g_or_"+mainOs).hide();
       break;
@@ -415,26 +415,26 @@ function resetOpenRoaming(mainOs, hs20) {
         $("#or_text_2").html(guiTexts.openRoamingText3);
         $("#g_"+mainOs).show();
         handlePreagreed();
-        $("#download_button_header_"+mainOs).html(guiTexts.eduroamOnly);
+        $("#download_button_header_"+mainOs).html(guiTexts.consortiumOnly);
         $("#g_"+mainOs).show();
         $("#g_or_"+mainOs).show();
       } else {
-          $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
+          $("#download_button_header_"+mainOs).html(guiTexts.consortium);
       }
       $("#g_"+mainOs).show();
       break;
     case 'always':
       if (hs20 == "1") {
-        $("#download_button_header_"+mainOs).html(guiTexts.eduroamAndOR);
+        $("#download_button_header_"+mainOs).html(guiTexts.consortiumAndOR);
         $("#or_text_1").html(guiTexts.openRoamingText2);
         $("#or_text_2").html(guiTexts.openRoamingText4);
         handlePreagreed();
         $("#g_"+mainOs).hide();
-        $("#download_button_header_"+mainOs).html(guiTexts.eduroamAndOR);
+        $("#download_button_header_"+mainOs).html(guiTexts.consortiumAndOR);
         $("#g_or_"+mainOs).show();
       } else {
         $("#openroaming_tou").hide();
-        $("#download_button_header_"+mainOs).html(guiTexts.eduroam);
+        $("#download_button_header_"+mainOs).html(guiTexts.consortium);
         $("#g_"+mainOs).show();
       }
       break; 
@@ -643,13 +643,13 @@ function updateGuessOsDiv(device) {
       div1 = "<div>\
           <div class='button_wrapper'>\
             <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
-              <div class='download_button_text_1' id='download_button_header_"+device.id+"'>"+guiTexts.eduroamOnly+"\
+              <div class='download_button_text_1' id='download_button_header_"+device.id+"'>"+guiTexts.consortiumOnly+"\
               /div>\
             </button>\
           </div>\
           <div class='button_wrapper'>\
             <button name='"+device.id+"' class='guess_os dev_or' id='g_or_"+device.id+"'>\
-              <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>"+guiTexts.eduroamAndOR+"\
+              <div name='"+device.id+"' class='download_button_text_1' id='download_button_or_header_"+device.id+"'>"+guiTexts.consortiumAndOR+"\
               </div>\
             </button>\
           </div>\
