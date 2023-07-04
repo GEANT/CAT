@@ -594,7 +594,7 @@ abstract class DeviceConfig extends \core\common\Entity
         $ssids = $this->getConfigSSIDs();
         $ois = $this->getConfigOIs();
         $networks = [];
-        $realm = $this->realm === NULL ? \config\ConfAssistant::CONSORTIUM['CONSORTIUM']['interworking-domainname-fallback'] : $this->realm;
+        $realm = $this->realm === NULL ? \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'] : $this->realm;
         foreach (\config\ConfAssistant::CONSORTIUM['networks'] ?? [] as $netName => $netDetails) {
             $netName = preg_replace('/%REALM%/', $this->realm, $netName);
             // only add network blocks if their respective condition is met in this profile
