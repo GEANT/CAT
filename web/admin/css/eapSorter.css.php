@@ -21,6 +21,9 @@
 
 // we need to know if we are serving a RTL language so we can flip some heading
 // items
+header("Content-Type:text/css");
+require_once dirname(dirname(dirname(__DIR__))) . "/config/_config.php";
+
 $langInstance = new core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";

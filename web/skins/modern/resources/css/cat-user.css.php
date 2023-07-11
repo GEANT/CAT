@@ -18,6 +18,7 @@
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
  */
+header("Content-Type:text/css");
 require dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . "/config/_config.php";
 $langInstance = new core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
@@ -566,30 +567,33 @@ span.user_info_header {
     padding-top:5px;
     padding-bottom:10px;
     border-top: 1px solid #000;
+    direction:ltr;
 }
 
 div.footer table {
     width: 100%;
+    direction:ltr;
 }
 
 div.footer table td {
-    padding-<?php echo $end ?>:20px; 
-    padding-<?php echo $start ?>:20px; 
+    padding-<?php echo $end ?>:10px; 
+    padding-<?php echo $start ?>:10px; 
     vertical-align:top;
     position: relative;
+    direction:ltr;
 }
 
 
 #eu_text {
-text-align:<?php echo $end ?>;
-padding-<?php echo $start ?>: 60px;
+text-align: right;
+padding-left: 60px;
 display: block;
 }
 
 #eu_text a {
 text-decoration:none;
 vertical-align:top;
-text-align: <?php echo $end ?>;
+text-align: right;
 }
 
 #open_roam_cond {
@@ -1356,7 +1360,7 @@ a.signin {
 
 #logos {
     position: absolute;
-<?php echo $start ?>: 0px;
+    left : 0px;
 }
 
 #select_another {

@@ -239,7 +239,7 @@ div.pagecontent div.trick {
     padding-<?php echo $end;?>: 10px;
 }
 
-div.footer {
+#footer {
     width: 100%;
     <?php echo $start;?>: 0;
     <?php echo $end;?>: 0;
@@ -247,20 +247,21 @@ div.footer {
     position: absolute;
     background: white;
     border-top: 1px solid #000;
+    direction: ltr;
 }
 
-div.footer span {
-   padding-<?php echo $start;?>: 20px;
-}
 
-div.footer table {
+#footer table {
     width: 100%;
+    direction: ltr;
 }
 
 
-div.footer table td {
-    padding-<?php echo $end;?>:20px; 
+#footer table td {
+    padding-left:10px; 
+    padding-right:10px; 
     vertical-align:top;
+    direction: ltr;
 }
 
 div.maincontent {
