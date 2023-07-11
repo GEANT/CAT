@@ -18,6 +18,7 @@
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
  */
+header("Content-Type:text/css");
 require dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . "/config/_config.php";
 $langInstance = new core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
