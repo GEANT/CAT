@@ -108,7 +108,7 @@ class Language
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $recoverLang = htmlspecialchars($_GET['lang']) ?? htmlspecialchars($_POST['lang']);
+            $recoverLang = (!empty($_GET['lang']) ? htmlspecialchars($_GET['lang']) : htmlspecialchars($_POST['lang']));
             $langConverted[] = $recoverLang;
         }
         \core\CAT::sessionStart();
