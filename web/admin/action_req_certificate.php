@@ -159,7 +159,7 @@ $langObject = new \core\common\Language();
             "POLICIES" => $policies,
             "FED" => $country];
         // our certs can be good for max 5 years
-        $fed->requestCertificate($newCsrWithMeta, 1825);
+        $fed->requestCertificate($user->identifier, $newCsrWithMeta, 1825);
         echo "<p>" . _("The certificate was requested.") . "</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
