@@ -231,7 +231,15 @@ foreach ($allIdPs as $id => $name) {
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
+        <?php 
+        $is_testing = true;
+        if ($is_testing) {?>
         <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
+        <?php } else { ?>
+        <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=net/DC=geant/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
+        <?php
+        }
+        ?>
         <h2><?php echo _("3. Submission"); ?></h2>
 <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"></td><?php echo _("Send request"); ?></button>
