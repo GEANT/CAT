@@ -767,6 +767,10 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }
+        // institutions without a name are not really a corner case we should support
+        if (!isset($attribs['general:inst_name'])) {
+            $properConfig = FALSE;
+        }
         return $properConfig;
     }
 
