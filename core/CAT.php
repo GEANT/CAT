@@ -53,7 +53,7 @@ class CAT extends \core\common\Entity
      */
     public const VERSION_MAJOR = 2;
     public const VERSION_MINOR = 1;
-    public const VERSION_PATCH = 0;
+    public const VERSION_PATCH = 1;
     public const VERSION_EXTRA = "";
     private const RELEASE_VERSION = TRUE;
     private const USER_API_VERSION = 2;
