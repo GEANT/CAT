@@ -209,7 +209,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
-        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY -signer " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
+        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY " -signer " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
