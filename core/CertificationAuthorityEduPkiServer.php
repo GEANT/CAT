@@ -24,7 +24,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     #private const EDUPKI_CERT_PROFILE_IDP = "eduroam IdP";
     #private const EDUPKI_CERT_PROFILE_SP = "eduroam SP";
     #private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
-
+    #private const EDUPKI_ENDPOINT_PUBLIC = "https://pki.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1";
+    #private const EDUPKI_ENDPOINT_RA = "https://ra.edupki.org/edupki-ca/cgi-bin/ra/soap?wsdl=1";
     
     private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
     private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
@@ -34,6 +35,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     private const EDUPKI_CERT_PROFILE_IDP = "Radius Server SOAP";
     private const EDUPKI_CERT_PROFILE_SP = "Radius Server SOAP";
     private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
+    private const EDUPKI_ENDPOINT_PUBLIC = "https://pki.edupki.org/edupki-test-ca/cgi-bin/pub/soap?wsdl=1";
+    private const EDUPKI_ENDPOINT_RA = "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1";
 
     /**
      * sets up the environment so that we can talk to eduPKI
@@ -206,7 +209,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
-        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY -signer " . ROOT . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
@@ -374,11 +377,11 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         $url = "";
         switch ($type) {
             case "PUBLIC":
-                $url = "https://pki.edupki.org/edupki-test-ca/cgi-bin/pub/soap?wsdl=1";
+                $url = CertificationAuthorityEduPkiServer::EDUPKI_ENDPOINT_PUBLIC;
                 $context_params['ssl']['peer_name'] = 'pki.edupki.org';
                 break;
             case "RA":
-                $url = "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1";
+                $url = CertificationAuthorityEduPkiServer::EDUPKI_ENDPOINT_RA;
                 $context_params['ssl']['peer_name'] = 'ra.edupki.org';
                 break;
             default:
