@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Alberto Martínez Setién, 2019-2020,2022\n"
 "Language-Team: Spanish (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -811,7 +811,7 @@ msgstr ""
 "nombre que damos a tu 'identificador de usuario y contraseña' o a tu "
 "'certificado personal'). ¡Y ya estarás conectado!"
 
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+#: web/skins/modern/index.php:87 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Autenticando"
 
@@ -1181,8 +1181,8 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
-"Quiero usar OpenRoaming y he leído y aceptado <a href='%s' target='_blank'>"
-"%s</a>"
+"Quiero usar OpenRoaming y he leído y aceptado <a href='%s' "
+"target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:99
 #, php-format

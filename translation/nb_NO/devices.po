@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Håvard Ramberg, 2022\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://app.transifex.com/"
@@ -251,9 +251,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Dette installasjonsprogrammet er kun et eksempel. Det lager en zip fil "
-"inneholdende IdP sertifikatene, info og logo filer (om de er definert av IdP "
-"admin) og en dump av alle tilgjengelige attributter."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -791,10 +788,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Dette installasjonsprogrammet er kun et eksempel. Det oppretter en zip fil "
-"som inneholder IdP sertifikat, info og logo filer (om slike har blitt lagt "
-"til av IdP administrator) og en dump av alle tilgjengelige attributter. "
-"Informasjonen hentes ved konfigurasjon av %d SSID'er."
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1189,7 +1182,7 @@ msgstr ""
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
-msgstr "Installasjon av GEANTLink.$\\nEmbedded kunne ikke gjennomføres."
+msgstr ""
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"

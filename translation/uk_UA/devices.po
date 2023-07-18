@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2022\n"
 "Language-Team: Ukrainian (Ukraine) (http://app.transifex.com/eduroam_devel/"
@@ -254,9 +254,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Ця програма інсталяції є лише прикладом. Вона створює zip-файл, що містить "
-"сертифікати IdP, інформацію та файли логотипу (якщо такі були визначені "
-"адміністратором IdP) і список усіх доступних атрибутів."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -719,8 +716,8 @@ msgstr ""
 #, php-format
 msgid "This installer will only work properly if you are a member of %s."
 msgstr ""
-"Ця програма встановлення працюватиме належним чином, лише якщо ви є учасником"
-"%s."
+"Ця програма встановлення працюватиме належним чином, лише якщо ви є "
+"учасником%s."
 
 #: devices/ms/DeviceVista7.php:49 devices/ms/DeviceW8W10.php:59
 msgid ""
@@ -815,10 +812,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Цей інсталятор є лише прикладом. Він створює zip-файл, що містить "
-"сертифікати IdP, інформацію та файли логотипів (якщо такі були визначені "
-"адміністратором IdP) та список усіх доступних атрибутів. Інсталятор "
-"викликається за допомогою %dSSID для налаштування"
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1209,17 +1202,15 @@ msgid ""
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
 msgstr ""
-"Потрібно встановити додаткову частину програмного забезпечення \"GEANTlink"
-"\". Це встановлення вимагає прав адміністратора; вам буде запропоновано дати "
-"дозвіл на цю дію."
+"Потрібно встановити додаткову частину програмного забезпечення "
+"\"GEANTlink\". Це встановлення вимагає прав адміністратора; вам буде "
+"запропоновано дати дозвіл на цю дію."
 
 #: devices/ms/Files/geant_link.inc:107
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
 msgstr ""
-"Помилка встановлення GEANTLink.$\\n Вбудований інсталятор не завершився "
-"успішно."
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"

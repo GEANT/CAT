@@ -5,15 +5,15 @@
 # Translators:
 # Mohamed Al Hajri, 2022-2023
 # Raiya Al Rashdi <raiya@omren.om>, 2020-2023
-# Warda Al Habsi <mozartt33@gmail.com>, 2022
+# Warda Al Habsi <mozartt33@gmail.com>, 2022-2023
 # Warda Al Habsi <mozartt33@gmail.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2023\n"
+"Last-Translator: Warda Al Habsi <mozartt33@gmail.com>, 2022-2023\n"
 "Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
@@ -254,9 +254,8 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"برنامج التثبيت هذا هو مثال فقط. ينتج عنه ملف مضغوط يحتوي على شهادات الـIdP "
-"ومعلومات وملفات الشعار (إذا تم تحديد ذلك من قبل مسؤول IdP) وتفريغ جميع "
-"السمات المتاحة."
+"هذا المثبت هو مثال فقط. ينتج ملف مضغوط يحتوي على شهادات IdP ومعلومات وملفات "
+"الشعار (إذا تم تحديد ذلك من قبل مسؤول IdP) وتفريغ جميع الخصائق المتاحة."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -518,7 +517,7 @@ msgid ""
 msgstr ""
 "للاتصال بالشبكة ، ستحتاج إلى حساب من مؤسستك. يجب عليك الرجوع إلى صفحة الدعم "
 "لمعرفة كيفية الحصول على هذا الحساب. من المحتمل جدًا أن يكون حسابك قد تم "
-"تنشيطه بالفعل."
+"تفعيلة بالفعل."
 
 #: devices/linux/DeviceLinux.php:96 devices/linux/DeviceLinuxSh.php:97
 msgid ""
@@ -748,8 +747,9 @@ msgid ""
 "machine you want to configure and execute."
 msgstr ""
 "سيكون برنامج تثبيت %s على شكل ملف EXE. سيقوم بتهيئة %s على جهازك عن طريق "
-"إنشاء ملفات تعريف للشبكة اللاسلكية. <p> عند النقر فوق زر التنزيل ، سيتم حفظ "
-"المثبت بواسطة المتصفح الخاص بك. انسخه إلى الجهاز الذي تريد تهيئته وتنفيذه."
+"إنشاء ملفات تعريف للشبكة اللاسلكية. <p> عند النقر في زر التنزيل ، سيتم حفظ "
+"برنامج التثبيت بواسطة المتصفح الخاص بك. انسخه إلى الجهاز الذي تريد تهيئته "
+"وتنفيذه."
 
 #: devices/ms/WindowsCommon.php:232
 #, php-format
@@ -812,14 +812,14 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"هذا المثبت هو فقط كمثال، ينتج ملف مضغوط يحتوي على شهادات مزود الهوية "
-"ومعلومات وملفات الشعار (إذا تم تحديد ذلك من قبل مسؤول مزود الهوية) ومجموع "
-"البيانات المتاحة. يتم استدعاء المثبت مع %d SSID للضبط."
+"هذا المثبت هو مثال فقط. ينتج ملف مضغوط يحتوي على شهادات IdP ومعلومات وملفات "
+"الشعار (إذا تم تحديد ذلك من قبل مسؤول IdP) وتفريغ جميع الخصائص المتاحة. تم "
+"استدعاء المثبت بـ %d SSIDs للتهيئة."
 
 #: devices/ms/Files/common.inc:149
 #, php-format
 msgid "Welcome to the %s installer"
-msgstr "مرحبا بك في برنامج تثبيت %s"
+msgstr "مرحباً بك في برنامج تثبيت %s"
 
 #: devices/ms/Files/common.inc:150
 msgid "Installation complete"
@@ -839,7 +839,7 @@ msgstr "تثبيت الشبكة به أخطاء."
 
 #: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1002
 msgid "Please contact ${SUPPORT}."
-msgstr "يرجى التواصل ب${SUPPORT}"
+msgstr "يرجى التواصل ب{SUPPORT}$"
 
 #: devices/ms/Files/common.inc:160
 msgid "Accept"
@@ -956,7 +956,7 @@ msgstr "التحقق من الملف الشخصي R8 $"
 
 #: devices/ms/Files/common.inc:749
 msgid "found profile $R8"
-msgstr " $R8 وجد ملف التعريف"
+msgstr " وجد ملف التعريف R8 $ "
 
 #: devices/ms/Files/common.inc:778
 msgid ""
@@ -1029,7 +1029,7 @@ msgstr "خطأ في تثبيت ملف التعريف لـ  R1 $"
 
 #: devices/ms/Files/common.inc:1021
 msgid "deleting profile $R6"
-msgstr "حذف ملف التعريف $R6"
+msgstr "حذف ملف التعريف R6 $"
 
 #: devices/ms/Files/common.inc:1051
 msgid "installing credentials for wired"
@@ -1041,7 +1041,7 @@ msgstr "تثبيت بيانات اعتماد TLS"
 
 #: devices/ms/Files/common.inc:1148
 msgid "installing credentials for profile $R1"
-msgstr "تثبيت بيانات الاعتماد لملف التعريف R1 $"
+msgstr "تثبيت بيانات الاعتماد لملف التعريفR1 $"
 
 #: devices/ms/Files/common.inc:1168 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
@@ -1118,7 +1118,7 @@ msgid ""
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم الخاص بك على شكل 'xxx@institutionID' وينتهي ب "
-"'${REALM}'. يرجى إدخال اسم المستخدم بشكل صحيح."
+"'{REALM}$'. يرجى إدخال اسم المستخدم بشكل صحيح."
 
 #: devices/ms/Files/common.inc:1450
 msgid "User credentials"
@@ -1203,7 +1203,7 @@ msgstr ""
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
-msgstr "خطأ في تثبيت GEANTLink.$\\n المثبت المدمج لم يكمل العملية بنجاح."
+msgstr "خطأ في تنزيل GEANTLink.$\\n المثبت المتضمن لم يكتمل بنجاح."
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"

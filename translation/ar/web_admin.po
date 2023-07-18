@@ -5,14 +5,15 @@
 # Translators:
 # Mohamed Al Hajri, 2022-2023
 # Raiya Al Rashdi <raiya@omren.om>, 2021-2023
+# Warda Al Habsi <mozartt33@gmail.com>, 2023
 # Warda Al Habsi <mozartt33@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2021-2023\n"
+"Last-Translator: Warda Al Habsi <mozartt33@gmail.com>, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
@@ -85,108 +86,121 @@ msgid ""
 msgstr "ليس لديك الصلاحيات اللازمة لطلب NAPTR superglue zones."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s : إدارة شهادة RADIUS/TLS ل %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "إدارة شهادة RADIUS/TLS ل %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "ليس لديك الصلاحيات اللازمة لطلب شهادات الخادم."
 
-#: web/admin/action_req_certificate.php:112
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "طلب شهادة بالخصائص التالية"
 
-#: web/admin/action_req_certificate.php:114
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "سياسة OIDs:"
 
-#: web/admin/action_req_certificate.php:115
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "الاسم المميز:"
 
-#: web/admin/action_req_certificate.php:116
+#: web/admin/action_req_certificate.php:159
 msgid "subjectAltName:DNS : "
 msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:119
+#: web/admin/action_req_certificate.php:160
 msgid "Requester Contact Details: "
 msgstr "بيانات التواصل لمقدم الطلب:"
 
-#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "تم طلب الشهادة."
 
-#: web/admin/action_req_certificate.php:145
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "العودة إلى الملخص العام للشهادة"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:154
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. تفاصيل مالك الشهادة"
 
-#: web/admin/action_req_certificate.php:156
-#: web/admin/action_req_certificate.php:177
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, fuzzy, php-format
+msgid "Certificate for %s"
 msgstr "شهادة لوظيفة %s"
 
-#: web/admin/action_req_certificate.php:165
+#: web/admin/action_req_certificate.php:204
+#, fuzzy
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---اختر من فضلك---"
+
+#: web/admin/action_req_certificate.php:224
+#, fuzzy, php-format
+msgid "Certificate for %s "
+msgstr "شهادة لوظيفة %s"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---اختر من فضلك---"
 
-#: web/admin/action_req_certificate.php:179
-msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-msgstr "--- لم يتم تنفيذه لأسباب أداء eduroam DB ---"
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
+msgstr ""
 
-#. *
-#. $allIdPs = [];
-#. foreach ($feds as $oneFed) {
-#. $fedObject = new \core\Federation($oneFed['value']);
-#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-#. }
-#. }
-#. foreach ($allIdPs as $id => $name) {
-#. echo '<option value="' . $id . '">' . $name . "</option>";
-#. }
-#.
-#. *
-#: web/admin/action_req_certificate.php:197
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. انشاء CSR"
 
-#: web/admin/action_req_certificate.php:198
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr "طريقة واحدة لإنشاء طلب شهادة  CSR مقبولة عبر هذا السطر من openssl: "
 
-#: web/admin/action_req_certificate.php:200
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. تسليم"
 
-#: web/admin/action_req_certificate.php:201
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "يرجى لصق CSR الخاص بك هنا:"
 
-#: web/admin/action_req_certificate.php:202
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "إرسال طلب"
 
-#: web/admin/action_req_certificate.php:205
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "العودة إلى صفحة النظرة العامة"
 
@@ -1020,13 +1034,12 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
-"بدون الهوية المجهولة، سيتم استخدام اسم المستخدم الفعلي كهوية خارجية ويكون "
-"الأساس لتوجيه الطلب. لكي يعمل ذلك، يجب أن يحتوي اسم المستخدم على لاحقة نطاق "
-"realm صحيحة. بعدما تم إيقاف تشغيل التحقق من لاحقة النطاق realm. لن يتحقق "
-"مقدمو الطلبات Supplicants من أن أسماء المستخدمين تحتوي على نطاق realm، ولن "
-"يتم حظر الأخطاء مثل اسم المستخدم 'johndoe' الذي لن يعمل في سيناريوهات "
-"التجوال. ضع في اعتبارك تحديد مربع الخيار 'فرض لاحقة النطاق realm في اسم "
-"المستخدم'!"
+"بدون الهوية المجهولة ، سيتم استخدام اسم المستخدم الفعلي كهوية خارجية ويكون "
+"أساس توجيه الطلب. لكي يعمل ذلك ، يجب أن يحتوي اسم المستخدم على نهاية اسم "
+"مجال صحيح. ومع ذلك ، تم إيقاف تشغيل التحقق من نهاية اسم المجال. لن يتحقق "
+"مقدمو الطلبات من أن أسماء المستخدمين تحتوي على اسم مجال ، ولن يتم حظر أخطاء "
+"مثل اسم المستخدم \"johndoe\" الذي لن يعمل في سيناريوهات التجوال. ضع في "
+"اعتبارك تحديد المربع \"فرض لاحقة المجال في اسم المستخدم\"!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1603,8 +1616,8 @@ msgid "Certificate Information for %s %s"
 msgstr "معلومات الشهادة لـ %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, php-format
-msgid "Request new Certificate for: %s"
+#, fuzzy
+msgid "Request new Certificate"
 msgstr "طلب شهادة جديدة لـ: %s"
 
 #: web/admin/overview_certificates.php:110
@@ -1659,7 +1672,7 @@ msgstr "الدولة"
 #: web/admin/overview_federation.php:128
 #, php-format
 msgid "%s Statistics: %s"
-msgstr "%s إحصائيات: %s"
+msgstr "إحصائيات %s : %s"
 
 #: web/admin/overview_federation.php:133
 msgid "IdPs Total"
@@ -1811,7 +1824,7 @@ msgstr "إسم %s"
 #: web/admin/overview_federation.php:250
 #, php-format
 msgid "%s Database Sync Status"
-msgstr "%s حالة مزامنة قاعدة البيانات"
+msgstr "حالة مزامنة قاعدة بيانات %s"
 
 #: web/admin/overview_federation.php:256
 msgid "Administrator Management"
@@ -1821,7 +1834,7 @@ msgstr "إدارة المسؤول"
 #: web/admin/overview_federation.php:265
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr "%s التالية موجودة في%s %sالخاص بك:"
+msgstr "%s التالية موجودة في %s %s الخاص بك:"
 
 #: web/admin/overview_federation.php:334
 msgid "Manage DB Link"
@@ -1856,7 +1869,7 @@ msgstr "(تنتهي %s)"
 #: web/admin/overview_federation.php:408
 #, php-format
 msgid "Register a new %s!"
-msgstr " تسجيل %s جديد!"
+msgstr " تسجيل %s جديدة!"
 
 #: web/admin/overview_installers.php:27
 msgid "Device Compatibility matrix"
@@ -1865,7 +1878,7 @@ msgstr "مصفوفة توافق الجهاز"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "مصفوفة توافق الجهاز لـ %s من %s"
+msgstr "مصفوفة توافق الجهاز ل%s ل%s"
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2022,7 +2035,7 @@ msgstr "تم تعيين ملف التعريف بنجاح"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr "حدثت بعض المشاكل أثناء تحديث ملف التعريف"
+msgstr "حدثت اشكالية في تحديث الملف الشخصي"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
@@ -2502,31 +2515,31 @@ msgstr "التحكم في هذه %s"
 #: web/admin/inc/manageDBLink.inc.php:203
 #: web/admin/inc/manageNewInst.inc.php:146
 msgid "Close"
-msgstr "مغلق"
+msgstr "إلغاء"
 
 #: web/admin/inc/manageDBLink.inc.php:54
 #, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr "ليس لديك الصلاحيات اللازمة لإدارة %sحالة ربط DB من هذا%s."
+msgstr "ليس لديك الصلاحيات اللازمة لإدارة حالة ربط قاعدة بيانات %s لـ هذا %s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr "%s حالة ارتباط قاعدة البيانات لموفر الهوية IdP '%s'"
+msgstr "حالة ارتباط قاعدة بيانات %s لموفر الهوية IdP  '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr "هذا %sمرتبط بقاعدة بيانات %s."
+msgstr "هذه %s مرتبطة بقاعدة بيانات %s."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
 msgstr ""
-"تم تخزين المعلومات التالية حول موفر الهوية IdP في قاعدة بيانات %s و قاعدة "
+"تم تخزين المعلومات التالية لموفر الهوية IdP في قاعدة بيانات %s و قاعدة "
 "بيانات %s:"
 
 #: web/admin/inc/manageDBLink.inc.php:97
@@ -2554,7 +2567,7 @@ msgstr "البريد الإلكتروني للمسؤول"
 
 #: web/admin/inc/manageDBLink.inc.php:143
 msgid "If this mapping is not correct any more, you can remove the link:"
-msgstr "إذا لم يعد تعيين الارتباط هذا صحيحًا بعد الآن، فيمكنك إزالة الارتباط:"
+msgstr "إذا لم يعد الارتباط هذا صحيحًا، فيمكنك إزالته:"
 
 #: web/admin/inc/manageDBLink.inc.php:145
 msgid "Unlink"
@@ -2563,25 +2576,25 @@ msgstr "إلغاء الارتباط"
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr "هذا %s غير مرتبط بعد بقاعدة بيانات %s."
+msgstr "هذه %s غير مرتبطة بعد بقاعدة بيانات %s."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
 msgstr ""
-"هذا يعني أن ملفات التعريف الخاصة به غير متوفرة على صفحة تنزيل المستخدم."
+"هذا يعني أن ملفات التعريف الخاصة بها غير متوفرة على صفحة التنزيل للمستخدم."
 
 #: web/admin/inc/manageDBLink.inc.php:151
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr "يمكنك ربطه بقاعدة بيانات %s أدناه."
+msgstr "يمكنك ربطها بقاعدة بيانات %s أدناه."
 
 #: web/admin/inc/manageDBLink.inc.php:154
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr "الرجاء تحديد entity من قاعدة البيانات %s يتوافق مع %s الـCAT."
+msgstr "الرجاء تحديد entity من قاعدة البيانات %s يتوافق مع  الـCAT لـ %s"
 
 #: web/admin/inc/manageDBLink.inc.php:156
 #, php-format
@@ -2603,7 +2616,7 @@ msgstr "مسؤولون"
 #: web/admin/inc/manageDBLink.inc.php:192
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
-msgstr "لايوجد أحد من %s غير معروف في قاعدة البيانات الخارجية لهذا %s"
+msgstr "لا توجد %s لم يتم تعيينها في قاعدة البيانات الخارجية لـ%s"
 
 #: web/admin/inc/manageDBLink.inc.php:194
 msgid "Create Link"
@@ -2617,7 +2630,7 @@ msgstr "ليس لديك الصلاحيات اللازمة لتسجيل %s جدي
 #: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid "%s - Register new %s"
-msgstr "%s - تسجيل %s جديد"
+msgstr "%s - تسجيل %s جديدة"
 
 #: web/admin/inc/manageNewInst.inc.php:58
 #, php-format
@@ -2634,7 +2647,7 @@ msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
-"يمكنك إما تسجيل %sمعروف (كما هو محدد في قاعدة بيانات %s) أو إنشاء %s جديد "
+"يمكنك إما تسجيل %s معروفه (كما هو محدد في قاعدة بيانات %s) أو إنشاء %s جديدة "
 "تمامًا."
 
 #: web/admin/inc/manageNewInst.inc.php:61
@@ -2643,7 +2656,7 @@ msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
-"عادةً ما يكون الأخير ل%s الذي لا يزال في مرحلة الاختبار وبالتالي لا يظهر في "
+"عادةً ما يكون الأخير ل %s التي لا تزال في مرحلة الاختبار وبالتالي لا تظهر في "
 "قاعدة بيانات %s حتى الآن."
 
 #: web/admin/inc/manageNewInst.inc.php:68
@@ -2666,7 +2679,7 @@ msgstr "نوع"
 #: web/admin/inc/manageNewInst.inc.php:78
 #, php-format
 msgid "Existing %s:"
-msgstr "%s موجود :"
+msgstr "%s موجودة :"
 
 #: web/admin/inc/manageNewInst.inc.php:83
 #, php-format
@@ -2676,7 +2689,7 @@ msgstr "- اختر %s هنا -"
 #: web/admin/inc/manageNewInst.inc.php:101
 #, php-format
 msgid "New %s"
-msgstr "%s جديد"
+msgstr "%s جديدة"
 
 #: web/admin/inc/manageNewInst.inc.php:108
 #, php-format
@@ -2725,19 +2738,19 @@ msgstr "إرسال دعوة"
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "لا يوجد عنوان بريد إلكتروني"
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "تم إرسال دعوة إلى:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "تعذر إرسال البريد الإلكتروني للدعوة!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "عنوان البريد الالكتروني المراد دعوته:"
 
@@ -2849,7 +2862,7 @@ msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
-"يمكنك إدخال موقع <strong>إضافي</strong>هنا. يمكنك رؤية المواقع التي قد تم "
+"يمكنك إدخال موقع <strong>إضافي</strong> هنا. يمكنك رؤية المواقع التي قد تم "
 "تحديدها في حقل 'معلومات عامة'."
 
 #: web/lib/admin/AbstractMap.php:169
@@ -2950,10 +2963,10 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"تنسيق هذا الخيار هو: IPv4|IPv6|hostname:port. يُعد إجبار المستخدمين من خلال "
-"مفلتر محتوى خاص بك بمثابة انتهاك كبير لحقوق المستخدم. يرجى قراءة المناقشة "
-"على %s قبل تحديد بروكسي بهذا الخيار. هذه الميزة تجريبية حاليًا ولها تأثير فقط "
-"على برامج تثبيت Apple."
+"نوع هذا الاختيارهو: IPv4|IPv6|hostname:port . يُعد إجبار المستخدمين على تنقيح "
+"المحتوى خاص بك بمثابة اعتداء كبير لتقرير مصير المستخدم. كما أن هنالك مشاكل "
+"فنية. يرجى قراءة المناقشة بدقة في %s قبل تحديد proxy مع الاختيار. هذه الميزة "
+"تجريبية حاليًا ولها تأثير فقط في مثبتات Apple."
 
 #: web/lib/admin/OptionDisplay.php:252
 #, php-format
@@ -3038,64 +3051,64 @@ msgstr ""
 "بالضبط</strong>. ولكي تتوافق مع اللغات الأخرى، قد ترغب في تعديل ملف التعريف "
 "مرة أخرى وملء حقل اللغة 'الافتراضية / الأخرى'."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "أنت:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "اذهب إلى صفحة ملفك التعريفي"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "الصفحة الرئيسية"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "تصفح هذه الصفحة باللغة "
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "واجهة المسؤول - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "واجهة المسؤول - إدارة مستخدم %s"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "واجهة المسؤول"
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "إدارة تفاصيل المستخدم"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "واجهة المسؤول - إدارة %s"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
-msgstr "أهلا وسهلا إلى%s"
+msgstr "مرحباً بك في %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "التشخيص"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "إشعار الخصوصية %s"
@@ -3297,7 +3310,7 @@ msgstr "سمه مخصصة لإسم المشغل Operator-Name"
 #: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
-msgstr "تفاصيل %s العامة"
+msgstr "التفاصيل العامة لـ %s "
 
 #: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
@@ -3352,3 +3365,6 @@ msgstr "تحذير!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "خطأ!"
+
+#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#~ msgstr "--- لم يتم تنفيذه لأسباب أداء eduroam DB ---"

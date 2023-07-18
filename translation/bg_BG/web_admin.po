@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2015-2016,2018-2023\n"
@@ -84,92 +84,103 @@ msgid ""
 msgstr "Нямате необходимите права да заявявате NAPTR superglue зони."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s: RADIUS/TLS управление на сертификат за %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "RADIUS/TLS управление на сертификат за %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "Нямате необходимите права да заявявате сертификати за сървъри."
 
-#: web/admin/action_req_certificate.php:112
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "Заявихте сертификат със следните свойства"
 
-#: web/admin/action_req_certificate.php:114
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "Политика OID-и:"
 
-#: web/admin/action_req_certificate.php:115
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "Отличително име: "
 
-#: web/admin/action_req_certificate.php:116
+#: web/admin/action_req_certificate.php:159
 msgid "subjectAltName:DNS : "
 msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:119
+#: web/admin/action_req_certificate.php:160
 msgid "Requester Contact Details: "
 msgstr "Данни за контакт на заявителя:"
 
-#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "Сертификатът беше заявен."
 
-#: web/admin/action_req_certificate.php:145
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "Обратно към Преглед на Сертификат"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:154
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. Данни за собственика на сертификата"
 
-#: web/admin/action_req_certificate.php:156
-#: web/admin/action_req_certificate.php:177
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, fuzzy, php-format
+msgid "Certificate for %s"
 msgstr "Сертификат за %s роля"
 
-#: web/admin/action_req_certificate.php:165
+#: web/admin/action_req_certificate.php:204
+#, fuzzy
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---МОЛЯ ИЗБЕРЕТЕ---"
+
+#: web/admin/action_req_certificate.php:224
+#, fuzzy, php-format
+msgid "Certificate for %s "
+msgstr "Сертификат за %s роля"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---МОЛЯ ИЗБЕРЕТЕ---"
 
-#: web/admin/action_req_certificate.php:179
-msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
 msgstr ""
-"---НЕ Е РЕАЛИЗИРАНО ПОРАДИ ПРИЧИНИ, СВЪРЗАНИ С ЕФЕКТИВНОСТТА НА БАЗАТА ДАННИ "
-"НА eduroam---"
 
-#. *
-#. $allIdPs = [];
-#. foreach ($feds as $oneFed) {
-#. $fedObject = new \core\Federation($oneFed['value']);
-#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-#. }
-#. }
-#. foreach ($allIdPs as $id => $name) {
-#. echo '<option value="' . $id . '">' . $name . "</option>";
-#. }
-#.
-#. *
-#: web/admin/action_req_certificate.php:197
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. Генериране на CSR"
 
-#: web/admin/action_req_certificate.php:198
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -177,19 +188,19 @@ msgstr ""
 "Един от начините да генерирате приемлива заявка за сертификат е  чрез тази "
 "openssl команда:"
 
-#: web/admin/action_req_certificate.php:200
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. Подаване"
 
-#: web/admin/action_req_certificate.php:201
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "Моля поставете Вашата CSR тук:"
 
-#: web/admin/action_req_certificate.php:202
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "Изпратете заявка"
 
-#: web/admin/action_req_certificate.php:205
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "Обратно към Страницата за Преглед"
 
@@ -509,8 +520,8 @@ msgid ""
 msgstr ""
 "Ако използвате портал за разпространяване на конфигурации, може би ще искате "
 "да изключите това SSID след конфигурационния процес. С тази опция SSID-то "
-"или ще бъде премахнатo, или ще бъде конфигурирано за \"Само ръчно свързване"
-"\"."
+"или ще бъде премахнатo, или ще бъде конфигурирано за \"Само ръчно "
+"свързване\"."
 
 #: web/admin/edit_participant.php:187
 msgid "Helpdesk Details for all users"
@@ -1026,12 +1037,12 @@ msgid ""
 msgstr ""
 "Без анонимна идентичност действителното име ще бъде използвано като външна "
 "идентичност и ще бъде база за маршрутизиране на заявката. За да работи това, "
-"потребителкото име трябва да съдържа коректно в суфикса си областта. Все още "
-"проверката на суфикса за областта е изключена. Заявителите няма да "
-"проверяват дали потребителските имена съдържат областта и грешки като "
+"потребителкото име трябва да съдържа коректно име на домейн. Все още "
+"проверката на името на домейна е изключена. Заявителите няма да проверяват "
+"дали потребителските имена съдържат името на домейна и грешки като "
 "потребителско име 'johndoe', което няма да работи в роуминг, няма да бъдат "
-"забранени. Вземете предвид да поставите отметка в квадратчето 'Приложи "
-"областта в суфикса на потребителското име'!"
+"забранени. Вземете предвид да поставите отметка в квадратчето 'Приложи името "
+"на домейна в потребителското име'!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1621,8 +1632,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Информация за сертификата за %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, php-format
-msgid "Request new Certificate for: %s"
+#, fuzzy
+msgid "Request new Certificate"
 msgstr "Заявете нов сертификат за: %s"
 
 #: web/admin/overview_certificates.php:110
@@ -1866,7 +1877,7 @@ msgstr "Матрица на съвместимост на устройство"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "Матрица на съвместимост на устройство за %s от %s "
+msgstr "Матрица на съвместимост на устройство за %s от %s"
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2731,19 +2742,19 @@ msgstr "Изпратете покана."
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "Не е указан email адрес."
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "Поканата е изпратена на:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "Е-мейлът-покана не можа да бъде изпратен!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "Мейл адрес за покана:"
 
@@ -2961,10 +2972,10 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"Формата на тази опция е: IPv4|IPv6|hostname:port .  Принудителната проверка "
+"Форматът на тази опция е: IPv4|IPv6|hostname:port . Принудителната проверка "
 "на потребителя чрез Ваш собствен филтър е значителна намеса в свободата на "
 "потребителя. Моля внимателно прочетете дискусията на %s, преди да "
-"специфицирате прокси с тази опция.  Понастоящем тази функция е "
+"специфицирате прокси с тази опция. Понастоящем тази функция е "
 "експериментална и важи само за инсталаторите за Apple."
 
 #: web/lib/admin/OptionDisplay.php:252
@@ -3050,64 +3061,64 @@ msgstr ""
 "можем единствено да визуализираме тези стрингове на инсталацията, които "
 "са<strong>точно определени</strong> в конфигурирания език."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "Вие сте:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "Вървете на страницата с Вашия профил"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "Излизане"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "Начална страница"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "Вижте тази страница на"
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Администраторски интерфейс - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Администраторски интерфейс - %s Управление на потребители"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "Администраторски интерфейс "
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "Управление на потребителските детайли"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Администраторски интерфейс - %s Управление"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "Диагностика"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Поверително"
@@ -3364,3 +3375,8 @@ msgstr "Предупреждение!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Грешка!"
+
+#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#~ msgstr ""
+#~ "---НЕ Е РЕАЛИЗИРАНО ПОРАДИ ПРИЧИНИ, СВЪРЗАНИ С ЕФЕКТИВНОСТТА НА БАЗАТА "
+#~ "ДАННИ НА eduroam---"

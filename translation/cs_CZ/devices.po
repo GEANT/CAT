@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
 "2013,2015-2019,2022-2023\n"
@@ -260,9 +260,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Tento instalační program slouží pouze jako příklad. Vytvoří archiv "
-"obsahující certifikáty, souboru s informacemi a logem (pokud bylo správcem "
-"organizace vloženo) a výpisem všech dostupných atributů."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -815,10 +812,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Tento instalační program slouží pouze jako příklad. Vytvoří archiv "
-"obsahující certifikáty, soubor s informacemi a logem (pokud bylo správcem "
-"organizace vloženo) a výpisem všech dostupných atributů. Instalátor "
-"nakonfiguruje SSID %d."
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1218,7 +1211,6 @@ msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
 msgstr ""
-"Chyba při instalaci GEANTLink.$\\nInstalační program neskončil úspěšně."
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"
