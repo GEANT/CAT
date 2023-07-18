@@ -82,8 +82,10 @@ $langObject = new \core\common\Language();
     }
     if ($is_testing === true) {
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
+        $expiryDays = 365;
     } else {
         $DN = ["DC=eduroam", "DC=geant", "DC=net"];
+        $expiryDays = 1825;
     }
 
     // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
@@ -168,7 +170,7 @@ $langObject = new \core\common\Language();
             "POLICIES" => $policies,
             "FED" => $country];
         // our certs can be good for max 5 years
-        $fed->requestCertificate($user->identifier, $newCsrWithMeta, 1825);
+        $fed->requestCertificate($user->identifier, $newCsrWithMeta, $expiryDays);
         echo "<p>" . _("The certificate was requested.") . "</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
