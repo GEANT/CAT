@@ -169,8 +169,6 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $soap = $this->initEduPKISoapSession("RA");
             // tell the CA the desired expiry date of the new certificate
             $expiry = new \DateTime();
-            // FIXME the current test interface does not like 5 years...
-            $expiryDays = 365;
             $expiry->modify("+$expiryDays day");
             $expiry->setTimezone(new \DateTimeZone("UTC"));
             $soapExpiryChange = $soap->setRequestParameters(
