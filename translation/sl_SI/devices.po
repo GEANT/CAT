@@ -4,30 +4,35 @@
 #
 # Translators:
 # alexm <alexm@arnes.si>, 2012
+# alexm <alexm@arnes.si>, 2012
+# blazdivjak <blaz.divjak@gmail.com>, 2012-2013
 # blazdivjak <blaz.divjak@gmail.com>, 2012
 # Blaž Divjak <blaz.divjak@guest.arnes.si>, 2012
 # blazdivjak <blaz.divjak@gmail.com>, 2013
 # Janez Kadivec, 2022
+# Janez Kadivec, 2022
 # Kaja Kumer <kaja.kumer@arnes.si>, 2018
 # rokpapez <rok.papez@arnes.si>, 2015
+# rokpapez <rok.papez@arnes.si>, 2012,2015
 # rokpapez <rok.papez@arnes.si>, 2012
+# teja <teja.cetinski@gmail.com>, 2013
 # teja <teja.cetinski@gmail.com>, 2013
 # Tina Trlep <tina.trlep@arnes.si>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Janez Kadivec, 2022\n"
+"Last-Translator: Tina Trlep <tina.trlep@arnes.si>, 2018\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 #: devices/Devices-template.php:132
 msgid "MS Windows 8 and newer"
@@ -136,6 +141,10 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"Ko prenesete datoteko, v brskalniku Chrome odprite ta URL: <a href='chrome://"
+"network'>chrome://network</a>. Nato pritisnite gumb »Uvozi datoteko ONC«. "
+"Uvoz poteka v ozadju; nove omrežne definicije bodo dodane prednostnim "
+"omrežjem."
 
 #: devices/Devices-template.php:405
 msgid "Android 8 and higher"
@@ -258,10 +267,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Namestitveni program je zgolj vzorčen. Ustvari datoteko zip s potrdili "
-"ponudnika identitete, datoteko z informacijami in logotipi (če jih je "
-"definiral skrbnik ponudnika identitete) ter izpis vseh razpoložljivih "
-"atributov."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -456,6 +461,10 @@ msgid ""
 "a>. Then, use the 'Import ONC file' button. The import is silent; the new "
 "network definitions will be added to the preferred networks."
 msgstr ""
+"Namestitveni program je datoteka s pripono ».onc«. Prenesite jo, potem pa v "
+"brskalniku Chrome odprite ta URL: <a href='chrome://network'>chrome://"
+"network</a>. Nato pritisnite gumb »Uvozi datoteko ONC«. Uvoz poteka v "
+"ozadju; nove omrežne definicije bodo dodane prednostnim omrežjem."
 
 #: devices/eap_config/DeviceXML.php:129
 #, php-format
@@ -822,10 +831,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Ta namestitveni program je zgolj vzorčen. Ustvari datoteko zip s potrdili "
-"ponudnika identitete, datoteko z informacijami in logotipi (če jih je "
-"definiral skrbnik ponudnika identitete) ter izpis vseh razpoložljivih "
-"atributov. Namestitveni program je poklican z nizi SSID %d za konfiguriranje."
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1050,7 +1055,7 @@ msgstr "Napaka pri nameščanju profila za $R1."
 
 #: devices/ms/Files/common.inc:1021
 msgid "deleting profile $R6"
-msgstr ""
+msgstr "brisanje profila $R6"
 
 #: devices/ms/Files/common.inc:1051
 msgid "installing credentials for wired"
@@ -1227,8 +1232,6 @@ msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
 msgstr ""
-"Napaka pri nameščanju GEANTLink.$\\nVdelani namestitveni program se ni "
-"uspešno končal."
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"

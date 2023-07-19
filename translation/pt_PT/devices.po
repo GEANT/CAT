@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018,2022-2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/eduroam_devel/"
@@ -257,9 +257,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Este instalador é apenas um exemplo. Produz um ficheiro .zip que contem os "
-"certificados do IdP, ficheiros de log e informação (se estes foram definidos "
-"pelo administrador do IdP) e um dump de todos os atributos disponíveis."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -299,8 +296,8 @@ msgstr "%s configuração para o IdP '%s' - fornecida por %s"
 #, php-format
 msgid "Important Notice: your username MUST end exactly with '...@%s' !"
 msgstr ""
-"Aviso importante: seu nome de usuário TEM DE terminar exatamente com '...@"
-"%s'!"
+"Aviso importante: seu nome de usuário TEM DE terminar exatamente com '..."
+"@%s'!"
 
 #. / note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:237
@@ -824,10 +821,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Este instalador é apenas um exemplo. Ele produz um ficheiro zip com os "
-"certificados do IdP, arquivos de informações e logótipo (se tal tiver sido "
-"definido pelo administrador do IdP) e um dump de todos os atributos "
-"disponíveis. O instalador é chamado com%d SSIDs para configurar."
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1230,8 +1223,6 @@ msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
 msgstr ""
-"Erro ao instalar o GEANTLink.$\\nO instalador incorporado não terminou com "
-"sucesso"
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"

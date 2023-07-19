@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>, "
 "2013,2015-2016,2018,2022-2023\n"
@@ -88,20 +88,20 @@ msgstr ""
 "NAPTR."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s: Gestão de certificado RADIUS/TLS para %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "Gestão de certificado RADIUS/TLS para %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
@@ -109,71 +109,84 @@ msgstr ""
 "Não tem os privilégios necessários para pedir um novo certificado de "
 "servidor."
 
-#: web/admin/action_req_certificate.php:112
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "Pedir um novo certificado com as seguintes propriedades"
 
-#: web/admin/action_req_certificate.php:114
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "Policy OIDs: "
 
-#: web/admin/action_req_certificate.php:115
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "Distinguished Name: "
 
-#: web/admin/action_req_certificate.php:116
+#: web/admin/action_req_certificate.php:159
 msgid "subjectAltName:DNS : "
 msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:119
+#: web/admin/action_req_certificate.php:160
 msgid "Requester Contact Details: "
 msgstr "Detalhes de Contacto do Requerente:"
 
-#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "O certificado foi pedido."
 
-#: web/admin/action_req_certificate.php:145
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "Voltar para a Visão Geral do Certificado"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:154
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. Detalhes do Titular do Certificado"
 
-#: web/admin/action_req_certificate.php:156
-#: web/admin/action_req_certificate.php:177
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, fuzzy, php-format
+msgid "Certificate for %s"
 msgstr "Certificado para função %s"
 
-#: web/admin/action_req_certificate.php:165
+#: web/admin/action_req_certificate.php:204
+#, fuzzy
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---POR FAVOR ESCOLHA---"
+
+#: web/admin/action_req_certificate.php:224
+#, fuzzy, php-format
+msgid "Certificate for %s "
+msgstr "Certificado para função %s"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---POR FAVOR ESCOLHA---"
 
-#: web/admin/action_req_certificate.php:179
-msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-msgstr "---NÃO IMPLEMENTADO DEVIDO A RAZÕES DE DESEMPENHO DA BD eduroam---"
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
+msgstr ""
 
-#. *
-#. $allIdPs = [];
-#. foreach ($feds as $oneFed) {
-#. $fedObject = new \core\Federation($oneFed['value']);
-#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-#. }
-#. }
-#. foreach ($allIdPs as $id => $name) {
-#. echo '<option value="' . $id . '">' . $name . "</option>";
-#. }
-#.
-#. *
-#: web/admin/action_req_certificate.php:197
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. Geração do CSR"
 
-#: web/admin/action_req_certificate.php:198
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -181,19 +194,19 @@ msgstr ""
 "Uma maneira de gerar um pedido de certificado aceitável é por meio deste "
 "comando openssl:"
 
-#: web/admin/action_req_certificate.php:200
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. Submeter"
 
-#: web/admin/action_req_certificate.php:201
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "Por favor, coloque o seu CSR aqui:"
 
-#: web/admin/action_req_certificate.php:202
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "Enviar pedido"
 
-#: web/admin/action_req_certificate.php:205
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "Voltar para a Página de Visão Geral"
 
@@ -1042,14 +1055,6 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
-"Sem a Identidade Anónima, o nome de utilizador real será usado como "
-"identidade externa e será a base para o roteamento de solicitações. Para "
-"isso funcionar, o nome de utilizador deve ter um sufixo de domínio correto. "
-"No entanto, a verificação de sufixo de território foi DESATIVADA. Os "
-"suplicantes não verificarão se os nomes de utilizador contêm um domínio, e "
-"erros como o nome de utilizador 'johndoe' que não funcionarão em cenários de "
-"roaming não serão proibidos. Considere marcar a caixa 'Aplicar sufixo de "
-"domínio no nome de utilizador'!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1637,8 +1642,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Informações do certificado para %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, php-format
-msgid "Request new Certificate for: %s"
+#, fuzzy
+msgid "Request new Certificate"
 msgstr "Pedir um novo Certificado para: %s"
 
 #: web/admin/overview_certificates.php:110
@@ -1900,7 +1905,7 @@ msgstr "Matriz de compatibilidade de dispositivos"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "Matriz de compatibilidade de dispositivos para %s de %s"
+msgstr ""
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2057,7 +2062,7 @@ msgstr "Perfil definido com sucesso"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr "Ocorreu algum problema durante a atualização do perfil"
+msgstr ""
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
@@ -2767,19 +2772,19 @@ msgstr "Envie convite"
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "Endereço de email não fornecido"
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "Convite enviado para:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "Não foi possível enviar o email de convite!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "Endereço de E-Mail para o convite:"
 
@@ -2998,12 +3003,6 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"O formato desta opção é: IPv4|IPv6|hostname:porto . Forçar os seus "
-"utilizadores a usar um filtro de conteúdo próprio é uma invasão "
-"significativa da autodeterminação do utilizador. Também tem problemas "
-"técnicos. Por favor, leia a discussão em %s antes de especificar um proxy "
-"com esta opção. Este recurso é atualmente experimental e só tem efeito nos "
-"instaladores da Apple."
 
 #: web/lib/admin/OptionDisplay.php:252
 #, php-format
@@ -3091,64 +3090,64 @@ msgstr ""
 "configurado. Para o bem de todos os outros idiomas, deve preencher este "
 "campo com o valor 'default/outros' ."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "Está em:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "Aceder à sua página de Perfil"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "Sair"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "Página inicial"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "Ver esta página em"
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Interface de Administrador - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interface de Administrador - %s Gestão de Utilizador"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "Interface do Administrador"
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "Gestão de Detalhes do Utilizador"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interface de Administrador - %s Gestão"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bem vindo a %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Alerta de privacidade"
@@ -3405,3 +3404,6 @@ msgstr "Aviso!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Erro!"
+
+#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#~ msgstr "---NÃO IMPLEMENTADO DEVIDO A RAZÕES DE DESEMPENHO DA BD eduroam---"

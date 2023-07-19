@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022-2023
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Vicky Kons <vickyk@admin.grnet.gr>, 2016
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018,2022\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022-2023\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -90,91 +90,104 @@ msgstr ""
 "Δεν έχετε τα απαραίτητα δικαιώματα για να αιτηθήτε NAPTR superglue zones."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s: RADIUS/TSLS διαχείριση πιστοποιητικών για %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "RADIUS/TLS διαχείριση πιστοποιητικών για %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr ""
 "Δεν έχετε τα κατάλληλα προνόμια για να ζητήσετε πιστοποιητικά του server"
 
-#: web/admin/action_req_certificate.php:112
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "Aίτηση πιστοποιητικού με τις ακόλουθες ιδιότητες"
 
-#: web/admin/action_req_certificate.php:114
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "OIDs πολιτικών : "
 
-#: web/admin/action_req_certificate.php:115
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "Διακεκριμένο Όνομα : "
 
-#: web/admin/action_req_certificate.php:116
+#: web/admin/action_req_certificate.php:159
 msgid "subjectAltName:DNS : "
-msgstr ""
+msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:119
+#: web/admin/action_req_certificate.php:160
 msgid "Requester Contact Details: "
-msgstr ""
+msgstr "Στοιχεία Επικοινωνίας Αιτούντος:"
 
-#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "Το πιστοποιητικό αιτήθηκε "
 
-#: web/admin/action_req_certificate.php:145
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "Πίσω στην επισκόπηση πιστοποιητικού "
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:154
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. Λεπτομέρειες Κατόχου Πιστοποιητικού"
 
-#: web/admin/action_req_certificate.php:156
-#: web/admin/action_req_certificate.php:177
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, fuzzy, php-format
+msgid "Certificate for %s"
 msgstr "Πιστοποιητικό για τον  %s ρόλο"
 
-#: web/admin/action_req_certificate.php:165
+#: web/admin/action_req_certificate.php:204
+#, fuzzy
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---ΠΑΡΑΚΑΛΩ ΕΠΙΛΕΞΤΕ---"
+
+#: web/admin/action_req_certificate.php:224
+#, fuzzy, php-format
+msgid "Certificate for %s "
+msgstr "Πιστοποιητικό για τον  %s ρόλο"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---ΠΑΡΑΚΑΛΩ ΕΠΙΛΕΞΤΕ---"
 
-#: web/admin/action_req_certificate.php:179
-msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
 msgstr ""
 
-#. *
-#. $allIdPs = [];
-#. foreach ($feds as $oneFed) {
-#. $fedObject = new \core\Federation($oneFed['value']);
-#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-#. }
-#. }
-#. foreach ($allIdPs as $id => $name) {
-#. echo '<option value="' . $id . '">' . $name . "</option>";
-#. }
-#.
-#. *
-#: web/admin/action_req_certificate.php:197
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2.παραγωγή CSR"
 
-#: web/admin/action_req_certificate.php:198
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -182,19 +195,19 @@ msgstr ""
 "Ένας τρόπος παραγωγής μιας αποδεκτής αίτησης πιστοποιητικού είναι μέσω αυτού "
 "του openssl one-liner:"
 
-#: web/admin/action_req_certificate.php:200
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. Αίτηση"
 
-#: web/admin/action_req_certificate.php:201
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "Παρακαλώ επικολλήστε το CSR σας εδώ:"
 
-#: web/admin/action_req_certificate.php:202
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "Στείλτε αίτηση"
 
-#: web/admin/action_req_certificate.php:205
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "Πίσω στην σελίδα επισκόπησης"
 
@@ -1046,13 +1059,6 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
-"Χωρίς την Ανώνυμη ταυτότητα, το πραγματικό username θα χρησιμοποιηθεί ως "
-"εξωτερική ταυτότητα και θα είναι η βάση για το αίτημα δρομολόγησης. Για να "
-"λειτουργήσει αυτό , το username πρέπει να έχει σωστό realm suffix . Ακόμα , "
-"η εξακρίβωση του realm suffix θα πρέπει να είναι ΚΛΕΙΣΤΗ . ΟΙ αιτούντες δεν "
-"θα εξακριβώνουν ότι το username περιέχει realm και errors όπως username "
-"'johndoe' τα οποία δεν θα δούλευαν σε σενάρια roaming δε θα αποκλείονται . "
-"Σκεφτείτε να τσεκάρετε το κουτί \"Επιβολή realm suffix στο username\""
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1573,6 +1579,9 @@ msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
+"Τιμές διαχωρισμένες με κόμμα θα πρέπει να παρέχονται στο αρχείο CSV: όνομα "
+"χρήστη, ημερομηνία λήξης σε μορφή 'yyyy-mm-dd', πλήθος διαπιστευτηρίων "
+"(προαιρετικό):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
@@ -1639,9 +1648,9 @@ msgid "Certificate Information for %s %s"
 msgstr "Πληροφορίες πιστοποιητικού για %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, php-format
-msgid "Request new Certificate for: %s"
-msgstr ""
+#, fuzzy
+msgid "Request new Certificate"
+msgstr "Αίτηση νέου Πιστοποιητικού για: %s"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -1649,6 +1658,8 @@ msgid ""
 "You can not request certificates because there is no server information for "
 "%s in the eduroam DB."
 msgstr ""
+"Δεν μπορείτε να αιτηθείτε πιστοποιητικά διότι δεν υπάρχουν πληροφορίες "
+"εξυπηρετητή για το  %s στην eduroam DB."
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1676,7 +1687,7 @@ msgstr "κλικ για εμφάνιση"
 #: web/admin/overview_federation.php:74
 #, php-format
 msgid "RADIUS/TLS Certificate management"
-msgstr ""
+msgstr "διαχείριση πιστοποιητικού RADIUS/TLS"
 
 #: web/admin/overview_federation.php:81
 #, php-format
@@ -1885,7 +1896,7 @@ msgstr "Πίνακας Συμβατότητας Συσκευής"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "Πίνακας συμβατότητας συσκευής για %s από %s "
+msgstr ""
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2042,7 +2053,7 @@ msgstr "Επιτυχής προσαρμογή προφίλ"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr "Κάποιο σφάλμα προέκυψε κατά την ενημέρωση του προφιλ"
+msgstr ""
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
@@ -2762,19 +2773,19 @@ msgstr "Αποστολή πρόσκλησης"
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "Δεν δόθηκε διεύθυνση email"
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "Στάλθηκε πρόσκληση σε:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "Διεύθυνση mail για πρόσκληση:"
 
@@ -2997,12 +3008,6 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"Η μορφή αυτής της επιλογής είναι: IPv4|IPv6|hostname:port . Επιβάλλοντας "
-"στους χρήστες σας ένα δικό σας φίλτρο περιεχομένου είναι σημαντική παραβίαση "
-"της αυτοδιάθεσης των χρηστών . Ακόμα προκαλεί τεχνικά ζητήματα . Παρακαλούμε "
-"διαβάστε καλά την συζήτηση στο %s πριν προσδιορίσεται ένα proxy με αυτή την "
-"επιλογή . Αυτό το χαρακτηριστικό είναι αυτή τη στιγμή πειραματικό και έχει "
-"μόνο χρήση σε Apple installers."
 
 #: web/lib/admin/OptionDisplay.php:252
 #, php-format
@@ -3093,64 +3098,64 @@ msgstr ""
 "γλωσσών ίσως να θέλετε να επεξεργαστείτε το προφίλ σας ξανά και να "
 "συμπληρώσετε το πεδίο γλώσσας 'προκαθορισμένη/άλλη'."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "Είστε:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "Μετάβαση στη σελίδα του Προφίλ σας"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "Αρχική σελίδα"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "Προβολή αυτής της σελίδας σε"
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Διεπαφή Διαχειριστή - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Διεπαφή Διαχειριστή - Διαχείριση Χρηστών %s"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "Διεπαφή Διαχειριστή"
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "Διαχείριση Λεπτομερειών Χρήστη"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Διεπαφή Διαχειριστή - Διαχείριση %s"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
 msgstr "Καλως Ήρθατε στο %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "Διαγνωστικά"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Δήλωση περί Απορρήτου %s"
@@ -3408,3 +3413,6 @@ msgstr "Προειδοποίηση!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Σφάλμα!"
+
+#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#~ msgstr "---ΔΕΝ ΕΧΕΙ ΥΛΟΠΟΙΗΘΕΙ ΓΙΑ ΛΟΓΟΥΣ ΑΠΟΔΟΣΗΣ ΤΗΣ eduroam DB---"

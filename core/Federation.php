@@ -359,15 +359,17 @@ Best regards,
     /**
      * requests a new certificate
      * 
-     * @param array $csr        the CSR with some metainfo in an array
-     * @param int   $expiryDays how long should the cert be valid, in days
+     * @param string $user       the user ID requesting the certificate
+     * @param array  $csr        the CSR with some metainfo in an array
+     * @param int    $expiryDays how long should the cert be valid, in days
      * @return void
      */
-    public function requestCertificate($csr, $expiryDays)
+    public function requestCertificate($user, $csr, $expiryDays)
     {
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $newReq = new CertificationAuthorityEduPkiServer();
         $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
+        $this->loggerInstance->writeAudit($user, "NEW", "Certificate request - NRO: ".$this->tld." - serial: ".$reqserial." - subject: ".$csr['SUBJECT']);
         $reqQuery = "INSERT INTO federation_servercerts "
                 . "(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
                 . "VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";

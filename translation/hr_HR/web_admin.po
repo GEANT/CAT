@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, "
 "2012-2013,2015-2016,2018-2020,2022-2023\n"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: web/admin/action_enrollment.php:44 web/admin/action_enrollment.php:48
 #: web/admin/action_enrollment.php:63 web/admin/action_enrollment.php:64
@@ -92,90 +92,103 @@ msgid ""
 msgstr "Nemate potrebne privilegije da zatražite NAPTR superglue zone."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s: RADIUS/TLS upravljanje certifikatima za %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "RADIUS/TLS upravljanje certifikatima za %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "Nemate ovlasti za zahtijevanje poslužiteljskog certifikata."
 
-#: web/admin/action_req_certificate.php:112
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "Zahtijevanje certifikata sa sljedećim svojstvima"
 
-#: web/admin/action_req_certificate.php:114
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "Politika OID"
 
-#: web/admin/action_req_certificate.php:115
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "Naziv"
 
-#: web/admin/action_req_certificate.php:116
+#: web/admin/action_req_certificate.php:159
 msgid "subjectAltName:DNS : "
 msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:119
+#: web/admin/action_req_certificate.php:160
 msgid "Requester Contact Details: "
 msgstr "Podaci o tražitelju: "
 
-#: web/admin/action_req_certificate.php:142
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "Certifikat je zatražen."
 
-#: web/admin/action_req_certificate.php:145
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "Nazad do pregleda certifikata."
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:154
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. podaci o vlasniku certifikata"
 
-#: web/admin/action_req_certificate.php:156
-#: web/admin/action_req_certificate.php:177
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, fuzzy, php-format
+msgid "Certificate for %s"
 msgstr "Certifikat za ulogu %s"
 
-#: web/admin/action_req_certificate.php:165
+#: web/admin/action_req_certificate.php:204
+#, fuzzy
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---MOLIMO IZABERITE---"
+
+#: web/admin/action_req_certificate.php:224
+#, fuzzy, php-format
+msgid "Certificate for %s "
+msgstr "Certifikat za ulogu %s"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---MOLIMO IZABERITE---"
 
-#: web/admin/action_req_certificate.php:179
-msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-msgstr "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
+msgstr ""
 
-#. *
-#. $allIdPs = [];
-#. foreach ($feds as $oneFed) {
-#. $fedObject = new \core\Federation($oneFed['value']);
-#. foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-#. $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-#. }
-#. }
-#. foreach ($allIdPs as $id => $name) {
-#. echo '<option value="' . $id . '">' . $name . "</option>";
-#. }
-#.
-#. *
-#: web/admin/action_req_certificate.php:197
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. CSR generiranje"
 
-#: web/admin/action_req_certificate.php:198
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -183,19 +196,19 @@ msgstr ""
 "JEdan od načina generiranja prihvatljivog zahtjeva za certifikatom je pomoću "
 "openssl one-liner:"
 
-#: web/admin/action_req_certificate.php:200
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. Prijava"
 
-#: web/admin/action_req_certificate.php:201
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "Molimo stavite Vaš CSR ovdje:"
 
-#: web/admin/action_req_certificate.php:202
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "Pošalji zahtijev"
 
-#: web/admin/action_req_certificate.php:205
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "Nazad na pregled"
 
@@ -1017,13 +1030,6 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
-"Bez anonimnog identiteta, aktualno korisničko ime bit će korišteno kao "
-"vanjski identitet i bit će osnova za usmjeravanje zahtjeva. Da bi to "
-"funkcioniralo, korisničko ime treba imati ispravan sufiks domene. Ipak, "
-"provjera sufiksa je isključena. Podnositelji zahtjeva neće potvrditi da "
-"korisnička imena sadrže domenu, i pogreške kao korisničko ime 'johndoe' koje "
-"neće raditi u roaming scenariju neće biti zabranjene. Razmislite o "
-"potvrđivanju opcije 'Provjeri sufiks domene  korisničkog imena'!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1054,8 +1060,8 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
-"Dio domene MORA završavati sa '%s' ali poddomene su dozvoljene (i.e. 'user@"
-"%s' and 'user@<...>.%s' je dozvoljeno)."
+"Dio domene MORA završavati sa '%s' ali poddomene su dozvoljene (i.e. "
+"'user@%s' and 'user@<...>.%s' je dozvoljeno)."
 
 #: web/admin/edit_profile_result.php:167
 msgid ""
@@ -1602,8 +1608,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Informacije o certifikatu za %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, php-format
-msgid "Request new Certificate for: %s"
+#, fuzzy
+msgid "Request new Certificate"
 msgstr "Novi certifikat za tražitelja: %s "
 
 #: web/admin/overview_certificates.php:110
@@ -1854,7 +1860,7 @@ msgstr "Tablica kompatibilnih uređaja"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "Tablica kompatibilnih uređaja za %s od %s"
+msgstr ""
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2012,7 +2018,7 @@ msgstr "Profil uspješno postavljen"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr "Došlo je do problema tijekom ažuriranja profila"
+msgstr ""
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
@@ -2718,19 +2724,19 @@ msgstr "Pošalji pozivnicu"
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "Nije ispunjena email adresa"
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "Pozivnica poslana:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "Email sa pozivnicom nije poslan!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "Mail adresa na koju se šalje pozivnica:"
 
@@ -2939,11 +2945,6 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"Format ove opcije je: IPv4|IPv6|hostname:port . Prisiljavanje korisnika kroz "
-"filter sadržaja značajno je za korisnikovo samoutvrđivanje.Također postoje "
-"tehnička pitanja. Molimo pročitajte raspravu na %s prije postavljanja ove "
-"opcije na proxy. Ova opcija je trenutno eksperimentalna i djeluje samo na "
-"Apple installere."
 
 #: web/lib/admin/OptionDisplay.php:252
 #, php-format
@@ -3028,64 +3029,64 @@ msgstr ""
 "ponovnim uređivanjem profila i dodavanjem stavki u 'predodređene/ostale' "
 "jezike"
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "Vi ste:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "Idi na svoju profilnu stranicu"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "Izlaz"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "Početna stranica"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "Vidi ovu stranicu u "
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Sučelje za administratore - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Sučelje za administratore - %s Upravljanje korisnicima"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "Sučelje za administratore"
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "Upravljanje podacima korisnika"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Sučelje za administratore - %s Upravljanje"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
 msgstr "Dobrodošli u %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "Dijagnosticiranje"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s obavijest o privatnosti"
@@ -3342,3 +3343,6 @@ msgstr "Upozorenje!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Pogreška!"
+
+#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
+#~ msgstr "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"

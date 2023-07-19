@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2014-2020,2022\n"
 "Language-Team: Bulgarian (Bulgaria) (http://app.transifex.com/eduroam_devel/"
@@ -795,7 +795,7 @@ msgstr ""
 "\"потребителско име и парола\" или \"персонален сертификат\") - и да бъдете "
 "на линия!"
 
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+#: web/skins/modern/index.php:87 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Удостоверяване"
 
@@ -862,8 +862,8 @@ msgid ""
 msgstr ""
 "За съжаление не можем да определим операционната система на Вашето "
 "устройство. Ако сте правили модификации на устройството си, които пречат на "
-"разпознаването (например персонализирани настройки на \"Потребителски агент"
-"\"), моля отменете тези модификации. Може отново да се върнете на тази "
+"разпознаването (например персонализирани настройки на \"Потребителски "
+"агент\"), моля отменете тези модификации. Може отново да се върнете на тази "
 "страница; поканващият линк все още не е бил използван."
 
 #: web/skins/modern/accountstatus/accountstatus.php:124

@@ -33,6 +33,10 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
 
+/* Are we operating against the eduPKI Test CA? For the prod CA, set to false */
+$is_testing = true;
+
+
 $auth->authenticate();
 
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
@@ -76,6 +80,14 @@ $langObject = new \core\common\Language();
             $feds[] = $fed;
         }
     }
+    if ($is_testing === true) {
+        $DN = ["DC=eduroam", "DC=test", "DC=test"];
+        $expiryDays = 365;
+    } else {
+        $DN = ["DC=eduroam", "DC=geant", "DC=net"];
+        $expiryDays = 1825;
+    }
+
     // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
     // also send user back to the overview page
     if (isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
@@ -84,7 +96,6 @@ $langObject = new \core\common\Language();
         if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
             throw new Exception("Sorry: Unable to parse the submitted public key - no public key inside?");
         }
-        $DN = ["DC=eduroam", "DC=test", "DC=test"];
         $policies = [];
         switch ($_POST['LEVEL'] ?? "") {
             case "NRO":
@@ -159,7 +170,7 @@ $langObject = new \core\common\Language();
             "POLICIES" => $policies,
             "FED" => $country];
         // our certs can be good for max 5 years
-        $fed->requestCertificate($newCsrWithMeta, 1825);
+        $fed->requestCertificate($user->identifier, $newCsrWithMeta, $expiryDays);
         echo "<p>" . _("The certificate was requested.") . "</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
@@ -231,7 +242,9 @@ foreach ($allIdPs as $id => $name) {
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
-        <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
+        <?php 
+        echo "openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced";
+        ?>
         <h2><?php echo _("3. Submission"); ?></h2>
 <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"></td><?php echo _("Send request"); ?></button>

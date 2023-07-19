@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022-2023
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # eduroam_devel <stefan.winter@restena.lu>, 2019
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:58+0200\n"
+"POT-Creation-Date: 2023-07-18 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018-2020,2022\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022-2023\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -134,6 +134,10 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"Μετά τη λήψη του αρχείου, ανοίξτε τον φυλλομετρητή Chrome και πλοηγηθείτε σε "
+"αυτό το URL : <a href='chrome://network'>chrome://network</a>.  Έπειτα, "
+"χρησιμοποιήστε το κουμπί  'Εισαγωγή αρχείου ONC'. Η εισαγωγή γίνεται "
+"σιωπηρά· οι νέοι ορισμοί του δικτύου θα προστεθούν στα προτιμώμενα δίκτυα."
 
 #: devices/Devices-template.php:405
 msgid "Android 8 and higher"
@@ -257,10 +261,6 @@ msgid ""
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
 msgstr ""
-"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
-"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
-"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
-"όλων των διαθεσίμων ορισμάτων."
 
 #: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
@@ -459,6 +459,11 @@ msgid ""
 "a>. Then, use the 'Import ONC file' button. The import is silent; the new "
 "network definitions will be added to the preferred networks."
 msgstr ""
+"Το πακέτο εγκατάστασης είναι ένα αρχείο με κατάληξη  '.onc'. Παρακαλούμε για "
+"την λήψη του, ανοίξτε το Chrome και πλοηγηθείτε στο URL <a href='chrome://"
+"network'>chrome://network</a>. Έπειτα, χρησιμοποιήστε το κουμπί 'Εισαγωγή "
+"αρχείου ONC'.  Η εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα "
+"προστεθούν στα προτιμώμενα δίκτυα."
 
 #: devices/eap_config/DeviceXML.php:129
 #, php-format
@@ -825,11 +830,6 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
-"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
-"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
-"όλων των διαθεσίμων ορισμάτων. Το πακέτο εγκατάστασης καλείται με %d SSIDs "
-"προς παραμετροποίηση"
 
 #: devices/ms/Files/common.inc:149
 #, php-format
@@ -1029,8 +1029,8 @@ msgstr ""
 "εγκατάσταση μπορεί να οφείλονται στο γεγονός ότι το Symantec Endpoint "
 "Protection είναι εγκατεστημένο στο μηχάνημά σας.$\\r$\\nΑν και αυτό είναι "
 "ένα αρκετά γνωστό πρόβλημα του προϊόντος της Symantec, στο οποίο το πακέτο "
-"εγκατάστασης δεν μπορεί να κάνει απολύτως τίποτα, υπάρχει προσωρινή λύση.$\\r"
-"$\\nΌταν κλείσετε αυτό το παράθυρο, το πακέτο εγκατάστασης θα κλείσει και "
+"εγκατάστασης δεν μπορεί να κάνει απολύτως τίποτα, υπάρχει προσωρινή λύση.$"
+"\\r$\\nΌταν κλείσετε αυτό το παράθυρο, το πακέτο εγκατάστασης θα κλείσει και "
 "ένα παράθυρο εξερεύνησης θα ανοίξει (μπορεί να εμφανιστεί κάτω απ'το ήδη "
 "ανοιχτό παράθυρο). Σε αυτό το παράθυρο θα μπορείτε να δείτε ένα script με το "
 "όνομα inst_cat. Εκτελέστε το κάνοντας διπλό κλικ σε αυτό. Θα εγκαταστήσει τα "
@@ -1061,7 +1061,7 @@ msgstr "Σφάλμα εγκατάστασης προφίλ για το $R1."
 
 #: devices/ms/Files/common.inc:1021
 msgid "deleting profile $R6"
-msgstr ""
+msgstr "διαγραφή προφίλ $R6"
 
 #: devices/ms/Files/common.inc:1051
 msgid "installing credentials for wired"
@@ -1239,8 +1239,6 @@ msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "successfully."
 msgstr ""
-"Σφάλμα κατά την εγκατάσταση GEANTLink.$\\nΤο ενσωματωμένο πρόγραμμα "
-"εγκατάστασης δεν ολοκληρώθηκε με επιτυχία."
 
 #: devices/ms/Files/geant_link.inc:117
 msgid "installing credentials for ${PROVIDERID}"
