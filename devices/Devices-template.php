@@ -124,8 +124,15 @@ class Devices extends \core\common\Entity {
      * @example devices/devices-template.php file listing
      * @return array the device modules
      */
-    public static function listDevices() {
+    public static function listDevices($profile = 0, $orAlways = 0) {
         \core\common\Entity::intoThePotatoes();
+        $lang = new \core\common\Language();
+        $skinObject = new \web\lib\user\Skinjob(\config\Master::APPEARANCE['skins'][0]);
+/*
+        $googleIcon = $skinObject->findResourceUrl("IMAGES", "vendorlogo/google-play.png");
+        $huaweiIcon = $skinObject->findResourceUrl("IMAGES", "vendorlogo/appgallery.png");
+        $amazonIcon = $skinObject->findResourceUrl("IMAGES", "vendorlogo/amazon-appstore-badge-english-black.png");
+*/
         $retArray = [
             'w10' => [
                 'group' => "microsoft",
@@ -405,7 +412,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Android 8 and higher"),
                 'match' => 'Android ([89]|1[0-9])',
                 'directory' => 'eap_config',
-                'module' => 'Lollipop',
+                'module' => 'Generic',
                 'options' => [
                     'mime' => 'application/eap-config',
                     'hs20' => 1,
