@@ -462,7 +462,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         // we should pretty-print the device names
         $finalarray = [];
-        $devlist = \devices\Devices::listDevices();
+        $devlist = \devices\Devices::listDevices($this->identifier);
         foreach ($returnarray as $devId => $count) {
             if (isset($devlist[$devId])) {
                 $finalarray[$devlist[$devId]['display']] = $count;
@@ -600,7 +600,13 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (\devices\Devices::listDevices() as $deviceIndex => $deviceProperties) {
+        if (count($this->getAttributes("media:openroaming")) == 1 && $this->getAttributes("media:openroaming")[0]['value'] == 'always-preagreed') {
+            $orAlways = 1;
+        } else {
+            $orAlways = 0;
+        }
+        
+        foreach (\devices\Devices::listDevices($this->identifier, $orAlways) as $deviceIndex => $deviceProperties) {
             $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
             // find the attribute pertaining to the specific device

@@ -397,6 +397,15 @@ padding-<?php echo $start ?>: 30px;
    text-align: <?php echo $end ?>;
 }
 
+#message_only {
+    padding-top: 20px;
+    padding-<?php echo $start;?>: 30px;
+    padding-<?php echo $end;?>: 30px;
+    font-weight: normal;
+    position: relative;
+    font-size: 15px;
+}
+
 div.device_info {
     background: #f0f0f0;
     border: 1px solid #dddddd;
@@ -675,6 +684,10 @@ div.button_wrapper {
     vertical-align: top;
 }
 
+    img.applogos {
+        height: 100px;
+    }
+
 @media only screen and (max-width: 720px) {
             
     #more_i {
@@ -693,9 +706,13 @@ div.button_wrapper {
     } 
     
     #guess_os button.more_info_b {
-                display: none;
-            }
+        display: none;
     }
+    
+    img.applogos {
+        height: 50px;
+    }
+}
 
 
 @media all and (max-width: 389px) {
@@ -841,6 +858,9 @@ td.vendor {
     font-size: 2.5vw;
     max-width: 60vw;
 }
+img.applogos {
+    height: 50px;
+}
 
 }
 
@@ -882,6 +902,11 @@ button.guess_os {
 
 #roller {
     display: none;
+}
+
+img.applogos {
+    max-width: 45%;
+    height: auto;
 }
 
 }
@@ -1035,6 +1060,10 @@ padding-<?php echo $end ?>: auto;
 
 #user_button_td {
     padding-top: 10px;
+}
+
+img.applogos {
+    height: 50px;
 }
 
 }

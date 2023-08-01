@@ -62,6 +62,8 @@ var openroaming = 'none';
 var preagreed = false;
 var pressedButton;
 var profileDevices;
+var recognisedOS;
+var currentDevice;
 const discoCountries = {
 <?php 
     $C = $Gui->printCountryList(1);
@@ -145,7 +147,9 @@ $.fn.redraw = function() {
 function otherInstallers() {
   clearUIsettings();
   $(".guess_os").hide();
+  $("#message_only").hide();
   $("#other_installers").show();
+  $("#devices").show();
   $("#devices").redraw();
   reset_footer();
 }
@@ -308,8 +312,8 @@ function showProfile(prof) {
       return;
     }
     profileDevices = j.devices;
-    mydev=findDevice(recognisedOS);
-    console.log("recognisedOS:"+mydev);
+    currentDevice=findDevice(recognisedOS);
+    console.log("recognisedOS:"+currentDevice);
     // create the main download page section
 
     
@@ -324,10 +328,10 @@ function showProfile(prof) {
       reset_footer();
       return;
     }
-    updateGuessOsDiv(mydev);
+    updateGuessOsDiv(currentDevice);
     resetDevices(false);
     // first handle the guess_os part
-    if (!handleGuessOs(mydev))
+    if (handleGuessOs(currentDevice) == 0)
       return; 
     // now the full devices list
     $.each(j.devices,function(i,v) {
@@ -385,7 +389,9 @@ function handlePreagreed() {
     if (openroaming == 'ask') {
       $("#or_text_1").show();
     }
-    $("#openroaming_tou").show();
+    if (currentDevice.options.message_only != 1) {
+        $("#openroaming_tou").show();
+    }
   } else {
     $("#openroaming_check").prop("checked", true);
     $("#openroaming_check").trigger("change");
@@ -525,7 +531,11 @@ function deviceInfo(data) {
 
 function handleGuessOs(recognisedDevice) {
     if (recognisedDevice == null)
-        return true;
+        return 1;
+    if(recognisedDevice.options.message_only == 1) {
+        $("#guess_os").html("<div id='message_only'>"+recognisedDevice.message+"</div>");
+        return 1;
+    }
     if(recognisedDevice.redirect != '0') {
         $('.device_info').html('');
         $('.more_info_b').hide();
@@ -537,7 +547,7 @@ function handleGuessOs(recognisedDevice) {
         $(".redirect_link").click(function(event) {
          i_div.hide('fast');
       });
-      return true;
+      return 1;
     }
   // handle devices that cannot be configured due to lack of support
   // for required EAP methods
@@ -602,24 +612,29 @@ function handleGuessOs(recognisedDevice) {
       }
     });           
   }
-  return true;
+  return 1;
 }
 
 
 function changeDevice(devId) {
-  device = findDevice(devId);
-  if (device.options.hs20 === undefined) {
+  currentDevice = findDevice(devId);
+  if (currentDevice.options.hs20 === undefined) {
       recognisedOShs20 = 0;
   } else {
-      recognisedOShs20 = device.options.hs20;
+      recognisedOShs20 = currentDevice.options.hs20;
   }
-  recognisedOS = device.id;
-  $("#device").val(device.id);
-  updateGuessOsDiv(device);
+  recognisedOS = currentDevice.id;
+  $("#device").val(currentDevice.id);
+  updateGuessOsDiv(currentDevice);
   resetOpenRoaming(recognisedOS, recognisedOShs20);
-  if (!handleGuessOs(device))
+  guessOsRes = handleGuessOs(currentDevice);
+  if (guessOsRes == 0)
     return;
-  $("#devices").show();
+  if (guessOsRes == 2) {
+    $("#devices").hide();
+  } else {
+    $("#devices").show();
+  }
   $("div.guess_os").show();
   $("#other_installers").hide();
   reset_footer();
