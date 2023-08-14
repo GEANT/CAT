@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Iñigo Zendegi Urzelai <izendegi@mondragon.edu>, 2018\n"
 "Language-Team: Basque (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -146,18 +146,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "CA Ziurtagiriaren URLa"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
 msgid "---PPPLEASE CHOOSE---"
 msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "CA Ziurtagiriaren URLa"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2021,2023\n"
 "Language-Team: French (France) (http://app.transifex.com/eduroam_devel/cat/"
@@ -172,19 +172,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Certificat pour le rôle %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---SVP CHOISIR---"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Certificat pour le rôle %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -1681,9 +1680,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Informations sur le certificat pour %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Demander un nouveau certificat pour : %s"
+msgstr "Demander un nouveau certificat"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -3470,8 +3468,3 @@ msgstr "Attention !"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Erreur !"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr ""
-#~ "---NON MIS EN ŒUVRE POUR DES RAISONS DE PERFORMANCE DE LA BASE DE DONNEES "
-#~ "eduroam---"

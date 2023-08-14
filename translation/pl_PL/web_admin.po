@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, "
 "2018-2020,2022-2023\n"
@@ -157,19 +157,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Certyfikat dla roli %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---WYBIERZ---"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Certyfikat dla roli %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -1636,9 +1635,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Dane dotyczące certyfikatu %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Zlecenie dotyczące nowego certyfikatu dla: %s"
+msgstr "Żądanie nowego certyfikatu"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -3417,8 +3415,3 @@ msgstr "Uwaga!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Błąd!"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr ""
-#~ "---FUNKCJONALNOŚĆ NIEZAIMPLEMENTOWANA Z POWODU WYDAJNOŚCI BAZY DANYCH "
-#~ "eduroam---"

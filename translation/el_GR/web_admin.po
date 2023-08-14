@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022-2023\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
@@ -147,6 +147,8 @@ msgstr "1. Λεπτομέρειες Κατόχου Πιστοποιητικού"
 #, php-format
 msgid "None of your %s servers has complete information in the database."
 msgstr ""
+"Κανένας από τους %s εξυπηρετητές σας δεν έχει πλήρεις πληροφορίες στην βάση "
+"δεδομένων."
 
 #: web/admin/action_req_certificate.php:192
 #: web/admin/action_req_certificate.php:236
@@ -155,22 +157,23 @@ msgid ""
 "At least the DNS names of TLS servers and a role-based contact mail address "
 "are required."
 msgstr ""
+"Απαιτούνται τουλάχιστον τα ονόματα DNS των εξυπηρετητών TLS και μια "
+"διεύθυνση αλληλογραφίας επικοινωνίας που βασίζεται σε ρόλους."
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Πιστοποιητικό για τον  %s ρόλο"
+msgstr "Πιστοποιητικό για το %s"
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
 msgstr "---ΠΑΡΑΚΑΛΩ ΕΠΙΛΕΞΤΕ---"
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Πιστοποιητικό για τον  %s ρόλο"
+msgstr "Πιστοποιητικό για το %s"
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -182,6 +185,8 @@ msgid ""
 "<strong>No organisation inside your %s has complete information in the "
 "database</strong>. "
 msgstr ""
+"<strong>Κανένας οργανισμός στο %s σας δεν έχει πλήρεις πληροφορίες στη βάση "
+"δεδομένων</strong>."
 
 #: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
@@ -1059,6 +1064,14 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"Χωρίς την Ανώνυμη ταυτότητα, το πραγματικό username θα χρησιμοποιηθεί ως "
+"εξωτερική ταυτότητα και θα είναι η βάση για το αίτημα δρομολόγησης. Για να "
+"λειτουργήσει αυτό , το username πρέπει να έχει σωστό realm suffix . Ακόμα , "
+"η εξακρίβωση του realm suffix θα πρέπει να είναι ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ. Οι "
+"αιτούντες δεν θα εξακριβώνουν ότι το username περιέχει realm και errors όπως "
+"username 'johndoe' τα οποία δεν θα δούλευαν σε σενάρια roaming δε θα "
+"αποκλείονται . Σκεφτείτε να τσεκάρετε το κουτί 'Επιβολή realm suffix στο "
+"username'!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1648,9 +1661,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Πληροφορίες πιστοποιητικού για %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Αίτηση νέου Πιστοποιητικού για: %s"
+msgstr "Αίτηση νέου Πιστοποιητικού"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -1896,7 +1908,7 @@ msgstr "Πίνακας Συμβατότητας Συσκευής"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr ""
+msgstr "Πίνακας συμβατότητας συσκευής για %s από %s "
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -2053,7 +2065,7 @@ msgstr "Επιτυχής προσαρμογή προφίλ"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr ""
+msgstr "Κάποιο σφάλμα προέκυψε κατά την ενημέρωση του προφιλ"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
@@ -3008,6 +3020,12 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"Η μορφή αυτής της επιλογής είναι: IPv4|IPv6|hostname:port . Επιβάλλοντας "
+"στους χρήστες σας ένα δικό σας φίλτρο περιεχομένου είναι σημαντική παραβίαση "
+"της αυτοδιάθεσης των χρηστών . Ακόμα προκαλεί τεχνικά ζητήματα . Παρακαλούμε "
+"διαβάστε καλά την συζήτηση στο %s πριν προσδιορίσεται ένα proxy με αυτή την "
+"επιλογή . Αυτό το χαρακτηριστικό είναι αυτή τη στιγμή πειραματικό και έχει "
+"μόνο χρήση σε εγκαταστάτες Apple."
 
 #: web/lib/admin/OptionDisplay.php:252
 #, php-format
@@ -3413,6 +3431,3 @@ msgstr "Προειδοποίηση!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Σφάλμα!"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr "---ΔΕΝ ΕΧΕΙ ΥΛΟΠΟΙΗΘΕΙ ΓΙΑ ΛΟΓΟΥΣ ΑΠΟΔΟΣΗΣ ΤΗΣ eduroam DB---"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, "
 "2020,2022\n"
@@ -675,11 +675,3 @@ msgstr "Toimialue sisältää välilyöntejä!"
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Toimialue ei sisällä edes yhtä . (pistettä)!"
-
-#, php-format
-#~ msgid "Unreleased %s Git Revision"
-#~ msgstr "Julkaisematon %s Git-revisio"
-
-#, php-format
-#~ msgid "Release <a href='%s'>%s</a>"
-#~ msgstr "Julkaisu <a href='%s'>%s</a>"

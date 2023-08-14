@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2015-2016,2018-2023\n"
@@ -140,6 +140,8 @@ msgstr "1. Данни за собственика на сертификата"
 #, php-format
 msgid "None of your %s servers has complete information in the database."
 msgstr ""
+"Нито един от вашите %s сървъри не разполага с пълна информация в базата "
+"данни."
 
 #: web/admin/action_req_certificate.php:192
 #: web/admin/action_req_certificate.php:236
@@ -147,23 +149,22 @@ msgstr ""
 msgid ""
 "At least the DNS names of TLS servers and a role-based contact mail address "
 "are required."
-msgstr ""
+msgstr "Изискват се поне DNS имената на TLS сървърите и имейл адрес за връзка."
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Сертификат за %s роля"
+msgstr "Сертификат за %s"
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---МОЛЯ ИЗБЕРЕТЕ---"
+msgstr "---PPPLEASE CHOOSE---"
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Сертификат за %s роля"
+msgstr "Сертификат за %s"
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -175,6 +176,8 @@ msgid ""
 "<strong>No organisation inside your %s has complete information in the "
 "database</strong>. "
 msgstr ""
+"<strong>Нито една организация в рамките на вашата %s не разполага с пълна "
+"информация в базата данни</strong>."
 
 #: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
@@ -1632,9 +1635,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Информация за сертификата за %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Заявете нов сертификат за: %s"
+msgstr "Заявете нов сертификат"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -3375,8 +3377,3 @@ msgstr "Предупреждение!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Грешка!"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr ""
-#~ "---НЕ Е РЕАЛИЗИРАНО ПОРАДИ ПРИЧИНИ, СВЪРЗАНИ С ЕФЕКТИВНОСТТА НА БАЗАТА "
-#~ "ДАННИ НА eduroam---"

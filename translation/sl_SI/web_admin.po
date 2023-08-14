@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Tina Trlep <tina.trlep@arnes.si>, 2018\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
@@ -164,19 +164,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Potrdilo za vlogo %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---IZBERITE---"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Potrdilo za vlogo %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -1633,9 +1632,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Informacije o potrdilu za %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Zahtevajte novo potrdilo za: %s"
+msgstr "Zahteva za novo potrdilo"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -3392,8 +3390,3 @@ msgstr "Opozorilo!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Napaka!"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr ""
-#~ "---NI BILO IZVEDENO ZARADI UČINKOVITOSTI DELOVANJA ZBIRKE PODATKOV "
-#~ "eduroam---"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015,2018-2019,2022\n"
 "Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -681,11 +681,3 @@ msgstr "El domini conté espais!"
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "El domini no conté almenys un . (punt)!"
-
-#, php-format
-#~ msgid "Unreleased %s Git Revision"
-#~ msgstr "Revisió del Git %s no publicada"
-
-#, php-format
-#~ msgid "Release <a href='%s'>%s</a>"
-#~ msgstr "Versió <a href='%s'>%s</a>"

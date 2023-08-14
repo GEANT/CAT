@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2012,2015,2019\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/eduroam_devel/"
@@ -682,11 +682,3 @@ msgstr "Realm sadrži prazninu!"
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm ne sadrži barem jednu . (točku)!"
-
-#, php-format
-#~ msgid "Unreleased %s Git Revision"
-#~ msgstr "Neobjavljena 1%s Git verzija"
-
-#, php-format
-#~ msgid "Release <a href='%s'>%s</a>"
-#~ msgstr "Izdanje <a href='%s'>%s</a>"

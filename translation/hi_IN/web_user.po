@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi (India) (http://app.transifex.com/eduroam_devel/cat/"
@@ -530,7 +530,7 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
-#: web/skins/modern/user/js/cat_js.php:88
+#: web/skins/modern/user/js/cat_js.php:90
 msgid "Continue"
 msgstr ""
 
@@ -776,14 +776,14 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:196
-#: web/skins/modern/user/js/cat_js.php:83
+#: web/skins/modern/user/js/cat_js.php:85
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
-#: web/skins/modern/user/js/cat_js.php:84
+#: web/skins/modern/user/js/cat_js.php:86
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
@@ -877,115 +877,115 @@ msgid ""
 "possible."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:78
+#: web/skins/modern/user/js/cat_js.php:80
 msgid "no matching data found"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:79
+#: web/skins/modern/user/js/cat_js.php:81
 msgid "select"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:80
+#: web/skins/modern/user/js/cat_js.php:82
 msgid "WWW:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:83
 msgid "email:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:82
+#: web/skins/modern/user/js/cat_js.php:84
 msgid "tel:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:85
+#: web/skins/modern/user/js/cat_js.php:87
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:86
+#: web/skins/modern/user/js/cat_js.php:88
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:89
+#: web/skins/modern/user/js/cat_js.php:91
 msgid "Close"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:90
+#: web/skins/modern/user/js/cat_js.php:92
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:91
+#: web/skins/modern/user/js/cat_js.php:93
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:92
+#: web/skins/modern/user/js/cat_js.php:94
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:93
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:94
+#: web/skins/modern/user/js/cat_js.php:96
 msgid "This entry was last updated at:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:95
+#: web/skins/modern/user/js/cat_js.php:97
 msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:97
+#: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:98
+#: web/skins/modern/user/js/cat_js.php:100
 #, php-format
 msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:99
+#: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:100
+#: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:103
+#: web/skins/modern/user/js/cat_js.php:105
 msgid "eduroam only"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:104
+#: web/skins/modern/user/js/cat_js.php:106
 msgid "eduroam and OpenRoaming"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Select your organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Help, my organisation is not on the list"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:113
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -993,63 +993,63 @@ msgid ""
 "the %s database."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Show organisations in"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "all countries"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "or search for an organisation, for example University of Oslo"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "show all countries"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Results limited to"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "entries - show more"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Nearby"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Location timeout"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Could not get your position"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Your browser has denied access to your location"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Unknown location error"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "You are here:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "Getting your location..."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Nearby providers shown on top."
 msgstr ""
 

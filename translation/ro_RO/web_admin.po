@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/eduroam_devel/"
@@ -154,19 +154,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Certificat pentru rolul %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---ALEGEȚI---"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Certificat pentru rolul %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -1635,7 +1634,7 @@ msgstr "Informații despre certificatul pentru %s %s"
 
 #: web/admin/overview_certificates.php:105
 msgid "Request new Certificate"
-msgstr ""
+msgstr "Cerere pentru certificat nou"
 
 #: web/admin/overview_certificates.php:110
 #, php-format

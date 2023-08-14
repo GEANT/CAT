@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, "
 "2012-2013,2015-2016,2018-2020,2022-2023\n"
@@ -159,19 +159,18 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s"
-msgstr "Certifikat za ulogu %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:204
-#, fuzzy
 msgid "---PPPLEASE CHOOSE---"
-msgstr "---MOLIMO IZABERITE---"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Certificate for %s "
-msgstr "Certifikat za ulogu %s"
+msgstr ""
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -1608,9 +1607,8 @@ msgid "Certificate Information for %s %s"
 msgstr "Informacije o certifikatu za %s %s"
 
 #: web/admin/overview_certificates.php:105
-#, fuzzy
 msgid "Request new Certificate"
-msgstr "Novi certifikat za tražitelja: %s "
+msgstr "Zatraži novi certifikat"
 
 #: web/admin/overview_certificates.php:110
 #, php-format
@@ -3343,6 +3341,3 @@ msgstr "Upozorenje!"
 #: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Pogreška!"
-
-#~ msgid "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"
-#~ msgstr "---NOT IMPLEMENTED DUE TO eduroam DB PERFORMANCE REASONS---"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018,2022\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/eduroam_devel/"
@@ -686,11 +686,3 @@ msgstr "O real contém espaços!"
 #: web/lib/common/InputValidation.php:295
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Reino não contém, pelo menos, um . (ponto)!"
-
-#, php-format
-#~ msgid "Unreleased %s Git Revision"
-#~ msgstr "Revisão Git %s não lançada"
-
-#, php-format
-#~ msgid "Release <a href='%s'>%s</a>"
-#~ msgstr "Versão <a href='%s'>%s</a>"

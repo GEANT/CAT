@@ -4,19 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2019
 # Χρυσόστομος Μάσχας <chrysom@noc.grnet.gr>, 2022
 # eduroam_devel <stefan.winter@restena.lu>, 2022
 # Zenon Mousmoulas <zenon@mousmoulas.gr>, 2022
+# Halil Adem <hadem@noc.grnet.gr>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 13:14+0200\n"
+"POT-Creation-Date: 2023-08-14 13:12+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>, 2022\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2023\n"
 "Language-Team: Greek (Greece) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/el_GR/)\n"
 "Language: el_GR\n"
@@ -991,6 +991,8 @@ msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Έχετε χρησιμοποιήσει επιτυχώς το δίκτυο στο παρελθόν, π.χ. στο οικείο σας "
+"ίδρυμα χωρίς την χρήση περιαγωγής;"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -1000,6 +1002,8 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
+"Εάν η συσκευή σας δεν λειτούργησε ποτέ με αυτές τις ρυθμίσεις, είναι πολύ "
+"πιθανό η συσκευή σας να έχει εσφαλμένη παραμετροποίηση. %s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
@@ -1329,7 +1333,7 @@ msgstr "Αποτελέσματα διαγνωστικών για τους επι
 
 #: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occurred"
-msgstr ""
+msgstr "Προέκυψε άγνωστο πρόβλημα"
 
 #: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
@@ -1777,11 +1781,11 @@ msgstr "<strong>Δοκιμή επιτυχής.</strong>"
 
 #: web/diag/radius_tests.php:177
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
-msgstr ""
+msgstr "<strong>Δοκιμή εν μέρει επιτυχής</strong>: επιτυχής ταυτοποίηση."
 
 #: web/diag/radius_tests.php:180
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr ""
+msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: επιτυχής ταυτοποίηση."
 
 #: web/diag/radius_tests.php:185
 msgid ""
@@ -2046,4 +2050,4 @@ msgstr "Δείτε λεπτομέρειες"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
-msgstr ""
+msgstr "Αν θέλετε να αναφέρετε το πρόβλημα σας, συμπληρώστε τα παρακάτω πεδία."
