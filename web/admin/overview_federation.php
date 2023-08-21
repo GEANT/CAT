@@ -282,7 +282,7 @@ $(document).on('click', '#realmcheck' , function() {
 
             foreach ($my_idps as $index => $my_idp) {
                 $idp_instance = $idps[$index]['instance'];
-                // new row, with one IdP inside
+                // new row_id, with one IdP inside
                 echo "<tr>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    

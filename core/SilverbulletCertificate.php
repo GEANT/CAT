@@ -60,14 +60,14 @@ class SilverbulletCertificate extends EntityWithDBProperties
     public $serial;
 
     /**
-     * row index of this certificate in the database table
+     * row_id index of this certificate in the database table
      * 
      * @var integer
      */
     public $dbId;
 
     /**
-     * the row index of the invitation which was consumed to generate this 
+     * the row_id index of the invitation which was consumed to generate this 
      * certificate
      * 
      * @var integer

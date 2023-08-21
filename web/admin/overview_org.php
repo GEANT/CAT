@@ -258,7 +258,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         }
     }
     ?>
-    <div style='display: table-row;'>
+    <div style='display: table-row_id;'>
         <div class='profilebox' style='display: table-cell;'>
             <h2><?php
                 switch ($deploymentObject->consortium) {
@@ -618,7 +618,7 @@ echo $mapCode->htmlHeadCode();
 // simple widget with just a "Manage" button
         foreach ($profiles_for_this_idp as $profilecount => $profile_list) {
             ?>
-            <div style='display: table-row; margin-bottom: 20px;'>
+            <div style='display: table-row_id; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell; min-width: 650px;'>
                     <?php
                     switch (get_class($profile_list)) {

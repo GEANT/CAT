@@ -278,7 +278,7 @@ class IdPlist extends common\Entity
     /**
      * Extract IdP attributes for listAllIdentityProviders and 
      * listIdentityProvidersWithProfiles
-     * @param  $idp object - the row object returned by the IdP search
+     * @param  $idp object - the row_id object returned by the IdP search
      * @return array the IdP attributes
      */
     private static function setIdentityProviderAttributes($idp) {
@@ -312,7 +312,7 @@ class IdPlist extends common\Entity
     /**
      * Extract Profile attributes for listIdentityProvidersWithProfiles
      * 
-     * @param object $profile - the row object returned by the profile search
+     * @param object $profile - the row_id object returned by the profile search
      * @return array the profile attributes
      */
     private static function setProfileAttributes($profile)

@@ -200,7 +200,7 @@ class Federation extends EntityWithDBProperties
             throw new Exception("This database type is never an array!");
         }
         // fetch attributes from DB; populates $this->attributes array
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?
                                             ORDER BY option_name", "FED");
@@ -210,7 +210,7 @@ class Federation extends EntityWithDBProperties
             "lang" => NULL,
             "value" => $this->tld,
             "level" => Options::LEVEL_FED,
-            "row" => 0,
+            "row_id" => 0,
             "flag" => NULL);
 
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
@@ -221,7 +221,7 @@ class Federation extends EntityWithDBProperties
                 "lang" => NULL,
                 "value" => "on",
                 "level" => Options::LEVEL_FED,
-                "row" => 0,
+                "row_id" => 0,
                 "flag" => NULL);
         }
 
@@ -550,10 +550,10 @@ Best regards,
     private static function findCandidates(\mysqli_result $dbResult, &$country)
     {
         $retArray = [];
-        while ($row = mysqli_fetch_object($dbResult)) {
-            if (!in_array($row->id, $retArray)) {
-                $retArray[] = $row->id;
-                $country = strtoupper($row->country);
+        while ($row_id = mysqli_fetch_object($dbResult)) {
+            if (!in_array($row_id->id, $retArray)) {
+                $retArray[] = $row_id->id;
+                $country = strtoupper($row_id->country);
             }
         }
         if (count($retArray) <= 0) {

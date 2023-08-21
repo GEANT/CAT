@@ -367,7 +367,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         <table style="border:none">
             <caption><?php echo _("EAP type support"); ?></caption>
             <tr>
-                <th scope="row" style="vertical-align:top; padding:1em">
+                <th scope="row_id" style="vertical-align:top; padding:1em">
                     <?php echo _('Supported EAP types for this profile'); ?>
                 </th>
                 <td id="supported_eap">
@@ -389,7 +389,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 <td colspan="2"> </td>
             </tr>
             <tr>
-                <th scope="row" style="vertical-align:top; padding:1em">
+                <th scope="row_id" style="vertical-align:top; padding:1em">
                     <?php echo _('Unsupported EAP types'); ?>
                 </th>
                 <td style="vertical-align:top" id="unsupported_eap">

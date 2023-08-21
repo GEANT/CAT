@@ -31,7 +31,7 @@ $end = $langInstance->rtl ? "left" : "right";
 .sb-titled-cell{
     font-weight:bold;
 }
-.sb-user-row{
+.sb-user-row_id{
     background:#F0F0F0;
 }
 .sb-user-buttons{
@@ -41,7 +41,7 @@ $end = $langInstance->rtl ? "left" : "right";
 .sb-user-buttons button{
     margin-bottom:6px;
 }
-.sb-certificate-row{
+.sb-certificate-row_id{
     background:#DBEAF3;
 }
 .sb-certificate-summary{
@@ -54,7 +54,7 @@ $end = $langInstance->rtl ? "left" : "right";
     width:260px;
     word-wrap: break-word;
 }
-.sb-title-row{
+.sb-title-row_id{
     background:lightgrey;
 }
 .sb-add-new-user{

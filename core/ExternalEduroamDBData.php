@@ -268,7 +268,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         $query = "SELECT servers, contacts FROM eduroamv2.view_tls_ro WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
         $roTldServerTransaction = $this->db->exec($query, "s", $tld);
         while ($roServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $roTldServerTransaction)) {
-            // there is only one row
+            // there is only one row_id
             $retval[$roServerResponses->servers] = $this->dissectCollapsedContacts($roServerResponses->contacts);
         }
         return $retval;

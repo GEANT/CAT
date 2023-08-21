@@ -189,15 +189,15 @@ class UIElements extends \core\common\Entity {
                         switch ($option['name']) {
                             case "general:logo_file":
                             case "fed:logo_file":
-                                $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
                                 break;
                             case "eap:ca_file":
                             // fall-through intended: display both the same way
                             case "fed:minted_ca_file":
-                                $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
                                 break;
                             case "support:info_file":
-                                $retval .= $this->previewInfoFileinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewInfoFileinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
                                 break;
                             default:
                         }
@@ -288,7 +288,7 @@ class UIElements extends \core\common\Entity {
     /**
      * 
      * @param string  $table       the database table
-     * @param integer $rowindex    the database row
+     * @param integer $rowindex    the database row_id
      * @param boolean $checkpublic should we check if the requested piece of data is public?
      * @return string|boolean the requested data, or FALSE if something went wrong
      */

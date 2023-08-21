@@ -335,7 +335,7 @@ class RADIUSTestsUI extends AbstractTest
                 }
             }
             $out[] = "<tr class='server_cert' style='display: ";
-            $out[] = ($result->server_cert ? 'table-row' : 'none').";'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list' style='display: none;'>";
+            $out[] = ($result->server_cert ? 'table-row_id' : 'none').";'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list' style='display: none;'>";
             $out[] = $cert_data;
                         
             $ext = '';

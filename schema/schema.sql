@@ -62,9 +62,9 @@ CREATE TABLE `federation_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -85,9 +85,9 @@ CREATE TABLE `institution_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `institution_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -155,9 +155,9 @@ CREATE TABLE `deployment_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `deployment_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -180,9 +180,9 @@ CREATE TABLE `profile_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -210,12 +210,12 @@ CREATE TABLE `downloads` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 
-  `row` int(11) NOT NULL AUTO_INCREMENT, 
+  `row_id` int(11) NOT NULL AUTO_INCREMENT, 
   `user_id` varchar(2048) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

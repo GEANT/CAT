@@ -362,7 +362,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * 
      * @param string    $username the username
      * @param \DateTime $expiry   the expiry date
-     * @return int row ID of the new user in the database
+     * @return int row_id ID of the new user in the database
      */
     public function addUser($username, \DateTime $expiry) {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";

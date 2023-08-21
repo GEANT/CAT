@@ -818,7 +818,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 "lang" => NULL,
                 "value" => $attValue,
                 "level" => Options::LEVEL_PROFILE,
-                "row" => 0,
+                "row_id" => 0,
                 "flag" => NULL,
             ];
         }
@@ -832,7 +832,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      */
     protected function addDatabaseAttributes()
     {
-        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
+        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = ?
                 AND device_id IS NULL AND eap_method_id = 0

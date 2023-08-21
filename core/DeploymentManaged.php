@@ -235,7 +235,7 @@ class DeploymentManaged extends AbstractDeployment
             $this->host2_v6 = $iterator3->radius_ip6;
             $this->radius_hostname_2 = $iterator3->mgmt_hostname;
         }
-        $thisLevelAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+        $thisLevelAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?  
                                             ORDER BY option_name", "Profile");

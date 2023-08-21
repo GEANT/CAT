@@ -153,7 +153,7 @@ class OptionDisplay extends \core\common\Entity
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 $loggerInstance = new \core\common\Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
+                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row_id'] : $option['value']), $option['lang']);
             }
         }
         return $retval;

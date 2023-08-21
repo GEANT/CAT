@@ -120,9 +120,9 @@ require_once "inc/click_button_js.php";
 
         asort($myFeds);
 
-        foreach ($instlist as $key => $row) {
-            $country[$key] = $row['country'];
-            $name[$key] = $row['name'];
+        foreach ($instlist as $key => $row_id) {
+            $country[$key] = $row_id['country'];
+            $name[$key] = $row_id['name'];
         }
         ?>
         <table class='user_overview'>

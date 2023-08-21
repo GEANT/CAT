@@ -147,7 +147,7 @@ $(document).on('click', '#realmcheck' , function() {
             }
         } 
         ?>
-        <div style='display: table-row; margin-bottom: 20px;'>
+        <div style='display: table-row_id; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
                 <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
