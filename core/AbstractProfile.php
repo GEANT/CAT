@@ -631,6 +631,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             }
             $eapCustomtext = 0;
             $deviceCustomtext = 0;
+            $geteduroam = 0;
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = self::HIDDEN;
@@ -667,9 +668,15 @@ abstract class AbstractProfile extends EntityWithDBProperties
                     } else {
                         $devStatus = self::UNAVAILABLE;
                     }
+                    $geteduroamOpts = $this->getAttributes("device-specific:geteduroam");
+                    foreach ($geteduroamOpts as $dev) {
+                        if ($dev['device'] == $deviceIndex) {
+                            $geteduroam = $dev['value'] == 'on' ? 1 : 0;
+                        }
+                    }
                 }
             }
-            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options'], 'group' => $group];
+            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options'], 'group' => $group, 'geteduroam' => $geteduroam];
         }
         return $returnarray;
     }

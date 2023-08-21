@@ -313,7 +313,6 @@ function showProfile(prof) {
     }
     profileDevices = j.devices;
     currentDevice=findDevice(recognisedOS);
-    console.log("recognisedOS:"+currentDevice);
     // create the main download page section
 
     
@@ -389,7 +388,7 @@ function handlePreagreed() {
     if (openroaming == 'ask') {
       $("#or_text_1").show();
     }
-    if (currentDevice.options.message_only != 1) {
+    if (currentDevice.options.message_only != 1 && currentDevice.geteduroam != 1) {
         $("#openroaming_tou").show();
     }
   } else {
@@ -532,6 +531,10 @@ function deviceInfo(data) {
 function handleGuessOs(recognisedDevice) {
     if (recognisedDevice == null)
         return 1;
+    if (recognisedDevice.geteduroam == 1) {
+        recognisedDevice.options.message_only = 1;
+        recognisedDevice.message = recognisedDevice.options.geteduroam_text;
+    }
     if(recognisedDevice.options.message_only == 1) {
         $("#guess_os").html("<div id='message_only'>"+recognisedDevice.message+"</div>");
         return 1;
