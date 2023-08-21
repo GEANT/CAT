@@ -227,6 +227,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML'),
 ('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML'),
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
+('device-specific:geteduroam','show the dedicated geteduroam download page for this device','boolean',NULL),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL),
 ('eap:ca_file','certificate of the CA signing the RADIUS server key','file',NULL),
 ('eap:server_name','name of authorised RADIUS server','string',NULL),

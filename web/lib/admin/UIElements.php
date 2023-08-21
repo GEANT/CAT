@@ -114,6 +114,7 @@ class UIElements extends \core\common\Entity {
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
             _("Use GEANTlink for TTLS (Windows 8 and 10)") => "device-specific:geantlink",
+            _("Show the dedicated geteduroam download page for this device") => "device-specific:geteduroam",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
             _("OpenRoaming") => "media:openroaming",
