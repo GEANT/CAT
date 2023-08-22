@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:12+0200\n"
+"POT-Creation-Date: 2023-08-22 06:56+0000\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Håvard Ramberg, 2022\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://app.transifex.com/"
@@ -22,31 +22,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/Devices-template.php:139
+#: devices/Devices-template.php:143
 msgid "MS Windows 8 and newer"
 msgstr "MS Windows 8 og nyere"
 
-#: devices/Devices-template.php:154
+#: devices/Devices-template.php:158
 msgid "MS Windows 8"
 msgstr "MS Windows 8"
 
-#: devices/Devices-template.php:170
+#: devices/Devices-template.php:174
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:183
+#: devices/Devices-template.php:187
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:197
+#: devices/Devices-template.php:201
 msgid "Apple device"
 msgstr "Apple enhet"
 
-#: devices/Devices-template.php:208 devices/Devices-template.php:224
-#: devices/Devices-template.php:240 devices/Devices-template.php:256
-#: devices/Devices-template.php:271 devices/Devices-template.php:286
-#: devices/Devices-template.php:301 devices/Devices-template.php:316
-#: devices/Devices-template.php:331 devices/Devices-template.php:346
+#: devices/Devices-template.php:212 devices/Devices-template.php:228
+#: devices/Devices-template.php:244 devices/Devices-template.php:260
+#: devices/Devices-template.php:275 devices/Devices-template.php:290
+#: devices/Devices-template.php:305 devices/Devices-template.php:320
+#: devices/Devices-template.php:335 devices/Devices-template.php:350
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -58,47 +58,47 @@ msgstr ""
 "passord for å kunne gjøre endringer i profilen, det er da ditt computer "
 "passord."
 
-#: devices/Devices-template.php:213
+#: devices/Devices-template.php:217
 msgid "Apple macOS Catalina"
 msgstr "Apple macOS Catalina"
 
-#: devices/Devices-template.php:229
+#: devices/Devices-template.php:233
 msgid "Apple macOS Mojave"
 msgstr "Apple macOS Mojave"
 
-#: devices/Devices-template.php:245
+#: devices/Devices-template.php:249
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:261
+#: devices/Devices-template.php:265
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:276
+#: devices/Devices-template.php:280
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:291
+#: devices/Devices-template.php:295
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:306
+#: devices/Devices-template.php:310
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:321
+#: devices/Devices-template.php:325
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:336
+#: devices/Devices-template.php:340
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:351
+#: devices/Devices-template.php:355
 msgid "Apple iOS mobile device (iOS 7-11)"
 msgstr "Apple iOS mobil enhet (iOS 7-11)"
 
-#: devices/Devices-template.php:361
+#: devices/Devices-template.php:365
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -109,19 +109,19 @@ msgstr ""
 "sikkerhetskode på din enhet. Senere blir du spurt om passord til "
 "sertifikatet, dette er import PIN som vist på denne siden."
 
-#: devices/Devices-template.php:366
+#: devices/Devices-template.php:370
 msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr "Apple iOS mobil enhet (iOS 5 and 6)"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:384
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:401
+#: devices/Devices-template.php:405
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:411
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -130,16 +130,16 @@ msgid ""
 "added to the preferred networks."
 msgstr ""
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:416
 msgid "Android 8 and higher"
 msgstr "Android 8 og nyere"
 
-#: devices/Devices-template.php:419 devices/Devices-template.php:434
-#: devices/Devices-template.php:448 devices/Devices-template.php:463
-#: devices/Devices-template.php:477 devices/Devices-template.php:491
-#: devices/Devices-template.php:505 devices/Devices-template.php:519
-#: devices/Devices-template.php:533 devices/Devices-template.php:547
-#: devices/Devices-template.php:561
+#: devices/Devices-template.php:424 devices/Devices-template.php:452
+#: devices/Devices-template.php:467 devices/Devices-template.php:494
+#: devices/Devices-template.php:508 devices/Devices-template.php:522
+#: devices/Devices-template.php:536 devices/Devices-template.php:550
+#: devices/Devices-template.php:564 devices/Devices-template.php:578
+#: devices/Devices-template.php:592
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -152,60 +152,79 @@ msgstr ""
 "bruker konfigurasjonsfil som er lastet ned fra CAT til å gjøre alle "
 "nødvendige innstillinger."
 
-#: devices/Devices-template.php:421 devices/Devices-template.php:436
-#: devices/Devices-template.php:450 devices/Devices-template.php:465
-#: devices/Devices-template.php:479 devices/Devices-template.php:493
-#: devices/Devices-template.php:507 devices/Devices-template.php:521
-#: devices/Devices-template.php:535 devices/Devices-template.php:549
-#: devices/Devices-template.php:563
+#: devices/Devices-template.php:426 devices/Devices-template.php:454
+#: devices/Devices-template.php:469 devices/Devices-template.php:496
+#: devices/Devices-template.php:510 devices/Devices-template.php:524
+#: devices/Devices-template.php:538 devices/Devices-template.php:552
+#: devices/Devices-template.php:566 devices/Devices-template.php:580
+#: devices/Devices-template.php:594
 msgid "as local download"
 msgstr "lokal nedlasting"
 
-#: devices/Devices-template.php:427
+#: devices/Devices-template.php:428 devices/Devices-template.php:470
+#, php-format
+msgid ""
+"Use our app, it will guide you through the setup process:%s(or download it "
+"manually %s.)<p>After installation, open the app, select your home "
+"institution and the app will collect required information (this will require "
+"an internet connection).<p><span style='font-size:90%%'>If you want to save "
+"the configuration for later offline deployment, you can download it by %s.</"
+"span>"
+msgstr ""
+
+#: devices/Devices-template.php:438 devices/Devices-template.php:480
+msgid "here"
+msgstr ""
+
+#: devices/Devices-template.php:439 devices/Devices-template.php:481
+msgid "clicking here"
+msgstr ""
+
+#: devices/Devices-template.php:445
 msgid "Android 8 to 10"
 msgstr "Android 8 til 10"
 
-#: devices/Devices-template.php:442
+#: devices/Devices-template.php:460
 msgid "Android 4.3 to 7"
 msgstr "Android 4.3 til 7"
 
-#: devices/Devices-template.php:456
+#: devices/Devices-template.php:487
 msgid "Android 10.0 Q"
 msgstr "Android 10.0 Q"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:501
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:484
+#: devices/Devices-template.php:515
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:498
+#: devices/Devices-template.php:529
 msgid "Android 7.0 Nougat"
 msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:512
+#: devices/Devices-template.php:543
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:526
+#: devices/Devices-template.php:557
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:540
+#: devices/Devices-template.php:571
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:554
+#: devices/Devices-template.php:585
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:569 devices/Devices-template.php:592
+#: devices/Devices-template.php:600 devices/Devices-template.php:623
 msgid "EAP config"
 msgstr "EAP konfigurasjon"
 
-#: devices/Devices-template.php:575
+#: devices/Devices-template.php:606
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
@@ -214,11 +233,11 @@ msgstr ""
 "Dette valget lager en EAP XML konfigurasjonsfil, som kan brukes at "
 "eduroamCAT app'en for Android."
 
-#: devices/Devices-template.php:580
+#: devices/Devices-template.php:611
 msgid "EAP generic"
 msgstr "Generisk EAP"
 
-#: devices/Devices-template.php:585
+#: devices/Devices-template.php:616
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -227,7 +246,7 @@ msgstr ""
 "Dette valget lager er generisk EAP XML konfigurasjonsfil, som kan brukes av "
 "geteduroam app'en."
 
-#: devices/Devices-template.php:597
+#: devices/Devices-template.php:628
 #, php-format
 msgid ""
 "This option provides an EAP config XML file with multiple "
@@ -236,7 +255,7 @@ msgstr ""
 "Dette valget tilbyr en XML-konfigurasjonsfil for EAP med flere "
 "EAPIdentityProvider elementer og alle språkversjoner"
 
-#: devices/Devices-template.php:603
+#: devices/Devices-template.php:634
 msgid "Test"
 msgstr "Test"
 

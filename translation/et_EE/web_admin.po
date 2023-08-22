@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:12+0200\n"
+"POT-Creation-Date: 2023-08-22 06:56+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2023\n"
 "Language-Team: Estonian (Estonia) (http://app.transifex.com/eduroam_devel/"
@@ -242,7 +242,7 @@ msgid "Property Value"
 msgstr "Atribuudi väärtus"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:247
 msgid "Country:"
 msgstr "Riik:"
 
@@ -402,7 +402,7 @@ msgstr ""
 "täita vähemalt 'vaikimisi/muu' keele väli, kuna seda kasutatakse juhul, kui "
 "allalaadimiseks määratud keeles eraldi nime ei ole."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
 msgid "Media Properties"
 msgstr "Meedia atribuudid"
 
@@ -1756,7 +1756,7 @@ msgstr "Seadistatud / Nähtav / OpenRoaming"
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Name"
 msgstr "%s nimi"
@@ -1909,7 +1909,7 @@ msgstr "Profiil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tüübid</strong> (eelistamise järjekorras):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
 msgid "OK"
 msgstr "OK"
 
@@ -2025,7 +2025,7 @@ msgid "VLAN tag for own users"
 msgstr "Oma kasutajate VLAN"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:142
 msgid "Realm to be considered own users"
 msgstr "Domeen, mille kasutajad on omad"
 
@@ -2392,7 +2392,7 @@ msgstr ""
 "Sa oled %s administraator. Sa saad juurde kutsuda uusi administraatoreid, "
 "kes saavad omakorda ise uusi administraatoreid määrata."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Administraator"
@@ -2947,7 +2947,7 @@ msgstr "Loe juhendeid vikis."
 msgid "select language"
 msgstr "vali keel"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
 msgid "default/other languages"
 msgstr "vaikimisi/muud keeled"
 
@@ -2959,11 +2959,11 @@ msgstr "(vaikimisi/muud keeled)"
 msgid "file content"
 msgstr "faili sisu"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "on"
 msgstr "aktiivne"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "off"
 msgstr "mitteaktiivne"
 
@@ -3151,153 +3151,158 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Kasuta GEANTlinki TTLS jaoks (Windows 8 ja 10)"
 
 #: web/lib/admin/UIElements.php:117
+#, fuzzy
+msgid "Show the dedicated geteduroam download page for this device"
+msgstr "Lisatekst allalaadimislehel seadme jaoks"
+
+#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Profiili kirjeldus"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:119
 msgid "Custom Installer Name Suffix"
 msgstr "Kohandatud paigaldusprogrammi nime järelliide (sufiks)"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:120
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:122
 msgid "Real Name"
 msgstr "Pärisnimi"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:123
 msgid "E-Mail Address"
 msgstr "E-posti aadress"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:124
 msgid "Remove/Disable SSID"
 msgstr "Eemalda/Keela SSID"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:125
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Kohustuslik sisufilter-proksi"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:126
 msgid "Custom CSS file for User Area"
 msgstr "Kasutajaliidese jaoks kohandatud CSS fail"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:127
 #, php-format
 msgid "%s Logo"
 msgstr "%s logo"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:128
 msgid "Preferred Skin for User Area"
 msgstr "Kasutajaliidese puhul eelistatud veebikujundus"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Lisa %s kaubamärgid paigaldusprogrammi"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "%s Homepage"
 msgstr "%s koduleht"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Kohandatud tekst %s kutsetes"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "Enable %s"
 msgstr "Luba %s"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Ära lõpeta EAPd"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maksimaalne kasutajate arv profiili kohta"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Lisa %s-le CA "
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:137
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: luba %s liitumine (Opt-In)"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:138
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: Kohandatud NAPTRi siht"
 
-#: web/lib/admin/UIElements.php:140
+#: web/lib/admin/UIElements.php:141
 msgid "VLAN for own users"
 msgstr "Oma kasutajate VLAN"
 
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:143
 msgid "Custom Operator-Name attribute"
 msgstr "Kohandatud operaatorinime atribuut"
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:243
 #, php-format
 msgid "General %s details"
 msgstr "%s üldandmed"
 
-#: web/lib/admin/UIElements.php:260
+#: web/lib/admin/UIElements.php:261
 msgid "Global Helpdesk Details"
 msgstr "Ülemaailmse kasutajatoe andmed"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:340
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Viga sertifikaadi võtmisel andmebaasist!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:349
 msgid "There was an error processing the certificate!"
 msgstr "Viga sertifikaadi töötlemisel!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Root CA"
 msgstr "Juursertifikaat"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Intermediate CA"
 msgstr "Vahesertifikaat"
 
-#: web/lib/admin/UIElements.php:358
+#: web/lib/admin/UIElements.php:359
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "See on <strong>SERVERI</strong> sertifikaat!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:376
 msgid "Preview of logo file"
 msgstr "Logo faili eelvaade"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:392
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Viga faili võtmisel andmebaasist!"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "File exists"
 msgstr "Fail on olemas"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "Preview"
 msgstr "Eelvaade"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:417
 msgid "Remark"
 msgstr "Märkus"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:418
 msgid "Warning!"
 msgstr "Hoiatus!"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:419
 msgid "Error!"
 msgstr "Viga!"

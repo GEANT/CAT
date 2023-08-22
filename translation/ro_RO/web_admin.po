@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:12+0200\n"
+"POT-Creation-Date: 2023-08-22 06:56+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/eduroam_devel/"
@@ -245,7 +245,7 @@ msgid "Property Value"
 msgstr ""
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:247
 msgid "Country:"
 msgstr "Țara:"
 
@@ -410,7 +410,7 @@ msgstr ""
 "baza/alte limbi, este folosit ca și o rezervă dacă sistemul nu are un nume "
 "exact în limba în care utlizatorul cere."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
 msgid "Media Properties"
 msgstr "Proprietăți media"
 
@@ -1825,7 +1825,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Name"
 msgstr "%s Nume"
@@ -1978,7 +1978,7 @@ msgstr "Profilul: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipuri EAP</strong> (în ordinea preferințelor):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
 msgid "OK"
 msgstr "De acord"
 
@@ -2094,7 +2094,7 @@ msgid "VLAN tag for own users"
 msgstr ""
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:142
 msgid "Realm to be considered own users"
 msgstr ""
 
@@ -2462,7 +2462,7 @@ msgstr ""
 "Sunteți %s administratorul. Puteți invita noi administratori, care, la "
 "rândul lor, pot numi administratori pe cont propriu."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrator %s"
@@ -3031,7 +3031,7 @@ msgstr "Citiți instrucțiunile prezentate pe wiki."
 msgid "select language"
 msgstr "Selectați limba "
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
 msgid "default/other languages"
 msgstr "Limba de bază/altă limbă "
 
@@ -3043,11 +3043,11 @@ msgstr "(Limba de bază/alta limbă)"
 msgid "file content"
 msgstr "conținutul fișierului "
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "on"
 msgstr "Pornit"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "off"
 msgstr "Inchis"
 
@@ -3236,153 +3236,158 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Foloselte GEANTlink pentru TTLS (Windows 8 și 10)"
 
 #: web/lib/admin/UIElements.php:117
+#, fuzzy
+msgid "Show the dedicated geteduroam download page for this device"
+msgstr "Text extra pe pagina de descărcare pentru dispozitiv"
+
+#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Descrierea profilului"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:119
 msgid "Custom Installer Name Suffix"
 msgstr "Nume sufix particular a programului de instalare"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:120
 msgid "OpenRoaming"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:122
 msgid "Real Name"
 msgstr "Nume Real"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:123
 msgid "E-Mail Address"
 msgstr "Adresa de E-mail"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:124
 msgid "Remove/Disable SSID"
 msgstr "Șterge/Dezactivează SSID"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:125
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Proxy de filtrare conținut obligatoriu"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:126
 msgid "Custom CSS file for User Area"
 msgstr "Fișier CSS particular pentru Zona Utilizator"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:127
 #, php-format
 msgid "%s Logo"
 msgstr "Logo %s"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:128
 msgid "Preferred Skin for User Area"
 msgstr "Interfață preferată pentru Zona Utilizator"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Include %s marca în programele de instalare "
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Pagina acasă"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Text personalizat în %s Invitații "
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "Enable %s"
 msgstr "Permitere %s"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Nu eliminați EAP"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "%s: max users per profile"
 msgstr "Numărul maxim de utilizatori pe profil: %s"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Mint %s cu CA la creare"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:137
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:138
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:140
+#: web/lib/admin/UIElements.php:141
 msgid "VLAN for own users"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:143
 msgid "Custom Operator-Name attribute"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:243
 #, php-format
 msgid "General %s details"
 msgstr "Detalii generale %s"
 
-#: web/lib/admin/UIElements.php:260
+#: web/lib/admin/UIElements.php:261
 msgid "Global Helpdesk Details"
 msgstr "Detalii suport tehnic global"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:340
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "A apărut o eroare la extragerea certificatului din baza de date!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:349
 msgid "There was an error processing the certificate!"
 msgstr "A apărut o eroare la procesarea certificatului!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Root CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Intermediate CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:358
+#: web/lib/admin/UIElements.php:359
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Aceasta este un <strong>SERVER</strong>certificat!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:376
 msgid "Preview of logo file"
 msgstr "Previzualizare fișier logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:392
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error while retrieving the file from the database!"
 msgstr "A apărut o eroare la extragerea fișierului din baza de date!"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "File exists"
 msgstr "Fișierul există"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "Preview"
 msgstr "Previzualizare"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:417
 msgid "Remark"
 msgstr "Observație"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:418
 msgid "Warning!"
 msgstr "Atenție!"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:419
 msgid "Error!"
 msgstr "Eroare!"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:12+0200\n"
+"POT-Creation-Date: 2023-08-22 06:56+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
 "2016,2018-2019,2022-2023\n"
@@ -247,7 +247,7 @@ msgid "Property Value"
 msgstr ""
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:247
 msgid "Country:"
 msgstr "Země:"
 
@@ -409,7 +409,7 @@ msgstr ""
 "doporučeno, aby byl vyplněn výchozí jazyk, který bude použit, pokud nemá "
 "jméno v jazyce ve kterém si jej uživatel chce stáhnout."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
 msgid "Media Properties"
 msgstr "Vlastnosti média"
 
@@ -1764,7 +1764,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Name"
 msgstr "Název %s"
@@ -1917,7 +1917,7 @@ msgstr "Profil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Metody EAP</strong> (v pořadí podle preference):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
 msgid "OK"
 msgstr "OK"
 
@@ -2035,7 +2035,7 @@ msgid "VLAN tag for own users"
 msgstr ""
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:142
 msgid "Realm to be considered own users"
 msgstr ""
 
@@ -2399,7 +2399,7 @@ msgstr ""
 "Jste správcem %s. Můžete pozvat nové správce, kteří pak sami mohou jmenovat "
 "další správce."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Správce"
@@ -2944,7 +2944,7 @@ msgstr "Přečtěte si prosím instrukce na wiki"
 msgid "select language"
 msgstr "vyberte jazyk"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
 msgid "default/other languages"
 msgstr "výchozí/ostatní jazyky"
 
@@ -2956,11 +2956,11 @@ msgstr "(výchozí/jiné jazyky)"
 msgid "file content"
 msgstr "obsah souboru"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "on"
 msgstr "zapnuté"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
 msgid "off"
 msgstr "vypnuté"
 
@@ -3148,153 +3148,158 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Pro TTLS ve Windows 8 a 10 použijte GEANTlink"
 
 #: web/lib/admin/UIElements.php:117
+#, fuzzy
+msgid "Show the dedicated geteduroam download page for this device"
+msgstr "Doplňující pokyny pro uživatele tohoto zařízení"
+
+#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Popis profilu"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:119
 msgid "Custom Installer Name Suffix"
 msgstr "Vlastní název instalačního programu"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:120
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:122
 msgid "Real Name"
 msgstr "Jméno"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:123
 msgid "E-Mail Address"
 msgstr "E-mailová adresa"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:124
 msgid "Remove/Disable SSID"
 msgstr "Smazat/zablokovat SSID"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:125
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Povinné filtrování obsahu"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:126
 msgid "Custom CSS file for User Area"
 msgstr "Soubor s vlastním CSS pro uživatelskou část"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:127
 #, php-format
 msgid "%s Logo"
 msgstr "%s Logo"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:128
 msgid "Preferred Skin for User Area"
 msgstr "Preferovaný vzhled pro uživatelskou část"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Vložit vlastní značku %s v instalátorech"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "%s Homepage"
 msgstr "Domovská stránka %s"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Vlastní text v pozvánkách od %s"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "Enable %s"
 msgstr "Povolit %s"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Nezakončovat EAP"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maximální počet uživatelů jednoho profilu"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Mint %s vzniklou CA"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:137
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:138
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:140
+#: web/lib/admin/UIElements.php:141
 msgid "VLAN for own users"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:143
 msgid "Custom Operator-Name attribute"
 msgstr "Vlastní jméno atributu operátora:"
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:243
 #, php-format
 msgid "General %s details"
 msgstr "Všeobecné detaily %s"
 
-#: web/lib/admin/UIElements.php:260
+#: web/lib/admin/UIElements.php:261
 msgid "Global Helpdesk Details"
 msgstr "Všeobecné informace o technické podpoře"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:340
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Při načítání certifikátu z databáze se vyskytla chyba!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:349
 msgid "There was an error processing the certificate!"
 msgstr "Při zpracování certifikátu se vyskytla chyba!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Root CA"
 msgstr "Root CA"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "Intermediate CA"
 msgstr "Mezilehlý CA"
 
-#: web/lib/admin/UIElements.php:358
+#: web/lib/admin/UIElements.php:359
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Toto je <strong>SERVEROVÝ</strong> certifikát!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:376
 msgid "Preview of logo file"
 msgstr "Náhled loga"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:392
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Při načítání souboru z databáze se vyskytla chyba!"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "File exists"
 msgstr "Soubor existuje"
 
-#: web/lib/admin/UIElements.php:398
+#: web/lib/admin/UIElements.php:399
 msgid "Preview"
 msgstr "Náhled"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:417
 msgid "Remark"
 msgstr "Poznámka"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:418
 msgid "Warning!"
 msgstr "Upozornění!"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:419
 msgid "Error!"
 msgstr "Chyba!"
