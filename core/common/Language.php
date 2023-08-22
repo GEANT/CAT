@@ -153,6 +153,7 @@ class Language
         }
         $isRtl = \config\Master::LANGUAGES[$langIndex]['rtl'];
         putenv("LC_ALL=" . $theLocale);
+        putenv("LANGUAGE=" . $theLocale);
         $_SESSION['language'] = $langIndex;
         $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
         $loggerInstance->debug(4, print_r($langConverted, true));
