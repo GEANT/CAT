@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 06:56+0000\n"
+"POT-Creation-Date: 2023-08-28 08:59+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2021,2023\n"
 "Language-Team: French (France) (http://app.transifex.com/eduroam_devel/cat/"
@@ -3314,9 +3314,8 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Utiliser le supplicant TTLS GEANTlink  (Windows 8 et 10)"
 
 #: web/lib/admin/UIElements.php:117
-#, fuzzy
 msgid "Show the dedicated geteduroam download page for this device"
-msgstr "Texte additionnel sur la page de téléchargement de l'appareil"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:118
 msgid "Profile Description"

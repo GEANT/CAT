@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 06:56+0000\n"
+"POT-Creation-Date: 2023-08-28 08:59+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2018,2020-2023\n"
 "Language-Team: Italian (Italy) (http://app.transifex.com/eduroam_devel/cat/"
@@ -149,6 +149,7 @@ msgstr "1. Dettagli del titolare del certificato"
 #, php-format
 msgid "None of your %s servers has complete information in the database."
 msgstr ""
+"Nessuno dei tuoi server %s dispone di informazioni complete nel database."
 
 #: web/admin/action_req_certificate.php:192
 #: web/admin/action_req_certificate.php:236
@@ -157,21 +158,23 @@ msgid ""
 "At least the DNS names of TLS servers and a role-based contact mail address "
 "are required."
 msgstr ""
+"Sono richiesti almeno i nomi DNS dei server TLS e un indirizzo e-mail di "
+"contatto basata sul ruolo."
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
 #, php-format
 msgid "Certificate for %s"
-msgstr ""
+msgstr "Certificato per %s"
 
 #: web/admin/action_req_certificate.php:204
 msgid "---PPPLEASE CHOOSE---"
-msgstr ""
+msgstr "---PPPREGO SCEGLIERE---"
 
 #: web/admin/action_req_certificate.php:224
 #, php-format
 msgid "Certificate for %s "
-msgstr ""
+msgstr "Certificato per %s"
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -183,6 +186,8 @@ msgid ""
 "<strong>No organisation inside your %s has complete information in the "
 "database</strong>. "
 msgstr ""
+"<strong>Nessuna organizzazione all'interno del tuo %s dispone di "
+"informazioni complete nel database</strong>."
 
 #: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
@@ -3274,9 +3279,9 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Usa GEANTlink per il TTLS (Windows 8 e 10)"
 
 #: web/lib/admin/UIElements.php:117
-#, fuzzy
 msgid "Show the dedicated geteduroam download page for this device"
-msgstr "Testo aggiuntivo sulla pagina di download per il dispositivo"
+msgstr ""
+"Mostra la pagina di download di geteduroam dedicata per questo dispositivo"
 
 #: web/lib/admin/UIElements.php:118
 msgid "Profile Description"

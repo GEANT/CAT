@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 06:56+0000\n"
+"POT-Creation-Date: 2023-08-28 08:59+0000\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2014-2020,2022-2023\n"
@@ -176,14 +176,20 @@ msgid ""
 "the configuration for later offline deployment, you can download it by %s.</"
 "span>"
 msgstr ""
+"Използвайте нашето приложение, което ще ви преведе през процеса на "
+"конфигуриране: %s (или го изтеглете ръчно %s.)<p>След инсталирането отворете "
+"приложението, изберете Вашата институция и приложението ще събере "
+"необходимата информация (това изисква интернет връзка).<p><span style='font-"
+"size:90%%'>Ако искате да запазите конфигурацията, за да работите по-нататък "
+"с  нея офлайн, можете да я изтеглите чрез %s.</span>"
 
 #: devices/Devices-template.php:438 devices/Devices-template.php:480
 msgid "here"
-msgstr ""
+msgstr "тук"
 
 #: devices/Devices-template.php:439 devices/Devices-template.php:481
 msgid "clicking here"
-msgstr ""
+msgstr "като кликнете тук"
 
 #: devices/Devices-template.php:445
 msgid "Android 8 to 10"

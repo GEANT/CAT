@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 06:56+0000\n"
+"POT-Creation-Date: 2023-08-28 08:59+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
 "2016,2018-2019,2022-2023\n"
@@ -3148,9 +3148,8 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Pro TTLS ve Windows 8 a 10 použijte GEANTlink"
 
 #: web/lib/admin/UIElements.php:117
-#, fuzzy
 msgid "Show the dedicated geteduroam download page for this device"
-msgstr "Doplňující pokyny pro uživatele tohoto zařízení"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
