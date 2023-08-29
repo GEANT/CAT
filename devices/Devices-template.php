@@ -130,12 +130,12 @@ class Devices extends \core\common\Entity {
 /*      Uncomment lines below if you have button images and want to use them
  * 
  *      $skinObject = new \web\lib\user\Skinjob(\config\Master::APPEARANCE['skins'][0]);
-        $googleDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/google-play.png")."' alt='GooglePlay' class='applogos'>";
-        $huaweiDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/appgallery.png")."' alt='Huawei AppGalery' class='applogos'>";
+        $googleDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/google-play.png")."' alt='Google Play' class='applogos'>";
+        $huaweiDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/appgallery.png")."' alt='Huawei AppGallery' class='applogos'>";
         $amazonDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/amazon-appstore-badge-english-black..png")."' alt='Amazon Appstore' class='applogos'>";
 */
-        $googleDownload = 'GooglePlay';
-        $huaweiDownload = 'Huawei AppGalery';
+        $googleDownload = 'Google Play';
+        $huaweiDownload = 'Huawei AppGallery';
         $amazonDownload = 'Amazon Appstore';
         $retArray = [
             'w10' => [
