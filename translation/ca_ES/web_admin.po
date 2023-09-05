@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 08:59+0000\n"
+"POT-Creation-Date: 2023-09-05 16:12+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, "
 "2013,2015-2016,2018-2019,2021-2023\n"
@@ -3214,7 +3214,7 @@ msgstr "Utilitzar el client GEANTlink per a TTLS ( Windows 8 i 10)"
 
 #: web/lib/admin/UIElements.php:117
 msgid "Show the dedicated geteduroam download page for this device"
-msgstr ""
+msgstr "Mostrar la pàgina de descàrrega de geteduroam per a aquest dispositiu"
 
 #: web/lib/admin/UIElements.php:118
 msgid "Profile Description"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 08:59+0000\n"
+"POT-Creation-Date: 2023-09-05 16:12+0000\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, "
 "2018,2020-2023\n"
@@ -138,7 +138,7 @@ msgstr "1. Varmenteen haltijan tiedot"
 #: web/admin/action_req_certificate.php:192
 #, php-format
 msgid "None of your %s servers has complete information in the database."
-msgstr ""
+msgstr "Tietokannassa olevista palvelimista %spuuttuu tietoja."
 
 #: web/admin/action_req_certificate.php:192
 #: web/admin/action_req_certificate.php:236
@@ -147,21 +147,23 @@ msgid ""
 "At least the DNS names of TLS servers and a role-based contact mail address "
 "are required."
 msgstr ""
+"Vähintään TLS-palvelimien DNS-nimet ja roolipohjainen sähköpostiosoite "
+"vaaditaan. "
 
 #: web/admin/action_req_certificate.php:196
 #: web/admin/action_req_certificate.php:201
 #, php-format
 msgid "Certificate for %s"
-msgstr ""
+msgstr "%s:n varmenne"
 
 #: web/admin/action_req_certificate.php:204
 msgid "---PPPLEASE CHOOSE---"
-msgstr ""
+msgstr "---VALITSE---"
 
 #: web/admin/action_req_certificate.php:224
 #, php-format
 msgid "Certificate for %s "
-msgstr ""
+msgstr "%s:n varmenne"
 
 #: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
@@ -173,6 +175,8 @@ msgid ""
 "<strong>No organisation inside your %s has complete information in the "
 "database</strong>. "
 msgstr ""
+"<strong>%s:sta tietokannassa ei ole organisaatiota, josta kaikki tarvittavat "
+"tiedot olisivat saatavissa </strong>.  "
 
 #: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
@@ -3175,7 +3179,7 @@ msgstr "Käytä GEANTlink TTLS -supplikanttia (Windows 8 ja 10)"
 
 #: web/lib/admin/UIElements.php:117
 msgid "Show the dedicated geteduroam download page for this device"
-msgstr ""
+msgstr "Näytä geteduroam-lataussivu laitteelle."
 
 #: web/lib/admin/UIElements.php:118
 msgid "Profile Description"

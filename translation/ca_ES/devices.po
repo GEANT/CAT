@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 08:59+0000\n"
+"POT-Creation-Date: 2023-09-05 16:12+0000\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2023\n"
 "Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -177,14 +177,20 @@ msgid ""
 "the configuration for later offline deployment, you can download it by %s.</"
 "span>"
 msgstr ""
+"Utilitzeu la nostra app, us guiarà pel procés de configuració: %s(o "
+"descarregueu-la manualment %s.) <p>Després de la instal·lació, obriu la app, "
+"seleccioneu la vostra Institució i la app omplirà tota la informació "
+"necessària (requereix de connexió a Internet).<p><span style='font-"
+"size:90%%'>Si voleu desar la configuració per a una configuració posterior "
+"sense connexió , la podeu descarregar a %s.</span>"
 
 #: devices/Devices-template.php:438 devices/Devices-template.php:480
 msgid "here"
-msgstr ""
+msgstr "aquí"
 
 #: devices/Devices-template.php:439 devices/Devices-template.php:481
 msgid "clicking here"
-msgstr ""
+msgstr "clicant aquí"
 
 #: devices/Devices-template.php:445
 msgid "Android 8 to 10"

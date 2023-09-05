@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 08:59+0000\n"
+"POT-Creation-Date: 2023-09-05 16:12+0000\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, "
 "2018,2020-2023\n"
@@ -176,14 +176,20 @@ msgid ""
 "the configuration for later offline deployment, you can download it by %s.</"
 "span>"
 msgstr ""
+"Käytä sovellusta, se opastaa asennusprosessin läpi: %s(tai lataa se "
+"manuaalisesti %s.)<p>Asennuksen jälkeen avaa sovellus, valitse "
+"kotiorganisaatiosi ja sovellus kerää tarvittavat tiedot (tämä vaatii "
+"internetyhteyden). <p><span style='font-size:90%%'>Jos haluat tallentaa "
+"määritykset myöhempää offline-käyttöönottoa varten, voit ladata sen %s</"
+"span>."
 
 #: devices/Devices-template.php:438 devices/Devices-template.php:480
 msgid "here"
-msgstr ""
+msgstr "tästä"
 
 #: devices/Devices-template.php:439 devices/Devices-template.php:481
 msgid "clicking here"
-msgstr ""
+msgstr "klikkaa tästä"
 
 #: devices/Devices-template.php:445
 msgid "Android 8 to 10"
