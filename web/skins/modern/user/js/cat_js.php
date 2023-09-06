@@ -531,7 +531,7 @@ function deviceInfo(data) {
 function handleGuessOs(recognisedDevice) {
     if (recognisedDevice == null)
         return 1;
-    if (recognisedDevice.geteduroam == 1) {
+    if (recognisedDevice.geteduroam == 1 && recognisedDevice.options.geteduroam_text !== undefined) {
         recognisedDevice.options.message_only = 1;
         recognisedDevice.message = recognisedDevice.options.geteduroam_text;
     }
