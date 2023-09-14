@@ -206,7 +206,9 @@ CREATE TABLE `downloads` (
   `mime` varchar(50) DEFAULT NULL,
   `eap_type` int(4),
   `openroaming` int(1),
-  UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`)
+  UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`),
+  KEY `device_id` (`device_id`),
+  KEY `profile_id` (`profile_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 

@@ -29,3 +29,5 @@
 
 INSERT INTO profile_option_dict (name, description,type,flag) VALUES 
   ('device-specific:geteduroam','show the dedicated geteduroam download page for this device','boolean',NULL);
+ALTER TABLE downloads ADD KEY profile_id (profile_id);
+ALTER TABLE downloads ADD KEY device_id (device_id);
