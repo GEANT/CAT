@@ -233,7 +233,7 @@ class Messages:
     all_filter = "All files"
     p12_title = "personal certificate file (p12 or pfx)"
     save_wpa_conf = "NetworkManager configuration failed. " \
-                    "Ensure you have the dbus-python package for your distro installed on your system." \
+                    "Ensure you have the dbus-python package for your distro installed on your system. " \
                     "We may generate a wpa_supplicant configuration file " \
                     "if you wish. Be warned that your connection password will be saved " \
                     "in this file as clear text."
