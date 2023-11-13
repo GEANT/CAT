@@ -61,6 +61,9 @@ class UserNetAPI extends UserAPI
      */
     public function returnJSON($data, $status = 1, $otherData = [])
     {
+        if (headers_sent()) {
+            throw new \Exception('We were going to send JSON, but there has been sent other data already.');
+        }
         $validator = new \web\lib\common\InputValidation();
         $host = $validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
@@ -73,7 +76,8 @@ class UserNetAPI extends UserAPI
         if (!empty($otherData)) {
             $returnArray['otherdata'] = $otherData;
         }
-        return(json_encode($returnArray));
+        header('Content-Type: application/json');
+        return(json_encode($returnArray, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR) . "\n");
     }
 
     /**
