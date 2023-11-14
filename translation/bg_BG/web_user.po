@@ -808,7 +808,7 @@ msgstr ""
 "заявете нов временен ключ от Вашия администратор."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Опит за повторно използване на линка за изтегляне"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

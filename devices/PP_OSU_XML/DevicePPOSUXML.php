@@ -27,7 +27,7 @@
  *   installed and trusted CA. This restrictions was lifted recently.
  * 
  * All this makes the device module rather useless - but is left here as a PoC
- * for future re-use if things change in the ecosystem.
+ * for future reuse if things change in the ecosystem.
  * 
  * This device would typically NOT be enabled in production deployments.
  *  

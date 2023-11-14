@@ -810,7 +810,7 @@ msgstr ""
 "toho, prosím, požádejte správce o nový token."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Pokus o opětovné použití odkazu ke stažení"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

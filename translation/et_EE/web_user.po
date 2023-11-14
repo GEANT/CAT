@@ -790,7 +790,7 @@ msgstr ""
 "küsi oma administraatorilt uus kood."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Allalaadimislingi korduvkasutamise katse"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

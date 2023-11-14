@@ -792,7 +792,7 @@ msgstr ""
 "spør om et nytt token fra din administrator."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Forsøk på gjenbruk av nedlastningslink"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

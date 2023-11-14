@@ -829,7 +829,7 @@ msgstr ""
 "διαχειριστή σας."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Απόπειρα να επαναχρησιμοποιηθεί ο σύνδεσμος λήψης"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

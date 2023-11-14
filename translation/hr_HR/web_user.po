@@ -799,7 +799,7 @@ msgstr ""
 "novi token od Vašeg administratora."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Pokušaj ponovnog korištenja linka za preuzimanje"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

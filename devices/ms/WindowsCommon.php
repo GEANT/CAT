@@ -73,7 +73,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
      *
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
+     * Transcoding is only applied if the third optional parameter is set and nonzero
      * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
@@ -93,7 +93,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
     final protected function translateFile($source_name, $output_name = NULL)
     {
         // there is no explicit gettext() call in this function, but catalogues
-        // and translations occur in the varios ".inc" files - so make sure we
+        // and translations occur in the various ".inc" files - so make sure we
         // operate in the correct catalogue
         \core\common\Entity::intoThePotatoes();
         if ($output_name === NULL) {
@@ -127,7 +127,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
      *
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
+     * Transcoding is only applied if the third optional parameter is set and nonzero
      * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
