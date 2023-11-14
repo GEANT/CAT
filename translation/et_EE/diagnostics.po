@@ -568,7 +568,7 @@ msgid "Overview"
 msgstr "Ülevaade"
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "DNSi-kontrollid"
 
 #. output in friendly words

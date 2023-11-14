@@ -577,7 +577,7 @@ msgid "Overview"
 msgstr "Resum"
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "Proves DNS"
 
 #. output in friendly words

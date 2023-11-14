@@ -790,7 +790,7 @@ msgstr ""
 "yerine, yöneticinizden yeni bir belirteç isteyin."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "İndirme bağlantısını yeniden kullanma girişimi"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

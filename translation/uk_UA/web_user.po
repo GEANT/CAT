@@ -820,7 +820,7 @@ msgstr ""
 "маркер."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Спроба повторно використати посилання для завантаження"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

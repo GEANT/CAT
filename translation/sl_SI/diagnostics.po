@@ -582,7 +582,7 @@ msgid "Overview"
 msgstr "Pregled"
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "Preverjanja DNS"
 
 #. output in friendly words

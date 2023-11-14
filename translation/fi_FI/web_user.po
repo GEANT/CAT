@@ -795,7 +795,7 @@ msgstr ""
 "ylläpitäjältä uusi koodi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Yritetty käyttää latauslinkkiä uudelleen"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

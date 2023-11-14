@@ -828,7 +828,7 @@ msgstr ""
 "poprosić swojego administratora o nowy  token."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Próba ponownego użycia tego samego linku"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

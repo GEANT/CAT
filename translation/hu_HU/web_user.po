@@ -799,7 +799,7 @@ msgstr ""
 "hozzáférési tokent  a rendszergazdától."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Próbálja újra használni a letöltési linket"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
