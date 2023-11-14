@@ -750,15 +750,15 @@ class WpaConf:
         """
 
         if Config.eap_outer in ('PEAP', 'TTLS'):
-            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
-                         f"\tpassword=\"{user_data.password}\"\n"
+            interface += "phase2=\"auth={}\"\n" \
+                         "\tpassword=\"{}\"\n".format(Config.eap_inner, user_data.password)
             if Config.anonymous_identity != '':
-                interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
+                interface += "\tanonymous_identity=\"{}\"\n".format(Config.anonymous_identity)
 
         elif Config.eap_outer == 'TLS':
-            interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
-                         f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
-
+            interface += "\tprivate_key_passwd=\"{}\"\n" \
+                         "\tprivate_key=\"{}/.cat_installer/user.p12" \
+                         .format(user_data.password, os.environ.get('HOME'))
         interface += "\n}"
         return interface
 
