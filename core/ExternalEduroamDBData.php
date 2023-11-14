@@ -44,8 +44,7 @@ use \Exception;
  *
  * @package Developer
  */
-class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterface
-{
+class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterface {
 
     /**
      * List of all service providers. Fetched only once by allServiceProviders()
@@ -54,7 +53,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @var array
      */
     private $SPList = [];
-    
+
     /**
      * total number of hotspots, cached here for efficiency
      * 
@@ -72,8 +71,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     /**
      * constructor, gives us access to the DB handle we need for queries
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $connHandle = DBConnection::handle("EXTERNAL");
         if (!$connHandle instanceof DBConnection) {
@@ -91,8 +89,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @return array language/name pair
      * @throws Exception
      */
-    private function splitNames($nameRaw)
-    {
+    private function splitNames($nameRaw) {
         $variants = explode('#', $nameRaw);
         $submatches = [];
         $returnArray = [];
@@ -114,8 +111,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * 
      * @return array list of providers
      */
-    public function listAllServiceProviders()
-    {
+    public function listAllServiceProviders() {
         if (count($this->SPList) == 0) {
             $query = $this->db->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
@@ -124,10 +120,9 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
         return $this->SPList;
     }
-    
-    public function countAllServiceProviders()
-    {
-                if ($this->counter > -1) {
+
+    public function countAllServiceProviders() {
+        if ($this->counter > -1) {
             return $this->counter;
         }
 
@@ -159,14 +154,32 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     ];
 
     /**
+     * 
+     * @param string $collapsed the blob with contact info from eduroam DB
+     */
+    private function dissectCollapsedContacts($collapsed) {
+        $contacts = explode('#', $collapsed);
+        $contactList = [];
+        foreach ($contacts as $contact) {
+            $matches = [];
+            preg_match("/^n: (.*), e: (.*), p: (.*)$/", $contact, $matches);
+            $contactList[] = [
+                "name" => $matches[1],
+                "mail" => $matches[2],
+                "phone" => $matches[3]
+            ];
+        }
+        return $contactList;
+    }
+
+    /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
      * 
      * @param string      $tld  the top-level domain from which to fetch the entities
      * @param string|NULL $type type of entity to retrieve
      * @return array list of entities
      */
-    public function listExternalEntities($tld, $type)
-    {
+    public function listExternalEntities($tld, $type) {
         if ($type === NULL) {
             $eduroamDbType = NULL;
         } else {
@@ -182,28 +195,21 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
             $names = $this->splitNames($externalQuery->collapsed_name);
             $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
-            $contacts = explode('#', $externalQuery->collapsed_contact);
-            $mailnames = "";
+            $contacts = $this->dissectCollapsedContacts($externalQuery->collapsed_contact);
+            $mails = [];
             foreach ($contacts as $contact) {
-                $matches = [];
-                preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
-                if ($matches[2] != "") {
-                    if ($mailnames != "") {
-                        $mailnames .= ", ";
-                    }
-                    // extracting real names is nice, but the <> notation
-                    // really gets screwed up on POSTs and HTML safety
-                    // so better not do this; use only mail addresses
-                    $mailnames .= $matches[2];
-                }
+                // extracting real names is nice, but the <> notation
+                // really gets screwed up on POSTs and HTML safety
+                // so better not do this; use only mail addresses
+                $mails[] = $contact['mail'];
             }
             $convertedType = array_search($externalQuery->type, self::TYPE_MAPPING);
-            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $convertedType];
+            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => implode(", ", $mails), "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $convertedType];
         }
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
     }
-    
+
     /**
      * retrieves entity information from the eduroam database having the given realm in the inst_realm field
      * Choose which fields to get or get default
@@ -212,8 +218,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @param array       $fields list of fields
      * @return array list of entities
      */
-    public function listExternalEntitiesByRealm($realm, $fields = [])
-    {
+    public function listExternalEntitiesByRealm($realm, $fields = []) {
         $returnArray = [];
         $defaultFields = ['id_institution', 'country', 'inst_realm', 'name', 'contact', 'type'];
         if (empty($fields)) {
@@ -234,11 +239,11 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
         return $returnArray;
     }
-    
+
     public function listExternalRealms() {
         return $this->listExternalEntitiesByRealm(""); // leaing realm empty gets *all*
     }
-    
+
     /**
      * helper function to sort institutions by their name
      * 
@@ -246,8 +251,53 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @param array $b an array with institution b's information
      * @return int the comparison result
      */
-    private function usortInstitution($a, $b)
-    {
+    private function usortInstitution($a, $b) {
         return strcasecmp($a["name"], $b["name"]);
     }
+
+    /**
+     * get all RADIUS/TLS servers for a given federation, with contacts
+     * [ hostnames => contacts ]
+     * (hostnames are comma-separated)
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersFederation($tld) {
+        $retval = [];
+        // this includes servers of type "staging", which is fine
+        $query = "SELECT servers, contacts FROM eduroamv2.view_tls_ro WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
+        $roTldServerTransaction = $this->db->exec($query, "s", $tld);
+        while ($roServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $roTldServerTransaction)) {
+            // there is only one row_id
+            $retval[$roServerResponses->servers] = $this->dissectCollapsedContacts($roServerResponses->contacts);
+        }
+        return $retval;
+    }
+
+    /**
+     * get all RADIUS/TLS servers for all institutions within a given federation
+     * including their contact details
+     * 
+     * "ROid-instid" => [type, inst_name, servers, contacts]
+     * 
+     * (hostnames are comma-separated)
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersInstitution($tld) {
+        $retval = [];
+        // this includes servers of type "staging", which is fine
+        $query = "SELECT ROid, instid, type, inst_name, servers, contacts FROM eduroamv2.view_tls_inst WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
+        $instServerTransaction = $this->db->exec($query, "s", $tld);
+        while ($instServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instServerTransaction)) {
+            $contactList = $this->dissectCollapsedContacts($instServerResponses->contacts);
+            $retval[$instServerResponses->ROid . "-". $instServerResponses->instid] = [
+                "names" => $this->splitNames($instServerResponses->inst_name),
+                "type" => array_search($instServerResponses->type, self::TYPE_MAPPING),
+                "servers" => $instServerResponses->servers,
+                "contacts" => $contactList];
+        }
+        return $retval;
+    }
+
 }

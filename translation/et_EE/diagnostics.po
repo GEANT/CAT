@@ -5,17 +5,17 @@
 #
 # Translators:
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2022
+# Anne M <anne@eenet.ee>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>, 2022\n"
-"Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
+"Last-Translator: Anne M <anne@eenet.ee>, 2023\n"
+"Language-Team: Estonian (Estonia) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/et_EE/)\n"
 "Language: et_EE\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +32,8 @@ msgid "Product is not configured to run this check."
 msgstr "Toode ei ole seadistatud selle kontrolli käivitamiseks."
 
 #: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:610
-#: web/diag/action_realmcheck.php:626
+#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
+#: web/diag/action_realmcheck.php:630
 msgid "This check was skipped."
 msgstr "See kontroll jäeti vahele."
 
@@ -66,7 +66,7 @@ msgid ""
 msgstr "RADIUSe server lükkas autentimistaotluse pärast EAP-suhtlust tagasi."
 
 #: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:134
 msgid "Connection refused"
 msgstr "Ühendusest keeldumine."
 
@@ -486,63 +486,63 @@ msgstr ""
 "tagasilükkamisega (Access-Reject) nagu kavandatud. Osa suhtlusaktide "
 "näitajatest olid optimaalsetest madalamad; nimekiri on toodud allpool."
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:132
+#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
 msgid "All tests passed."
 msgstr "Kõik testid õnnestusid."
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:133
+#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
 msgid "There were some warnings."
 msgstr "Esines hoiatusi."
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
 msgid "There were some errors."
 msgstr "Esines vigu."
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
 msgid "There were some remarks."
 msgstr "Oli märkusi."
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:113
+#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
 msgid "PASS"
 msgstr "LÄBITUD"
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:114
+#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
 msgid "FAIL"
 msgstr "EBAÕNNESTUMINE"
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:155
+#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
 msgid "Subject:"
 msgstr "Subjekt:"
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:156
+#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
 msgid "Issuer:"
 msgstr "Väljaandja:"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:157
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
 msgid "Valid from:"
 msgstr "Kehtib alates:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:158
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
 msgid "Valid to:"
 msgstr "Kehtib: "
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
 msgid "Serial number:"
 msgstr "Seerianumber:"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 sõrmejälg:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:143
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
 msgid "Server certificate"
 msgstr "Serveri sertifikaat"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:144
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
 msgid "Subject"
 msgstr "Subjekt"
 
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:145
+#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
 msgid "Issuer"
 msgstr "Väljaandja"
 
@@ -550,20 +550,20 @@ msgstr "Väljaandja"
 msgid "Policies"
 msgstr "Eeskiri"
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
+#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:149
+#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:146
+#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:542
-#: web/diag/action_realmcheck.php:551 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
 msgid "Overview"
 msgstr "Ülevaade"
 
@@ -572,7 +572,7 @@ msgid "DNS chekcs"
 msgstr "DNSi-kontrollid"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:577
+#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
 msgid "Checking NAPTR existence:"
 msgstr "NAPTR olemasolu kontrollimine:"
 
@@ -581,11 +581,11 @@ msgstr "NAPTR olemasolu kontrollimine:"
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
 #: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:580
+#: web/diag/action_realmcheck.php:584
 msgid "This realm has no NAPTR records."
 msgstr "Domeenil puuduvad NAPTR kirjed."
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:583
+#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -593,61 +593,61 @@ msgstr ""
 "Domeenil on NAPTR kirjed, aga ükski pole seotud selle rändluskonsortsiumiga."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:586
+#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr "Domeenil on %d NAPTR kirjet selle rändluskonsortsiumi kohta."
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:592
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "NAPTR vastavuse kontrollimine (flag = S and regex = {empty}):"
 
 #: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:599 web/diag/action_realmcheck.php:613
+#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Leiti vähemalt üks vigase sisuga NAPTR!"
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:607
+#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
 msgid "Checking SRVs:"
 msgstr "Kontrollin SRVsid:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:616
+#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
 #, php-format
 msgid "%d host names discovered."
 msgstr "Leiti %d hostinime."
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:623
+#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
 msgid "Checking IP address resolution:"
 msgstr "Kontrollin IP aadressi lahendumist:"
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:629
+#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Vähemalt ühte hostinime ei õnnestunud lahendada!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:632
+#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP-aadressi lahendatud."
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:640
-#: web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
+#: web/diag/action_realmcheck.php:646
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Domeen on <strong>%s</strong>"
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:640
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "DNSi vigadeta. Õnnitlused!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid "but there were DNS errors! Check them!"
 msgstr "aga oli DNS-vigu! Kontrolli neid."
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -655,31 +655,31 @@ msgstr ""
 "Peaksid testid pärast vigade parandamist uuesti tegema; seejuures võidakse "
 "veel vigu tuvastada. Täpsed veapõhjused on loetletud allpool."
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:570
+#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
 msgid "Dynamic discovery test is not configured"
 msgstr "Dünaamilist tuvastustesti ei ole seadistatud"
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:543
-#: web/diag/action_realmcheck.php:703 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
+#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
 msgstr "Staatilised ühenduse testid"
 
 #: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:415 web/diag/action_realmcheck.php:420
-#: web/diag/action_realmcheck.php:425
+#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
+#: web/diag/action_realmcheck.php:429
 msgid "See the appropriate tab for details."
 msgstr "Vaata vastavalt vahekaardilt üksikasju."
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:544
-#: web/diag/action_realmcheck.php:708 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
+#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
 msgstr "Dünaamilised ühenduse testid"
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:728
+#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
 msgid "STATIC connectivity tests"
 msgstr "Staatilised ühenduse testid"
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:730
+#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -695,37 +695,37 @@ msgstr ""
 "autentimine õnnestuda - niisiis on oodatav tulemus juurdepääsu mittelubamine "
 "pärast EAP suhtlust."
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:734
-#: web/diag/action_realmcheck.php:877
+#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
+#: web/diag/action_realmcheck.php:881
 #, php-format
 msgid "Testing from: %s"
 msgstr "Testimine %s-st"
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
 msgid "Connected to undetermined server"
 msgstr "Ühendatud määramata serveriga"
 
 #: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:268 web/diag/action_realmcheck.php:379
-#: web/diag/action_realmcheck.php:399 web/diag/action_realmcheck.php:460
+#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
+#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "kulunud aeg: %s ms."
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:390
-#: web/diag/action_realmcheck.php:450
+#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:454
 msgid "Extensions"
 msgstr "Laiendused"
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:391
+#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
 msgid "show server certificate details"
 msgstr "näita serverisertifikaadi üksikasju"
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:788
+#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
 msgid "Checking server handshake..."
 msgstr "Kontrollin serveri kätlust..."
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr "rohkem"
@@ -738,37 +738,37 @@ msgstr "Test ebaõnnestus"
 msgid "Client certificate"
 msgstr "Kliendisertifikaat"
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
+#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
 msgid "expected result: "
 msgstr "oodatud tulemus:"
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
 msgid "Server accepted this client certificate"
 msgstr "Server aktsepteeris seda kliendisertifikaati"
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
 msgid "You should update your list of accredited CAs"
 msgstr "Peaksid uuendama oma nimekirja akrediteeritud CA-dest."
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
 msgid "Get it from here."
 msgstr "Võta siit."
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
 msgid "Server did not accept this client certificate - reason"
 msgstr "Server ei aktsepteerinud seda kliendisertifikaati; põhjus "
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Server aktsepteeris seda kliendisertifikaati, aga ei oleks tohtinud seda "
 "teha."
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:119
+#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
 msgid "Server did not accept this client certificate"
 msgstr "Server ei aktsepteerinud seda kliendisertifikaati"
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
 msgid "Rest of tests for this CA skipped"
 msgstr "Ülejäänud testid selle CA jaoks jäeti vahele"
 
@@ -776,28 +776,28 @@ msgstr "Ülejäänud testid selle CA jaoks jäeti vahele"
 msgid "These tests were skipped because of previous errors."
 msgstr "Need testid jäeti eelnenud vigade tõttu vahele."
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
+#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
 msgid "DYNAMIC connectivity tests"
 msgstr "Dünaamilised ühenduse testid"
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
 msgid "Some errors were found during the tests, see below"
 msgstr "Testidega leiti mõned vead, vt allpool"
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
 msgid "All tests passed, congratulations!"
 msgstr "Kõik testid õnnestusid!"
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:127
-#: web/diag/action_realmcheck.php:788 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
 msgstr "Näita kõigi testide detailset teavet"
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Kontrollin, kas CA sertifikaate aktsepteeritakse..."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -949,8 +949,6 @@ msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"On Sul õnnestunud varem seda võrku kasutada, nt oma asutuses kohapeal, ilma "
-"rändluseta?"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -960,8 +958,6 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
-"Kui Su seade ei ole kunagi varem selle seadistusega toiminud, siis on see "
-"seadistus tõenäoliselt vigane. %s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
@@ -1113,7 +1109,7 @@ msgstr "Oled Sa"
 msgid "end-user"
 msgstr "lõppkasutaja"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr "või"
 
@@ -1170,7 +1166,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Vali klõpsates piirkond, kus Sul on eduroamiga probleem"
 
-#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:113
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr "Testin domeeni"
 
@@ -1243,7 +1239,7 @@ msgstr "Andmebaasis ei saa otsida. Sisesta vajalik domeen ise."
 msgid "Check if this realm is registered"
 msgstr "Kontrolli, kas domeen on registreeritud"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr "Kontrolli seda domeeni"
 
@@ -1273,7 +1269,7 @@ msgstr "Diagnostikatulemused valitud domeenide kohta"
 
 #: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occurred"
-msgstr "Tekkis tundmatu viga"
+msgstr ""
 
 #: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
@@ -1320,11 +1316,11 @@ msgstr "E-postiaadress teatajaga ühenduse võtmiseks"
 msgid "Test result"
 msgstr "Testitulemus"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr "viga"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr "õnnestumine"
 
@@ -1407,82 +1403,82 @@ msgstr "STAATILINE"
 msgid "DYNAMIC"
 msgstr "DÜNAAMILINE"
 
-#: web/diag/action_realmcheck.php:115
+#: web/diag/action_realmcheck.php:119
 msgid "Client certificate:"
 msgstr "Kliendi sertifikaat:"
 
-#: web/diag/action_realmcheck.php:147
+#: web/diag/action_realmcheck.php:151
 msgid "Certificate policies"
 msgstr "Sertifikaadipoliitikad"
 
-#: web/diag/action_realmcheck.php:150 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
 msgstr "Peida kõigi testide detailne teave"
 
-#: web/diag/action_realmcheck.php:213
+#: web/diag/action_realmcheck.php:217
 msgid "Some required input is missing!"
 msgstr "Osa nõutud sisendist on puudu!"
 
-#: web/diag/action_realmcheck.php:438
+#: web/diag/action_realmcheck.php:442
 msgid "Server certificate details:"
 msgstr "Serverisertifikaadi üksikasjad:"
 
-#: web/diag/action_realmcheck.php:537 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Domeenikontroll %s jaoks"
 
-#: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
-#: web/diag/action_realmcheck.php:776
+#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
+#: web/diag/action_realmcheck.php:780
 msgid "OpenRoaming connectivity tests"
 msgstr "OpenRoamingu ühenduse testid"
 
-#: web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:550
 msgid "Live login tests"
 msgstr "Reaalsed sisselogimistestid"
 
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:563
 msgid "DNS checks"
 msgstr "DNSi-kontrollid"
 
-#: web/diag/action_realmcheck.php:565
+#: web/diag/action_realmcheck.php:569
 msgid "OpenRoaming DNS checks"
 msgstr "OpenRoamingu DNSi-kontrollid"
 
-#: web/diag/action_realmcheck.php:572
+#: web/diag/action_realmcheck.php:576
 msgid "OpenRoaming connectivity test is not configured"
 msgstr "OpenRoamingu ühenduse testi ei ole seadistatud"
 
-#: web/diag/action_realmcheck.php:596
+#: web/diag/action_realmcheck.php:600
 msgid "No issues found."
 msgstr "Probleeme ei leitud."
 
-#: web/diag/action_realmcheck.php:725 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
 msgstr "Korda staatilisi ühenduse teste"
 
-#: web/diag/action_realmcheck.php:739 web/diag/action_realmcheck.php:797
-#: web/diag/action_realmcheck.php:814
+#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
+#: web/diag/action_realmcheck.php:818
 msgid "testing..."
 msgstr "testin..."
 
-#: web/diag/action_realmcheck.php:766 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
 msgstr "Korda dünaamilisi ühenduse teste"
 
-#: web/diag/action_realmcheck.php:766
+#: web/diag/action_realmcheck.php:770
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr "Korda OpenRoamingu ühenduse teste"
 
-#: web/diag/action_realmcheck.php:817
+#: web/diag/action_realmcheck.php:821
 msgid "not implemented yet"
-msgstr "ei ole veel evitatud"
+msgstr "ei ole veel kasutusele võetud"
 
-#: web/diag/action_realmcheck.php:838
+#: web/diag/action_realmcheck.php:842
 msgid "Live login test"
 msgstr "Reaalse sisselogimise test "
 
-#: web/diag/action_realmcheck.php:851
+#: web/diag/action_realmcheck.php:855
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1490,7 +1486,7 @@ msgstr ""
 "Kui sisestad siia olemasolevad kasutajaandmed, saad testida tegelikku "
 "autentimist mitmetest kontrollpunktidest üle maailma"
 
-#: web/diag/action_realmcheck.php:852
+#: web/diag/action_realmcheck.php:856
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1502,7 +1498,7 @@ msgstr ""
 "ka seda, kas sisselogimine nende kasutajakonto andmetega ja antud EAP "
 "tüübiga toimib. Kui oled seadistanud anonüümse välise ID, kasutab test seda."
 
-#: web/diag/action_realmcheck.php:853
+#: web/diag/action_realmcheck.php:857
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1513,57 +1509,57 @@ msgstr ""
 "neid ei salvestata ka serverisse. Palun kasuta siin ainult <strong>ajutisi "
 "testkontosid</strong>; aegumatuid testkontosid peetakse ohtlikuks!"
 
-#: web/diag/action_realmcheck.php:861
+#: web/diag/action_realmcheck.php:865
 msgid "Password-based EAP types"
 msgstr "Paroolipõhised EAP tüübid"
 
-#: web/diag/action_realmcheck.php:862
+#: web/diag/action_realmcheck.php:866
 msgid "Real (inner) username:"
 msgstr "Reaalne (sisemine) kasutajanimi:"
 
-#: web/diag/action_realmcheck.php:863
+#: web/diag/action_realmcheck.php:867
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonüümne väline ID (ei ole kohustuslik):"
 
-#: web/diag/action_realmcheck.php:864
+#: web/diag/action_realmcheck.php:868
 msgid "Password:"
 msgstr "Parool:"
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:872
 msgid "Certificate-based EAP types"
 msgstr "Sertifikaadipõhised EAP tüübid"
 
-#: web/diag/action_realmcheck.php:869
+#: web/diag/action_realmcheck.php:873
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Sertifikaadi failid (*.p12 või .pfx)"
 
-#: web/diag/action_realmcheck.php:870
+#: web/diag/action_realmcheck.php:874
 msgid "Certificate password, if any:"
 msgstr "Sertifikaadi parool (kui on):"
 
-#: web/diag/action_realmcheck.php:871
+#: web/diag/action_realmcheck.php:875
 msgid "Username, if different from certificate Subject:"
 msgstr "Kasutajanimi, kui erineb sertifikaadi subjektist:"
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:877
 msgid "Submit credentials"
 msgstr "Sisesta kasutajakonto andmed"
 
-#: web/diag/action_realmcheck.php:895
+#: web/diag/action_realmcheck.php:899
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Tagasi %s haldamisse"
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Kahtlustan tehnilist probleemi identiteedipakkujaga (IdP)"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr ""
 "Selle identiteedipakkuja (IdP) kasutaja on väidetavalt rikkunud autoriõigusi"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1571,78 +1567,78 @@ msgstr ""
 "Selle identiteedipakkuja (IdP) kasutaja on pahatahtlikke võrgutoiminguid "
 "teinud (rämpspost, DDoS,...)"
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr "Kasutaja kurdab ühendusprobleeme, kuid tema autentimine õnnestus"
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr "Kasutaja väitel ei ole kohustuslik port avatud"
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr "Vali oma probleem"
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr "Mis on kõnealuse identiteedipakkuja (IdP) domeen?"
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Mis on kõnealuse kasutajasessiooni autentimise ajatempel?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr "Mis on MAC-aadress selles kasutajasessioonis?"
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr "Lisamärkused"
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Palun määra e-postiaadress, mille kaudu saab identiteedipakkuja Sinuga "
 "ühendust võtta"
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr "Nüüd saad saata oma päringu"
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr "Saada"
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr "Tuvasta teenusepakkuja (SP) ühega järgmistest vahenditest"
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr "Teenusepakkuja (SP) operaatorinime atribuut"
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr "Vali teenusepakkuja (SP) käsitsi:"
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr "klõpsa riigi ja asutuse valimiseks"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr "kirjelda vähemalt teenusepakkuja (SP) asukoht"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr "Mis on kõnealuse kasutajasessiooni väline ID?"
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr "Lisakommentaarid probleemi kohta"
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1650,50 +1646,50 @@ msgstr ""
 "Kas Sul on kontaktandmeid, mille kaudu kasutaja soovib teenusepakkuja (SP) "
 "poolset ühendusevõtmist?"
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Palun määra e-postiaadress, mille kaudu saab teenusepakkuja Sinuga ühendust "
 "võtta"
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr "Kahtlustas tehnilist probleemi IdP-ga"
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr ""
 "Kahtlustame tehnilist probleemi domeeni haldava identiteedipakkujaga (IdP)"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr "CATi testi sellele domeenile raporti ajal ei tehtud.\n"
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr "Üldtulemus: "
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr "Üksikasjad: "
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr "Raporteeritud probleemi üksikasjad:"
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr "ajatempel"
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr "kliendi MAC-aadress"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr "lisamärkused"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr "Saad võtta ühendust intsidendist teatajaga: "
 
@@ -1714,11 +1710,11 @@ msgstr "<strong>Test õnnestus.</strong>"
 
 #: web/diag/radius_tests.php:177
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
-msgstr "<strong>Test õnnestus osaliselt</strong>: autentimine õnnestus."
+msgstr ""
 
 #: web/diag/radius_tests.php:180
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr "<strong>Test EBAÕNNESTUS</strong>: autentimine õnnestus."
+msgstr ""
 
 #: web/diag/radius_tests.php:185
 msgid ""
@@ -1831,169 +1827,142 @@ msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr "Taotluses esitatud tokenit ei leidu, andmeid ei saa esitada"
 
-#.
-#. * *****************************************************************************
-#. * Contributions to this work were made on behalf of the GÉANT project, a
-#. * project that has received funding from the European Union’s Framework
-#. * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
-#. * Horizon 2020 research and innovation programme under Grant Agreements No.
-#. * 691567 (GN4-1) and No. 731122 (GN4-2).
-#. * On behalf of the aforementioned projects, GEANT Association is the sole owner
-#. * of the copyright in all material which was developed by a member of the GÉANT
-#. * project. GÉANT Vereniging (Association) is registered with the Chamber of
-#. * Commerce in Amsterdam with registration number 40535155 and operates in the
-#. * UK as a branch of GÉANT Vereniging.
-#. *
-#. * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
-#. * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
-#. *
-#. * License: see the web/copyright.inc.php file in the file structure or
-#. *          <base_url>/copyright.php after deploying the software
-#.
-#: web/skins/modern/diag/js/diag_js.php:29
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr "Staatilised ühenduse testid"
+msgstr "Ühendustestid olid edukad"
 
-#: web/skins/modern/diag/js/diag_js.php:30
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr "Korda OpenRoamingu ühenduse teste"
+msgstr "Ühendustestidel esines hoiatusi"
 
-#: web/skins/modern/diag/js/diag_js.php:31
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr "Oli märkusi."
+msgstr "Ühendustestidel esines märkusi"
 
-#: web/skins/modern/diag/js/diag_js.php:32
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr "Vead testimisel."
+msgstr "Ühendustestidel esines vigu"
 
-#: web/skins/modern/diag/js/diag_js.php:42
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
-msgstr "Vali asutus"
+msgstr "Vali asutus:"
 
-#: web/skins/modern/diag/js/diag_js.php:68
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
-msgstr "klõpsa riigi ja asutuse valimiseks"
+msgstr "Vali riik või piirkond:"
 
-#: web/skins/modern/diag/js/diag_js.php:76
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:80
 msgid "Fetching country/region list"
-msgstr "Asutuste nimekirja hankimine"
+msgstr "Riikide/piirkondade nimekirja hankimine"
 
-#: web/skins/modern/diag/js/diag_js.php:137
+#: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Jah"
 
-#: web/skins/modern/diag/js/diag_js.php:138
+#: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
-#: web/skins/modern/diag/js/diag_js.php:139
+#: web/skins/modern/diag/js/diag_js.php:143
 msgid "I don't know"
-msgstr ""
+msgstr "Ma ei tea"
 
-#: web/skins/modern/diag/js/diag_js.php:170
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr "Diagnostikatulemused valitud domeenide kohta"
-
-#: web/skins/modern/diag/js/diag_js.php:173
-#, fuzzy
-msgid "The result for tested realm:"
-msgstr "Diagnostikatulemused valitud domeenide kohta"
-
-#: web/skins/modern/diag/js/diag_js.php:175
-msgid "The system identified"
-msgstr ""
+msgstr "Diagnostikatesti tulemused valitud domeeni kohta"
 
 #: web/skins/modern/diag/js/diag_js.php:177
-msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgid "The result for tested realm:"
+msgstr "Tulemus testitud domeeni kohta:"
 
-#: web/skins/modern/diag/js/diag_js.php:178
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr "Süsteem tuvastas"
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr "arvatavad piirkonnad, mis võivad probleeme tekitada."
+
+#: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Probleemikirjelduse kõrval näitame sellise sündmuse oletatavat tõenäosust."
 
-#: web/skins/modern/diag/js/diag_js.php:185
+#: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Su seadme seadistus on vigane."
 
-#: web/skins/modern/diag/js/diag_js.php:188
+#: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Sulle paistval Wi-Fi võrgul on kvaliteediprobleemid."
 
-#: web/skins/modern/diag/js/diag_js.php:191
+#: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Võrgukeskkond Su ümber on katki"
 
-#: web/skins/modern/diag/js/diag_js.php:194
+#: web/skins/modern/diag/js/diag_js.php:198
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "Su teenusepakkuja RADIUSe server on probleemi põhjuseks"
 
-#: web/skins/modern/diag/js/diag_js.php:197
+#: web/skins/modern/diag/js/diag_js.php:201
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
-msgstr ""
+msgstr "Su koduasutuse RADIUSe server ei ole hetkel võimeline Sind autentima"
 
-#: web/skins/modern/diag/js/diag_js.php:200
+#: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
-msgstr ""
+msgstr "Sinu poolt külastatava riigi/piirkonna server ei toimi korrektselt"
 
-#: web/skins/modern/diag/js/diag_js.php:203
+#: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Ühendus Sinu poolt külastatava riigi/piirkonna serveri ja tipptaseme serveri "
+"vahel on katki"
 
-#: web/skins/modern/diag/js/diag_js.php:206
+#: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Ühendus Sinu koduriigi/piirkonna serveri ja tipptaseme serveri vahel on katki"
 
-#: web/skins/modern/diag/js/diag_js.php:209
+#: web/skins/modern/diag/js/diag_js.php:213
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Side tipptaseme serveriga on maas"
 
-#: web/skins/modern/diag/js/diag_js.php:212
+#: web/skins/modern/diag/js/diag_js.php:216
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "Su koduriigi/piirkonna peaserver ei tööta korralikult."
 
-#: web/skins/modern/diag/js/diag_js.php:215
+#: web/skins/modern/diag/js/diag_js.php:219
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "Su koduasutuse RADIUSe server on probleemi põhjuseks"
 
-#: web/skins/modern/diag/js/diag_js.php:218
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:222
 msgid "This realm does not exist"
-msgstr "Domeenil puuduvad NAPTR kirjed."
+msgstr "Domeeni ei ole olemas"
 
-#: web/skins/modern/diag/js/diag_js.php:296
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr "OpenRoamingu ühenduse testi ei ole seadistatud"
+msgstr "Domeeni ühendustestide tegemine"
 
-#: web/skins/modern/diag/js/diag_js.php:297
+#: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Olemas on uued testitulemused, vaatamiseks klõpsa"
 
-#: web/skins/modern/diag/js/diag_js.php:422
-#: web/skins/modern/diag/js/diag_js.php:430
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr "Üksikasjad: "
+msgstr "Vaata täpsemalt"
 
-#: web/skins/modern/diag/js/diag_js.php:432
+#: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
 msgstr ""

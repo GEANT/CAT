@@ -633,12 +633,12 @@ class AbstractTest extends \core\common\Entity
     {
         // done. return both the list of possible problem sources with their occurrence rating, and the additional findings we collected along the way.
         $totalScores = 0.;
-        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
-            $totalScores += $oneOccurence;
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurrence) {
+            $totalScores += $oneOccurrence;
         }
         $probArray = [];
-        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
-            $probArray[$oneReason] = $oneOccurence / $totalScores;
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurrence) {
+            $probArray[$oneReason] = $oneOccurrence / $totalScores;
         }
         arsort($probArray);
         $this->possibleFailureReasons = $probArray;

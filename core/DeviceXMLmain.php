@@ -39,7 +39,7 @@ use Exception;
  * The leaf objects may have scalar values which are stored as the $value,
  * non-leaf objects have children stored as $children array
  * 
- * Nodes may also have attributes which are stored as elements of the $attrinutes
+ * Nodes may also have attributes which are stored as elements of the $attributes
  * array. That array is indexed with attribute names and holds attribute values.
  * 
  * The node name is not being set, it is the parent that knows that.

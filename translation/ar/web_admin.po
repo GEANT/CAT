@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2021-2022
+# Mohamed Al Hajri, 2022-2023
+# Raiya Al Rashdi <raiya@omren.om>, 2021-2023
+# Warda Al Habsi <mozartt33@gmail.com>, 2023
 # Warda Al Habsi <mozartt33@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2021-2022\n"
-"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"Last-Translator: Warda Al Habsi <mozartt33@gmail.com>, 2023\n"
+"Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +26,7 @@ msgstr ""
 #: web/admin/action_enrollment.php:44 web/admin/action_enrollment.php:48
 #: web/admin/action_enrollment.php:63 web/admin/action_enrollment.php:64
 msgid "Error creating new IdP binding!"
-msgstr "خطأ في إنشاء ارتباط جديد لمزود الهوية!"
+msgstr "خطأ في إنشاء ارتباط جديد لمزود الهوية IdP !"
 
 #: web/admin/action_enrollment.php:44
 msgid "This page needs to be called with a valid invitation token!"
@@ -46,7 +48,7 @@ msgid ""
 "you."
 msgstr ""
 "عذرا ... لقد تم استخدام هذا الرمز و إنشاء %s مسبقا. إذا كنت قد تلقيت الدعوة "
-"من خلال قائمة بريدية ، فمن المحتمل أن شخصًا آخر قد استخدمها من قبل."
+"من خلال قائمة بريدية، فمن المحتمل أن شخصًا آخر قد استخدمها من قبل."
 
 #: web/admin/action_enrollment.php:70
 #, php-format
@@ -64,14 +66,14 @@ msgid ""
 "profile page</a> instead."
 msgstr ""
 "عذراً ... لقد أتيت إلى صفحة التسجيل بدون رمز صالح. هل انت شخص مؤذٍ؟ إذا لم يكن "
-"كذلك ، يجب أن تذهب إلى <a href='overview_user.php'>صفحة ملفك الشخصي</a> بدلاً "
-"من ذلك."
+"كذلك، يجب أن تذهب إلى <a href='overview_user.php'>صفحة ملفك التعريفي</a> "
+"بدلاً من ذلك."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/action_generate_zone.php:41
 #, php-format
 msgid "%s: RADIUS/TLS superglue zone management"
-msgstr ""
+msgstr "%s:  إدارة منطقة RADIUS / TLS superglue"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/action_generate_zone.php:56
@@ -84,92 +86,120 @@ msgid ""
 msgstr "ليس لديك الصلاحيات اللازمة لطلب NAPTR superglue zones."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s : إدارة شهادة RADIUS/TLS ل %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "إدارة شهادة RADIUS/TLS ل %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "ليس لديك الصلاحيات اللازمة لطلب شهادات الخادم."
 
-#: web/admin/action_req_certificate.php:107
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "طلب شهادة بالخصائص التالية"
 
-#: web/admin/action_req_certificate.php:109
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "سياسة OIDs:"
 
-#: web/admin/action_req_certificate.php:110
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "الاسم المميز:"
 
-#: web/admin/action_req_certificate.php:111
-msgid ""
-"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
-"&lt;someone@somewhere.xy&gt;')."
-msgstr ""
-"تفاصيل اتصال مقدم الطلب: ستأتي من eduroam DB (باستخدام جزئية 'Someone، & lt؛ "
-"someone@somewhere.xy&gt؛')."
+#: web/admin/action_req_certificate.php:159
+msgid "subjectAltName:DNS : "
+msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:127
+#: web/admin/action_req_certificate.php:160
+msgid "Requester Contact Details: "
+msgstr "بيانات التواصل لمقدم الطلب:"
+
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "تم طلب الشهادة."
 
-#: web/admin/action_req_certificate.php:130
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "العودة إلى الملخص العام للشهادة"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:139
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. تفاصيل مالك الشهادة"
 
-#: web/admin/action_req_certificate.php:141
-#: web/admin/action_req_certificate.php:162
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
-msgstr "شهادة لخاصية %s"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
 
-#: web/admin/action_req_certificate.php:150
-#: web/admin/action_req_certificate.php:164
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr ""
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, php-format
+msgid "Certificate for %s"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:204
+msgid "---PPPLEASE CHOOSE---"
+msgstr ""
+
+#: web/admin/action_req_certificate.php:224
+#, php-format
+msgid "Certificate for %s "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---اختر من فضلك---"
 
-#: web/admin/action_req_certificate.php:179
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
+msgstr ""
+
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. انشاء CSR"
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
-msgstr "طريقة واحدة لإنشاء طلب شهادة  CSR مقبول عبر هذا السطر من openssl: "
+msgstr "طريقة واحدة لإنشاء طلب شهادة  CSR مقبولة عبر هذا السطر من openssl: "
 
-#: web/admin/action_req_certificate.php:182
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. تسليم"
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "يرجى لصق CSR الخاص بك هنا:"
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
-msgstr "إرسال الطلب"
+msgstr "إرسال طلب"
 
-#: web/admin/action_req_certificate.php:187
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "العودة إلى صفحة النظرة العامة"
 
@@ -177,46 +207,46 @@ msgstr "العودة إلى صفحة النظرة العامة"
 #: web/admin/edit_federation.php:45 web/admin/edit_participant.php:44
 #, php-format
 msgid "%s: Editing %s '%s'"
-msgstr "%s: تحرير %s ’%s‘"
+msgstr "%s: تعديل %s ’%s‘"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/edit_federation.php:60 web/admin/edit_participant.php:78
 #, php-format
 msgid "Editing %s information for '%s'"
-msgstr "تحرير معلومات %s لـ ’%s‘"
+msgstr "تعديل معلومات %s لـ ’%s‘"
 
 #: web/admin/edit_federation.php:64 web/admin/edit_federation.php:85
 #, php-format
 msgid "%s Properties"
 msgstr "خصائص %s"
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:205
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
-#: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
+#: web/admin/overview_federation.php:97 web/admin/overview_user.php:56
 msgid "Property Type"
 msgstr "نوع الخاصية"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
-#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
+#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:98
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
 msgstr "اللغة إن وجدت"
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
-#: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
+#: web/admin/overview_federation.php:99 web/admin/overview_user.php:58
 msgid "Property Value"
 msgstr "قيمة الخاصية"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:249
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "الدولة : "
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:240
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -224,13 +254,13 @@ msgstr "الدولة : "
 msgid "Add new option"
 msgstr "إضافة خيار جديد"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "حفظ البيانات"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -251,7 +281,7 @@ msgstr "السمات 'attributes' المرسلة لـ %s  '%s'"
 #: web/admin/edit_participant_result.php:169
 #: web/admin/edit_profile_result.php:347
 msgid "Continue to dashboard"
-msgstr "الاستمرار في الـ dashbard"
+msgstr "الاستمرار الى لوحة التحكم "
 
 #. terms of use popup, going interactive
 #: web/admin/edit_hotspot.php:60
@@ -279,39 +309,39 @@ msgstr "واصل "
 
 #: web/admin/edit_hotspot.php:88 web/admin/edit_silverbullet.php:705
 msgid "Abort"
-msgstr "ألغى"
+msgstr "ألغي"
 
-#: web/admin/edit_hotspot.php:171
+#: web/admin/edit_hotspot.php:170
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: معالج التسجيل (الخطوة 3)"
 
-#: web/admin/edit_hotspot.php:184
+#: web/admin/edit_hotspot.php:183
 #, php-format
 msgid "Editing %s deployment"
-msgstr "تحرير إعدادات %s"
+msgstr "تعديل إعدادات %s"
 
-#: web/admin/edit_hotspot.php:198
+#: web/admin/edit_hotspot.php:197
 msgid "Options for this deployment"
 msgstr "خيارات لهذه الإعدادات "
 
-#: web/admin/edit_hotspot.php:214
+#: web/admin/edit_hotspot.php:213
 msgid "Custom Operator-Name:"
-msgstr "اسم المشغل المخصص:"
+msgstr "اسم المشغل/ Operator-Name المخصص:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 #, php-format
 msgid "VLAN tag for own users%s:"
-msgstr ""
+msgstr "علامة 'VLAN tag' لمستخدمي %s:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 msgid "(unset with '0')"
-msgstr ""
+msgstr "(غير محدد مع '0')"
 
 #: web/admin/edit_participant.php:42
 #, php-format
 msgid "%s: %s enrollment wizard (step 2)"
-msgstr ""
+msgstr "%s: %s معالج التسجيل (الخطوة 2)"
 
 #: web/admin/edit_participant.php:76
 #, php-format
@@ -333,7 +363,7 @@ msgid ""
 msgstr ""
 "مرحبًا أيها الوافد الجديد. %s جديد بالنسبة لنا. سيطرح عليك هذا المعالج عدة "
 "أسئلة عنه، حتى نتمكن من إنشاء ملفات تعريف جميلة لك في النهاية. جميع "
-"المعلومات الواردة أدناه اختيارية ، ولكن من المهم ملء أكبر عدد ممكن من الحقول "
+"المعلومات الواردة أدناه اختيارية، ولكن من المهم ملء أكبر عدد ممكن من الحقول "
 "لصالح المستخدمين النهائيين."
 
 #: web/admin/edit_participant.php:115
@@ -346,7 +376,7 @@ msgid ""
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"بعض الخصائص صالحة في جميع ملفات تعريف الاعدادات . هذا هو المكان الذي يمكنك "
+"بعض الخصائص صالحة في جميع إعدادات ملفات التعريف. هذا هو المكان الذي يمكنك "
 "فيه وصف تلك الخصائص بطريقة دقيقة. يتم استخدام المعلومات المطلوبة على النحو "
 "التالي:"
 
@@ -357,11 +387,11 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
-"<strong>الشعار</strong>: عند إرسال شعار ، سنقوم بتضمين هذا الشعار في جميع "
+"<strong>الشعار</strong>: عند إرسالك للشعار، سنقوم بتضمين هذا الشعار في جميع "
 "أدوات التثبيت التي يكون تخصيص الشعار فيها ممكنًا. نحن نقبل أي صيغة لصورة "
-"الشعار ، ولكن للحصول على أفضل النتائج ، نقترح SVG. إذا لم تقم بتحميل شعار ، "
-"فسنستخدم الشعار العام بدلاً من ذلك (انظر الزاوية العلوية اليمنى من هذه "
-"الصفحة)."
+"الشعار، ولكن للحصول على أفضل النتائج، نقترح صيغة  SVG. إذا لم تقم بتحميل "
+"الشعار، فسنستخدم الشعار العام بدلاً من ذلك (انظر الزاوية العلوية اليمنى من "
+"هذه الصفحة)."
 
 #: web/admin/edit_participant.php:122
 #, php-format
@@ -372,10 +402,10 @@ msgid ""
 "language the user requests a download in."
 msgstr ""
 "<strong>الاسم</strong>: قد يكون لدى %s أسماء بلغات متعددة. يوصى دائمًا بتعبئة "
-"اللغة \"الافتراضية / الأخرى\" على الأقل ، حيث يتم استخدامها كبديل إذا لم يكن "
+"اللغة 'الافتراضية / الأخرى' على الأقل ، حيث يتم استخدامها كبديل إذا لم يكن "
 "لدى النظام اسم باللغة الدقيقة التي يطلب المستخدم التنزيل بها."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:263
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "خصائص الوسائط"
 
@@ -412,11 +442,11 @@ msgid ""
 "It is also possible to define custom additional SSIDs with the option '%s' "
 "below."
 msgstr ""
-"من الممكن أيضًا تحديد معرفات SSID إضافية مخصصة باستخدام الخيار \"%s\" أدناه."
+"من الممكن أيضًا تحديد معرفات SSID إضافية مخصصة باستخدام الخيار '%s' أدناه."
 
 #: web/admin/edit_participant.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
-msgstr "يرجى تهيئة معرفات SSID التي يجب تهيئتها في برنامج التثبيت."
+msgstr "يرجى تهيئة معرفات ال SSID التي يجب تهيئتها في برنامج التثبيت."
 
 #: web/admin/edit_participant.php:153
 msgid ""
@@ -424,17 +454,17 @@ msgid ""
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
-"بشكل افتراضي ، سنقوم فقط بتهيئة معرّفات SSID بتشفير WPA2 / AES. باستخدام "
-"الخيار \"(مع WPA / TKIP)\" ، يمكنك تحديد أنه يجب تضمين الدعم القديم legacy "
-"support لـ WPA / TKIP حيثما أمكن ذلك."
+"بشكل افتراضي، سنقوم فقط بتهيئة معرّفات SSID بتشفير WPA2 / AES. باستخدام "
+"الخيار '(مع WPA / TKIP)'، يمكنك تحديد أنه يجب تضمين  legacy support لـ WPA / "
+"TKIP حيثما أمكن ذلك."
 
 #: web/admin/edit_participant.php:157
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Hotspot 2.0 / Passpoint Consortia إضافي:"
 
 #: web/admin/edit_participant.php:157
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Hotspot 2.0 / Passpoint Consortia:"
 
 #: web/admin/edit_participant.php:164
 #, php-format
@@ -452,7 +482,7 @@ msgstr[5] "سنقوم دائمًا بتهيئة إتحادات OIs هذه : %s .
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
-msgstr "من الممكن أيضًا تحديد OIs إضافية مخصصة باستخدام الخيار \"%s\" أدناه."
+msgstr "من الممكن أيضًا تحديد OIs إضافية مخصصة باستخدام الخيار '%s' أدناه."
 
 #: web/admin/edit_participant.php:168
 msgid ""
@@ -461,7 +491,7 @@ msgstr "يرجى تهيئة اتحاد OIs الذي يجب تهيئته في ب�
 
 #: web/admin/edit_participant.php:171
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "يدعم wired IEEE 802.1X :"
 
 #: web/admin/edit_participant.php:172
 msgid ""
@@ -471,10 +501,15 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
+"إذا كنت ترغب في تهيئة أجهزة المستخدمين لديك لتدعم IEEE 802.1X في الشبكة "
+"السلكية ethernet، يرجى تحديد مربع الخيار المقابل. لاحظ أن هذا يجعل عملية "
+"التثبيت أكثر صعوبة قليلاً على بعض الأنظمة الأساسية (Windows: يحتاج إلى "
+"صلاحيات للمسؤول ؛ Apple: ستفشل محاولة تثبيت ملف تعريف يدعم الاتصال السلكي "
+"على جهاز بدون بطاقة ethernet سلكية مفعلة)."
 
 #: web/admin/edit_participant.php:174
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "إزالة Bootstrap / onboarding SSIDs:"
 
 #: web/admin/edit_participant.php:175
 msgid ""
@@ -482,6 +517,9 @@ msgid ""
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
+"إذا كنت تستخدم بوابة مقيدة captive portal لتوزيع التهيئة، فقد ترغب في إلغاء "
+"تهيئة / تعطيل SSID بعد عملية البوتستراب bootstrap. باستخدام هذا الخيار، ستتم "
+"إزالة SSID أو سيتم تعريفه على أنه 'الاتصال يدويًا فقط'."
 
 #: web/admin/edit_participant.php:187
 msgid "Helpdesk Details for all users"
@@ -501,7 +539,7 @@ msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"هل تقدم خدمات دعم فني للمستخدمين؟ إذا كان الأمر كذلك ، فسيكون من الجيد أن "
+"هل تقدم خدمات دعم فني للمستخدمين؟ إذا كان الأمر كذلك، سيكون من الجيد أن "
 "تخبرنا بطرق الوصول إلى مركز الدعم هذا."
 
 #: web/admin/edit_participant.php:196
@@ -512,11 +550,11 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
-"إذا أدخلت قيمة هنا ، فستتم إضافتها إلى برامج التثبيت لجميع المستخدمين لديك ، "
+"إذا أدخلت قيمة هنا ، فستتم إضافتها إلى برامج التثبيت لجميع المستخدمين لديك، "
 "وسيتم عرضها في صفحة التنزيل. إذا كنت لديك مكاتب مساعدة \"دعم فني\" منفصلة "
-"لمجموعات مختلفة من المستخدمين (نسمي هذا \"ملفات التعريف\") ، حدد معلومات "
-"مكتب المساعدة \"الدعم الفني\" لكل ملف تعريف لاحقًا في هذا المعالج. إذا لم يكن "
-"لديك مكتب مساعدة على الإطلاق ، فاترك هذه الحقول فارغة."
+"لمجموعات مختلفة من المستخدمين (نسمي هذا 'ملفات التعريف')، حدد معلومات مكتب "
+"المساعدة أو الدعم الفني لكل ملف تعريف لاحقًا في هذا المعالج. إذا لم يكن لديك "
+"مكتب مساعدة على الإطلاق، فاترك هذه الحقول فارغة."
 
 #: web/admin/edit_participant.php:198
 #, php-format
@@ -544,7 +582,7 @@ msgstr "هذه هي نقطة الاتصال الخاصة بدعم المستخد
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
-msgstr "عندما تكون متأكدًا من صحة كل شيء ، يرجى النقر فوق %sمتابعة ...%s"
+msgstr "عندما تكون متأكدًا من صحة كل شيء، يرجى النقر فوق %sمتابعة ...%s"
 
 #. send a notification/alert mail to someone we know is in charge
 #: web/admin/edit_participant_result.php:36
@@ -564,7 +602,7 @@ msgstr ""
 #: web/admin/edit_participant_result.php:38
 #: web/admin/edit_profile_result.php:249
 msgid "Greetings, "
-msgstr "تحيات،"
+msgstr "تحية طيبة،"
 
 #: web/admin/edit_participant_result.php:56
 #, php-format
@@ -574,23 +612,26 @@ msgid ""
 "any more, and it may assume a different name in the future. You will get "
 "another mail if and when the name change happens."
 msgstr ""
+"قام %s %s / %s / (المعروف سابقًا باسم) '%s' بحذف جميع الخصائص وسيبدأ من جديد. "
+"هذا يعني أنه لم يعد من الممكن التعرف عليه من خلال اسمه ، وقد يحمل اسمًا "
+"مختلفًا في المستقبل. ستتلقى بريدًا آخر إذا حدث تغييرا للاسم."
 
 #: web/admin/edit_participant_result.php:61
 #: web/admin/edit_participant_result.php:106
 #: web/admin/edit_profile_result.php:254
 #, php-format
 msgid "%s: Significant Changes made to %s"
-msgstr ""
+msgstr "%s : تغييرات مهمة تم إجراؤها على %s"
 
 #: web/admin/edit_participant_result.php:68
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr ""
+msgstr "%s:  معالج تسجيل IdP (اكتملت الخطوة 2)"
 
 #: web/admin/edit_participant_result.php:75
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
-msgstr ""
+msgstr "السمات 'attributes' المرسلة لـمزود الهوية IdP '%s'"
 
 #. send a notification/alert mail to someone we know is in charge
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
@@ -598,12 +639,12 @@ msgstr ""
 #, php-format
 msgid ""
 "significant changes were made to the %s %s / %s / (previously known as) '%s'."
-msgstr ""
+msgstr "تم إجراء تغييرات كبيرة على %s %s/ %s / (المعروفة سابقًا بـ ) '%s'."
 
 #: web/admin/edit_participant_result.php:98
 #, php-format
 msgid "The %s has changed its name. The details are below:"
-msgstr ""
+msgstr "لقد غير %s اسمه. التفاصيل أدناه:"
 
 #: web/admin/edit_participant_result.php:115
 #: web/admin/edit_participant_result.php:120
@@ -623,11 +664,11 @@ msgstr "تم تهيئة SSIDs"
 #: web/admin/edit_participant_result.php:134
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr "ستقوم برامج التثبيت بتهيئة واجهات سلكية."
+msgstr "ستقوم برامج التثبيت بتهيئة الواجهات السلكية."
 
 #: web/admin/edit_participant_result.php:134
 msgid "Wired configured"
-msgstr "تهيئة سلكية"
+msgstr "تمت التهيئة السلكية"
 
 #: web/admin/edit_participant_result.php:137
 msgid ""
@@ -649,6 +690,8 @@ msgid ""
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
+"لم تقم بإدخال عنوان بريد إلكتروني. هذا مطلوب لـ %s. الرجاء الانتقال إلى لوحة "
+"تحكم %sلتعديل إعدادات مركز الدعم لتضمين عنوان البريد الإلكتروني لمركز الدعم."
 
 #: web/admin/edit_participant_result.php:160
 msgid "No support e-mail!"
@@ -661,20 +704,20 @@ msgstr "الاستمرار في تعريف ملف تعريف RADIUS / EAP"
 #: web/admin/edit_profile.php:35
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s : معالج تسجيل IdP (الخطوة 3)"
 
 #: web/admin/edit_profile.php:144
 msgid "Step 3: Defining a user group profile"
-msgstr "الخطوة 3: تحديد ملف تعريف مجموعة المستخدم"
+msgstr "الخطوة 3: تحديد ملف تعريف مجموعة المستخدمين"
 
 #: web/admin/edit_profile.php:146
 #, php-format
 msgid "Edit profile '%s' ..."
-msgstr "تعديل الملف الشخصي '%s' ..."
+msgstr "تعديل الملف التعريفي '%s' ..."
 
 #: web/admin/edit_profile.php:159
 msgid "General Profile properties"
-msgstr "خصائص الملف الشخصي العامة"
+msgstr "خصائص الملف التعريفي العام"
 
 #: web/admin/edit_profile.php:163
 msgid ""
@@ -683,10 +726,14 @@ msgid ""
 "page. After we are done, the wizard is finished and you will be taken to the "
 "main IdP administration page."
 msgstr ""
+"سنقوم الآن بتحديد ملف تعريف لـ (مجموعة/مجموعات) المستخدمين الخاصة بك. يمكنك "
+"إضافة العديد من ملفات التعريف كما تريد عن طريق اختيار الزر المناسب في نهاية "
+"الصفحة. بعد أن ننتهي، ينتهي المعالج وسيتم نقلك إلى صفحة إدارة موفر الهوية "
+"IdP الرئيسية."
 
 #: web/admin/edit_profile.php:166
 msgid "Profile Name and RADIUS realm"
-msgstr "اسم ملف التعريف والمجال \"RADIUS realm\"  "
+msgstr "اسم ملف التعريف ونطاق \"RADIUS realm\"  "
 
 #: web/admin/edit_profile.php:169
 msgid ""
@@ -694,9 +741,8 @@ msgid ""
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
 msgstr ""
-"أولا ، نحتاج إلى اسم لملف التعريف. سيتم عرضه للمستخدمين النهائيين ، لذلك قد "
-"ترغب في اختيار اسم وصفي مثل \"المعلمون\" ، \"طلاب كلية العلوم البيولوجية\" ، "
-"إلخ."
+"أولا ، نحتاج إلى اسم لملف التعريف. سيتم عرضه للمستخدمين النهائيين، لذلك يجب "
+"عليك  اختيار اسم وصفي مثل 'المعلمون' ، 'طلاب كلية العلوم البيولوجية' ، إلخ."
 
 #: web/admin/edit_profile.php:170
 msgid ""
@@ -704,13 +750,13 @@ msgid ""
 "is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
-"اختياريًا ، يمكنك إضافة تفاصيل وصفية أكثر حول صاحب هذا الملف التعريفي . إذا "
+"اختياريًا ، يمكنك إضافة تفاصيل وصفية أكثر حول صاحب هذا الملف التعريفي. إذا "
 "قمت بالإضافه، فسيتم عرضها على صفحة التنزيل بعد أن يقوم المستخدم بتحديد اسم "
 "ملف التعريف في القائمة."
 
 #: web/admin/edit_profile.php:171
 msgid "You can also tell us your RADIUS realm. "
-msgstr "يمكنك أيضًا إخبارنا بمجال realm  لـ RADIUS الخاص بك."
+msgstr "يمكنك أيضًا إخبارنا بإسم النطاق realm  لـ RADIUS الخاص بك."
 
 #: web/admin/edit_profile.php:173
 #, php-format
@@ -719,19 +765,19 @@ msgid ""
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
 "يعد هذا مفيدًا إذا كنت تريد استخدام وحدة التحقق من الصحة في وقت لاحق ، والتي "
-"تختبر قابلية الوصول إلى مجال realm الخاص بك في البنية التحتية لـ %s."
+"تختبر قابلية الوصول إلى نطاق realm الخاص بك في البنية الأساسية لـ %s."
 
 #: web/admin/edit_profile.php:175
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
-"يلزم إدخال اسم المجال realm إذا كنت تريد دعم الهويات الخارجية المجهولة (انظر "
-"أدناه)."
+"يتطلب إدخال اسم النطاق realm إذا كنت تريد دعم الهويات الخارجية المجهولة "
+"(انظر أدناه)."
 
 #: web/admin/edit_profile.php:182
 msgid "Basic Realm Information"
-msgstr "معلومات أساسية عن المجال realm"
+msgstr "معلومات أساسية عن النطاق realm"
 
 #: web/admin/edit_profile.php:184 web/admin/edit_profile.php:192
 msgid "Realm:"
@@ -739,11 +785,11 @@ msgstr "Realm:"
 
 #: web/admin/edit_profile.php:185
 msgid "Realm input field"
-msgstr "حقل إدخال المجال realm"
+msgstr "حقل إدخال النطاق Realm"
 
 #: web/admin/edit_profile.php:226
 msgid "Realm Options"
-msgstr "خيارات المجال realm"
+msgstr "خيارات النطاق realm"
 
 #: web/admin/edit_profile.php:230
 #, php-format
@@ -751,8 +797,8 @@ msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
-"تدعم بعض برامج التثبيت ميزة تسمى \"الهوية الخارجية المجهولة\". إذا كنت لا "
-"تعرف ما هذه الميزة، يرجى قراءة <a href='%s'>هذا المقال</a>."
+"تدعم بعض برامج التثبيت ميزة تسمى 'الهوية الخارجية المجهولة'. إذا كنت لا تعرف "
+"ما هذه الميزة، يرجى قراءة <a href='%s'>هذا المقال</a>."
 
 #: web/admin/edit_profile.php:231
 msgid ""
@@ -760,7 +806,7 @@ msgid ""
 "the user input to contain the realm suffix."
 msgstr ""
 "في بعض الأنظمة، يمكن لبرنامج التثبيت اقتراح نهايات اسم المستخدم و / أو "
-"التحقق من ادخال المستخدم لاحقة المجال realm suffix."
+"التحقق من ادخال المستخدم لاحقة النطاق realm suffix."
 
 #: web/admin/edit_profile.php:232
 msgid ""
@@ -769,7 +815,7 @@ msgid ""
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
-"تحتاج ميزة التحقق من المجال realm إلى معرفة معرف خارجي قد يحصل بالفعل على "
+"تحتاج ميزة التحقق من النطاق realm إلى معرفة معرف خارجي قد يحصل بالفعل على "
 "إمكانية للمصادقة. إذا سمح خادم RADIUS الخاص بك فقط بتحديد تمرير أسماء "
 "المستخدمين، فمن المفيد توفير المعلومات حول اسم المستخدم (المعرف الخارجي) "
 "الذي يمكننا استخدامه للاختبار."
@@ -796,19 +842,19 @@ msgstr "تفعيل الهوية الخارجية المجهولة:"
 
 #: web/admin/edit_profile.php:270
 msgid "Use special Outer Identity for realm checks:"
-msgstr "استخدم هوية خارجية خاصة لعمليات التحقق من المجال realm:"
+msgstr "استخدم هوية خارجية خاصة لعمليات التحقق من النطاق realm:"
 
 #: web/admin/edit_profile.php:285
 msgid "Inner Identity (Username) Handling"
-msgstr ""
+msgstr "التعامل مع الهوية الداخلية (اسم المستخدم)"
 
 #: web/admin/edit_profile.php:291
 msgid "Enforce realm suffix in username"
-msgstr ""
+msgstr "فرض لاحقة النطاق realm في اسم المستخدم"
 
 #: web/admin/edit_profile.php:309
 msgid "Enforce exact realm in username"
-msgstr ""
+msgstr "فرض النطاق realm الصحيح في اسم المستخدم"
 
 #: web/admin/edit_profile.php:319
 msgid "Installer Download Location"
@@ -824,10 +870,16 @@ msgid ""
 "profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
+"يحتوي CAT على منطقة تنزيل للمستخدمين النهائيين. هناك، سيتعرفون، على سبيل "
+"المثال، على بيانات الدعم التي أدخلتها سابقًا. يمكن لـ CAT أيضًا أن تقدم على "
+"الفور أدوات التثبيت لملف التعريف للتنزيل. إذا كنت لا تريد ذلك، يمكنك بدلاً من "
+"ذلك إدخال موقع ويب حيث تريد إعادة توجيه المستخدمين لديك. لا يزال بإمكانك، "
+"بصفتك المسؤول، تنزيل ملفات التعريف لوضعها على تلك الصفحة (انظر زر 'مصفوفة "
+"التوافق' في لوحة التحكم)."
 
 #: web/admin/edit_profile.php:329
 msgid "Redirect end users to own web page:"
-msgstr ""
+msgstr "إعادة توجيه المستخدمين إلى صفحة الويب الخاصة بهم:"
 
 #: web/admin/edit_profile.php:342
 msgid "Supported EAP types"
@@ -841,6 +893,11 @@ msgid ""
 "highest priority; only if the user's device can't use that EAP type, we will "
 "use an EAP type further down in the list."
 msgstr ""
+"الآن، نحتاج إلى معرفة أنواع EAP التي يدعمها موفر الهوية IdP. إذا كنت تدعم "
+"أنواع EAP متعددة، فيمكنك تعيين أولوية لكل نوع (1 = الأعلى). ستقوم هذه الأداة "
+"دائمًا بإنشاء برنامج تثبيت تلقائي لنوع EAP بالأولوية الأعلى؛ فقط إذا كان جهاز "
+"المستخدم لا يمكنه استخدام هذا النوع من EAP، فسنستخدم نوع EAP التالي في "
+"القائمة."
 
 #: web/admin/edit_profile.php:368
 msgid "EAP type support"
@@ -848,7 +905,7 @@ msgstr "دعم نوع EAP"
 
 #: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
-msgstr ""
+msgstr "أنواع EAP المدعومة لهذا الملف التعريفي"
 
 #: web/admin/edit_profile.php:385
 msgid ""
@@ -856,22 +913,25 @@ msgid ""
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
+"استخدم \"السحب والإفلات\" لتحديد طريقة EAP ونقلها إلى المنطقة المدعومة "
+"(الخضراء). يتم تحديد الأولويات تلقائيًا، اعتمادًا على المكان الذي \"تضع فيه\" "
+"الطريقة."
 
 #: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
-msgstr ""
+msgstr "أنواع EAP غير المدعومة"
 
 #: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
-msgstr ""
+msgstr "تفاصيل مركز الدعم لهذا الملف التعريفي"
 
 #: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
-msgstr ""
+msgstr "تفاصيل EAP لهذا الملف التعريفي"
 
 #: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
-msgstr ""
+msgstr "خصائص الاتصال لملف التعريف"
 
 #: web/admin/edit_profile.php:456
 #, php-format
@@ -882,31 +942,46 @@ msgid_plural ""
 "The options %s are already defined IdP-wide. If you set them here on profile "
 "level, these settings will override the IdP-wide ones."
 msgstr[0] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية."
 msgstr[1] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية."
 msgstr[2] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية."
 msgstr[3] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية."
 msgstr[4] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية."
 msgstr[5] ""
+"تم تحديد الخيارات %s بالفعل على مستوى IdP. إذا قمت بتعيينها هنا على مستوى "
+"ملف التعريف، فستعمل هذه الاعدادات على تجاهل الإعدادات الخاصة بموفر الهوية  "
+"IdP-wide."
 
 #: web/admin/edit_profile.php:469
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
+"عندما تكون متأكدًا من صحة كل شيء ، يرجى النقر على 'حفظ البيانات' وسيتم نقلك "
+"إلى صفحة لوحة تحكم مزود الخدمة IdP الخاص بك. "
 
 #: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Edit Profile - Result"
-msgstr "%s: تحرير ملف التعريف - النتيجة "
+msgstr "%s: تعديل ملف التعريف - النتيجة "
 
 #: web/admin/edit_profile_result.php:56
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
-msgstr ""
+msgstr "%s: معالج الملف التعريفي (اكتملت الخطوة 3)"
 
 #: web/admin/edit_profile_result.php:111
 msgid "Submitted attributes for this profile"
-msgstr ""
+msgstr "السمات 'attributes' المرسلة لهذا الملف التعريفي"
 
 #: web/admin/edit_profile_result.php:117 web/admin/edit_user_result.php:77
 msgid "Overall Result"
@@ -923,7 +998,7 @@ msgstr "Realm: <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:132
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
-msgstr ""
+msgstr "لا يمكن تشغيل الهويات الخارجية المجهولة: نطاق realm مفقود!"
 
 #: web/admin/edit_profile_result.php:135
 #, php-format
@@ -931,19 +1006,21 @@ msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
 msgstr ""
+"دعم الهوية المجهولة هو<strong>%s</strong> ، والهوية الخارجية المجهولة "
+"هي<strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:135 web/admin/edit_profile_result.php:150
 msgid "ON"
-msgstr ""
+msgstr "تشغيل"
 
 #: web/admin/edit_profile_result.php:139
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
-msgstr ""
+msgstr "دعم الهوية المجهولة هو <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:139
 msgid "OFF"
-msgstr ""
+msgstr "إيقاف"
 
 #. no anon outer ID, and no realm suffix verification? Bad idea!
 #: web/admin/edit_profile_result.php:141
@@ -956,10 +1033,16 @@ msgid ""
 "scenarios will not be prohibited. Consider checking the box 'Enforce realm "
 "suffix in username'!"
 msgstr ""
+"بدون الهوية المجهولة ، سيتم استخدام اسم المستخدم الفعلي كهوية خارجية ويكون "
+"أساس توجيه الطلب. لكي يعمل ذلك ، يجب أن يحتوي اسم المستخدم على نهاية اسم "
+"مجال صحيح. ومع ذلك ، تم إيقاف تشغيل التحقق من نهاية اسم المجال. لن يتحقق "
+"مقدمو الطلبات من أن أسماء المستخدمين تحتوي على اسم مجال ، ولن يتم حظر أخطاء "
+"مثل اسم المستخدم \"johndoe\" الذي لن يعمل في سيناريوهات التجوال. ضع في "
+"اعتبارك تحديد المربع \"فرض لاحقة المجال في اسم المستخدم\"!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
-msgstr ""
+msgstr "لا يمكن تهيئة اسم مستخدم للتحقق من النطاق realm : النطاق realm مفقود!"
 
 #: web/admin/edit_profile_result.php:150
 #, php-format
@@ -967,15 +1050,17 @@ msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
+"اسم المستخدم الخاص لفحص النطاق realm هو <strong>%s</strong>، والقيمة هي "
+"<strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:154
 msgid "No special username for realm checks is configured."
-msgstr ""
+msgstr "لم يتم تهيئة اسم مستخدم خاص لعمليات التحقق في نطاق realm."
 
 #: web/admin/edit_profile_result.php:162
 #, php-format
 msgid "The realm portion MUST be exactly '...@%s'."
-msgstr ""
+msgstr "يجب أن يكون جزء النطاق realm بالضبط '%s@...'."
 
 #: web/admin/edit_profile_result.php:164
 #, php-format
@@ -983,12 +1068,16 @@ msgid ""
 "The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
 "'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
+"يجب أن ينتهي جزء النطاق realm بـ '%s' ولكن يُسمح بالنطاقات realm الفرعية منه "
+"(أي '%s@user' و '%s.<...>@user' كلاهما مقبولان)."
 
 #: web/admin/edit_profile_result.php:167
 msgid ""
 "Where possible, supplicants will verify that username inputs contain a "
 "syntactically correct realm."
 msgstr ""
+"إن أمكن ، سيتحقق جهازك عند ارسال الطلب من أن مدخلات اسم المستخدم تحتوي على "
+"نطاق realm صحيح نحويًا."
 
 #: web/admin/edit_profile_result.php:176
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -1008,15 +1097,17 @@ msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
 "device-level redirect."
 msgstr ""
+"تم تعيين إعادة توجيه على <strong>%s</strong>، ولكن سيتم تجاهله بسبب وجود "
+"إعادة توجيه اخر تم تعيينه على مستوى الجهاز."
 
 #: web/admin/edit_profile_result.php:192
 #, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "تم تعيين إعادة التوجيه على <strong>%s</strong>"
+msgstr "تم تعيين إعادة التوجيه الى <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:196
 msgid "Redirection is <strong>OFF</strong>"
-msgstr ""
+msgstr "إعادة التوجيه <strong>مغلق</strong>"
 
 #: web/admin/edit_profile_result.php:214
 msgid "Supported EAP Type: "
@@ -1026,13 +1117,15 @@ msgstr "نوع EAP المدعوم:"
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
-msgstr ""
+msgstr "نوع EAP المدعوم: <strong>%s</strong>يفتقد إلى المعلومات المطلوبة %s !"
 
 #: web/admin/edit_profile_result.php:222
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
 msgstr ""
+"تم إضافة نوع EAP إلى ملف التعريف، ولكنك تحتاج إلى إكمال المعلومات المفقودة "
+"قبل أن نتمكن من إنتاج برنامج التثبيت لك."
 
 #. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
 #: web/admin/edit_profile_result.php:235
@@ -1041,6 +1134,7 @@ msgid ""
 "significant changes were made to a RADIUS deployment profile of the %s %s / "
 "%s / '%s'."
 msgstr ""
+"تم إجراء تغييرات كبيرة على ملف تعريف إعدادات RADIUS لـ %s / %s / %s / '%s'."
 
 #: web/admin/edit_profile_result.php:237
 msgid ""
@@ -1049,60 +1143,75 @@ msgid ""
 "this is an attempt to insert an unauthorised trust root by disguising as the "
 "genuine one. The details are below:"
 msgstr ""
+"تحذير! تمت إضافة مرجع مصدق جذر \"root CA\" جديد وموثوق به، وله نفس الاسم "
+"تمامًا مثل المرجع المصدق الجذر  \"root CA\" الموجود سابقًا. قد يعني هذا (ولكن "
+"ليس بالضرورة) أن هذه محاولة لإدراج جذر موثوق \"root\" غير مصرح به كجذر "
+"حقيقي . التفاصيل أدناه:"
 
 #: web/admin/edit_profile_result.php:241
 msgid "A new trusted root CA was added. The details are below:"
-msgstr ""
+msgstr "تمت إضافة trusted root CA جديدة. التفاصيل أدناه:"
 
 #: web/admin/edit_profile_result.php:245
 msgid ""
 "A new acceptable server name for the authentication server was added. The "
 "details are below:"
-msgstr ""
+msgstr "تمت إضافة اسم خادم مقبول جديد لخادم المصادقة. التفاصيل أدناه:"
 
 #: web/admin/edit_profile_result.php:267
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
+"لا تتضمن معلومات ملف التعريف على النطاق realm ، لذلك لا يمكن تنفيذ عمليات "
+"تحقق DNS لـ OpenRoaming."
 
 #: web/admin/edit_profile_result.php:288
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
-msgstr ""
+msgstr "هدف SRV لسجل OpenRoaming NAPTR غير متوقع."
 
 #: web/admin/edit_profile_result.php:300
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
+"أسماء مضيفي نطاقات DNS في سجلات SRV لم يتم ضبطها مع عناوين IP للمضيف الفعلي. "
+"OpenRoaming لن يعمل."
 
 #: web/admin/edit_profile_result.php:324
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
+"عند الاتصال بنقاط نهاية OpenRoaming endpoints المكتشفة ، كانت جميعهم بها "
+"أخطاء. من المحتمل ألا يعمل OpenRoaming."
 
 #: web/admin/edit_profile_result.php:327
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
+"عند الاتصال بنقاط نهاية OpenRoaming endpoints المكتشفة، فقط مجموعة قليلة من "
+"نقاط النهاية endpoints التي لا يوجد بها أخطاء."
 
 #: web/admin/edit_profile_result.php:335
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
+"لم يتم تأمين استجابة DNS واحدة على الأقل باستخدام DNSSEC. قد يرفض "
+"OpenRoaming ANPs الاتصال بنقطة النهاية endpoints."
 
 #: web/admin/edit_profile_result.php:339
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
 msgstr ""
+"نجحت التشخيصات الأولية المتعلقة بجزء DNS من OpenRoaming (بما في ذلك DNSSEC)."
 
 #: web/admin/edit_profile_result.php:352
 msgid "Continue to Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "تابع إلى برنامج التثبيت Fine-Tuning وتنزيله"
 
 #: web/admin/edit_silverbullet.php:237
 msgid "Insecure mail domain!"
@@ -1115,12 +1224,16 @@ msgid ""
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
 msgstr ""
+"نطاق البريد لعنوان البريد <strong>%s</strong>غير آمن: بعض أو كل خوادم البريد "
+"لا تقبل الاتصالات المشفرة (لا يوجد دعم ثابت لـ STARTTLS)."
 
 #: web/admin/edit_silverbullet.php:239
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
+"تحتاج إرسال الدعوة بنص واضح عبر الإنترنت، ويمكن قراءتها وسوء استخدامها من "
+"قبل أي شخص أثناء النقل."
 
 #: web/admin/edit_silverbullet.php:240
 msgid "Do you want the system to send this mail anyway?"
@@ -1128,29 +1241,29 @@ msgstr "هل تريد من النظام إرسال هذا البريد على أ
 
 #: web/admin/edit_silverbullet.php:242
 msgid "DO NOT SEND"
-msgstr "عدم الارسال "
+msgstr "لاتقم بالإرسال "
 
 #: web/admin/edit_silverbullet.php:249
 msgid "Send anyway."
-msgstr "الارسال على أي حال."
+msgstr "إرسل على أي حال."
 
 #: web/admin/edit_silverbullet.php:300
 #, php-format
 msgid "Managing %s users"
-msgstr ""
+msgstr "إدارة مستخدمي %s"
 
 #: web/admin/edit_silverbullet.php:340
 #, php-format
 msgid "Current %s users"
-msgstr ""
+msgstr "مستخدمو %s الحاليين"
 
 #: web/admin/edit_silverbullet.php:349
 msgid "Assigned Realm"
-msgstr ""
+msgstr "نطاق Realm المحدد"
 
 #: web/admin/edit_silverbullet.php:352
 msgid "Total number of active users allowed"
-msgstr ""
+msgstr "إجمالي عدد المستخدمين النشطين المسموح بهم"
 
 #: web/admin/edit_silverbullet.php:355
 msgid "Number of active users"
@@ -1158,106 +1271,106 @@ msgstr "عدد المستخدمين النشطين"
 
 #: web/admin/edit_silverbullet.php:358
 msgid "Number of inactive users"
-msgstr ""
+msgstr "عدد المستخدمين غير النشطين"
 
 #: web/admin/edit_silverbullet.php:369
 msgid "The e-mail was sent successfully."
-msgstr ""
+msgstr "تم ارسال البريد الالكتروني بنجاح."
 
 #: web/admin/edit_silverbullet.php:369
 msgid "E-mail OK."
-msgstr ""
+msgstr "البريد الإلكتروني صحيح."
 
 #: web/admin/edit_silverbullet.php:372
 msgid "The e-mail was NOT sent."
-msgstr ""
+msgstr "لم يتم إرسال البريد الإلكتروني."
 
 #: web/admin/edit_silverbullet.php:372
 msgid "E-mail not OK."
-msgstr ""
+msgstr "البريد الإلكتروني غير صحيح."
 
 #: web/admin/edit_silverbullet.php:375
 msgid "The SMS was sent successfully."
-msgstr ""
+msgstr "تم إرسال الرسالة القصيرة SMS بنجاح."
 
 #: web/admin/edit_silverbullet.php:375
 msgid "SMS OK."
-msgstr ""
+msgstr "SMS صحيح."
 
 #: web/admin/edit_silverbullet.php:378
 msgid "The SMS was NOT sent."
-msgstr ""
+msgstr "لم يتم إرسال SMS."
 
 #: web/admin/edit_silverbullet.php:378
 msgid "SMS not OK."
-msgstr ""
+msgstr "SMS غير صحيح."
 
 #: web/admin/edit_silverbullet.php:381
 msgid "Only a fragment of the SMS was sent. You should re-send it."
-msgstr ""
+msgstr "تم إرسال جزء فقط من الرسالة القصيرة. يجب عليك إعادة إرسالها."
 
 #: web/admin/edit_silverbullet.php:381
 msgid "SMS Fragment."
-msgstr ""
+msgstr "جزء الرسائل القصيرة."
 
 #: web/admin/edit_silverbullet.php:388
 #, php-format
 msgid "Manage %s users"
-msgstr ""
+msgstr "إدارة مستخدمين ال%s"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
+#: web/admin/overview_federation.php:149 web/admin/inc/manageAdmins.inc.php:166
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 #: web/admin/edit_silverbullet.php:395
 msgid "Token/Certificate details"
-msgstr ""
+msgstr "تفاصيل الرمز / الشهادة"
 
 #: web/admin/edit_silverbullet.php:396
 msgid "User/Token Expiry"
-msgstr ""
+msgstr "انتهاء صلاحية المستخدم / الرمز "
 
 #: web/admin/edit_silverbullet.php:397 web/admin/edit_silverbullet.php:404
 #: web/admin/inc/manageAdmins.inc.php:167
 msgid "Actions"
-msgstr ""
+msgstr "الإجراءات"
 
 #: web/admin/edit_silverbullet.php:402
 msgid "Certificate details"
-msgstr ""
+msgstr "تفاصيل الشهادة "
 
 #: web/admin/edit_silverbullet.php:403
 msgid "User Expiry"
-msgstr ""
+msgstr "انتهاء صلاحية المستخدم"
 
 #: web/admin/edit_silverbullet.php:445
 msgid "REVOKED"
-msgstr ""
+msgstr "ملغاه"
 
 #: web/admin/edit_silverbullet.php:450
 msgid "EXPIRED"
-msgstr ""
+msgstr "منتهية الصلاحية"
 
 #: web/admin/edit_silverbullet.php:461
 msgid "Device:"
-msgstr ""
+msgstr "جهاز:"
 
 #: web/admin/edit_silverbullet.php:462
 msgid "Serial Number:"
-msgstr ""
+msgstr "رقم التسلسل:"
 
 #: web/admin/edit_silverbullet.php:463
 msgid "CN:"
-msgstr ""
+msgstr "CN:"
 
 #: web/admin/edit_silverbullet.php:464
 msgid "Expiry:"
-msgstr ""
+msgstr "إنتهاء:"
 
 #: web/admin/edit_silverbullet.php:465
 msgid "Issued:"
-msgstr ""
+msgstr "أٌصدر:"
 
 #: web/admin/edit_silverbullet.php:477
 #, php-format
@@ -1265,86 +1378,88 @@ msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"سيتوقف الجهاز المعني عن العمل مع %s. لا يمكنك التراجع عن عملية الإبطال. هل "
+"انت متأكد من أنك تريد أن تفعل هذا؟"
 
 #: web/admin/edit_silverbullet.php:478 web/admin/edit_silverbullet.php:550
 msgid "Revoke"
-msgstr ""
+msgstr "إلغاء"
 
 #: web/admin/edit_silverbullet.php:502
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "(إظهار الشهادة %d الملغاة)"
+msgstr[1] "(إظهار الشهاده %d الملغاة)"
+msgstr[2] "(إظهار الشهادتان %d الملغاة)"
+msgstr[3] "(إظهار الشهادات %d الملغاة)"
+msgstr[4] "(إظهار الشهادات %d الملغاة)"
+msgstr[5] "(إظهار الشهادات %d الملغاة)"
 
 #: web/admin/edit_silverbullet.php:505
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "(إظهار %d من الشهادات منتهية الصلاحية)"
+msgstr[1] "(إظهار %d من الشهادات منتهية الصلاحية)"
+msgstr[2] "(إظهار %d من الشهادات منتهية الصلاحية)"
+msgstr[3] "(إظهار %d من الشهادات منتهية الصلاحية)"
+msgstr[4] "(إظهار %d من الشهادات منتهية الصلاحية)"
+msgstr[5] "(إظهار %dمن الشهادات منتهية الصلاحية)"
 
 #: web/admin/edit_silverbullet.php:519
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
-msgstr ""
+msgstr "رمز الدعوة %sجاهز للإرسال! اختر كيفية إرساله:"
 
 #: web/admin/edit_silverbullet.php:521
 msgid "E-Mail:"
-msgstr ""
+msgstr "البريد الإلكتروني:"
 
 #: web/admin/edit_silverbullet.php:525
 msgid "Local mail client"
-msgstr ""
+msgstr "عميل البريد المحلي"
 
 #: web/admin/edit_silverbullet.php:526
 msgid "Send with CAT"
-msgstr ""
+msgstr "إرسال مع CAT"
 
 #: web/admin/edit_silverbullet.php:529
 msgid "SMS:"
-msgstr ""
+msgstr "رسالة قصيرة SMS:"
 
 #: web/admin/edit_silverbullet.php:533
 msgid "Send in SMS..."
-msgstr ""
+msgstr "إرسال في SMS ..."
 
 #: web/admin/edit_silverbullet.php:536
 msgid "Manual:"
-msgstr ""
+msgstr "دليل: "
 
 #: web/admin/edit_silverbullet.php:537
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "النسخ إلى الحافظة"
 
 #: web/admin/edit_silverbullet.php:540
 msgid "Display QR code"
-msgstr ""
+msgstr "عرض رمز  QR"
 
 #: web/admin/edit_silverbullet.php:546
 msgid "Expiry Date:"
-msgstr ""
+msgstr "تاريخ انتهاء الصلاحية:"
 
 #: web/admin/edit_silverbullet.php:546
 msgid "Activations remaining:"
-msgstr ""
+msgstr "عمليات التفعيل المتبقية:"
 
 #: web/admin/edit_silverbullet.php:546
 #, php-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d من %d"
 
 #: web/admin/edit_silverbullet.php:569
 msgid "Update"
-msgstr ""
+msgstr "تحديث"
 
 #: web/admin/edit_silverbullet.php:576
 #, php-format
@@ -1354,36 +1469,39 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"ستتوقف جميع الأجهزة المفعلة حاليًا عن العمل مع %s. هذا لا يمكن التراجع عنه. "
+"بينما يمكنك إعادة تفعيل المستخدم لاحقًا ، سيحتاج بعد ذلك إلى إعادة تزويده "
+"برموز دعوة جديدة. هل انت متأكد من أنك تريد أن تفعل هذا؟"
 
 #: web/admin/edit_silverbullet.php:585
 msgid "Deactivate User"
-msgstr ""
+msgstr "تعطيل المستخدم"
 
 #: web/admin/edit_silverbullet.php:590
 msgid "Show Authentication Records"
-msgstr ""
+msgstr "إظهار سجلات المصادقة"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:595
 msgid "New Invitation"
-msgstr ""
+msgstr "دعوة جديدة"
 
 #: web/admin/edit_silverbullet.php:596
 msgid "Activations:"
-msgstr ""
+msgstr "عمليات التفعيل:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:603
 msgid "Delete User"
-msgstr ""
+msgstr "حذف المستخدم"
 
 #: web/admin/edit_silverbullet.php:619
 msgid "Current Users"
-msgstr ""
+msgstr "المستخدمين الحاليين"
 
 #: web/admin/edit_silverbullet.php:622
 msgid "Previous Users"
-msgstr ""
+msgstr "المستخدمون السابقون"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:631
@@ -1395,343 +1513,370 @@ msgid ""
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
+"يجب أن تقر بأن الحسابات التي تم إنشاؤها لا تزال صالحة في غضون الأيام %s "
+"المقبلة. إذا كانت جميع الحسابات الموضحة أعلاه لا تزال صالحة بالفعل، يرجى "
+"تحديد مربع الإختيار أدناه والضغط على \"حفظ\". إذا كان أي من الحسابات قديمًا ، "
+"فيرجى تعطيله بالضغط على الزر المقابل قبل القيام بذلك."
 
 #: web/admin/edit_silverbullet.php:639
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
+"لقد تحققت من أن جميع المستخدمين الذين تمت تهيئتهم ما زالوا مؤهلين للحصول على "
+"%s."
 
 #: web/admin/edit_silverbullet.php:641
 msgid "Save"
-msgstr ""
+msgstr "حفظ"
 
 #: web/admin/edit_silverbullet.php:651 web/admin/edit_silverbullet.php:666
 msgid "Add new user"
-msgstr ""
+msgstr "إضافة مستخدم جديد"
 
 #: web/admin/edit_silverbullet.php:654
 msgid "Import users from CSV file"
-msgstr ""
+msgstr "استيراد المستخدمين من ملف CSV"
 
 #: web/admin/edit_silverbullet.php:661
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
+"الرجاء إدخال اسم مستخدم من اختيارك وتاريخ انتهاء صلاحية المستخدم لإنشاء "
+"مستخدم جديد:"
 
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
-"date 'yyyy-mm-dd', number of tokens (optional):"
+"date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
+"يجب توفير القيم المفصولة بفواصل في ملف CSV: اسم المستخدم، تاريخ انتهاء "
+"الصلاحية بالصيغة yyyy-mm-dd، عدد الرموز (اختياري):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
-msgstr ""
+msgstr "استيراد المستخدمين"
 
 #: web/admin/edit_silverbullet.php:718
 #, php-format
 msgid "Back to %s page"
-msgstr ""
+msgstr "العودة إلى صفحة %s"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
-msgstr ""
+msgstr "تعديل سمات 'Attributes' المستخدم"
 
 #: web/admin/edit_user.php:40
 msgid "Current User Attributes"
-msgstr ""
+msgstr "سمات 'Attributes' للمستخدم الحالي"
 
 #: web/admin/edit_user.php:55
 msgid "Your attributes"
-msgstr ""
+msgstr "سمات 'Attributes' الخاصة بك"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr ""
+msgstr "سمات 'Attributes' المستخدم - ملخص البيانات المقدمة"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr ""
+msgstr "تم استدعاء الصفحة ببيانات غير كافية. الرجاء الإبلاغ عن هذا الخطأ."
 
 #: web/admin/edit_user_result.php:38
 msgid "Submitted attributes"
-msgstr ""
+msgstr "سمات 'Attributes' المرسلة"
 
 #: web/admin/edit_user_result.php:72
 msgid "Submitted attributes for this user"
-msgstr ""
+msgstr "السمات 'attributes' المرسلة لهذا المستخدم"
 
 #: web/admin/edit_user_result.php:88
 msgid "Continue to user overview page"
-msgstr ""
+msgstr "تابع إلى صفحة النظرة العامة للمستخدم"
 
 #. Logout failed. Tell the user to close the browser.
 #: web/admin/logout_check.php:47
 msgid "Incomplete Logout"
-msgstr ""
+msgstr "تسجيل الخروج غير مكتمل"
 
 #: web/admin/logout_check.php:48
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
+"لم نتمكن من تسجيل خروجك من جميع صفحاتك 'Sessions'. لتتأكد تمامًا من تسجيل "
+"خروجك، يلزمك إغلاق متصفح الويب الخاص بك."
 
 #: web/admin/overview_certificates.php:73
 #, php-format
 msgid "Certificate Information for %s %s"
-msgstr ""
+msgstr "معلومات الشهادة لـ %s %s"
 
-#: web/admin/overview_certificates.php:92
+#: web/admin/overview_certificates.php:105
 msgid "Request new Certificate"
-msgstr ""
+msgstr "طلب شهادة جديدة"
+
+#: web/admin/overview_certificates.php:110
+#, php-format
+msgid ""
+"You can not request certificates because there is no server information for "
+"%s in the eduroam DB."
+msgstr "لا يمكنك طلب الشهادات لعدم وجود معلومات عن خادم %s في eduroam DB."
 
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
-msgstr ""
+msgstr "%s: إدارة %s"
 
 #: web/admin/overview_federation.php:47 web/admin/overview_org.php:528
 #: web/admin/overview_sp.php:77
 #, php-format
 msgid "%s Overview"
-msgstr ""
+msgstr "نظرة عامة عن %s"
 
 #: web/admin/overview_federation.php:51 web/admin/overview_user.php:50
 msgid "Your Personal Information"
-msgstr ""
+msgstr "معلوماتك الشخصية"
 
 #: web/admin/overview_federation.php:62 web/admin/overview_user.php:64
 msgid "Unique Identifier"
-msgstr ""
+msgstr "المعرف الفريد Unique Identifier"
 
 #: web/admin/overview_federation.php:67 web/admin/overview_user.php:69
 msgid "click to display"
-msgstr ""
+msgstr "انقر للعرض"
 
-#: web/admin/overview_federation.php:77
+#: web/admin/overview_federation.php:74
+#, php-format
+msgid "RADIUS/TLS Certificate management"
+msgstr "إدارة شهادة RADIUS / TLS"
+
+#: web/admin/overview_federation.php:81
 #, php-format
 msgid "You are not a %s manager."
-msgstr ""
+msgstr "أنت لست مدير %s."
 
-#: web/admin/overview_federation.php:88
+#: web/admin/overview_federation.php:92
 #, php-format
 msgid "%s Properties: %s"
-msgstr ""
+msgstr "خصائص %s: %s "
 
-#: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
+#: web/admin/overview_federation.php:104 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
-msgstr ""
+msgstr "الدولة"
 
-#: web/admin/overview_federation.php:124
+#: web/admin/overview_federation.php:128
 #, php-format
 msgid "%s Statistics: %s"
-msgstr ""
+msgstr "إحصائيات %s : %s"
 
-#: web/admin/overview_federation.php:129
+#: web/admin/overview_federation.php:133
 msgid "IdPs Total"
-msgstr ""
+msgstr "إجمالي IdPs"
 
-#: web/admin/overview_federation.php:130
+#: web/admin/overview_federation.php:134
 msgid "Public Download"
-msgstr ""
+msgstr "تنزيل عام"
 
-#: web/admin/overview_federation.php:142
+#: web/admin/overview_federation.php:146
 msgid "Downloads"
-msgstr ""
+msgstr "التنزيلات"
 
-#: web/admin/overview_federation.php:143
+#: web/admin/overview_federation.php:147
 msgid "Admin"
-msgstr ""
+msgstr "مسؤول"
 
-#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:174 web/admin/inc/manageAdmins.inc.php:109
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تم إرساله عن طريق نقل آمن (مشفرة)."
+msgstr[1] "تم إرساله عن طريق نقل آمن (مشفرة)."
+msgstr[2] "تم إرسالهم عن طريق نقل آمن (مشفرة)."
+msgstr[3] "تم إرسالها عن طريق نقل آمن (مشفرة)."
+msgstr[4] "تم إرسالهم عن طريق نقل آمن (مشفرة)."
+msgstr[5] "تم إرسالها عن طريق نقل آمن (مشفرة)."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:177 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تم إرساله بنص واضح (بدون تشفير)."
+msgstr[1] "تم إرساله بنص واضح (بدون تشفير)."
+msgstr[2] "تم إرسالهم بنص واضح (بدون تشفير)."
+msgstr[3] "تم إرسالهم بنص واضح (بدون تشفير)."
+msgstr[4] "تم إرسالها بنص واضح (بدون تشفير)."
+msgstr[5] "تم إرسالها بنص واضح (بدون تشفير)."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:180 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
-msgstr ""
+msgstr "تم إرسال مجموعة فرعية من رسائل البريد مشفرة ، والباقي في نص واضح."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تم إرسال البريد الإلكتروني للدعوة بنجاح."
+msgstr[1] "تم إرسال البريد الإلكتروني للدعوة بنجاح."
+msgstr[2] "تم إرسال رسائل البريد الإلكتروني للدعوة بنجاح."
+msgstr[3] "تم إرسال رسائل البريد الإلكتروني للدعوة بنجاح."
+msgstr[4] "تم إرسال جميع رسائل البريد الإلكتروني للدعوة بنجاح."
+msgstr[5] "تم إرسال جميع رسائل البريد الإلكتروني للدعوة بنجاح."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
-msgstr ""
+msgstr "تم الإرسال بنجاح."
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
-msgstr ""
+msgstr "لا يمكن إرسال البريد الإلكتروني للدعوة!"
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
-msgstr ""
+msgstr "فشل الإرسال!"
 
-#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
+#: web/admin/overview_federation.php:194 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تم إرسال الناجحه منها بنقل آمن (مشفرة)."
+msgstr[1] "تم إرسال الناجح بنقل آمن (مشفرة)."
+msgstr[2] "تم إرسال الناجحه منها بنقل آمن (مشفرة)."
+msgstr[3] "تم إرسال الناجحه منها بنقل آمن (مشفرة)."
+msgstr[4] "تم إرسال الناجحه منها بنقل آمن (مشفرة)."
+msgstr[5] "تم إرسال الناجحه منها بنقل آمن (مشفرة)."
 
-#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:197 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تم إرسال الناجحه منها بنص واضح (بدون تشفير)."
+msgstr[1] "تم إرسال الناجح منها بنص واضح (بدون تشفير)."
+msgstr[2] "تم إرسال الناجحان منهم بنص واضح (بدون تشفير)."
+msgstr[3] "تم إرسال الناجحه منهم بنص واضح (بدون تشفير)."
+msgstr[4] "تم إرسال الناجحه منهم بنص واضح (بدون تشفير)."
+msgstr[5] "تم إرسال الناجحه منها بنص واضح (بدون تشفير)."
 
-#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:200 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
+"تم إرسال مجموعة من رسائل البريد المرسلة بنجاح \"مشفرة\" ، والباقي بنص واضح."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
+"تم إرسال بعض رسائل البريد الإلكتروني الخاصة بالدعوات بنجاح (مجموعهم %s)، "
+"بينما تعذر ارسال البعض الآخر."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
-msgstr ""
+msgstr "نجاح جزئي."
 
-#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:208 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr ""
+msgstr "عنوان البريد الإلكتروني للدعوة غير صحيح ، ولم يتم إرسال دعوة!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
-msgstr ""
+msgstr "خطأ: رمز نتيجة الدعوة غير معروف!؟!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
-msgstr ""
+msgstr "نتيجة غير معروفة!"
 
-#: web/admin/overview_federation.php:221
+#: web/admin/overview_federation.php:225
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
-msgstr ""
+msgstr "تشخيص قابلية الوصول ومعلمات الاتصال 'Parameters' لأي %s %s"
 
-#: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
+#: web/admin/overview_federation.php:228 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
-msgstr ""
+msgstr "إذهب!"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:235
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
-msgstr ""
+msgstr "تحتاج مساعدة؟ الرجوع إلى<a href='%s'> دليل %s</a>"
 
-#: web/admin/overview_federation.php:237
+#: web/admin/overview_federation.php:241
 msgid "Participant Details"
-msgstr ""
+msgstr "تفاصيل المشترك"
 
-#: web/admin/overview_federation.php:239
+#: web/admin/overview_federation.php:243
 msgid "Configured / Visible / OpenRoaming"
-msgstr ""
+msgstr "مهيأ / مرئي / OpenRoaming"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
-#: web/lib/admin/UIElements.php:132
+#: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
-msgstr ""
+msgstr "إسم %s"
 
-#: web/admin/overview_federation.php:246
+#: web/admin/overview_federation.php:250
 #, php-format
 msgid "%s Database Sync Status"
-msgstr ""
+msgstr "حالة مزامنة قاعدة بيانات %s"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:256
 msgid "Administrator Management"
-msgstr ""
+msgstr "إدارة المسؤول"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:261
+#: web/admin/overview_federation.php:265
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "%s التالية موجودة في %s %s الخاص بك:"
 
-#: web/admin/overview_federation.php:330
+#: web/admin/overview_federation.php:334
 msgid "Manage DB Link"
-msgstr ""
+msgstr "إدارة ربط قاعدة البيانات"
 
-#: web/admin/overview_federation.php:336
+#: web/admin/overview_federation.php:340
 msgid "Linked"
-msgstr ""
+msgstr "مرتبط"
 
-#: web/admin/overview_federation.php:339
+#: web/admin/overview_federation.php:343
 msgid "NOT linked"
-msgstr ""
+msgstr "غير مرتبط"
 
-#: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
+#: web/admin/overview_federation.php:358 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
-msgstr ""
+msgstr "إضافة / إزالة المسؤولين"
 
-#: web/admin/overview_federation.php:367
+#: web/admin/overview_federation.php:371
 #, php-format
 msgid "Pending invitations in the %s:"
-msgstr ""
+msgstr "الدعوات المعلقة في %s:"
 
-#: web/admin/overview_federation.php:384
+#: web/admin/overview_federation.php:388
 msgid "Revoke Invitation"
-msgstr ""
+msgstr "إلغاء الدعوة"
 
-#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
+#: web/admin/overview_federation.php:389 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(تنتهي %s)"
 
-#: web/admin/overview_federation.php:404
+#: web/admin/overview_federation.php:408
 #, php-format
 msgid "Register a new %s!"
-msgstr ""
+msgstr " تسجيل %s جديدة!"
 
 #: web/admin/overview_installers.php:27
 msgid "Device Compatibility matrix"
-msgstr ""
+msgstr "مصفوفة توافق الجهاز"
 
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr ""
+msgstr "مصفوفة توافق الجهاز ل%s ل%s"
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -1739,108 +1884,108 @@ msgstr "جهاز"
 
 #: web/admin/overview_installers.php:61
 msgid "EAP-Type-specific options..."
-msgstr ""
+msgstr "خيارات خاصة بنوع EAP..."
 
 #: web/admin/overview_installers.php:84
 msgid "Device-specific options..."
-msgstr ""
+msgstr "خيارات خاصة بالجهاز..."
 
 #: web/admin/overview_installers.php:93
 #, php-format
 msgid "%s<br/>Installer"
-msgstr ""
+msgstr " %s <br/> برنامج تثبيت"
 
 #: web/admin/overview_installers.php:95
 #, php-format
 msgid "%s + OpenRoaming<br/>Installer"
-msgstr ""
+msgstr "%s + OpenRoaming <br/> برنامج التثبيت"
 
 #: web/admin/overview_installers.php:169
 msgid "Legend:"
-msgstr ""
+msgstr "وسيلة إيضاح Legend:"
 
 #: web/admin/overview_installers.php:173
 msgid "Colour"
-msgstr ""
+msgstr "لون"
 
 #: web/admin/overview_installers.php:173
 msgid "Meaning"
-msgstr ""
+msgstr "معنى"
 
 #: web/admin/overview_installers.php:174
 msgid "redirection is set"
-msgstr ""
+msgstr "تم تعيين إعادة التوجيه"
 
 #: web/admin/overview_installers.php:175
 msgid "will be offered on download site"
-msgstr ""
+msgstr "سيتم عرضها على موقع التنزيل"
 
 #: web/admin/overview_installers.php:176
 msgid "configured, but not preferred EAP type"
-msgstr ""
+msgstr "تم تهيئتة، ولكن لا يفضل نوع EAP"
 
 #: web/admin/overview_installers.php:177
 msgid "incomplete configuration"
-msgstr ""
+msgstr "التهيئة غير المكتملة"
 
 #: web/admin/overview_installers.php:178
 msgid "not supported by CAT"
-msgstr ""
+msgstr "غير مدعوم من قبل أداة CAT"
 
 #: web/admin/overview_installers.php:182
 msgid "Footnotes:"
-msgstr ""
+msgstr "الحواشي السفلية Footnotes:"
 
 #: web/admin/overview_installers.php:191
 msgid "Return to dashboard"
-msgstr ""
+msgstr "العودة إلى لوحة التحكم"
 
 #: web/admin/overview_org.php:42 web/admin/overview_org.php:107
 msgid "Information needed!"
-msgstr ""
+msgstr "معلومات مطلوبة!"
 
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "You can create up to %d users."
-msgstr ""
+msgstr "يمكنك إنشاء ما يصل إلى %d مستخدمين."
 
 #: web/admin/overview_org.php:53
 #, php-format
 msgid "Their credentials will carry the name <strong>%s</strong>."
-msgstr ""
+msgstr "ستحمل بيانات اعتمادهم على الاسم <strong>%s</strong>."
 
 #: web/admin/overview_org.php:62
 msgid "Manage User Base"
-msgstr ""
+msgstr "إدارة قاعدة المستخدمين"
 
 #: web/admin/overview_org.php:84
 #, php-format
 msgid "Profile: %s"
-msgstr ""
+msgstr "ملف التعريف: %s"
 
 #: web/admin/overview_org.php:97
 msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr ""
+msgstr "<strong>أنواع EAP</strong> (بالترتيب حسب الافضلية):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:418
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
-msgstr ""
+msgstr "موافق"
 
 #: web/admin/overview_org.php:123
 msgid "Options on EAP Method/Device level are in effect."
-msgstr ""
+msgstr "الخيارات الخاصة بطريقة EAP /مستوى الجهاز، سارية المفعول."
 
 #: web/admin/overview_org.php:133
 msgid "Option override on profile level is in effect."
-msgstr ""
+msgstr "تخطي الخيار على مستوى ملف التعريف ساري المفعول."
 
 #: web/admin/overview_org.php:136
 msgid "The information in this profile is incomplete."
-msgstr ""
+msgstr "المعلومات في هذا الملف التعريفي غير كاملة."
 
 #: web/admin/overview_org.php:140
 msgid "This profile is shown on the user download interface."
-msgstr ""
+msgstr "يعرض ملف التعريف هذا على واجهة تنزيل المستخدم."
 
 #: web/admin/overview_org.php:143
 #, php-format
@@ -1849,370 +1994,375 @@ msgid ""
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
 msgstr ""
+"لا يظهر ملف التعريف هذا في واجهة التنزيل للمستخدم، على الرغم من أن لدينا "
+"معلومات كافية لعرضه. لتمكين ملف التعريف، قم بإضافة السمه \"%s\" وحدد المربع "
+"المقابل."
 
 #: web/admin/overview_org.php:174
 msgid "The realm can only be checked if you configure the realm!"
-msgstr ""
+msgstr "يمكن التحقق من نطاق realm إذا قمت بتهيئة نطاق realm!"
 
 #: web/admin/overview_org.php:175
 msgid "Check realm reachability"
-msgstr ""
+msgstr "تحقق من إمكانية الوصول إلى نطاق realm"
 
 #: web/admin/overview_org.php:182
 msgid "You have not fully configured any supported EAP types!"
-msgstr ""
+msgstr "لم تقم بتهيئة أي من أنواع EAP المدعومة بشكل كامل!"
 
 #: web/admin/overview_org.php:183
 msgid "Installer Fine-Tuning and Download"
-msgstr ""
+msgstr " برنامج التثبيت Fine-Tuning وتنزيله"
 
 #: web/admin/overview_org.php:192
 msgid "Edit"
-msgstr ""
+msgstr "تعديل"
 
 #: web/admin/overview_org.php:195
 #, php-format
 msgid "Do you really want to delete the profile %s?"
-msgstr ""
+msgstr "هل حقًا تريد حذف ملف التعريف%s؟"
 
 #: web/admin/overview_org.php:196
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: web/admin/overview_org.php:245 web/admin/overview_sp.php:49
 msgid "Successfully set profile"
-msgstr ""
+msgstr "تم تعيين ملف التعريف بنجاح"
 
 #: web/admin/overview_org.php:246 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
-msgstr ""
+msgstr "حدثت اشكالية في تحديث الملف الشخصي"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "inactive"
-msgstr ""
+msgstr "غير فعال"
 
 #: web/admin/overview_org.php:274 web/admin/overview_sp.php:152
 msgid "active"
-msgstr ""
+msgstr "فعال"
 
 #: web/admin/overview_org.php:277
 msgid "Deployment Details"
-msgstr ""
+msgstr "تفاصيل الإعدادات "
 
 #: web/admin/overview_org.php:285 web/admin/overview_sp.php:155
 msgid "Your primary RADIUS server"
-msgstr ""
+msgstr "خادم RADIUS الأساسي الخاص بك"
 
 #: web/admin/overview_org.php:288 web/admin/overview_org.php:312
 #: web/admin/overview_sp.php:158 web/admin/overview_sp.php:182
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 #: web/admin/overview_org.php:294 web/admin/overview_org.php:318
 #: web/admin/overview_sp.php:164 web/admin/overview_sp.php:188
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 #: web/admin/overview_org.php:298 web/admin/overview_org.php:321
 #: web/admin/overview_sp.php:168 web/admin/overview_sp.php:191
 msgid "RADIUS port number: "
-msgstr ""
+msgstr "رقم المنفذ Port لــ RADIUS:"
 
 #: web/admin/overview_org.php:309 web/admin/overview_sp.php:179
 msgid "Your backup RADIUS server"
-msgstr ""
+msgstr "خادم RADIUS الإحتياطي الخاص بك"
 
 #: web/admin/overview_org.php:333 web/admin/overview_sp.php:203
 msgid "RADIUS shared secret"
-msgstr ""
+msgstr "RADIUS shared secret"
 
 #: web/admin/overview_org.php:339 web/admin/overview_sp.php:209
 msgid "Custom Operator-Name"
-msgstr ""
+msgstr "اسم المشغل/ Operator-Name المخصص:"
 
 #: web/admin/overview_org.php:347 web/admin/overview_sp.php:216
 msgid "VLAN tag for own users"
-msgstr ""
+msgstr "علامة 'VLAN tag' للمستخدمين"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:144
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
-msgstr ""
+msgstr "نطاق realm ليتم اعتباره للمستخدمين الخاصين بنا"
 
 #: web/admin/overview_org.php:366 web/admin/overview_sp.php:235
 msgid "Advanced Configuration"
-msgstr ""
+msgstr "التهيئة المتقدمة"
 
 #: web/admin/overview_org.php:370 web/admin/overview_sp.php:239
 #, php-format
 msgid "Do you really want to deactivate the %s deployment?"
-msgstr ""
+msgstr "هل تريد حقًا تعطيل إعدادات %s؟"
 
 #: web/admin/overview_org.php:371 web/admin/overview_sp.php:240
 msgid "Deactivate"
-msgstr ""
+msgstr "تعطيل"
 
 #: web/admin/overview_org.php:379 web/admin/overview_sp.php:248
 msgid "Activation failure."
-msgstr ""
+msgstr "فشل التفعيل."
 
 #: web/admin/overview_org.php:382 web/admin/overview_sp.php:251
 msgid "Activation failure for your primary RADIUS server."
-msgstr ""
+msgstr "فشل تفعيل خادم RADIUS الأساسي."
 
 #: web/admin/overview_org.php:384 web/admin/overview_sp.php:253
 msgid "Activation failure for your backup RADIUS server."
-msgstr ""
+msgstr "فشل تفعيل خادم RADIUS الاحتياطي."
 
 #: web/admin/overview_org.php:396
 msgid "Accept Terms of Use"
-msgstr ""
+msgstr "قبول شروط الاستخدام"
 
 #: web/admin/overview_org.php:401 web/admin/overview_org.php:433
 #, php-format
 msgid "Do you really want to remove this %s deployment?"
-msgstr ""
+msgstr "هل حقا تريد حذف إعداد %s هذا؟"
 
 #: web/admin/overview_org.php:402 web/admin/overview_org.php:434
 msgid "Remove deployment"
-msgstr ""
+msgstr "حذف الاعداد"
 
 #: web/admin/overview_org.php:411 web/admin/overview_sp.php:265
 msgid "Activate"
-msgstr ""
+msgstr "تفعيل"
 
 #: web/admin/overview_org.php:419 web/admin/overview_sp.php:273
 msgid "Failure during deactivation, your request is queued for handling"
-msgstr ""
+msgstr "فشل أثناء عملية التعطيل ، طلبك في قائمة الانتظار للمعالجة"
 
 #: web/admin/overview_org.php:422 web/admin/overview_sp.php:276
 msgid ""
 "Deactivation failure for your primary RADIUS server, your request is queued."
-msgstr ""
+msgstr "فشل تعطيل خادم RADIUS الأساسي، طلبك في قائمة الانتظار."
 
 #: web/admin/overview_org.php:424 web/admin/overview_sp.php:278
 msgid ""
 "Deactivation failure for your backup RADIUS server, your request is queued."
-msgstr ""
+msgstr "فشل تعطيل خادم RADIUS الإحتياطي، طلبك في قائمة الانتظار."
 
 #: web/admin/overview_org.php:445
 msgid "Hotspot Usage Statistics"
-msgstr ""
+msgstr "إحصائيات استخدام نقاط الاتصال"
 
 #: web/admin/overview_org.php:447
 msgid "5 most recent authentications"
-msgstr ""
+msgstr "أحدث 5 عمليات مصادقة"
 
 #: web/admin/overview_org.php:448 web/admin/inc/deploymentStats.inc.php:40
 msgid ""
 "(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
 "IPv6-Address/Called-Station-Id)"
 msgstr ""
+"(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
+"IPv6-Address/Called-Station-Id)"
 
 #: web/admin/overview_org.php:452 web/admin/inc/deploymentStats.inc.php:44
 msgid "Timestamp (UTC)"
-msgstr ""
+msgstr "Timestamp (UTC)"
 
 #: web/admin/overview_org.php:453 web/admin/inc/deploymentStats.inc.php:45
 msgid "Realm"
-msgstr ""
+msgstr "النطاق Realm"
 
 #: web/admin/overview_org.php:454 web/admin/inc/deploymentStats.inc.php:46
 #: web/admin/inc/userStats.inc.php:43
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC Address"
 
 #: web/admin/overview_org.php:455 web/admin/inc/deploymentStats.inc.php:47
 msgid "Chargeable-User-Identity"
-msgstr ""
+msgstr "Chargeable-User-Identity"
 
 #: web/admin/overview_org.php:456 web/admin/inc/deploymentStats.inc.php:48
 #: web/admin/inc/userStats.inc.php:44
 msgid "Result"
-msgstr ""
+msgstr "نتيجة"
 
 #: web/admin/overview_org.php:457 web/admin/inc/deploymentStats.inc.php:49
 msgid "AP Identifier"
-msgstr ""
+msgstr "معرف نقاط الوصول AP"
 
 #: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Success"
-msgstr ""
+msgstr "نجاح"
 
 #: web/admin/overview_org.php:467 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Failure"
-msgstr ""
+msgstr "فشل"
 
 #: web/admin/overview_org.php:474
 msgid "Last hour"
-msgstr ""
+msgstr "آخر ساعة"
 
 #: web/admin/overview_org.php:477
 msgid "Last 30 days"
-msgstr ""
+msgstr "آخر 30 يومًا"
 
 #: web/admin/overview_org.php:480
 msgid "Last 6 months"
-msgstr ""
+msgstr "آخر 6 أشهر"
 
 #: web/admin/overview_org.php:503 web/admin/overview_sp.php:44
 #, php-format
 msgid "%s: %s Dashboard"
-msgstr ""
+msgstr "%s: لوحة تحكم %s"
 
 #: web/admin/overview_org.php:531 web/admin/overview_sp.php:79
 #, php-format
 msgid "%s general settings"
-msgstr ""
+msgstr "الإعدادات العامة لـ %s"
 
 #: web/admin/overview_org.php:533
 msgid "Edit ..."
-msgstr ""
+msgstr "تعديل ..."
 
 #: web/admin/overview_org.php:556 web/admin/overview_org.php:662
 #, php-format
 msgid "%s: %s Deployment Details"
-msgstr ""
+msgstr "%s:  تفاصيل إعدادات %s"
 
 #: web/admin/overview_org.php:582
 #, php-format
 msgid "Add %s profile ..."
-msgstr ""
+msgstr "إضافة ملف تعريف %s ..."
 
 #: web/admin/overview_org.php:597
 msgid "New RADIUS/EAP profile (manual setup) ..."
-msgstr ""
+msgstr "ملف تعريف RADIUS / EAP جديد (الإعدادت يدوية) ..."
 
 #: web/admin/overview_org.php:604
 msgid "New RADIUS/EAP profile (autodetect server details) ..."
-msgstr ""
+msgstr "ملف تعريف RADIUS / EAP جديد (تفاصيل خادم الكشف التلقائي) ..."
 
 #. no profiles yet.
 #: web/admin/overview_org.php:615
 #, php-format
 msgid "There are not yet any profiles for your %s."
-msgstr ""
+msgstr "لا توجد حتى الآن أي ملفات تعريف ل%s الخاص بك."
 
 #: web/admin/overview_org.php:640
 msgid "User Downloads"
-msgstr ""
+msgstr "تنزيلات المستخدم"
 
 #: web/admin/overview_org.php:673 web/admin/overview_sp.php:309
 #, php-format
 msgid "Add %s deployment ..."
-msgstr ""
+msgstr "إضافة اعداد %s ..."
 
 #: web/admin/overview_org.php:677
 msgid "Helpdesk mail address is required but missing!"
-msgstr ""
+msgstr "عنوان بريد مركز الدعم مطلوب ولكنه مفقود!"
 
 #. no profiles yet.
 #: web/admin/overview_org.php:708 web/admin/overview_sp.php:130
 #, php-format
 msgid "There are not yet any known deployments for your %s."
-msgstr ""
+msgstr "لا توجد حتى الآن أي إعدادات معروفة لـ.%s الخاص بك."
 
 #: web/admin/overview_sp.php:81
 #, php-format
 msgid "Edit general %s details"
-msgstr ""
+msgstr "تعديل تفاصيل %s العامة"
 
 #: web/admin/overview_sp.php:100
 msgid "Available Support actions"
-msgstr ""
+msgstr "إجراءات الدعم المتاحة"
 
 #: web/admin/overview_sp.php:105
 #, php-format
 msgid "Diagnose reachability and connection parameters of %ss"
-msgstr ""
+msgstr "تشخيص قابلية الوصول ومعلمات الاتصال 'Parameters' ل%s "
 
 #. SW: APPROVED
 #: web/admin/overview_sp.php:116
 #, php-format
 msgid "Check %s server status"
-msgstr ""
+msgstr "تحقق من حالة خادم %s"
 
 #. no profiles yet.
 #: web/admin/overview_sp.php:133
 #, php-format
 msgid "Deployments for this %s"
-msgstr ""
+msgstr "الإعدادات لهذا %s"
 
 #: web/admin/overview_user.php:30
 #, php-format
 msgid "%s: User Management"
-msgstr ""
+msgstr "%s : إدارة المستخدم"
 
 #: web/admin/overview_user.php:46
 msgid "User Overview"
-msgstr ""
+msgstr "نظرة عامة حول المستخدم"
 
 #: web/admin/overview_user.php:77
 msgid "Edit User Details"
-msgstr ""
+msgstr "تعديل بيانات المستخدم"
 
 #: web/admin/overview_user.php:81
 #, php-format
 msgid "Click here for %s management tasks"
-msgstr ""
+msgstr "انقر هنا لمهام إدارة %s"
 
 #: web/admin/overview_user.php:84
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "انقر هنا للدخول إلى صفحة المسؤول الأعلى"
 
 #: web/admin/overview_user.php:97
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
-msgstr ""
+msgstr "(تحتاج مساعدة؟ ارجع إلى<a href='%s'> دليل مسؤول %s</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:106
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "أنت تدير<span style='display:none'>%d</span>%s التالية:"
+msgstr[1] "أنت تدير <span style='display:none'>%d</span>%s التالية:"
+msgstr[2] "أنت تدير <strong>%d</strong>%s التالية:"
+msgstr[3] "أنت تدير <strong>%d</strong>%s التالية:"
+msgstr[4] "أنت تدير <strong>%d</strong>%s التالية:"
+msgstr[5] "أنت تدير <strong>%d</strong>%s التالية:"
 
 #: web/admin/overview_user.php:129
 #, php-format
 msgid "%s Management Overview"
-msgstr ""
+msgstr "نظرة عامة حول إدارة %s"
 
 #: web/admin/overview_user.php:132
 #, php-format
 msgid "Other admins of this %s"
-msgstr ""
+msgstr "مسؤولون آخرون لهذا %s"
 
 #: web/admin/overview_user.php:135
 msgid "Management"
-msgstr ""
+msgstr "إدارة"
 
 #: web/admin/overview_user.php:142
 msgid "Danger Zone"
-msgstr ""
+msgstr "منطقة الخطر"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:154
 #, php-format
 msgid "%s %s: %s list"
-msgstr ""
+msgstr "%s  %s:  قائمة %s  "
 
 #: web/admin/overview_user.php:192
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "أنت و%d من المستخدمين الآخرين"
+msgstr[1] "أنت و%d من المستخدمين الآخرين"
+msgstr[2] "أنت %d من المستخدمين الآخرين"
+msgstr[3] "أنت و%d من المستخدمين الآخرين"
+msgstr[4] "أنت و %d من المستخدمين الآخرين"
+msgstr[5] "أنت و %d من المستخدمين "
 
 #: web/admin/overview_user.php:206
 #, php-format
@@ -2220,16 +2370,18 @@ msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
 msgstr ""
+"بعد حذف الـ %sـ ، لا يمكنك إعادة إنشائه بنفسك - ستكون بحاجة إلى رمز دعوة "
+"جديد من مسؤول %s!"
 
 #: web/admin/overview_user.php:206
 #, php-format
 msgid "Do you really want to delete your %s %s?"
-msgstr ""
+msgstr "هل حقا تريد حذف %s %s ؟"
 
 #: web/admin/overview_user.php:206
 #, php-format
 msgid "Delete %s"
-msgstr ""
+msgstr "حذف %s"
 
 #: web/admin/overview_user.php:209
 #, php-format
@@ -2238,42 +2390,44 @@ msgid ""
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
+"سيؤدي هذا الإجراء إلى حذف جميع خصائص %s والبدء من جديد في تهيئتة من البداية. "
+"هل تريد حقًا إعادة ضبط كافة إعدادات %s %s؟"
 
 #: web/admin/overview_user.php:209
 #, php-format
 msgid "Reset all %s settings"
-msgstr ""
+msgstr "إعادة ضبط جميع الإعدادات %s"
 
 #: web/admin/overview_user.php:221
 #, php-format
 msgid "You are not managing any %s."
-msgstr ""
+msgstr "أنت لا تدير أي %s."
 
 #: web/admin/overview_user.php:225
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
-msgstr ""
+msgstr "من فضلك اطلب من مسؤول %s أن يقوم بدعوتك لتصبح مسؤول %s."
 
 #: web/admin/overview_user.php:229
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr ""
+msgstr "هل تلقيت رمز دعوة لإدارة %s؟ من فضلك قم بإدخاله هنا:"
 
 #: web/admin/overview_user.php:241
 #, php-format
 msgid "New %s Registration"
-msgstr ""
+msgstr "تسجيل %s جديد"
 
 #: web/admin/inc/deploymentStats.inc.php:39
 msgid "Deployment Usage Records"
-msgstr ""
+msgstr "إعداد سجلات الاستخدام"
 
 #: web/admin/inc/displayQRcode.inc.php:41
 #: web/admin/inc/displayQRcode.inc.php:42
 msgid "Invitation Token QR Code"
-msgstr ""
+msgstr "رمز الاستجابة السريعة QR للدعوة"
 
 #: web/admin/inc/manageAdmins.inc.php:57
 #, php-format
@@ -2281,11 +2435,13 @@ msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
 "In fact, you shouldn't have come this far!"
 msgstr ""
+"ليس لديك الصلاحيات اللازمة لتغيير المسؤولين لهذا %s. في الواقع ، لا يجب عليك "
+"أن تصل إلى هذا الحد!"
 
 #: web/admin/inc/manageAdmins.inc.php:94
 #, php-format
 msgid "Administrators for IdP '%s'"
-msgstr ""
+msgstr "المسؤولون لـIdP '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:153
 #, php-format
@@ -2293,11 +2449,13 @@ msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
+"أنت مسؤول الـ%s. يمكنك دعوة مسؤولين جدد ، والذي يمكن بدورهم تعيين المزيد من "
+"المسؤولين بأنفسهم."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:123
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
-msgstr ""
+msgstr "مسؤول %s"
 
 #: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
@@ -2306,130 +2464,135 @@ msgid ""
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
+"أنت مسؤول تم تعيينه مباشرة من قبل مسؤول الـ %s. يمكنك تعيين المزيد من "
+"المسؤولين، لكن هؤلاء لا يمكن بدورهم تعيين المزيد من المسؤولين."
 
 #: web/admin/inc/manageAdmins.inc.php:159
 msgid "Directly Appointed Administrator"
-msgstr ""
+msgstr "المسؤول الذي تم تعيينه بشكل مباشر"
 
 #: web/admin/inc/manageAdmins.inc.php:177
 msgid "User without name"
-msgstr ""
+msgstr "مستخدم بدون اسم"
 
 #: web/admin/inc/manageAdmins.inc.php:180
 #, php-format
 msgid "(originally invited as %s)"
-msgstr ""
+msgstr "(تمت دعوته في الأصل كـ %s)"
 
 #: web/admin/inc/manageAdmins.inc.php:182
 msgid "(self-appointed)"
-msgstr ""
+msgstr "(self-appointed)"
 
 #: web/admin/inc/manageAdmins.inc.php:194
 msgid "Delete Administrator"
-msgstr ""
+msgstr "حذف مسؤول"
 
 #: web/admin/inc/manageAdmins.inc.php:199
 msgid "Enter Organisation"
-msgstr ""
+msgstr "أدخل المؤسسة"
 
 #: web/admin/inc/manageAdmins.inc.php:214
 msgid "Pending invitations for this IdP"
-msgstr ""
+msgstr "دعوات معلقة لهذا الـIdP"
 
 #: web/admin/inc/manageAdmins.inc.php:225
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr ""
+msgstr "(عنوان/عناوين) البريد الإلكتروني للمسؤول الجديد (بينها فواصل):"
 
 #: web/admin/inc/manageAdmins.inc.php:225
 msgid "Invite new administrator"
-msgstr ""
+msgstr "إرسال دعوة لمسؤول جديد"
 
 #: web/admin/inc/manageAdmins.inc.php:239
 #, php-format
 msgid "Take control of this %s"
-msgstr ""
+msgstr "التحكم في هذه %s"
 
 #: web/admin/inc/manageAdmins.inc.php:246
 #: web/admin/inc/manageDBLink.inc.php:203
 #: web/admin/inc/manageNewInst.inc.php:146
 msgid "Close"
-msgstr "مغلق"
+msgstr "إلغاء"
 
 #: web/admin/inc/manageDBLink.inc.php:54
 #, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr ""
+msgstr "ليس لديك الصلاحيات اللازمة لإدارة حالة ربط قاعدة بيانات %s لـ هذا %s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr ""
+msgstr "حالة ارتباط قاعدة بيانات %s لموفر الهوية IdP  '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr ""
+msgstr "هذه %s مرتبطة بقاعدة بيانات %s."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
 msgstr ""
+"تم تخزين المعلومات التالية لموفر الهوية IdP في قاعدة بيانات %s و قاعدة "
+"بيانات %s:"
 
 #: web/admin/inc/manageDBLink.inc.php:97
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
-msgstr ""
+msgstr "المعلومات في<strong> قاعدة بيانات %s</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:109
 #: web/admin/inc/manageDBLink.inc.php:135
 #, php-format
 msgid "%s Name (%s)"
-msgstr ""
+msgstr "إسم %s (%s)"
 
 #: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:78
 msgid "Unnamed User"
-msgstr ""
+msgstr "مستخدم بدون اسم"
 
 #: web/admin/inc/manageDBLink.inc.php:120
 msgid "Administrator [invited as]"
-msgstr ""
+msgstr "المسؤول [تمت دعوته كـ]"
 
 #: web/admin/inc/manageDBLink.inc.php:138
 msgid "Administrator email"
-msgstr ""
+msgstr "البريد الإلكتروني للمسؤول"
 
 #: web/admin/inc/manageDBLink.inc.php:143
 msgid "If this mapping is not correct any more, you can remove the link:"
-msgstr ""
+msgstr "إذا لم يعد الارتباط هذا صحيحًا، فيمكنك إزالته:"
 
 #: web/admin/inc/manageDBLink.inc.php:145
 msgid "Unlink"
-msgstr ""
+msgstr "إلغاء الارتباط"
 
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr ""
+msgstr "هذه %s غير مرتبطة بعد بقاعدة بيانات %s."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
 msgstr ""
+"هذا يعني أن ملفات التعريف الخاصة بها غير متوفرة على صفحة التنزيل للمستخدم."
 
 #: web/admin/inc/manageDBLink.inc.php:151
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr ""
+msgstr "يمكنك ربطها بقاعدة بيانات %s أدناه."
 
 #: web/admin/inc/manageDBLink.inc.php:154
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr ""
+msgstr "الرجاء تحديد entity من قاعدة البيانات %s يتوافق مع  الـCAT لـ %s"
 
 #: web/admin/inc/manageDBLink.inc.php:156
 #, php-format
@@ -2437,33 +2600,35 @@ msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
 msgstr ""
+"المدخلات الخاصة المتوقعه (الأسماء في CAT و%s DB مطابقة بنسبة 100%%) على رأس "
+"القائمة."
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Link to this entity?"
-msgstr ""
+msgstr "الارتباط بهذا ال entity؟"
 
 #: web/admin/inc/manageDBLink.inc.php:159
 msgid "Administrators"
-msgstr ""
+msgstr "مسؤولون"
 
 #: web/admin/inc/manageDBLink.inc.php:192
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
-msgstr ""
+msgstr "لا توجد %s لم يتم تعيينها في قاعدة البيانات الخارجية لـ%s"
 
 #: web/admin/inc/manageDBLink.inc.php:194
 msgid "Create Link"
-msgstr ""
+msgstr "إنشاء رابط"
 
 #: web/admin/inc/manageNewInst.inc.php:48
 #, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr ""
+msgstr "ليس لديك الصلاحيات اللازمة لتسجيل %s جديدة."
 
 #: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid "%s - Register new %s"
-msgstr ""
+msgstr "%s - تسجيل %s جديدة"
 
 #: web/admin/inc/manageNewInst.inc.php:58
 #, php-format
@@ -2471,6 +2636,8 @@ msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
+"في هذه الصفحة ، يمكنك إضافة %s جديد إلى %sالخاص بك. يرجى ملء النموذج أدناه "
+"لإرسال دعوة بالبريد الإلكتروني إلى مسؤول %s الجديد."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 #, php-format
@@ -2478,6 +2645,8 @@ msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
+"يمكنك إما تسجيل %s معروفه (كما هو محدد في قاعدة بيانات %s) أو إنشاء %s جديدة "
+"تمامًا."
 
 #: web/admin/inc/manageNewInst.inc.php:61
 #, php-format
@@ -2485,38 +2654,40 @@ msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
+"عادةً ما يكون الأخير ل %s التي لا تزال في مرحلة الاختبار وبالتالي لا تظهر في "
+"قاعدة بيانات %s حتى الآن."
 
 #: web/admin/inc/manageNewInst.inc.php:68
 msgid "Invitation Details"
-msgstr ""
+msgstr "تفاصيل الدعوة"
 
 #: web/admin/inc/manageNewInst.inc.php:70
 msgid "From database or ad-hoc?"
-msgstr ""
+msgstr "من قاعدة البيانات database أو ad-hoc ؟"
 
 #: web/admin/inc/manageNewInst.inc.php:71
 #: web/admin/inc/manageNewInst.inc.php:104
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: web/admin/inc/manageNewInst.inc.php:72
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #: web/admin/inc/manageNewInst.inc.php:78
 #, php-format
 msgid "Existing %s:"
-msgstr ""
+msgstr "%s موجودة :"
 
 #: web/admin/inc/manageNewInst.inc.php:83
 #, php-format
 msgid "--- select %s here ---"
-msgstr ""
+msgstr "- اختر %s هنا -"
 
 #: web/admin/inc/manageNewInst.inc.php:101
 #, php-format
 msgid "New %s"
-msgstr ""
+msgstr "%s جديدة"
 
 #: web/admin/inc/manageNewInst.inc.php:108
 #, php-format
@@ -2527,24 +2698,24 @@ msgstr "%s و %s"
 #: web/admin/inc/manageNewInst.inc.php:110
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: web/admin/inc/manageNewInst.inc.php:131
 #: web/admin/inc/manageNewInst.inc.php:137
 msgid "Administrator's E-Mail:"
-msgstr ""
+msgstr "البريد الإلكتروني للمسؤول:"
 
 #: web/admin/inc/manageNewInst.inc.php:133
 msgid "E-Mail label:"
-msgstr ""
+msgstr "مسمى البريد الإلكتروني:"
 
 #: web/admin/inc/manageNewInst.inc.php:134
 msgid "E-Mail input field:"
-msgstr ""
+msgstr "حقل إدخال البريد الإلكتروني:"
 
 #: web/admin/inc/manageNewInst.inc.php:142
 msgid "Send invitation"
-msgstr ""
+msgstr "إرسال دعوة"
 
 #.
 #. * *****************************************************************************
@@ -2565,33 +2736,33 @@ msgstr ""
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
-msgstr ""
+msgstr "لا يوجد عنوان بريد إلكتروني"
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
-msgstr ""
+msgstr "تم إرسال دعوة إلى:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
-msgstr ""
+msgstr "تعذر إرسال البريد الإلكتروني للدعوة!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
-msgstr ""
+msgstr "عنوان البريد الالكتروني المراد دعوته:"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:43
 msgid "Auto-Detecting root CA for a new profile"
-msgstr ""
+msgstr "الكشف التلقائي عن \"root CA\" لملف تعريف جديد"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:50
 msgid "Valid RADIUS username and realm:"
-msgstr ""
+msgstr "اسم مستخدم RADIUS والنطاق realm صالحان:"
 
 #: web/admin/inc/profileAutodetectCA.inc.php:64
 msgid "Detect root CA"
-msgstr ""
+msgstr "كشف  root CA"
 
 #: web/admin/inc/sendinvite.inc.php:116
 #, php-format
@@ -2599,60 +2770,66 @@ msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
 "belongs to!"
 msgstr ""
+"هناك شيء خاطئ ... أنت مسؤول لـ%s، وليس لـ %s التي تنتمي إليها الـ %s "
+"المطلوبة!"
 
 #: web/admin/inc/toggleRedirect.inc.php:100
 #, php-format
 msgid "device <strong>%s</strong>"
-msgstr ""
+msgstr "جهاز <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:110
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr ""
+msgstr "EAP-Type <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:117
 msgid "Fine-tuning options for "
-msgstr ""
+msgstr "خيارات الـ Fine-tuning لـ"
 
 #: web/admin/inc/userStats.inc.php:31
 msgid "User Authentication Records"
-msgstr ""
+msgstr "سجلات المصادقة للمستخدم"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "لاحظ أن:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "يتم حذف سجلات المصادقة بعد ستة أشهر من الاحتفاظ بها"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"يعتمد نطاق المشغل على سمة Operator-Name' attribute' للـ RADIUS ولا يتم "
+"إرسالها بواسطة جميع نقاط الاتصال"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"قد تكون عناوين MAC المختلفة لكل بيانات اعتماد بسبب التوزيع العشوائي لعنوان "
+"MAC في أنظمة التشغيل الحديثة"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Timestamp"
-msgstr ""
+msgstr "الطابع الزمني Timestamp"
 
 #: web/admin/inc/userStats.inc.php:42
 msgid "Credential"
-msgstr ""
+msgstr "بيانات الاعتماد"
 
 #: web/admin/inc/userStats.inc.php:45
 msgid "Operator Domain"
-msgstr ""
+msgstr "نطاق المشغل"
 
-#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
+#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:99
 msgid "Location"
-msgstr ""
+msgstr "الموقع"
 
 #: web/lib/admin/AbstractMap.php:143
 msgid ""
@@ -2660,6 +2837,9 @@ msgid ""
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
 msgstr ""
+"تستخدم واجهة التنزيل للمستخدم (انظر <a href='../'>هنا</a>) الموقع الجغرافي "
+"لاقتراح احتمال مطابقة موفري الهوية IdPs مع المستخدم. كلما زادت دقة تحديد "
+"الموقع هنا، كان من الأسهل أن يجدك المستخدمون."
 
 #: web/lib/admin/AbstractMap.php:146
 msgid ""
@@ -2667,77 +2847,83 @@ msgid ""
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
 msgstr ""
+"<li>اسحب محدِّد الموقع في الخريطة إلى موقعك، أو</li>\n"
+"<li>أدخل عنوان الشارع الخاص بك في الحقل أدناه للبحث ، أو</li>\n"
+"<li>استخدم زر 'تحديد موقعي!' </li>"
 
 #: web/lib/admin/AbstractMap.php:151
 msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
+msgstr "سنستخدم الإحداثيات الموضحه في محدد الموقع لتحديد الموقع الجغرافي."
 
 #: web/lib/admin/AbstractMap.php:155
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
+"يمكنك إدخال موقع <strong>إضافي</strong> هنا. يمكنك رؤية المواقع التي قد تم "
+"تحديدها في حقل 'معلومات عامة'."
 
 #: web/lib/admin/AbstractMap.php:169
 msgid "Latitude:"
-msgstr ""
+msgstr "خط العرض:"
 
 #: web/lib/admin/AbstractMap.php:169
 msgid "Longitude:"
-msgstr ""
+msgstr "خط الطول:"
 
 #: web/lib/admin/MapGoogle.php:131
 msgid "This is location "
-msgstr ""
+msgstr "هذا الموقع"
 
 #: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:230
 msgid "nothing entered in the address field"
-msgstr ""
+msgstr "لم يتم إدخال اي بيانات في حقل العنوان"
 
 #: web/lib/admin/MapGoogle.php:230 web/lib/admin/MapOpenLayers.php:86
 msgid "locating"
-msgstr ""
+msgstr "تحديد الموقع"
 
 #: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
-msgstr ""
+msgstr "انقر لرؤية الموقع"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
-msgstr ""
+msgstr "العنوان:"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
-msgstr ""
+msgstr "إبحث عن العنوان"
 
 #: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
 #: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
-msgstr ""
+msgstr "حدد موقعي!"
 
 #: web/lib/admin/MapOpenLayers.php:237
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
 msgstr ""
+"لم يتم العثور على العنوان، جرّب طريقة أخرى مثل وضع رقم الشارع في المقدمة."
 
 #: web/lib/admin/OptionDisplay.php:86
 msgid "Ask User"
-msgstr ""
+msgstr "إسأل المستخدم"
 
 #: web/lib/admin/OptionDisplay.php:87
 msgid "Ask User; T&C Pre-Agreed"
-msgstr ""
+msgstr "اطلب من المستخدم؛ الشروط والأحكام يتم الاتفاق عليها مسبقًا"
 
 #: web/lib/admin/OptionDisplay.php:88
 msgid "Always"
-msgstr ""
+msgstr "دائماً"
 
 #: web/lib/admin/OptionDisplay.php:89
 msgid "Always; T&C Pre-Agreed"
-msgstr ""
+msgstr "دائماً؛ الشروط والأحكام متفق عليها مسبقًا"
 
-#: web/lib/admin/OptionDisplay.php:251
+#: web/lib/admin/OptionDisplay.php:249
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2753,8 +2939,20 @@ msgid ""
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
 msgstr ""
+"يمكن تعيين هذه السمة 'Attribute' إذا كنت تريد تهيئة SSID إضافي إلى جانب "
+"معرفات SSID الافتراضية لـ %s. غالباً يعتبر انه ليس من الجيد عدم استخدام "
+"معرّفات الـSSID الافتراضية. الاستثناء الوحيد هو إذا كان لديك مكان به تداخل في "
+"إشارة الراديو مع نقطة اتصال %sأخرى.\n"
+"تتضمن المفاهيم الخاطئة حول معرفات SSID الإضافية ما يلي:\n"
+"الرغبة في الحصول على SSID محلي خاص للمستخدمين. يفضل استخدام الـSSID "
+"الافتراضي مع فصل مجموعات المستخدمين على شبكات VLAN.\n"
+" هذا النهج له ميزتان: 1) سيقوم المستخدمون بتهيئة الـ%s بشكل صحيح لأنه SSID "
+"اليومي الخاص بهم ؛ 2) إذا كنت تستخدم إسم SSID مخصصًا وقمت بالاعلان على أنه "
+"الأكثر أمانًا ، فقد يقوم المستخدمون باستخدامه في التجوال في اي مكان آخر يصادف "
+"أن يكون له نفس اسم الـSSID. قد يتم تضليلهم بعد ذلك للاعتقاد بأنهم متصلون "
+"بشبكة أكثر أمانًا بينما هم ليسوا كذلك."
 
-#: web/lib/admin/OptionDisplay.php:253
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2763,20 +2961,26 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
+"نوع هذا الاختيارهو: IPv4|IPv6|hostname:port . يُعد إجبار المستخدمين على تنقيح "
+"المحتوى خاص بك بمثابة اعتداء كبير لتقرير مصير المستخدم. كما أن هنالك مشاكل "
+"فنية. يرجى قراءة المناقشة بدقة في %s قبل تحديد proxy مع الاختيار. هذه الميزة "
+"تجريبية حاليًا ولها تأثير فقط في مثبتات Apple."
 
-#: web/lib/admin/OptionDisplay.php:254
+#: web/lib/admin/OptionDisplay.php:252
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
+"إذا كنت تستخدم أيضًا %s ، فسيتم وضع علامة على النطاق realm الخاص بك تلقائيًا "
+"باستخدام شبكة VLAN التي تختارها ، ولا داعي لإضافته هنا يدويًا."
 
-#: web/lib/admin/OptionDisplay.php:255
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
-msgstr ""
+msgstr "بالاشتراك في OpenRoaming، فإنك توافق على الالتزام بـ.%s."
 
-#: web/lib/admin/OptionDisplay.php:257
+#: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -2784,47 +2988,53 @@ msgid ""
 "download portal for installer download. Any other means of providing the "
 "installers needs to present this information via its own channel."
 msgstr ""
+"لاحظ أن حاجتك لإبلاغ المستخدمين بشروط وأحكام OpenRoaming للمستخدم النهائي "
+"تتحقق عند توجيه المستخدمين النهائيين إلى بوابة تنزيل %s لتنزيل برنامج "
+"التثبيت. أي وسائل أخرى لتوفير برامج التثبيت تتطلب تقديم هذه المعلومات عبر "
+"قناتها الخاصة."
 
-#: web/lib/admin/OptionDisplay.php:259
+#: web/lib/admin/OptionDisplay.php:257
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
+"أنت تدرك أيضًا أن الحصول على أفضل قابلية تشغيل تقني، تحتاج إلى إضافة DNS في "
+"منطقة DNS لـنطاق realm لـ ـRADIUS الخاص بك."
 
-#: web/lib/admin/OptionDisplay.php:261
+#: web/lib/admin/OptionDisplay.php:259
 msgid "Read the instructions in the wiki."
-msgstr ""
+msgstr "اقرأ التعليمات الواردة في الWiki"
 
-#: web/lib/admin/OptionDisplay.php:366
+#: web/lib/admin/OptionDisplay.php:364
 msgid "select language"
-msgstr ""
+msgstr "إختر اللغة"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:179
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
-msgstr ""
+msgstr "افتراضي/لغات أخرى"
 
-#: web/lib/admin/OptionDisplay.php:442
+#: web/lib/admin/OptionDisplay.php:440
 msgid "(default/other languages)"
-msgstr ""
+msgstr "(افتراضي/لغات أخرى)"
 
-#: web/lib/admin/OptionDisplay.php:477
+#: web/lib/admin/OptionDisplay.php:475
 msgid "file content"
-msgstr ""
+msgstr "محتوى الملف"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
-msgstr ""
+msgstr "تشغيل"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
-msgstr ""
+msgstr "إيقاف"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
 #: web/lib/admin/OptionParser.php:220 web/lib/admin/OptionParser.php:225
 #, php-format
 msgid "%dx %s"
-msgstr ""
+msgstr "%d x %s"
 
 #: web/lib/admin/OptionParser.php:230
 #, php-format
@@ -2834,322 +3044,322 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
+"لم تقم بتعيين قيمة 'اللغة الافتراضية' لـ %s. هذا يعني أنه يمكننا فقط عرض "
+"قيمة الـstring هذا لبرامج التثبيت التي تكون باللغة التي قمت بتعيينها<strong> "
+"بالضبط</strong>. ولكي تتوافق مع اللغات الأخرى، قد ترغب في تعديل ملف التعريف "
+"مرة أخرى وملء حقل اللغة 'الافتراضية / الأخرى'."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
-msgstr ""
+msgstr "أنت:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
-msgstr ""
+msgstr "اذهب إلى صفحة ملفك التعريفي"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
-msgstr ""
+msgstr "تسجيل الخروج"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "الصفحة الرئيسية"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "تصفح هذه الصفحة باللغة "
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
-msgstr ""
+msgstr "واجهة المسؤول - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr ""
+msgstr "واجهة المسؤول - إدارة مستخدم %s"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
-msgstr ""
+msgstr "واجهة المسؤول"
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
-msgstr ""
+msgstr "إدارة تفاصيل المستخدم"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
-msgstr ""
+msgstr "واجهة المسؤول - إدارة %s"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
-msgstr "أهلا وسهلا إلى%s"
+msgstr "مرحباً بك في %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
-msgstr ""
+msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
-msgstr ""
+msgstr "التشخيص"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "إشعار الخصوصية %s"
 
 #: web/lib/admin/UIElements.php:86
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: web/lib/admin/UIElements.php:87
 msgid "HS20 Consortium OI"
-msgstr ""
+msgstr "HS20 Consortium OI"
 
 #: web/lib/admin/UIElements.php:90
-msgid "Additional SSID"
-msgstr ""
+msgid "Additional HS20 Consortium OI"
+msgstr "HS20 Consortium OI إضافي"
 
 #: web/lib/admin/UIElements.php:93
-msgid "Additional HS20 Consortium OI"
-msgstr ""
+msgid "Support: Web"
+msgstr "الدعم: الويب"
+
+#: web/lib/admin/UIElements.php:94
+msgid "Support: EAP Types"
+msgstr "الدعم: أنواع EAP"
+
+#: web/lib/admin/UIElements.php:95
+msgid "Support: Phone"
+msgstr "الدعم: الهاتف"
 
 #: web/lib/admin/UIElements.php:96
-msgid "Support: Web"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:97
-msgid "Support: EAP Types"
-msgstr ""
+msgid "Support: E-Mail"
+msgstr "الدعم: البريد الالكتروني"
 
 #: web/lib/admin/UIElements.php:98
-msgid "Support: Phone"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:99
-msgid "Support: E-Mail"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:101
 #, php-format
 msgid "%s Acronym"
-msgstr ""
+msgstr "اختصار %s"
+
+#: web/lib/admin/UIElements.php:100
+msgid "Logo URL"
+msgstr "رابط الشعار "
+
+#: web/lib/admin/UIElements.php:101
+msgid "Logo image"
+msgstr "صورة الشعار"
+
+#: web/lib/admin/UIElements.php:102
+msgid "Configure Wired Ethernet"
+msgstr "تهيئة Ethernet السلكي"
 
 #: web/lib/admin/UIElements.php:103
-msgid "Logo URL"
-msgstr ""
+msgid "Name (CN) of Authentication Server"
+msgstr "الاسم (CN) لخادم المصادقة"
 
 #: web/lib/admin/UIElements.php:104
-msgid "Logo image"
-msgstr ""
+msgid "Enable device assessment"
+msgstr "تفعيل تقييم الجهاز"
 
 #: web/lib/admin/UIElements.php:105
-msgid "Configure Wired Ethernet"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:106
-msgid "Name (CN) of Authentication Server"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:107
-msgid "Enable device assessment"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:108
 msgid "Terms of Use"
 msgstr "شروط الإستخدام"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:106
 msgid "CA Certificate URL"
-msgstr ""
+msgstr "رابط CA Certificate "
+
+#: web/lib/admin/UIElements.php:107
+msgid "CA Certificate File"
+msgstr "ملف CA Certificate "
+
+#: web/lib/admin/UIElements.php:108
+msgid "Profile Display Name"
+msgstr "اسم العرض للملف التعريفي"
+
+#: web/lib/admin/UIElements.php:109
+msgid "Production-Ready"
+msgstr "Production-Ready"
 
 #: web/lib/admin/UIElements.php:110
-msgid "CA Certificate File"
-msgstr ""
+msgid "Admin Accepted IdP Terms of Use"
+msgstr "قبول المسؤول لشروط الاستخدام الخاصة بموفر الهوية 'IdP'"
 
 #: web/lib/admin/UIElements.php:111
-msgid "Profile Display Name"
-msgstr ""
+msgid "Admin Accepted SP Terms of Use"
+msgstr "قبول المسؤول لشروط الاستخدام الخاصة بمقدم الخدمة 'SP'"
 
 #: web/lib/admin/UIElements.php:112
-msgid "Production-Ready"
-msgstr ""
+msgid "Extra text on downloadpage for device"
+msgstr "نص إضافي على صفحة التنزيل للجهاز"
 
 #: web/lib/admin/UIElements.php:113
-msgid "Admin Accepted IdP Terms of Use"
-msgstr ""
+msgid "Redirection Target"
+msgstr "هدف إعادة التوجيه"
 
 #: web/lib/admin/UIElements.php:114
-msgid "Admin Accepted SP Terms of Use"
-msgstr ""
+msgid "Extra text on downloadpage for EAP method"
+msgstr "نص إضافي في صفحة التنزيل لـ EAP method"
 
 #: web/lib/admin/UIElements.php:115
-msgid "Extra text on downloadpage for device"
-msgstr ""
+msgid "Turn on selection of EAP-TLS User-Name"
+msgstr "قم بتشغيل تحديد EAP-TLS User-Name"
 
 #: web/lib/admin/UIElements.php:116
-msgid "Redirection Target"
-msgstr ""
+msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
+msgstr "استخدم GEANTlink لـ TTLS (Windows 8 و Windows 10)"
 
 #: web/lib/admin/UIElements.php:117
-msgid "Extra text on downloadpage for EAP method"
-msgstr ""
+msgid "Profile Description"
+msgstr "وصف ملف التعريف"
 
 #: web/lib/admin/UIElements.php:118
-msgid "Turn on selection of EAP-TLS User-Name"
-msgstr ""
+msgid "Custom Installer Name Suffix"
+msgstr "اللاحقة Suffix لإسم برنامج التثبيت المخصص"
 
 #: web/lib/admin/UIElements.php:119
-msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:120
-msgid "Profile Description"
-msgstr ""
+msgid "OpenRoaming"
+msgstr "OpenRoaming"
 
 #: web/lib/admin/UIElements.php:121
-msgid "Custom Installer Name Suffix"
-msgstr ""
+msgid "Real Name"
+msgstr "الاسم الحقيقي"
 
 #: web/lib/admin/UIElements.php:122
-msgid "OpenRoaming"
-msgstr ""
+msgid "E-Mail Address"
+msgstr "عنوان البريد الالكتروني"
+
+#: web/lib/admin/UIElements.php:123
+msgid "Remove/Disable SSID"
+msgstr "إزالة / تعطيل SSID"
 
 #: web/lib/admin/UIElements.php:124
-msgid "Real Name"
-msgstr ""
+msgid "Mandatory Content Filtering Proxy"
+msgstr "البروكسي الإلزامي لتصفية المحتوى"
 
 #: web/lib/admin/UIElements.php:125
-msgid "E-Mail Address"
-msgstr ""
+msgid "Custom CSS file for User Area"
+msgstr "ملف CSS مخصص لصفحة المستخدم"
 
 #: web/lib/admin/UIElements.php:126
-msgid "Remove/Disable SSID"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:127
-msgid "Mandatory Content Filtering Proxy"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:128
-msgid "Custom CSS file for User Area"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Logo"
-msgstr ""
+msgstr "شعار %s"
+
+#: web/lib/admin/UIElements.php:127
+msgid "Preferred Skin for User Area"
+msgstr "المظهر المفضل لصفحة المستخدم"
+
+#: web/lib/admin/UIElements.php:128
+#, php-format
+msgid "Include %s branding in installers"
+msgstr "قم بتضمين العلامة التجارية  لـ%s في برامج التثبيت"
 
 #: web/lib/admin/UIElements.php:130
-msgid "Preferred Skin for User Area"
-msgstr ""
+#, php-format
+msgid "%s Homepage"
+msgstr "الصفحة الرئيسية لـ%s"
 
 #: web/lib/admin/UIElements.php:131
 #, php-format
-msgid "Include %s branding in installers"
-msgstr ""
+msgid "Custom text in %s Invitations"
+msgstr "نص مخصص في دعوات %s"
+
+#: web/lib/admin/UIElements.php:132
+#, php-format
+msgid "Enable %s"
+msgstr "تفعيل %s"
 
 #: web/lib/admin/UIElements.php:133
 #, php-format
-msgid "%s Homepage"
-msgstr ""
+msgid "%s: Do not terminate EAP"
+msgstr "%s: لا تقم بإنهاء EAP"
 
 #: web/lib/admin/UIElements.php:134
 #, php-format
-msgid "Custom text in %s Invitations"
-msgstr ""
+msgid "%s: max users per profile"
+msgstr "%s: أقصى عدد مستخدمين لكل ملف تعريف"
 
 #: web/lib/admin/UIElements.php:135
 #, php-format
-msgid "Enable %s"
-msgstr ""
+msgid "Mint %s with CA on creation"
+msgstr "إضافة %s مع CA عند الإنشاء"
 
 #: web/lib/admin/UIElements.php:136
 #, php-format
-msgid "%s: Do not terminate EAP"
-msgstr ""
+msgid "OpenRoaming: Allow %s Opt-In"
+msgstr "OpenRoaming: السماح بالاشتراك في %s"
 
 #: web/lib/admin/UIElements.php:137
-#, php-format
-msgid "%s: max users per profile"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:138
-#, php-format
-msgid "Mint %s with CA on creation"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:139
-#, php-format
-msgid "OpenRoaming: Allow %s Opt-In"
-msgstr ""
+msgid "OpenRoaming: Custom NAPTR Target"
+msgstr "OpenRoaming: Custom NAPTR Target"
 
 #: web/lib/admin/UIElements.php:140
-msgid "OpenRoaming: Custom NAPTR Target"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:143
 msgid "VLAN for own users"
-msgstr ""
+msgstr "VLAN للمستخدمين"
 
-#: web/lib/admin/UIElements.php:145
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
-msgstr ""
+msgstr "سمه مخصصة لإسم المشغل Operator-Name"
 
-#: web/lib/admin/UIElements.php:245
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
-msgstr ""
+msgstr "التفاصيل العامة لـ %s "
 
-#: web/lib/admin/UIElements.php:263
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
-msgstr ""
+msgstr "بيانات مركز الدعم العالمي"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:342
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr ""
+msgstr "حدث خطأ أثناء استرداد الشهادة من قاعدة البيانات!"
 
-#: web/lib/admin/UIElements.php:351
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
-msgstr ""
+msgstr "حدث خطأ أثناء معالجة الشهادة!"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
-msgstr ""
+msgstr "Root CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
-msgstr ""
+msgstr "Intermediate CA"
 
-#: web/lib/admin/UIElements.php:361
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "هذه شهادة <strong>الخادم</strong>!"
 
-#: web/lib/admin/UIElements.php:378
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
-msgstr ""
+msgstr "معاينة ملف الشعار"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:395
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
-msgstr ""
+msgstr "حدث خطأ أثناء استرداد الملف من قاعدة البيانات!"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
-msgstr ""
+msgstr "الملف موجود"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
-msgstr ""
+msgstr "معاينة"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
-msgstr ""
+msgstr "ملاحظة"
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
-msgstr ""
+msgstr "تحذير!"
 
-#: web/lib/admin/UIElements.php:421
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
-msgstr ""
+msgstr "خطأ!"

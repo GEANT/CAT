@@ -37,14 +37,14 @@ use \Exception;
  * This class defines the API for CAT module writers.
  *
  * A device is a fairly abstract notion. In most cases it represents
- * a particular operating system or a set of operationg systems
+ * a particular operating system or a set of operating systems
  * like MS Windows Vista and newer.
  *
- * The purpose of this class is to preapare a setup for the device configurator,
+ * The purpose of this class is to prepare a setup for the device configurator,
  * collect all necessary information from the database, taking into account
  * limitations, that a given device may present (like a set of supported EAP methods).
  *
- * All that is required from the device module is to produce a conigurator
+ * All that is required from the device module is to produce a configurator
  * file and pass its name back to the API.
  *
  * 
@@ -620,7 +620,7 @@ abstract class DeviceConfig extends \core\common\Entity
             }
         }
         if (!empty($additionalConsortia) || !empty($additionalSSIDs)) {
-            $networks[sprintf('%s Custom Network', CAT::$nomenclature_participant)] = ['ssid' => $additionalSSIDs, 'oi' => $additionalConsortia];
+            $networks[sprintf('%s Custom Network', CAT::$nomenclature_participant)] = ['ssid' => $additionalSSIDs, 'oi' => $additionalConsortia, 'condition' => 'locally_defined'];
         }
         return $networks;
     }
@@ -716,12 +716,12 @@ abstract class DeviceConfig extends \core\common\Entity
     /**
      * dumps attributes for debugging purposes
      *
-     * dumpAttibutes method is supplied for debugging purposes, it simply dumps the attribute array
+     * dumpAttributes method is supplied for debugging purposes, it simply dumps the attribute array
      * to a file with name passed in the attribute.
      * @param string $file the output file name
      * @return void
      */
-    protected function dumpAttibutes($file)
+    protected function dumpAttributes($file)
     {
         ob_start();
         print_r($this->attributes);

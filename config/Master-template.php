@@ -46,7 +46,7 @@ class Master
          * productname: short display name of the tool
          * productname_long: long display name of the tool
          * from-mail: the "From" in email addresses sent by the tool. Typically an unattended mailbox only for sending.
-         * support-contact/url: URL pointing to CAT support, can be an email address, possibly with some additional attrinutes like body or a help page address
+         * support-contact/url: URL pointing to CAT support, can be an email address, possibly with some additional attributes like body or a help page address
          * support-contact/display: the displayed part of the support contact link.
          * support-contact/developer-mail: email address where development questions should be addressed to
          * abuse-mail: email address where copyright holders can complain. Should be read by a human.
@@ -168,25 +168,27 @@ class Master
          * @var array
          */
         const LANGUAGES = [
-            'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE],
-            'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE],
-            'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE],
-            'de' => ['display' => 'Deutsch', 'locale' => 'de_DE.utf8', 'latin_based' => TRUE],
-            'el' => ['display' => 'Ελληνικά', 'locale' => 'el_GR.utf8', 'latin_based' => FALSE],
-            'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8', 'latin_based' => TRUE],
-            'es' => ['display' => 'Español', 'locale' => 'es_ES.utf8', 'latin_based' => TRUE],
-            'et' => ['display' => 'Eesti', 'locale' => 'et_EE.utf8', 'latin_based' => TRUE],
-            'fr' => ['display' => 'Français', 'locale' => 'fr_FR.utf8', 'latin_based' => TRUE],
-            'hr' => ['display' => 'Hrvatski', 'locale' => 'hr_HR.utf8', 'latin_based' => TRUE],
-            'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE],
-            'it' => ['display' => 'Italiano', 'locale' => 'it_IT.utf8', 'latin_based' => TRUE],
-            'nb' => ['display' => 'Norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE],
-            'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE],
-            'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE],
-            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE],
-            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE],
-            'fi' => ['display' => 'Suomi', 'locale' => 'fi_FI.utf8', 'latin_based' => TRUE],
-            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE],
+            'ar' => ['display' => 'العربية', 'locale' => 'ar_SA.utf8', 'latin_based' => FALSE, 'rtl' => TRUE],
+            'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
+            'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'de' => ['display' => 'Deutsch', 'locale' => 'de_DE.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'el' => ['display' => 'Ελληνικά', 'locale' => 'el_GR.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
+            'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'es' => ['display' => 'Español', 'locale' => 'es_ES.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'et' => ['display' => 'Eesti', 'locale' => 'et_EE.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'fr' => ['display' => 'Français', 'locale' => 'fr_FR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'hr' => ['display' => 'Hrvatski', 'locale' => 'hr_HR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'it' => ['display' => 'Italiano', 'locale' => 'it_IT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'nb' => ['display' => 'Norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+//            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+//            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'fi' => ['display' => 'Suomi', 'locale' => 'fi_FI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+//            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'uk' => ['display' => 'Українська', 'locale' => 'uk_UA.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. There are even more in the "translation/" subdir.
 //

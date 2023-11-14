@@ -201,6 +201,16 @@ switch ($inputDecoded['ACTION']) {
                     // JSON doesn't cope well with raw binary data, so b64 it
                     $retArray[$instNumber][$attribNumber]['value'] = base64_encode($oneAttrib['value']);
                 }
+                if ($attribNumber == "PROFILES") {
+                    // scan for included fed:logo_file and b64 escape it, t2oo
+                    foreach ($oneAttrib as $profileNumber => $profileContent) {
+                            foreach ($profileContent as $oneProfileIterator => $oneProfileContent) {
+                                    if ($oneProfileContent['name'] == "fed:logo_file" || $oneProfileContent['name'] == "general:logo_file" || $oneProfileContent['name'] == "eap:ca_file") {
+                                            $retArray[$instNumber]["PROFILES"][$profileNumber][$oneProfileIterator]['value'] = base64_encode($oneProfileContent['value']);
+                                    }
+                            }
+                    }
+                }
             }
         }
         $adminApi->returnSuccess($retArray);

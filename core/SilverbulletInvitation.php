@@ -36,7 +36,7 @@ class SilverbulletInvitation extends common\Entity
 {
 
     /**
-     * row ID in the database pertaining to this invitation. 0 on invalid invitations.
+     * row_id ID in the database pertaining to this invitation. 0 on invalid invitations.
      * 
      * @var integer
      */

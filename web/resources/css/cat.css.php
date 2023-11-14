@@ -22,6 +22,11 @@
 require dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 $colour1 = \config\Master::APPEARANCE['colour1'];
 $colour2 = \config\Master::APPEARANCE['colour2'];
+// we need to know if we are serving a RTL language so we can flip some heading
+// items
+$langInstance = new core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
 header('Content-type: text/css; charset=utf-8');
 ?>
 html {
@@ -36,7 +41,7 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    padding-left: 0px;
+    padding-<?php echo $start;?>: 0px;
     min-width: 700px;
     font-size: 11px;
     font-weight: normal;
@@ -55,15 +60,15 @@ button {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     min-height: 23px;
-    border-left-style: outset; 
-    border-left-width: 1px; 
-    border-left-color: #8bbacb;
+    border-start-style: outset; 
+    border-start-width: 1px; 
+    border-start-color: #8bbacb;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-right-style: outset; 
-    border-right-width: 2px; 
-    border-right-color: #043d52;
+    border-end-style: outset; 
+    border-end-width: 2px; 
+    border-end-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
@@ -73,14 +78,14 @@ button.pressed {
     background:#095e80;
     border-style:inset;
     position: relative;
-    left: 3px;
+    <?php echo $start;?>: 3px;
 }
 
 button.pressedDisabled {
     background:#999;
     border-style:inset;
     position: relative;
-    left: 3px;
+    <?php echo $start;?>: 3px;
 }
 
 button.delete {
@@ -88,14 +93,14 @@ button.delete {
 }
 
 .problemdescription {
-    padding-left:40px;
+    padding-<?php echo $start;?>:40px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: lightyellow;
 }
 
 .problemsolution {
-    padding-left:40px;
+    padding-<?php echo $start;?>:40px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: lightgreen;
@@ -104,15 +109,15 @@ button.delete {
 .use_borders button.alertButton {
     color: maroon; 
     background: #bbb; 
-    border-left-style: outset; 
-    border-left-width: 1px; 
-    border-left-color: #eee;
+    border-start-style: outset; 
+    border-start-width: 1px; 
+    border-start-color: #eee;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #eee;
-    border-right-style: outset; 
-    border-right-width: 2px; 
-    border-right-color: #444;
+    border-end-style: outset; 
+    border-end-width: 2px; 
+    border-end-color: #444;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #444;
@@ -122,15 +127,15 @@ button.delete {
 button[disabled] {
     background: #bababa;
     color: #6a6a6a;
-    border-left-style: inset;
-    border-left-width: 1px;
-    border-left-color: #dadada;
+    border-start-style: inset;
+    border-start-width: 1px;
+    border-start-color: #dadada;
     border-top-style: inset;
     border-top-width: 1px;
     border-top-color: #dadada;
-    border-right-style: outset;
-    border-right-width: 2px;
-    border-right-color: #dadada;
+    border-end-style: outset;
+    border-end-width: 2px;
+    border-end-color: #dadada;
     border-bottom-style: outset;
     border-bottom-width: 2px;
     border-bottom-color: #dadada;
@@ -162,8 +167,8 @@ div.infobox {
 div.profilemodulebuttons {
     position: inherit;
     bottom: 5px;
-    right: 5px;
-    text-align: right;
+    <?php echo $end;?>: 5px;
+    text-align: <?php echo $end;?>;
 }
 
 div.profilebox {
@@ -184,15 +189,15 @@ div.consortium_logo {
     display: block;
     position: absolute;
     top:0;
-    right:0;
-    padding-right:20px;
+    <?php echo $end;?>:0;
+    padding-<?php echo $end;?>:20px;
     padding-top:7px;
 }
 
 div.sidebar {
     display: inline;
-    float: right;
-    padding-right: 20px;
+    float: <?php echo $end;?>;
+    padding-<?php echo $end;?>: 20px;
 }
 div.sidebar a {
     color: white;
@@ -201,7 +206,7 @@ div.sidebar a {
 div.header {
     height: 54px;
     background: #FFFFFF;
-    padding-left:30px;
+    padding-<?php echo $start;?>:30px;
     padding-bottom: 10px;
     color: <?php echo $colour2?>;
 }
@@ -211,8 +216,8 @@ div.pagecontent {
     top: 54px;
     bottom: 50px;
     padding-top: 10px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-<?php echo $start;?>: 0px;
+    padding-<?php echo $end;?>: 0px;
     width:100%;
 }
 
@@ -226,44 +231,45 @@ div.pagecontent div.trick {
     color: #FFFFFF;
     min-height:100px;
     overflow: auto;
-    padding-left:20px'
+    padding-<?php echo $start;?>:20px'
 }
 
 #thirdrow {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-<?php echo $start;?>: 10px;
+    padding-<?php echo $end;?>: 10px;
 }
 
-div.footer {
+#footer {
     width: 100%;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     bottom: 0;
     position: absolute;
     background: white;
     border-top: 1px solid #000;
+    direction: ltr;
 }
 
-div.footer span {
-   padding-left: 20px;
-}
 
-div.footer table {
+#footer table {
     width: 100%;
+    direction: ltr;
 }
 
 
-div.footer table td {
-    padding-right:20px; 
+#footer table td {
+    padding-left:10px; 
+    padding-right:10px; 
     vertical-align:top;
+    direction: ltr;
 }
 
 div.maincontent {
     height: 100% !important;
     position: relative;
     min-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-start: auto;
+    margin-end: auto;
 }
 
 div.device_info {
@@ -283,8 +289,8 @@ div#overlay {
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     background-color: #000000;
     opacity: 0.5;
     z-index: 90;
@@ -296,7 +302,7 @@ div.graybox {
     clear: both;
     display: block;
     padding: 15px;
-    text-align: left;
+    text-align: start;
     width: 850px;
     margin: 0px auto 10px;
 }
@@ -308,9 +314,9 @@ div.qrbox {
     clear: both;
     display: block;
     padding: 15px;
-    text-align: left;
+    text-align: start;
     width: 850px;
-    left: 100px;
+    <?php echo $start;?>: 100px;
     top: 50px;
     z-index: 100;
 }
@@ -319,15 +325,15 @@ div#msgbox {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
     z-index: 100;
 }
 
 div#msgbox div {
     position: fixed;
-    left: 0;
-    right: 0;
+    <?php echo $start;?>: 0;
+    <?php echo $end;?>: 0;
 }
 
 div#msgbox div div.graybox {
@@ -341,13 +347,13 @@ div#msgbox div div.graybox {
 div.graybox img {
     display: block;
     cursor: pointer;
-    float: right;
+    float: <?php echo $end;?>;
     margin: 0px 0px 10px 10px;
 }
 
 img.icon {
-    float: left;
-    margin-right: 5px;
+    float: <?php echo $start;?>;
+    margin-end: 5px;
     margin-top: 3px;
 }
 
@@ -423,7 +429,7 @@ table.compatmatrix td {
 }
 
 table.compatmatrix th {
-    text-align: left;
+    text-align: start;
 }
 
 table.compatmatrix td.compat_incomplete {
@@ -433,7 +439,7 @@ table.compatmatrix td.compat_incomplete {
 
 table.compatmatrix td.compat_default {
     background-color: #3fb75e;
-    text-align: left;
+    text-align: start;
     white-space:nowrap;
 }
 
@@ -449,7 +455,7 @@ table.compatmatrix td.compat_unsupported {
 
 table.compatmatrix td.compat_redirected {
     background-color: khaki;
-    text-align: left;
+    text-align: start;
     white-space:nowrap;
 }
 
@@ -462,7 +468,7 @@ table.authrecord tr.auth-fail {
 }
 
 table.authrecord td {
-    padding-right: 10px;
+    padding-<?php echo $end;?>: 10px;
 }
 
 p.MOTD {
@@ -480,15 +486,15 @@ p.MOTD {
 }
 
 .use_borders button {
-    border-left-style: outset; 
-    border-left-width: 1px; 
-    border-left-color: #8bbacb;
+    border-start-style: outset; 
+    border-start-width: 1px; 
+    border-start-color: #8bbacb;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-right-style: outset; 
-    border-right-width: 2px; 
-    border-right-color: #043d52;
+    border-end-style: outset; 
+    border-end-width: 2px; 
+    border-end-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
@@ -512,7 +518,7 @@ p.MOTD {
     border-top-width:5px; 
     border-bottom-width:5px; 
     border-color: <?php echo $colour1;?>; 
-    padding-left:30px;
+    padding-<?php echo $start;?>:30px;
 }
 
 .no_borders button.disabledDevice {
@@ -528,13 +534,13 @@ p.MOTD {
 }
 
 input {
-    margin-right: 5px;
+    margin-end: 5px;
 
 }
 
 select {
     vertical-align: middle;
-    margin-left: 10px;
+    margin-start: 10px;
 }
 
 td.notapplicable {
@@ -567,8 +573,8 @@ td.vendor img {
 
 .signin_large {
     vertical-align: top;
-    padding-left:20px;
-    padding-right:20px;
+    padding-<?php echo $start;?>:20px;
+    padding-<?php echo $end;?>:20px;
     color: #bfd5dc;
     font-size: 20px;
 }
@@ -584,31 +590,31 @@ td.vendor img {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     height: 23px;
-    border-left-style: inset; 
-    border-left-width: 1px; 
-    border-left-color: #8bbacb;
+    border-start-style: inset; 
+    border-start-width: 1px; 
+    border-start-color: #8bbacb;
     border-top-style: inset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-right-style: outset; 
-    border-right-width: 2px; 
-    border-right-color: #043d52;
+    border-end-style: outset; 
+    border-end-width: 2px; 
+    border-end-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-<?php echo $start;?>: 5px;
+    padding-<?php echo $end;?>: 5px;
     padding-top: 1px;
     padding-bottom: 1px;
     position: relative;
-    left: 640px;
+    <?php echo $start;?>: 640px;
     cursor:pointer;
 }
 
 #loading_ico {
     display: none;
     position: absolute;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     top: 220px;
     z-index: 200;
     text-align: center;
@@ -622,7 +628,7 @@ td.vendor img {
     z-index: 100;
     position: absolute;
     width: 700px;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     text-align: justify;
     top: 200px;
     box-shadow: 5px 5px 5px #666666;
@@ -630,23 +636,23 @@ td.vendor img {
 }
 
 #user_info {
-    padding-left: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     font-size: 11px;  
     font-weight: normal; 
 }
 
 #user_welcome {
     background: #ffffff;
-    padding-left: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     padding-top: 20px; 
-    padding-right: 180px;
+    padding-<?php echo $end;?>: 180px;
     font-size: 12px;  
     font-weight: normal; 
 }
 
 #devices {
     z-index:90;
-    padding-left: 30px;
+    padding-<?php echo $start;?>: 30px;
     font-size: 11px;  
     font-weight: normal;
     position: relative;
@@ -654,15 +660,15 @@ td.vendor img {
 
 #profile_list {
     width: 30em; 
-    padding-left: 10px; 
-    padding-right: 0px; 
+    padding-<?php echo $start;?>: 10px; 
+    padding-<?php echo $end;?>: 0px; 
     background: <?php echo $colour2;?>; 
     color: white; 
     box-shadow: 10px 10px 5px #888888;
 }
 
 #profile_redirect {
-    padding-left: 30px;
+    padding-<?php echo $start;?>: 30px;
     padding-top: 20px;
     font-size: 11px;
     font-weight: normal;
@@ -672,13 +678,13 @@ td.vendor img {
 }
 
 #profiles {
-    padding-left: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     font-size: 11px; 
     padding-bottom: 10px 
 }
 
 #signin {
-    padding-left: 30px;
+    padding-<?php echo $start;?>: 30px;
     padding-top: 10px;
 }
 
@@ -702,9 +708,9 @@ td.vendor img {
     font-size: 14px; 
     padding-top: 4px; 
     padding-bottom: 12px; 
-    padding-left: 30px; 
+    padding-<?php echo $start;?>: 30px; 
     background: <?php echo $colour1;?>; 
-    text-align: left; 
+    text-align: start; 
     text-shadow: 10px 10px 5px #888888;
 }
 
@@ -714,7 +720,7 @@ td.vendor img {
     border-top-width:5px;
     border-bottom-width:5px;
     border-color: <?php echo $colour1;?>;
-    padding-left:30px;
+    padding-<?php echo $start;?>:30px;
     color: <?php echo $colour2;?>;
 }
 
@@ -730,7 +736,7 @@ td.vendor img {
 
 #welcome {
     padding: 20px;
-    padding-left: 30px;
+    padding-<?php echo $start;?>: 30px;
     text-align: justify;
     border-bottom-style:solid;
     border-bottom-width:5px;
@@ -743,14 +749,14 @@ td.vendor img {
 #main_menu_info { 
                     position: relative;
                     top: 15px;
-                    left: 0px;
-                    padding:10px; padding-left:20px; padding-right:20px;
+                    <?php echo $start;?>: 0px;
+                    padding:10px; padding-<?php echo $start;?>:20px; padding-<?php echo $end;?>:20px;
                     background: #f0f0f0;
                     border: 1px solid #dddddd;
-                    margin-left: 25px;
-                    padding-left: 25px;
-                    margin-right: 25px;
-                    padding-right: 25px;
+                    margin-start: 25px;
+                    padding-<?php echo $start;?>: 25px;
+                    margin-end: 25px;
+                    padding-<?php echo $end;?>: 25px;
                     padding-bottom: 10px;
                     vertical-align: top;
                     box-shadow: 5px 5px 5px #666666;
@@ -799,7 +805,7 @@ td.vendor img {
 #idp_logo {
    display:none;
    position:absolute;
-   right:30px;
+   <?php echo $end;?>:30px;
    max-height:150px;
    max-width:150px;
    padding-top:10px;
@@ -822,12 +828,12 @@ td.vendor img {
 #slides img {
     position: absolute;
     top: 145px;
-    right: 60px;
+    <?php echo $end;?>: 60px;
 }
 
 #slides span {
     position: absolute;
-    left: 180px;
+    <?php echo $start;?>: 180px;
     z-index: 20;
 }
 
@@ -845,7 +851,7 @@ td.vendor img {
 
 #line3 {
     top:245px;
-    left: 200px;
+    <?php echo $start;?>: 200px;
     color: maroon;
     font-size:25px;
 }
@@ -874,16 +880,16 @@ td.vendor img {
     height:100%;
     border-spacing:0; 
     border-collapse:collapse;
-    padding-left:200px;
+    padding-<?php echo $start;?>:200px;
     padding-top:10px;
 }
 
 #front_page_leftmenu {
-    border-right:solid; 
+    border-end:solid; 
     border-color: <?php echo $colour1;?>; 
     border-width:5px; 
     min-height:400px; 
-    padding-left: 10px; 
+    padding-<?php echo $start;?>: 10px; 
     vertical-align:top; 
     width:110px; 
     padding-top:30px;
@@ -893,8 +899,8 @@ td.vendor img {
     vertical-align: top;
     height:280px;
     background: #fff;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-<?php echo $start;?>: 20px;
+    padding-<?php echo $end;?>: 20px;
 }
 
 #user_button_td {
@@ -946,15 +952,15 @@ table.user_overview  {
 }
 
 table.user_overview th {
-    text-align: left;  
+    text-align: start;  
     background: #f0f0f0;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-<?php echo $start;?>: 4px;
+    padding-<?php echo $end;?>: 4px;
 }
 table.user_overview td {
     border-top-style: none;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-<?php echo $start;?>: 4px;
+    padding-<?php echo $end;?>: 4px;
     padding-top: 0px;
     height: 25px;
 }
@@ -967,14 +973,14 @@ table.user_overview td:first-child {
 .download_button_text {
     width: 380px;
     position:absolute;
-    right: 5px;
+    <?php echo $end;?>: 5px;
     padding-top:0px;
 }
 
 #download_info {
    background: #f0f0f0;
-   padding-left: 20px;
-   padding-right: 20px;
+   padding-<?php echo $start;?>: 20px;
+   padding-<?php echo $end;?>: 20px;
    padding-top:3px;
    padding-bottom:3px;
 }

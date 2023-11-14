@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Iryna Rykhalska <irina@uran.ua>, 2022\n"
-"Language-Team: Ukrainian (Ukraine) (https://www.transifex.com/eduroam_devel/"
+"Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/uk_UA/)\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +34,8 @@ msgid "Product is not configured to run this check."
 msgstr "Продукт не налаштований для запуску цієї перевірки"
 
 #: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:610
-#: web/diag/action_realmcheck.php:626
+#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
+#: web/diag/action_realmcheck.php:630
 msgid "This check was skipped."
 msgstr "Ця перевірка була пропущена."
 
@@ -70,7 +70,7 @@ msgid ""
 msgstr "Сервер RADIUS відхилив запит автентифікації після EAP діалогу."
 
 #: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:134
 msgid "Connection refused"
 msgstr "У з'єднанні відмовлено"
 
@@ -496,63 +496,63 @@ msgstr ""
 "Відхилити Access-Reject, як планувалось. Деякі властивості спроби з'єднання "
 "були неоптимальними; список наведено нижче."
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:132
+#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
 msgid "All tests passed."
 msgstr "Всі тести пройшли."
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:133
+#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
 msgid "There were some warnings."
 msgstr "Було кілька застережень."
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
 msgid "There were some errors."
 msgstr "Було декілька помилок"
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
 msgid "There were some remarks."
 msgstr "Було декілька зауважень."
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:113
+#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
 msgid "PASS"
 msgstr "ПАРОЛЬ"
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:114
+#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
 msgid "FAIL"
 msgstr "ПОМИЛКА"
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:155
+#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
 msgid "Subject:"
 msgstr "Тема:"
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:156
+#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
 msgid "Issuer:"
 msgstr "Запитувач:"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:157
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
 msgid "Valid from:"
 msgstr "Діє з:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:158
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
 msgid "Valid to:"
 msgstr "Діє до:"
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
 msgid "Serial number:"
 msgstr "Серійний номер"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
 msgid "SHA1 fingerprint:"
 msgstr "Відбиток пальця SHA1:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:143
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
 msgid "Server certificate"
 msgstr "Сертифікат сервера"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:144
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
 msgid "Subject"
 msgstr "Тема"
 
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:145
+#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
 msgid "Issuer"
 msgstr "Запитувач"
 
@@ -560,20 +560,20 @@ msgstr "Запитувач"
 msgid "Policies"
 msgstr "Політика"
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
+#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
 msgid "crlDistributionPoint"
 msgstr "crlТочка Розповсюдження "
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:149
+#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
 msgid "authorityInfoAccess"
 msgstr "доступ до органу інформації"
 
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:146
+#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
 msgid "SubjectAltName"
 msgstr "ТемаAltІм'я"
 
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:542
-#: web/diag/action_realmcheck.php:551 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
 msgid "Overview"
 msgstr "Огляд"
 
@@ -582,7 +582,7 @@ msgid "DNS chekcs"
 msgstr "Перевірка DNS"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:577
+#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
 msgid "Checking NAPTR existence:"
 msgstr "Перевірка існування NAPTR:"
 
@@ -591,11 +591,11 @@ msgstr "Перевірка існування NAPTR:"
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
 #: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:580
+#: web/diag/action_realmcheck.php:584
 msgid "This realm has no NAPTR records."
 msgstr "Цей домен не має записів NAPTR."
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:583
+#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -604,63 +604,63 @@ msgstr ""
 "консорціумом"
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:586
+#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Цей домен має %d записи NAPTR, що стосуються цього роумінгового консорціуму."
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:592
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
 "Перевірка відповідності NAPTR (маркер = S та регулярний вираз = {пусто}):"
 
 #: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:599 web/diag/action_realmcheck.php:613
+#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Знайдено принаймні один NAPTR з недійсним вмістом!"
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:607
+#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
 msgid "Checking SRVs:"
 msgstr "Перевірка SRV:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:616
+#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d виявлені імена хостів."
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:623
+#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
 msgid "Checking IP address resolution:"
 msgstr "Перевірка дозволу IP-адреси:"
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:629
+#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Принаймні одне ім'я хоста не може бути дозволеним!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:632
+#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP-адреси дозволені."
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:640
-#: web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
+#: web/diag/action_realmcheck.php:646
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Домен є <strong>%s</strong>"
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:640
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "Не виявлено помилок DNS. Вітаємо!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid "but there were DNS errors! Check them!"
 msgstr "але були помилки DNS! Перевірте їх!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -668,31 +668,31 @@ msgstr ""
 "Після виправлення помилок необхідно повторно запустити тести, на цьому етапі "
 "може бути виявлено більше помилок. Точні причини помилок наведені нижче."
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:570
+#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
 msgid "Dynamic discovery test is not configured"
 msgstr "Тест динамічного пошуку не налаштований"
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:543
-#: web/diag/action_realmcheck.php:703 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
+#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
 msgstr "Статичні тести зв’язку"
 
 #: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:415 web/diag/action_realmcheck.php:420
-#: web/diag/action_realmcheck.php:425
+#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
+#: web/diag/action_realmcheck.php:429
 msgid "See the appropriate tab for details."
 msgstr "Подробиці дивіться у відповідній закладці."
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:544
-#: web/diag/action_realmcheck.php:708 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
+#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
 msgstr "Динамічні тести на зв’язку"
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:728
+#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
 msgid "STATIC connectivity tests"
 msgstr "СТАТИЧНІ тести підключення"
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:730
+#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -708,37 +708,37 @@ msgstr ""
 "успішно пройти автентифікацію - отже отримали Відхилення доступу після "
 "проходження повідомлення EAP."
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:734
-#: web/diag/action_realmcheck.php:877
+#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
+#: web/diag/action_realmcheck.php:881
 #, php-format
 msgid "Testing from: %s"
 msgstr "Тестування від: %s"
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
 msgid "Connected to undetermined server"
 msgstr "Підключений до невизначеного сервера"
 
 #: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:268 web/diag/action_realmcheck.php:379
-#: web/diag/action_realmcheck.php:399 web/diag/action_realmcheck.php:460
+#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
+#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "пройшло часу: %sмс"
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:390
-#: web/diag/action_realmcheck.php:450
+#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:454
 msgid "Extensions"
 msgstr "Розширення"
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:391
+#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
 msgid "show server certificate details"
 msgstr "показати деталі сертифіката сервера"
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:788
+#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
 msgid "Checking server handshake..."
 msgstr "Перевірка встановлення зв'язку з сервером "
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr "більше"
@@ -751,35 +751,35 @@ msgstr "Тест не пройшов"
 msgid "Client certificate"
 msgstr "Сертифікат клієнта"
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
+#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
 msgid "expected result: "
 msgstr "Очікуваний результат:"
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
 msgid "Server accepted this client certificate"
 msgstr "Сервер прийняв цей сертифікат клієнта"
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
 msgid "You should update your list of accredited CAs"
 msgstr "Вам слід оновити свій список акредитованих ЦС"
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
 msgid "Get it from here."
 msgstr "Отримати тут"
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
 msgid "Server did not accept this client certificate - reason"
 msgstr "Сервер не прийняв цей сертифікат клієнта - причина"
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Сервер прийняв цей сертифікат клієнта, але не повинен мати"
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:119
+#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
 msgid "Server did not accept this client certificate"
 msgstr "Сервер не прийняв цей сертифікат клієнта"
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
 msgid "Rest of tests for this CA skipped"
 msgstr "Решта тестів для цього ЦС пропущені"
 
@@ -787,28 +787,28 @@ msgstr "Решта тестів для цього ЦС пропущені"
 msgid "These tests were skipped because of previous errors."
 msgstr "Ці тести були пропущені через попередні помилки."
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
+#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
 msgid "DYNAMIC connectivity tests"
 msgstr "ДИНАМІЧНІ тести підключення"
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
 msgid "Some errors were found during the tests, see below"
 msgstr "Під час тестів були виявлені деякі помилки, дивіться нижче"
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
 msgid "All tests passed, congratulations!"
 msgstr "Всі тести пройшли, вітаю!"
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:127
-#: web/diag/action_realmcheck.php:788 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
 msgstr "Показати детальну інформацію для всіх тестів"
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Перевірка, чи приймаються сертифікати від Центру сертифікації ..."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -967,8 +967,6 @@ msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"Ви коли-небудь успішно користувались мережею, наприклад у вашому рідному "
-"закладі без роумінгу?"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -978,8 +976,6 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
-"Якщо ваш пристрій ніколи раніше не працював із цим налаштуванням, то, швидше "
-"за все, конфігурація вашого пристрою неправильна.%s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
@@ -1142,7 +1138,7 @@ msgstr "Ви є"
 msgid "end-user"
 msgstr "кінцевий користувач"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr "чи"
 
@@ -1202,7 +1198,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Натисніть, щоб вибрати місце, в якому у вас проблема з eduroam"
 
-#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:113
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr "Тестування домену"
 
@@ -1279,7 +1275,7 @@ msgstr ""
 msgid "Check if this realm is registered"
 msgstr "Перевірте, чи зареєстрована цей домен"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr "Перевірте цей домен"
 
@@ -1309,7 +1305,7 @@ msgstr "Результати діагностики для вибраних до
 
 #: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occurred"
-msgstr "Виникла невідома проблема"
+msgstr ""
 
 #: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
@@ -1355,11 +1351,11 @@ msgstr "Елетронна пошта для зв'язку з повідомлю
 msgid "Test result"
 msgstr "Результати тесту"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr "Відмова"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr "Успішно"
 
@@ -1443,82 +1439,82 @@ msgstr "СТАТИЧНА"
 msgid "DYNAMIC"
 msgstr "ДИНАМІЧНА"
 
-#: web/diag/action_realmcheck.php:115
+#: web/diag/action_realmcheck.php:119
 msgid "Client certificate:"
 msgstr "Сертифікат клієнта:"
 
-#: web/diag/action_realmcheck.php:147
+#: web/diag/action_realmcheck.php:151
 msgid "Certificate policies"
 msgstr "Політика щодо сертифікатів"
 
-#: web/diag/action_realmcheck.php:150 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
 msgstr "Приховати детальну інформацію для всіх тестів"
 
-#: web/diag/action_realmcheck.php:213
+#: web/diag/action_realmcheck.php:217
 msgid "Some required input is missing!"
 msgstr "Деяка необхідна інформація відсутня!"
 
-#: web/diag/action_realmcheck.php:438
+#: web/diag/action_realmcheck.php:442
 msgid "Server certificate details:"
 msgstr "Деталі сертифіката сервера:"
 
-#: web/diag/action_realmcheck.php:537 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Тестування домену для:%s"
 
-#: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
-#: web/diag/action_realmcheck.php:776
+#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
+#: web/diag/action_realmcheck.php:780
 msgid "OpenRoaming connectivity tests"
 msgstr "Тести підключення OpenRoaming"
 
-#: web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:550
 msgid "Live login tests"
 msgstr "Тести на вхід в реальному часі"
 
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:563
 msgid "DNS checks"
 msgstr "Перевірки DNS"
 
-#: web/diag/action_realmcheck.php:565
+#: web/diag/action_realmcheck.php:569
 msgid "OpenRoaming DNS checks"
 msgstr "Перевірка DNS OpenRoaming"
 
-#: web/diag/action_realmcheck.php:572
+#: web/diag/action_realmcheck.php:576
 msgid "OpenRoaming connectivity test is not configured"
 msgstr "Тест підключення OpenRoaming не налаштовано"
 
-#: web/diag/action_realmcheck.php:596
+#: web/diag/action_realmcheck.php:600
 msgid "No issues found."
 msgstr "Проблем не знайдено"
 
-#: web/diag/action_realmcheck.php:725 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
 msgstr "Повторіть статичні тести на зв’язок"
 
-#: web/diag/action_realmcheck.php:739 web/diag/action_realmcheck.php:797
-#: web/diag/action_realmcheck.php:814
+#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
+#: web/diag/action_realmcheck.php:818
 msgid "testing..."
 msgstr "Тестування..."
 
-#: web/diag/action_realmcheck.php:766 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
 msgstr "Повторіть динамічні тести підключення"
 
-#: web/diag/action_realmcheck.php:766
+#: web/diag/action_realmcheck.php:770
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr "Повторіть тести підключення OpenRoaming"
 
-#: web/diag/action_realmcheck.php:817
+#: web/diag/action_realmcheck.php:821
 msgid "not implemented yet"
 msgstr "ще не реалізовано"
 
-#: web/diag/action_realmcheck.php:838
+#: web/diag/action_realmcheck.php:842
 msgid "Live login test"
 msgstr "Тест на вхід в систему в режимі реального часу"
 
-#: web/diag/action_realmcheck.php:851
+#: web/diag/action_realmcheck.php:855
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1526,7 +1522,7 @@ msgstr ""
 "Якщо ви введете тут існуючі облікові дані для входу, ви можете перевірити "
 "справжню автентифікацію з різних пунктів пропуску по всьому світу."
 
-#: web/diag/action_realmcheck.php:852
+#: web/diag/action_realmcheck.php:856
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1539,7 +1535,7 @@ msgstr ""
 "типом EAP. Якщо ви встановили анонімний зовнішній ідентифікатор, тест буде "
 "використовувати це."
 
-#: web/diag/action_realmcheck.php:853
+#: web/diag/action_realmcheck.php:857
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1551,186 +1547,186 @@ msgstr ""
 "використовуйте тут тільки <strong>тимчасові тестові облікові записи</"
 "strong>; постійно діючі тестові облікові записи вважаються шкідливими!"
 
-#: web/diag/action_realmcheck.php:861
+#: web/diag/action_realmcheck.php:865
 msgid "Password-based EAP types"
 msgstr "Типи EAP на основі пароля"
 
-#: web/diag/action_realmcheck.php:862
+#: web/diag/action_realmcheck.php:866
 msgid "Real (inner) username:"
 msgstr "Справжнє (внутрішнє) ім’я користувача:"
 
-#: web/diag/action_realmcheck.php:863
+#: web/diag/action_realmcheck.php:867
 msgid "Anonymous outer ID (optional):"
 msgstr "Анонімний зовнішній ідентифікатор (необов’язково):"
 
-#: web/diag/action_realmcheck.php:864
+#: web/diag/action_realmcheck.php:868
 msgid "Password:"
 msgstr "Пароль:"
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:872
 msgid "Certificate-based EAP types"
 msgstr "Типи EAP на основі сертифікатів"
 
-#: web/diag/action_realmcheck.php:869
+#: web/diag/action_realmcheck.php:873
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Файл сертифіката (.p12 або .pfx):"
 
-#: web/diag/action_realmcheck.php:870
+#: web/diag/action_realmcheck.php:874
 msgid "Certificate password, if any:"
 msgstr "Пароль сертифіката, якщо такий є:"
 
-#: web/diag/action_realmcheck.php:871
+#: web/diag/action_realmcheck.php:875
 msgid "Username, if different from certificate Subject:"
 msgstr "Ім'я користувача, якщо воно відрізняється від сертифіката Тема:"
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:877
 msgid "Submit credentials"
 msgstr "Подайте облікові дані"
 
-#: web/diag/action_realmcheck.php:895
+#: web/diag/action_realmcheck.php:899
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Повернутися %s в область адміністратора"
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Я підозрюю, що технічна проблема з IdP ..."
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Користувач з цього IdP нібито порушив авторські права на IdP."
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
 "Користувач цього IdP проводив шкідливі мережеві операції (спам, DDoS, ...)"
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "Користувач заявляє про проблеми з підключенням, але автентифікацію успішно "
 "пройшов"
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr "Користувач стверджує, що обов'язковий відкритий порт не відкритий"
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr "Виберіть свою проблему"
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr "Про який домен IdP іде мова?"
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Яка часова мітка аутентифікації даної користувальницької сесії?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr "Яка MAC-адреса відповідного сеансу користувача?"
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr "Додаткові коментарі"
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Будь ласка, вкажіть адресу електронної пошти, на яку IdP може зв’язатися з "
 "вами"
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr "Тепер ви можете надіслати свій запит"
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr "Надіслати"
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr "Визначте SP одним із наступних способів"
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr "Атрибут Ім'я оператора SP"
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr "Виберіть SP вручну:"
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr "натисніть, щоб вибрати країну та установу"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr "принаймні, опишіть розташування SP"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr "Що таке зовнішній ідентифікатор відповідного сеансу користувача?"
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr "Додаткові коментарі щодо проблеми"
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
 "Чи є у вас якісь контактні дані, за якими користувач бажає зв’язатись з SP?"
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Будь ласка, вкажіть електронну адресу, за якою SP може зв’язатися з вами"
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr "Підозра на технічну проблему з ідентифікатором IdP"
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Ми підозрюємо технічну проблему з IdP, що обробляє домен"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 "Під час складання звіту для цього домену було проведено діагностичний тест "
 "CAT.\n"
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr "Загальний результат був"
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr "Щоб переглянути деталі, перейдіть на"
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr "Нижче наведено відомості про проблему"
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr "тимчасова мітка"
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr "MAC-адреса клієнта"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr "додаткові коментарі"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr "Зв’язатися з повідовлювачем інциденту можна за адресою"
 
@@ -1753,11 +1749,10 @@ msgstr "<strong>Тест успішний.</strong>"
 #: web/diag/radius_tests.php:177
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
-"<strong>Тест частково успішний</strong>: автентифікацію успішно виконано."
 
 #: web/diag/radius_tests.php:180
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr "Тест не пройдений: автентифікація успішно виконана."
+msgstr ""
 
 #: web/diag/radius_tests.php:185
 msgid ""
@@ -1872,169 +1867,145 @@ msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr "Маркер, вказаний у запиті, не існує, дані не можуть бути представлені"
 
-#.
-#. * *****************************************************************************
-#. * Contributions to this work were made on behalf of the GÉANT project, a
-#. * project that has received funding from the European Union’s Framework
-#. * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
-#. * Horizon 2020 research and innovation programme under Grant Agreements No.
-#. * 691567 (GN4-1) and No. 731122 (GN4-2).
-#. * On behalf of the aforementioned projects, GEANT Association is the sole owner
-#. * of the copyright in all material which was developed by a member of the GÉANT
-#. * project. GÉANT Vereniging (Association) is registered with the Chamber of
-#. * Commerce in Amsterdam with registration number 40535155 and operates in the
-#. * UK as a branch of GÉANT Vereniging.
-#. *
-#. * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
-#. * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
-#. *
-#. * License: see the web/copyright.inc.php file in the file structure or
-#. *          <base_url>/copyright.php after deploying the software
-#.
-#: web/skins/modern/diag/js/diag_js.php:29
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr "СТАТИЧНІ тести підключення"
+msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:30
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr "Повторіть тести підключення OpenRoaming"
+msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:31
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr "Було декілька зауважень."
+msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:32
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr "Під час тесту були помилки."
+msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:42
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
-msgstr "Виберіть установу:"
+msgstr "Виберіть установу"
 
-#: web/skins/modern/diag/js/diag_js.php:68
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
-msgstr "натисніть, щоб вибрати країну та установу"
+msgstr "Виберіть країну або регіон"
 
-#: web/skins/modern/diag/js/diag_js.php:76
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:80
 msgid "Fetching country/region list"
-msgstr "Список установ для вибору"
+msgstr "Отримання списку країн/регіонів"
 
-#: web/skins/modern/diag/js/diag_js.php:137
+#: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
-#: web/skins/modern/diag/js/diag_js.php:138
+#: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
-#: web/skins/modern/diag/js/diag_js.php:139
+#: web/skins/modern/diag/js/diag_js.php:143
 msgid "I don't know"
-msgstr ""
+msgstr "Я не знаю"
 
-#: web/skins/modern/diag/js/diag_js.php:170
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr "Результати діагностики для вибраних доменів"
-
-#: web/skins/modern/diag/js/diag_js.php:173
-#, fuzzy
-msgid "The result for tested realm:"
-msgstr "Результати діагностики для вибраних доменів"
-
-#: web/skins/modern/diag/js/diag_js.php:175
-msgid "The system identified"
-msgstr ""
+msgstr "Результати діагностичних тестів для вибраної області"
 
 #: web/skins/modern/diag/js/diag_js.php:177
-msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgid "The result for tested realm:"
+msgstr "Результат для перевіреної області:"
 
-#: web/skins/modern/diag/js/diag_js.php:178
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr "Система ідентифікована"
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr "підозрілі зони, які потенційно можуть викликати проблему."
+
+#: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
-msgstr ""
+msgstr "Поруч з описом проблеми ми показуємо  ймовірність передбачуваної події"
 
-#: web/skins/modern/diag/js/diag_js.php:185
+#: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Конфігурація вашого пристрою порушена"
 
-#: web/skins/modern/diag/js/diag_js.php:188
+#: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Мережа Wi-Fi у вашому районі має проблеми з якістю"
 
-#: web/skins/modern/diag/js/diag_js.php:191
+#: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Навколо вас порушено мережеве середовище"
 
-#: web/skins/modern/diag/js/diag_js.php:194
+#: web/skins/modern/diag/js/diag_js.php:198
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "Джерелом проблеми є  RADIUS сервер вашого постачальника послуг"
 
-#: web/skins/modern/diag/js/diag_js.php:197
+#: web/skins/modern/diag/js/diag_js.php:201
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"На даний момент  RADIUS сервер  вашого домашнього закладу не може "
+"автентифікувати вас"
 
-#: web/skins/modern/diag/js/diag_js.php:200
+#: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"Національний сервер у країні/регіоні, який ви відвідуєте, працює неправильно"
 
-#: web/skins/modern/diag/js/diag_js.php:203
+#: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Зв’язок між національним сервером країни/регіону, який ви відвідуєте, та "
+"сервером верхнього рівня порушено"
 
-#: web/skins/modern/diag/js/diag_js.php:206
+#: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Зв’язок між національним сервером вашої країни/регіону та сервером верхнього "
+"рівня порушено"
 
-#: web/skins/modern/diag/js/diag_js.php:209
+#: web/skins/modern/diag/js/diag_js.php:213
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Зв’язок із сервером верхнього рівня перерваний"
 
-#: web/skins/modern/diag/js/diag_js.php:212
+#: web/skins/modern/diag/js/diag_js.php:216
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "Національний сервер  вашої країни/регіону не працює належним чином."
 
-#: web/skins/modern/diag/js/diag_js.php:215
+#: web/skins/modern/diag/js/diag_js.php:219
 msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr "Джерелом проблеми є RADIUS сервер вашої домашньої установи"
+
+#: web/skins/modern/diag/js/diag_js.php:222
+msgid "This realm does not exist"
+msgstr "Цієї області не існує"
+
+#: web/skins/modern/diag/js/diag_js.php:300
+msgid "Running connectivity tests for this realm"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:218
-#, fuzzy
-msgid "This realm does not exist"
-msgstr "Цей домен не має записів NAPTR."
-
-#: web/skins/modern/diag/js/diag_js.php:296
-#, fuzzy
-msgid "Running connectivity tests for this realm"
-msgstr "Тест підключення OpenRoaming не налаштовано"
-
-#: web/skins/modern/diag/js/diag_js.php:297
+#: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:422
-#: web/skins/modern/diag/js/diag_js.php:430
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr "Щоб переглянути деталі, перейдіть на"
+msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:432
+#: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
 msgstr ""

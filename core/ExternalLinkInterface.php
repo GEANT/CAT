@@ -81,4 +81,20 @@ interface ExternalLinkInterface
      * @return array
      */
     public function listExternalRealms();
+    
+    /**
+     * get all RADIUS/TLS servers for a given federation, with contacts
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersFederation($tld);
+    
+    /**
+     * get all RADIUS/TLS servers for all institutions within a given federation
+     * including their contact details
+     * 
+     * @return array
+     */
+    public function listExternalTlsServersInstitution($tld);
+    
 }

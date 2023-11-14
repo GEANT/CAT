@@ -20,6 +20,10 @@
  *          <base_url>/copyright.php after deploying the software
  */
  ?>
+<?php
+$Gui = new \web\lib\user\Gui();
+$Gui->languageInstance->setTextDomain("diagnostics");
+?>
 <script>
     var L_OK = <?php echo \core\common\Entity::L_OK ?>;
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;

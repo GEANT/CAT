@@ -23,7 +23,9 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
 $loggerInstance = new \core\common\Logging();
-$loggerInstance->debug(4, $_REQUEST);
+// only enable this during development - it allows random junk to be logged 
+// without any control!
+// $loggerInstance->debug(4, $_REQUEST);
 $o = new stdClass();
 if (isset($_REQUEST['data'])) {    
     $o = json_decode($_REQUEST['data']);

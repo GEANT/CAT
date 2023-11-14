@@ -183,7 +183,7 @@ class ProfileRADIUS extends AbstractProfile
                 throw new Exception("fetchDeviceOrEAPLevelAttributes: unexpected keyword $devicesOrEAPMethods");
         }
 
-        $allAttributes = $this->databaseHandle->exec("SELECT option_name, option_lang, option_value, $queryPart as deviceormethod, row 
+        $allAttributes = $this->databaseHandle->exec("SELECT option_name, option_lang, option_value, $queryPart as deviceormethod, row_id 
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier $conditionPart");
 
@@ -197,7 +197,7 @@ class ProfileRADIUS extends AbstractProfile
                 "lang" => $attributeQuery->option_lang,
                 "value" => $attributeQuery->option_value,
                 "level" => Options::LEVEL_METHOD,
-                "row" => $attributeQuery->row,
+                "row_id" => $attributeQuery->row_id,
                 "flag" => $optinfo['flag'],
                 "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
                 "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : (new \core\common\EAP($attributeQuery->deviceormethod))->getArrayRep() )];
@@ -288,7 +288,7 @@ class ProfileRADIUS extends AbstractProfile
      * normal DB-based attributes
      * 
      * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
-     * @return array list of row id's of file-based attributes which weren't deleted
+     * @return array list of row_id id's of file-based attributes which weren't deleted
      * @throws Exception
      */
     public function beginFlushAttributes($extracondition = "")
@@ -344,7 +344,7 @@ class ProfileRADIUS extends AbstractProfile
      *
      * @param int    $eapId    the numeric identifier of the EAP method
      * @param string $deviceId the name of the device
-     * @return array list of row id's of file-based attributes which weren't deleted
+     * @return array list of row_id id's of file-based attributes which weren't deleted
      * @throws Exception
      */
     public function beginFlushMethodLevelAttributes($eapId, $deviceId)
@@ -365,11 +365,11 @@ class ProfileRADIUS extends AbstractProfile
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
         // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
-        $findFlushCandidates = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
+        $findFlushCandidates = $this->databaseHandle->exec("SELECT row_id FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
         $returnArray = [];
         // SELECT -> resource, not boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $findFlushCandidates)) {
-            $returnArray[$queryResult->row] = "KILLME";
+            $returnArray[$queryResult->row_id] = "KILLME";
         }
         return $returnArray;
     }

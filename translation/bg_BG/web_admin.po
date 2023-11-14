@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2015-2016,2018-2022
+# University of Ruse <support@uni-ruse.bg>, 2015-2016,2018-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
-"2015-2016,2018-2022\n"
-"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
+"2015-2016,2018-2023\n"
+"Language-Team: Bulgarian (Bulgaria) (http://app.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
 "MIME-Version: 1.0\n"
@@ -84,74 +84,106 @@ msgid ""
 msgstr "Нямате необходимите права да заявявате NAPTR superglue зони."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/action_req_certificate.php:41
+#: web/admin/action_req_certificate.php:43
 #: web/admin/overview_certificates.php:41
 #, php-format
 msgid "%s: RADIUS/TLS certificate management for %s"
 msgstr "%s: RADIUS/TLS управление на сертификат за %s"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/action_req_certificate.php:56
+#: web/admin/action_req_certificate.php:58
 #: web/admin/overview_certificates.php:56
 #, php-format
 msgid "RADIUS/TLS certificate management for %s"
 msgstr "RADIUS/TLS управление на сертификат за %s"
 
-#: web/admin/action_req_certificate.php:66
+#: web/admin/action_req_certificate.php:68
 #: web/admin/overview_certificates.php:66
 msgid ""
 "You do not have the necessary privileges to request server certificates."
 msgstr "Нямате необходимите права да заявявате сертификати за сървъри."
 
-#: web/admin/action_req_certificate.php:107
+#: web/admin/action_req_certificate.php:155
 msgid "Requesting a certificate with the following properties"
 msgstr "Заявихте сертификат със следните свойства"
 
-#: web/admin/action_req_certificate.php:109
+#: web/admin/action_req_certificate.php:157
 msgid "Policy OIDs: "
 msgstr "Политика OID-и:"
 
-#: web/admin/action_req_certificate.php:110
+#: web/admin/action_req_certificate.php:158
 msgid "Distinguished Name: "
 msgstr "Отличително име: "
 
-#: web/admin/action_req_certificate.php:111
-msgid ""
-"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
-"&lt;someone@somewhere.xy&gt;')."
-msgstr ""
-"Данни за контакт на заявителя: от базата данни на eduroam (използвайки "
-"'Someone, &lt;someone@somewhere.xy&gt;')."
+#: web/admin/action_req_certificate.php:159
+msgid "subjectAltName:DNS : "
+msgstr "subjectAltName:DNS : "
 
-#: web/admin/action_req_certificate.php:127
+#: web/admin/action_req_certificate.php:160
+msgid "Requester Contact Details: "
+msgstr "Данни за контакт на заявителя:"
+
+#: web/admin/action_req_certificate.php:174
 msgid "The certificate was requested."
 msgstr "Сертификатът беше заявен."
 
-#: web/admin/action_req_certificate.php:130
+#: web/admin/action_req_certificate.php:177
 msgid "Back to Certificate Overview"
 msgstr "Обратно към Преглед на Сертификат"
 
 #. if we did not get a SAVE button, display UI for a fresh request instead
-#: web/admin/action_req_certificate.php:139
+#: web/admin/action_req_certificate.php:186
 msgid "1. Certificate Holder Details"
 msgstr "1. Данни за собственика на сертификата"
 
-#: web/admin/action_req_certificate.php:141
-#: web/admin/action_req_certificate.php:162
+#: web/admin/action_req_certificate.php:192
 #, php-format
-msgid "Certificate for %s role"
-msgstr "Сертификат за %s роля"
+msgid "None of your %s servers has complete information in the database."
+msgstr ""
+"Нито един от вашите %s сървъри не разполага с пълна информация в базата "
+"данни."
 
-#: web/admin/action_req_certificate.php:150
-#: web/admin/action_req_certificate.php:164
+#: web/admin/action_req_certificate.php:192
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"At least the DNS names of TLS servers and a role-based contact mail address "
+"are required."
+msgstr "Изискват се поне DNS имената на TLS сървърите и имейл адрес за връзка."
+
+#: web/admin/action_req_certificate.php:196
+#: web/admin/action_req_certificate.php:201
+#, php-format
+msgid "Certificate for %s"
+msgstr "Сертификат за %s"
+
+#: web/admin/action_req_certificate.php:204
+msgid "---PPPLEASE CHOOSE---"
+msgstr "---PPPLEASE CHOOSE---"
+
+#: web/admin/action_req_certificate.php:224
+#, php-format
+msgid "Certificate for %s "
+msgstr "Сертификат за %s"
+
+#: web/admin/action_req_certificate.php:226
 msgid "---PLEASE CHOOSE---"
 msgstr "---МОЛЯ ИЗБЕРЕТЕ---"
 
-#: web/admin/action_req_certificate.php:179
+#: web/admin/action_req_certificate.php:236
+#, php-format
+msgid ""
+"<strong>No organisation inside your %s has complete information in the "
+"database</strong>. "
+msgstr ""
+"<strong>Нито една организация в рамките на вашата %s не разполага с пълна "
+"информация в базата данни</strong>."
+
+#: web/admin/action_req_certificate.php:243
 msgid "2. CSR generation"
 msgstr "2. Генериране на CSR"
 
-#: web/admin/action_req_certificate.php:180
+#: web/admin/action_req_certificate.php:244
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
@@ -159,19 +191,19 @@ msgstr ""
 "Един от начините да генерирате приемлива заявка за сертификат е  чрез тази "
 "openssl команда:"
 
-#: web/admin/action_req_certificate.php:182
+#: web/admin/action_req_certificate.php:248
 msgid "3. Submission"
 msgstr "3. Подаване"
 
-#: web/admin/action_req_certificate.php:183
+#: web/admin/action_req_certificate.php:249
 msgid "Please paste your CSR here:"
 msgstr "Моля поставете Вашата CSR тук:"
 
-#: web/admin/action_req_certificate.php:184
+#: web/admin/action_req_certificate.php:250
 msgid "Send request"
 msgstr "Изпратете заявка"
 
-#: web/admin/action_req_certificate.php:187
+#: web/admin/action_req_certificate.php:257
 msgid "Back to Overview Page"
 msgstr "Обратно към Страницата за Преглед"
 
@@ -192,33 +224,33 @@ msgstr "Редактиране %s информацията за '%s'"
 msgid "%s Properties"
 msgstr "%s Свойства"
 
-#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:206
+#: web/admin/edit_federation.php:68 web/admin/edit_hotspot.php:205
 #: web/admin/edit_participant.php:88 web/admin/edit_silverbullet.php:344
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:55
-#: web/admin/overview_federation.php:93 web/admin/overview_user.php:56
+#: web/admin/overview_federation.php:97 web/admin/overview_user.php:56
 msgid "Property Type"
 msgstr "Тип на свойство"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:207
+#: web/admin/edit_federation.php:69 web/admin/edit_hotspot.php:206
 #: web/admin/edit_participant.php:89 web/admin/edit_user.php:46
-#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:94
+#: web/admin/overview_federation.php:56 web/admin/overview_federation.php:98
 #: web/admin/overview_user.php:57
 msgid "Language if applicable"
 msgstr "Език, ако е приложим"
 
-#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:208
+#: web/admin/edit_federation.php:70 web/admin/edit_hotspot.php:207
 #: web/admin/edit_participant.php:90 web/admin/edit_silverbullet.php:345
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:57
-#: web/admin/overview_federation.php:95 web/admin/overview_user.php:58
+#: web/admin/overview_federation.php:99 web/admin/overview_user.php:58
 msgid "Property Value"
 msgstr "Стойност на свойство"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:249
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Държава:"
 
-#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:241
+#: web/admin/edit_federation.php:90 web/admin/edit_hotspot.php:240
 #: web/admin/edit_participant.php:127 web/admin/edit_participant.php:181
 #: web/admin/edit_participant.php:207 web/admin/edit_profile.php:180
 #: web/admin/edit_profile.php:463 web/admin/edit_user.php:63
@@ -226,13 +258,13 @@ msgstr "Държава:"
 msgid "Add new option"
 msgstr "Добавете нова опция"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Запазете данните"
 
-#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:245
+#: web/admin/edit_federation.php:93 web/admin/edit_hotspot.php:244
 #: web/admin/edit_participant.php:212 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
@@ -283,30 +315,30 @@ msgstr "Продължете "
 msgid "Abort"
 msgstr "Отказ"
 
-#: web/admin/edit_hotspot.php:171
+#: web/admin/edit_hotspot.php:170
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
 msgstr "%s: Съветник за вписване (Стъпка 3)"
 
-#: web/admin/edit_hotspot.php:184
+#: web/admin/edit_hotspot.php:183
 #, php-format
 msgid "Editing %s deployment"
 msgstr "Редактиране на %s разгръщане"
 
-#: web/admin/edit_hotspot.php:198
+#: web/admin/edit_hotspot.php:197
 msgid "Options for this deployment"
 msgstr "Опции за това разгръщане"
 
-#: web/admin/edit_hotspot.php:214
+#: web/admin/edit_hotspot.php:213
 msgid "Custom Operator-Name:"
 msgstr "Персонализиран Operator-Name:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 #, php-format
 msgid "VLAN tag for own users%s:"
 msgstr "VLAN таг за собствените потребители на %s:"
 
-#: web/admin/edit_hotspot.php:225
+#: web/admin/edit_hotspot.php:224
 msgid "(unset with '0')"
 msgstr "(не е настроено с '0')"
 
@@ -378,7 +410,7 @@ msgstr ""
 "като резервен, ако системата няма име на езика, който потребителя иска да "
 "изтегли."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:263
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Свойства на средата"
 
@@ -491,8 +523,8 @@ msgid ""
 msgstr ""
 "Ако използвате портал за разпространяване на конфигурации, може би ще искате "
 "да изключите това SSID след конфигурационния процес. С тази опция SSID-то "
-"или ще бъде премахнатo, или ще бъде конфигурирано за \"Само ръчно свързване"
-"\"."
+"или ще бъде премахнатo, или ще бъде конфигурирано за \"Само ръчно "
+"свързване\"."
 
 #: web/admin/edit_participant.php:187
 msgid "Helpdesk Details for all users"
@@ -1008,12 +1040,12 @@ msgid ""
 msgstr ""
 "Без анонимна идентичност действителното име ще бъде използвано като външна "
 "идентичност и ще бъде база за маршрутизиране на заявката. За да работи това, "
-"потребителкото име трябва да съдържа коректно в суфикса си областта. Все още "
-"проверката на суфикса за областта е изключена. Заявителите няма да "
-"проверяват дали потребителските имена съдържат областта и грешки като "
+"потребителкото име трябва да съдържа коректно име на домейн. Все още "
+"проверката на името на домейна е изключена. Заявителите няма да проверяват "
+"дали потребителските имена съдържат името на домейна и грешки като "
 "потребителско име 'johndoe', което няма да работи в роуминг, няма да бъдат "
-"забранени. Вземете предвид да поставите отметка в квадратчето 'Приложи "
-"областта в суфикса на потребителското име'!"
+"забранени. Вземете предвид да поставите отметка в квадратчето 'Приложи името "
+"на домейна в потребителското име'!"
 
 #: web/admin/edit_profile_result.php:147
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -1309,7 +1341,7 @@ msgid "Manage %s users"
 msgstr "Управление на %s потребители"
 
 #: web/admin/edit_silverbullet.php:394 web/admin/edit_silverbullet.php:401
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:166
+#: web/admin/overview_federation.php:149 web/admin/inc/manageAdmins.inc.php:166
 msgid "User"
 msgstr "Потребител"
 
@@ -1533,11 +1565,11 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:675
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
-"date 'yyyy-mm-dd', number of tokens (optional):"
+"date in the form yyyy-mm-dd, number of tokens (optional):"
 msgstr ""
 "Стойностите, разделени със запетая, трябва да бъдат предоставени в CSV файл: "
-"потребителско име, дата на изтичане 'yyyy-mm-dd', брой временни ключове (по "
-"избор):"
+"потребителско име, дата на изтичане във формат yyyy-mm-dd, брой временни "
+"ключове (по избор):"
 
 #: web/admin/edit_silverbullet.php:679
 msgid "Import users"
@@ -1602,9 +1634,18 @@ msgstr ""
 msgid "Certificate Information for %s %s"
 msgstr "Информация за сертификата за %s %s"
 
-#: web/admin/overview_certificates.php:92
+#: web/admin/overview_certificates.php:105
 msgid "Request new Certificate"
 msgstr "Заявете нов сертификат"
+
+#: web/admin/overview_certificates.php:110
+#, php-format
+msgid ""
+"You can not request certificates because there is no server information for "
+"%s in the eduroam DB."
+msgstr ""
+"Не може да заявите сертификат, защото няма информация за сървъра за %s в "
+"базата данни на eduroam."
 
 #: web/admin/overview_federation.php:28
 #, php-format
@@ -1629,92 +1670,97 @@ msgstr "Уникален идентификатор"
 msgid "click to display"
 msgstr "кликнете, за да видите"
 
-#: web/admin/overview_federation.php:77
+#: web/admin/overview_federation.php:74
+#, php-format
+msgid "RADIUS/TLS Certificate management"
+msgstr "RADIUS/TLS управление на сертификат"
+
+#: web/admin/overview_federation.php:81
 #, php-format
 msgid "You are not a %s manager."
 msgstr "Вие не сте %s ръководител."
 
-#: web/admin/overview_federation.php:88
+#: web/admin/overview_federation.php:92
 #, php-format
 msgid "%s Properties: %s"
 msgstr "%s Свойства: %s"
 
-#: web/admin/overview_federation.php:100 web/admin/inc/manageNewInst.inc.php:73
+#: web/admin/overview_federation.php:104 web/admin/inc/manageNewInst.inc.php:73
 msgid "Country"
 msgstr "Държава"
 
-#: web/admin/overview_federation.php:124
+#: web/admin/overview_federation.php:128
 #, php-format
 msgid "%s Statistics: %s"
 msgstr "%s Статистики: %s"
 
-#: web/admin/overview_federation.php:129
+#: web/admin/overview_federation.php:133
 msgid "IdPs Total"
 msgstr "Пълни IdPs"
 
-#: web/admin/overview_federation.php:130
+#: web/admin/overview_federation.php:134
 msgid "Public Download"
 msgstr "Общодостъпно за изтегляне"
 
-#: web/admin/overview_federation.php:142
+#: web/admin/overview_federation.php:146
 msgid "Downloads"
 msgstr "Изтеглени"
 
-#: web/admin/overview_federation.php:143
+#: web/admin/overview_federation.php:147
 msgid "Admin"
 msgstr "Администратор"
 
-#: web/admin/overview_federation.php:170 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:174 web/admin/inc/manageAdmins.inc.php:109
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Беше изпратено защитено (с криптиране)."
 msgstr[1] "Бяха изпратени защитено (с криптиране)."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:177 web/admin/inc/manageAdmins.inc.php:112
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Беше изпратено в чист текст (без криптиране)."
 msgstr[1] "Бяха изпратени в чист текст (без криптиране)."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:180 web/admin/inc/manageAdmins.inc.php:115
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
 "Част от мейлите бяха изпратени криптирано, а останалите - в чист текст."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Е-мейлът с покана беше изпратен успешно."
 msgstr[1] "Всички е-мейли-покана бяха изпратени успешно."
 
-#: web/admin/overview_federation.php:181 web/admin/inc/manageAdmins.inc.php:120
+#: web/admin/overview_federation.php:185 web/admin/inc/manageAdmins.inc.php:120
 msgid "Sent successfully."
 msgstr "Изпращането е успешно."
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "No invitation email could be sent!"
 msgstr "Никакъв е-мейл-покана не може да бъде изпратен!"
 
-#: web/admin/overview_federation.php:184 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:188 web/admin/inc/manageAdmins.inc.php:123
 msgid "Sending failure!"
 msgstr "Изпращането е неуспешно!"
 
-#: web/admin/overview_federation.php:190 web/admin/inc/manageAdmins.inc.php:129
+#: web/admin/overview_federation.php:194 web/admin/inc/manageAdmins.inc.php:129
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] "Успешният беше изпратен защитено (с криптиране)."
 msgstr[1] "Успешните бяха изпратени защитено (с криптиране)."
 
-#: web/admin/overview_federation.php:193 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:197 web/admin/inc/manageAdmins.inc.php:132
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "Успешният беше изпратен в чист текст (без криптиране)."
 msgstr[1] "Успешните бяха изпратени в чист текст (без криптиране). "
 
-#: web/admin/overview_federation.php:196 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:200 web/admin/inc/manageAdmins.inc.php:135
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1722,7 +1768,7 @@ msgstr ""
 "Част от успешно изпратените мейли бяха криптирани, а останалите - в чист "
 "текст. "
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1730,98 +1776,98 @@ msgid ""
 msgstr ""
 "Някои е-мейли-покана бяха изпратени успешно (%s изцяло), а останалите - не."
 
-#: web/admin/overview_federation.php:201 web/admin/inc/manageAdmins.inc.php:140
+#: web/admin/overview_federation.php:205 web/admin/inc/manageAdmins.inc.php:140
 msgid "Partial success."
 msgstr "Частичен успех."
 
-#: web/admin/overview_federation.php:204 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:208 web/admin/inc/manageAdmins.inc.php:143
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "Адресът на поканващият мейл беше грешен, не беше изпратена покана!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Грешка: неизвестен код на резултат за покана!?!"
 
-#: web/admin/overview_federation.php:207 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:146
 msgid "Unknown result!"
 msgstr "Неизвестен резултат!"
 
-#: web/admin/overview_federation.php:221
+#: web/admin/overview_federation.php:225
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Диагностицирайте достъпността и параметрите на връзката на всеки %s %s"
 
-#: web/admin/overview_federation.php:224 web/admin/overview_sp.php:109
+#: web/admin/overview_federation.php:228 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
 msgstr "Действайте!"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:235
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr "Имате нужда от помощ? Обърнете се към <a href='%s'>%sръководство</a>"
 
-#: web/admin/overview_federation.php:237
+#: web/admin/overview_federation.php:241
 msgid "Participant Details"
 msgstr "Детайли на участник"
 
-#: web/admin/overview_federation.php:239
+#: web/admin/overview_federation.php:243
 msgid "Configured / Visible / OpenRoaming"
 msgstr "Конфигуриран / Видим / OpenRoaming"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:131
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:100
-#: web/lib/admin/UIElements.php:132
+#: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "%s Име"
 
-#: web/admin/overview_federation.php:246
+#: web/admin/overview_federation.php:250
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "%s Състояние на синхронизацията на БД"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:256
 msgid "Administrator Management"
 msgstr "Управление на администраторите"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:261
+#: web/admin/overview_federation.php:265
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Следните %s са във Вашата %s %s:"
 
-#: web/admin/overview_federation.php:330
+#: web/admin/overview_federation.php:334
 msgid "Manage DB Link"
 msgstr "Управлявайте линк на БД"
 
-#: web/admin/overview_federation.php:336
+#: web/admin/overview_federation.php:340
 msgid "Linked"
 msgstr "Свързан"
 
-#: web/admin/overview_federation.php:339
+#: web/admin/overview_federation.php:343
 msgid "NOT linked"
 msgstr "Не е свързан"
 
-#: web/admin/overview_federation.php:354 web/admin/overview_user.php:199
+#: web/admin/overview_federation.php:358 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
 msgstr "Добавяне/Премахване на Администратори"
 
-#: web/admin/overview_federation.php:367
+#: web/admin/overview_federation.php:371
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Чакащи покани в %s:"
 
-#: web/admin/overview_federation.php:384
+#: web/admin/overview_federation.php:388
 msgid "Revoke Invitation"
 msgstr "Анулирайте покана"
 
-#: web/admin/overview_federation.php:385 web/admin/inc/manageAdmins.inc.php:217
+#: web/admin/overview_federation.php:389 web/admin/inc/manageAdmins.inc.php:217
 #, php-format
 msgid "(expires %s)"
 msgstr "(изтича %s)"
 
-#: web/admin/overview_federation.php:404
+#: web/admin/overview_federation.php:408
 #, php-format
 msgid "Register a new %s!"
 msgstr "Регистрирайте нова %s!"
@@ -1833,7 +1879,7 @@ msgstr "Матрица на съвместимост на устройство"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatibility matrix for %s of %s "
-msgstr "Матрица на съвместимост на устройство за %s от %s "
+msgstr "Матрица на съвместимост на устройство за %s от %s"
 
 #: web/admin/overview_installers.php:53
 msgid "Device"
@@ -1924,7 +1970,7 @@ msgstr "Профил: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP типове</strong> (по реда на предпочитанията):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:418
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "ОК"
 
@@ -2040,7 +2086,7 @@ msgid "VLAN tag for own users"
 msgstr "VLAN таг за собствените потребители"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:144
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "Областта да се счита собствените потребители"
 
@@ -2412,7 +2458,7 @@ msgstr ""
 "Вие сте %s администратор. Може да каните нови администратори, които на свой "
 "ред да назначават следващи администратори. "
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:123
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "%s администратор"
@@ -2698,19 +2744,19 @@ msgstr "Изпратете покана."
 #. * License: see the web/copyright.inc.php file in the file structure or
 #. *          <base_url>/copyright.php after deploying the software
 #.
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:109
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:113
 msgid "No email address provided"
 msgstr "Не е указан email адрес."
 
-#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:120
+#: web/admin/inc/overview_js.php:65 web/admin/inc/overview_js.php:124
 msgid "Invitation sent to:"
 msgstr "Поканата е изпратена на:"
 
-#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:122
+#: web/admin/inc/overview_js.php:67 web/admin/inc/overview_js.php:126
 msgid "The invitation email could not be sent!"
 msgstr "Е-мейлът-покана не можа да бъде изпратен!"
 
-#: web/admin/inc/overview_js.php:94
+#: web/admin/inc/overview_js.php:98
 msgid "Mail address to invite:"
 msgstr "Мейл адрес за покана:"
 
@@ -2789,7 +2835,7 @@ msgstr "Удостоверение"
 msgid "Operator Domain"
 msgstr "Оператор на Domain"
 
-#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:102
+#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:99
 msgid "Location"
 msgstr "Местоположение"
 
@@ -2890,7 +2936,7 @@ msgstr "Винаги"
 msgid "Always; T&C Pre-Agreed"
 msgstr "Винаги; T&C предварително съгласуван"
 
-#: web/lib/admin/OptionDisplay.php:251
+#: web/lib/admin/OptionDisplay.php:249
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2919,7 +2965,7 @@ msgstr ""
 "друго място, което има SSID със същото име. Те биха могли да бъдат подведени "
 "да вярват, че се свързват с отлично защитена мрежа, докато всъщност не са."
 
-#: web/lib/admin/OptionDisplay.php:253
+#: web/lib/admin/OptionDisplay.php:251
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2928,13 +2974,13 @@ msgid ""
 "discussion at %s before specifying a proxy with this option. This feature is "
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
-"Формата на тази опция е: IPv4|IPv6|hostname:port .  Принудителната проверка "
+"Форматът на тази опция е: IPv4|IPv6|hostname:port . Принудителната проверка "
 "на потребителя чрез Ваш собствен филтър е значителна намеса в свободата на "
 "потребителя. Моля внимателно прочетете дискусията на %s, преди да "
-"специфицирате прокси с тази опция.  Понастоящем тази функция е "
+"специфицирате прокси с тази опция. Понастоящем тази функция е "
 "експериментална и важи само за инсталаторите за Apple."
 
-#: web/lib/admin/OptionDisplay.php:254
+#: web/lib/admin/OptionDisplay.php:252
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
@@ -2943,12 +2989,12 @@ msgstr ""
 "Ако използвате и %s, Вашата собствена област автоматично е тагната с VLAN, "
 "който сте избрали, и не е необходимо да го добавяте ръчно тук."
 
-#: web/lib/admin/OptionDisplay.php:255
+#: web/lib/admin/OptionDisplay.php:253
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr "Включвайки се към OpenRoaming Вие се съгласявате с %s."
 
-#: web/lib/admin/OptionDisplay.php:257
+#: web/lib/admin/OptionDisplay.php:255
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -2962,7 +3008,7 @@ msgstr ""
 "други средства за предоставяне на нуждите на инсталаторите трябва да "
 "предоставят тази информация чрез свой собствен канал."
 
-#: web/lib/admin/OptionDisplay.php:259
+#: web/lib/admin/OptionDisplay.php:257
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
@@ -2970,31 +3016,31 @@ msgstr ""
 "Също така сте наясно, че за най-добра техничска оперативност, трябва да "
 "добавите DNS запис в DNS зоната на Вашата RADIUS област."
 
-#: web/lib/admin/OptionDisplay.php:261
+#: web/lib/admin/OptionDisplay.php:259
 msgid "Read the instructions in the wiki."
 msgstr "Прочетете инструкциите в wiki."
 
-#: web/lib/admin/OptionDisplay.php:366
+#: web/lib/admin/OptionDisplay.php:364
 msgid "select language"
 msgstr "изберете език"
 
-#: web/lib/admin/OptionDisplay.php:367 web/lib/admin/UIElements.php:179
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "по подразбиране/други езици"
 
-#: web/lib/admin/OptionDisplay.php:442
+#: web/lib/admin/OptionDisplay.php:440
 msgid "(default/other languages)"
 msgstr "(по подразбиране/други езици)"
 
-#: web/lib/admin/OptionDisplay.php:477
+#: web/lib/admin/OptionDisplay.php:475
 msgid "file content"
 msgstr "съдържание на файла"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "включване"
 
-#: web/lib/admin/OptionDisplay.php:493 web/lib/admin/UIElements.php:213
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "изключване"
 
@@ -3017,64 +3063,64 @@ msgstr ""
 "можем единствено да визуализираме тези стрингове на инсталацията, които "
 "са<strong>точно определени</strong> в конфигурирания език."
 
-#: web/lib/admin/PageDecoration.php:69
+#: web/lib/admin/PageDecoration.php:76
 msgid "You are:"
 msgstr "Вие сте:"
 
-#: web/lib/admin/PageDecoration.php:72
+#: web/lib/admin/PageDecoration.php:79
 msgid "Go to your Profile page"
 msgstr "Вървете на страницата с Вашия профил"
 
-#: web/lib/admin/PageDecoration.php:73
+#: web/lib/admin/PageDecoration.php:80
 msgid "Logout"
 msgstr "Излизане"
 
-#: web/lib/admin/PageDecoration.php:75
+#: web/lib/admin/PageDecoration.php:82
 msgid "Start page"
 msgstr "Начална страница"
 
-#: web/lib/admin/PageDecoration.php:99
+#: web/lib/admin/PageDecoration.php:106
 msgid "View this page in"
 msgstr "Вижте тази страница на"
 
-#: web/lib/admin/PageDecoration.php:161 web/lib/admin/PageDecoration.php:164
-#: web/lib/admin/PageDecoration.php:167
+#: web/lib/admin/PageDecoration.php:168 web/lib/admin/PageDecoration.php:171
+#: web/lib/admin/PageDecoration.php:174
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Администраторски интерфейс - %s"
 
-#: web/lib/admin/PageDecoration.php:170
+#: web/lib/admin/PageDecoration.php:177
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Администраторски интерфейс - %s Управление на потребители"
 
-#: web/lib/admin/PageDecoration.php:173
+#: web/lib/admin/PageDecoration.php:180
 msgid "Administrator Interface"
 msgstr "Администраторски интерфейс "
 
-#: web/lib/admin/PageDecoration.php:176
+#: web/lib/admin/PageDecoration.php:183
 msgid "Management of User Details"
 msgstr "Управление на потребителските детайли"
 
-#: web/lib/admin/PageDecoration.php:179
+#: web/lib/admin/PageDecoration.php:186
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Администраторски интерфейс - %s Управление"
 
-#: web/lib/admin/PageDecoration.php:182
+#: web/lib/admin/PageDecoration.php:189
 #, php-format
 msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
-#: web/lib/admin/PageDecoration.php:187
+#: web/lib/admin/PageDecoration.php:194
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:190
+#: web/lib/admin/PageDecoration.php:197
 msgid "Diagnostics"
 msgstr "Диагностика"
 
-#: web/lib/admin/PageDecoration.php:274
+#: web/lib/admin/PageDecoration.php:285
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Поверително"
@@ -3088,250 +3134,246 @@ msgid "HS20 Consortium OI"
 msgstr "HS20 консорциум OI"
 
 #: web/lib/admin/UIElements.php:90
-msgid "Additional SSID"
-msgstr "Допълнителен SSID"
-
-#: web/lib/admin/UIElements.php:93
 msgid "Additional HS20 Consortium OI"
 msgstr "Допълнителен HS20 консорциум OI"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:93
 msgid "Support: Web"
 msgstr "Поддръжка: веб"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:94
 msgid "Support: EAP Types"
 msgstr "Поддръжка: EAP типове"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:95
 msgid "Support: Phone"
 msgstr "Поддръжка: телефон"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:96
 msgid "Support: E-Mail"
 msgstr "Поддръжка: е-мейл"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:98
 #, php-format
 msgid "%s Acronym"
 msgstr "%s Акроним"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:100
 msgid "Logo URL"
 msgstr "URL на лого"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:101
 msgid "Logo image"
 msgstr "Лого"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:102
 msgid "Configure Wired Ethernet"
 msgstr "Конфигурирай кабелен етернет"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:103
 msgid "Name (CN) of Authentication Server"
 msgstr "Име (CN) на сървър за аутентикация"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:104
 msgid "Enable device assessment"
 msgstr "Разреши оценка на устройство"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:105
 msgid "Terms of Use"
 msgstr "Условия за ползване"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:106
 msgid "CA Certificate URL"
 msgstr "CA Certificate URL"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:107
 msgid "CA Certificate File"
 msgstr "Файл с CA сертификат"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:108
 msgid "Profile Display Name"
 msgstr "Име на профил"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:109
 msgid "Production-Ready"
 msgstr "Продукт-Готов"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:110
 msgid "Admin Accepted IdP Terms of Use"
 msgstr "Администратор е приел Условията за ползване на IdP"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:111
 msgid "Admin Accepted SP Terms of Use"
 msgstr "Администратор е приел Условията за ползване на SP"
 
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:112
 msgid "Extra text on downloadpage for device"
 msgstr "Специален текст за устройство на страницата за изтегляне."
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:113
 msgid "Redirection Target"
 msgstr "Цел на пренасочване"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:114
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Специален текст за EAP метод на страницата за изтегляне."
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:115
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Включете избор на EAP-TLS потребител-име"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:116
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Използвайте GEANTlink за TTLS (Windows 8 и 10)"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:117
 msgid "Profile Description"
 msgstr "Описание на профил"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Персонализирано име на суфикса на инсталатора"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Действително име"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "Е-мейл адрес"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Премахни/Забрани SSID"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Задължително прокси, филтриращо съдържанието "
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Персонализиран CSS файл за потребителската област"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "%s лого"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Предпочитан слой за потребителската област"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Включва %s брандирането в инсталаторите"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Начална страница"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Персонализиран текст в поканите на %s"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "Разрешете %s"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Не прекратявайте EAP"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: максимум потребители на профил"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Много %s с Доставчик на Удостоверителни Услуги при създаване"
 
-#: web/lib/admin/UIElements.php:139
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Позволете на %s да се включи в"
 
-#: web/lib/admin/UIElements.php:140
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: Персонализиран NAPTR Target"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN за собствените потребители"
 
-#: web/lib/admin/UIElements.php:145
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Атрибут на персонализиран Operator-Name"
 
-#: web/lib/admin/UIElements.php:245
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Основни %s детайли"
 
-#: web/lib/admin/UIElements.php:263
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Общи детейли на Helpdesk "
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:342
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Имаше грешка, докато сертификатът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:351
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Имаше грешка при обработването на сертификата!"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "Главен CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "Междинен CA"
 
-#: web/lib/admin/UIElements.php:361
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Има<strong>СЪРВЪРЕН</strong> сертификат!"
 
-#: web/lib/admin/UIElements.php:378
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Предварителен преглед на лого файла."
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:395
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Имаше грешка, докато файлът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Файлът съществува"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Предварителен преглед"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Забележка"
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Предупреждение!"
 
-#: web/lib/admin/UIElements.php:421
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Грешка!"

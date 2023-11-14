@@ -113,7 +113,7 @@ class DeviceTestModule extends \core\DeviceConfig {
         if (!$this->copyFile('test_file', 'copied_test_file')) {
             $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
         }
-        $this->dumpAttibutes('profile_attributes');
+        $this->dumpAttributes('profile_attributes');
         return $this->zipInstaller();
     }
 

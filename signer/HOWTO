@@ -55,7 +55,7 @@ openssl crl2pkcs7 -nocrl -certfile xxx_cert.pem -certfile CA1.pem -certfile CA2.
 cat CA1.pem CA2.pem CA3.pem > CAs.pem
 
 5. Copy xxx_cert.spc xxx_key.der xxx_cert.pem xxx_key.pem CAs.pem to the appropriate directory
-Beware that this directory must be protected against the WEB download, otherwise you keys may be compromised. 
+Beware that this directory must be protected against the WEB download, otherwise your keys may be compromised. 
 The directory must be accessible by the Apache proceess
 
 

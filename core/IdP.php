@@ -78,7 +78,7 @@ class IdP extends EntityWithDBProperties
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
      *
-     * @param int $instId the database row identifier
+     * @param int $instId the database row_id identifier
      * @throws Exception
      */
     public function __construct(int $instId)
@@ -100,7 +100,7 @@ class IdP extends EntityWithDBProperties
         $this->externalDbSyncstate = $instQuery->external_db_syncstate;
 
         // fetch attributes from DB; populates $this->attributes array
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?  
                                             ORDER BY option_name", "IdP");
@@ -109,7 +109,7 @@ class IdP extends EntityWithDBProperties
             "lang" => NULL,
             "value" => $this->federation,
             "level" => Options::LEVEL_IDP,
-            "row" => 0,
+            "row_id" => 0,
             "flag" => NULL];
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
@@ -439,7 +439,7 @@ Best regards,
                 }
                 $list[] = $oneCandidate;
             }
-            // now see if any of the languages in CAT match the best one we have gotten from DB
+            // now see if any of the languages in CAT match the best one we have got from DB
             $mynames = $this->getAttributes("general:instname");
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {

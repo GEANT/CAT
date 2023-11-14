@@ -3,17 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Raiya Al Rashdi <raiya@omren.om>, 2020,2022
+# Mohamed Al Hajri, 2023
+# Raiya Al Rashdi <raiya@omren.om>, 2020,2022-2023
 # eduroam_devel <stefan.winter@restena.lu>, 2018
+# Warda Al Habsi <mozartt33@gmail.com>, 2022
 # Warda Al Habsi <mozartt33@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020,2022\n"
-"Language-Team: Arabic (http://www.transifex.com/eduroam_devel/cat/language/"
+"Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020,2022-2023\n"
+"Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
 "ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -22,291 +24,281 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: core/CAT.php:108
-#, php-format
-msgid "Unreleased %s Git Revision"
-msgstr "لم يحرر %s سيتم مراجعتها"
-
-#: core/CAT.php:122
-#, php-format
-msgid "Release <a href='%s'>%s</a>"
-msgstr "يحرر <a href='%s'>%s</a>"
-
-#: core/CAT.php:136
+#: core/CAT.php:143
 msgid "Andorra"
 msgstr "أندورا"
 
-#: core/CAT.php:137
+#: core/CAT.php:144
 msgid "Austria"
 msgstr "النمسا"
 
-#: core/CAT.php:138
+#: core/CAT.php:145
 msgid "Belgium"
 msgstr "بلجيكا"
 
-#: core/CAT.php:139
+#: core/CAT.php:146
 msgid "Bulgaria"
 msgstr "بلغاريا"
 
-#: core/CAT.php:140
+#: core/CAT.php:147
 msgid "Cyprus"
 msgstr "قبرص"
 
-#: core/CAT.php:141
+#: core/CAT.php:148
 msgid "Czech Republic"
 msgstr "جمهورية التشيك"
 
-#: core/CAT.php:142
+#: core/CAT.php:149
 msgid "Denmark"
 msgstr "الدنمارك"
 
-#: core/CAT.php:143
+#: core/CAT.php:150
 msgid "Estonia"
 msgstr "استونيا"
 
-#: core/CAT.php:144
+#: core/CAT.php:151
 msgid "Finland"
 msgstr "فنلندا"
 
-#: core/CAT.php:145
+#: core/CAT.php:152
 msgid "France"
 msgstr "فرنسا"
 
-#: core/CAT.php:146
+#: core/CAT.php:153
 msgid "Germany"
 msgstr "ألمانيا"
 
-#: core/CAT.php:147
+#: core/CAT.php:154
 msgid "Greece"
 msgstr "اليونان"
 
-#: core/CAT.php:148
+#: core/CAT.php:155
 msgid "Croatia"
 msgstr "كرواتيا"
 
-#: core/CAT.php:149
+#: core/CAT.php:156
 msgid "Ireland"
 msgstr "أيرلندا"
 
-#: core/CAT.php:150
+#: core/CAT.php:157
 msgid "Iceland"
 msgstr "أيسلندا"
 
-#: core/CAT.php:151
+#: core/CAT.php:158
 msgid "Italy"
 msgstr "إيطاليا"
 
-#: core/CAT.php:152
+#: core/CAT.php:159
 msgid "Hungary"
 msgstr "هنغاريا"
 
-#: core/CAT.php:153
+#: core/CAT.php:160
 msgid "Luxembourg"
 msgstr "لوكسمبورغ"
 
-#: core/CAT.php:154
+#: core/CAT.php:161
 msgid "Latvia"
 msgstr "لاتفيا"
 
-#: core/CAT.php:155
+#: core/CAT.php:162
 msgid "Lithuania"
 msgstr "ليتوانيا"
 
-#: core/CAT.php:156
+#: core/CAT.php:163
 msgid "Macedonia"
 msgstr "مقدونيا"
 
-#: core/CAT.php:157
+#: core/CAT.php:164
 msgid "Serbia"
 msgstr "صربيا"
 
-#: core/CAT.php:158
+#: core/CAT.php:165
 msgid "Netherlands"
 msgstr "هولندا"
 
-#: core/CAT.php:159
+#: core/CAT.php:166
 msgid "Norway"
 msgstr "النرويج"
 
-#: core/CAT.php:160
+#: core/CAT.php:167
 msgid "Poland"
 msgstr "بولندا"
 
-#: core/CAT.php:161
+#: core/CAT.php:168
 msgid "Portugal"
 msgstr "البرتغال"
 
-#: core/CAT.php:162
+#: core/CAT.php:169
 msgid "Romania"
 msgstr "رومانيا"
 
-#: core/CAT.php:163
+#: core/CAT.php:170
 msgid "Slovenia"
 msgstr "سلوفينيا"
 
-#: core/CAT.php:164
+#: core/CAT.php:171
 msgid "Spain"
 msgstr "إسبانيا"
 
-#: core/CAT.php:165
+#: core/CAT.php:172
 msgid "Sweden"
 msgstr "السويد"
 
-#: core/CAT.php:166
+#: core/CAT.php:173
 msgid "Slovakia"
 msgstr "سلوفاكيا"
 
-#: core/CAT.php:167
+#: core/CAT.php:174
 msgid "Switzerland"
 msgstr "سويسرا"
 
-#: core/CAT.php:168
+#: core/CAT.php:175
 msgid "Turkey"
 msgstr "تركيا"
 
-#: core/CAT.php:169
+#: core/CAT.php:176
 msgid "United Kingdom"
 msgstr "المملكة المتحدة"
 
-#: core/CAT.php:171
+#: core/CAT.php:178
 msgid "Australia"
 msgstr "أستراليا"
 
-#: core/CAT.php:172
+#: core/CAT.php:179
 msgid "Canada"
 msgstr "كندا"
 
-#: core/CAT.php:173
+#: core/CAT.php:180
 msgid "Israel"
 msgstr "إسرائيل"
 
-#: core/CAT.php:174
+#: core/CAT.php:181
 msgid "Japan"
 msgstr "اليابان"
 
-#: core/CAT.php:175
+#: core/CAT.php:182
 msgid "New Zealand"
 msgstr "نيوزيلاندا"
 
-#: core/CAT.php:176
+#: core/CAT.php:183
 msgid "U.S.A."
 msgstr "الولايات المتحدة الأمريكية"
 
-#: core/CAT.php:177
+#: core/CAT.php:184
 msgid "Brazil"
 msgstr "البرازيل"
 
-#: core/CAT.php:178
+#: core/CAT.php:185
 msgid "Chile"
 msgstr "تشيلي"
 
-#: core/CAT.php:179
+#: core/CAT.php:186
 msgid "Peru"
 msgstr "بيرو"
 
-#: core/CAT.php:180
+#: core/CAT.php:187
 msgid "Venezuela"
 msgstr "فنزويلا"
 
-#: core/CAT.php:181
+#: core/CAT.php:188
 msgid "Default"
 msgstr "إفتراضي"
 
-#: core/CAT.php:182
+#: core/CAT.php:189
 msgid "Armenia"
 msgstr "أرمينيا"
 
-#: core/CAT.php:183
+#: core/CAT.php:190
 msgid "Azerbaijan"
 msgstr "أذربيجان"
 
-#: core/CAT.php:184
+#: core/CAT.php:191
 msgid "Belarus"
 msgstr "روسيا البيضاء"
 
-#: core/CAT.php:185
+#: core/CAT.php:192
 msgid "Ecuador"
 msgstr "الإكوادور"
 
-#: core/CAT.php:186
+#: core/CAT.php:193
 msgid "Hong Kong"
 msgstr "هونج كونج"
 
-#: core/CAT.php:187
+#: core/CAT.php:194
 msgid "Kenya"
 msgstr "كينيا"
 
-#: core/CAT.php:188
+#: core/CAT.php:195
 msgid "Kyrgyzstan"
 msgstr "قرغيزستان"
 
-#: core/CAT.php:189
+#: core/CAT.php:196
 msgid "Korea"
 msgstr "كوريا"
 
-#: core/CAT.php:190
+#: core/CAT.php:197
 msgid "Kazakhstan"
 msgstr "كازاخستان"
 
-#: core/CAT.php:191
+#: core/CAT.php:198
 msgid "Morocco"
 msgstr "المغرب"
 
-#: core/CAT.php:192
+#: core/CAT.php:199
 msgid "Moldova"
 msgstr "مولدوفا"
 
-#: core/CAT.php:193
+#: core/CAT.php:200
 msgid "Montenegro"
 msgstr "الجبل الأسود"
 
-#: core/CAT.php:194
+#: core/CAT.php:201
 msgid "Macau"
 msgstr "ماكاو"
 
-#: core/CAT.php:195
+#: core/CAT.php:202
 msgid "Malta"
 msgstr "مالطا"
 
-#: core/CAT.php:196
+#: core/CAT.php:203
 msgid "Russia"
 msgstr "روسيا"
 
-#: core/CAT.php:197
+#: core/CAT.php:204
 msgid "Singapore"
 msgstr "سنغافورة"
 
-#: core/CAT.php:198
+#: core/CAT.php:205
 msgid "Thailand"
 msgstr "تايلاند"
 
-#: core/CAT.php:199
+#: core/CAT.php:206
 msgid "Taiwan"
 msgstr "تايوان"
 
-#: core/CAT.php:200
+#: core/CAT.php:207
 msgid "South Africa"
 msgstr "جنوب أفريقيا"
 
-#: core/CAT.php:477 core/IdPlist.php:79
+#: core/CAT.php:484 core/IdPlist.php:79
 msgid "Unnamed Entity"
-msgstr "حقل غير معرف"
+msgstr "Entity غير معرف"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile deactivation succeeded"
-msgstr "تم إلغاء تفعيل الملف الشخصي بنجاح"
+msgstr "تم إلغاء تفعيل ملف التعريف بنجاح"
 
 #: core/DeploymentManaged.php:506
 msgid "Profile activation/modification succeeded"
-msgstr "تم تفعيل / تعديل الملف الشخصي بنجاح"
+msgstr "تم تفعيل / تعديل ملف التعريف بنجاح"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile deactivation failed"
-msgstr "فشل إلغاء تفعيل الملف الشخصي"
+msgstr "فشل إلغاء تفعيل ملف التعريف"
 
 #: core/DeploymentManaged.php:508
 msgid "Profile activation/modification failed"
-msgstr "فشل تفعيل / تعديل الملف الشخصي"
+msgstr "فشل تفعيل / تعديل ملف التعريف"
 
 #: core/DeploymentManaged.php:512
 msgid "on both RADIUS servers: primary and backup"
@@ -349,7 +341,7 @@ msgid "(discontinued) %s"
 msgstr "(منتهي) %s"
 
 #. / IdP and SP
-#: core/Federation.php:265 core/common/OutsideComm.php:281
+#: core/Federation.php:274 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
 msgstr "%s و %s"
@@ -361,7 +353,7 @@ msgstr "%s و %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:282
+#: core/Federation.php:291
 #, php-format
 msgid ""
 "Hi,\n"
@@ -386,7 +378,7 @@ msgstr ""
 "%s"
 
 #. / organisation
-#: core/Federation.php:299
+#: core/Federation.php:308
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s  تم انشائه في نظام الدخول الموحد الخاص بمؤسستك"
@@ -544,11 +536,11 @@ msgstr "مشترك"
 
 #: core/common/Entity.php:128
 msgid "Organisation"
-msgstr "المؤسسة"
+msgstr "مؤسسة"
 
 #: core/common/Entity.php:129
 msgid "organization"
-msgstr "منظمة"
+msgstr "مؤسسة"
 
 #: core/common/Entity.php:130
 msgid "entity"
@@ -614,7 +606,7 @@ msgstr ""
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr "للإنضمام كمدير  ل%s ، يرجى النقر على الرابط التالي:"
+msgstr "للإنضمام كمدير  لـ %s ، يرجى النقر على الرابط التالي:"
 
 #: core/common/OutsideComm.php:330
 #, php-format

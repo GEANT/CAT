@@ -58,7 +58,7 @@ if (!isset($_REQUEST['profile_id'])) {
     // okay, new SB profiles are allowed. 
     // but is there a support:email attribute on inst level?
     if (count($inst->getAttributes("support:email")) == 0) {
-        // user shouldn't have gotten that far; tricked his way in. No need to be verbose.
+        // user shouldn't have got that far; tricked his way in. No need to be verbose.
         throw new Exception("Attempt to create a new SB profile, but the inst does not have a support:email attribute!");
     }
     // Create one.
@@ -327,7 +327,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
     });
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
-<link rel='stylesheet' type='text/css' href='css/silverbullet.css' />
+<link rel='stylesheet' type='text/css' href='css/silverbullet.css.php' />
 </head>
 
 <body>
@@ -390,14 +390,14 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             <!-- table with actual user details ... -->
             <?php
             $bufferCurrentUsers = "<table class='sb-user-table' style='max-width:1920px;'>
-                <tr class='sb-title-row'>
+                <tr class='sb-title-row_id'>
                     <td>" . _("User") . "</td>
                     <td>" . _("Token/Certificate details") . "</td>
                     <td>" . _("User/Token Expiry") . "</td>
                     <td>" . _("Actions") . "</td>
                 </tr>";
             $bufferPreviousUsers = "<table class='sb-user-table' style='max-width:1920px;'>
-                <tr class='sb-title-row'>
+                <tr class='sb-title-row_id'>
                     <td>" . _("User") . "</td>
                     <td>" . _("Certificate details") . "</td>
                     <td>" . _("User Expiry") . "</td>
@@ -425,7 +425,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                 }
 
                 // show all info about the user
-                ${$outputBuffer} .= "<tr class='sb-user-row'>
+                ${$outputBuffer} .= "<tr class='sb-user-row_id'>
                     <td>$oneUserName</td>
                     <td>";
                 // list of certificates for the user
@@ -513,7 +513,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                         case core\SilverbulletInvitation::SB_TOKENSTATUS_VALID:
                         case core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                             $hasOnePendingInvite = TRUE;
-                            $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
+                            $tokenHtmlBuffer .= "<tr class='sb-certificate-row_id'><td></td>";
                             $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
                             $tokenHtmlBuffer .= "<td>";
                             $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"), "<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");

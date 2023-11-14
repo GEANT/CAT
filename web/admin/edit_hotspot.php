@@ -110,7 +110,6 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
                 exit(0);
             case web\lib\common\FormElements::BUTTON_REMOVESP:
-                error_log("MGW Remove deployment ".serialize($deployment));
                 $deployment->remove();
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
                 exit(0);

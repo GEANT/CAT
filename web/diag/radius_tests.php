@@ -223,7 +223,7 @@ switch ($test_type) {
         $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;
-        // a failed check may not have gotten any certificate, be prepared for that
+        // a failed check may not have got any certificate, be prepared for that
         switch ($testresult) {
             case \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT:
                 $level = $returnarray['result'][$i]['level'];

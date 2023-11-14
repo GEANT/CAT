@@ -27,7 +27,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 <script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
 <script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.js"); ?>"></script>
 <script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-sliderAccess.js"); ?>"></script>
-<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui-1.12.1.custom/jquery-ui.css"); ?>" media="all" />
+<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.css"); ?>" media="all" />
 <link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.css"); ?>"  media="all" />
 <script type="text/javascript">
     var recognisedOS = '';
@@ -50,11 +50,11 @@ if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
 require dirname(__DIR__) . '/user/js/cat_js.php';
-
+$cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 ?>
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
+<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />";
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>

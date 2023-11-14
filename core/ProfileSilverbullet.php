@@ -147,7 +147,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to $nameConsortium</li>           
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an $nameConsortium $nameIdP administrator using this system, you are authorized to create user accounts according to your local $nameIdP policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
+        <p>As an $nameConsortium $nameIdP administrator using this system, you are authorised to create user accounts according to your local $nameIdP policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
         $this->termsAndConditions .= "<p>Your responsibilities include that you</p>
         <ul>
             <li>only issue accounts to members of your $nameIdP, as defined by your local policy.</li>
@@ -362,7 +362,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * 
      * @param string    $username the username
      * @param \DateTime $expiry   the expiry date
-     * @return int row ID of the new user in the database
+     * @return int row_id ID of the new user in the database
      */
     public function addUser($username, \DateTime $expiry) {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";

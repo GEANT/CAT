@@ -23,7 +23,7 @@
 # all certificates and key files should be in the directory pointed to by MY_PATH
 
 # MY_PATH - Full path to the directory in which the certificates and keys are located
-# Beware that this directory must be protected against the WEB download, otherwise you keys may be compromised.
+# Beware that this directory must be protected against the WEB download, otherwise your keys may be compromised. 
 # The directory must be accessible by the Apache proceess
 
 if [ "$MY_PATH" == "" ]; then MY_PATH="/home/scrutinizer/vault"; fi

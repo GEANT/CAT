@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2022\n"
-"Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
+"Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
 "MIME-Version: 1.0\n"
@@ -660,7 +660,7 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
-#: web/skins/modern/user/js/cat_js.php:88
+#: web/skins/modern/user/js/cat_js.php:90
 msgid "Continue"
 msgstr "Continua"
 
@@ -788,7 +788,7 @@ msgstr ""
 "nom que donem a 'identificador i contrasenya' o 'certificat personal') i "
 "connecteu-vos!"
 
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+#: web/skins/modern/index.php:87 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Autenticant"
 
@@ -947,7 +947,7 @@ msgstr ""
 "de client (seleccioneu un certificat amb un nom acabat en '...%s')."
 
 #: web/skins/modern/accountstatus/accountstatus.php:196
-#: web/skins/modern/user/js/cat_js.php:83
+#: web/skins/modern/user/js/cat_js.php:85
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
@@ -956,7 +956,7 @@ msgstr ""
 "organització a:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
-#: web/skins/modern/user/js/cat_js.php:84
+#: web/skins/modern/user/js/cat_js.php:86
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
@@ -1060,34 +1060,34 @@ msgstr ""
 "administradors del sistema han estat avisats. Procurarem resoldre el "
 "problema el més aviat possible."
 
-#: web/skins/modern/user/js/cat_js.php:78
+#: web/skins/modern/user/js/cat_js.php:80
 msgid "no matching data found"
 msgstr "no s'ha trobat informació coincident"
 
-#: web/skins/modern/user/js/cat_js.php:79
+#: web/skins/modern/user/js/cat_js.php:81
 msgid "select"
 msgstr "selecciona"
 
-#: web/skins/modern/user/js/cat_js.php:80
+#: web/skins/modern/user/js/cat_js.php:82
 msgid "WWW:"
 msgstr "www:"
 
-#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:83
 msgid "email:"
 msgstr "correu electrònic:"
 
-#: web/skins/modern/user/js/cat_js.php:82
+#: web/skins/modern/user/js/cat_js.php:84
 msgid "tel:"
 msgstr "tel:"
 
-#: web/skins/modern/user/js/cat_js.php:85
+#: web/skins/modern/user/js/cat_js.php:87
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Aquest dispositiu no pot ser configurat amb les opcions especificades per la "
 "vostra organització."
 
-#: web/skins/modern/user/js/cat_js.php:86
+#: web/skins/modern/user/js/cat_js.php:88
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1097,31 +1097,31 @@ msgstr ""
 "amb recursos situats en una pàgina local. Si feu clic en <b>Continuar</b> "
 "s'obrirà aquesta pàgina en una finestra nova."
 
-#: web/skins/modern/user/js/cat_js.php:89
+#: web/skins/modern/user/js/cat_js.php:91
 msgid "Close"
 msgstr "Tanca"
 
-#: web/skins/modern/user/js/cat_js.php:90
+#: web/skins/modern/user/js/cat_js.php:92
 msgid "No providers found for this email"
 msgstr "No s'ha trobat proveïdors per a aquest correu"
 
-#: web/skins/modern/user/js/cat_js.php:91
+#: web/skins/modern/user/js/cat_js.php:93
 msgid "Your IdP is:"
 msgstr "El vostre IdP és:"
 
-#: web/skins/modern/user/js/cat_js.php:92
+#: web/skins/modern/user/js/cat_js.php:94
 msgid "Your IdP could be one of:"
 msgstr "El vostre IdP pot ser un dels següents:"
 
-#: web/skins/modern/user/js/cat_js.php:93
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "Missing email address"
 msgstr "Manca l'adreça de correu"
 
-#: web/skins/modern/user/js/cat_js.php:94
+#: web/skins/modern/user/js/cat_js.php:96
 msgid "This entry was last updated at:"
 msgstr "Actualitzada per darrer cop:"
 
-#: web/skins/modern/user/js/cat_js.php:95
+#: web/skins/modern/user/js/cat_js.php:97
 msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
@@ -1129,7 +1129,7 @@ msgstr ""
 "Si proveu de descarregar un instal·lador amb OpenRoaming haureu d'acceptar-"
 "ne també la seva Política d'ús"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
@@ -1137,11 +1137,11 @@ msgstr ""
 "Si escolliu instal·ladors amb OpenRoaming, no us oblideu de acceptar-ne les "
 "condicions."
 
-#: web/skins/modern/user/js/cat_js.php:97
+#: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
 msgstr "L'instal·lador té suport integrat de OpenRoaming"
 
-#: web/skins/modern/user/js/cat_js.php:98
+#: web/skins/modern/user/js/cat_js.php:100
 #, php-format
 msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
@@ -1150,36 +1150,36 @@ msgstr ""
 "Vull fer servir OpenRoaming i he llegit i acceptat <a href='%s' "
 "target='_blank'>%s</a>"
 
-#: web/skins/modern/user/js/cat_js.php:99
+#: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
 msgstr "He llegit i acceptat la <a href='%s' target='_blank'>%s</a>"
 
-#: web/skins/modern/user/js/cat_js.php:100
+#: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
 msgstr "El vostre dispositiu no accepta OpenRoaming"
 
-#: web/skins/modern/user/js/cat_js.php:103
+#: web/skins/modern/user/js/cat_js.php:105
 msgid "eduroam only"
 msgstr "només eduroam"
 
-#: web/skins/modern/user/js/cat_js.php:104
+#: web/skins/modern/user/js/cat_js.php:106
 msgid "eduroam and OpenRoaming"
 msgstr "eduroam i OpenRoaming"
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Organisation"
 msgstr "Organització"
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Select your organisation"
 msgstr "Escolliu la vostra organització"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Help, my organisation is not on the list"
 msgstr "Ajudeu-me, la meva organització no és a la llista"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:113
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1190,63 +1190,63 @@ msgstr ""
 "locals de %s. Si la vostra organització no es troba a la llista, insistiu-"
 "els-hi per a que afegeixin aquesta informació a la base de dades de %s ."
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localitzeu-me amb més precissió utilitzant la geolocalització HTML5 "
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Show organisations in"
 msgstr "Mostrar les organitzacions a "
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "all countries"
 msgstr "tots els paisos"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "o cercar una organització, per exemple la Universitat d'Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "show all countries"
 msgstr "Mostrar tots els països"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Results limited to"
 msgstr "Resultats limitats a"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "entries - show more"
 msgstr "entrades - Mostrar-ne més"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Nearby"
 msgstr "Proper"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Location timeout"
 msgstr "Temps d'espera esgotat"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Could not get your position"
 msgstr "No podem obtenir la vostra posició"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Your browser has denied access to your location"
 msgstr "El vostre navegador ha denegat l'accés a la vostra geolocalització"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Unknown location error"
 msgstr "Error de geolocalització desconegut"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "You are here:"
 msgstr "Us trobeu aquí:"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "Getting your location..."
 msgstr "S'està obtenint la vostra geolocalització..."
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Nearby providers shown on top."
 msgstr "Els proveidors més propers es mostren al capdamunt."
 

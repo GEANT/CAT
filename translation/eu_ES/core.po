@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Iñigo Zendegi Urzelai <izendegi@mondragon.edu>, 2018-2019\n"
-"Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
+"Language-Team: Basque (Spain) (http://app.transifex.com/eduroam_devel/cat/"
 "language/eu_ES/)\n"
 "Language: eu_ES\n"
 "MIME-Version: 1.0\n"
@@ -21,273 +21,263 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-#, php-format
-msgid "Unreleased %s Git Revision"
-msgstr ""
-
-#: core/CAT.php:122
-#, php-format
-msgid "Release <a href='%s'>%s</a>"
-msgstr "<a href='%s'>%s</a> bertsioa"
-
-#: core/CAT.php:136
+#: core/CAT.php:143
 msgid "Andorra"
 msgstr "Andorra"
 
-#: core/CAT.php:137
+#: core/CAT.php:144
 msgid "Austria"
 msgstr "Austria"
 
-#: core/CAT.php:138
+#: core/CAT.php:145
 msgid "Belgium"
 msgstr "Belgika"
 
-#: core/CAT.php:139
+#: core/CAT.php:146
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: core/CAT.php:140
+#: core/CAT.php:147
 msgid "Cyprus"
 msgstr "Zipre"
 
-#: core/CAT.php:141
+#: core/CAT.php:148
 msgid "Czech Republic"
 msgstr "Txekiar Errepublika"
 
-#: core/CAT.php:142
+#: core/CAT.php:149
 msgid "Denmark"
 msgstr "Danimarka"
 
-#: core/CAT.php:143
+#: core/CAT.php:150
 msgid "Estonia"
 msgstr "Estonia"
 
-#: core/CAT.php:144
+#: core/CAT.php:151
 msgid "Finland"
 msgstr "Finlandia"
 
-#: core/CAT.php:145
+#: core/CAT.php:152
 msgid "France"
 msgstr "Frantzia"
 
-#: core/CAT.php:146
+#: core/CAT.php:153
 msgid "Germany"
 msgstr "Alemania"
 
-#: core/CAT.php:147
+#: core/CAT.php:154
 msgid "Greece"
 msgstr "Grezia"
 
-#: core/CAT.php:148
+#: core/CAT.php:155
 msgid "Croatia"
 msgstr "Kroazia"
 
-#: core/CAT.php:149
+#: core/CAT.php:156
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: core/CAT.php:150
+#: core/CAT.php:157
 msgid "Iceland"
 msgstr "Islandia"
 
-#: core/CAT.php:151
+#: core/CAT.php:158
 msgid "Italy"
 msgstr "Italia"
 
-#: core/CAT.php:152
+#: core/CAT.php:159
 msgid "Hungary"
 msgstr "Hungaria"
 
-#: core/CAT.php:153
+#: core/CAT.php:160
 msgid "Luxembourg"
 msgstr "Luxenburgo"
 
-#: core/CAT.php:154
+#: core/CAT.php:161
 msgid "Latvia"
 msgstr "Letonia"
 
-#: core/CAT.php:155
+#: core/CAT.php:162
 msgid "Lithuania"
 msgstr "Lituania"
 
-#: core/CAT.php:156
+#: core/CAT.php:163
 msgid "Macedonia"
 msgstr "Mazedonia"
 
-#: core/CAT.php:157
+#: core/CAT.php:164
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/CAT.php:158
+#: core/CAT.php:165
 msgid "Netherlands"
 msgstr "Holanda"
 
-#: core/CAT.php:159
+#: core/CAT.php:166
 msgid "Norway"
 msgstr "Norvegia"
 
-#: core/CAT.php:160
+#: core/CAT.php:167
 msgid "Poland"
 msgstr "Polonia"
 
-#: core/CAT.php:161
+#: core/CAT.php:168
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/CAT.php:162
+#: core/CAT.php:169
 msgid "Romania"
 msgstr "Errumania"
 
-#: core/CAT.php:163
+#: core/CAT.php:170
 msgid "Slovenia"
 msgstr "Eslovenia"
 
-#: core/CAT.php:164
+#: core/CAT.php:171
 msgid "Spain"
 msgstr "Espainia"
 
-#: core/CAT.php:165
+#: core/CAT.php:172
 msgid "Sweden"
 msgstr "Suedia"
 
-#: core/CAT.php:166
+#: core/CAT.php:173
 msgid "Slovakia"
 msgstr "Eslovakia"
 
-#: core/CAT.php:167
+#: core/CAT.php:174
 msgid "Switzerland"
 msgstr "Suitza"
 
-#: core/CAT.php:168
+#: core/CAT.php:175
 msgid "Turkey"
 msgstr "Turkia"
 
-#: core/CAT.php:169
+#: core/CAT.php:176
 msgid "United Kingdom"
 msgstr "Erresuma Batua"
 
-#: core/CAT.php:171
+#: core/CAT.php:178
 msgid "Australia"
 msgstr "Australia"
 
-#: core/CAT.php:172
+#: core/CAT.php:179
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/CAT.php:173
+#: core/CAT.php:180
 msgid "Israel"
 msgstr "Israel"
 
-#: core/CAT.php:174
+#: core/CAT.php:181
 msgid "Japan"
 msgstr "Japonia"
 
-#: core/CAT.php:175
+#: core/CAT.php:182
 msgid "New Zealand"
 msgstr "Zeelanda Berria"
 
-#: core/CAT.php:176
+#: core/CAT.php:183
 msgid "U.S.A."
 msgstr "Ameriketako Estatu Batuak"
 
-#: core/CAT.php:177
+#: core/CAT.php:184
 msgid "Brazil"
 msgstr "Brasil"
 
-#: core/CAT.php:178
+#: core/CAT.php:185
 msgid "Chile"
 msgstr "Txile"
 
-#: core/CAT.php:179
+#: core/CAT.php:186
 msgid "Peru"
 msgstr "Peru"
 
-#: core/CAT.php:180
+#: core/CAT.php:187
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/CAT.php:181
+#: core/CAT.php:188
 msgid "Default"
 msgstr "Lehenetsia"
 
-#: core/CAT.php:182
+#: core/CAT.php:189
 msgid "Armenia"
 msgstr "Armenia"
 
-#: core/CAT.php:183
+#: core/CAT.php:190
 msgid "Azerbaijan"
 msgstr "Azerbaijan"
 
-#: core/CAT.php:184
+#: core/CAT.php:191
 msgid "Belarus"
 msgstr "Bielorrusia"
 
-#: core/CAT.php:185
+#: core/CAT.php:192
 msgid "Ecuador"
 msgstr "Ekuador"
 
-#: core/CAT.php:186
+#: core/CAT.php:193
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:187
+#: core/CAT.php:194
 msgid "Kenya"
 msgstr "Kenya"
 
-#: core/CAT.php:188
+#: core/CAT.php:195
 msgid "Kyrgyzstan"
 msgstr "Kirgizistan"
 
-#: core/CAT.php:189
+#: core/CAT.php:196
 msgid "Korea"
 msgstr "Korea"
 
-#: core/CAT.php:190
+#: core/CAT.php:197
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: core/CAT.php:191
+#: core/CAT.php:198
 msgid "Morocco"
 msgstr "Maroko"
 
-#: core/CAT.php:192
+#: core/CAT.php:199
 msgid "Moldova"
 msgstr "Moldavia"
 
-#: core/CAT.php:193
+#: core/CAT.php:200
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:194
+#: core/CAT.php:201
 msgid "Macau"
 msgstr "Macau"
 
-#: core/CAT.php:195
+#: core/CAT.php:202
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:196
+#: core/CAT.php:203
 msgid "Russia"
 msgstr "Errusia"
 
-#: core/CAT.php:197
+#: core/CAT.php:204
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/CAT.php:198
+#: core/CAT.php:205
 msgid "Thailand"
 msgstr "Thailandia"
 
-#: core/CAT.php:199
+#: core/CAT.php:206
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/CAT.php:200
+#: core/CAT.php:207
 msgid "South Africa"
 msgstr "Hegoafrika"
 
-#: core/CAT.php:477 core/IdPlist.php:79
+#: core/CAT.php:484 core/IdPlist.php:79
 msgid "Unnamed Entity"
 msgstr "Izenik gabeko entitatea"
 
@@ -350,7 +340,7 @@ msgid "(discontinued) %s"
 msgstr "(alde batera utzitakoa) %s"
 
 #. / IdP and SP
-#: core/Federation.php:265 core/common/OutsideComm.php:281
+#: core/Federation.php:274 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -362,7 +352,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:282
+#: core/Federation.php:291
 #, php-format
 msgid ""
 "Hi,\n"
@@ -378,7 +368,7 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:299
+#: core/Federation.php:308
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%szure federazioan sortu zen"

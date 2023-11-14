@@ -70,6 +70,10 @@ $(document).on('click', '#realmcheck' , function() {
         </table>
     </div>
 
+    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
+        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management'));?></button>
+    </form>
+
     <?php
     $mgmt = new \core\UserManagement();
 
@@ -278,7 +282,7 @@ $(document).on('click', '#realmcheck' , function() {
 
             foreach ($my_idps as $index => $my_idp) {
                 $idp_instance = $idps[$index]['instance'];
-                // new row, with one IdP inside
+                // new row_id, with one IdP inside
                 echo "<tr>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    

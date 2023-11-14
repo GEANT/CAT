@@ -124,8 +124,19 @@ class Devices extends \core\common\Entity {
      * @example devices/devices-template.php file listing
      * @return array the device modules
      */
-    public static function listDevices() {
+    public static function listDevices($profile = 0, $orAlways = 0) {
         \core\common\Entity::intoThePotatoes();
+        $lang = new \core\common\Language();
+/*      Uncomment lines below if you have button images and want to use them
+ * 
+ *      $skinObject = new \web\lib\user\Skinjob(\config\Master::APPEARANCE['skins'][0]);
+        $googleDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/google-play.png")."' alt='Google Play' class='applogos'>";
+        $huaweiDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/appgallery.png")."' alt='Huawei AppGallery' class='applogos'>";
+        $amazonDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/amazon-appstore-badge-english-black..png")."' alt='Amazon Appstore' class='applogos'>";
+*/
+        $googleDownload = 'Google Play';
+        $huaweiDownload = 'Huawei AppGallery';
+        $amazonDownload = 'Amazon Appstore';
         $retArray = [
             'w10' => [
                 'group' => "microsoft",
@@ -397,7 +408,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'Chromebook',
                 'options' => [
                     'mime' => 'application/x-onc',
-                    'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
+                    'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://network'>chrome://network</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
                 ],
             ],
             'android_recent' => [
@@ -405,13 +416,27 @@ class Devices extends \core\common\Entity {
                 'display' => _("Android 8 and higher"),
                 'match' => 'Android ([89]|1[0-9])',
                 'directory' => 'eap_config',
-                'module' => 'Lollipop',
+                'module' => 'Generic',
                 'options' => [
                     'mime' => 'application/eap-config',
                     'hs20' => 1,
+                    'message_only' => 0,
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "geteduroam",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
+ 
+                    'geteduroam_text' =>  sprintf(_("Use our app, it will guide you through the setup process:%s"
+                            ."(or download it manually %s.)<p>"
+                        . "After installation, open the app, select your home institution and the app will collect required information "
+                        . "(this will require an internet connection)."
+                            . "<p><span style='font-size:90%%'>If you want to save the configuration for later offline deployment, "
+                            . "you can download it by %s.</span>"), 
+                        "<p><div>"
+                            . "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>$googleDownload</a> " 
+                            . "<a target='_blank' href='https://appgallery.huawei.com/app/C104231893'>$huaweiDownload</a>"
+                            . "</div><p>",
+                        "<a href='geteduroam-stable.apk' target='_blank'>"._("here")."</a>",
+                        "<a href='user/API.php?action=downloadInstaller&lang=".$lang->getLang()."&profile=".$profile."&device=android_recent&generatedfor=user&openroaming=".$orAlways."'>"._("clicking here")."</a>"),
                 ],
             ],            
 
@@ -438,9 +463,22 @@ class Devices extends \core\common\Entity {
                 'module' => 'Lollipop',
                 'options' => [
                     'mime' => 'application/eap-config',
+                    'message_only' => 0,
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                    'geteduroam_text' => sprintf(_("Use our app, it will guide you through the setup process:%s"
+                            ."(or download it manually %s.)<p>"
+                        . "After installation, open the app, select your home institution and the app will collect required information "
+                        . "(this will require an internet connection)."
+                            . "<p><span style='font-size:90%%'>If you want to save the configuration for later offline deployment, "
+                            . "you can download it by %s.</span>"), 
+                        "<p><div>"
+                            . "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>$googleDownload</a> " 
+                            . "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>$amazonDownload</a>"
+                            . "</div><p>",
+                        "<a href='eduroamCAT-stable.apk' target='_blank'>"._("here")."</a>",
+                        "<a href='user/API.php?action=downloadInstaller&lang=".$lang->getLang()."&profile=".$profile."&device=android_4_7&generatedfor=user&openroaming=0'>"._("clicking here")."</a>"),
                 ],
             ],            
             

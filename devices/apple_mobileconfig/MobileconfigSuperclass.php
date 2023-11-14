@@ -312,9 +312,13 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
             return $fileName;
         }
         // still here? Then we are signing.
-        $signing = system($this->sign . " installer_profile '$fileName' > /dev/null");
-        if ($signing === FALSE) {
+        $retval = 0;
+        $signing = system($this->sign . " installer_profile '$fileName' > /dev/null", $retval);
+        if ($retval !== 0 || $signing === FALSE) {
             $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
+            // we are passing a name that will be then used as a path - this will not exist, hence an error will
+            // be generated
+            return("no_go");
         }
         \core\common\Entity::outOfThePotatoes();
         return $fileName;

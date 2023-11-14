@@ -60,14 +60,14 @@ class SilverbulletCertificate extends EntityWithDBProperties
     public $serial;
 
     /**
-     * row index of this certificate in the database table
+     * row_id index of this certificate in the database table
      * 
      * @var integer
      */
     public $dbId;
 
     /**
-     * the row index of the invitation which was consumed to generate this 
+     * the row_id index of the invitation which was consumed to generate this 
      * certificate
      * 
      * @var integer
@@ -327,7 +327,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
         $inst = new IdP($profile->institution);
         $loggerInstance->debug(5, "tokenStatus: done, got " . $invitationObject->invitationTokenStatus . ", " . $invitationObject->profile . ", " . $invitationObject->userId . ", " . $invitationObject->expiry . ", " . $invitationObject->invitationTokenString . "\n");
         if ($invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_VALID && $invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
-            throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
+            throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have got that far!");
         }
 
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert

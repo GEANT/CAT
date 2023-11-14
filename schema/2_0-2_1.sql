@@ -47,9 +47,9 @@ CREATE TABLE `deployment_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `deployment_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

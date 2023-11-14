@@ -76,7 +76,9 @@ $token = $validator->simpleInputFilter('token', 'safe_text');
 $idR = $validator->simpleInputFilter('id', 'safe_text');
 $id = $idR ? $idR : FALSE;
 $loggerInstance->debug(4, "openRoaming:$openRoaming\n");
-$loggerInstance->debug(4, $_REQUEST);
+// only enable this during development - it allows random junk to be logged 
+// without any control!
+// $loggerInstance->debug(4, $_REQUEST);
 switch ($action) {
     case 'listLanguages':
         $API->jsonListLanguages();
@@ -96,7 +98,7 @@ switch ($action) {
     case 'listAllIdentityProviders':
         $API->jsonListIdentityProvidersForDisco();
         break;
-        case 'listIdentityProvidersWithProfiles':
+    case 'listIdentityProvidersWithProfiles':
         $API->jsonListIdentityProvidersWithProfiles();
         break;
     case 'listProfiles': // needs $idp set - abort if not

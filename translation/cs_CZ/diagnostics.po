@@ -4,11 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2016
 # Helena Pinkasová <helena.pinkasova@tul.cz>, 2018
 # ch0b0tr0b0t <pavel.satrapa@gmail.com>, 2018
 # Alice Vixie <alice.vixie@osu.cz>, 2018
-# Martin Šimek <simek.mar@gmail.com>, 2019
+# Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2022
+# Martin Šimek <simek.mar@gmail.com>, 2022
 # Petr Adamec <p.b.adamec@gmail.com>, 2022
 #
 #, fuzzy
@@ -16,10 +16,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, 2022\n"
-"Language-Team: Czech (Czech Republic) (https://www.transifex.com/"
+"Language-Team: Czech (Czech Republic) (https://app.transifex.com/"
 "eduroam_devel/teams/11799/cs_CZ/)\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -37,8 +37,8 @@ msgid "Product is not configured to run this check."
 msgstr "Spuštění této kontroly není nekonfigurováno."
 
 #: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:610
-#: web/diag/action_realmcheck.php:626
+#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
+#: web/diag/action_realmcheck.php:630
 msgid "This check was skipped."
 msgstr "Kontrola nebyla provedena."
 
@@ -73,7 +73,7 @@ msgstr ""
 "odmítnout."
 
 #: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:134
 msgid "Connection refused"
 msgstr "Spojení odmítnuto"
 
@@ -365,9 +365,9 @@ msgid ""
 msgstr ""
 "(Tato služba je v testovací fázi. Omlouváme se, pokud se jedná o falešnou "
 "upozornění. Jedná-li se o tento případ, pošlete prosím zprávu na adresu cat-"
-"devel@lists.geant.org a přidejte celé znění zprávy včetně zprávy \"SUSPECTS"
-"\" a \"EVIDENCE\" na konci, a vysvětlete, proč se domníváte, že se jedná o "
-"falešně upozornění.)"
+"devel@lists.geant.org a přidejte celé znění zprávy včetně zprávy "
+"\"SUSPECTS\" a \"EVIDENCE\" na konci, a vysvětlete, proč se domníváte, že se "
+"jedná o falešně upozornění.)"
 
 #: core/diag/Logopath.php:124
 msgid "Yours sincerely,"
@@ -492,63 +492,63 @@ msgstr ""
 "trips), která podle plánu skončila Access-Reject . Ale ne všechno proběhlo "
 "hladce; následuje seznam."
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:132
+#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
 msgid "All tests passed."
 msgstr "Všechny testy byly úspěšné!"
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:133
+#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
 msgid "There were some warnings."
 msgstr "Během kontroly se vyskytla varování."
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
 msgid "There were some errors."
 msgstr "Během kontroly byly nalezeny chyby."
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
 msgid "There were some remarks."
 msgstr "Během kontroly se vyskytly připomínky."
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:113
+#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
 msgid "PASS"
 msgstr "PROŠLO"
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:114
+#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
 msgid "FAIL"
 msgstr "SELHALO"
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:155
+#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
 msgid "Subject:"
 msgstr "Subject (předmět):"
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:156
+#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
 msgid "Issuer:"
 msgstr "Issuer (vydavatel):"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:157
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
 msgid "Valid from:"
 msgstr "Platí od:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:158
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
 msgid "Valid to:"
 msgstr "Platí do:"
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
 msgid "Serial number:"
 msgstr "Sériové číslo:"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
 msgid "SHA1 fingerprint:"
 msgstr "Otisk SHA1:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:143
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
 msgid "Server certificate"
 msgstr "Certifikát serveru"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:144
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
 msgid "Subject"
 msgstr "Název"
 
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:145
+#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
 msgid "Issuer"
 msgstr "Vydavatel"
 
@@ -556,20 +556,20 @@ msgstr "Vydavatel"
 msgid "Policies"
 msgstr "Opatření"
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:148
+#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:149
+#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:146
+#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
 msgid "SubjectAltName"
 msgstr "Alternativní názvy "
 
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:542
-#: web/diag/action_realmcheck.php:551 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
 msgid "Overview"
 msgstr "Přehled"
 
@@ -578,7 +578,7 @@ msgid "DNS chekcs"
 msgstr "Kontrola DNS"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:577
+#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
 msgid "Checking NAPTR existence:"
 msgstr "Kontrola existence NAPTR:"
 
@@ -587,11 +587,11 @@ msgstr "Kontrola existence NAPTR:"
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
 #: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:580
+#: web/diag/action_realmcheck.php:584
 msgid "This realm has no NAPTR records."
 msgstr "Tento realm nemá NAPTR záznamy."
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:583
+#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -599,61 +599,61 @@ msgstr ""
 "Realm sice má NAPTR záznamy, ale žádný nesouvisí s roamingovým konsorciem."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:586
+#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr "Realm má %d NAPTR záznamy související s roamingovým konsorciem."
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:592
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Kontrola souladu NAPTR (flag = S a regulární výraz = {empty}):"
 
 #: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:599 web/diag/action_realmcheck.php:613
+#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Nejméně jeden NAPTR má neplatný obsah!"
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:607
+#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
 msgid "Checking SRVs:"
 msgstr "Kontrola SRV záznamů:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:616
+#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
 #, php-format
 msgid "%d host names discovered."
 msgstr "Nalezeno jméno serveru %d."
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:623
+#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
 msgid "Checking IP address resolution:"
 msgstr "Kontrola překladu IP adresy:"
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:629
+#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Nejméně jedno jméno hostitele nelze resolvovat!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:632
+#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "Resolvováno %d IP addres."
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:640
-#: web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
+#: web/diag/action_realmcheck.php:646
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Doména je <strong>%s</strong>"
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:640
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "bez chyb v DNS. Gratulujeme!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid "but there were DNS errors! Check them!"
 msgstr "ale  byly objeveny DNS chyby! Zkontrolujte je!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:642
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -661,31 +661,31 @@ msgstr ""
 "Až opravíte chyby, spusťte testy znovu. Možná pak odhalíme další problémy. "
 "Přesné příčiny chyb jsou uvedeny níže."
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:570
+#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
 msgid "Dynamic discovery test is not configured"
 msgstr "Test dynamického vyhledání není nakonfigurován."
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:543
-#: web/diag/action_realmcheck.php:703 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
+#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
 msgstr "Testy statické konektivity"
 
 #: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:415 web/diag/action_realmcheck.php:420
-#: web/diag/action_realmcheck.php:425
+#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
+#: web/diag/action_realmcheck.php:429
 msgid "See the appropriate tab for details."
 msgstr "Pro podrobnosti se podívejte na příslušnou kartu."
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:544
-#: web/diag/action_realmcheck.php:708 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
+#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
 msgstr "Testy dynamické konektivity"
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:728
+#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
 msgid "STATIC connectivity tests"
 msgstr "STATICKÝ test připojení"
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:730
+#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -702,37 +702,37 @@ msgstr ""
 "očekávaným výsledkem testu odpověď Access-Reject, které předchází EAP "
 "konverzace."
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:734
-#: web/diag/action_realmcheck.php:877
+#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
+#: web/diag/action_realmcheck.php:881
 #, php-format
 msgid "Testing from: %s"
 msgstr "Testuje se z: %s"
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
 msgid "Connected to undetermined server"
 msgstr "Připojeno k neznámému serveru"
 
 #: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:268 web/diag/action_realmcheck.php:379
-#: web/diag/action_realmcheck.php:399 web/diag/action_realmcheck.php:460
+#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
+#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "mezičas: %sms."
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:390
-#: web/diag/action_realmcheck.php:450
+#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:454
 msgid "Extensions"
 msgstr "Rozšíření:"
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:391
+#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
 msgid "show server certificate details"
 msgstr "Ukaž podrobně serverový certifikát"
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:788
+#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
 msgid "Checking server handshake..."
 msgstr "Kontrola navázání spojení se serverem..."
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr "více"
@@ -745,35 +745,35 @@ msgstr "Test se nezdařil"
 msgid "Client certificate"
 msgstr "Certifikát klienta"
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:116
+#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
 msgid "expected result: "
 msgstr "očekávaný výsledek:"
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
 msgid "Server accepted this client certificate"
 msgstr "Server akceptoval klientský certifikát"
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
 msgid "You should update your list of accredited CAs"
 msgstr "Měl byste aktualizovat seznam akreditovaných CA"
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
 msgid "Get it from here."
 msgstr "Stáhněte si to zde."
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
 msgid "Server did not accept this client certificate - reason"
 msgstr "Server neakceptoval tento klientský certifikát - důvod"
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Server akceptoval tento klientský certifikát, ale neměl by"
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:119
+#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
 msgid "Server did not accept this client certificate"
 msgstr "Server neakceptoval tento klientský certifikát"
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
 msgid "Rest of tests for this CA skipped"
 msgstr "Zbytek testů pro tuto CA přerušen"
 
@@ -781,29 +781,29 @@ msgstr "Zbytek testů pro tuto CA přerušen"
 msgid "These tests were skipped because of previous errors."
 msgstr "Pro předchozí chyby byly testy přerušeny."
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:774
+#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
 msgid "DYNAMIC connectivity tests"
 msgstr "DYNAMICKÉ testy připojení"
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
 msgid "Some errors were found during the tests, see below"
 msgstr "Testy odhalily chyby, viz níže"
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
 msgid "All tests passed, congratulations!"
 msgstr "Všechny testy prošly, gratulujeme!"
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:127
-#: web/diag/action_realmcheck.php:788 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
 msgstr "Zobrazit podrobné informace pro všechny testy."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr ""
 "Kontrola, zda jsou akceptovány certifikáty od certifikačních autorit..."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:824
+#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -956,8 +956,6 @@ msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"Připojili jste se úspěšně k síti, např. ve své domovské organizaci bez "
-"roamingu?"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -967,8 +965,6 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
-"Pokud vaše zařízení s tímto nastavením nikdy nefungovalo, je velmi "
-"pravděpodobné, že konfigurace vašeho zařízení není správná. %s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
@@ -1116,7 +1112,7 @@ msgstr "Jste"
 msgid "end-user"
 msgstr "koncový uživatel"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:145
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
 msgid "or"
 msgstr "nebo"
 
@@ -1176,7 +1172,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Kliknutím vyberte umístění, kde máte problém s eduroam"
 
-#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:113
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
 msgstr "Testování domény"
 
@@ -1251,7 +1247,7 @@ msgstr "Nelze vyhledávat v databázi. Musíte zadat doménu která vás zajím�
 msgid "Check if this realm is registered"
 msgstr "Zkontrolujte, zda je tento realm již registrován"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:80
+#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr "Zkontroluj tento realm"
 
@@ -1281,7 +1277,7 @@ msgstr "Výsledky diagnostických testů pro vybrané domény"
 
 #: web/skins/modern/diag/diag.php:575
 msgid "An unknown problem occurred"
-msgstr "Nastal neznámý problém"
+msgstr ""
 
 #: web/skins/modern/diag/diag.php:578
 msgid "This test includes checking of the following realm"
@@ -1327,11 +1323,11 @@ msgstr "Email pro kontaktování oznamovatele"
 msgid "Test result"
 msgstr "Výsledek testu"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
 msgid "failure"
 msgstr "selhání"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:252
+#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
 msgid "success"
 msgstr "úspěch"
 
@@ -1414,82 +1410,82 @@ msgstr "STATICKÝ"
 msgid "DYNAMIC"
 msgstr "DYNAMICKÝ"
 
-#: web/diag/action_realmcheck.php:115
+#: web/diag/action_realmcheck.php:119
 msgid "Client certificate:"
 msgstr "Certifikát klienta:"
 
-#: web/diag/action_realmcheck.php:147
+#: web/diag/action_realmcheck.php:151
 msgid "Certificate policies"
 msgstr "Certifikační politika"
 
-#: web/diag/action_realmcheck.php:150 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
 msgstr "Skrýt podrobné informace pro všechny testy."
 
-#: web/diag/action_realmcheck.php:213
+#: web/diag/action_realmcheck.php:217
 msgid "Some required input is missing!"
 msgstr "Chybí nějaký nutný údaj!"
 
-#: web/diag/action_realmcheck.php:438
+#: web/diag/action_realmcheck.php:442
 msgid "Server certificate details:"
 msgstr "Detaily serverového certifikátu:"
 
-#: web/diag/action_realmcheck.php:537 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Kontrola realmu na %s"
 
-#: web/diag/action_realmcheck.php:545 web/diag/action_realmcheck.php:714
-#: web/diag/action_realmcheck.php:776
+#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
+#: web/diag/action_realmcheck.php:780
 msgid "OpenRoaming connectivity tests"
 msgstr "Test OpenRoaming konektivity"
 
-#: web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:550
 msgid "Live login tests"
 msgstr "Testy logování naživo"
 
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:563
 msgid "DNS checks"
 msgstr "Kontrola DNS"
 
-#: web/diag/action_realmcheck.php:565
+#: web/diag/action_realmcheck.php:569
 msgid "OpenRoaming DNS checks"
 msgstr "Kontrola DNS OpenRoaming"
 
-#: web/diag/action_realmcheck.php:572
+#: web/diag/action_realmcheck.php:576
 msgid "OpenRoaming connectivity test is not configured"
 msgstr "Test připojení OpenRoaming není nakonfigurován"
 
-#: web/diag/action_realmcheck.php:596
+#: web/diag/action_realmcheck.php:600
 msgid "No issues found."
 msgstr "Bez problémů."
 
-#: web/diag/action_realmcheck.php:725 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
 msgstr "Opakuj testy statické konektivity"
 
-#: web/diag/action_realmcheck.php:739 web/diag/action_realmcheck.php:797
-#: web/diag/action_realmcheck.php:814
+#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
+#: web/diag/action_realmcheck.php:818
 msgid "testing..."
 msgstr "testing..."
 
-#: web/diag/action_realmcheck.php:766 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
 msgstr "Opakuj testy dynamické konektivity"
 
-#: web/diag/action_realmcheck.php:766
+#: web/diag/action_realmcheck.php:770
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr "Zopakuj test OpenRoaming konektivity"
 
-#: web/diag/action_realmcheck.php:817
+#: web/diag/action_realmcheck.php:821
 msgid "not implemented yet"
 msgstr "dosud není implementováno"
 
-#: web/diag/action_realmcheck.php:838
+#: web/diag/action_realmcheck.php:842
 msgid "Live login test"
 msgstr "Zkouška skutečného přihlášení"
 
-#: web/diag/action_realmcheck.php:851
+#: web/diag/action_realmcheck.php:855
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1497,7 +1493,7 @@ msgstr ""
 "Pokud sem zadáte funkční přihlašovací údaje, můžete následně vyzkoušet "
 "skutečné přihlášení z různých míst po celém světě."
 
-#: web/diag/action_realmcheck.php:852
+#: web/diag/action_realmcheck.php:856
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1509,7 +1505,7 @@ msgstr ""
 "správným certifikátem, a samozřejmě, zda vámi zadané přihlašovací údaje "
 "fungují. Pokud jste nastavili anonymní vnější identitu, bude použita."
 
-#: web/diag/action_realmcheck.php:853
+#: web/diag/action_realmcheck.php:857
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1522,56 +1518,56 @@ msgstr ""
 "přihlašovací údaje známé mimo vaši vlastní organizaci jsou považovány za "
 "velmi nebezpečné!"
 
-#: web/diag/action_realmcheck.php:861
+#: web/diag/action_realmcheck.php:865
 msgid "Password-based EAP types"
 msgstr "Metody EAP na bázi hesla"
 
-#: web/diag/action_realmcheck.php:862
+#: web/diag/action_realmcheck.php:866
 msgid "Real (inner) username:"
 msgstr "Skutečné (vnitřní) uživatelské jméno:"
 
-#: web/diag/action_realmcheck.php:863
+#: web/diag/action_realmcheck.php:867
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonymní vnější ID (nepovinné):"
 
-#: web/diag/action_realmcheck.php:864
+#: web/diag/action_realmcheck.php:868
 msgid "Password:"
 msgstr "Heslo:"
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:872
 msgid "Certificate-based EAP types"
 msgstr "Metody EAP na bázi certifikátu"
 
-#: web/diag/action_realmcheck.php:869
+#: web/diag/action_realmcheck.php:873
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Soubor s certifikátem (.p12 nebo .pfx):"
 
-#: web/diag/action_realmcheck.php:870
+#: web/diag/action_realmcheck.php:874
 msgid "Certificate password, if any:"
 msgstr "Heslo k certifikátu:"
 
-#: web/diag/action_realmcheck.php:871
+#: web/diag/action_realmcheck.php:875
 msgid "Username, if different from certificate Subject:"
 msgstr "Uživatelské jméno, pokud se liší od subjektu certifikátu:"
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:877
 msgid "Submit credentials"
 msgstr "Odeslat"
 
-#: web/diag/action_realmcheck.php:895
+#: web/diag/action_realmcheck.php:899
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Vrátit se k administraci %s"
 
-#: web/diag/adminQuery.php:32
+#: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Mám podezření na technický problém s IdP"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Uživatel z tohoto IDP údajně porušil autorská práva"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1579,122 +1575,122 @@ msgstr ""
 "Uživatel z tohoto IdP provedl škodlivé síťové operace (zasílání spamu, DDoS, "
 "apod.)"
 
-#: web/diag/adminQuery.php:37
+#: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr "Uživatel hlásí problémy s připojením, ale byl ověřen úspěšně"
 
-#: web/diag/adminQuery.php:38
+#: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
 msgstr "Uživatel tvrdí, že povinný otevřený port není dostupný"
 
-#: web/diag/adminQuery.php:72 web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
 msgid "Select your problem"
 msgstr "Vyberte váš problém"
 
-#: web/diag/adminQuery.php:76
+#: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
 msgstr "Jaká je doména dotyčného IdP?"
 
-#: web/diag/adminQuery.php:86 web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Jaká je časová značka autentizace uživatele?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:160
+#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "What is the MAC address of the user session in question?"
 msgstr "Jaká je MAC adresa uživatele?"
 
-#: web/diag/adminQuery.php:96
+#: web/diag/adminQuery.php:98
 msgid "Additional comments"
 msgstr "Další poznámky"
 
-#: web/diag/adminQuery.php:100
+#: web/diag/adminQuery.php:102
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr "Zadejte emailovou adresu, na které vás IdP může kontaktovat"
 
-#: web/diag/adminQuery.php:108 web/diag/adminQuery.php:176
+#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
 msgid "Now you can send your query"
 msgstr "Nyní odešlete vaš dotaz"
 
-#: web/diag/adminQuery.php:109 web/diag/adminQuery.php:177
+#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
 msgid "Send"
 msgstr "Odeslat"
 
-#: web/diag/adminQuery.php:128
+#: web/diag/adminQuery.php:130
 msgid "Identify the SP by one of following means"
 msgstr "Identifikujte SP jedním z následujících způsobů"
 
-#: web/diag/adminQuery.php:132
+#: web/diag/adminQuery.php:134
 msgid "SP Operator-Name attribute"
 msgstr "SP Operator-Name atribut"
 
-#: web/diag/adminQuery.php:136
+#: web/diag/adminQuery.php:138
 msgid "Select the SP manually:"
 msgstr "Manuálně vyberte SP"
 
-#: web/diag/adminQuery.php:139
+#: web/diag/adminQuery.php:141
 msgid "click to select country and organisation"
 msgstr "klikněte pro výběr země a organizace"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:147
 msgid "at least describe the SP location"
 msgstr "vyberte umístění SP"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:151
 msgid "What is the outer ID of the user session in question?"
 msgstr "Jaká je vnější identita uživatele?"
 
-#: web/diag/adminQuery.php:164
+#: web/diag/adminQuery.php:166
 msgid "Additional comments about the problem"
 msgstr "Další poznámky k problému"
 
-#: web/diag/adminQuery.php:168
+#: web/diag/adminQuery.php:170
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr "Máte nějaké kontaktní údaje, pro kontaktování SP uživatelem?"
 
-#: web/diag/adminQuery.php:172
+#: web/diag/adminQuery.php:174
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Zadejte emailovou adresu, na které vás SP může kontaktovat"
 
-#: web/diag/adminQuery.php:246
+#: web/diag/adminQuery.php:248
 msgid "Suspected a technical problem with the IdP"
 msgstr "Máme podezření na technický problém s IdP"
 
-#: web/diag/adminQuery.php:247
+#: web/diag/adminQuery.php:249
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Mám podezření na technický problém s IdP při práci s realmem"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:251
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr "Během hlášení byl pro tento realm spuštěn CAT diagnostický test.\n"
 
-#: web/diag/adminQuery.php:250
+#: web/diag/adminQuery.php:252
 msgid "The overall result was "
 msgstr "Celkový výsledek je"
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:258
 msgid "To see details go to "
 msgstr "Pro podrobnosti, jděte na"
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:260
 msgid "The reported problem details are as follows"
 msgstr "Nahlášené podrobnosti o problému jsou následující"
 
-#: web/diag/adminQuery.php:259
+#: web/diag/adminQuery.php:261
 msgid "timestamp"
 msgstr "Časové razítko"
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:262
 msgid "client MAC address"
 msgstr "MAC adresa klienta"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:264
 msgid "additional comments"
 msgstr "další poznámky"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:266
 msgid "You can contact the incident reporter at"
 msgstr "Oznamovatele incidentu můžete kontaktovat na"
 
@@ -1715,11 +1711,11 @@ msgstr "<strong>Test byl úspěšný.</strong>"
 
 #: web/diag/radius_tests.php:177
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
-msgstr "<strong>Test byl zčásti úspěšný</strong>: autentizace se povedla."
+msgstr ""
 
 #: web/diag/radius_tests.php:180
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr "<strong>Pokus se NEPOVEDL</strong>: autentizace se povedla."
+msgstr ""
 
 #: web/diag/radius_tests.php:185
 msgid ""
@@ -1833,169 +1829,144 @@ msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr "Token uvedený v požadavku neexistuje, nelze tedy zobrazit žádná data"
 
-#.
-#. * *****************************************************************************
-#. * Contributions to this work were made on behalf of the GÉANT project, a
-#. * project that has received funding from the European Union’s Framework
-#. * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
-#. * Horizon 2020 research and innovation programme under Grant Agreements No.
-#. * 691567 (GN4-1) and No. 731122 (GN4-2).
-#. * On behalf of the aforementioned projects, GEANT Association is the sole owner
-#. * of the copyright in all material which was developed by a member of the GÉANT
-#. * project. GÉANT Vereniging (Association) is registered with the Chamber of
-#. * Commerce in Amsterdam with registration number 40535155 and operates in the
-#. * UK as a branch of GÉANT Vereniging.
-#. *
-#. * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
-#. * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
-#. *
-#. * License: see the web/copyright.inc.php file in the file structure or
-#. *          <base_url>/copyright.php after deploying the software
-#.
-#: web/skins/modern/diag/js/diag_js.php:29
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr "STATICKÝ test připojení"
+msgstr "Testy konektivity byly úspěšné"
 
-#: web/skins/modern/diag/js/diag_js.php:30
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr "Zopakuj test OpenRoaming konektivity"
+msgstr "Při testech konektivity se objevilo několik varování"
 
-#: web/skins/modern/diag/js/diag_js.php:31
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr "Během kontroly se vyskytly připomínky."
+msgstr "Při testech konektivity se objevilo několik připomínek"
 
-#: web/skins/modern/diag/js/diag_js.php:32
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr "Během kontroly byly nalezeny chyby."
+msgstr "Při testech konektivity se objevilo několik chyb"
 
-#: web/skins/modern/diag/js/diag_js.php:42
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institiution:"
 msgstr "Vyberte organizaci:"
 
-#: web/skins/modern/diag/js/diag_js.php:68
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
-msgstr "klikněte pro výběr země a organizace"
+msgstr "Vyberte zemi nebo region:"
 
-#: web/skins/modern/diag/js/diag_js.php:76
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:80
 msgid "Fetching country/region list"
-msgstr "Načítání seznamu organizací"
+msgstr "Načítání seznamu zemí/regionů"
 
-#: web/skins/modern/diag/js/diag_js.php:137
+#: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
-#: web/skins/modern/diag/js/diag_js.php:138
+#: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
-#: web/skins/modern/diag/js/diag_js.php:139
+#: web/skins/modern/diag/js/diag_js.php:143
 msgid "I don't know"
-msgstr ""
+msgstr "Nevím"
 
-#: web/skins/modern/diag/js/diag_js.php:170
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr "Výsledky diagnostických testů pro vybrané domény"
-
-#: web/skins/modern/diag/js/diag_js.php:173
-#, fuzzy
-msgid "The result for tested realm:"
-msgstr "Výsledky diagnostických testů pro vybrané domény"
-
-#: web/skins/modern/diag/js/diag_js.php:175
-msgid "The system identified"
-msgstr ""
+msgstr "Výsledky diagnostických testů pro doménu"
 
 #: web/skins/modern/diag/js/diag_js.php:177
-msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgid "The result for tested realm:"
+msgstr "Výsledek pro doménu:"
 
-#: web/skins/modern/diag/js/diag_js.php:178
+#: web/skins/modern/diag/js/diag_js.php:179
+msgid "The system identified"
+msgstr "Systém byl identifikován"
+
+#: web/skins/modern/diag/js/diag_js.php:181
+msgid "suspected areas which potentially can cause a problem."
+msgstr "podezřelé oblasti, které mohou případně způsobit problém."
+
+#: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Vedle popisu problému zobrazujeme i pravděpodobnou možnost vzniku této "
+"události."
 
-#: web/skins/modern/diag/js/diag_js.php:185
+#: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Konfigurace vašeho zařízení je rozbitá ;)"
 
-#: web/skins/modern/diag/js/diag_js.php:188
+#: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Wi-Fi síť ve vašem okolí má problémy s kvalitou"
 
-#: web/skins/modern/diag/js/diag_js.php:191
+#: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Síťové prostředí kolem vás je rozbité"
 
-#: web/skins/modern/diag/js/diag_js.php:194
+#: web/skins/modern/diag/js/diag_js.php:198
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "RADIUS server vašeho poskytovatele služeb má problém"
 
-#: web/skins/modern/diag/js/diag_js.php:197
+#: web/skins/modern/diag/js/diag_js.php:201
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
-msgstr ""
+msgstr "RADIUS server vaší domovské organizace vás momentálně nemůže ověřit"
 
-#: web/skins/modern/diag/js/diag_js.php:200
+#: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
-msgstr ""
+msgstr "Národní server v zemi/regionu který jste navštívili nefunguje správně"
 
-#: web/skins/modern/diag/js/diag_js.php:203
+#: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Spojení mezi národním serverem země/regionu, kterou jste navštívili, a "
+"serverem nejvyšší úrovně je přerušeno"
 
-#: web/skins/modern/diag/js/diag_js.php:206
+#: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Spojení mezi národním serverem vaší země/regionu a serverem nejvyšší úrovně "
+"je přerušeno"
 
-#: web/skins/modern/diag/js/diag_js.php:209
+#: web/skins/modern/diag/js/diag_js.php:213
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Komunikace se serverem nejvyšší úrovně je nefunkční"
 
-#: web/skins/modern/diag/js/diag_js.php:212
+#: web/skins/modern/diag/js/diag_js.php:216
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "Národní server ve vaší zemi/regionu nefunguje správně"
 
-#: web/skins/modern/diag/js/diag_js.php:215
+#: web/skins/modern/diag/js/diag_js.php:219
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "Zdrojem problému je RADIUS server vaší domovské organizace"
 
-#: web/skins/modern/diag/js/diag_js.php:218
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:222
 msgid "This realm does not exist"
-msgstr "Tento realm nemá NAPTR záznamy."
+msgstr "Tato doména neexistuje"
 
-#: web/skins/modern/diag/js/diag_js.php:296
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr "Test připojení OpenRoaming není nakonfigurován"
+msgstr "Spuštění testů připojení pro tento realm"
 
-#: web/skins/modern/diag/js/diag_js.php:297
+#: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Nový výsledek testu je k dispozici, klikněte prosím pro zobrazení"
 
-#: web/skins/modern/diag/js/diag_js.php:422
-#: web/skins/modern/diag/js/diag_js.php:430
-#, fuzzy
+#: web/skins/modern/diag/js/diag_js.php:426
+#: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr "Pro podrobnosti, jděte na"
+msgstr "Zobrazit podrobnosti"
 
-#: web/skins/modern/diag/js/diag_js.php:432
+#: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
 msgstr ""

@@ -112,7 +112,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
 
     /**
      * This class also needs to handle frontend operations, so needs its own
-     * access to the FRONTEND database. This member stores the corresponding
+     * access to the FRONTEND database. This member stores the corresponding 
      * handle.
      * 
      * @var DBConnection
@@ -462,7 +462,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         // we should pretty-print the device names
         $finalarray = [];
-        $devlist = \devices\Devices::listDevices();
+        $devlist = \devices\Devices::listDevices($this->identifier);
         foreach ($returnarray as $devId => $count) {
             if (isset($devlist[$devId])) {
                 $finalarray[$devlist[$devId]['display']] = $count;
@@ -600,7 +600,13 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (\devices\Devices::listDevices() as $deviceIndex => $deviceProperties) {
+        if (count($this->getAttributes("media:openroaming")) == 1 && $this->getAttributes("media:openroaming")[0]['value'] == 'always-preagreed') {
+            $orAlways = 1;
+        } else {
+            $orAlways = 0;
+        }
+        
+        foreach (\devices\Devices::listDevices($this->identifier, $orAlways) as $deviceIndex => $deviceProperties) {
             $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
             // find the attribute pertaining to the specific device
@@ -625,6 +631,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             }
             $eapCustomtext = 0;
             $deviceCustomtext = 0;
+            $geteduroam = 0;
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = self::HIDDEN;
@@ -661,9 +668,15 @@ abstract class AbstractProfile extends EntityWithDBProperties
                     } else {
                         $devStatus = self::UNAVAILABLE;
                     }
+                    $geteduroamOpts = $this->getAttributes("device-specific:geteduroam");
+                    foreach ($geteduroamOpts as $dev) {
+                        if ($dev['device'] == $deviceIndex) {
+                            $geteduroam = $dev['value'] == 'on' ? 1 : 0;
+                        }
+                    }
                 }
             }
-            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options'], 'group' => $group];
+            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options'], 'group' => $group, 'geteduroam' => $geteduroam];
         }
         return $returnarray;
     }
@@ -767,6 +780,10 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }
+        // institutions without a name are not really a corner case we should support
+        if (!isset($attribs['general:instname'])) {
+            $properConfig = FALSE;
+        }
         return $properConfig;
     }
 
@@ -808,7 +825,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 "lang" => NULL,
                 "value" => $attValue,
                 "level" => Options::LEVEL_PROFILE,
-                "row" => 0,
+                "row_id" => 0,
                 "flag" => NULL,
             ];
         }
@@ -822,7 +839,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      */
     protected function addDatabaseAttributes()
     {
-        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
+        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = ?
                 AND device_id IS NULL AND eap_method_id = 0

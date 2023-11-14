@@ -153,7 +153,7 @@ class OptionDisplay extends \core\common\Entity
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 $loggerInstance = new \core\common\Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
+                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row_id'] : $option['value']), $option['lang']);
             }
         }
         return $retval;
@@ -200,8 +200,6 @@ class OptionDisplay extends \core\common\Entity
             case "media":
                 if ($fedInstance->getAttributes("fed:openroaming") == []) {
                     // no openroaming here
-                    unset($list[array_search("media:openroaming_always", $list)]);
-                    unset($list[array_search("media:openroaming_ask", $list)]);
                     unset($list[array_search("media:openroaming", $list)]);
                 }
                 break;
@@ -235,7 +233,7 @@ class OptionDisplay extends \core\common\Entity
 
     /**
      * produce code for a option-specific tooltip
-     * @param int     $rowid     the number (nonce during page build) of the option 
+     * @param int     $rowid     the number (once during page build) of the option 
      *                           that should get the tooltip
      * @param string  $input     the option name. Tooltip for it will be displayed
      *                           if we have one available.
@@ -268,7 +266,7 @@ class OptionDisplay extends \core\common\Entity
 
     /**
      * 
-     * @param int   $rowid the number (nonce during page build) of the option 
+     * @param int   $rowid the number (once during page build) of the option 
      *                     that should get the tooltip
      * @param array $list  elements of the drop-down list
      * @return array HTML code and which option is active
@@ -354,7 +352,7 @@ FOO;
     /**
      * HTML code to display the language selector
      * 
-     * @param int     $rowid       the number (nonce during page build) of the option 
+     * @param int     $rowid       the number (once during page build) of the option 
      *                             that should get the tooltip
      * @param boolean $makeVisible is the language selector to be made visible?
      * @return string
@@ -376,7 +374,7 @@ FOO;
 
     /**
      * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
-     * @param int   $rowid      the number (nonce during page build) of the option 
+     * @param int   $rowid      the number (once during page build) of the option 
      *                          that should get the tooltip
      * @param array $activetype the active datatype that is to be visible
      * @return string

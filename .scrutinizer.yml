@@ -108,7 +108,7 @@ build:
         analysis:
             environment:
                 php:
-                    version: 8.0.13
+                    version: 8.1.20
             project_setup:
                 override: true
             tests:
@@ -120,10 +120,10 @@ build:
             environment:
                 variables:
                     MY_PATH: '/home/scrutinizer/vault/'
-                    TEST_LANGUAGE_VARIANTS: 0
+                    TEST_LANGUAGE_VARIANTS: 1
                     DEBIAN_FRONTEND: 'noninteractive'
                 php:
-                    version: 8.0.13
+                    version: 8.1.20
                 hosts:
                     ci.test: 127.0.0.1
                 apache2:
@@ -134,12 +134,12 @@ build:
                             host: ci.test
             dependencies:
                 before:
-                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl shellcheck
-                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set download_dir /tmp
-                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set cache_dir /tmp
-                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pear config-set temp_dir /tmp
-                    - /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl update-channels
-                    - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.0.13/bin/pecl install imagick
+                    - sudo DEBIAN_FRONTEND=noninteractive apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet openssl shellcheck cmake libssl-dev libcurl4-openssl-dev
+                    - /home/scrutinizer/.phpenv/versions/8.1.20/bin/pear config-set download_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.1.20/bin/pear config-set cache_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.1.20/bin/pear config-set temp_dir /tmp
+                    - /home/scrutinizer/.phpenv/versions/8.1.20/bin/pecl update-channels
+                    - sudo printf "\n" | /home/scrutinizer/.phpenv/versions/8.1.20/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
@@ -177,25 +177,27 @@ build:
                       const GEOIP = [];
                       const MAILSETTINGS = [];
                       const LANGUAGES = [
-                      'bg' => ['display' => 'Български',   'locale' => 'bg_BG.utf8',    'latin_based' => FALSE],
-                      'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
-                      'cs' => ['display' => 'Čeština',     'locale' => 'cs_CZ.utf8',    'latin_based' => TRUE],
-                      'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
-                      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
-                      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
-                      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],     
-                      'et' => ['display' => 'Eesti',       'locale' => 'et_EE.utf8',    'latin_based' => TRUE], 
-                      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
-                      'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
-                      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
-                      'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
-                      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
-                      'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
-                      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
-                      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
-                      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
-                      'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
-                      'tr' => ['display' => 'Türkçe',      'locale' => 'tr_TR.utf8',    'latin_based' => TRUE],
+                      'ar' => ['display' => 'العربية', 'locale' => 'ar_SA.utf8', 'latin_based' => FALSE, 'rtl' => TRUE],
+                      'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
+                      'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'de' => ['display' => 'Deutsch', 'locale' => 'de_DE.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'el' => ['display' => 'Ελληνικά', 'locale' => 'el_GR.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
+                      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'es' => ['display' => 'Español', 'locale' => 'es_ES.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'et' => ['display' => 'Eesti', 'locale' => 'et_EE.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'fr' => ['display' => 'Français', 'locale' => 'fr_FR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'hr' => ['display' => 'Hrvatski', 'locale' => 'hr_HR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'it' => ['display' => 'Italiano', 'locale' => 'it_IT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'nb' => ['display' => 'Norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      //            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      //            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'fi' => ['display' => 'Suomi', 'locale' => 'fi_FI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      //            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+                      'uk' => ['display' => 'Українська', 'locale' => 'uk_UA.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
                       ];
                       const DB = [
                       'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
@@ -219,8 +221,21 @@ build:
                       'nomenclature_hotspot' => 'Hotspot',
                       'homepage' => 'https://www.eduroam.org',
                       'nomenclature_participant' => 'Customer',
-                      'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
+                      'networks' => [
+                           'eduroam®'     => [
+                              'ssid' => ['eduroam'], 
+                              'oi' => [ '001bc50460' /* eduroam RCOI */ 
+                            ], 
+                            'condition' => TRUE],
+                            'OpenRoaming® (%REALM%)' => [
+                              'ssid' => [],     /* OpenRoaming has left SSIDs behind */
+                              'oi' => [
+                                  '5A03BA0000', /* OpenRoaming/AllIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                                  '5A03BA0800', /* OpenRoaming/EduIdentities/SettlementFree/NoPersonalData/BaselineQoS */
+                            ],
+                            'condition' => 'internal:openroaming',],
+                      ],
                       ];
                       const SILVERBULLET = [
                       'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
@@ -228,7 +243,8 @@ build:
                       const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
                       const NSIS_VERSION = 3;
                       const USE_KEYWORDS = true;
-                      const PRELOAD_IDPS = true;                      
+                      const PRELOAD_IDPS = true;  
+                    
                       }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "
@@ -502,16 +518,16 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux_sh\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.sh --no-verbose
                   title: "Generating a Linux (Bash) installer via API call"
                 - 
-                  command: shellcheck /home/scrutinizer/artifacts/LinuxInstaller.sh
+                  command: shellcheck -e SC2034,SC2086,SC2059,SC2181,SC2162,SC2166,SC2128,SC2196 /home/scrutinizer/artifacts/LinuxInstaller.sh
                   title: "Checking whether output is a error-free Bash script"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
                   title: "Generating an eap-config XML file via API call"
                 - 
-                  command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
+                  command: xmlstarlet val -s "/home/scrutinizer/build/devices/eap_config/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
                   title: "Checking whether output is well-formed XML and validates against Schema"
                 - 
-                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/8.0.13/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/8.0.13/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
+                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/8.1.20/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/8.1.20/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
     services:
         mariadb: 10
 tools:

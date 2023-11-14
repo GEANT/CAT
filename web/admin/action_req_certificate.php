@@ -27,15 +27,17 @@
 ?>
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
 
-$auth->authenticate();
+/* Are we operating against the eduPKI Test CA? For the prod CA, set to false */
+$is_testing = true;
 
+
+$auth->authenticate();
 
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
@@ -66,17 +68,34 @@ $langObject = new \core\common\Language();
         echo _("You do not have the necessary privileges to request server certificates.");
         exit(1);
     }
+    $externalDb = new \core\ExternalEduroamDBData();
 // okay... we are indeed entitled to "do stuff"
-    $feds = $user->getAttributes("user:fedadmin");
+    $feds = [];
+    $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
+    foreach ($allAuthorizedFeds as $oneFed) {
+        $fed = $validator->existingFederation($oneFed["value"]);
+        $country = strtoupper($fed->tld);
+        $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
+        if (count($serverInfo) > 0) {
+            $feds[] = $fed;
+        }
+    }
+    if ($is_testing === true) {
+        $DN = ["DC=eduroam", "DC=test", "DC=test"];
+        $expiryDays = 365;
+    } else {
+        $DN = ["DC=eduroam", "DC=geant", "DC=net"];
+        $expiryDays = 1825;
+    }
+
     // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
     // also send user back to the overview page
     if (isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
         // basic sanity checks before we hand this over to openssl
-        $sanitisedCsr = $validator->string($_POST['CSR'] ?? "" , TRUE);
+        $sanitisedCsr = $validator->string($_POST['CSR'] ?? "", TRUE);
         if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
             throw new Exception("Sorry: Unable to parse the submitted public key - no public key inside?");
         }
-        $DN = ["DC=eduroam", "DC=test", "DC=test"];
         $policies = [];
         switch ($_POST['LEVEL'] ?? "") {
             case "NRO":
@@ -87,104 +106,190 @@ $langObject = new \core\common\Language();
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
-                $DN[] = "CN=comes.from.eduroam.db";
+                $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
+                $serverList = explode(",", array_key_first($serverInfo));
+                $DN[] = "CN=" . $serverList[0];
                 $policies[] = "eduroam IdP";
                 $policies[] = "eduroam SP";
+                $firstName = $serverInfo[array_key_first($serverInfo)][0]["name"];
+                $firstMail = $serverInfo[array_key_first($serverInfo)][0]["mail"];
+
                 break;
             case "INST":
-                $desiredInst = $validator->existingIdP($_POST['INST-list']);
-                $fed = $validator->existingFederation($desiredInst->federation, $_SESSION['user']);                
-                $country = strtoupper($fed->tld);
+                $matches = [];
+                preg_match('/^([A-Z][A-Z]).*\-.*/', $_POST['INST-list'], $matches);
+                $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
+                if ($user->isFederationAdmin($matches[1]) === FALSE) {
+                    throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
+                }
+                $country = strtoupper($matches[1]);
                 $DN[] = "C=$country";
-                $DN[] = "O=".$desiredInst->name;
-                $DN[] = "CN=comes.from.eduroam.db";
-                // TODO: with the info available in CAT 2.1, can also issue SP
-                $policies[] = "eduroam IdP";
+                $serverInfo = $extInsts[$_POST['INST-list']];
+                if (isset($serverInfo["names"]["en"])) {
+                    $ou = $serverInfo["names"]["en"];
+                } else {
+                    $ou = $serverInfo["names"][$langInstance->getLang()];
+                }
+                $DN[] = "O=$ou";
+                $serverList = explode(",", $serverInfo["servers"]);
+                $DN[] = "CN=" . $serverList[0];
+                switch ($serverInfo["type"]) {
+                    case core\IdP::TYPE_IDPSP:
+                        $policies[] = "eduroam IdP";
+                        $policies[] = "eduroam SP";
+                        break;
+                    case core\IdP::TYPE_IDP:
+                        $policies[] = "eduroam IdP";
+                        break;
+                    case core\IdP::TYPE_SP:
+                        $policies[] = "eduroam SP";
+                        break;
+                }
+                $firstName = $serverInfo["contacts"][0]["name"];
+                $firstMail = $serverInfo["contacts"][0]["mail"];
+
                 break;
             default:
                 throw new Exception("Sorry: Unknown level of issuance requested.");
         }
-        echo "<p>" . _("Requesting a certificate with the following properties");
+        echo "<p style='font-size: large'>" . _("Requesting a certificate with the following properties");
         echo "<ul>";
         echo "<li>" . _("Policy OIDs: ") . implode(", ", $policies) . "</li>";
         echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN) . "</li>";
-        echo "<li>" . _("Requester Contact Details: will come from eduroam DB (using stub 'Someone, &lt;someone@somewhere.xy&gt;').") . "</li>";
+        echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
+        echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
-        /* $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
-        if (is_resource($ossl)) {
-            fwrite($pipes[0], $_POST['CSR']);
-            fclose($pipes[0]);
-            $newCsr = stream_get_contents($pipes[1]);
-            fclose($pipes[1]);
-            $retval = proc_close($ossl);
-        } else {
-            throw new Exception("Calling openssl in a fancy way did not work.");
-        }
-        echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
-        $newCsrWithMeta = ["CSR" => /* $newCsr */ $_POST['CSR'], "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
+
+        $vettedCsr = $validator->string($_POST['CSR'], true);
+        $newCsrWithMeta = [
+            "CSR_STRING" => /* $newCsr */ $vettedCsr,
+            "USERNAME" => $firstName,
+            "USERMAIL" => $firstMail,
+            "SUBJECT" => implode(",", $DN),
+            "ALTNAMES" => $serverList,
+            "POLICIES" => $policies,
+            "FED" => $country];
         // our certs can be good for max 5 years
-        $fed->requestCertificate($newCsrWithMeta, 1825);
-        echo "<p>"._("The certificate was requested.")."</p>";
+        $fed->requestCertificate($user->identifier, $newCsrWithMeta, $expiryDays);
+        echo "<p>" . _("The certificate was requested.") . "</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
-            <button type="submit"><?php echo _("Back to Certificate Overview");?></button>
+            <button type="submit"><?php echo _("Back to Certificate Overview"); ?></button>
         </form>
-    <?php
-    echo $deco->footer();
-    exit(0);
+        <?php
+        echo $deco->footer();
+        exit(0);
     }
 
     // if we did not get a SAVE button, display UI for a fresh request instead
     ?>
-    <h2><?php echo _("1. Certificate Holder Details");?></h2>
-    <form action="action_req_certificate.php" method="POST">
-        <input type="radio" name="LEVEL" id="NRO" value="NRO" checked><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureFed); ?></input>
+    <h2><?php echo _("1. Certificate Holder Details"); ?></h2>
+    <form action="action_req_certificate.php" onsubmit="check_csr();" method="POST">
         <?php
-        if (count($feds) == 1) {
-            $fedObject = new \core\Federation($feds[0]['value']);
-            echo " <strong>" . $cat->knownFederations[$fedObject->tld] . "</strong>";
-            echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $fedObject->tld . '"/>';
-        } else {
-            ?>
-            <select name="NRO-list" id="NRO-list">
-                <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
-                <?php
-                foreach ($feds as $oneFed) {
-                    $fedObject = new \core\Federation($oneFed['value']);
-                    echo '<option value="' . strtoupper($fedObject->tld) . '">' . $cat->knownFederations[$fedObject->tld] . "</option>";
-                }
+        switch (count($feds)) {
+            case 0:
+                echo "<div>";
+                echo $uiElements->boxRemark("<strong>" . sprintf(_("None of your %s servers has complete information in the database."),$uiElements->nomenclatureFed)."</strong>" . _("At least the DNS names of TLS servers and a role-based contact mail address are required."));
+                echo "</div>";
+                break;
+            case 1:
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
+                echo " <strong>" . $cat->knownFederations[$feds[0]->tld] . "</strong>";
+                echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $feds[0]->tld . '"/>';
+                break;
+            default:
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 ?>
-            </select>
+                <select name="NRO-list" id="NRO-list">
+                    <option value="notset"><?php echo _("---PPPLEASE CHOOSE---"); ?></option>
+                    <?php
+                    foreach ($feds as $oneFed) {
+                        #echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                        echo '<option value="AAA' . strtoupper($oneFed->tld) . '">' . $oneIdP["names"][$langObject->getLang()] . "</option>";
+                        
+                    }
+                    ?>
+                </select>
             <?php
+        }
+        $allIdPs = [];
+        foreach ($allAuthorizedFeds as $oneFed) {
+            foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
+                $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["names"][$langObject->getLang()];
+            }
+        }
+        if (count($allIdPs) > 0) {
+        ?>
+        <br/>
+        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
+        <select name="INST-list" id="INST-list">
+            <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
+<?php
+foreach ($allIdPs as $id => $name) {
+    echo '<option value="' . $id . '">' . $name . "</option>";
+}
+?>
+        </select>
+        <?php
+        } else {
+            echo "<div>";
+            echo $uiElements->boxRemark(sprintf(_("<strong>No organisation inside your %s has complete information in the database</strong>."." "._("At least the DNS names of TLS servers and a role-based contact mail address are required.")),$uiElements->nomenclatureFed), "No TLS capable org!", true);
+            echo "</div>";
         }
         ?>
         <br/>
-        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureIdP); ?></input>
-        <select name="INST-list" id="INST-list">
-            <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
-            <?php
-            $allIdPs = [];
-            foreach ($feds as $oneFed) {
-                $fedObject = new \core\Federation($oneFed['value']);
-                foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
-                    $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
-                }
-            }
-            foreach ($allIdPs as $id => $name) {
-                echo '<option value="' . $id . '">' . $name . "</option>";
-            }
-            ?>
-        </select>
-        <br/>
-        <h2><?php echo _("2. CSR generation");?></h2>
-        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:");?></p>
-        <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
-        <h2><?php echo _("3. Submission");?></h2>
-        <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
-    <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
+        <?php
+        if (count($feds) > 0 || count($allIdPs) > 0) {?>
+        <h2><?php echo _("2. CSR generation"); ?></h2>
+        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
+        <?php 
+        echo "openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced";
+        ?>
+        <h2><?php echo _("3. Submission"); ?></h2>
+<?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
+    <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"></td><?php echo _("Send request"); ?></button>
+    <?php
+        }
+        ?>
 </form>
-    <form action="overview_certificates.php" method="POST">
-        <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
-    </form>
+    <div style="margin-left:50em">
+<form action="overview_certificates.php" method="POST">
+    <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
+</form>
+    </div>
 <?php
 echo $deco->footer();
+?>
+<script type="text/javascript">
+    function check_csr() {
+        var ok = true;
+        var level = $("input[type='radio'][name='LEVEL']:checked").val();
+        if (level == 'INST') { 
+          var inst = document.getElementById('INST-list').value;
+          if (inst == 'notset') {
+              alert('You have to choose organisation!');
+              ok = false;
+          }
+        }
+        var csr = document.getElementById('CSR').value;
+        if (csr == '') {
+            alert('Your CSR is empty!');
+            ok = false;
+        } else {
+            if (!csr.startsWith('-----BEGIN CERTIFICATE REQUEST-----')) {
+                alert('The CSR must start with -----BEGIN CERTIFICATE REQUEST-----');
+                ok = false;
+            } else {
+                if (!csr.endsWith('-----END CERTIFICATE REQUEST-----')) {
+                    alert('The CSR must end with -----END CERTIFICATE REQUEST-----');
+                    ok = false;
+                }
+            }
+        }
+        if (!ok) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>

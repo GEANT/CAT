@@ -62,9 +62,9 @@ CREATE TABLE `federation_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -85,9 +85,9 @@ CREATE TABLE `institution_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `institution_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -155,9 +155,9 @@ CREATE TABLE `deployment_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `deployment_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -180,9 +180,9 @@ CREATE TABLE `profile_option` (
   `option_name` varchar(32) DEFAULT NULL,
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -206,16 +206,18 @@ CREATE TABLE `downloads` (
   `mime` varchar(50) DEFAULT NULL,
   `eap_type` int(4),
   `openroaming` int(1),
-  UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`)
+  UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`, `openroaming`),
+  KEY `device_id` (`device_id`),
+  KEY `profile_id` (`profile_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 
-  `row` int(11) NOT NULL AUTO_INCREMENT, 
+  `row_id` int(11) NOT NULL AUTO_INCREMENT, 
   `user_id` varchar(2048) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  KEY `rowindex` (`row`),
+  KEY `rowindex` (`row_id`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -227,9 +229,10 @@ INSERT INTO `profile_option_dict` VALUES
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML'),
 ('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML'),
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
+('device-specific:geteduroam','show the dedicated geteduroam download page for this device','boolean',NULL),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL),
 ('eap:ca_file','certificate of the CA signing the RADIUS server key','file',NULL),
-('eap:server_name','name of authorized RADIUS server','string',NULL),
+('eap:server_name','name of authorised RADIUS server','string',NULL),
 ('general:geo_coordinates','geographical coordinates of the institution or a campus','coordinates',NULL),
 ('general:instname','name of the institution in multiple languages','string','ML'),
 ('general:instshortname','short name of the institution (acronym etc) in multiple languages','string','ML'),

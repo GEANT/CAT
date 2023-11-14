@@ -26,3 +26,8 @@ When upgrading from the newest CAT 2.0 database structure:
 When deploying CAT 2.1 from scratch:
 
 - use schema.sql to create a new schema
+
+When updating to CAT 2.1.1 you need to change column names ftom `row` to `row_id`.
+Probably the easiest way to do that is to edit the database dump in vi replacing tith the command:
+1,$s/`row`/`row_id`/g
+Run 2_1-2_1_1.sql to add one option to profile_option_dict

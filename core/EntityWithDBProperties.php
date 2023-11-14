@@ -87,7 +87,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity
 
     /**
      * the unique identifier of this entity instance
-     * refers to the integer row name in the DB -> int; Federation has no own
+     * refers to the integer row_id name in the DB -> int; Federation has no own
      * DB, so the identifier is of no use there -> use Fedearation->$tld
      * 
      * @var integer identifier of the entity instance
@@ -173,18 +173,18 @@ abstract class EntityWithDBProperties extends \core\common\Entity
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
      * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
-     * @return array list of row id's of file-based attributes which weren't deleted
+     * @return array list of row_id id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes($extracondition = "")
     {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
-        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
+        $execFlush = $this->databaseHandle->exec("SELECT row_id FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
         $returnArray = [];
         // SELECT always returns a resource, never a boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execFlush)) {
-            $returnArray[$queryResult->row] = "KILLME";
+            $returnArray[$queryResult->row_id] = "KILLME";
         }
         return $returnArray;
     }
@@ -198,8 +198,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity
     public function commitFlushAttributes(array $tobedeleted)
     {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
-        foreach (array_keys($tobedeleted) as $row) {
-            $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
+        foreach (array_keys($tobedeleted) as $row_id) {
+            $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row_id = $row_id");
             $this->updateFreshness();
         }
     }
@@ -258,7 +258,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity
             if ($optinfo['type'] == 'file') {
                 $decoded = base64_decode($decoded);
             }
-            $tempAttributes[] = ["name" => $attributeQuery->option_name, "lang" => $attributeQuery->option_lang, "value" => $decoded, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            $tempAttributes[] = ["name" => $attributeQuery->option_name, "lang" => $attributeQuery->option_lang, "value" => $decoded, "level" => $level, "row_id" => $attributeQuery->row_id, "flag" => $flag];
         }
         return $tempAttributes;
     }
@@ -267,10 +267,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
-     * @param int    $row   rowindex
+     * @param int    $row_id   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
-    public static function fetchRawDataByIndex($table, $row)
+    public static function fetchRawDataByIndex($table, $row_id)
     {
         // only for select tables!
         switch ($table) {
@@ -284,7 +284,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity
                 return FALSE;
         }
         $handle = DBConnection::handle("INST");
-        $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
+        $blobQuery = $handle->exec("SELECT option_value from $table WHERE row_id = $row_id");
         // SELECT -> returns resource, not boolean
         $dataset = mysqli_fetch_row(/** @scrutinizer ignore-type */ $blobQuery);
         return $dataset[0] ?? FALSE;
@@ -295,10 +295,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity
      * yes who the authorised admins to view it are (return array of user IDs)
      * 
      * @param string $table which database table is this about
-     * @param int    $row   row index of the table
+     * @param int    $row_id   row_id index of the table
      * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
      */
-    public static function isDataRestricted($table, $row)
+    public static function isDataRestricted($table, $row_id)
     {
         if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
@@ -312,9 +312,9 @@ abstract class EntityWithDBProperties extends \core\common\Entity
             case "institution_option":
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
-                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = ?", "i", $row);
+                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row_id = ?", "i", $row_id);
                 // SELECT always returns a resource, never a boolean
-                while ($idQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) { // only one row
+                while ($idQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) { // only one row_id
                     $blobId = $idQuery->id;
                 }
                 if ($blobId == -1) {

@@ -44,6 +44,10 @@ class PageDecoration extends \core\common\Entity {
      */
     private $langObject;
     
+    private $start;
+    
+    private $end;
+    
     /**
      * construct the PageDecoration object
      */
@@ -53,6 +57,9 @@ class PageDecoration extends \core\common\Entity {
         $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
         $this->ui = new UIElements();
+        $this->start = $this->langObject->rtl ? "right" : "left";
+        $this->end = $this->langObject->rtl ? "left" : "right";
+
     }
 
     /**
@@ -92,10 +99,10 @@ class PageDecoration extends \core\common\Entity {
 
         $retval = "<div class='header'>
             <div id='header_toprow'>
-                <div id='header_captions' style='display:inline-block; float:left; min-width:400px;'>
+                <div id='header_captions' style='display:inline-block; float:$this->start; min-width:400px;'>
                     <h1>$cap1</h1>
                 </div><!--header_captions-->
-                <div id='langselection' style='padding-top:20px; padding-left:10px;'>
+                <div id='langselection' style='padding-top:20px; padding-".$this->start.":10px;'>
                     <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
@@ -200,11 +207,11 @@ class PageDecoration extends \core\common\Entity {
         $retval .= "<div class='trick'>"; // closes in footer again
         $retval .= "<div id='secondrow'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
-                <h2 style='padding-left:10px;'>$cap2</h2>
+                <h2 style='padding-".$this->start.":10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
         if (isset(\config\Master::APPEARANCE['MOTD']) && \config\Master::APPEARANCE['MOTD'] != "") {
-            $retval .= "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
+            $retval .= "<div id='header_MOTD' style='display:inline-block; padding-".$this->start.":20px;vertical-align:top;'>
               <p class='MOTD'>" . \config\Master::APPEARANCE['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
@@ -228,7 +235,7 @@ class PageDecoration extends \core\common\Entity {
         $ourlocale = $this->langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");
         $retval = "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'".($this->langObject->rtl ? "dir='rtl'" : "").">
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
         $cssUrl = \core\CAT::getRootUrlPath() . "/resources/css/cat.css.php";
@@ -248,7 +255,7 @@ class PageDecoration extends \core\common\Entity {
             // (accountstatus courtesy of my good mood. It's userspace not admin space so
             // it shouldn't be using this function any more.)
             $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
-            return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
+            return "<span id='logos'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
         }
@@ -260,35 +267,39 @@ class PageDecoration extends \core\common\Entity {
      * 
      * @return string
      */
+    
     public function footer() {
         $cat = new \core\CAT();
         \core\common\Entity::intoThePotatoes();
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
-        <div class='footer'>
-            <table style='width:100%'>
-                <tr>
-                    <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        " . $cat->catCopyright . "</td>";
-        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
-            $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
-        }
-        $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
+<div class='footer' id='footer'>
+    <table>
+        <tr>
+            <td>" .
+                $cat->catVersion
+               ."
+            </td>";
 
-        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td>".$cat->catCopyrifhtAndLicense."<br><span id='privacy_notice_cons'>".\config\ConfAssistant::CONSORTIUM['display_name']."</span> <a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), '')."</a></td>";
+        }
+        $retval .= "<td>";
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";
         }
+
         $retval .= "
-                    </td>
-                </tr>
-            </table>
+            </td>
+        </tr>
+    </table>
         </div><!-- footer -->
         </div><!-- maincontent -->
         </body>
         </html>";
-        \core\common\Entity::outOfThePotatoes();
+    \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

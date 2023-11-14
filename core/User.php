@@ -75,18 +75,18 @@ class User extends EntityWithDBProperties
             while ($userDetailQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $info)) {
                 if (!$visited) {
                     $mailOptinfo = $optioninstance->optionType("user:email");
-                    $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => Options::LEVEL_USER, "row" => 0, "flag" => $mailOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => Options::LEVEL_USER, "row_id" => 0, "flag" => $mailOptinfo['flag']];
                     $realnameOptinfo = $optioninstance->optionType("user:realname");
-                    $this->attributes[] = ["name" => "user:realname", "lang" => NULL, "value" => $userDetailQuery->common_name, "level" => Options::LEVEL_USER, "row" => 0, "flag" => $realnameOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:realname", "lang" => NULL, "value" => $userDetailQuery->common_name, "level" => Options::LEVEL_USER, "row_id" => 0, "flag" => $realnameOptinfo['flag']];
                     $visited = TRUE;
                 }
                 if ($userDetailQuery->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
-                    $this->attributes[] = ["name" => "user:fedadmin", "lang" => NULL, "value" => strtoupper($userDetailQuery->realm), "level" => Options::LEVEL_USER, "row" => 0, "flag" => $optinfo['flag']];
+                    $this->attributes[] = ["name" => "user:fedadmin", "lang" => NULL, "value" => strtoupper($userDetailQuery->realm), "level" => Options::LEVEL_USER, "row_id" => 0, "flag" => $optinfo['flag']];
                 }
             }
         } else {
-            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
+            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id
                                                 FROM $this->entityOptionTable
                                                 WHERE $this->entityIdColumn = ?", "User");
         }

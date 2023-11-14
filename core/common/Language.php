@@ -53,6 +53,11 @@ class Language
     public $locale;
 
     /**
+     * Is the currently set language a right-to-left language?
+     */
+    public $rtl;
+    
+    /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
      *  additionally it also sets static variables $laing_index and $root
@@ -62,6 +67,7 @@ class Language
         $language = $this->setLang();
         $this->LANG = $language[0];
         $this->locale = $language[1];
+        $this->rtl = $language[2];
     }
 
     /**
@@ -96,12 +102,13 @@ class Language
     {
         // $langConverted will contain candidates for the language setting in the order
         // of prefference
+        $loggerInstance = new \core\common\Logging();
         $langConverted = [];
         if ($hardSetLang !== 0) {
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $recoverLang = filter_input(INPUT_GET, 'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
+            $recoverLang = (!empty($_GET['lang']) ? htmlspecialchars($_GET['lang']) : htmlspecialchars($_POST['lang']));
             $langConverted[] = $recoverLang;
         }
         \core\CAT::sessionStart();
@@ -144,12 +151,13 @@ class Language
                 }
             }
         }
+        $isRtl = \config\Master::LANGUAGES[$langIndex]['rtl'];
         putenv("LC_ALL=" . $theLocale);
+        putenv("LANGUAGE=" . $theLocale);
         $_SESSION['language'] = $langIndex;
-        $loggerInstance = new \core\common\Logging();
         $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
         $loggerInstance->debug(4, print_r($langConverted, true));
-        return([$langIndex, $theLocale]);
+        return([$langIndex, $theLocale,$isRtl]);
     }
 
     /**

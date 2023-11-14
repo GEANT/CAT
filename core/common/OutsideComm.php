@@ -82,7 +82,7 @@ class OutsideComm extends Entity
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
-        $configuredFrom = \config\Master::APPEARANCE['from-mail'] . "";
+        $configuredFrom = \config\Master::APPEARANCE['from-mail'];
         $mail->From = $configuredFrom;
 // are we fancy? i.e. S/MIME signing?
         if (isset(\config\Master::MAILSETTINGS['certfilename'], \config\Master::MAILSETTINGS['keyfilename'], \config\Master::MAILSETTINGS['keypass'])) {

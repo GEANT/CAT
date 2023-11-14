@@ -60,14 +60,16 @@ Var HEADLINE_FONT
       !define EXECLEVEL "admin"
 !endif
 
+!define PROFILE_STATE_SUCCESS 0
 !define PROFILE_STATE_DELETE 1
- 
 !define PROFILE_STATE_FAIL 2
+!define PROFILE_STATE_IGNORE 3
 
 Var Debug_cat
 Var Debug_file
 Var Dialog
 Var profile_fail
+Var profile_result
 Var profile_count
 Var aes_count
 Var tkip_count
@@ -87,7 +89,6 @@ Var force_wired
 Var Platform
 Var Netsh
 Var Msiexec
-Var main_ssid
 Var rebootRequired
 Var spacesRemoved
 !ifdef GEANTLink
@@ -154,7 +155,7 @@ Var spacesRemoved
 !insertmacro MUI_LANGUAGE "${LANG}"
 
 ;--------------------------------
-; License file
+; Licence file
 !ifdef LICENSE_FILE
 LicenseForceSelection checkbox "<?php WindowsCommon::echoNsis( _("Accept"))?>"
 LicenseText "<?php WindowsCommon::echoNsis(_("If you accept the conditions then select Accept and then click Install to continue."))?>"
@@ -182,9 +183,10 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echoNsis( _("Finish"))?>"
 !macroend
 
 
-!macro define_wlan_profile prof enc hs20
+!macro define_wlan_profile prof enc hs20 ssids
   nsArray::Set Profile_names /key=$profile_count "${prof}"
-  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}  
+  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}
+  nsArray::Set Profile_SSIDs /key=$profile_count ${ssids}
   IntOp $profile_count $profile_count + 1
   ${If} ${enc} == "TKIP"
     IntOp $tkip_count $tkip_count + 1
@@ -579,14 +581,14 @@ Function wVersionCheck
 !ifdef W10
 ; for native TTLS only - if the system has not been updated to have the working native supplicant - warn the user
 ; This will only work correctly for NSIS 3.04 and newer.
-    !ifdef TTLS
-        ${If} $NoFCupdate == 1
-            IfSilent +3
-            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
-            Call Cleanup
-            ${EndIf}
-            cont1:
-    !endif
+;    !ifdef TTLS
+;        ${If} $NoFCupdate == 1
+;            IfSilent +3
+;            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
+;            Call Cleanup
+;            ${EndIf}
+;            cont1:
+;    !endif
 ;  ${If} ${AtMostWin8.1}
 ;    IfSilent +2
 ;    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
@@ -793,9 +795,9 @@ FunctionEnd
 Function Finish
 Call ShowAllButtons
   
-   ${If} $profile_fail == 1
-     Goto WriteScript
-   ${EndIf}
+;   ${If} $profile_fail == 1
+;     Goto WriteScript
+;   ${EndIf}
    !ifdef DEBUG_CAT
      ${If} $Debug_cat > 0
        Goto WriteScript
@@ -933,6 +935,11 @@ Function InstallProfile
     Pop $R1
     nsArray::Get Profile_states $R0
     Pop $R2
+    nsArray::Get Profile_SSIDs $R0
+    Pop $R5
+; Assume profile success (profile_result is local to this function, however profile_fail is global)
+    Push ${PROFILE_STATE_SUCCESS}
+    Pop $profile_result
     ${If} $R2 == ${PROFILE_STATE_DELETE}
         DetailPrint "<?php WindowsCommon::echoNsis(_("deleting profile \$R1"))?>"
         !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
@@ -951,14 +958,30 @@ Function InstallProfile
     Pop $0
     !insertmacro debug_cat 4 "netsh returned $0"
     ${If} $0 <> 0
-        Push 1
-        Pop $profile_fail
+; profile installation failed    
+        Push ${PROFILE_STATE_FAIL}
+        Pop $profile_result
+        ; we are not yet changing the global profile_fail
         !insertmacro debug_cat 1 'Profile installation error for "$R1"'
 ; we need to see if the profile is HS 2.0 if so then try the nohs profile
         nsArray::Get Profile_hs20 $R0
         Pop $R3
         ${If} $R3 == 1
+; this means that we have a HS 2.0 - only profile, we need to ignore the error as it
+; can be caused by an old card and we do not change the state of profile_fail
+            Push ${PROFILE_STATE_IGNORE}
+            Pop $profile_result
+            !insertmacro debug_cat 1 "This was an HS 2.0 only profile so we ignore the error"
+;            nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_IGNORE}
+        ${EndIf}
+        ${If} $R3 == 2
+; this means that the HS 2.0 profile can also contain SSIDs so we need to check if the system 
+; created also nohs profiles, and if so - use one. For the time being we set the IGNORE
+            Push ${PROFILE_STATE_IGNORE}
+            Pop $profile_result
             IfFileExists "$TEMP\nohs_wlan_prof-$R0.xml" 0 noInstall
+=======
+; the nohs profile exists so we try to use that
             !insertmacro debug_cat 1 "Retrying installation with the non-hs profile"
             !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml"
             nsArray::Set Commands "netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml" 
@@ -968,18 +991,42 @@ Function InstallProfile
             !insertmacro debug_cat 4 "netsh returned $R4"
             ${If} $R4 == 0
                 !insertmacro debug_cat 1 "The non-hs profile succeeded"
-                    Push 0
-                    Pop $profile_fail
+                Push ${PROFILE_STATE_SUCCESS}
+                Pop $profile_result
             ${Else}
                 !insertmacro debug_cat 1 "The non-hs profile failed as well"
+                Push ${PROFILE_STATE_FAIL}
+                Pop $profile_result
+;                Push 1
+;                Pop $profile_fail
                 IfSilent +2
                 MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
             ${EndIf}
             noInstall:
         ${EndIf}
     ${EndIf}
-    ${If} $profile_fail == 0
+    ${If} $profile_result == ${PROFILE_STATE_SUCCESS}
         !insertmacro debug_cat 1 "Profile $R1 created"
+;   This is the moment to delete old SSID based profiles related to this particular profile
+        ${If} "$R5" != "0"
+            nsArray::Split ssid_array $R5 | /noempty
+            ${nsArray_ToString} ssid_array $0
+            nsArray::Iterate ssid_array
+            IfErrors Done3
+            Pop $0
+            Pop $R6
+            Push $R6
+            call FindProfile
+            Pop $0
+            ${If} $0 == 0
+               DetailPrint "<?php WindowsCommon::echoNsis(_("deleting profile \$R6"))?>"
+               !insertmacro debug_cat 1 'deleting profile "$R6"'
+              !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R6"'
+               nsArray::Set Commands "netsh wlan delete profile $\"$R6$\"" 
+              nsExec::Exec '"$Netsh" wlan delete profile "$R6"'
+            ${EndIf}
+            Done3:
+        ${EndIf}
         Push 1
         Pop $install_wireless_credentials
         !insertmacro debug_cat 4 "pushing install_wireless_credentials $install_wireless_credentials"
@@ -991,12 +1038,13 @@ Function InstallProfile
                 Delete "$TEMP\wlan_prof-$R0.xml"
             ${EndIf}
         !endif
-    ${Else}
-        nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
     ${EndIf}
+    ${If} $profile_result == ${PROFILE_STATE_FAIL}
+        Push 1
+        Pop $profile_fail
+    ${EndIf}
+    nsArray::Set Profile_states /key=$R0 $profile_result
 FunctionEnd
-
-
 
 ; Install credentials for wired
 Function InstallWiredCred
@@ -1007,8 +1055,8 @@ Function InstallWiredCred
 FunctionEnd
 
 Function writeTlsUserProfile
+    !insertmacro debug_cat 4 "Creating TLS user profile"
     DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials TLS"))?>"
-    !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
        FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -1037,6 +1085,7 @@ FunctionEnd
 
 
 Function writePeapUserProfle
+    !insertmacro debug_cat 4 "Creating PEAP user profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -1095,7 +1144,7 @@ Function InstallWirelessCred
   Pop $R1
   nsArray::Get Profile_states $R0
   Pop $R2
-  ${If} $R2 <> ${PROFILE_STATE_FAIL}
+  ${If} $R2 == ${PROFILE_STATE_SUCCESS}
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
     DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials for profile \$R1"))?>"
     !ifdef TLS

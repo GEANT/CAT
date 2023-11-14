@@ -258,7 +258,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         }
     }
     ?>
-    <div style='display: table-row;'>
+    <div style='display: table-row_id;'>
         <div class='profilebox' style='display: table-cell;'>
             <h2><?php
                 switch ($deploymentObject->consortium) {
@@ -573,7 +573,7 @@ echo $mapCode->htmlHeadCode();
                 }
 
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
-                    // the button is grayed out if there's no support email address configured...
+                    // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -618,7 +618,7 @@ echo $mapCode->htmlHeadCode();
 // simple widget with just a "Manage" button
         foreach ($profiles_for_this_idp as $profilecount => $profile_list) {
             ?>
-            <div style='display: table-row; margin-bottom: 20px;'>
+            <div style='display: table-row_id; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell; min-width: 650px;'>
                     <?php
                     switch (get_class($profile_list)) {
@@ -663,7 +663,7 @@ echo $mapCode->htmlHeadCode();
             <?php
             if ($readonly === FALSE) {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
-                    // the button is grayed out if there's no support email address configured...
+                    // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>

@@ -105,7 +105,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                                      ";
                 }
                 $downloadform .= "</span>";
-                // first of all: if redirected, indicate by color
+                // first of all: if redirected, indicate by colour
 
                 $redirectAttribs = [];
                 foreach ($my_profile->getAttributes("device-specific:redirect") as $oneRedirect) { //device-specific attributes have the array key 'device' set only if they pertain to an individual device, not if they apply profile-wide

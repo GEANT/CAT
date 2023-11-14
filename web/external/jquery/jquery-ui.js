@@ -1,1 +1,1 @@
-jquery-ui-1.12.1.custom/jquery-ui.min.js
+jquery-ui.min.js

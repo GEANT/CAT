@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 08:34+0200\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Iryna Rykhalska <irina@uran.ua>, 2021-2022\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/eduroam_devel/"
+"Language-Team: Ukrainian (Ukraine) (http://app.transifex.com/eduroam_devel/"
 "cat/language/uk_UA/)\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
@@ -76,8 +76,8 @@ msgstr ""
 "<p><span class='edu_cat'>%s</span> є загальнодоступним. Щоб дозволити його "
 "використання за приєднаними порталами (наприклад, на \"налаштування\" SSID, "
 "який дозволяє доступ тільки до CAT для конфігурації пристрою), повинні бути "
-"дозволені наступні імена хостів для порту TCP / 443 на порталі:</p><b><u>ОБОВ"
-"\"ЯЗКОВО</u></b><ul><li><b>%s</b> (сама служба)</li>"
+"дозволені наступні імена хостів для порту TCP / 443 на порталі:</"
+"p><b><u>ОБОВ\"ЯЗКОВО</u></b><ul><li><b>%s</b> (сама служба)</li>"
 
 #: web/user/about_cat.inc.php:93
 #, php-format
@@ -678,7 +678,7 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
-#: web/skins/modern/user/js/cat_js.php:88
+#: web/skins/modern/user/js/cat_js.php:90
 msgid "Continue"
 msgstr "Продовжити"
 
@@ -806,7 +806,7 @@ msgstr ""
 "свої облікові дані користувача (це наше вичурне ім’я для `` ім'я користувача "
 "та пароль '' або `` особистий сертифікат '') - і бути в мережі!"
 
-#: web/skins/modern/index.php:86 web/skins/modern/test.php:80
+#: web/skins/modern/index.php:87 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Автентифікація"
 
@@ -975,7 +975,7 @@ msgstr ""
 "закінчується на \"...%s\")."
 
 #: web/skins/modern/accountstatus/accountstatus.php:196
-#: web/skins/modern/user/js/cat_js.php:83
+#: web/skins/modern/user/js/cat_js.php:85
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
@@ -984,7 +984,7 @@ msgstr ""
 "організації за адресою:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
-#: web/skins/modern/user/js/cat_js.php:84
+#: web/skins/modern/user/js/cat_js.php:86
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
@@ -1088,34 +1088,34 @@ msgstr ""
 "Незручне становище. Помилка генерації інсталятора. Адміністратори системи "
 "отримали повідомлення. Ми постараємося вирішити проблему якомога швидше."
 
-#: web/skins/modern/user/js/cat_js.php:78
+#: web/skins/modern/user/js/cat_js.php:80
 msgid "no matching data found"
 msgstr "не знайдено відповідних даних"
 
-#: web/skins/modern/user/js/cat_js.php:79
+#: web/skins/modern/user/js/cat_js.php:81
 msgid "select"
 msgstr "Вибрати"
 
-#: web/skins/modern/user/js/cat_js.php:80
+#: web/skins/modern/user/js/cat_js.php:82
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:83
 msgid "email:"
 msgstr "електронна адреса:"
 
-#: web/skins/modern/user/js/cat_js.php:82
+#: web/skins/modern/user/js/cat_js.php:84
 msgid "tel:"
 msgstr "телефон:"
 
-#: web/skins/modern/user/js/cat_js.php:85
+#: web/skins/modern/user/js/cat_js.php:87
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Цей пристрій не можна налаштувати за допомогою параметрів, що "
 "використовуються у вашій організації."
 
-#: web/skins/modern/user/js/cat_js.php:86
+#: web/skins/modern/user/js/cat_js.php:88
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1125,31 +1125,31 @@ msgstr ""
 "ресурси, розташовані на локальній сторінці. Після натискання кнопки "
 "<b>Продовжити</b> ця сторінка відкриється у новому вікні / вкладці."
 
-#: web/skins/modern/user/js/cat_js.php:89
+#: web/skins/modern/user/js/cat_js.php:91
 msgid "Close"
 msgstr "Закрити"
 
-#: web/skins/modern/user/js/cat_js.php:90
+#: web/skins/modern/user/js/cat_js.php:92
 msgid "No providers found for this email"
 msgstr "Постачальників для цієї електронної адреси не знайдено"
 
-#: web/skins/modern/user/js/cat_js.php:91
+#: web/skins/modern/user/js/cat_js.php:93
 msgid "Your IdP is:"
 msgstr "Ваш IdP є:"
 
-#: web/skins/modern/user/js/cat_js.php:92
+#: web/skins/modern/user/js/cat_js.php:94
 msgid "Your IdP could be one of:"
 msgstr "Ваш IdP може бути одним із:"
 
-#: web/skins/modern/user/js/cat_js.php:93
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "Missing email address"
 msgstr "Відсутня електронна адреса"
 
-#: web/skins/modern/user/js/cat_js.php:94
+#: web/skins/modern/user/js/cat_js.php:96
 msgid "This entry was last updated at:"
 msgstr "Останнє оновлення цього запису:"
 
-#: web/skins/modern/user/js/cat_js.php:95
+#: web/skins/modern/user/js/cat_js.php:97
 msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
@@ -1157,7 +1157,7 @@ msgstr ""
 "Якщо ви збираєтеся завантажити програму установки, яка також включає "
 "OpenRoaming, ви повинні прийняти Умови та положення OpenRoaming."
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
@@ -1165,11 +1165,11 @@ msgstr ""
 "Якщо ви маєте намір завантажити програму встановлення, яка також включає "
 "OpenRoaming, ви повинні прийняти Положення та умови OpenRoaming."
 
-#: web/skins/modern/user/js/cat_js.php:97
+#: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
 msgstr "Програма встановлення має вбудовану підтримку OpenRoaming."
 
-#: web/skins/modern/user/js/cat_js.php:98
+#: web/skins/modern/user/js/cat_js.php:100
 #, php-format
 msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
@@ -1178,36 +1178,36 @@ msgstr ""
 "Я хочу використовувати OpenRoaming, прочитав і прийняв<a href='%s' "
 "target='_blank'>%s</a>"
 
-#: web/skins/modern/user/js/cat_js.php:99
+#: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
 msgstr "Я прочитав і приймаю <a href='%s' target='_blank'>%s</a>"
 
-#: web/skins/modern/user/js/cat_js.php:100
+#: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
 msgstr "OpenRoaming не підтримується на цьому пристрої"
 
-#: web/skins/modern/user/js/cat_js.php:103
+#: web/skins/modern/user/js/cat_js.php:105
 msgid "eduroam only"
 msgstr "тільки eduroam"
 
-#: web/skins/modern/user/js/cat_js.php:104
+#: web/skins/modern/user/js/cat_js.php:106
 msgid "eduroam and OpenRoaming"
 msgstr "eduroam і OpenRoaming"
 
-#: web/skins/modern/user/js/cat_js.php:108
+#: web/skins/modern/user/js/cat_js.php:110
 msgid "Organisation"
 msgstr "Організація"
 
-#: web/skins/modern/user/js/cat_js.php:109
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Select your organisation"
 msgstr "Виберіть свою організацію"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Help, my organisation is not on the list"
 msgstr "Допоможіть, моя організація відсутня у списку"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:113
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1218,63 +1218,63 @@ msgstr ""
 "Якщо вашої організації немає у списку, тоді переконайтеся, що вони додають "
 "інформацію до %sбази даних."
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:114
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Знайдіть мене більш точно, використовуючи HTML5 Geo-локацію."
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Show organisations in"
 msgstr "Показати організації в"
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "all countries"
 msgstr "Всі країни"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "або шукати організацію, наприклад Університет Осло"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "show all countries"
 msgstr "Показати всі країни"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "Results limited to"
 msgstr "Результати обмежені "
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "entries - show more"
 msgstr "записи - показати більше"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "Nearby"
 msgstr "Поруч"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Location timeout"
 msgstr "Час очікування місця"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Could not get your position"
 msgstr "Не зміг зайняти свою позицію"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Your browser has denied access to your location"
 msgstr "Ваш браузер заборонив доступ до вашого місцезнаходження"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Unknown location error"
 msgstr "Невідома помилка розташування"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "You are here:"
 msgstr "Ви тут:"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "Getting your location..."
 msgstr "Отримання вашого місцезнаходження..."
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Nearby providers shown on top."
 msgstr "Провайдери, які  є поруч,  відображаються зверху."
 

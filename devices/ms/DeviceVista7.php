@@ -495,7 +495,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $this->loggerInstance->debug(4, $wlanProfiles);
         $contentWlan = '';
         foreach ($wlanProfiles as $wlanProfile) {
-            $contentWlan .= "!insertmacro define_wlan_profile $wlanProfile 0\n";
+            $contentWlan .= "!insertmacro define_wlan_profile $wlanProfile 0 0\n";
         }
 
         file_put_contents('profiles.nsh', $contentWlan);

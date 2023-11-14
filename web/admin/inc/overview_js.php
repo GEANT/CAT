@@ -65,7 +65,11 @@ sendButton = $("<button>");
     msg = '<?php echo _("Invitation sent to:") ?> '+em;
     else
     msg = '<?php echo _("The invitation email could not be sent!") ?>';
-    pressedButton.next().append('<span style="padding-left:1em">'+msg+'<\/span>');
+    <?php
+    $langInstance = new core\common\Language();
+    $end = $langInstance->rtl ? "left" : "right";
+    ?>
+    pressedButton.next().append('<span style="padding-<?php echo $end;?>:1em">'+msg+'<\/span>');
     }
     );
     }

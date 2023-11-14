@@ -69,6 +69,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
             \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
             \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate', 'OuterIdentity'],
+            \core\common\EAP::NONE => [],
         ]
     ];
 

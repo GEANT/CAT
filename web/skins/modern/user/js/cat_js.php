@@ -62,6 +62,8 @@ var openroaming = 'none';
 var preagreed = false;
 var pressedButton;
 var profileDevices;
+var recognisedOS;
+var currentDevice;
 const discoCountries = {
 <?php 
     $C = $Gui->printCountryList(1);
@@ -145,7 +147,9 @@ $.fn.redraw = function() {
 function otherInstallers() {
   clearUIsettings();
   $(".guess_os").hide();
+  $("#message_only").hide();
   $("#other_installers").show();
+  $("#devices").show();
   $("#devices").redraw();
   reset_footer();
 }
@@ -270,8 +274,6 @@ function showProfile(prof) {
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/').'/' ?>';
     }
     j = j1.data;
-            console.log(j.devices);
-
     if (j.description !== undefined && j.description) {
       $("#profile_desc").text(j.description);
       $("#profile_desc").css("display","inline-block");
@@ -280,7 +282,7 @@ function showProfile(prof) {
       $("#profile_desc").hide();
       $("#profile_desc").text('');
     }
-    updateTxt = guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
+    updateTxt = '<span class="user_info">'+guiTexts.entryUpdate+' '+j.last_changed+'</span><br/>';
     openroamming = 'none';
     preagreed = false;
     if (j.openroaming !== undefined) {
@@ -299,9 +301,9 @@ function showProfile(prof) {
     if (j.local_phone !== undefined && j.local_phone) 
       txt = txt+'<span class="user_info">' + guiTexts.tel + ' ' +j.local_phone+'</span><br/>';
     if (txt) 
-      txt = "<span class='user_info_header'>" + guiTexts.problems + "</span><br/>"+txt;
+      txt = "<span class='user_info_header'>" + guiTexts.problems + "</span><br/>"+txt+updateTxt;
     else
-      txt = "<span class='user_info_header'>" + guiTexts.problemsGeneric + '</span><br/>';
+      txt = "<span class='user_info_header'>" + guiTexts.problemsGeneric + '</span><br/>'+updateTxt;
     $("#user_info").html(txt);
     $("#user_info").show();
     if (j.silverbullet) {
@@ -310,8 +312,7 @@ function showProfile(prof) {
       return;
     }
     profileDevices = j.devices;
-    mydev=findDevice(recognisedOS);
-    console.log("recognisedOS:"+mydev);
+    currentDevice=findDevice(recognisedOS);
     // create the main download page section
 
     
@@ -326,12 +327,11 @@ function showProfile(prof) {
       reset_footer();
       return;
     }
-    updateGuessOsDiv(mydev);
+    updateGuessOsDiv(currentDevice);
     resetDevices(false);
     // first handle the guess_os part
-    if (!handleGuessOs(mydev))
-      return;
-     
+    if (handleGuessOs(currentDevice) == 0)
+      return; 
     // now the full devices list
     $.each(j.devices,function(i,v) {
       // Now consider devices that cannot be configured due to unsupported
@@ -388,7 +388,9 @@ function handlePreagreed() {
     if (openroaming == 'ask') {
       $("#or_text_1").show();
     }
-    $("#openroaming_tou").show();
+    if (currentDevice.options.message_only != 1 && currentDevice.geteduroam != 1) {
+        $("#openroaming_tou").show();
+    }
   } else {
     $("#openroaming_check").prop("checked", true);
     $("#openroaming_check").trigger("change");
@@ -528,10 +530,28 @@ function deviceInfo(data) {
 
 function handleGuessOs(recognisedDevice) {
     if (recognisedDevice == null)
-        return true;
+        return 1;
+    if (recognisedDevice.geteduroam == 1 && recognisedDevice.options.geteduroam_text !== undefined) {
+        recognisedDevice.options.message_only = 1;
+        recognisedDevice.message = recognisedDevice.options.geteduroam_text;
+    }
+    if(recognisedDevice.options.message_only == 1) {
+        $("#guess_os").html("<div id='message_only'>"+recognisedDevice.message+"</div>");
+        return 1;
+    }
     if(recognisedDevice.redirect != '0') {
-         alert(recognisedDevice.redirect);
-    } 
+        $('.device_info').html('');
+        $('.more_info_b').hide();
+        $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditonalInfo');
+        i_div = $("#info_g_"+recognisedOS);
+        t =  guiTexts.redirect+
+            "<br><span class='redirect_link'><a href='"+recognisedDevice.redirect+"' target='_blank'>"+guiTexts.continue+"</a></span>";
+        i_div.html(t);
+        $(".redirect_link").click(function(event) {
+         i_div.hide('fast');
+      });
+      return 1;
+    }
   // handle devices that cannot be configured due to lack of support
   // for required EAP methods
   /*
@@ -595,25 +615,29 @@ function handleGuessOs(recognisedDevice) {
       }
     });           
   }
-  return true;
+  return 1;
 }
 
 
 function changeDevice(devId) {
-  device = findDevice(devId);
-  console.log(device);
-  if (device.options.hs20 === undefined) {
+  currentDevice = findDevice(devId);
+  if (currentDevice.options.hs20 === undefined) {
       recognisedOShs20 = 0;
   } else {
-      recognisedOShs20 = device.options.hs20;
+      recognisedOShs20 = currentDevice.options.hs20;
   }
-  recognisedOS = device.id;
-  $("#device").val(device.id);
-  updateGuessOsDiv(device);
+  recognisedOS = currentDevice.id;
+  $("#device").val(currentDevice.id);
+  updateGuessOsDiv(currentDevice);
   resetOpenRoaming(recognisedOS, recognisedOShs20);
-  if (!handleGuessOs(device))
+  guessOsRes = handleGuessOs(currentDevice);
+  if (guessOsRes == 0)
     return;
-  $("#devices").show();
+  if (guessOsRes == 2) {
+    $("#devices").hide();
+  } else {
+    $("#devices").show();
+  }
   $("div.guess_os").show();
   $("#other_installers").hide();
   reset_footer();
@@ -629,7 +653,6 @@ function updateGuessOsDiv(device) {
   $("#device_message").hide();
   $("#guess_os").empty();
   $("#download_another").remove();
-
   $("#download_text_1").empty();
   if (device != null) {
       $("#download_text_1").append("<div>"+guiTexts.downloadFor+" "+device.display+"</div>")
@@ -638,7 +661,6 @@ function updateGuessOsDiv(device) {
         $("#device_message").html(guiTexts.unconfigurable);
         $("#device_message").show();
       } else {
-
       div1 = "<div>\
           <div class='button_wrapper'>\
             <button name='"+device.id+"' class='guess_os' id='g_"+device.id+"'>\
@@ -967,7 +989,9 @@ $(document).ready(function() {
     }
   });
 
-  reset_footer();
+  setTimeout(() => {  reset_footer(); }, 50);
+
+//  reset_footer();
   $( window ).resize(function(event) {
     if ($( window ).width() > 750) {
       $("#menu_top > ul").show();

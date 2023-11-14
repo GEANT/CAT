@@ -1,37 +1,38 @@
 [main]
 host = https://www.transifex.com
 
-[cat.core]
-file_filter = translation/<lang>/core.po
+[o:eduroam_devel:p:cat:r:core]
+file_filter  = translation/<lang>/core.po
+source_file  = translation/core.pot
+source_lang  = en
+type         = PO
 minimum_perc = 0
-source_file = translation/core.pot
-source_lang = en
-type = PO
 
-[cat.devices]
-file_filter = translation/<lang>/devices.po
+[o:eduroam_devel:p:cat:r:devices]
+file_filter  = translation/<lang>/devices.po
+source_file  = translation/devices.pot
+source_lang  = en
+type         = PO
 minimum_perc = 0
-source_file = translation/devices.pot
-source_lang = en
-type = PO
 
-[cat.diagnosticspot]
-file_filter = translation/<lang>/diagnostics.po
+[o:eduroam_devel:p:cat:r:diagnosticspot]
+file_filter  = translation/<lang>/diagnostics.po
+source_file  = translation/diagnostics.pot
+source_lang  = en
+type         = PO
 minimum_perc = 0
-source_file = translation/diagnostics.pot
-source_lang = en
-type = PO
 
-[cat.web_user]
-file_filter = translation/<lang>/web_user.po
+[o:eduroam_devel:p:cat:r:web_admin]
+file_filter  = translation/<lang>/web_admin.po
+source_file  = translation/web_admin.pot
+source_lang  = en
+type         = PO
 minimum_perc = 0
-source_file = translation/web_user.pot
-source_lang = en
-type = PO
 
-[cat.web_admin]
-file_filter = translation/<lang>/web_admin.po
+[o:eduroam_devel:p:cat:r:web_user]
+file_filter  = translation/<lang>/web_user.po
+source_file  = translation/web_user.pot
+source_lang  = en
+type         = PO
 minimum_perc = 0
-source_file = translation/web_admin.pot
-source_lang = en
-type = PO
+

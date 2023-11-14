@@ -95,6 +95,8 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
                 $delProfiles[] = $ssid.' (TKIP)';
             }
         }
+        // this removes the profile container that we used in CAT 2.1 and removed in 2.1.1
+        $delProfiles[] = sprintf('%s Custom Network', \core\CAT::$nomenclature_participant);
         $this->writeAdditionalDeletes($delProfiles);
         if ($setWired) {
             $this->loggerInstance->debug(4, "Saving LAN profile\n");
@@ -133,16 +135,35 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     {
         $out = '';
         if (!empty($network['ssid'])) {
-            $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
-            $this->saveProfile($windowsProfileSSID, $this->iterator, true);
-            $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0\n";
-            $this->iterator++;
+            if ($this::separateSSIDprofiles === true && !empty($network['condition']) && $network['condition'] === 'locally_defined') {
+                $out = "";
+                foreach ($network['ssid'] as $ssid) {
+                    $this->loggerInstance->debug(4, "SSID network: $ssid\n");
+                    $windowsProfileSSID = $this->generateWlanProfile($ssid, [$ssid], 'WPA2', 'AES', [], false);
+                    $this->saveProfile($windowsProfileSSID, $this->iterator, true);
+                    $out .= "!insertmacro define_wlan_profile \"$ssid\" \"AES\" 0 \"0\"\n";
+                    $this->iterator++;                     
+                }
+            } else {
+                $this->loggerInstance->debug(4, "SSID network: $profileName\n");
+                $windowsProfileSSID = $this->generateWlanProfile($profileName, $network['ssid'], 'WPA2', 'AES', [], false);
+                $this->saveProfile($windowsProfileSSID, $this->iterator, true);
+                $ssids = '';
+                foreach ($network['ssid'] as $ssid) {
+                    if ($ssid != $profileName) {
+                        $ssids .= '|'.$ssid;
+                    }
+                }
+                $out = "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 0 \"$ssids\"\n";
+                $this->iterator++;
+            }
             $profileName .= " via partner";
         }
         if (!empty($network['oi'])) {
+            $this->loggerInstance->debug(4, "RCOI network: $profileName\n");
             $windowsProfileHS = $this->generateWlanProfile($profileName, ['cat-passpoint-profile'], 'WPA2', 'AES', $network['oi'], true);
             $this->saveProfile($windowsProfileHS, $this->iterator, true);
-            $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n";
+            $out .= "!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1 \"0\"\n";
             $this->iterator++;
         }
         return($out);
@@ -169,7 +190,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $this->saveProfile($windowsProfile, $this->iterator, false);
         }
         $this->iterator++;
-        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 1\n");
+        return("!insertmacro define_wlan_profile \"$profileName\" \"AES\" 2 \"".implode('|', $network['ssid'])."\"\n");
     }
 
     private function saveLogo()
@@ -189,7 +210,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
             $fcontents .= "!define W10\n";
         }
         $fcontents .= "Unicode true\n";
-        if ($this->useGeantLink) {
+        if ($this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
             $eapStr = 'GEANTLink';
         } else {
             $eapStr = \core\common\EAP::eapDisplayName($this->selectedEap)['OUTER'];
@@ -303,7 +324,12 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
         $outerId = $this->determineOuterIdString();
         $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) === 'on') ? 'true' : 'false';
         $otherTlsName = \core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on' ? 'true' : 'false';
-        $this->useGeantLink = \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id) === 'on' ? true : false;
+        if (isset(\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0]) &&
+             \core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', $this->device_id)[0] === 'on') {
+             $this->useGeantLink = true;
+        } else { 
+             $this->useGeantLink = false;
+        }
         $eapConfig = $this->setEapObject();
         $eapConfig->setInnerType($this->selectedEap['INNER']);
         $eapConfig->setInnerTypeDisplay(\core\common\EAP::eapDisplayName($this->selectedEap)['INNER']);
@@ -321,7 +347,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     private function generateWlanProfile($networkName, $ssids, $authentication, $encryption, $ois, $hs20 = false)
     {
         if (empty($this->attributes['internal:realm'][0])) {
-            $domainName = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+            $domainName = \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
         } else {
             $domainName = $this->attributes['internal:realm'][0];
         }

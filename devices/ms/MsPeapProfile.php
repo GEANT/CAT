@@ -77,7 +77,7 @@ class MsPeapProfile extends MsEapProfile
     private function getIdentityPrivacy() {
         $element = new \core\DeviceXMLmain();
         preg_match('/^[^@]*/', $this->outerId, $matches);
-        $outerUser = empty($matches[0]) ? '@' : $matches[0];
+        $outerUser = empty($matches[0]) ? '' : $matches[0];
         $element->setChild('EnableIdentityPrivacy', 'true');
         $element->setChild('AnonymousUserName', $outerUser);
         return($element);

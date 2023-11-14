@@ -28,7 +28,7 @@ use Exception;
 <?php
 
 /**
- * This class parses HTML field input from POST and FILES and extracts valid and authorized options to be set.
+ * This class parses HTML field input from POST and FILES and extracts valid and authorised options to be set.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
@@ -368,7 +368,7 @@ class OptionParser extends \core\common\Entity {
                     continue 2;
                 case \core\Options::TYPECODE_STRING:
                     $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
-                    if (!empty($previsionalContent)) {
+                    if (!empty(trim($previsionalContent))) {
                         $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
                         if ($content === FALSE) {
                             continue 2;

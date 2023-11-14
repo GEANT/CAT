@@ -75,7 +75,6 @@ if (!is_null($givenRealm)) {
             foreach ($realmList as $realm) {
                 if ($realm == $realmToCheck) {
                     $foundIndex = $key;
-                    error_log('MGW FOUND! '.$foundIndex);
                     break;
                 }
             }
@@ -95,11 +94,9 @@ if (!is_null($givenRealm)) {
             $details['admins'] = base64_encode(join(',', $admins));
         } else {
             $details['admins'] = '';
-        }
-        
+        }        
         $details['status'] = 1;
-        $details['realm'] = $givenRealm;
-        
+        $details['realm'] = $givenRealm;       
         break;
     }
     if (is_null($foundIndex)) {
@@ -108,7 +105,7 @@ if (!is_null($givenRealm)) {
         $details['status'] = 0;
     } 
     if ($forTests) {
-        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);
+        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);     
         $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
         $naptr = $rfc7585suite->relevantNAPTR();
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
@@ -119,7 +116,11 @@ if (!is_null($givenRealm)) {
                     $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
                 }
             }
-        }
+        } else {
+            $naptr_valid = 0; 
+            $srv = 0;
+            $hosts = 0;
+        } 
         $toTest = array();
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
             $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
@@ -130,16 +131,16 @@ if (!is_null($givenRealm)) {
                                         'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port']
             );
         }
+ 
         $details['totest'] = $toTest;
-        $details['rfc7585suite'] = serialize($rfc7585suite);
-        $details['testsuite'] = serialize($testsuite);
+        $details['rfc7585suite'] = base64_encode(serialize($rfc7585suite));
+        $details['testsuite'] = base64_encode(serialize($testsuite));
         $details['naptr'] = $naptr;
         $details['naptr_valid'] = $naptr_valid;
         $details['srv'] = $srv;
         $details['hosts'] = $hosts;
     } 
-    $returnArray = $details;
-    
+    $returnArray = $details;    
 } else {
     if ($realmQueryType) {
         switch ($realmQueryType) {
@@ -190,10 +191,12 @@ if (!is_null($givenRealm)) {
         }
     }
 }
+
 $returnArray['outeruser'] = $outerUser;
 $returnArray['datetime'] = date("Y-m-d H:i:s");
 $loggerInstance->debug(4, $returnArray);
 $json_data = json_encode($returnArray);
+
 if ($token) {
     $loggerInstance->debug(4, $jsonDir.'/'.$token);
     file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);

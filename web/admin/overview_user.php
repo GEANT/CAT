@@ -90,7 +90,7 @@ require_once "inc/click_button_js.php";
 
 
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
-        $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
+        $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/6Zg7Bw"; // Managed IdP manual
         }
@@ -120,9 +120,9 @@ require_once "inc/click_button_js.php";
 
         asort($myFeds);
 
-        foreach ($instlist as $key => $row) {
-            $country[$key] = $row['country'];
-            $name[$key] = $row['name'];
+        foreach ($instlist as $key => $row_id) {
+            $country[$key] = $row_id['country'];
+            $name[$key] = $row_id['name'];
         }
         ?>
         <table class='user_overview'>

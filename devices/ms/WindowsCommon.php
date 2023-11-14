@@ -213,6 +213,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
      */
     public function writeDeviceInfo()
     {
+        \core\common\Entity::intoThePotatoes();
         $networkList = [];
         foreach (array_keys($this->getAttribute('internal:networks')) as $networkName) {
             $networkList[] = $networkName;
@@ -225,7 +226,6 @@ abstract class WindowsCommon extends \core\DeviceConfig
         $configCount = count($configNetworkList);
         $networksCount = count($networkList);
         $out = "<p>";
-        $out .= "$networksCount:";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         $out .= "<p>";
         if ($networksCount > $configCount) {
@@ -240,6 +240,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         }
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your organisation. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
@@ -343,10 +344,15 @@ abstract class WindowsCommon extends \core\DeviceConfig
             rename("installer.exe", $fileName);
             return $fileName;
         }
+        $retval = 0;
         // are actually signing
-        $outputFromSigning = system($this->sign . " installer.exe '$fileName' > /dev/null");
-        if ($outputFromSigning === false) {
+        $outputFromSigning = system($this->sign . " installer.exe '$fileName' > /dev/null", $retval);
+        $this->loggerInstance->debug(4, $retval, "Output from Windows signing:", "==\n");
+        if ($retval !== 0 || $outputFromSigning === false) {
             $this->loggerInstance->debug(2, "Signing the WindowsCommon installer $fileName FAILED!\n");
+            // we are passing a name that will be then used as a path - this will not exist, hence an error will
+            // be generated
+            return("no_go");
         }
         return $fileName;
     }
@@ -559,6 +565,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
      * or puts all settings into a single profile
      */
     const separateHS20profiles = true;
+    /**
+     * this constant controls if the system generates sepaarate profiles for every SSID
+     * for it to work, the separateHS20profiles needs also be set to true
+     */
+    const separateSSIDprofiles = true;
     
     public $codePage;
     public $lang;
