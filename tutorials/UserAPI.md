@@ -120,7 +120,7 @@ Actions in detail
     - optional arguments:
       + lang
     - data:
-      + array of touples {"device", "display", "status", "redirect", "eap_customtext", "device_customtext"}.
+      + array of tuples {"device", "display", "status", "redirect", "eap_customtext", "device_customtext"}.
 * generateInstaller
     - mandatory arguments:
       + device - identifier of the device; profile - identifier of the profile

@@ -569,7 +569,7 @@ msgid "Overview"
 msgstr "نظرة عامة "
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "التحقق من DNS"
 
 #. output in friendly words

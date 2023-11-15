@@ -211,7 +211,7 @@ class RADIUSTestsUI extends AbstractTest
         <legend>
         <strong>"._("Overview").'</strong> 
         </legend>';
-        $out[] = "<strong>"._("DNS chekcs")."</strong><div>";
+        $out[] = "<strong>"._("DNS checks")."</strong><div>";
         if ($this->naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
             $out[] = "<table>";
             $out[] = "<tr><td>"._("Checking NAPTR existence:")."</td><td>";

@@ -1231,7 +1231,7 @@ network={
         $testresults = [];
         // initialise the sub-array for cleaner parsing
         $testresults['cert_oddities'] = [];
-        // execute RADIUS/EAP converation
+        // execute RADIUS/EAP conversation
         $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $this->outerUsernameForChecks, $innerUser, $password, $opnameCheck, $frag);
         $testresults['time_millisec'] = $runtime_results['time'];
         $packetflow_orig = $runtime_results['output'];

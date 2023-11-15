@@ -1,5 +1,5 @@
-The following components are reuired for jQuery UI to work properly with CAT:
-(some may turn on other packedes)
+The following components are required for jQuery UI to work properly with CAT:
+(some may turn on other packets)
 !Accordion
 !Autocomplete
 -Button
@@ -15,4 +15,3 @@ The following components are reuired for jQuery UI to work properly with CAT:
 
 
 Themen Redmond
-

@@ -54,7 +54,7 @@ class DeviceMobileconfigIos5plus extends MobileconfigSuperclass {
     }
     
     /**
-     * We don't suppory any proxy settings, just override the parent class empty
+     * We don't support any proxy settings, just override the parent class empty
      * 
      * @return string
      */

@@ -569,7 +569,7 @@ msgid "Overview"
 msgstr "Yhteenveto"
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "DNS-tarkistukset"
 
 #. output in friendly words

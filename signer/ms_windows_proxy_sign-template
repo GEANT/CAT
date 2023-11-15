@@ -58,7 +58,7 @@ PKCS11MODULE="$PREFIX"/lib/libpkcs11-proxy.so
 # Set PKCS11ENGINE
 PKCS11ENGINE="$PREFIX"/lib/engines/libpkcs11.so
 
-# Set TIMESTAMP_URL to a working timestaming URL or cmment it out for no timestamping
+# Set TIMESTAMP_URL to a working timestamping URL or comment it out for no timestamping
 TIMESTAMP_URL="http://timestamp.digicert.com"
 
 # Set LOG_FILE to the path to which you want to write logs

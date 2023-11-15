@@ -79,7 +79,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                         <?php
                         switch ($statusInfo['errorcode']) {
                             case "GENERATOR_CONSUMED":
-                                echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE) . "<p>";
+                                echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to reuse download link"), TRUE) . "<p>";
                                 break;
                             case NULL:
                             default:

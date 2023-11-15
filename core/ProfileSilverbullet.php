@@ -79,7 +79,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
 
-        $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
+        $tempMaxUsers = 200; // absolutely last resort fallback if no per-fed and no config option
 // set to global config value
 
         if (isset(\config\ConfAssistant::SILVERBULLET['default_maxusers'])) {

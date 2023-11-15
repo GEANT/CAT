@@ -822,7 +822,7 @@ msgstr ""
 "bzw. Einladungs-Link."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Versuch, einen Download-Link mehrfach zu benutzen"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

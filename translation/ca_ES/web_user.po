@@ -801,7 +801,7 @@ msgstr ""
 "nou codi al vostre administrador."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Intent de reutilitzar l'enllaç de baixada"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

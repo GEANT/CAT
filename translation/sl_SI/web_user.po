@@ -820,7 +820,7 @@ msgstr ""
 "skrbnika prosite za nov žeton."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "Poskus vnovične uporabe povezave za prenos"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
