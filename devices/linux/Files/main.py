@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
  * **************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project,
