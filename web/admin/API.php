@@ -570,7 +570,25 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([]);
 
         break;
-
+    case web\lib\admin\API::ACTION_STATISTICS_INST:
+        $retArray = [];
+        $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
+        if ($idpIdentifier === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        } else {
+            try {
+                $thisIdP = $validator->existingIdP($idpIdentifier, NULL, $fed);
+            } catch (Exception $e) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+                exit(1);
+            }
+            $retArray[$idpIdentifier] = [];
+            foreach ($thisIdP->listProfiles() as $oneProfile) {
+                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+            }
+        }
+        $adminApi->returnSuccess($retArray);
+        break;
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
