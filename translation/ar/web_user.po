@@ -783,7 +783,7 @@ msgstr ""
 "المدير المحلي."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
-msgid "Attempt to re-use download link"
+msgid "Attempt to reuse download link"
 msgstr "حاول إعادة استخدام رابط التنزيل"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93

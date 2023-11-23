@@ -22,7 +22,7 @@
 
 /**
  * This class contains properties which are used to set up individual EAP methods
- * Some of the roperties are used only by a subset of EAP handlers.
+ * Some of the properties are used only by a subset of EAP handlers.
  * The properties are set up with public interface methods.
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>

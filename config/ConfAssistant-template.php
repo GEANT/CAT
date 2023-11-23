@@ -205,7 +205,7 @@ class ConfAssistant
     /**
      * Determines if DiscoJuice keywords should be used in the discovery service
      * The keywords contain other language variants of the IdP name making it
-     * easier to kollow keyboard search. Turning this oprion on will add
+     * easier to follow keyboard search. Turning this option on will add
      * about 40% size to the IdP list
      */
     const USE_KEYWORDS = true;

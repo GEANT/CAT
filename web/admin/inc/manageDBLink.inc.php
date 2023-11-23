@@ -66,7 +66,7 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: ../overview_federation.php");
                 exit;
             }
-            // okay, he did sumbit an inst. It's either a (string) handle from a promising 
+            // okay, he did submit an inst. It's either a (string) handle from a promising 
             // candidate, or "other" as selected from the drop-down list
             if ($_POST['inst_link'] != "other") {
                 $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link', FILTER_SANITIZE_STRING)));

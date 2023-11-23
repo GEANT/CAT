@@ -621,7 +621,7 @@ Function wVersionCheck
   !endif
 FunctionEnd
 
-; Check if wireless intefaces and service are running
+; Check if wireless interfaces and service are running
 Function Wireless_Check
   !insertmacro debug_cat 2 "Checking for wireless interfaces"
   !insertmacro debug_cat 3 "Exec: $TEMP\wlan_test.exe"

@@ -27,7 +27,7 @@
  * 
  * The file is an interface between the global CAT system and individual EAP
  * methods modules. It also performs global operations like preparing
- * and saving cerificates and generating the installers.
+ * and saving certificates and generating the installers.
  * 
  * Adding a new EAP handler requires defining an extension of the MsEapProfile
  * class. Such an extension is required to define a public getConfig method

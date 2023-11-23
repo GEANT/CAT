@@ -101,7 +101,7 @@ class Language
     private function setLang($hardSetLang = 0)
     {
         // $langConverted will contain candidates for the language setting in the order
-        // of prefference
+        // of preference
         $loggerInstance = new \core\common\Logging();
         $langConverted = [];
         if ($hardSetLang !== 0) {

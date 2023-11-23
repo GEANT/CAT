@@ -592,7 +592,7 @@ msgid "Overview"
 msgstr "Panoramica"
 
 #: core/diag/RADIUSTestsUI.php:214
-msgid "DNS chekcs"
+msgid "DNS checks"
 msgstr "controlli DNS"
 
 #. output in friendly words

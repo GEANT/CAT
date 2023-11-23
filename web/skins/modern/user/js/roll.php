@@ -37,7 +37,7 @@ var roller = 1;
 var that;
 
 /*
-  ProgramFlow object defines structures required to put asynchroneous elements
+  ProgramFlow object defines structures required to put asynchronous elements
   into a synchroneus program flow.
 
   Add method adds an object to the flow. Each object added to the flow must

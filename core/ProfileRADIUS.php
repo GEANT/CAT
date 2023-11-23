@@ -206,7 +206,7 @@ class ProfileRADIUS extends AbstractProfile
     }
 
     /**
-     * Updates database with new installler location
+     * Updates database with new installer location
      * 
      * @param string $device         the device identifier string
      * @param string $path           the path where the new installer can be found
