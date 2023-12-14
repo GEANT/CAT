@@ -288,7 +288,7 @@ class OutsideComm extends Entity
         new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
-            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
+            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with them."), Entity::$nomenclature_fed, \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
             OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
             OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
         ];
