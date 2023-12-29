@@ -121,7 +121,7 @@ class DBConnection
             }
         }
         // log exact query to debug log, if log level is at 5
-        $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
+        $this->loggerInstance->debug(5, "DB ATTEMPT: ".$this->databaseInstance .": " . $querystring . "\n");
         if ($types !== NULL) {
             $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . /** @scrutinizer ignore-type */ print_r($arguments, true));
         }
