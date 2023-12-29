@@ -144,6 +144,8 @@ class OptionDisplay extends \core\common\Entity
         // we expect the variable $class to contain the class of options
         $retval = "";
         $optioninfo = \core\Options::instance();
+        $loggerInstance = new \core\common\Logging();
+        
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
@@ -151,7 +153,6 @@ class OptionDisplay extends \core\common\Entity
         foreach ($prepopulate as $option) {
             if (preg_match("/^$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
-                $loggerInstance = new \core\common\Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
                 $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row_id'] : $option['value']), $option['lang']);
             }
@@ -169,12 +170,11 @@ class OptionDisplay extends \core\common\Entity
      * @param string $fed   the federation TLD, to determine fed ops preference context
      * @return array the list of options to display
      */
-    public static function enumerateOptionsToDisplay($class, $fed)
+    public static function enumerateOptionsToDisplay($class, $fed, $device='')
     {
         $optioninfo = \core\Options::instance();
-
+        $loggerInstance = new \core\common\Logging();
         $list = $optioninfo->availableOptions($class);
-
         // use federation context to delete more options, if the feds don't like
         // a particular one
         $fedInstance = new \core\Federation($fed);
@@ -203,6 +203,22 @@ class OptionDisplay extends \core\common\Entity
                     unset($list[array_search("media:openroaming", $list)]);
                 }
                 break;
+            case "device-specific":
+                if ($device != '') {
+                    $factory = new \core\DeviceFactory($device);
+                    $dev = $factory->device;
+                    foreach ($list as $l) {
+                        $optFlag = $optioninfo->optionType($l)['flag'];
+                        if ($optFlag == "SPECIFIC") {
+                            $opt = str_replace('device-specific:', '', $l);
+                            if (!isset($dev->options['device_options']) || !in_array($opt, $dev->options['device_options'])) {
+                                $loggerInstance->debug(5, $l, "removing option: ", "\n");
+                                unset($list[array_search($l, $list)]);
+                            }
+                        }
+                    }
+                }
+                 break;
             default:
                 break;
         }

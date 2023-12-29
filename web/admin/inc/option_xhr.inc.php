@@ -22,6 +22,7 @@
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 \core\CAT::sessionStart();
+$validator = new \web\lib\common\InputValidation();
 
 if (!isset($_GET["class"] )) {
     throw new Exception("Unknown type of option!");
@@ -30,7 +31,10 @@ if (!isset($_GET["class"] )) {
 if (!isset($_GET["fedid"])) {
     throw new Exception("Unknown federation context!");
 }
-
+$validator->existingFederation($_GET["fedid"]);
+if (isset($_GET["device"]) && $_GET["device"] != "") {
+    $validator->existingDevice($_GET["device"]);
+}
 
 // XHR call: language isn't set yet ... so do it
 $languageInstance = new \core\common\Language();
@@ -38,7 +42,7 @@ $languageInstance->setTextDomain("web_admin");
 
 // add one option of the specified class
 
-$list = web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid']);
+$list = web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], $_GET["device"]);
 
 $optionDisplay = new \web\lib\admin\OptionDisplay($list);
 echo $optionDisplay->optiontext(array_values($list));

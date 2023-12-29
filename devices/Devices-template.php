@@ -82,6 +82,12 @@ class Devices extends \core\common\Entity {
      *         The default is unset, so it is not listed in the Options array.
      * - 'hs20' - if defined and equal to 1 will mark the device as potentially supporting
      *         Hotspot 2.0.
+     * - 'device_options' - this is an array of strings pointing to device-sepecific options,
+     *         for instance possible strings are 'geteduroam' or 'geantlink'. If the corresponding
+     *         option, like device-specific:geteduroam has the flag set to 'SPECIFIC'
+     *         then the options selection in the admin interface will only show such an
+     *         option if the selected device has the option 'device_options' set 
+     *         and containing value lile 'geteduroam'.
      * 
      * @var array
      */
@@ -151,6 +157,8 @@ class Devices extends \core\common\Entity {
                     'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'mime' => 'application/x-dosexec',
                     'hs20' => 1,
+                    'device_options' => ['geantlink',
+                    ],
                 ],
             ],
             'w8' => [
@@ -167,6 +175,8 @@ class Devices extends \core\common\Entity {
                     'mime' => 'application/x-dosexec',
                     'hs20' => 0,
                     'hidden' => 2,
+                    'device_options' => ['geantlink',
+                    ],
                 ],
             ],
             'w7' => [
@@ -180,6 +190,8 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'W7',
                     'mime' => 'application/x-dosexec',
+                    'device_options' => ['geantlink',
+                    ],
                 ],
             ],
             'vista' => [
@@ -421,6 +433,8 @@ class Devices extends \core\common\Entity {
                     'mime' => 'application/eap-config',
                     'hs20' => 1,
                     'message_only' => 0,
+                    'device_options' => ['geteduroam',
+                    ],
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "geteduroam",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
@@ -464,6 +478,8 @@ class Devices extends \core\common\Entity {
                 'options' => [
                     'mime' => 'application/eap-config',
                     'message_only' => 0,
+                    'device_options' => ['geteduroam',
+                    ],
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),

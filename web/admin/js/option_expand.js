@@ -20,11 +20,12 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML(attribute_class, fedid) {
+function getXML(attribute_class, fedid, device) {
+    console.log("Device="+device);
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
     client.onreadystatechange = addOption;
-    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML");
+    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML&device="+device);
     client.send();
 }
 

@@ -27,6 +27,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
+$loggerInstance = new \core\common\Logging();
 
 $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
@@ -100,6 +101,7 @@ if ($device !== NULL) {
     $captiontext = sprintf(_("device <strong>%s</strong>"), $device['display']);
     $keyword = "device-specific";
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
+    $dev = $device_key;
 } elseif ($eaptype !== NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
         if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype->getArrayRep()) {
@@ -110,6 +112,7 @@ if ($device !== NULL) {
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eaptype->getPrintableRep());
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . $eaptype->getIntegerRep() . "'>";
+    $dev = '';
 } else {
     throw new Exception("previous type checks make it impossible to reach this code path.");
 }
@@ -121,7 +124,6 @@ if ($device !== NULL) {
     <?php
 // see if we already have any attributes; if so, display these
     $interesting_attribs = [];
-
     foreach ($attribs as $attrib) {
         if ($attrib['level'] == \core\Options::LEVEL_METHOD && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
             $interesting_attribs[] = $attrib;
@@ -131,7 +133,7 @@ if ($device !== NULL) {
     echo $optionDisplay->prefilledOptionTable($keyword, $my_inst->federation);
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
         ?>
-        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>", "<?php echo $dev;?>")'><?php echo _("Add new option"); ?></button>
         <br/>
         <hr/>
         <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
