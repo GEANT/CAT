@@ -77,11 +77,10 @@ class Logging
             $output .= " [$file / $function / $line] ";
         }
         if (is_string($stuff)) {
-            $output .= $stuff;
+            $output .= $prefix . $stuff . $suffix;
         } else {
-            $output .= var_export($stuff, TRUE);
+            $output .= $prefix . var_export($stuff, TRUE) . $suffix;
         }
-        $output = $prefix . $output . $suffix;
         $this->writeToFile("debug.log", $output);
 
         return;
