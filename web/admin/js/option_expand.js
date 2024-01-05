@@ -25,7 +25,11 @@ function getXML(attribute_class, fedid, device) {
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
     client.onreadystatechange = addOption;
-    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML&device="+device);
+    if (device === undefined) {
+        client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML");
+    } else {
+        client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML&device="+device);
+    }
     client.send();
 }
 
