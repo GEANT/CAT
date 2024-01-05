@@ -101,6 +101,7 @@ class UIElements extends \core\common\Entity {
             _("Logo image") => "general:logo_file",
             _("Configure Wired Ethernet") => "media:wired",
             _("Name (CN) of Authentication Server") => "eap:server_name",
+            _("Valid until") => "eap:ca_vailduntil",
             _("Enable device assessment") => "eap:enable_nea",
             _("Terms of Use") => "support:info_file",
             _("CA Certificate URL") => "eap:ca_url",
@@ -335,6 +336,7 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $validator = new \web\lib\common\InputValidation();
         $ref = $validator->databaseReference($cAReference);
+        $caExpiryTrashhold = 5184000; // 60 days
         $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
@@ -355,12 +357,27 @@ class UIElements extends \core\common\Entity {
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
         $certTooltip = ( $details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
+        $mainbgColor = "#ccccff";
+        $innerbgColor = "#0000ff";
+        $message = "";
         if ($details['ca'] == 0 && $details['root'] != 1) {
-            $retval = "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
+            $mainbgColor = "red";
+            $innerbgColor = "maroon";
+            $message = _("This is a <strong>SERVER</strong> certificate!") . "<br/>";
+            $retval = "<div class='ca-summary' style='background-color:$mainbgColor'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . $message . $details['name'] . "</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+        if (time() > $details['full_details']['validTo_time_t']) {
+            $mainbgColor = "red";
+            $innerbgColor = "maroon";
+            $message = _("Certificate expired!") . "<br>";
+        } elseif(time() > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
+            $mainbgColor = "yellow";
+            $innerbgColor = "#0000ff";
+            $message = _("Certificate close to expiry!") . "<br>";            
+        }
+        $retval =     "<div class='ca-summary' style='background-color:$mainbgColor'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $message . $details['name'] . "<br>" . $this->displayName('eap:ca_vailduntil') . " " . gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
