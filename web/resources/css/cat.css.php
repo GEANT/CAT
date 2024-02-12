@@ -364,6 +364,7 @@ fieldset.option_container {
     padding: 5px;
     min-width: 500px;
     min-height: 150px;
+    max-width: 90%;
     vertical-align: top;
 }
 
@@ -375,10 +376,13 @@ div.googlemap {
 }
 
 div.locationmap {
-    width: 100%;
-    height: 100%;
+    width: 90%;
     min-width: 300px;
     min-height: 200px;
+}
+
+div.infobox div.locationmap {
+    width: 100%;
 }
 
 #location-prompt {
@@ -396,7 +400,7 @@ div.acceptable {
     display: inline;
 }
 
-div.notacceptable {
+.notacceptable {
     color: red;
     display: inline;
 }

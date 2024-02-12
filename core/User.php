@@ -144,6 +144,17 @@ class User extends EntityWithDBProperties
         }
         return FALSE;
     }
+    
+    /**
+     * This function lists all institution ids for which the user appears as admin
+     * 
+     * @return array if institution ids.
+     */
+    public function listOwnerships() {
+        $dbHandle = \core\DBConnection::handle("INST");
+        $query = $dbHandle->exec("SELECT institution_id FROM ownership WHERE user_id='".$this->userName."'");
+        return array_column($query->fetch_all(), 0);
+    }
 
     /**
      * shorthand function for email sending to the user

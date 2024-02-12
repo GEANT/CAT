@@ -32,11 +32,10 @@ require_once "inc/click_button_js.php";
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 <script>
-$(document).on('click', '#realmcheck' , function() {
-   event.preventDefault();
-   location.href = '../diag/diag.php?admin=1&sp=1&realm=';
-});
+var show_downloads = "<?php echo _("Show downloads") ?>";                
+var hide_downloads = "<?php echo _("Hide downloads") ?>";
 </script>
+<script src="js/nro.js" type="text/javascript"></script>
 </head>
 <body>
     <?php
@@ -82,7 +81,6 @@ $(document).on('click', '#realmcheck' , function() {
         echo $deco->footer();
         exit(0);
     }
-
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $onefed) {
         $thefed = new \core\Federation(strtoupper($onefed['value']));
@@ -128,6 +126,7 @@ $(document).on('click', '#realmcheck' , function() {
                 <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
             </h2>
             <table>
+                <tbody>
                 <!-- idp stats -->
                 <tr>
                     <th scope='col' style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
@@ -138,10 +137,10 @@ $(document).on('click', '#realmcheck' , function() {
                     <td colspan='3'> <?php echo count($thefed->listIdentityProviders(1)); ?>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan='4'><hr></td>
-                </tr>    
+                </tbody>
+                <tbody style="display:none" class="stat-downloads">
                 <!-- download stats -->
+                <tr><td colspan='3'></td></tr>
                 <tr>
                     <th scope='col' style='text-align:left;'> <?php echo _("Downloads"); ?></th>
                     <th scope='col' style='text-align:left;'> <?php echo _("Admin"); ?></th>
@@ -149,7 +148,9 @@ $(document).on('click', '#realmcheck' , function() {
                     <th scope='col' style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
                 <?php echo $thefed->downloadStats("table"); ?>
+                </tbody>
             </table>
+            <button style="position:absolute; bottom:9px;" class="stat-button"><?php echo _("Show downloads") ?></button>
         </div>
         <?php
     }
@@ -240,8 +241,8 @@ $(document).on('click', '#realmcheck' , function() {
     <table class='user_overview' style='border:0px; width:unset'>
         <caption><?php echo _("Participant Details");?></caption>
         <tr>
-            <th scope='col' style="width:13em"><?php echo _("Configured / Visible / OpenRoaming"); ?></th>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
+            <th scope='col'><?php echo _("Configured/<br>Visible/<br>OpenRoaming"); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
@@ -259,11 +260,15 @@ $(document).on('click', '#realmcheck' , function() {
             </th>
         </tr>
         <?php
+        $userIdps = $user->listOwnerships();
         foreach ($feds as $onefed) {
-            $thefed = new \core\Federation(strtoupper($onefed['value']));
+            $fedId = strtoupper($onefed['value']);
+            $thefed = new \core\Federation($fedId);
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
-
+            echo "<tr><td colspan='2'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_" . $fedId . "'></td>";
+            echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_" . $fedId . "'> ". _("Only not linked"). "</td>";
+            echo "</tr>";
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
             foreach ($pending_invites as $oneinvite) {
@@ -273,17 +278,53 @@ $(document).on('click', '#realmcheck' , function() {
                 }
             }
             $idps = $thefed->listIdentityProviders();
-
             $my_idps = [];
             foreach ($idps as $index => $idp) {
-                $my_idps[$idp['entityID']] = strtolower($idp['title']);
+                $my_idps[$idp['entityID']] = mb_strtolower($idp['title']);
             }
             asort($my_idps);
 
             foreach ($my_idps as $index => $my_idp) {
                 $idp_instance = $idps[$index]['instance'];
+                $idpLinked = 'nosync';
+                // external DB sync, if configured as being necessary
+                if (\config\Master::DB['enforce-external-sync']) {
+                    switch ($idp_instance->getExternalDBSyncState()) {
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING:
+                            break;
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
+                            $idpLinked = 'linked';
+                            break;
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
+                            $idpLinked = 'notlinked';
+                            break;
+                    }                
+                }         
                 // new row_id, with one IdP inside
-                echo "<tr>";
+                echo "<tr class='idp_tr $idpLinked'>";
+
+                // name; and realm of silverbullet profiles if any
+                // instantiating all profiles is costly, so we only do this if
+                // the deployment at hand has silverbullet enabled
+                $listOfSilverbulletRealms = [];
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                    foreach ($idp_instance->listProfiles() as $oneProfile) {
+                        if ($oneProfile instanceof core\ProfileSilverbullet) {
+                            $listOfSilverbulletRealms[] = $oneProfile->realm;
+                        }
+                    }
+                }
+                echo "<td style='vertical-align:top;' class='inst_td'>
+                         <input type='hidden' name='inst' value='" 
+                        . $index . "'><span style='display:none' class='inst_name'>".$my_idp."</span><span>" . $idp_instance->name . "</span>"
+                        . " (<a href='overview_org.php?inst_id="
+                        . $idp_instance->identifier . "'>" 
+                        . (in_array($index, $userIdps) ? _("manage") : _("view"))
+                        . "</a>)"
+                        . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) 
+                        . implode("</li><li>", $listOfSilverbulletRealms) 
+                        . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" )
+                        . "</td>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
@@ -312,41 +353,25 @@ $(document).on('click', '#realmcheck' , function() {
                         throw new \Exception("Impossible OpenRoaming status!");
                 }
                 echo "</span></td>";
-                // name; and realm of silverbullet profiles if any
-                // instantiating all profiles is costly, so we only do this if
-                // the deployment at hand has silverbullet enabled
-                $listOfSilverbulletRealms = [];
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
-                    foreach ($idp_instance->listProfiles() as $oneProfile) {
-                        if ($oneProfile instanceof core\ProfileSilverbullet) {
-                            $listOfSilverbulletRealms[] = $oneProfile->realm;
-                        }
-                    }
-                }
-                echo "<td style='vertical-align:top;'>
-                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>", $listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
-                      </td>";
+                    echo "</td>";                  
                 // external DB sync, if configured as being necessary
                 if (\config\Master::DB['enforce-external-sync']) {
                     echo "<td style='display: ruby;'>";
                     if ($readonly === FALSE) {
                         echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                    <button type='submit'>" . _("Manage DB Link") . "</button></form>&nbsp;&nbsp;";
+                                    <button type='submit'>" . _("Manage DB Link") . "</button>&nbsp;&nbsp;";
                     }
-                    switch ($idp_instance->getExternalDBSyncState()) {
-                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING:
+                    switch ($idpLinked) {
+                        case 'nosync':
                             break;
-                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
-                            echo "<div class='acceptable'>" . _("Linked") . "</div>";
+                        case 'linked':
+//                            echo "<div class='acceptable'>" . _("Linked") . "</div>";
                             break;
-                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
-                            echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
-
-
+                        case 'notlinked':
+                            echo "<span class='notacceptable'>" . _("NOT linked") . "</span>";
                             break;
                     }
-
-                    echo "</td>";
+                    echo "</form>";
                 }
 
                 // admin management
@@ -389,15 +414,17 @@ $(document).on('click', '#realmcheck' , function() {
                             . sprintf(_("(expires %s)"), $oneinvite['expiry'])
                             . "</form>";
                         }
-                        echo "      </td>
-                                 </tr>";
+                        echo "      </td>";                          
+                        echo "         </tr>";
                     }
                 }
             }
         }
         ?>
     </table>
+    
     <?php
+    
     if ($readonly === FALSE) {
         ?>
         <hr/>

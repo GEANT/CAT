@@ -47,7 +47,16 @@ require_once "inc/click_button_js.php";
 <!-- EAP sorting code end -->
 <?php
 // initialize inputs
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+
+[$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+
+if ($editMode == 'readonly') {
+    print('<style>button.newoption {visibility: hidden}'
+            . '#submitbutton {visibility: hidden} '
+            . 'button.delete {visibility: hidden} '
+            . 'input {pointer-events: none} '
+            . '.ui-sortable-handle {pointer-events: none}</style>');
+}
 $fed = new \core\Federation($my_inst->federation);
 $anonLocal = "anonymous";
 $useAnon = FALSE;
@@ -143,7 +152,11 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if ($wizardStyle) {
             echo _("Step 3: Defining a user group profile");
         } else {
-            printf(_("Edit profile '%s' ..."), $prefill_name);
+            if ($editMode == 'fullaccess') {
+                printf(_("Edit profile '%s' ..."), $prefill_name);
+            } else {
+                printf(_("View profile '%s' ..."), $prefill_name);
+            }
         }
         ?>
     </h1>
@@ -468,5 +481,11 @@ foreach ($fields as $name => $description) {
 if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
 }
-echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+if ($editMode == 'readonly') {
+    $discardLabel = _("Return");
+}
+if ($editMode == 'fullaccess') {
+    $discardLabel = _("Discard changes");
+}
+echo "<p><button type='submit' id='submitbutton' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>".$discardLabel."</button></p></form>";
 echo $deco->footer();

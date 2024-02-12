@@ -74,9 +74,10 @@ function displaySilverbulletPropertyWidget(&$theProfile, $readonly, &$uiElements
  * @param \core\Profile             $theProfile the profile we display
  * @param boolean                   $readonly     are we in readonly mode? No edit buttons then...
  * @param \web\lib\admin\UIElements $uiElements   some UI elements
+ * @param string                    $editMode 'fullaccess', 'readonly'
  * @throws Exception
  */
-function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
+function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $editMode) {
     ?>
     <div style='padding-bottom:20px;'>
         <?php $profile_name = $theProfile->name; ?>
@@ -185,17 +186,26 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements) {
             </form>
         </div>
         <div class='buttongroupprofilebox' style='clear:both; display: flex;'>
-            <?php if ($readonly === FALSE) { ?>
+            <?php 
+                if ($editMode == 'readonly') {
+                    $editLabel = _("View");
+                }
+                if ($editMode == 'fullaccess') {
+                    $editLabel = _("Edit");
+                }
+            if ($readonly === FALSE) { ?>
                 <div style='margin-right: 200px; display: ruby'>
                     <form action='edit_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <hr/>
-                        <button type='submit' name='profile_action' value='edit'><?php echo _("Edit"); ?></button>
+                        <button type='submit' name='profile_action' value='edit'><?php echo $editLabel; ?></button>
                     </form>
+                    <?php if ($editMode == 'fullaccess') { ?>
                     <form action='edit_profile_result.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo sprintf(_("Do you really want to delete the profile %s?"), $profile_name); ?>')">
                             <?php echo _("Delete") ?>
                         </button>
                     </form>
+                    <?php } ?>
                 </div>
                 <?php
             }
@@ -504,7 +514,8 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::AP
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+[$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+
 $myfed = new \core\Federation($my_inst->federation);
 
 // delete stored realm
@@ -524,13 +535,19 @@ echo $mapCode->htmlHeadCode();
 
 // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
+    if ($editMode == 'readonly') {
+        $editLabel = _("View ...");
+    }
+    if ($editMode == 'fullaccess') {
+        $editLabel = _("Edit ...");
+    }
     ?>
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureParticipant); ?></h1>
     <hr/>
     <div>
         <h2 style='display: flex;'><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureParticipant); ?>&nbsp;
             <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo _("Edit ..."); ?></button>
+                <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo $editLabel; ?></button>
             </form>
         </h2>
         <?php
@@ -589,7 +606,7 @@ echo $mapCode->htmlHeadCode();
 
                 <?php
                 // adding a normal profile is always possible if we're configured for it
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL" && $editMode === 'fullaccess') {
                     ?>
                     <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
@@ -626,7 +643,7 @@ echo $mapCode->htmlHeadCode();
                             displaySilverbulletPropertyWidget($profile_list, $readonly, $uiElements);
                             break;
                         case "core\ProfileRADIUS":
-                            displayRadiusPropertyWidget($profile_list, $readonly, $uiElements);
+                            displayRadiusPropertyWidget($profile_list, $readonly, $uiElements, $editMode);
                             break;
                         default:
                             throw new Exception("We were asked to operate on something that is neither a RADIUS nor Silverbullet profile!");
@@ -661,7 +678,7 @@ echo $mapCode->htmlHeadCode();
         ?>
         <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
-            if ($readonly === FALSE) {
+            if ($readonly === FALSE && $editMode === 'fullaccess') {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                     // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));

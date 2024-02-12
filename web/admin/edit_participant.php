@@ -34,7 +34,8 @@ if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
 } else {
     $wizardStyle = FALSE;
 }
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+
+[$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
@@ -45,6 +46,15 @@ if ($wizardStyle) {
 }
 require_once "inc/click_button_js.php";
 // let's check if the inst handle actually exists in the DB and user is authorised
+if ($editMode == 'readonly') {
+    print('<style>'
+            . 'button.newoption {visibility: hidden}'
+            . '#submitbutton {visibility: hidden} '
+            . 'button.delete {visibility: hidden} '
+            . 'input {pointer-events: none} '
+            . '.ui-sortable-handle {pointer-events: none}'
+            . '</style>');
+}
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -52,12 +62,14 @@ require_once "inc/click_button_js.php";
 
 <?php
 $additional = FALSE;
-foreach ($idpoptions as $optionname => $optionvalue) {
-    if ($optionvalue['name'] == "general:geo_coordinates") {
-        $additional = TRUE;
+if ($editMode == 'fullaccess') {
+    foreach ($idpoptions as $optionname => $optionvalue) {
+        if ($optionvalue['name'] == "general:geo_coordinates") {
+            $additional = TRUE;
+        }
     }
 }
-$mapCode = web\lib\admin\AbstractMap::instance($my_inst, FALSE);
+$mapCode = web\lib\admin\AbstractMap::instance($my_inst, !$additional);
 
 echo $mapCode->htmlHeadCode();
 ?>
@@ -206,10 +218,16 @@ echo $mapCode->htmlHeadCode();
 
         <button type='button' class='newoption' onclick='getXML("support", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
+    if ($editMode == 'readonly') {
+        $discardLabel = _("Return");
+    }
+    if ($editMode == 'fullaccess') {
+        $discardLabel = _("Discard changes");
+    }
     if ($wizardStyle) {
         echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
-        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_user.php\"'>" . _("Discard changes") . "</button></div></form>";
+        echo "<div><button type='submit' id='submitbutton' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>".$discardLabel."</button></div></form>";
     }
     echo $deco->footer();
     

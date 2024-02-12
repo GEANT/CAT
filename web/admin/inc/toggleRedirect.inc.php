@@ -33,7 +33,11 @@ $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+[$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+
+if ($editMode == 'readonly') {
+    print('<style>button.delete {visibility: hidden}</style>');
+}
 
 $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
 
@@ -132,12 +136,13 @@ if ($device !== NULL) {
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
     echo $optionDisplay->prefilledOptionTable($keyword, $my_inst->federation);
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
+        if ($editMode == 'fullaccess') {
         ?>
         <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>", "<?php echo $dev;?>")'><?php echo _("Add new option"); ?></button>
         <br/>
         <hr/>
         <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
-        <?php
+        <?php }
     }
     ?>
 </form>

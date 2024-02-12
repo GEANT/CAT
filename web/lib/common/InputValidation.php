@@ -78,9 +78,12 @@ class InputValidation extends \core\common\Entity
         throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", \core\common\Entity::$nomenclature_fed)));
     }
 
+    
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP
+     * It is a wrapper around existingIdPInt.
+     * 
      * @param mixed            $input             the numeric ID of the IdP in the system
      * @param string           $owner             the authenticated username, optional
      * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
@@ -93,21 +96,53 @@ class InputValidation extends \core\common\Entity
         if ($clean === FALSE) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
         }
-
+        
+        $checkResult = $this->existingIdPInt($input, $owner, $claimedFedBinding);
+        $this->loggerInstance->debug(4, $checkResult, "existingIdP:", "\n");
+        if ($checkResult[1] == 'fullaccess') {
+            return $checkResult[0];
+        }
+        if ($owner == NULL && $checkResult[1] == 'nouser') {
+            return $checkResult[0];
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Is this a known IdP? Optionally, also check if the authenticated
+     * user is an admin of that IdP or a federation admin for the parent federation
+     * federaton admins get read-only access
+     * @param mixed            $input             the numeric ID of the IdP in the system
+     * @param string           $owner             the authenticated username, optional
+     * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
+     * @return \core\IdP
+     * @throws Exception
+     */
+    public function existingIdPInt($input, $owner = NULL, $claimedFedBinding = NULL)
+    {
+        $clean = $this->integer($input);
+        if ($clean === FALSE) {
+            throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
+        }
         $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
-
         if ($owner !== NULL) { // check if the authenticated user is allowed to see this institution
+            $user = new \core\User($owner);        
             foreach ($temp->listOwners() as $oneowner) {
                 if ($oneowner['ID'] == $owner) {
-                    return $temp;
+                    return [$temp, 'fullaccess'];
                 }
+            }
+            if ($user->isFederationAdmin($temp->federation)) {
+                $this->loggerInstance->debug(4, "You are fed admin for this IdP\n");
+                return [$temp,'readonly'];
             }
             throw new Exception($this->inputValidationError("This IdP identifier is not accessible!"));
         }
         if ($claimedFedBinding !== NULL && strtoupper($temp->federation) != strtoupper($claimedFedBinding->tld)) {
             throw new Exception($this->inputValidationError("This IdP does not belong to the claimed federation!"));
         }
-        return $temp;
+        return [$temp,'nouser'];
     }
 
     /**

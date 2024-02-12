@@ -35,6 +35,9 @@ $loggerInstance = new \core\common\Logging();
 
 $auth->authenticate();
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+if ($my_inst == false) {
+    throw new Exception("Only institution admin is allowed to make changes!");
+}
 
 switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_DELETE:
@@ -249,8 +252,11 @@ switch ($_POST['submitbutton']) {
                 $text .= _("Greetings, ") . "\n\n" . \config\Master::APPEARANCE['productname_long'];
                 // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
                 $fed = new core\Federation($myInstOriginal->federation);
+                $loggerInstance->debug(2, $myInstOriginal->federation, "FED: ", "\n");
                 foreach ($fed->listFederationAdmins() as $id) {
                     $user = new core\User($id);
+                    $mailaddr = $user->getAttributes("user:email")[0]['value'];
+                    $loggerInstance->debug(2, $mailaddr, "FED MAIL: ", "\n");
                     $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureIdP), $text);
                 }
             }

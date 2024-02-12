@@ -33,7 +33,8 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 <body>
     <?php
     echo $deco->productheader("ADMIN-IDP");
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+    [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+
     $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("Installer fine-tuning can only be called for RADIUS profiles!");

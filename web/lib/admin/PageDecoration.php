@@ -71,12 +71,16 @@ class PageDecoration extends \core\common\Entity {
     private function sidebar($advancedControls) {
         \core\common\Entity::intoThePotatoes();
         $retval = "<div class='sidebar'><p>";
-
+        $user = new \core\User($_SESSION['user']);
         if ($advancedControls) {
             $retval .= "<strong>" . _("You are:") . "</strong> ".$_SESSION['name']
             ."<br/>
-              <br/>
-              <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
+              <br/>";
+            if ($user->isFederationAdmin()) {
+                $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_federation.php'>" . _("The NRO page") . "</a> ";
+
+            }
+            $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/inc/logout.php'>" . _("Logout") . "</a> ";
         }
         $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/'>" . _("Start page") . "</a>
