@@ -105,7 +105,7 @@ $langObject = new \core\common\Language();
                 $fed = $validator->existingFederation($_POST['NRO-list']);
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
-                $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
+                $DN[] = "O=NRO of " . iconv('UTF-8', 'ASCII//TRANSLIT', $cat->knownFederations[strtoupper($fed->tld)]);
                 $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
                 $serverList = explode(",", array_key_first($serverInfo));
                 $DN[] = "CN=" . $serverList[0];
@@ -130,7 +130,7 @@ $langObject = new \core\common\Language();
                 } else {
                     $ou = $serverInfo["names"][$langInstance->getLang()];
                 }
-                $DN[] = "O=$ou";
+                $DN[] = "O=".iconv('UTF-8', 'ASCII//TRANSLIT', $ou);
                 $serverList = explode(",", $serverInfo["servers"]);
                 $DN[] = "CN=" . $serverList[0];
                 switch ($serverInfo["type"]) {
