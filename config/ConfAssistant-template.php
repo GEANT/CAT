@@ -116,6 +116,15 @@ class ConfAssistant
         'nomenclature_participant' => 'Organisation',
     ];
 
+    /** eduPKI options:
+     *
+     * at the moment we just have one whic decides wheather we are in the testing
+     * or production mode. In future it might make sense to move some other parametrs
+     * from code to this place.
+     */
+    const eduPKI = [
+        'testing' => false,
+    ];
     /** silverbullet options:
      *         default_maxusers: an institution is not allowed to create more than that amount of users
      *             the value can be overridden as a per-federation option in fed-operator UI

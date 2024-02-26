@@ -80,7 +80,7 @@ $langObject = new \core\common\Language();
             $feds[] = $fed;
         }
     }
-    if ($is_testing === true) {
+    if (\config\ConfAssistant::eduPKI['testing'] === true) {
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
         $expiryDays = 365;
     } else {
@@ -169,6 +169,8 @@ $langObject = new \core\common\Language();
             "ALTNAMES" => $serverList,
             "POLICIES" => $policies,
             "FED" => $country];
+        $loggerInstance = new \core\common\Logging();
+        $loggerInstance->debug(2, $DN, "CERT DN: ", "\n");
         // our certs can be good for max 5 years
         $fed->requestCertificate($user->identifier, $newCsrWithMeta, $expiryDays);
         echo "<p>" . _("The certificate was requested.") . "</p>";
