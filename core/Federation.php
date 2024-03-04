@@ -78,51 +78,50 @@ class Federation extends EntityWithDBProperties
     private function downloadStatsCore($detail = '')
     {
         if ($detail !== 'ORGANISATIONS' && $detail !== 'PROFILES') {
-            $detail = '';
+            $detail = 'NONE';
         }
         $grossAdmin = 0;
         $grossUser = 0;
         $grossSilverbullet = 0;
         $dataArray = [];
+        $inst_id = 0;
+        $displayName = '';
+        $cohesionQuery = [
+            'ORGANISATIONS' => "SELECT profile.inst_id AS inst_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, downloads.device_id",
+            'PROFILES' => "SELECT profile.inst_id AS inst_id, profile.profile_id AS profile_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, profile.profile_id, downloads.device_id",
+            'NONE' => "SELECT downloads.device_id as dev_id, sum(downloads.downloads_user) as dl_user, sum(downloads.downloads_silverbullet) AS dl_sb, sum(downloads.downloads_admin) as dl_admin FROM profile, institution, downloads WHERE profile.inst_id = institution.inst_id AND institution.country = ? AND profile.profile_id = downloads.profile_id group by device_id"
+        ];
         // first, find out which profiles belong to this federation
-        if ($detail === 'ORGANISATIONS') {
-            $cohesionQuery = "SELECT profile.inst_id AS inst_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, downloads.device_id";
-        } elseif ($detail === 'PROFILES') {
-            $cohesionQuery = "SELECT profile.inst_id AS inst_id, profile.profile_id AS profile_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, profile.profile_id, downloads.device_id";
-        } else {   
-            $cohesionQuery = "SELECT downloads.device_id as dev_id, sum(downloads.downloads_user) as dl_user, sum(downloads.downloads_silverbullet) AS dl_sb, sum(downloads.downloads_admin) as dl_admin FROM profile, institution, downloads WHERE profile.inst_id = institution.inst_id AND institution.country = ? AND profile.profile_id = downloads.profile_id group by device_id";
-        }
-        $downloadsList = $this->databaseHandle->exec($cohesionQuery, "s", $this->tld);
+        $downloadsList = $this->databaseHandle->exec($cohesionQuery[$detail], "s", $this->tld);
         $deviceArray = \devices\Devices::listDevices();
-        // SELECT -> resource, no boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $downloadsList)) {
-            if ($detail === 'ORGANISATIONS' || $detail === 'PROFILES') {
-                $inst_id = $queryResult->inst_id;
-                if (isset($deviceArray[$queryResult->dev_id])) {
-                    $displayName = $deviceArray[$queryResult->dev_id]['display'];
-                } else { // this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-                    $displayName = sprintf(_("(discontinued) %s"), $queryResult->dev_id);
-                }
-                if (! isset($dataArray[$inst_id])) {
-                    $dataArray[$inst_id] = [];
-                }
+            if ($detail === 'NONE') {
+                $grossAdmin = $grossAdmin + $queryResult->dl_admin;
+                $grossSilverbullet = $grossSilverbullet + $queryResult->dl_sb;
+                $grossUser = $grossUser + $queryResult->dl_user;
+                continue;
+            }    
+            $inst_id = $queryResult->inst_id;
+            if (isset($deviceArray[$queryResult->dev_id])) {
+                $displayName = $deviceArray[$queryResult->dev_id]['display'];
+            } else { // this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
+                $displayName = sprintf(_("(discontinued) %s"), $queryResult->dev_id);
             }
+            if (! isset($dataArray[$inst_id])) {
+                $dataArray[$inst_id] = [];
+            }            
             if ($detail === 'ORGANISATIONS') {       
                 $dataArray[$inst_id][$displayName] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
-            } elseif ($detail === 'PROFILES') {
+            }
+            if ($detail === 'PROFILES') {
                 $profile_id = $queryResult->profile_id;
                 if (! isset($dataArray[$inst_id][$profile_id])) {
                     $dataArray[$inst_id][$profile_id] = [];
                 }
                 $dataArray[$inst_id][$profile_id][$displayName] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
             }
-            if ($detail === '') {
-                $grossAdmin = $grossAdmin + $queryResult->dl_admin;
-                $grossSilverbullet = $grossSilverbullet + $queryResult->dl_sb;
-                $grossUser = $grossUser + $queryResult->dl_user;                
-            }
         }
-        if ($detail === '') {
+        if ($detail === 'NONE') {
             $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "SILVERBULLET" => $grossSilverbullet, "USER" => $grossUser];
         }
         return $dataArray;
