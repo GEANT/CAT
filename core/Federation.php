@@ -84,8 +84,6 @@ class Federation extends EntityWithDBProperties
         $grossUser = 0;
         $grossSilverbullet = 0;
         $dataArray = [];
-        $inst_id = 0;
-        $displayName = '';
         $cohesionQuery = [
             'ORGANISATIONS' => "SELECT profile.inst_id AS inst_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, downloads.device_id",
             'PROFILES' => "SELECT profile.inst_id AS inst_id, profile.profile_id AS profile_id, downloads.device_id AS dev_id, sum(downloads.downloads_user) AS dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) AS dl_admin FROM downloads JOIN profile ON downloads.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE institution.country = ? GROUP BY profile.inst_id, profile.profile_id, downloads.device_id",
@@ -107,7 +105,7 @@ class Federation extends EntityWithDBProperties
             } else { // this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
                 $displayName = sprintf(_("(discontinued) %s"), $queryResult->dev_id);
             }
-            if (! isset($dataArray[$inst_id])) {
+            if (!isset($dataArray[$inst_id])) {
                 $dataArray[$inst_id] = [];
             }            
             if ($detail === 'ORGANISATIONS') {       
@@ -115,7 +113,7 @@ class Federation extends EntityWithDBProperties
             }
             if ($detail === 'PROFILES') {
                 $profile_id = $queryResult->profile_id;
-                if (! isset($dataArray[$inst_id][$profile_id])) {
+                if (!isset($dataArray[$inst_id][$profile_id])) {
                     $dataArray[$inst_id][$profile_id] = [];
                 }
                 $dataArray[$inst_id][$profile_id][$displayName] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
@@ -159,20 +157,20 @@ class Federation extends EntityWithDBProperties
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "<tr><td>$device</td><td>" . $numbers['ADMIN'] . "</td><td>" . $numbers['SILVERBULLET'] . "</td><td>" . $numbers['USER'] . "</td></tr>";
+                    $retstring .= "<tr><td>$device</td><td>".$numbers['ADMIN']."</td><td>".$numbers['SILVERBULLET']."</td><td>".$numbers['USER']."</td></tr>";
                 }
-                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['SILVERBULLET'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
+                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>".$data['TOTAL']['ADMIN']."</strong></td><td><strong>".$data['TOTAL']['SILVERBULLET']."</strong></td><td><strong>".$data['TOTAL']['USER']."</strong></td></tr>";
                 break;
             case "XML":
                 // the calls to date() operate on current date, so there is no chance for a FALSE to be returned. Silencing scrutinizer.
-                $retstring .= "<federation id='$this->tld' ts='" . /** @scrutinizer ignore-type */ date("Y-m-d") . "T" . /** @scrutinizer ignore-type */ date("H:i:s") . "'>\n";
+                $retstring .= "<federation id='$this->tld' ts='"./** @scrutinizer ignore-type */ date("Y-m-d")."T"./** @scrutinizer ignore-type */ date("H:i:s")."'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>" . $numbers['ADMIN'] . "</downloads>\n    <downloads group='managed_idp'>" . $numbers['SILVERBULLET'] . "</downloads>\n    <downloads group='user'>" . $numbers['USER'] . "</downloads>\n  </device>";
+                    $retstring .= "  <device name='".$device."'>\n    <downloads group='admin'>".$numbers['ADMIN']."</downloads>\n    <downloads group='managed_idp'>".$numbers['SILVERBULLET']."</downloads>\n    <downloads group='user'>".$numbers['USER']."</downloads>\n  </device>";
                 }
-                $retstring .= "<total>\n  <downloads group='admin'>" . $data['TOTAL']['ADMIN'] . "</downloads>\n  <downloads group='managed_idp'>" . $data['TOTAL']['SILVERBULLET'] . "</downloads>\n  <downloads group='user'>" . $data['TOTAL']['USER'] . "</downloads>\n</total>\n";
+                $retstring .= "<total>\n  <downloads group='admin'>".$data['TOTAL']['ADMIN']."</downloads>\n  <downloads group='managed_idp'>".$data['TOTAL']['SILVERBULLET']."</downloads>\n  <downloads group='user'>".$data['TOTAL']['USER']."</downloads>\n</total>\n";
                 $retstring .= "</federation>";
                 break;
             case "array":
@@ -272,7 +270,7 @@ class Federation extends EntityWithDBProperties
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "Organisation $identifier")) {
-            $text = "<p>Could not create a new " . common\Entity::$nomenclature_participant . "!</p>";
+            $text = "<p>Could not create a new ".common\Entity::$nomenclature_participant."!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -397,8 +395,8 @@ Best regards,
         $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
         $this->loggerInstance->writeAudit($user, "NEW", "Certificate request - NRO: ".$this->tld." - serial: ".$reqserial." - subject: ".$csr['SUBJECT']);
         $reqQuery = "INSERT INTO federation_servercerts "
-                . "(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
-                . "VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
+               ."(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
+               ."VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
         $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
     }
 
@@ -416,7 +414,7 @@ Best regards,
             return; // no update to fetch
         }
         $certDetails = openssl_x509_parse($entryInQuestion['CERT']);
-        $expiry = "20" . $certDetails['validTo'][0] . $certDetails['validTo'][1] . "-" . $certDetails['validTo'][2] . $certDetails['validTo'][3] . "-" . $certDetails['validTo'][4] . $certDetails['validTo'][5];
+        $expiry = "20".$certDetails['validTo'][0].$certDetails['validTo'][1]."-".$certDetails['validTo'][2].$certDetails['validTo'][3]."-".$certDetails['validTo'][4].$certDetails['validTo'][5];
         openssl_x509_export($entryInQuestion['CERT'], $pem);
         $updateQuery = "UPDATE federation_servercerts SET status = 'ISSUED', certificate = ?, expiry = ? WHERE ca_name = 'eduPKI' AND request_serial = ?";
         $this->databaseHandle->exec($updateQuery, "ssi", $pem, $expiry, $reqSerial);
