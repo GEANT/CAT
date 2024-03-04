@@ -34,8 +34,8 @@ if (!isset(\config\ConfAssistant::CONSORTIUM['registration_API_keys']) || count(
     $adminApi->returnError(web\lib\admin\API::ERROR_API_DISABLED, "API is disabled in this instance of CAT");
     exit(1);
 }
-
 $inputRaw = file_get_contents('php://input');
+
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
     $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data." . json_last_error_msg() . $inputRaw);
@@ -61,7 +61,6 @@ if ($checkval == "FAIL") {
     exit(1);
 }
 
-
 // let's instantiate the fed, we will need it later
 $fed = new \core\Federation($federation);
 // it's a valid admin; what does he want to do?
@@ -69,6 +68,7 @@ if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
     $adminApi->returnError(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
     exit(1);
 }
+
 // it's a valid ACTION, so let's sanitise the input parameters
 $scrubbedParameters = $adminApi->scrub($inputDecoded, $fed);
 $paramNames = [];
@@ -172,16 +172,30 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP " . $idp->identifier);
         break;
     case web\lib\admin\API::ACTION_STATISTICS_FED:
-        $adminApi->returnSuccess($fed->downloadStats("array"));
+        $detail = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DETAIL);
+        $adminApi->returnSuccess($fed->downloadStats("array", $detail));
         break;
     case \web\lib\admin\API::ACTION_FEDERATION_LISTIDP:
         $retArray = [];
+        $noLogo = null;
         $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
+        $logoFlag = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::FLAG_NOLOGO);
+        $detail = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DETAIL);
+        $idpStatFlag = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::FLAG_ADD_STATS);
+        if ($logoFlag === "TRUE") {
+            $noLogo = 'general:logo_file';
+        }
         if ($idpIdentifier === FALSE) {
             $allIdPs = $fed->listIdentityProviders(0);
+            if ($idpStatFlag === "TRUE") {
+                $fedStats = $fed->downloadStats('array', $detail);
+            }
             foreach ($allIdPs as $instanceId => $oneIdP) {
                 $theIdP = $oneIdP["instance"];
-                $retArray[$instanceId] = $theIdP->getAttributes();
+                $retArray[$instanceId] = $theIdP->getAttributes(null, $noLogo);
+                if ($idpStatFlag === "TRUE") {
+                    $retArray[$instanceId]['STAT'] = $fedStats[$instanceId];
+                }
             }
         } else {
             try {
@@ -190,9 +204,9 @@ switch ($inputDecoded['ACTION']) {
                 $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
                 exit(1);
             }
-            $retArray[$idpIdentifier] = $thisIdP->getAttributes();
+            $retArray[$idpIdentifier] = $thisIdP->getAttributes(null, $noLogo);
             foreach ($thisIdP->listProfiles() as $oneProfile) {
-                $retArray[$idpIdentifier]["PROFILES"][$oneProfile->identifier] = $oneProfile->getAttributes();
+                $retArray[$idpIdentifier]["PROFILES"][$oneProfile->identifier] = $oneProfile->getAttributes(null, $noLogo);
             }
         }
         foreach ($retArray as $instNumber => $oneInstData) {
@@ -213,6 +227,16 @@ switch ($inputDecoded['ACTION']) {
                 }
             }
         }
+        
+/*        
+                    $retArray[$idpIdentifier] = [];
+            foreach ($thisIdP->listProfiles() as $oneProfile) {
+                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+            }
+
+ * 
+ */        
+        
         $adminApi->returnSuccess($retArray);
         break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:

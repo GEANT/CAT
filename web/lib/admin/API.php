@@ -234,14 +234,19 @@ class API {
     const AUXATTRIB_SB_USERNAME = "ATTRIB-MANAGED-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-MANAGED-USERID";
     const AUXATTRIB_SB_CERTSERIAL = "ATTRIB-MANAGED-CERTSERIAL";
-	const AUXATTRIB_SB_CERTCN = "ATTRIB-MANAGED-CERTCN";
+    const AUXATTRIB_SB_CERTCN = "ATTRIB-MANAGED-CERTCN";
     const AUXATTRIB_SB_CERTANNOTATION = "ATTRIB-MANAGED-CERTANNOTATION";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-MANAGED-EXPIRY"; /* MySQL timestamp format */
     const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
     const AUXATTRIB_TOKENURL = "ATTRIB-TOKENURL";
     const AUXATTRIB_TOKEN_ACTIVATIONS = "ATTRIB-TOKEN-ACTIVATIONS";
     const AUXATTRIB_INSTTYPE = "ATTRIB-INSTITUTION-TYPE";
-
+    const AUXATTRIB_DETAIL = "ATTRIB-DETAIL";
+    /**
+     * This section defines allowed flags for actions
+     */
+    const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listings
+    const FLAG_ADD_STATS = "FLAG-ADD-STATS"; // add IdP statistice - only used in ACTION_FEDERATION_LISTIDP
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
      * 
@@ -263,6 +268,7 @@ class API {
                 'support:phone',
                 'support:url'
             ],
+            "FLAG" => [],
         ],
         API::ACTION_NEWINST => [
             "REQ" => [API::AUXATTRIB_INSTTYPE,], // "IdP", "SP" or "IdPSP"
@@ -280,20 +286,22 @@ class API {
                 'support:phone',
                 'support:url'
             ],
+            "FLAG" => [],
             "RETVAL" => [
                 API::AUXATTRIB_CAT_INST_ID, // New inst ID.
-            ],
+            ],            
         ],
         API::ACTION_DELINST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         // Inst administrator management.
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => [
-            ],
+            "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [
                 ["ID", "MAIL", "LEVEL"] // Array with all admins of inst.
             ]
@@ -304,6 +312,7 @@ class API {
                 API::AUXATTRIB_CAT_INST_ID
             ],
             "OPT" => [API::AUXATTRIB_TARGETMAIL],
+            "FLAG" => [],
             "RETVAL" => [
                 ["TOKEN URL",
                     "EMAIL SENT", // Dependent on TARGETMAIL input.
@@ -316,24 +325,28 @@ class API {
                 API::AUXATTRIB_CAT_INST_ID
             ],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         // Statistics.
         API::ACTION_STATISTICS_INST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => []
+            "OPT" => [],
+            "FLAG" => [],
         ],
         API::ACTION_STATISTICS_FED => [
             "REQ" => [],
-            "OPT" => [],
+            "OPT" => [API::AUXATTRIB_DETAIL],
+            "FLAG" => [],
             "RETVAL" => [
                 ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // Plus "TOTAL".
             ],
         ],
         API::ACTION_FEDERATION_LISTIDP => [
             "REQ" => [],
-            "OPT" => [API::AUXATTRIB_CAT_INST_ID],
+            "OPT" => [API::AUXATTRIB_CAT_INST_ID, API::AUXATTRIB_DETAIL],
             "RETVAL" => [API::AUXATTRIB_CAT_INST_ID => "JSON_DATA"],
+            "FLAG" => [API::FLAG_NOLOGO, API::FLAG_ADD_STATS],
         ],
         // RADIUS profile actions.
         API::ACTION_NEWPROF_RADIUS => [
@@ -362,32 +375,38 @@ class API {
                 API::AUXATTRIB_PROFILE_TESTUSER,
                 API::AUXATTRIB_PROFILE_EAPTYPE,
             ],
+            "FLAG" => [],
             "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         // Silverbullet profile actions.
         API::ACTION_NEWPROF_SB => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [API::AUXATTRIB_SB_TOU],
+            "FLAG" => [],
             "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         API::ACTION_ENDUSER_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID],
         ],
         API::ACTION_ENDUSER_CHANGEEXPIRY => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         API::ACTION_ENDUSER_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [
                 [API::AUXATTRIB_SB_USERID => API::AUXATTRIB_SB_USERNAME],
             ],
@@ -395,11 +414,13 @@ class API {
         API::ACTION_ENDUSER_IDENTIFY => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
             "OPT" => [API::AUXATTRIB_SB_USERID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_CERTSERIAL, API::AUXATTRIB_SB_CERTCN],
+            "FLAG" => [],
             "RETVAL" => [API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID],
         ],
         API::ACTION_TOKEN_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS],
+            "FLAG" => [],
             "RETVAL" => [
                 API::AUXATTRIB_TOKENURL,
                 API::AUXATTRIB_TOKEN,
@@ -411,11 +432,13 @@ class API {
         API::ACTION_TOKEN_REVOKE => [
             "REQ" => [API::AUXATTRIB_TOKEN],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         API::ACTION_TOKEN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
             "OPT" => [API::AUXATTRIB_SB_USERID],
+            "FLAG" => [],
             "RETVAL" => [
                 [API::AUXATTRIB_SB_USERID => [API::AUXATTRIB_TOKEN, "STATUS"]],
             ]
@@ -423,6 +446,7 @@ class API {
         API::ACTION_CERT_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [
                 [API::AUXATTRIB_SB_CERTSERIAL => ["ISSUED", "EXPIRY", "STATUS", "DEVICE", "CN"]]
             ]
@@ -430,11 +454,13 @@ class API {
         API::ACTION_CERT_REVOKE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_CERTSERIAL],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ],
         API::ACTION_CERT_ANNOTATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_CERTSERIAL, API::AUXATTRIB_SB_CERTANNOTATION],
             "OPT" => [],
+            "FLAG" => [],
             "RETVAL" => [],
         ]
     ];
@@ -450,6 +476,7 @@ class API {
      */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
+        $this->loggerInstance = new \core\common\Logging();
     }
 
     /**
@@ -460,10 +487,10 @@ class API {
      * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
-    public function scrub($inputJson, $fedObject) {
+    public function scrub($inputJson, $fedObject) {        
         $optionInstance = \core\Options::instance();
         $parameters = [];
-        $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT']);
+        $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT'],  API::ACTIONS[$inputJson['ACTION']]['FLAG']);
         // some actions don't need parameters. Don't get excited when there aren't any.
         if (!isset($inputJson['PARAMETERS'])) {
             $inputJson['PARAMETERS'] = [];
@@ -477,13 +504,7 @@ class API {
             if (!array_key_exists("VALUE", $oneIncomingParam)) {
                 continue;
             }
-            // is this multi-lingual, and not an AUX attrib? Then check for presence of LANG and CONTENT before considering to add
-            if (!preg_match("/^ATTRIB-/", $oneIncomingParam['NAME'])) {
-                $optionProperties = $optionInstance->optionType($oneIncomingParam['NAME']);
-                if ($optionProperties["flag"] == "ML" && !array_key_exists("LANG", $oneIncomingParam)) {
-                    continue;
-                }
-            } else { // sanitise the AUX attr 
+            if (preg_match("/^ATTRIB-/", $oneIncomingParam['NAME'])) {// sanitise the AUX attr 
                 switch ($oneIncomingParam['NAME']) {
                     case API::AUXATTRIB_CAT_INST_ID:
                         try {
@@ -510,6 +531,16 @@ class API {
                         break;
                     default:
                         break;
+                }   
+            } elseif (preg_match("/^FLAG-/", $oneIncomingParam['NAME'])) {
+                if ($oneIncomingParam['VALUE'] != "TRUE" && $oneIncomingParam['VALUE'] != "FALSE" ) {
+                    continue;
+                }
+            } else {
+            // is this multi-lingual, and not an AUX attrib? Then check for presence of LANG and CONTENT before considering to add                
+                $optionProperties = $optionInstance->optionType($oneIncomingParam['NAME']);
+                if ($optionProperties["flag"] == "ML" && !array_key_exists("LANG", $oneIncomingParam)) {
+                    continue;
                 }
             }
             if (in_array($oneIncomingParam['NAME'], $allPossibleAttribs)) {
@@ -650,5 +681,7 @@ class API {
         }
         return [$idp, $profile];
     }
+    
+    public $loggerInstance;
 
 }

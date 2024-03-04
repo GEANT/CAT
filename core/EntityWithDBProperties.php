@@ -153,11 +153,15 @@ abstract class EntityWithDBProperties extends \core\common\Entity
      * are not considered.
      *
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
+     * @param string$omittedOptionName optionally drop attibutes with that name
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes(string $optionName = NULL)
+    public function getAttributes(string $optionName = NULL, string $omittedOptionName = NULL)
     {
         if ($optionName !== NULL) {
+            if ($optionName === $omittedOptionName) {
+                throw new Exception("The attibute to be shown has the same name as that to be omitted");
+            }
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {
                 if ($theAttr['name'] == $optionName) {
@@ -166,8 +170,18 @@ abstract class EntityWithDBProperties extends \core\common\Entity
             }
             return $returnarray;
         }
+        if ($omittedOptionName !== NULL) {
+            $returnarray = [];
+            foreach ($this->attributes as $theAttr) {
+                if ($theAttr['name'] !== $omittedOptionName) {
+                    $returnarray[] = $theAttr;
+                }
+            }
+            return $returnarray;
+        }
         return $this->attributes;
     }
+
 
     /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
