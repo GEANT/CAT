@@ -18,7 +18,7 @@ The flagship of CAT, the eduroam CAT (https://cat.eduroam.org), has extensive do
 
 There is no documentation for end users, simply because it's so easy to use on the end-user side that no documentation is required! :-)
 
-The source code is [thoroughly documented](https://geant.github.io/CAT/web/apidoc/) using PhpDocumentor 3.
+The source code is [thoroughly documented](https://cat.eduroam.org/apidoc/index.html) using PhpDocumentor 3.
 
 Large parts of the code can be remote-controlled using the [UserAPI](tutorials/UserAPI.md) and AdminAPI.
 
