@@ -172,8 +172,7 @@ function listProfiles(inst_id,selected_profile) {
   $("#user_info").hide();
   $("#devices").hide();
   $("#profile_redirect").hide();
-  $.post(apiURL, {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
-    j = JSON.parse(data);
+  $.post(apiURL, {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(j) {
     result = j.status;
     if (j.otherdata !== undefined)
         otherdata = j.otherdata;
@@ -266,8 +265,8 @@ function showProfile(prof) {
   profile = prof;
   $("#profile_id").val(profile);
   txt = '';
-  $.post(apiURL, {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
-    j1 = JSON.parse(data);
+  $.post(apiURL, {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(j1) {
+//    j1 = JSON.parse(data);
     result = j1.status;
     if (! result) {
       alert(guiTexts.noMatchingData);
@@ -502,7 +501,7 @@ function doDownload(devId, setOpenRoaming) {
     generateTimer = $.now();
     $("#devices").hide();
     $("#user_welcome").show();
-    $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: devId, profile: profile, openroaming: setOpenRoaming}, processDownload);
+    $.post(apiURL, {action: 'generateInstaller', api_version: 2, lang: lang, device: devId, profile: profile, openroaming: setOpenRoaming}, processDownload, "html");
 }
 
 function findDevice(devId) {
@@ -756,7 +755,7 @@ function remindIdPF() {
     }
     $.each(j.data, function(i, v) {
       $("#remindIdPl").append('<li>' + v + '</li>');
-    });
+    }, 'html');
     waiting('stop');
   });
 }
@@ -977,9 +976,9 @@ $(document).ready(function() {
   }
   $("#openroaming_check").change(function(event) {
     if ($("#openroaming_check").prop("checked") == true) {
-        $("[id^='g_or_']").css("background-color", "#1d4a74");
+        $("[id^='g_or_']").css("background-color", $("button.guess_os").css("background-color"));
         $("[id^='g_or_']").addClass('enabled');
-        $("#device_list button.dev_or.hs20").css("background-color", "#1d4a74");
+        $("#device_list button.dev_or.hs20").css("background-color", $("button.guess_os").css("background-color"));
         $("#device_list button.dev_or.hs20").addClass('enabled');
     } else {
       $("[id^='g_or_']").css("background-color", "#bbb");
