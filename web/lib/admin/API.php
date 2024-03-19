@@ -493,7 +493,7 @@ class API {
         $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT'],  API::ACTIONS[$inputJson['ACTION']]['FLAG']);
         // some actions don't need parameters. Don't get excited when there aren't any.
         if (!isset($inputJson['PARAMETERS'])) {
-            $inputJson['PARAMETERS'] = [];
+            return [];
         }
         foreach ($inputJson['PARAMETERS'] as $number => $oneIncomingParam) {
             // index has to be an integer
