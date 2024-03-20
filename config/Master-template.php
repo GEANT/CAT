@@ -162,6 +162,9 @@ class Master
             'certfilename' => NULL,
             'keyfilename' => NULL,
             'keypass' => NULL,
+            'notify_nro' => false, // normally should be set to TRUE abd causes 
+                                   // notifications being sent to NRO admins when
+                                   // important changes are made
         ];
         /**
          * List of all supported languages in CAT. Comment some if you want to disable them

@@ -329,9 +329,11 @@ Best regards,
                     $productShort,
                     $productLong);
             /// organisation
-            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
-            if ($retval === FALSE) {
-                $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
+            if (\config\Master::MAILSETTINGS['notify_nro']) {
+                $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
+                if ($retval === FALSE) {
+                    $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
+                }
             }
         }
 
@@ -395,8 +397,8 @@ Best regards,
         $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
         $this->loggerInstance->writeAudit($user, "NEW", "Certificate request - NRO: ".$this->tld." - serial: ".$reqserial." - subject: ".$csr['SUBJECT']);
         $reqQuery = "INSERT INTO federation_servercerts "
-               ."(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
-               ."VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
+                ."(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
+                ."VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
         $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
     }
 

@@ -56,9 +56,11 @@ switch ($_POST['submitbutton']) {
                 sprintf(_("the %s %s / %s / (previously known as) '%s' has deleted all properties and is starting over freshly. This means that its not recognisable by its name any more, and it may assume a different name in the future. You will get another mail if and when the name change happens."), $ui->nomenclatureParticipant, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n" .
                 $bye;
         $fed = new core\Federation($myInstOriginal->federation);
-        foreach ($fed->listFederationAdmins() as $id) {
-            $user = new core\User($id);
-            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
+        if (\config\Master::MAILSETTINGS['notify_nro']) {
+            foreach ($fed->listFederationAdmins() as $id) {
+                $user = new core\User($id);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
+            }
         }
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
@@ -101,9 +103,11 @@ switch ($_POST['submitbutton']) {
             $text .= $bye;
             // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
             $fed = new core\Federation($myInstOriginal->federation);
-            foreach ($fed->listFederationAdmins() as $id) {
-                $user = new core\User($id);
-                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
+            if (\config\Master::MAILSETTINGS['notify_nro']) {
+                foreach ($fed->listFederationAdmins() as $id) {
+                    $user = new core\User($id);
+                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureParticipant), $text);
+                }
             }
         }
 
