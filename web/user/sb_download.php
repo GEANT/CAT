@@ -31,7 +31,8 @@ $API = new \core\UserAPI();
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 
-$device = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING) ?? "INVALID";
+$deviceUnfiltered = filter_input(INPUT_GET, 'device') ?? filter_input(INPUT_POST, 'device') ?? "INVALID";
+$device = htmlspecialchars(strip_tags($deviceUnfiltered));
 $generatedFor = $_REQUEST['generatedfor'] ?? 'user';
 $openRoaming = 0;
 
