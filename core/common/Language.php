@@ -116,7 +116,7 @@ class Language
             $langConverted[] = $_SESSION['language'];
         }
         if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $langs = explode(",", filter_input(INPUT_SERVER, "HTTP_ACCEPT_LANGUAGE", FILTER_SANITIZE_STRING));
+            $langs = explode(",", htmlspecialchars(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE'], ENT_QUOTES)));
             foreach ($langs as $lang) {
                 $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
