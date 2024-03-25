@@ -62,6 +62,7 @@ class OptionParser extends \core\common\Entity {
         $this->validator = new \web\lib\common\InputValidation();
         $this->uiElements = new UIElements();
         $this->optioninfoObject = \core\Options::instance();
+        $this->loggerInstance = new \core\common\Logging();
     }
 
     /**
@@ -69,44 +70,64 @@ class OptionParser extends \core\common\Entity {
      * 
      * @param string $optiontype     for which option was the data uploaded
      * @param string $incomingBinary the uploaded data
-     * @return boolean whether the data was valid
+     * @return array ['result'=>boolean whether the data was valid, 'details'=>string description of the problem]
      */
-    private function checkUploadSanity(string $optiontype, string $incomingBinary) {
+        private function checkUploadSanity(string $optiontype, string $incomingBinary) {
         switch ($optiontype) {
             case "general:logo_file":
             case "fed:logo_file":
             case "internal:logo_from_url":
+                $result = $this->validator->image($incomingBinary);
                 // we check logo_file with ImageMagick
-                return $this->validator->image($incomingBinary);
+                if ($result) {
+                    return ['result'=>TRUE, 'details'=>''];
+                }
+                return ['result'=>FALSE, 'details'=>_('unsupported image type')];
             case "eap:ca_file":
             // fall-through intended: both CA types are treated the same
             case "fed:minted_ca_file":
                 // echo "Checking $optiontype with file $filename";
                 $cert = (new \core\common\X509)->processCertificate($incomingBinary);
                 if ($cert !== FALSE) { // could also be FALSE if it was incorrect incoming data
-                    return TRUE;
+                    $fail = false;
+                    if ($cert['full_details']['type'] == 'server') {
+                        $reason = _("%s - server certificate (<a href='%s'>more info</a>)");
+                        $fail = true;
+                    } elseif($cert['basicconstraints_set'] === 0) {
+                        $reason = _("%s - missing required CA extensions (<a href='%s'>more info</a>)");
+                        $fail = true;
+                    }    
+                    if ($fail) {
+                        if (\config\ConfAssistant::CERT_GUIDELINES === '') {
+                            $ret_val = sprintf(preg_replace('/\(<a.*>\)/', '', $reason), $cert['full_details']['subject']['CN']);
+                        } else {
+                            $ret_val = sprintf($reason, $cert['full_details']['subject']['CN'], \config\ConfAssistant::CERT_GUIDELINES);
+                        }
+                        return ['result'=>FALSE, 'details'=>$ret_val];
+                    }                
+                    return ['result'=>TRUE, 'details'=>''];
                 }
                 // the certificate seems broken
-                return FALSE;
+                return ['result'=>FALSE, 'details'=>''];
             case "support:info_file":
                 $info = new \finfo();
                 $filetype = $info->buffer($incomingBinary, FILEINFO_MIME_TYPE);
 
                 // we only take plain text files in UTF-8!
                 if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $incomingBinary) !== FALSE) {
-                    return TRUE;
+                    return ['result'=>TRUE, ''];
                 }
-                return FALSE;
+                return ['result'=>FALSE, 'details'=>_("incorrect file type - must be UTF8 text")];
             case "media:openroaming": // and any other enum_* data type actually
                 $optionClass = \core\Options::instance();
                 $optionProps = $optionClass->optionType($optiontype);
                 $allowedValues = explode(',', substr($optionProps["flags"], 7));
                 if (in_array($incomingBinary,$allowedValues))  {
-                    return TRUE;
+                    return ['result'=>TRUE, 'details'=>''];
                 }
-                return FALSE;
+                return ['result'=>FALSE, 'details'=>''];
             default:
-                return FALSE;
+                return ['result'=>FALSE, 'details'=>''];
         }
     }
 
@@ -138,14 +159,14 @@ class OptionParser extends \core\common\Entity {
                         $bindata = \core\common\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
                         if ($bindata === FALSE) {
-                            $bad[] = $name;
+                            $bad[] = ['type'=>$name, 'details'=>_("missing content")];
                             break;
                         }
-                        if ($this->checkUploadSanity($finalOptionname, $bindata)) {
+                        if ($this->checkUploadSanity($finalOptionname, $bindata)['result']) {
                             $good[] = $name;
                             $options[] = [$finalOptionname => ['lang' => NULL, 'content' => base64_encode($bindata)]];
                         } else {
-                            $bad[] = $name;
+                            $bad[] = ['type'=>$name, 'details'=>''];
                         }
                         break;
                     case "eap:ca_file":
@@ -177,7 +198,6 @@ class OptionParser extends \core\common\Entity {
                 }
             }
         }
-
         return $options;
     }
 
@@ -220,9 +240,10 @@ class OptionParser extends \core\common\Entity {
             $retval .= $this->uiElements->boxOkay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list all attributes that had errors
-        $listBad = array_count_values($bad);
-        foreach ($listBad as $name => $count) {
-            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int) $count, $uiElements->displayName($name)));
+
+        foreach ($bad as $badInstance) {
+            $details = $badInstance['details'] === '' ? '' : ' - '.$badInstance['details'];
+            $retval .= $this->uiElements->boxError(sprintf(_("%s"), $uiElements->displayName($badInstance['type']).$details));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
@@ -336,7 +357,7 @@ class OptionParser extends \core\common\Entity {
             $languageFlag = NULL;
             if ($optioninfo["flag"] == "ML") {
                 if (!isset($listOfEntries["$objId-lang"])) {
-                    $bad[] = $objValue;
+                    $bad[] = ['type'=>$objValue, 'details'=>''];
                     continue;
                 }
                 $languageFlag = $this->validator->string($listOfEntries["$objId-lang"]);
@@ -360,7 +381,7 @@ class OptionParser extends \core\common\Entity {
                         if ($contentValid) {
                             $content = "on";
                         } else {
-                            $bad[] = $objValue;
+                            $bad[] = ['type'=>$objValue, 'details'=>''];
                             continue 2;
                         }
                         break;
@@ -398,9 +419,9 @@ class OptionParser extends \core\common\Entity {
                     $fileName = $listOfEntries["$objId-" . \core\Options::TYPECODE_FILE] ?? "";
                     if ($fileName != "") { // let's do the download
                         $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $fileName);
-
-                        if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
-                            $bad[] = $objValue;
+                        $sanity = $this->checkUploadSanity($objValue, $rawContent);
+                        if ($rawContent === FALSE || !$sanity['result']) {
+                            $bad[] = ['type'=>$objValue, 'details'=>$sanity['details']];
                             continue 2;
                         }
                         $content = base64_encode($rawContent);
@@ -449,14 +470,14 @@ class OptionParser extends \core\common\Entity {
             case "media:consortium_OI":
                 $content = $this->validator->consortiumOI($previsionalContent);
                 if ($content === FALSE) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
             case "media:remove_SSID":
                 $content = $this->validator->string($previsionalContent);
                 if ($content == "eduroam") {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
@@ -464,33 +485,33 @@ class OptionParser extends \core\common\Entity {
                 $content = $this->validator->string($previsionalContent);
                 $serverAndPort = explode(':', strrev($content), 2);
                 if (count($serverAndPort) != 2) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 $port = strrev($serverAndPort[0]);
                 if (!is_numeric($port)) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
             case "support:url":
                 $content = $this->validator->string($previsionalContent);
                 if (preg_match("/^http/", $content) != 1) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
             case "support:email":
                 $content = $this->validator->email($previsionalContent);
                 if ($content === FALSE) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
             case "managedsp:operatorname":
                 $content = $previsionalContent;
                 if (!preg_match("/^1.*\..*/", $content)) {
-                    $bad[] = $attribute;
+                    $bad[] = ['type'=>$attribute, 'details'=>''];
                     return FALSE;
                 }
                 break;
@@ -562,7 +583,6 @@ class OptionParser extends \core\common\Entity {
         // In some cases, callers won't actually want to display it; so simply
         // do not echo the return value. Reasons not to do this is if we working
         // e.g. from inside an overlay
-
         return $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
     }
 
