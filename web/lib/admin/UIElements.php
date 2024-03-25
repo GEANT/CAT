@@ -357,7 +357,6 @@ class UIElements extends \core\common\Entity {
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
         $certTooltip = ( $details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
-        $mainbgColor = "#ccccff";
         $innerbgColor = "#0000ff";
         $leftBorderColor = "#00ff00";
         $message = "";
