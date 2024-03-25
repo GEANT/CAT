@@ -359,34 +359,40 @@ class UIElements extends \core\common\Entity {
         $certTooltip = ( $details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
         $mainbgColor = "#ccccff";
         $innerbgColor = "#0000ff";
+        $leftBorderColor = "#00ff00";
         $message = "";
         if ($details['ca'] == 0 && $details['root'] != 1) {
-            $mainbgColor = "red";
-            $innerbgColor = "maroon";
-            $message = _("This is a <strong>SERVER</strong> certificate!") . "<br/>";
-            $retval = "<div class='ca-summary' style='background-color:$mainbgColor'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . $message . $details['name'] . "</div>";
+            $leftBorderColor = "red";
+            $message = _("This is a <strong>SERVER</strong> certificate!");
+            if (\config\ConfAssistant::CERT_GUIDELINES !== '') {
+                $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>". _("more info")."</a>";
+            }
+            $message .= "<br/>";
+            $retval = "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . $message . $details['name'] . "</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-
         if (time() > $details['full_details']['validTo_time_t']) {
-            $mainbgColor = "red";
-            $innerbgColor = "maroon";
+            $leftBorderColor = "red";
             $message = _("Certificate expired!") . "<br>";
         } elseif(time() > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
-            $mainbgColor = "yellow";
-            $innerbgColor = "#0000ff";
-            $message = _("Certificate close to expiry!") . "<br>";            
+            if ($leftBorderColor == "#00ff00") {
+                $leftBorderColor = "yellow";
+            }
+            $message = _("Certificate close to expiry!") . "<br/>";            
         }
    
         if ($details['root'] == 1 && $details['basicconstraints_set'] == 0) {
-            if ($mainbgColor == "#ccccff") {
-                $mainbgColor = "yellow";
+            if ($leftBorderColor == "#00ff00") {
+                $leftBorderColor = "yellow";
             }
-            $message .= "<div style='max-width: 25em'><strong>" . _("Improper root certificate, required critical CA extension missing, will not reliably install!") . "</strong><br><a target='_blank' href=''>". _("more info")."</a></div><br>";
+            $message .= "<div style='max-width: 25em'><strong>" . _("Improper root certificate, required critical CA extension missing, will not reliably install!") . "</strong>";
+            if (\config\ConfAssistant::CERT_GUIDELINES !== '') {
+                $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>". _("more info")."</a>";
+            }
+            $message .= "</div><br/>";
         }
-        
-        $retval =     "<div class='ca-summary' style='background-color:$mainbgColor'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $message . $details['name'] . "<br>" . $this->displayName('eap:ca_vailduntil') . " " . gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
+        $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $message . $details['name'] . "<br>" . $this->displayName('eap:ca_vailduntil') . " " . gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }

@@ -408,7 +408,10 @@ div.acceptable {
 div.ca-summary {
     border: 1px dotted;
     background-color: #ccccff;
+    border-left: 10px solid;
+    border-left-color: green;
     padding: 2px;
+    padding-left: 8px;
 }
 
 span.edu_cat {
