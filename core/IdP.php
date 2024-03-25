@@ -123,7 +123,7 @@ class IdP extends EntityWithDBProperties
             $eligType = IdP::TYPE_SP . "";
         }
         $this->type = $eligType;
-        $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new IdP object ... ---\n");
     }
 
     /**
@@ -390,20 +390,21 @@ class IdP extends EntityWithDBProperties
         $this->databaseHandle->exec("DELETE FROM institution WHERE inst_id = $this->identifier");
 
         // notify federation admins
+        if (\config\Master::MAILSETTINGS['notify_nro']) {
+            $fed = new Federation($this->federation);
+            foreach ($fed->listFederationAdmins() as $id) {
+                $user = new User($id);
+                $message = sprintf(_("Hi,
 
-        $fed = new Federation($this->federation);
-        foreach ($fed->listFederationAdmins() as $id) {
-            $user = new User($id);
-            $message = sprintf(_("Hi,
+    the %s %s in your %s federation %s has been deleted from %s.
 
-the %s %s in your %s federation %s has been deleted from %s.
+    We thought you might want to know.
 
-We thought you might want to know.
+    Best regards,
 
-Best regards,
-
-%s"), common\Entity::$nomenclature_participant, $this->name, \config\ConfAssistant::CONSORTIUM['display_name'], strtoupper($fed->name), \config\Master::APPEARANCE['productname'], \config\Master::APPEARANCE['productname_long']);
-            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_participant), $message);
+    %s"), common\Entity::$nomenclature_participant, $this->name, \config\ConfAssistant::CONSORTIUM['display_name'], strtoupper($fed->name), \config\Master::APPEARANCE['productname'], \config\Master::APPEARANCE['productname_long']);
+                $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_participant), $message);
+            }
         }
         common\Entity::outOfThePotatoes();
     }
