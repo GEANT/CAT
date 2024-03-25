@@ -14,4 +14,4 @@ The following components are required for jQuery UI to work properly with CAT:
 !Droppable
 
 
-Themen Redmond
+Theme Redmond
