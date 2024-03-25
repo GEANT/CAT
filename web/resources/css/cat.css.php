@@ -60,15 +60,15 @@ button {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     min-height: 23px;
-    border-start-style: outset; 
-    border-start-width: 1px; 
-    border-start-color: #8bbacb;
+    border-<?php echo $start;?>-style: outset; 
+    border-<?php echo $start;?>-width: 1px; 
+    border-<?php echo $start;?>-color: #8bbacb;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-end-style: outset; 
-    border-end-width: 2px; 
-    border-end-color: #043d52;
+    border-<?php echo $end;?>-style: outset; 
+    border-<?php echo $end;?>-width: 2px; 
+    border-<?php echo $end;?>-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
@@ -109,15 +109,15 @@ button.delete {
 .use_borders button.alertButton {
     color: maroon; 
     background: #bbb; 
-    border-start-style: outset; 
-    border-start-width: 1px; 
-    border-start-color: #eee;
+    border-<?php echo $start;?>-style: outset; 
+    border-<?php echo $start;?>-width: 1px; 
+    border-<?php echo $start;?>-color: #eee;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #eee;
-    border-end-style: outset; 
-    border-end-width: 2px; 
-    border-end-color: #444;
+    border-<?php echo $end;?>-style: outset; 
+    border-<?php echo $end;?>-width: 2px; 
+    border-<?php echo $end;?>-color: #444;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #444;
@@ -127,15 +127,15 @@ button.delete {
 button[disabled] {
     background: #bababa;
     color: #6a6a6a;
-    border-start-style: inset;
-    border-start-width: 1px;
-    border-start-color: #dadada;
+    border-<?php echo $start;?>-style: inset;
+    border-<?php echo $start;?>-width: 1px;
+    border-<?php echo $start;?>-color: #dadada;
     border-top-style: inset;
     border-top-width: 1px;
     border-top-color: #dadada;
-    border-end-style: outset;
-    border-end-width: 2px;
-    border-end-color: #dadada;
+    border-<?php echo $end;?>-style: outset;
+    border-<?php echo $end;?>-width: 2px;
+    border-<?php echo $end;?>-color: #dadada;
     border-bottom-style: outset;
     border-bottom-width: 2px;
     border-bottom-color: #dadada;
@@ -231,7 +231,7 @@ div.pagecontent div.trick {
     color: #FFFFFF;
     min-height:100px;
     overflow: auto;
-    padding-<?php echo $start;?>:20px'
+    padding-<?php echo $start;?>:20px
 }
 
 #thirdrow {
@@ -268,8 +268,8 @@ div.maincontent {
     height: 100% !important;
     position: relative;
     min-width: 1000px;
-    margin-start: auto;
-    margin-end: auto;
+    margin-<?php echo $start;?>: auto;
+    margin-<?php echo $end;?>: auto;
 }
 
 div.device_info {
@@ -353,7 +353,7 @@ div.graybox img {
 
 img.icon {
     float: <?php echo $start;?>;
-    margin-end: 5px;
+    margin-<?php echo $end;?>: 5px;
     margin-top: 3px;
 }
 
@@ -408,10 +408,10 @@ div.acceptable {
 div.ca-summary {
     border: 1px dotted;
     background-color: #ccccff;
-    border-left: 10px solid;
-    border-left-color: green;
+    border-<?php echo $start;?>: 10px solid;
+    border-<?php echo $start;?>-color: green;
     padding: 2px;
-    padding-left: 8px;
+    padding-<?php echo $start;?>: 8px;
 }
 
 span.edu_cat {
@@ -493,15 +493,15 @@ p.MOTD {
 }
 
 .use_borders button {
-    border-start-style: outset; 
-    border-start-width: 1px; 
-    border-start-color: #8bbacb;
+    border-<?php echo $start;?>-style: outset; 
+    border-<?php echo $start;?>-width: 1px; 
+    border-<?php echo $start;?>-color: #8bbacb;
     border-top-style: outset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-end-style: outset; 
-    border-end-width: 2px; 
-    border-end-color: #043d52;
+    border-<?php echo $end;?>-style: outset; 
+    border-<?php echo $end;?>-width: 2px; 
+    border-<?php echo $end;?>-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
@@ -541,13 +541,13 @@ p.MOTD {
 }
 
 input {
-    margin-end: 5px;
+    margin-<?php echo $end;?>: 5px;
 
 }
 
 select {
     vertical-align: middle;
-    margin-start: 10px;
+    margin-<?php echo $start;?>: 10px;
 }
 
 td.notapplicable {
@@ -597,15 +597,15 @@ td.vendor img {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     height: 23px;
-    border-start-style: inset; 
-    border-start-width: 1px; 
-    border-start-color: #8bbacb;
+    border-<?php echo $start;?>-style: inset; 
+    border-<?php echo $start;?>-width: 1px; 
+    border-<?php echo $start;?>-color: #8bbacb;
     border-top-style: inset; 
     border-top-width: 1px; 
     border-top-color: #8bbacb;
-    border-end-style: outset; 
-    border-end-width: 2px; 
-    border-end-color: #043d52;
+    border-<?php echo $end;?>-style: outset; 
+    border-<?php echo $end;?>-width: 2px; 
+    border-<?php echo $end;?>-color: #043d52;
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
@@ -760,9 +760,9 @@ td.vendor img {
                     padding:10px; padding-<?php echo $start;?>:20px; padding-<?php echo $end;?>:20px;
                     background: #f0f0f0;
                     border: 1px solid #dddddd;
-                    margin-start: 25px;
+                    margin-<?php echo $start;?>: 25px;
                     padding-<?php echo $start;?>: 25px;
-                    margin-end: 25px;
+                    margin-<?php echo $end;?>: 25px;
                     padding-<?php echo $end;?>: 25px;
                     padding-bottom: 10px;
                     vertical-align: top;
@@ -892,7 +892,7 @@ td.vendor img {
 }
 
 #front_page_leftmenu {
-    border-end:solid; 
+    border-<?php echo $end;?>:solid; 
     border-color: <?php echo $colour1;?>; 
     border-width:5px; 
     min-height:400px; 
