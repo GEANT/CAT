@@ -190,8 +190,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // the wire, so re-encode it!
             $soapCleartext = $soap->getRawRequest($soapReqnum);
 
-            $this->loggerInstance->debug(5, "Actual received SOAP response for getRawRequest was:\n\n");
-            $this->loggerInstance->debug(5, $soap->__getLastResponse());
+            $this->loggerInstance->debug(2, "Actual received SOAP response for getRawRequest was:\n\n");
+            $this->loggerInstance->debug(2, $soap->__getLastResponse());
             // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
             // rather than just using the string. Grr.
             $tempdir = \core\common\Entity::createTemporaryDirectory("test");
@@ -206,7 +206,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
-            $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
+            $this->loggerInstance->debug(2, "Actual content to be signed is this:\n  $soapCleartext\n");
             $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];

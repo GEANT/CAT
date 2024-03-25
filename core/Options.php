@@ -117,7 +117,7 @@ class Options
     {
         $this->typeDb = [];
         $this->loggerInstance = new \core\common\Logging();
-        $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
+        $this->loggerInstance->debug(4, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         // SELECT -> resource, not boolean
@@ -135,7 +135,7 @@ class Options
         $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
         $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
-        $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
+        $this->loggerInstance->debug(4, "--- END constructing Options instance ---\n");
     }
 
     /**
@@ -150,7 +150,7 @@ class Options
     public function availableOptions($className = 0)
     {
         $tempArray = [];
-        $this->loggerInstance->debug(3, "CLASSNAME IS $className\n");
+        $this->loggerInstance->debug(4, "CLASSNAME IS $className\n");
 
         foreach (array_keys($this->typeDb) as $name) {
             if ($className === 0) {

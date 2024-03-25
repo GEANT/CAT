@@ -133,7 +133,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->name = ProfileSilverbullet::PRODUCTNAME;
 
-        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new Profile object ... ---\n");
 
         $product = \core\ProfileSilverbullet::PRODUCTNAME;
         $nameIdP = \config\ConfAssistant::CONSORTIUM['nomenclature_idp'];

@@ -98,7 +98,7 @@ class InputValidation extends \core\common\Entity
         }
         
         $checkResult = $this->existingIdPInt($input, $owner, $claimedFedBinding);
-        $this->loggerInstance->debug(4, $checkResult, "existingIdP:", "\n");
+        $this->loggerInstance->debug(5, $checkResult, "existingIdP:", "\n");
         if ($checkResult[1] == 'fullaccess') {
             return $checkResult[0];
         }
@@ -116,7 +116,7 @@ class InputValidation extends \core\common\Entity
      * @param mixed            $input             the numeric ID of the IdP in the system
      * @param string           $owner             the authenticated username, optional
      * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
-     * @return \core\IdP
+     * @return array(\core\IdP, string)
      * @throws Exception
      */
     public function existingIdPInt($input, $owner = NULL, $claimedFedBinding = NULL)

@@ -155,7 +155,7 @@ class ProfileRADIUS extends AbstractProfile
             $this->attributes = array_merge($this->attributes, $this->addInternalAttributes([ "internal:openroaming" => TRUE ] ));
         }
         
-        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new Profile object ... ---\n");
     }
 
     /**

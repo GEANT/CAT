@@ -141,7 +141,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties
         $this->idpAttributes = $idp->getAttributes();
         $fedObject = new Federation($idp->federation);
         $this->fedAttributes = $fedObject->getAttributes();
-        $this->loggerInstance->debug(3, "--- END Constructing new AbstractDeployment object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new AbstractDeployment object ... ---\n");
     }
 
     /**
