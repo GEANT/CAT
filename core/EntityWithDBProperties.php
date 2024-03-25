@@ -146,8 +146,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity
     /**
      * This function retrieves the entity's attributes. 
      * 
-     * If called with the optional parameter, only attribute values for the attribute
-     * name in $optionName are retrieved; otherwise, all attributes are retrieved.
+     * If called with two optional parameters, only attribute values for the attribute
+     * name in $optionName are retrieved; otherwise, all attributes are retrieved
+     * unless $omittedOptionName is set - this attribute will be filtered out (the
+     * main use is to filter out logos).
      * The retrieval is in-memory from the internal attributes class member - no
      * DB callback, so changes in the database during the class instance lifetime
      * are not considered.
