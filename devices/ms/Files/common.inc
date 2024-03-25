@@ -628,6 +628,10 @@ Function Wireless_Check
   nsExec::Exec "$TEMP\wlan_test.exe"
   Pop $wireless_result
   !insertmacro debug_cat 3 "wlan_test.exe returned $wireless_result"
+  ${If} $wireless_result == "error"
+     Push 0
+     Pop $wireless_result
+  ${EndIf}
   ${If} $wireless_result > 0
      !insertmacro debug_cat 2 "Wireless problem: $wireless_result"
   ${Else}
