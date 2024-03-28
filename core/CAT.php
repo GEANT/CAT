@@ -55,7 +55,7 @@ class CAT extends \core\common\Entity
     public const VERSION_MINOR = 1;
     public const VERSION_PATCH = 1;
     public const VERSION_EXTRA = "";
-    private const RELEASE_VERSION = TRUE;
+    private const RELEASE_VERSION = FALSE;
     private const USER_API_VERSION = 2;
 
     /**
@@ -621,7 +621,14 @@ class CAT extends \core\common\Entity
     {
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_name("CAT");
-            session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], (isset($_SERVER['HTTPS']) ? TRUE : FALSE));
+            session_set_cookie_params([
+                'lifetime' => 0,
+                'path' => "/",
+                'domain' => $_SERVER['HTTP_HOST'],
+                'secure' => (isset($_SERVER['HTTPS']) ? TRUE : FALSE),
+                'httponly' => false,
+                'samesite' => 'strict'
+        ]);            
             session_start();
         }
     }
