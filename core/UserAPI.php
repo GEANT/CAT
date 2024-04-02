@@ -522,7 +522,7 @@ class UserAPI extends CAT
             }
         }
 // the device has not been specified or not specified correctly, try to detect if from the browser ID
-        $browser = filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING);
+        $browser = htmlspecialchars(strip_tags($_SERVER['HTTP_USER_AGENT']), ENT_QUOTES);
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
         foreach ($Dev as $devId => $device) {
             if (!isset($device['match'])) {
@@ -560,13 +560,17 @@ class UserAPI extends CAT
     }
 
     /**
-     * This methods checks if the device has been specified as the HTTP parameters
+     * This method checks if the device has been specified as the HTTP parameters
      * 
      * @return device id|NULL if correctly specified or FALSE otherwise
      */
     private function deviceFromRequest()
     {
-        $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
+        if (isset($_GET['device'])) {
+            $devId = htmlspecialchars(strip_tags($_GET['device']));
+        } else {
+            $devId = htmlspecialchars(strip_tags($_POST['device']));
+        }
         if ($devId === NULL || $devId === FALSE) {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
             return NULL;
