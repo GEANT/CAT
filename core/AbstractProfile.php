@@ -130,6 +130,22 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const OVERALL_OPENROAMING_LEVEL_WARN = 1;
     const OVERALL_OPENROAMING_LEVEL_ERROR = 0;
     
+    
+    const OPENROAMING_ALL_GOOD = 24;
+    const OPENROAMING_NO_REALM = 17; //n
+    const OPENROAMING_BAD_SRV = 16; //n
+    const OPENROAMING_BAD_NAPTR = 10; // w
+    const OPENROAMING_SOME_BAD_CONNECTIONS = 8; //w
+    const OPENROAMING_NO_DNSSEC = 8; //w
+    const OPENROAMING_NO_NAPTR = 3; //e
+    const OPENROAMING_BAD_NAPTR_RESOLVE = 2; //e
+    const OPENROAMING_BAD_SRV_RESOLVE = 1; //e
+    const OPENROAMING_BAD_CONNECTION = 0; //e
+    
+    
+    
+    
+    
     /**
      *  generates a detailed log of which installer was downloaded
      * 
@@ -205,6 +221,130 @@ abstract class AbstractProfile extends EntityWithDBProperties
         return $retval;
     }
 
+    /**
+     * Tests OpenRoaming aspects of the profile like DNS settings and server reachibility
+     * 
+     * @return array of arrays of the form [['level' => $level, 'explanation' => $explanation, 'reason' => $reason]];
+     */
+    public function openroamingRedinessTest() {
+        // do OpenRoaming initial diagnostic checks
+        // numbers correspond to RFC7585Tests::OVERALL_LEVEL
+        $results = [];
+        $resultLevel = $this::OVERALL_OPENROAMING_LEVEL_GOOD; // assume all is well, degrade if we have concrete findings to suggest otherwise
+        $tag = "aaa+auth:radius.tls.tcp";
+        // do we know the realm at all? Notice if not.
+        if (!isset($this->getAttributes("internal:realm")[0]['value'])) {
+            $explanation = _("The profile information does not include the realm, so no DNS checks for OpenRoaming can be executed.");
+            $level = $this::OVERALL_OPENROAMING_LEVEL_NOTE;
+            $reason = $this::OPENROAMING_NO_REALM;
+            $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+            $resultLevel = min([$resultLevel, $level]);
+        } else {
+            $dnsChecks = new \core\diag\RFC7585Tests($this->getAttributes("internal:realm")[0]['value'], $tag);
+            $relevantNaptrRecords = $dnsChecks->relevantNAPTR();
+            if ($relevantNaptrRecords <= 0) {
+                $explanation = _("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work.");
+                $reason = $this::OPENROAMING_NO_NAPTR;
+                $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+                $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                $resultLevel = min([$resultLevel, $level]);
+            } else {
+                $recordCompliance = $dnsChecks->relevantNAPTRcompliance();
+                if ($recordCompliance != \core\diag\AbstractTest::RETVAL_OK) {
+                    $explanation = _("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work.");
+                    $reason = $this::OPENROAMING_BAD_NAPTR;
+                    $level = $this::OVERALL_OPENROAMING_LEVEL_WARN;
+                    $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                    $resultLevel = min([$resultLevel, $level]);
+                }
+                // check if target is the expected one, if set by NRO
+                foreach ($this->fedAttributes as $attr) {
+                    if ($attr['name'] === 'fed:openroaming_customtarget') {
+                        $customText = $attr['value'];
+                    } else {
+                        $customText = '';
+                    }
+                }
+                if ($customText !== '') {
+                    foreach ($dnsChecks->NAPTR_records as $orpointer) {
+                        if ($orpointer["replacement"] != $customText) {
+                            $explanation = _("The SRV target of an OpenRoaming NAPTR record is unexpected.");
+                            $reason = $this::OPENROAMING_BAD_SRV;
+                            $level = $this::OVERALL_OPENROAMING_LEVEL_NOTE;
+                            $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                            $resultLevel = min([$resultLevel, $level]);
+                        }
+                    }
+                }
+                $srvResolution = $dnsChecks->relevantNAPTRsrvResolution();
+                $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution();
+
+                if ($srvResolution <= 0) {
+                    $explanation = _("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work.");
+                    $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+                    $reason = $this::OPENROAMING_BAD_NAPTR_RESOLVE;
+                    $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                    $resultLevel = min([$resultLevel, $this::OVERALL_OPENROAMING_LEVEL_ERROR]);
+                } elseif ($hostnameResolution <= 0) {
+                    $explanation = _("The DNS hostnames in the SRV records do not resolve to actual host IPs. OpenRoaming will not work.");
+                    $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+                    $reason = $this::OPENROAMING_BAD_SRV_RESOLVE;
+                    $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                    $resultLevel = min([$resultLevel, $level]);
+                }
+                // connect to all IPs we found and see if they are really an OpenRoaming server
+                $allHostsOkay = TRUE;
+                $oneHostOkay = FALSE;
+                $testCandidates = [];
+                foreach ($dnsChecks->NAPTR_hostname_records as $oneServer) {
+                    $testCandidates[$oneServer['hostname']][] = ($oneServer['family'] == "IPv4" ? $oneServer['IP'] : "[".$oneServer['IP']."]").":".$oneServer['port'];
+                }
+                foreach ($testCandidates as $oneHost => $listOfIPs) {
+                    $connectionTests = new \core\diag\RFC6614Tests(array_values($listOfIPs), $oneHost, "openroaming");
+                    // for now (no OpenRoaming client certs available) only run server-side tests
+                    foreach ($listOfIPs as $oneIP) {
+                        $connectionResult = $connectionTests->cApathCheck($oneIP);
+                        if ($connectionResult != \core\diag\AbstractTest::RETVAL_OK || ( isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
+                            $allHostsOkay = FALSE;
+                        } else {
+                            $oneHostOkay = TRUE;
+                        }
+                    }
+                }
+                if (!$allHostsOkay) {
+                    if (!$oneHostOkay) {
+                        $explanation = _("When connecting to the discovered OpenRoaming endpoints, they all had errors. OpenRoaming will likely not work.");
+                        $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+                        $reason = $this::OPENROAMING_BAD_CONNECTION;
+                        $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                        $resultLevel = min([$resultLevel, $level]);
+                    } else {
+                        $explanation = _("When connecting to the discovered OpenRoaming endpoints, only a subset of endpoints had no errors.");
+                        $level = $this::OVERALL_OPENROAMING_LEVEL_WARN;
+                        $reason = $this::OPENROAMING_SOME_BAD_CONNECTIONS;
+                        $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+                        $resultLevel = min([$resultLevel, $level]);
+                    }
+                }
+            }
+        }
+        if (!$dnsChecks->allResponsesSecure) {
+            $explanation = _("At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may refuse to connect to the endpoint.");
+            $level = $this::OVERALL_OPENROAMING_LEVEL_WARN;
+            $reason = $this::OPENROAMING_NO_DNSSEC;
+            $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
+            $resultLevel = min([$resultLevel, $level]);
+        }
+        if ($resultLevel == $this::OVERALL_OPENROAMING_LEVEL_GOOD) {
+            $explanation = _("Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) were successful.");
+            $level = $this::OVERALL_OPENROAMING_LEVEL_GOOD;
+            $reason = $this::OPENROAMING_ALL_GOOD;
+            $results = [['level' => $level, 'explanation' => $explanation, 'reason' => $reason]];
+        }               
+        $this->setOpenRoamingReadinessInfo($resultLevel);
+        return $results;
+    }
+    
     /**
      * Takes note of the OpenRoaming participation and conformance level
      * 
