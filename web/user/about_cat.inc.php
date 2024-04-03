@@ -50,7 +50,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
 $out .= "</tr>";
 foreach (\devices\Devices::listDevices() as $index => $onedevice) {
     if (isset($onedevice['options'])) {
-        if ((isset($onedevice['options']['hidden']) && ($onedevice['options']['hidden'] == 1)) || (isset($onedevice['options']['redirect']) && ($onedevice['options']['redirect'] == 1))) {
+        if ((isset($onedevice['options']['hidden']) && ( $onedevice['options']['hidden'] == 1 || $onedevice['options']['hidden'] == 2 ))|| (isset($onedevice['options']['redirect']) && ($onedevice['options']['redirect'] == 1))) {
             continue;
         }
     }
