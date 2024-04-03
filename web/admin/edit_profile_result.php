@@ -246,11 +246,32 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
             }
         }
         $reloadedProfileNr2->prepShowtime();
-
         // do OpenRoaming initial diagnostic checks
         // numbers correspond to RFC7585Tests::OVERALL_LEVEL
         $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO;
         if (sizeof($reloadedProfileNr2->getAttributes("media:openroaming")) > 0) {
+            $orTests = $reloadedProfileNr2->openroamingRedinessTest();            
+            foreach ($orTests as $orTest) {
+                switch ($orTest['level']) {
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
+                        echo $uiElements->boxError($orTest['explanation']);
+                         break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
+                         echo $uiElements->boxWarning($orTest['explanation']);
+                         break;
+                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
+                         echo $uiElements->boxRemark($orTest['explanation']);                    
+                        break;
+                    case \core\diag\AbstractTest::RETVAL_OK:
+                         echo $uiElements->boxOkay($orTest['explanation']);
+                        break;
+                    default:
+                        break;    
+                 }
+            }
+                        
+        }
+            /*
             $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD; // assume all is well, degrade if we have concrete findings to suggest otherwise
             $tag = "aaa+auth:radius.tls.tcp";
             // do we know the realm at all? Notice if not.
@@ -330,7 +351,10 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
                 echo $uiElements->boxOkay(_("Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) were successful."));
             }                
         }
-        $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
+             * 
+             */
+//        $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
+
         ?>
     </table>
     <br/>
