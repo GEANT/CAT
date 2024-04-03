@@ -128,11 +128,12 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         }
         $buffer_eaptypediv .= "</div>";
 
-        $buffer_headline = "<span style='float:right;'>";
+        $buffer_headline = "<div style='float:right;padding-left:10px'>";
         $readiness = $theProfile->readinessLevel();
         if ($has_overrides) {
             $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
         }
+        $buffer_headline .= "<br/>";
         if (!$allcomplete) {
             $buffer_headline .= $uiElements->boxError("", _("The information in this profile is incomplete."), TRUE);
         }
@@ -143,8 +144,20 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
+        $certStatus = $theProfile->certificateStatus();
+        switch ($certStatus) {
+            case core\AbstractProfile::CERT_STATUS_OK:
+                $buffer_headline .= "<br/>" . $uiElements->boxCertOK("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                break;
+            case core\AbstractProfile::CERT_STATUS_WARN:
+                $buffer_headline .= "<br/>" . $uiElements->boxCertWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                break;
+            case core\AbstractProfile::CERT_STATUS_ERROR:
+                $buffer_headline .= "<br/>" . $uiElements->boxCertError("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                break;            
+        }
 
-        $buffer_headline .= "</span>";
+        $buffer_headline .= "</div>";
 
         echo $buffer_headline;
         echo $buffer_eaptypediv;
@@ -252,8 +265,8 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
 function displayDeploymentPropertyWidget(&$deploymentObject) {
     // RADIUS status icons
     $radiusMessages = [
-        \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
-        \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occurred during profile update")],
+        \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
+        \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
     ];
 
     $radius_status = array();

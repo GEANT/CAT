@@ -223,5 +223,20 @@ class ConfAssistant
      * at the main page load
      */
     const PRELOAD_IDPS = true;
+    /**
+     * Points to information on what certificates should be used for servers
+     * and corresponding CAs
+     * If this value is set to an empty string then no link will be displayed.
+     */
+    const CERT_GUIDELINES = 'https://wiki.geant.org/display/H2eduroam/EAP+Server+Certificate+considerations';
+    
+    /**
+     * These are warning thresholds used to analyse certificates in profiles
+     * These default settings are probably much too low.
+     */
+    const CERT_WARNINGS = [
+        'expiry_warning' => 5184000, // 60 days
+        'expiry_critical' => 0, //
+    ];
 
 }

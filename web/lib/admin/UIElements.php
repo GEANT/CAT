@@ -336,7 +336,7 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $validator = new \web\lib\common\InputValidation();
         $ref = $validator->databaseReference($cAReference);
-        $caExpiryTrashhold = 5184000; // 60 days
+        $caExpiryTrashhold = \config\ConfAssistant::CERT_WARNINGS['expiry_warning'];
         $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
@@ -371,10 +371,11 @@ class UIElements extends \core\common\Entity {
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-        if (time() > $details['full_details']['validTo_time_t']) {
+        $now = time();
+        if ($now + \config\ConfAssistant::CERT_WARNINGS['expiry_critical'] > $details['full_details']['validTo_time_t']) {
             $leftBorderColor = "red";
             $message = _("Certificate expired!") . "<br>";
-        } elseif(time() > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
+        } elseif($now + \config\ConfAssistant::CERT_WARNINGS['expiry_warnings']  > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
@@ -444,11 +445,14 @@ class UIElements extends \core\common\Entity {
     public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         \core\common\Entity::intoThePotatoes();
         $uiMessages = [
-            \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
-            \core\common\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
-            \core\common\Entity::L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
-            \core\common\Entity::L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
-        ];
+            \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("OK")],
+            \core\common\Entity::L_REMARK => ['icon' => '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg', 'text' => _("Remark")],
+            \core\common\Entity::L_WARN => ['icon' => '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg', 'text' => _("Warning!")],
+            \core\common\Entity::L_ERROR => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Error!")],
+            \core\common\Entity::L_CERT_OK => ['icon' => '../resources/images/icons/Tabler/certificate-green.svg', 'text' => _("OK")],
+            \core\common\Entity::L_CERT_WARN => ['icon' => '../resources/images/icons/Tabler/certificate-red.svg', 'text' => _("Warning!")],
+            \core\common\Entity::L_CERT_ERROR => ['icon' => '../resources/images/icons/Tabler/certificate-off.svg', 'text' => _("Warning!")],
+            ];
 
         $retval = "";
         if (!$omittabletags) {
@@ -517,6 +521,42 @@ class UIElements extends \core\common\Entity {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
+    /**
+     * creates HTML code to display a "All fine" message
+     * 
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return string HTML: the box 
+     */
+    public function boxCertOK(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\common\Entity::L_CERT_OK, $text, $caption, $omittabletags);
+    }
+    
+    /**
+     * creates HTML code to display a "A certificate close to expiry" message
+     * 
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return string HTML: the box
+     */
+    public function boxCertWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\common\Entity::L_CERT_WARN, $text, $caption, $omittabletags);
+    }
+    /**
+     * creates HTML code to display a "A certificate expired or dangerously close to expiry" message
+     * 
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return string HTML: the box
+     */
+    public function boxCertError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\common\Entity::L_CERT_ERROR, $text, $caption, $omittabletags);
+    }    
+    
+    
     const QRCODE_PIXELS_PER_SYMBOL = 12;
 
     /**

@@ -261,7 +261,8 @@ class IdPlist extends common\Entity
             profile.profile_id,
             group_concat(concat_ws('===',profile_option.option_name, 
                 LEFT(profile_option.option_value, 200),
-                profile_option.option_lang) separator '---') AS profile_options
+                profile_option.option_lang) separator '---') AS profile_options,
+                profile.realm AS realm
             FROM profile
             JOIN profile_option ON profile.profile_id = profile_option.profile_id
             WHERE profile.sufficient_config = 1

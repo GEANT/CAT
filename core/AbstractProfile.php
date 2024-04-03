@@ -61,6 +61,8 @@ abstract class AbstractProfile extends EntityWithDBProperties
     public const SERVERNAME_ADDED = 2;
     public const CA_ADDED = 3;
     public const CA_CLASH_ADDED = 4;
+    public const SERVER_CERT_ADDED = 5;
+    public const CA_ROOT_NO_EXT = 6;
 
     /**
      * DB identifier of the parent institution of this profile
@@ -277,7 +279,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         $this->idpAttributes = $idp->getAttributes();
         $fedObject = new Federation($idp->federation);
         $this->fedAttributes = $fedObject->getAttributes();
-        $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
     /**
@@ -712,6 +714,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         // once we have the final list, populate the respective "best-match"
         // language to choose for the ML attributes
+
         foreach ($collapsedList as $attribName => $valueArray) {
             if (isset($valueArray['langs'])) { // we have at least one language-dependent name in this attribute
                 // for printed names on screen:
@@ -728,6 +731,10 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const READINESS_LEVEL_NOTREADY = 0;
     const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
     const READINESS_LEVEL_SHOWTIME = 2;
+    const CERT_STATUS_OK = 0;
+    const CERT_STATUS_WARN = 1;
+    const CERT_STATUS_ERROR = 2;
+    
 
     /**
      * Does the profile contain enough information to generate installers with
@@ -749,6 +756,34 @@ abstract class AbstractProfile extends EntityWithDBProperties
             return self::READINESS_LEVEL_SUFFICIENTCONFIG;
         }
         return self::READINESS_LEVEL_SHOWTIME;
+    }
+
+    /**
+     * Checks all profile certificates validity periods comparing to the pre-defined
+     * thresholds and returns the most critical status.
+     * 
+     * @return int - one of constants defined in this profile
+     */
+    public function certificateStatus()
+    {
+        $query = "SELECT option_value AS cert FROM profile_option  WHERE option_name='eap:ca_file' AND profile_id = ?";        
+        $result = $this->databaseHandle->exec($query, "i", $this->identifier);
+        $rows = $result->fetch_all();
+        $x509 = new \core\common\X509();
+        $profileStatus = self::CERT_STATUS_OK;
+        foreach ($rows as $row) {
+            $encodedCert = $row[0];
+            $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t']- time();
+            if ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_critical']) {
+                $certStatus = self::CERT_STATUS_ERROR;
+            } elseif ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_warning']) {
+                $certStatus = self::CERT_STATUS_WARN;
+            } else {
+                $certStatus = self::CERT_STATUS_OK;
+            }
+            $profileStatus = max($profileStatus, $certStatus);
+        }
+        return $profileStatus;
     }
 
     /**

@@ -444,7 +444,52 @@ Best regards,
         $eduPki->revokeCertificate($serial);
         $this->databaseHandle->exec("UPDATE federation_servercerts SET status = 'REVOKED' WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
     }
-
+    /**
+     * Gets an array of certificate status (as most critical) from all profiles
+     * per IdP - passing over the non-active profiles
+     */
+    public function getIdentityProvidersCertStatus() {
+        $query = "SELECT distinct profile.profile_id  FROM profile JOIN profile_option ON profile.profile_id = profile_option.profile_id WHERE option_name='profile:production' AND profile.sufficient_config = 1";
+        $activeProfiles = [];
+        $result = $this->databaseHandle->exec($query);
+        $rows = $result->fetch_all();
+        foreach ($rows as $row) {
+           $activeProfiles[] = $row[0];
+        }
+        $query = "SELECT institution.inst_id AS inst_id, profile.profile_id AS profile_id, profile_option.option_value AS cert FROM profile_option JOIN profile ON profile_option.profile_id=profile.profile_id JOIN institution ON profile.inst_id=institution.inst_id WHERE profile_option.option_name='eap:ca_file' and institution.country='".$this->tld."'";        
+        $result = $this->databaseHandle->exec($query);
+        $rows = $result->fetch_all();
+        $x509 = new \core\common\X509();
+        $certsStatus = [];
+        $idpCertStatus = [];
+        foreach ($rows as $row) {
+            $inst = $row[0];
+            $profile = $row[1];
+            // pass any rofile which is not active
+            if (!in_array($profile, $activeProfiles)) {
+                continue;
+            }
+            $encodedCert = $row[2];
+            if (!isset($idpCertStatus[$inst])) {
+                $idpCertStatus[$inst] = \core\AbstractProfile::CERT_STATUS_OK;
+            }
+            
+            // check if we have already seen this cert if not, continue analysis
+            if (!isset($certsStatus[$encodedCert])) {
+                $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t'] - time();
+                if ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_critical']) {
+                    $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_ERROR;
+                } elseif ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_warning']) {
+                    $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_WARN;
+                } else {
+                    $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_OK;
+                }
+            }
+            $idpCertStatus[$inst] = max($idpCertStatus[$inst], $certsStatus[$encodedCert]);
+        }
+        return $idpCertStatus;
+    }
+    
     /**
      * Lists all Identity Providers in this federation
      *
@@ -461,19 +506,21 @@ Best regards,
         if ($activeOnly == 0 && count($this->idpListAll) > 0) {
             return $this->idpListAll;
         }
-        // default query is:
-        $allIDPs = $this->databaseHandle->exec("SELECT inst_id FROM institution
-               WHERE country = '$this->tld' ORDER BY inst_id");
         // the one for activeOnly is much more complex:
-        if ($activeOnly) {
+        if ($activeOnly != 0) {
             $allIDPs = $this->databaseHandle->exec("SELECT distinct institution.inst_id AS inst_id
                FROM institution
                JOIN profile ON institution.inst_id = profile.inst_id
                WHERE institution.country = '$this->tld' 
                AND profile.showtime = 1
                ORDER BY inst_id");
-        }
+        } else {         // default query is:
+        $allIDPs = $this->databaseHandle->exec("SELECT institution.inst_id AS inst_id,
+            GROUP_CONCAT(DISTINCT REGEXP_REPLACE(profile.realm, '.*@', '') SEPARATOR '===') AS realms
+            FROM institution JOIN profile ON institution.inst_id = profile.inst_id
+               WHERE country = '$this->tld' GROUP BY institution.inst_id ORDER BY inst_id");
 
+        }
         $returnarray = [];
         // SELECT -> resource, not boolean
         while ($idpQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
@@ -482,7 +529,9 @@ Best regards,
             $idpInfo = ['entityID' => $idp->identifier,
                 'title' => $name,
                 'country' => strtoupper($idp->federation),
-                'instance' => $idp];
+                'instance' => $idp,
+                'realms' => $idpQuery->realms]
+                 ;
             $returnarray[$idp->identifier] = $idpInfo;
         }
         if ($activeOnly != 0) { // we're only doing this once.

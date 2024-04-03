@@ -52,6 +52,9 @@ abstract class Entity
     const L_REMARK = 4;
     const L_WARN = 32;
     const L_ERROR = 256;
+    const L_CERT_OK = 512;
+    const L_CERT_WARN = 1024;
+    const L_CERT_ERROR = 2048;
 
     /**
      * We occasionally log stuff (debug/audit). Have an initialised Logging

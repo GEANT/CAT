@@ -25,6 +25,29 @@ $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 $validator = new \web\lib\common\InputValidation();
 
+$iconsPath = '../resources/images/icons/';
+//$OpenRoamingSymbol = "<img src='../resources/images/icons/or.svg' alt='OpenRoaming' title='OpenRoaming'>";
+$OpenRoamingSymbol = "OR";
+$stausIcons = [
+    \core\IdP::PROFILES_SHOWTIME => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
+    \core\IdP::PROFILES_CONFIGURED => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
+];
+
+$certStatusIcons = [
+    \core\AbstractProfile::CERT_STATUS_OK => ['img' => 'Tabler/certificate-green.svg', 'text' => _("All certificates are valid long enough")],
+    \core\AbstractProfile::CERT_STATUS_WARN => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
+    \core\AbstractProfile::CERT_STATUS_ERROR => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
+];
+
+
+$operoamingStatusIcons = [
+    \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
+    \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some minor OpenRoaming configuration issues")],
+    \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some avarage level OpenRoaming configuration issues")],
+    \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text' => _("There are some critical OpenRoaming configuration issues")],
+    
+];
+
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
@@ -75,13 +98,21 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
 
     <?php
     $mgmt = new \core\UserManagement();
-
-    if (!$user->isFederationAdmin()) {
+print_r($certStatusIcons[0]);
+    if ($user->isSuperadmin() && isset($_GET['fed_id'])) {
+        $cat = new \core\CAT(); // initialises Entity static members
+        $fedIdentifiers = array_keys($cat->knownFederations);
+        if (!in_array(strtoupper($_GET['fed_id']), $fedIdentifiers)) {
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
+        }
+        $feds = [['name'=>' user:fedadmin', 'value' => $_GET['fed_id']]];
+    } elseif (!$user->isFederationAdmin()) {
         echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclatureFed) . "</p>";
         echo $deco->footer();
         exit(0);
+    } else {
+        $feds = $user->getAttributes("user:fedadmin");
     }
-    $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $onefed) {
         $thefed = new \core\Federation(strtoupper($onefed['value']));
         ?>
@@ -242,8 +273,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         <caption><?php echo _("Participant Details");?></caption>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
-            <th scope='col'><?php echo _("Configured/<br>Visible/<br>OpenRoaming"); ?></th>
-
+            <th scope='col'><?php echo _("Status") ?></th>
+            <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
+            <th scope='col'><?php echo _("Cert"); ?></th>
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
 
@@ -265,8 +297,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $fedId = strtoupper($onefed['value']);
             $thefed = new \core\Federation($fedId);
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
-            echo "<tr><td colspan='2'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_" . $fedId . "'></td>";
+            echo "<tr><td colspan='9'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
+            echo "<tr><td colspan='4'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_" . $fedId . "'></td>";
             echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_" . $fedId . "'> ". _("Only not linked"). "</td>";
             echo "</tr>";
             // extract only pending invitations for *this* fed
@@ -277,10 +309,11 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     $display_pendings = TRUE;
                 }
             }
-            $idps = $thefed->listIdentityProviders();
+            $idps = $thefed->listIdentityProviders(0);
+            $certStatus = $thefed->getIdentityProvidersCertStatus();
             $my_idps = [];
             foreach ($idps as $index => $idp) {
-                $my_idps[$idp['entityID']] = mb_strtolower($idp['title']);
+                $my_idps[$idp['entityID']] = mb_strtolower($idp['title']).'==='.$idp['realms'];
             }
             asort($my_idps);
 
@@ -316,7 +349,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                 echo "<td style='vertical-align:top;' class='inst_td'>
                          <input type='hidden' name='inst' value='" 
-                        . $index . "'><span style='display:none' class='inst_name'>".$my_idp."</span><span>" . $idp_instance->name . "</span>"
+                        . $index . "'>"
+                        . "<span style='display:none' class='inst_name'>".$my_idp."</span>"
+                        . "<span>". $idp_instance->name . "</span>"
                         . " (<a href='overview_org.php?inst_id="
                         . $idp_instance->identifier . "'>" 
                         . (in_array($index, $userIdps) ? _("manage") : _("view"))
@@ -328,32 +363,39 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
+                
+                if ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME) {
+                    $status = \core\IdP::PROFILES_SHOWTIME;
+                    echo "<img src='".$iconsPath.$stausIcons[$status]['img']."' alt='".$stausIcons[$status]['text']."' title='".$stausIcons[$status]['text']."'>";
+                } elseif ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED) {
+                    $status = \core\IdP::PROFILES_CONFIGURED;
+                    echo "<img src='".$iconsPath.$stausIcons[$status]['img']."' alt='".$stausIcons[$status]['text']."' title='".$stausIcons[$status]['text']."'>";
+                }
+                
+/*                
                 echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "-" ) 
                         . " " 
                         . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "-" )
-                        . " "
-                        . "<span style='color:";
-                switch ($idp_instance->maxOpenRoamingStatus()) {
+                        . " ";
+ * 
+ */
+                echo  "</td><td style='text-align: center'>";
+                $status = $idp_instance->maxOpenRoamingStatus();
+                switch ($status) {
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO:
-                        echo "black;'>-";
+                        echo "-";
                         break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD:
-                        echo "green;'>O";
-                        break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
-                        echo "blue;'>O";
-                        break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
-                        echo "yellow;'>O";
-                        break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
-                        echo "red;'>O";
+                        echo "<img src='".$iconsPath.$operoamingStatusIcons[$status]['img']."' alt='".$operoamingStatusIcons[$status]['text']."' title='".$operoamingStatusIcons[$status]['text']."'>";
                         break;
                     default:
                         throw new \Exception("Impossible OpenRoaming status!");
                 }
-                echo "</span></td>";
-                    echo "</td>";                  
+                echo "</td>";
+                echo "<td><img src='".$iconsPath.$certStatusIcons[$certStatus[$index]]['img']."' alt='".$certStatusIcons[$certStatus[$index]]['text']."' title = '".$certStatusIcons[$certStatus[$index]]['text']."'></td>";                  
                 // external DB sync, if configured as being necessary
                 if (\config\Master::DB['enforce-external-sync']) {
                     echo "<td style='display: ruby;'>";
