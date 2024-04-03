@@ -112,7 +112,7 @@ class InputValidation extends \core\common\Entity
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP or a federation admin for the parent federation
-     * federaton admins get read-only access
+     * federaton admins get read-only access, superadmins get readonly access as well
      * @param mixed            $input             the numeric ID of the IdP in the system
      * @param string           $owner             the authenticated username, optional
      * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
@@ -136,6 +136,10 @@ class InputValidation extends \core\common\Entity
             if ($user->isFederationAdmin($temp->federation)) {
                 $this->loggerInstance->debug(4, "You are fed admin for this IdP\n");
                 return [$temp,'readonly'];
+            }
+            if ($user->isSuperadmin()) {
+                $this->loggerInstance->debug(4, "You are the superadmin\n");
+                return [$temp,'readonly'];                
             }
             throw new Exception($this->inputValidationError("This IdP identifier is not accessible!"));
         }
@@ -226,9 +230,9 @@ class InputValidation extends \core\common\Entity
             throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
         }
         $retvalStep1 = trim($retvalStep0);
-        // if some funny person wants to inject markup tags, remove them
-        $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
-        if ($retval === FALSE) {
+        // if some funny person wants to inject markup tags, remove them        
+        $retval = htmlspecialchars(strip_tags($retvalStep1), ENT_NOQUOTES);             
+        if ($retval === '') {
             throw new Exception("filter_var failure for string sanitisation.");
         }
         // unless explicitly wanted, take away intermediate disturbing whitespace
