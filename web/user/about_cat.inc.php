@@ -64,12 +64,12 @@ foreach (\devices\Devices::listDevices() as $index => $onedevice) {
     foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
         $out .= "<td>";
         if (in_array($oneeap->getArrayRep(), $device_instance->device->supportedEapMethods)) {
-            $check = $skinObject->findResourceUrl("IMAGES", "icons/Quetto/check-icon.png");
+            $check = $skinObject->findResourceUrl("IMAGES", "icons/Tabler/square-rounded-check-filled-green.svg");
             if ($check !== FALSE) {
                 $out .= "<img src='$check' alt='SUPPORTED'>";
             }
         } else {
-            $not = $skinObject->findResourceUrl("IMAGES", "icons/Quetto/no-icon.png");
+            $not = $skinObject->findResourceUrl("IMAGES", "icons/Tabler/square-rounded-x-filled-red.svg");
             if ($not !== FALSE) {
                 $out .= "<img src='$not' alt='UNSUPPORTED'>";
             }
