@@ -53,7 +53,7 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
         echo $deco->pageheader(sprintf(_("%s: Edit Profile - Result"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
     } else {
         $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP ". $my_inst->identifier." - Profile created");
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP ".$my_inst->identifier." - Profile created");
         echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
     }
     if (!$profile instanceof \core\ProfileRADIUS) {
@@ -63,9 +63,9 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
     $realm = FALSE;
     $anon_support = FALSE;
     $attributes = $profile->getAttributes();
-    $anonLocal =  \core\common\Entity::getAttributeValue($attributes, "internal:anon_local_value", 0) ??  "anonymous";
+    $anonLocal = \core\common\Entity::getAttributeValue($attributes, "internal:anon_local_value", 0) ?? "anonymous";
     $checkuser_support = FALSE;
-    $checkuser_local = \core\common\Entity::getAttributeValue($attributes, "internal:checkuser_value", 0) ??  "anonymous";
+    $checkuser_local = \core\common\Entity::getAttributeValue($attributes, "internal:checkuser_value", 0) ?? "anonymous";
     $verify_support = FALSE;
     $hint_support = FALSE;
     $redirect = FALSE;
@@ -255,21 +255,20 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
                 switch ($orTest['level']) {
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
                         echo $uiElements->boxError($orTest['explanation']);
-                         break;
+                        break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
-                         echo $uiElements->boxWarning($orTest['explanation']);
-                         break;
+                        echo $uiElements->boxWarning($orTest['explanation']);
+                        break;
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
-                         echo $uiElements->boxRemark($orTest['explanation']);                    
+                        echo $uiElements->boxRemark($orTest['explanation']);                    
                         break;
                     case \core\diag\AbstractTest::RETVAL_OK:
-                         echo $uiElements->boxOkay($orTest['explanation']);
+                        echo $uiElements->boxOkay($orTest['explanation']);
                         break;
                     default:
                         break;    
-                 }
+                }
             }
-                        
         }
             /*
             $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD; // assume all is well, degrade if we have concrete findings to suggest otherwise

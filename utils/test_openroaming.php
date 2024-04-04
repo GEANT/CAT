@@ -28,7 +28,7 @@ if (!$allOpenRoamingProfiles) {
 }
 
 
-while ( $row = mysqli_fetch_object($allOpenRoamingProfiles)) {
+while ( $row = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allOpenRoamingProfiles)) {
     $profileId = $row->profile_id;
     print "$profileId\n";
     $profile = \core\ProfileFactory::instantiate($profileId);

@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
@@ -72,16 +72,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     <div class="infobox">
         <h2><?php $tablecaption = _("Your Personal Information"); echo $tablecaption; ?></h2>
         <table>
-            <caption><?php echo $tablecaption;?></caption>
+            <caption><?php echo $tablecaption; ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value"); ?></th>
             </tr>            
             <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
-                    <?php echo "" . _("Unique Identifier") ?>
+                    <?php echo ""._("Unique Identifier") ?>
                 </td>
                 <td>
                 </td>
@@ -93,7 +93,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     </div>
 
     <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
-        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management'));?></button>
+        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
     </form>
 
     <?php
@@ -102,14 +102,13 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     if ($user->isSuperadmin() && isset($_GET['fed_id'])) {
         $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
-        if (!in_array(strtoupper($_GET['fed_id']), $fedIdentifiers)) {
+        $fed_id = htmlentities($_GET['fed_id'], ENT_QUOTES);
+        if (!in_array(strtoupper($fed_id), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
-        } else {
-            $fed_id = $_GET['fed_id'];
         }
         $feds = [['name'=>' user:fedadmin', 'value' => $fed_id]];
     } elseif (!$user->isFederationAdmin()) {
-        echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclatureFed) . "</p>";
+        echo "<p>".sprintf(_("You are not a %s manager."), $uiElements->nomenclatureFed)."</p>";
         echo $deco->footer();
         exit(0);
     } else {
@@ -123,16 +122,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 <?php $tablecaption2 = sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption2; ?>
             </h2>
             <table>
-            <caption><?php echo $tablecaption2;?></caption>
+            <caption><?php echo $tablecaption2; ?></caption>
             <tr>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
-                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable"); ?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value"); ?></th>
             </tr>
                 <!-- fed properties -->
                 <tr>
                     <td>
-                        <?php echo "" . _("Country") ?>
+                        <?php echo ""._("Country") ?>
                     </td>
                     <td>
                     </td>
@@ -216,7 +215,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo $uiElements->boxRemark(ngettext("The invitation email was sent successfully.", "All invitation emails were sent successfully.", $counter) . " " . $cryptText, _("Sent successfully."));
+                echo $uiElements->boxRemark(ngettext("The invitation email was sent successfully.", "All invitation emails were sent successfully.", $counter)." ".$cryptText, _("Sent successfully."));
                 break;
             case "FAILURE":
                 echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
@@ -236,7 +235,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
+                echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter)." ".$cryptText, _("Partial success."));
                 break;
             case "INVALIDSYNTAX":
                 echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
@@ -252,27 +251,27 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     } else {
         $link = 'http://';
     }
-    $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
+    $link .= $_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
     $link = htmlspecialchars($link);
     if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
         echo "<table><tr>
-                        <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureIdP) . "</td>
+                        <td>".sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureIdP)."</td>
                         <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
-                              <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
+                              <button id='realmcheck' style='cursor:pointer;' type='submit'>"._("Go!")."</button>
                             </form>
                         </td>
                     </tr>
                     </table>";
     }
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/qJg7Bw", $uiElements->nomenclatureFed) . "</h3>";
+        $helptext = "<h3>".sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/qJg7Bw", $uiElements->nomenclatureFed)."</h3>";
     } else {
         $helptext = "";
     }
     ?>
     <table class='user_overview' style='border:0px; width:unset'>
-        <caption><?php echo _("Participant Details");?></caption>
+        <caption><?php echo _("Participant Details"); ?></caption>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
             <th scope='col'><?php echo _("Status") ?></th>
@@ -282,7 +281,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (\config\Master::DB['enforce-external-sync']) {
-                echo "<th scope='col'>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
+                echo "<th scope='col'>".sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name'])."</th>";
             }
             ?>
             <th scope='col'>
@@ -299,9 +298,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $fedId = strtoupper($onefed['value']);
             $thefed = new \core\Federation($fedId);
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
-            echo "<tr><td colspan='9'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
-            echo "<tr><td colspan='4'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_" . $fedId . "'></td>";
-            echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_" . $fedId . "'> ". _("Only not linked"). "</td>";
+            echo "<tr><td colspan='9'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";
+            echo "<tr><td colspan='4'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
+            echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'> ". _("Only not linked"). "</td>";
             echo "</tr>";
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -351,17 +350,17 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                 echo "<td style='vertical-align:top;' class='inst_td'>
                          <input type='hidden' name='inst' value='" 
-                        . $index . "'>"
-                        . "<span style='display:none' class='inst_name'>".$my_idp."</span>"
-                        . "<span>". $idp_instance->name . "</span>"
-                        . " (<a href='overview_org.php?inst_id="
-                        . $idp_instance->identifier . "'>" 
-                        . (in_array($index, $userIdps) ? _("manage") : _("view"))
-                        . "</a>)"
-                        . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) 
-                        . implode("</li><li>", $listOfSilverbulletRealms) 
-                        . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" )
-                        . "</td>";
+                       . $index."'>"
+                       . "<span style='display:none' class='inst_name'>".$my_idp."</span>"
+                       . "<span>". $idp_instance->name."</span>"
+                       . " (<a href='overview_org.php?inst_id="
+                       . $idp_instance->identifier."'>" 
+                       . (in_array($index, $userIdps) ? _("manage") : _("view"))
+                       . "</a>)"
+                       . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) 
+                       . implode("</li><li>", $listOfSilverbulletRealms) 
+                       . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" )
+                       . "</td>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
@@ -376,9 +375,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 
 /*                
                 echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "-" ) 
-                        . " " 
-                        . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "-" )
-                        . " ";
+                       . " " 
+                       . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "-" )
+                       . " ";
  * 
  */
                 echo  "</td><td style='text-align: center'>";
@@ -402,17 +401,17 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 if (\config\Master::DB['enforce-external-sync']) {
                     echo "<td style='display: ruby;'>";
                     if ($readonly === FALSE) {
-                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                    <button type='submit'>" . _("Manage DB Link") . "</button>&nbsp;&nbsp;";
+                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=".$idp_instance->identifier."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                    <button type='submit'>"._("Manage DB Link")."</button>&nbsp;&nbsp;";
                     }
                     switch ($idpLinked) {
                         case 'nosync':
                             break;
                         case 'linked':
-//                            echo "<div class='acceptable'>" . _("Linked") . "</div>";
+//                            echo "<div class='acceptable'>"._("Linked")."</div>";
                             break;
                         case 'notlinked':
-                            echo "<span class='notacceptable'>" . _("NOT linked") . "</span>";
+                            echo "<span class='notacceptable'>"._("NOT linked")."</span>";
                             break;
                     }
                     echo "</form>";
@@ -422,9 +421,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 echo "<td style='vertical-align: top;'>";
                 if ($readonly === FALSE) {
                     echo "<div style='white-space: nowrap;'>
-                                  <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                  <form method='post' action='inc/manageAdmins.inc.php?inst_id=".$index."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                       <button type='submit'>" .
-                    _("Add/Remove Administrators") . "
+                    _("Add/Remove Administrators")."
                                       </button>
                                   </form>
                                 </div>";
@@ -437,7 +436,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 echo "<tr>
                             <td colspan='2'>
                                <strong>" .
-                sprintf(_("Pending invitations in the %s:"), $uiElements->nomenclatureFed) . "
+                sprintf(_("Pending invitations in the %s:"), $uiElements->nomenclatureFed)."
                                </strong>
                             </td>
                          </tr>";
@@ -445,18 +444,18 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     if (strtoupper($oneinvite['country']) == strtoupper($thefed->tld)) {
                         echo "<tr>
                                     <td>" .
-                        $oneinvite['name'] . "
+                        $oneinvite['name']."
                                     </td>
                                     <td>" .
-                        $oneinvite['mail'] . "
+                        $oneinvite['mail']."
                                     </td>
                                     <td colspan=2>";
                         if ($readonly === FALSE) {
                             echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
-                                <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
-                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button> "
-                            . sprintf(_("(expires %s)"), $oneinvite['expiry'])
-                            . "</form>";
+                                <input type='hidden' name='invitation_id' value='".$oneinvite['token']."'/>
+                                <button class='delete' type='submit' name='submitbutton' value='".web\lib\common\FormElements::BUTTON_DELETE."'>"._("Revoke Invitation")."</button> "
+                           . sprintf(_("(expires %s)"), $oneinvite['expiry'])
+                           . "</form>";
                         }
                         echo "      </td>";                          
                         echo "         </tr>";
