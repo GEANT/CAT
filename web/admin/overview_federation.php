@@ -98,14 +98,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
 
     <?php
     $mgmt = new \core\UserManagement();
-print_r($certStatusIcons[0]);
+    $fed_id = '';
     if ($user->isSuperadmin() && isset($_GET['fed_id'])) {
         $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($_GET['fed_id']), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
+        } else {
+            $fed_id = $_GET['fed_id'];
         }
-        $feds = [['name'=>' user:fedadmin', 'value' => $_GET['fed_id']]];
+        $feds = [['name'=>' user:fedadmin', 'value' => $fed_id]];
     } elseif (!$user->isFederationAdmin()) {
         echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclatureFed) . "</p>";
         echo $deco->footer();
