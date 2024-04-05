@@ -417,8 +417,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         var requests = Array();
         dyn.forEach(function(srv, index) { 
             requests[index] = Array();
-            requests[index]['capath'] = $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: srv.host, lang: 'en', hostindex: index, expectedname: srv.name, token: token }, dataType: 'json'}); 
-            requests[index]['clients'] = $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: srv.host, lang: 'en', hostindex: index, token: token }, dataType: 'json'});
+            requests[index]['capath'] = $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: srv.host, lang: 'en', hostindex: index, expectedname: srv.name, protocols: srv.protocols, ssltest: srv.ssltest, token: token}, dataType: 'json'}); 
+            requests[index]['clients'] = $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: srv.host, lang: 'en', hostindex: index, expectedname: srv.name, protocols: srv.protocols, ssltest: srv.ssltest, token: token}, dataType: 'json'});
         });
         return requests;
     }

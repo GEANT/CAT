@@ -31,6 +31,7 @@ use \Exception;
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
  *
  * @license see LICENSE file in root directory
  *
@@ -134,7 +135,7 @@ class RFC6614Tests extends AbstractTest
     {
         foreach ($this->candidateIPs as $oneIP) {
             $this->cApathCheck($oneIP);
-            $this->tlsClientSideCheck($oneIP);
+            $this->tlsClientSideCheck($oneIP, '', '');
         }
     }
 
@@ -153,7 +154,7 @@ class RFC6614Tests extends AbstractTest
         $overallRetval = $this->opensslCAResult($host, $opensslbabble);
         if ($overallRetval == AbstractTest::RETVAL_OK) {
             $this->checkServerName($host);
-        }
+        } 
         return $overallRetval;
     }
 
@@ -167,8 +168,8 @@ class RFC6614Tests extends AbstractTest
     {
         // it could match CN or sAN:DNS, we don't care which
         if (isset($this->TLS_CA_checks_result[$host]['certdata']['subject'])) {
-            $this->loggerInstance->debug(4, "Checking expected server name " . $this->expectedName . " against Subject: ");
-            $this->loggerInstance->debug(4, $this->TLS_CA_checks_result[$host]['certdata']['subject']);
+            $this->loggerInstance->debug(4, "Checking expected server name " . $this->expectedName . 
+                    " against Subject: " . $this->TLS_CA_checks_result[$host]['certdata']['subject']);
             // we are checking against accidental misconfig, not attacks, so loosely checking against end of string is appropriate
             if (preg_match("/CN=" . $this->expectedName . "/", $this->TLS_CA_checks_result[$host]['certdata']['subject']) === 1) {
                 return TRUE;
@@ -199,7 +200,7 @@ class RFC6614Tests extends AbstractTest
      * @param string $host       IP:port
      * @return int returncode
      */
-    public function tlsClientSideCheck(string $host)
+    public function tlsClientSideCheck(string $host, string $ename, string $realm, array $protocols = [])
     {
         $res = RADIUSTests::RETVAL_OK;
         if (!is_array(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) || count(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) == 0) {
@@ -214,17 +215,25 @@ class RFC6614Tests extends AbstractTest
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
             foreach ($tlsclient['certificates'] as $k => $cert) {
-                $this->loggerInstance->debug(3, $cert['status'], "\n\n\nTesting: ", ": ");
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
                 $add = ' -cert ' . ROOT . '/config/cli-certs/' . $cert['public'] . ' -key ' . ROOT . '/config/cli-certs/' . $cert['private'];
+                if (!file_exists(ROOT . '/config/cli-certs/' . $cert['public']) ||!file_exists(ROOT . 
+                        '/config/cli-certs/' . $cert['private'])) {
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 2;
+                    continue;
+                }
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
+                $prot = "-no_ssl3";
+                if (in_array("TLS1.3", $protocols) && count($protocols) > 1) {
+                    $prot .= ' -no_tls1_3';
+                }
+                $add .= ' ' . $prot;
                 $opensslbabble = $this->execOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
-                $this->loggerInstance->debug(3, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected'], "CONNECTED VAL:", "\n");
                 if ($cert['expected'] == 'PASS') {
                     if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
                         if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
@@ -238,7 +247,7 @@ class RFC6614Tests extends AbstractTest
                         $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = RADIUSTests::CERTPROB_WRONGLY_ACCEPTED;
                     }
 
-                    if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == RADIUSTests::CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                    if (isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason']) && ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == RADIUSTests::CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
                         $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
                         break;
                     }
@@ -264,18 +273,16 @@ class RFC6614Tests extends AbstractTest
 // but code analysers want this more explicit, so here is this extra
 // call to escapeshellarg()
         $escapedHost = escapeshellarg($host);
-        $this->loggerInstance->debug(3, \config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(\config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1", $opensslbabble, $result);
+        exec(\config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -CApath " . ROOT . "/config/ca-certs/$this->consortium/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
         return $opensslbabble;
     }
-    
-
 
     /**
      * This function parses openssl s_client result
@@ -294,7 +301,12 @@ class RFC6614Tests extends AbstractTest
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
             return RADIUSTests::RETVAL_INVALID;
         }
-        if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
+        /*if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
+            $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
+            $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
+        }*/
+        if (preg_match('/Verification error: self-signed certificate in certificate chain/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_INVALID;
             return RADIUSTests::RETVAL_INVALID;
@@ -303,12 +315,14 @@ class RFC6614Tests extends AbstractTest
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
             return RADIUSTests::RETVAL_INVALID;
         }
-        if (preg_match('/verify return:1/', implode($opensslbabble))) {
+        /*if (preg_match('/verify return:1/', implode($opensslbabble))) {*/
+        if (preg_match('/Verification: OK/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_OK;
             $servercertStage1 = implode("\n", $opensslbabble);
             $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertStage1);
             $data = openssl_x509_parse($servercert);
             $this->TLS_CA_checks_result[$host]['certdata']['subject'] = $data['name'];
+            $this->TLS_CA_checks_result[$host]['certdata']['validTo'] = $data['validTo'];
             $this->TLS_CA_checks_result[$host]['certdata']['issuer'] = $this->getCertificateIssuer($data);
             if (($altname = $this->getCertificatePropertyField($data, 'subjectAltName'))) {
                 $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'] = $altname;
@@ -348,7 +362,7 @@ class RFC6614Tests extends AbstractTest
         \core\common\Entity::intoThePotatoes();
         $res = RADIUSTests::RETVAL_OK;
         $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
-        $this->loggerInstance->debug(3, $ret, "RET:", "\n");
+        $jsondir = dirname(dirname(dirname(__FILE__)))."/var/json_cache/";
         $output = implode($opensslbabble);
         if ($ret == 0) {
             $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 1;
@@ -361,7 +375,8 @@ class RFC6614Tests extends AbstractTest
                 $resComment = _("certificate expired");
             } elseif (preg_match('/sslv3 alert certificate revoked/', $output)) {
                 $resComment = _("certificate was revoked");
-            } elseif (preg_match('/SSL alert number 46/', $output)) {
+            } elseif (preg_match('/SSL alert number 46/', $output) && 
+                      preg_match('/sslv3 alert certificate unknown/', $output)) {
                 $resComment = _("bad policy");
             } elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
                 $resComment = _("unknown authority");

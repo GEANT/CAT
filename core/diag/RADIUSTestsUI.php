@@ -53,6 +53,7 @@ class RADIUSTestsUI extends AbstractTest
     public $allReachabilityResults = [];
     
     private $hostMap = [];
+    private $protocolsMap = [];
     private $globalLevelStatic = \core\common\Entity::L_OK;
     private $globalLevelDynamic = \core\common\Entity::L_OK;
     private $rfc7585suite = NULL;
@@ -106,12 +107,10 @@ class RADIUSTestsUI extends AbstractTest
             'serialNumber' => _("Serial number:"),
             'sha1' => _("SHA1 fingerprint:"),
             'title' => _("Server certificate"),
-            'c_subject' => _("Subject"),
-            'c_issuer' => _("Issuer"),
-            'policies' => _("Policies"),
-            'crldistributionpoints' =>  _("crlDistributionPoint"),
-            'authorityinfoaccess' => _("authorityInfoAccess"),
-            'subjectaltname' => _("SubjectAltName"),
+            'policies' => _("Policies:"),
+            'crldistributionpoints' =>  _("crlDistributionPoint:"),
+            'authorityinfoaccess' => _("authorityInfoAccess:"),
+            'subjectaltname' => _("SubjectAltName:"),
         ];
         $jsondir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
         if ($token && is_dir($jsondir.'/'.$token)) {
@@ -129,6 +128,9 @@ class RADIUSTestsUI extends AbstractTest
                 $this->outerUser = $this->allReachabilityResults['realm'][0]->outeruser;
                 foreach ($this->allReachabilityResults['realm'][0]->totest as $totest) {
                     $this->hostMap[$totest->host] = $totest->bracketaddr;
+                    if (property_exists($totest, 'protocols')) {
+                        $this->protocolsMap[$totest->host] = $totest->protocols;
+                    }
                 }
                 $this->rfc7585suite = unserialize(base64_decode($this->allReachabilityResults['realm'][0]->rfc7585suite));
                 $this->srv = $this->allReachabilityResults['realm'][0]->srv;
@@ -366,7 +368,18 @@ class RADIUSTestsUI extends AbstractTest
             if ($capath->level == \core\common\Entity::L_OK && $capath->result == \core\diag\RADIUSTests::RETVAL_INVALID) {
                 $level = \core\common\Entity::L_WARN;
             }
-            $capathtest[] = '<p><strong>'.$this->hostMap[$capath->IP].'</strong>';
+            $capathtest[] = '<p><strong>'.$this->hostMap[$capath->IP].'</strong> ('.$capath->name.') ';
+            $prots = [];
+            if (isset($this->protocolsMap[$capath->IP]) && $this->protocolsMap[$capath->IP] != '') {
+                $prots = explode(';', $this->protocolsMap[$capath->IP]);
+                if (!empty($prots)) {
+                    $capathtest[] = ' ' . _("supported TLS protocols: ");
+                    $capathtest[] = implode(', ', $prots);
+                    if (!in_array("TLS1.3", $prots)) {
+                        $capathtest[] =  ' ' . '<font color="red">' . _("not supported: ") . 'TLS1.3</font>';
+                    }
+                }
+            }
             $capathtest[] = '<ul style="list-style-type: none;" class="caresult"><li>';
             $capathtest[] = "<table id='caresults$hostindex'  style='width:100%'>
 <tr>
@@ -378,28 +391,33 @@ class RADIUSTestsUI extends AbstractTest
                 $more .= '<div class="more">';
                 $certdesc = '<br>'.$this->certFields['title'].'<ul>';
                 if ($capath->certdata->subject) {
-                    $certdesc .= '<li>'.$this->certFields['c_subject'].': '.$capath->certdata->subject;
+                    $certdesc .= '<li>'.$this->certFields['subject'].' '.$capath->certdata->subject;
                 }
                 if ($capath->certdata->issuer) {
-                    $certdesc .= '<li>'.$this->certFields['c_issuer'].': '.$capath->certdata->issuer;
+                    $certdesc .= '<li>'.$this->certFields['issuer'].' '.$capath->certdata->issuer;
+                }
+                if ($capath->certdata->validTo) {
+                    $certdesc .= '<li>'.$this->certFields['validTo'].' '.
+                            date_create_from_format('ymdGis', 
+                                    substr($capath->certdata->validTo, 0, -1))->format('Y-m-d H:i:s'). ' UTC';
                 }
                 if ($capath->certdata->extensions) {
-                    if ($capath->certdata->extensions->subjectaltname) {
-                        $certdesc .= '<li>'.$this->certFields['subjectaltname'].': '.$capath->certdata->extensions->subjectaltname;
+                    if ($capath->certdata->extensions->subjectaltname) {                     
+                        $certdesc .= '<li>'.$this->certFields['subjectaltname'].' '.$capath->certdata->extensions->subjectaltname;
                     }
                 }
                 if ($capath->certdata->extensions->policies) {
-                    $certdesc .= '<li>'.$this->certFields['policies'].': '.$capath->certdata->extensions->policies;
+                    $certdesc .= '<li>'.$this->certFields['policies'].' '.$capath->certdata->extensions->policies;
                 }
                 if ($capath->certdata->extensions->crldistributionpoints) {
-                    $certdesc .= '<li>'.$this->certFields['crldistributionpoints'].': '.$capath->certdata->extensions->crldistributionpoints;
+                    $certdesc .= '<li>'.$this->certFields['crldistributionpoints'].' '.$capath->certdata->extensions->crldistributionpoints;
                 }
                 if ($capath->certdata->extensions->authorityinfoaccess) {
-                    $certdesc .= '<li>'.$this->certFields['authorityinfoaccess'].': '.$capath->certdata->extensions->authorityinfoaccess;
+                    $certdesc .= '<li>'.$this->certFields['authorityinfoaccess'].' '.$capath->certdata->extensions->authorityinfoaccess;
                 }
                             
                 $certdesc .= '</ul>';
-                $more .= '<span class="morecontent"><span>'.$certdesc.
+                $more .= '<span class="morecontent"><span>'.$certdesc.$protocoldesc.
                         '</span>&nbsp;&nbsp;<a href="" class="morelink">'._("more").'&raquo;</a></span></td></tr>';
             } else {
                 $certdesc = '<br>';
@@ -417,6 +435,9 @@ class RADIUSTestsUI extends AbstractTest
     {
         $clientstest = [];
         foreach ($this->allReachabilityResults['clients'] as $clients) {
+            if ($clients->result == RADIUSTests::RETVAL_SKIPPED) {
+                continue;
+            }
             $hostindex = $clients->hostindex; 
             $clientstest[] = '<p><strong>'.$this->hostMap[$clients->IP].'</strong></p>';
             $clientstest[] = "<span id='clientresults$hostindex'>";
@@ -424,7 +445,7 @@ class RADIUSTestsUI extends AbstractTest
             if ($this->globalLevelDynamic != \core\common\Entity::L_ERROR) {
                 if (property_exists($clients, 'ca')) {
                     $clientstest[] = '<ol>';
-                    foreach ($clients->ca as $ca) {
+                    foreach ($clients->ca as $ca) {                     
                         $srefused = 0;
                         $cliinfo = '';
                         $cliinfo .= '<li>'._('Client certificate').' <b>'.$ca->clientcertinfo->from.
@@ -436,10 +457,14 @@ class RADIUSTestsUI extends AbstractTest
                             }
                         }
                         if ($srefused == 0) {
-                            foreach ($ca->certificate as $certificate) { 
+                            foreach ($ca->certificate as $certificate) {                           
                                 $cliinfo .= '<li><i>'.$certificate->message. 
                                             ', '._("expected result: ").$this->states[$certificate->expected].'</i>';
                                 $cliinfo .= '<ul style="list-style-type: none;">';
+                                if (property_exists($certificate, 'finalerror') && $certificate->finalerror == 2) {
+                                        $cliinfo .= '<li>'._('this test was skipped - no appropriate client certificate').'</li></ul>';
+                                        continue;
+                                }
                                 $level = $certificate->returncode;
                                 if ($level < 0) {
                                     $level = \core\common\Entity::L_ERROR;
@@ -469,8 +494,10 @@ class RADIUSTestsUI extends AbstractTest
                                 $cliinfo .= '<li><table><tbody><tr><td class="icon_td"><img class="icon" src="'.$this->stateIcons[$level].'" style="width: 24px;"></td><td>'.$state;
                                 $cliinfo .= ' ('.sprintf(_('elapsed time: %sms.'), $certificate->time_millisec).'&nbsp;) '.$add.'</td></tr>';
                                 $cliinfo .= '</tbody></table></ul></li>';
-                                if (property_exists($certificate, 'finalerror') && $certificate->finalerror == 1) {
-                                    $cliinfo = '<li>'._('Rest of tests for this CA skipped').'</li>';
+                                if (property_exists($certificate, 'finalerror')) {
+                                    if ($certificate->finalerror == 1) {
+                                        $cliinfo .= '<li>'._('Rest of tests for this CA skipped').'</li>';
+                                    }
                                 }
                             }
                             $cliinfo .= '</ul>';
@@ -528,9 +555,11 @@ class RADIUSTestsUI extends AbstractTest
                                 _("All tests passed, congratulations!").'</b></div>'.
                                 '<div style="align:left;"><a href="" class="moreall"><i>'._('Show detailed information for all tests').'&raquo;</i></a></div>';
             $out[] = join('', $capathtest);
-            $out[] = '<span id="clientstest" style="display: ;"><p><hr><b>'._('Checking if certificates from  CAs are accepted...').'</b><p>'._('A few client certificates will be tested to check if servers are resistant to some certificate problems.').'<p>';
-            $out[] = join('', $clientstest);
-            $out[] = '</span>';
+            if (!empty($clientstest)) {
+                $out[] = '<span id="clientstest" style="display: ;"><p><hr><b>'._('Checking if certificates from CAs are accepted...').'</b><p>'._('A few client certificates will be tested to check if servers are resistant to some certificate problems.').'<p>';
+                $out[] = join('', $clientstest);
+                $out[] = '</span>';
+            }
             $out[] = '</div>';
         }
         $out[] = "</fieldset></div></div>";

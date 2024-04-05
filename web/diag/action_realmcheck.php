@@ -141,12 +141,14 @@ $end = $langInstance->rtl ? "left" : "right";
     var arefailed = 0;
     var running_ajax_stat = 0;
     var running_ajax_dyn = 0;
+    var running_ajax_openroaming = 0;
     var global_level_udp = L_OK;
     var global_level_dyn = L_OK;
     var global_level_openroaming = L_OK;
     servercert['title'] = "<?php echo _("Server certificate") ?>";
     servercert['subject'] = "<?php echo _("Subject") ?>";
     servercert['issuer'] = "<?php echo _("Issuer") ?>";
+    servercert['validTo'] = "<?php echo _("Valid to") ?>";
     servercert['subjectaltname'] = "<?php echo _("SubjectAltName") ?>";
     servercert['policies'] = "<?php echo _("Certificate policies") ?>";
     servercert['crlDistributionPoint'] = "<?php echo _("crlDistributionPoint") ?>";
@@ -163,10 +165,6 @@ $end = $langInstance->rtl ? "left" : "right";
     server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
     server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
     var not_known_server = "<?php echo _("Connected to undetermined server") ?>";
-    var running_ajax_openroaming = 0;
-    $.ajaxSetup({
-        timeout: 3000
-    });
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
             if ($(this).hasClass('less')) {
@@ -344,6 +342,11 @@ $end = $langInstance->rtl ? "left" : "right";
             if (data.certdata.issuer) {
                 certdesc = certdesc + '<li>' + servercert['issuer'] + ': ' + data.certdata.issuer;
             }
+            if (data.certdata.validTo) {
+                arr = data.certdata.validTo.match(/.{1,2}/g);
+                update = '20' + arr[0] + '-' + arr[1] + '-' + arr[2] + ' ' + arr[3] + ':' + arr[4] + ':' + arr[5] + ' UTC';
+                certdesc = certdesc + '<li>' + servercert['validTo'] + ': ' + update;
+            }
             if (data.certdata.extensions) {
                 if (data.certdata.extensions.subjectaltname) {
                     certdesc = certdesc + '<li>' + servercert['subjectaltname'] + ': ' + data.certdata.extensions.subjectaltname;
@@ -380,7 +383,6 @@ $end = $langInstance->rtl ? "left" : "right";
     }
 
     function udp(data, status) {
-        console.log("udp - ajax - start");
         show_debug(JSON.stringify(data));
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
@@ -415,12 +417,10 @@ $end = $langInstance->rtl ? "left" : "right";
         global_level_udp = Math.max(global_level_udp, v.level);
         $(".server_cert").show();
         running_ajax_stat--;
-        console.log(running_ajax_stat);
         ajax_end();
     }
     
     function ajax_end() {
-        console.log("ajax_end");
         if (running_ajax_stat === 0) {
             $("#main_static_ico").attr('src', icons[global_level_udp]);
             $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
@@ -484,9 +484,8 @@ $(\"#live_src" . $hostindex . "_img\").show();
 $.ajax({
     url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
     type: 'POST',
-    timeout: 5000,
     success: udp_login,
-    error: eee,
+    error: udp_login,
     data: formData,
     cache: false,
     contentType: false,
@@ -519,17 +518,15 @@ foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 running_ajax_stat++;
-//$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
-$.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'}, error: eee, success: udp, dataType: 'json'}); 
+$.get('radius_tests.php', {test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
+
 ";
 }
 ?>
     }
 
     function eee() {
-        console.log("Unexpected error");
-        running_ajax_stat--;
-        ajax_end();
+        console.log("Unexpected error" );
     }
 
     function show_debug(text) {
@@ -673,15 +670,29 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
                  $("#main_dynamic_result").hide();
                  global_level_dyn = L_OK;
                  $("#dynamic_tests").show();
-              ';
+              ';             
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             $expectedName = $addr['hostname'];
+                            $ssltest = 1;
+                            if (isset($addr['unavailable']) && $addr['unavailable']) {
+                                $ssltest = 0;
+                            }
+                            //$rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
+                            $protocols = [];
+                            if (isset($addr['protocols'])) {
+                                foreach ($addr['protocols'] as $protocol) {
+                                    if ($protocol['enabled']) {
+                                        $protocols[] = $protocol['type'];
+                                    }
+                                }
+                            }
+                            $protstr = implode(';', $protocols);
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest, protocols: '$protstr'}, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: 5000, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest, protocols: '$protstr' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                         }
                         echo "}
@@ -701,7 +712,7 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
                             $expectedName = $addr['hostname'];
                             print "
                             running_ajax_openroaming++;
-                            $.ajax({url:'radius_tests.php', timeout: 5000, data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
                        ";
                         }
                         echo "}
@@ -724,7 +735,7 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
          </tr></table>";
                     }
-                    if (count($orrealm) && ($naptrs[1] > 0)) {
+                    if (isset($orrealm) && count($orrealm) && ($naptrs[1] > 0)) {
                       echo "<hr><strong>" . _("OpenRoaming connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_openroaming_ico' class='icon'></td><td id='main_openroaming_result' style='display:none'>&nbsp;</td>
@@ -802,7 +813,22 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
                         $resultstoprint[] = '<div style="align:'.$end.';"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
-                            $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
+                            $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong> (' . $addr['hostname'] . ')';
+                            $prots = [];
+                            if (isset($addr['protocols'])) {
+                                foreach ($addr['protocols'] as $protocol) {
+                                    if ($protocol['enabled']) {
+                                        $prots[] = $protocol['type'];
+                                    }
+                                }
+                            }
+                            if (!empty($prots)) {
+                                $resultstoprint[] = ' ' . _("supported TLS protocols: ");
+                                $resultstoprint[] = implode(', ', $prots);
+                                if (!isset($addr['istls13']) || !$addr['istls13']) {
+                                    $resultstoprint[] = ' ' . '<font color="red">' . _("not supported: ") . 'TLS1.3</font>';
+                                }
+                            }
                             $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
                             $resultstoprint[] = "<table id='" . $prefix2 . "caresults$hostindex'  style='width:100%'>
 <tr>
@@ -817,7 +843,7 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
                         $clientstest = [];
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
-                            $clientstest[] = "<span id='" . $prefix2 . "clientresults$hostindex$clinx'><table style='width:100%'>
+                            $clientstest[] = "<span id='" . $prefix2 . "clientresults$hostindex'><table style='width:100%'>
 <tr>
 <td class='icon_td'>";
                             if ($i == 4 ) {
@@ -921,7 +947,7 @@ $.ajax({url:'radius_tests.php', timeout: 5000,  data:{test_type: 'udp', $extraar
                 } else {
                     echo '$("#tabs-d-li").hide();';
                 }
-                if (($naptrs[1] > 0) && count($orrealm) > 0) {
+                if (isset($naptrs[1]) && ($naptrs[1] > 0) && count($orrealm) > 0) {
                     echo "run_openroaming();";
                 } else {
                     echo '$("#tabs-o-li").hide();';

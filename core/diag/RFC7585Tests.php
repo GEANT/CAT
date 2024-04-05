@@ -29,6 +29,7 @@ namespace core\diag;
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @license see LICENSE file in root directory
  *
@@ -272,7 +273,7 @@ class RFC7585Tests extends AbstractTest
                     $formatErrors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
                 }
 // no regex
-                if ($edupointer["regex"] != "") {
+                if (isset($edupointer["regex"]) && $edupointer["regex"] != "") {
                     $formatErrors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
                 }
             }
@@ -308,7 +309,6 @@ class RFC7585Tests extends AbstractTest
             $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_SKIPPED;
             return RADIUSTests::RETVAL_SKIPPED;
         }
-
         $sRVerrors = [];
         $sRVtargets = [];
         $sRVcount = 0;
@@ -372,7 +372,6 @@ class RFC7585Tests extends AbstractTest
         $resolutionErrors = [];
 
         $responsesUpToHereWereSecure = $this->allResponsesSecure;
-
         foreach ($this->NAPTR_SRV_records as $server) {
             foreach (["A", "AAAA"] as $family) {
                 try {
@@ -382,6 +381,9 @@ class RFC7585Tests extends AbstractTest
                         $this->allResponsesSecure = FALSE;
                     }
                     foreach ($response->answer as $oneAnswer) {
+                        if (!$oneAnswer->address) {
+                            continue;
+                        }
                         $ipAddrs[] = [
                             'hostname' => $server['hostname'],
                             'port' => $server['port'],
@@ -397,7 +399,6 @@ class RFC7585Tests extends AbstractTest
         }
         
         $this->NAPTR_hostname_records = $ipAddrs;
-        
         $orphanedHostnames = [];
         foreach ($this->NAPTR_SRV_records as $srvHostnames) {
             $orphanedHostnames[$srvHostnames['hostname']] = "MISSING";
@@ -417,6 +418,63 @@ class RFC7585Tests extends AbstractTest
             return RADIUSTests::RETVAL_INVALID;
         }
         $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
+        $this->hostTLSprotocols();
         return count($this->NAPTR_hostname_records);
+    }
+    
+    /**
+     * Checks supported TLS protocols.
+     * 
+     * The actual list is stored in the class property NAPTR_hostname_records.
+     * 
+     * @return nothing
+     */
+    private function hostTLSprotocols()
+    {
+        if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
+            $this->relevantNAPTRsrvResolution();
+        }
+        if ($this->NAPTR_hostname_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
+            $this->relevantNAPTRhostnameResolution();
+        }
+        foreach ($this->NAPTR_hostname_records as $hostindex => $addr) {
+            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+            $this->NAPTR_hostname_records[$hostindex]['protocols'] = $this->execSslscan($hostindex, $host);
+            foreach ($this->NAPTR_hostname_records[$hostindex]['protocols'] as $protocol) {
+                if ($protocol['type'] == 'TLS1.3' && $protocol['enabled'] == 1) {
+                    $this->NAPTR_hostname_records[$hostindex]['istls13'] = 1;
+                    break;
+                }
+            }
+        } 
+    }
+    
+    /**
+     * This function executes sslscan command
+     * 
+     * @param int $hostindex index of host in NAPTR_hostname_records
+     * @param string $hostport    IP address:port
+     * @return array supported / enabled protocols
+     */
+    private function execSslscan($hostindex, $host)
+    {
+        $this->loggerInstance->debug(4, \config\Master::PATHS['sslscan'] . " --no-heartbleed --no-fallback --connect-timeout=5 --no-ciphersuites --xml=- " . $host . "\n");
+        $sslscanbabble = [];
+        $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
+        exec(\config\Master::PATHS['sslscan'] . " --no-heartbleed --no-fallback --connect-timeout=5 --no-ciphersuites --xml=- " . $host ." 2>&1", $sslscanbabble, $result);
+        $this->loggerInstance->debug(4, 'sslscan result '.implode($sslscanbabble));
+        $xml = simplexml_load_string(implode($sslscanbabble));  
+        $resarray = json_decode(json_encode((array)$xml),true);
+        $prots = [];
+        if (!isset($resarray['ssltest'])) {
+            $this->NAPTR_hostname_records[$hostindex]['unavailable'] = 1;
+            return $prots;
+        }
+        foreach ($resarray['ssltest']['protocol'] as $protocol) {
+            $prots[] = 
+                    ['type' => strtoupper($protocol['@attributes']['type']).$protocol['@attributes']['version'],
+                            'enabled' => $protocol['@attributes']['enabled']];
+        }
+        return $prots;
     }
 }

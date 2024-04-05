@@ -62,7 +62,7 @@ foreach (VALID_TEST_TYPES as $index => $oneType) {
 }
 
 $check_realm = $validator->realm($_REQUEST['realm']);
-
+// $test_type: udp / capath / clients
 if ($check_realm === FALSE) {
     throw new Exception("Invalid realm was submitted!");
 }
@@ -92,6 +92,11 @@ if (isset($_REQUEST['token'])) {
     $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
 }
 
+$ssltest = -1;
+if (isset($_REQUEST['ssltest'])) {
+    $ssltest = filter_input(INPUT_GET, 'ssltest', FILTER_SANITIZE_NUMBER_INT) ?? filter_input(INPUT_POST, 'ssltest', FILTER_SANITIZE_NUMBER_INT);
+}
+
 $posted_host = $_REQUEST['src'];
 if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
     $host = filter_var(\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
@@ -105,14 +110,21 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
     $hostonly = filter_var($hostonly3, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     // check if this is a valid IP address
-    if ($hostonly === FALSE) {
-        throw new Exception("The configured test host ($hostonly) is not a valid IP address from acceptable IP ranges!");
-    }
+    //if ($hostonly === FALSE) {
+    //    throw new Exception("The configured test host is not a valid IP address from acceptable IP ranges!");
+    //}
     // host IP address testing passed. So let's take our port number back
     $host = $filteredHost;
     $expectedName = filter_input(INPUT_GET, 'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'expectedname', FILTER_SANITIZE_STRING);
 }
-
+$protstr = filter_input(INPUT_GET, 'protocols', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'protocols', FILTER_SANITIZE_STRING);
+$protocols = [];
+if ($protstr != '') {
+    $protocols = explode(';', $protstr);
+}
+if (is_null($expectedName)) {
+    $expectedName = '';
+}
 $returnarray = [];
 $timeout = \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
 $consortiumName = 'eduroam';
@@ -259,10 +271,21 @@ switch ($test_type) {
         $consortiumName = 'openroaming';
     case 'capath':
         $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
-        $testresult = $rfc6614suite->cApathCheck($host);
+        if ($ssltest) {
+            $testresult = $rfc6614suite->cApathCheck($host);
+            if ($testresult == \core\diag\RADIUSTests::RETVAL_INVALID) {
+                $returnarray['result'] = $testresult;
+                break;
+            }
+        } else {
+            $testresult = \core\diag\RADIUSTests::RETVAL_SKIPPED;
+            $returnarray['message'] = _("<strong>ERROR</strong>: connectivity problem!");
+            $returnarray['level'] = \core\common\Entity::L_WARN;
+        }
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         $returnarray['consortium'] = $consortiumName;
+        $returnarray['name'] = $expectedName;
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
         if (!isset($rfc6614suite->TLS_CA_checks_result[$host])) {
@@ -297,6 +320,7 @@ switch ($test_type) {
             $returnarray['certdata'] = [];
             $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
             $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
+            $returnarray['certdata']['validTo'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['validTo'];
             $returnarray['certdata']['extensions'] = [];
             if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
                 $returnarray['certdata']['extensions']['subjectaltname'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
@@ -322,9 +346,16 @@ switch ($test_type) {
         $consortiumName = 'openroaming';
     case 'clients':
         $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
-        $testresult = $rfc6614suite->tlsClientSideCheck($host);
+        if ($ssltest) {
+            $testresult = $rfc6614suite->tlsClientSideCheck($host, $expectedName, $check_realm, $protocols);
+        } else {
+            $testresult = \core\diag\RADIUSTests::RETVAL_SKIPPED;
+            $returnarray['message'] = _("<strong>ERROR</strong>: connectivity problem!");
+            $returnarray['level'] = \core\common\Entity::L_WARN;
+        }
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
+        $returnarray['name'] = $expectedName;
         $returnarray['consortium'] = $consortiumName;
         $k = 0;
         // the host member of the array may not exist if RETVAL_SKIPPED came out
@@ -343,8 +374,8 @@ switch ($test_type) {
         throw new Exception("Unknown test requested: default case reached!");
 }
 $returnarray['datetime'] = date("Y-m-d H:i:s");
-if (!is_dir($jsonDir.'/'.$token)) {
-    mkdir($jsonDir.'/'.$token, 0777, true);
+if ($token!= '' && is_dir($jsonDir.'/'.$token)) {
+    @mkdir($jsonDir.'/'.$token, 0777, true);
 }
 $json_data = json_encode($returnarray);
 if ($token != '') {
