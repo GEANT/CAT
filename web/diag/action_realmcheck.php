@@ -99,6 +99,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
+    var ajax_timeout = 10000;
     var icons = new Array();
     /*
      icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
@@ -141,7 +142,6 @@ $end = $langInstance->rtl ? "left" : "right";
     var arefailed = 0;
     var running_ajax_stat = 0;
     var running_ajax_dyn = 0;
-    var running_ajax_openroaming = 0;
     var global_level_udp = L_OK;
     var global_level_dyn = L_OK;
     var global_level_openroaming = L_OK;
@@ -165,6 +165,7 @@ $end = $langInstance->rtl ? "left" : "right";
     server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
     server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
     var not_known_server = "<?php echo _("Connected to undetermined server") ?>";
+    var running_ajax_openroaming = 0;
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
             if ($(this).hasClass('less')) {
@@ -383,6 +384,7 @@ $end = $langInstance->rtl ? "left" : "right";
     }
 
     function udp(data, status) {
+        console.log("udp - ajax - start");
         show_debug(JSON.stringify(data));
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
@@ -417,10 +419,12 @@ $end = $langInstance->rtl ? "left" : "right";
         global_level_udp = Math.max(global_level_udp, v.level);
         $(".server_cert").show();
         running_ajax_stat--;
+        console.log(running_ajax_stat);
         ajax_end();
     }
     
     function ajax_end() {
+        console.log("ajax_end");
         if (running_ajax_stat === 0) {
             $("#main_static_ico").attr('src', icons[global_level_udp]);
             $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
@@ -484,8 +488,9 @@ $(\"#live_src" . $hostindex . "_img\").show();
 $.ajax({
     url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
     type: 'POST',
+    timeout: ajax_timeout,
     success: udp_login,
-    error: udp_login,
+    error: eee,
     data: formData,
     cache: false,
     contentType: false,
@@ -518,15 +523,16 @@ foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 running_ajax_stat++;
-$.get('radius_tests.php', {test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
-
+$.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'}, error: eee, success: udp, dataType: 'json'}); 
 ";
 }
 ?>
     }
 
     function eee() {
-        console.log("Unexpected error" );
+        console.log("Unexpected error");
+        running_ajax_stat--;
+        ajax_end();
     }
 
     function show_debug(text) {
@@ -690,9 +696,9 @@ $.get('radius_tests.php', {test_type: 'udp', $extraarg realm: realm, src: $hosti
                             $protstr = implode(';', $protocols);
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest, protocols: '$protstr'}, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest, protocols: '$protstr' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                         }
                         echo "}
@@ -712,7 +718,7 @@ $.get('radius_tests.php', {test_type: 'udp', $extraarg realm: realm, src: $hosti
                             $expectedName = $addr['hostname'];
                             print "
                             running_ajax_openroaming++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
                        ";
                         }
                         echo "}
