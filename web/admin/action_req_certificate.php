@@ -23,6 +23,7 @@
  * This page edits a federation.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
 ?>
 <?php
@@ -62,7 +63,6 @@ $langObject = new \core\common\Language();
     $user = new \core\User($_SESSION['user']);
     $mgmt = new \core\UserManagement();
     $isFedAdmin = $user->isFederationAdmin();
-
 // if not, send the user away
     if (!$isFedAdmin) {
         echo _("You do not have the necessary privileges to request server certificates.");
@@ -212,16 +212,40 @@ $langObject = new \core\common\Language();
                     }
                     ?>
                 </select>
+        
             <?php
         }
+        ?>
+        <script>
+            var instservers = [];
+            var nroservers = '<?php echo str_replace(",", ", ", array_key_first($serverInfo));?>';
+        <?php   
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
                 $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["names"][$langObject->getLang()];
+                echo "instservers['" . $id . "']='" . str_replace(",", ", ", $oneIdP["servers"]) . "';\n";
             }
         }
-        if (count($allIdPs) > 0) {
         ?>
+            $(document).on('change', '#INST-list' , function() {
+                    //alert(instservers[$(this).val()]);
+                    $("#INST").prop('checked', true);
+                    $("#certlevel").html("<?php echo _('organizational level'); ?>");
+                    $("#serversinfo").html(instservers[$(this).val()]);
+                    //$("input[name=LEVEL][value=INST]").prop('checked', true);
+                  
+                });
+                $(document).on('change', '#NRO' , function() {
+                    $("#INST-list").val("notset");
+                    $("#certlevel").html("<?php echo _('NRO level'); ?>");
+                    $("#serversinfo").html(nroservers);
+                });
+        </script>
+        <?php if (count($allIdPs) > 0) {
+        ?>
+       
+                   
         <br/>
         <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
         <select name="INST-list" id="INST-list">
@@ -232,6 +256,16 @@ foreach ($allIdPs as $id => $name) {
 }
 ?>
         </select>
+        </br>
+        <h3>
+            <?php 
+            echo _('According to the above settings you will receive')
+            ?>
+            <span id='certlevel'><?php echo _('NRO level certificate');?></span>
+            
+        </span>for server names:
+        <span id='serversinfo'><?php echo str_replace(",", ", ", array_key_first($serverInfo)); ?></span>
+        </h3>
         <?php
         } else {
             echo "<div>";
