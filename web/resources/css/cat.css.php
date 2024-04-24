@@ -964,12 +964,17 @@ table.user_overview th {
     padding-<?php echo $start;?>: 4px;
     padding-<?php echo $end;?>: 4px;
 }
+
 table.user_overview td {
     border-top-style: none;
     padding-<?php echo $start;?>: 4px;
     padding-<?php echo $end;?>: 4px;
-    padding-top: 0px;
-    height: 25px;
+    vertical-align: middle;
+    height: 28px;
+}
+
+table.user_overview img {
+    vertical-align: middle;
 }
 
 table.user_overview td:first-child {

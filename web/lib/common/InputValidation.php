@@ -55,7 +55,6 @@ class InputValidation extends \core\common\Entity
      */
     public function existingFederation($input, $owner = NULL)
     {
-
         $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
@@ -78,6 +77,40 @@ class InputValidation extends \core\common\Entity
         throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", \core\common\Entity::$nomenclature_fed)));
     }
 
+    /**
+     * Is this a known Federation? Optionally, also check if the authenticated
+     * user is a federation admin of that federation
+     * @param mixed       $input the ISO code of the federation
+     * @param string|NULL $owner the authenticated username, optional
+     * @return array(\core\Federation, string)
+     * @throws Exception
+     */
+    public function existingFederationInt($input, $owner = NULL)
+    {
+        $cat = new \core\CAT(); // initialises Entity static members
+        $fedIdentifiers = array_keys($cat->knownFederations);
+        if (!in_array(strtoupper($input), $fedIdentifiers)) {
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
+        }
+        // totally circular, but this hopefully *finally* make Scrutinizer happier
+        $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
+        $postFed = $fedIdentifiers[$correctIndex];
+        $temp = new \core\Federation($postFed);
+        if ($owner === NULL) {
+            return [$temp,'readonly'];
+        }
+        $user = new \core\User($owner);        
+        foreach ($temp->listFederationAdmins() as $oneowner) {
+            if ($oneowner == $owner) {
+                return [$temp, 'fullaccess'];
+            }
+        }
+        if ($user->isSuperadmin()|| $user->isSupport()) {
+                $this->loggerInstance->debug(4, "You are the superadmin/support\n");
+                return [$temp,'readonly'];                
+            }
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", \core\common\Entity::$nomenclature_fed)));
+    }
     
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
@@ -112,7 +145,7 @@ class InputValidation extends \core\common\Entity
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP or a federation admin for the parent federation
-     * federaton admins get read-only access, superadmins get readonly access as well
+     * federaton admins superadmin and support get read-only access, superadmins get readonly access as well
      * @param mixed            $input             the numeric ID of the IdP in the system
      * @param string           $owner             the authenticated username, optional
      * @param \core\Federation $claimedFedBinding if set, cross-check that IdP belongs to specified federation (useful in admin API mode)
@@ -137,8 +170,8 @@ class InputValidation extends \core\common\Entity
                 $this->loggerInstance->debug(4, "You are fed admin for this IdP\n");
                 return [$temp,'readonly'];
             }
-            if ($user->isSuperadmin()) {
-                $this->loggerInstance->debug(4, "You are the superadmin\n");
+            if ($user->isSuperadmin() || $user->isSupport()) {
+                $this->loggerInstance->debug(4, "You are the superadmin/support\n");
                 return [$temp,'readonly'];                
             }
             throw new Exception($this->inputValidationError("This IdP identifier is not accessible!"));

@@ -121,7 +121,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             foreach ($attribs as $attrib) {
                 if ($attrib['level'] == \core\Options::LEVEL_METHOD && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
                     $justOnce = TRUE;
-                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
+                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Tabler/square-rounded-letter-e-blue.svg' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
                 }
             }
             $buffer_eaptypediv .= "<br/>";
@@ -147,16 +147,18 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         $certStatus = $theProfile->certificateStatus();
         switch ($certStatus) {
             case core\AbstractProfile::CERT_STATUS_OK:
-                $buffer_headline .= "<br/>" . $uiElements->boxCertOK("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                $iconData = $uiElements->iconData('CERT_STATUS_OK');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
                 break;
             case core\AbstractProfile::CERT_STATUS_WARN:
-                $buffer_headline .= "<br/>" . $uiElements->boxCertWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                $iconData = $uiElements->iconData('CERT_STATUS_WARN');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));                
                 break;
             case core\AbstractProfile::CERT_STATUS_ERROR:
-                $buffer_headline .= "<br/>" . $uiElements->boxCertError("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+                $iconData = $uiElements->iconData('CERT_STATUS_ERROR');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
                 break;            
-        }
-
+        }    
         $buffer_headline .= "</div>";
 
         echo $buffer_headline;
@@ -324,7 +326,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         <?php
                         echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
                         "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
-                        "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                        "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' class='cat-icon'>";
                         ?>
                     </td>
                 </tr>
@@ -347,7 +349,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         <?php
                         echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
                         "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
-                        "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "'>";
+                        "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
                         ?>
                     </td>
                 </tr>
@@ -541,7 +543,14 @@ echo $mapCode->htmlHeadCode();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>    
 <script src="js/popup_redirect.js" type="text/javascript"></script>
-</head>
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script>
+$(document).ready(function() {    
+    $("img.cat-icon").tooltip();
+});
+</script>        
+        
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-PARTICIPANT");

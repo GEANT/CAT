@@ -57,7 +57,7 @@ class UIElements extends \core\common\Entity {
      * 
      * @var string
      */
-    public $nomenclatureParticipant;
+    public $nomenclatureParticipant;    
 
     /**
      * Initialises the class.
@@ -445,21 +445,29 @@ class UIElements extends \core\common\Entity {
     public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         \core\common\Entity::intoThePotatoes();
         $uiMessages = [
-            \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("OK")],
-            \core\common\Entity::L_REMARK => ['icon' => '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg', 'text' => _("Remark")],
-            \core\common\Entity::L_WARN => ['icon' => '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg', 'text' => _("Warning!")],
-            \core\common\Entity::L_ERROR => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Error!")],
-            \core\common\Entity::L_CERT_OK => ['icon' => '../resources/images/icons/Tabler/certificate-green.svg', 'text' => _("OK")],
-            \core\common\Entity::L_CERT_WARN => ['icon' => '../resources/images/icons/Tabler/certificate-red.svg', 'text' => _("Warning!")],
-            \core\common\Entity::L_CERT_ERROR => ['icon' => '../resources/images/icons/Tabler/certificate-off.svg', 'text' => _("Warning!")],
+            \core\common\Entity::L_OK => ['img' => 'Tabler/square-rounded-check-filled-green.svg', 'text' => _("OK")],
+            \core\common\Entity::L_REMARK => ['img' => 'Tabler/info-square-rounded-filled-blue.svg', 'text' => _("Remark")],
+            \core\common\Entity::L_WARN => ['img' => 'Tabler/alert-square-rounded-filled-yellow.svg', 'text' => _("Warning!")],
+            \core\common\Entity::L_ERROR => ['img' => 'Tabler/square-rounded-x-filled-red.svg', 'text' => _("Error!")],
+            \core\common\Entity::L_CERT_OK => ['img' => 'Tabler/certificate-green.svg', 'text' => _("OK")],
+            \core\common\Entity::L_CERT_WARN => ['img' => 'Tabler/certificate-red.svg', 'text' => _("Warning!")],
+            \core\common\Entity::L_CERT_ERROR => ['img' => 'Tabler/certificate-off.svg', 'text' => _("Warning!")],
             ];
-
+        
         $retval = "";
         if (!$omittabletags) {
             $retval .= "<tr><td>";
         }
-        $finalCaption = ($caption !== NULL ? $caption : $uiMessages[$level]['text']);
-        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $finalCaption . "' title='" . $finalCaption . "'/>";
+//        $finalCaption = ($caption !== NULL ? $caption : $uiMessages[$level]['text']);
+//        $retval .= "<img class='icon cat-icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $finalCaption . "' title='" . $finalCaption . "'/>";
+        $iconData = $uiMessages[$level];
+        if ($caption !== NULL) {
+            $iconData['text'] = $caption;
+        }
+
+
+        $retval .= $this->catIcon($iconData);
+
         if (!$omittabletags) {
             $retval .= "</td><td>";
         }
@@ -664,5 +672,39 @@ class UIElements extends \core\common\Entity {
         }
         return($out);
     }
-
+    /**
+     * prepares data for icons
+     * 
+     * @param string $index
+     * @return array
+     */
+    public function iconData($index) {
+        \core\common\Entity::intoThePotatoes();
+        $icons = [
+            'CERT_STATUS_OK' => ['img' => 'Tabler/certificate-green.svg', 'text' => _("All certificates are valid long enough")],
+            'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
+            'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
+            'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
+            'OVERALL_OPENROAMING_LEVEL_NOTE' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some minor OpenRoaming configuration issues")],
+            'OVERALL_OPENROAMING_LEVEL_WARN' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some avarage level OpenRoaming configuration issues")],
+            'OVERALL_OPENROAMING_LEVEL_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text' => _("There are some critical OpenRoaming configuration issues")],            
+            'PROFILES_SHOWTIME' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
+            'PROFILES_CONFIGURED' => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
+            'PROFILES_INCOMPLETE' => ['img' => 'Tabler/access-point-off-red.svg', 'text' => _("No configured profiles")],
+            'IDP_LINKED' => ['img' => 'Tabler/database-green.svg', 'text' => _("Linked")],
+            'IDP_NOT_LINKED' => ['img' => 'Tabler/database-off-red.svg', 'text' => _("NOT linked")],
+            'CERTS_NOT_SHOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Not showing cert info if no profiles are visible")],
+            ];
+            \core\common\Entity::outOfThePotatoes();
+        return($icons[$index]);
+    }
+    
+/**
+ * the HTML img element produced 0n the basis of a simple [src,title] array
+ * @param type array
+ * @return string the img element
+ */
+    public function catIcon($data) {
+        return "<img src='../resources/images/icons/".$data['img']."' alt='".$data['text']."' title = '".$data['text']."' class='cat-icon'>";                  
+    }
 }

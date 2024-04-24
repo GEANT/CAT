@@ -20,6 +20,43 @@
 
 /* various jquery scripts for the NRO admin page */
 
+function row_filter(table) {
+    var linked = table.find('[id^="unlinked_ck_"]').is(':checked');
+    var broken_cert = table.find('[id^="brokencert_ck_"]').is(':checked');
+    var or_warn = table.find('[id^="or_ck_"]').is(':checked');
+    var profile_warn = table.find('[id^="profile_ck_"]').is(':checked');
+    var input = table.find('[id^="qsearch_"]').val().toLowerCase();
+    var tr_visible;
+    var inp_found;
+    table.children("tr.idp_tr").each(function() {
+        tr_visible = true;
+        if (linked && $(this).hasClass('linked')) {
+            tr_visible = false;
+        }
+        if (tr_visible && broken_cert && $(this).hasClass('certok')) {
+            tr_visible = false;
+        }
+        if (tr_visible && or_warn && $(this).hasClass('orok')) {
+            tr_visible = false;
+        }        
+        if (tr_visible && profile_warn && $(this).hasClass('profileok')) {
+            tr_visible = false;
+        }         
+        if (tr_visible && input !== '') {
+            inp_found = $(this).find("span.inst_name:contains('"+input+"')").length;
+            if (inp_found == 0) {
+                tr_visible = false;
+            }
+        }
+        
+        if (tr_visible) {
+            $(this).show();
+        } else {
+            $(this).hide();            
+        }
+    });
+}
+
 $(document).ready(function() {
     // realm diagnostics
     $("#realmcheck").on('click', function() {
@@ -52,45 +89,28 @@ $(document).ready(function() {
     // handler for the text filter (must take into account possible filtering 
     // on linked status
     $('[id^="qsearch_"]').keyup(function() {
-        var input = $(this).val().toLowerCase();
-        var this_row = $(this).parent().parent();
-        var this_table = this_row.parent();
-        var this_ck = this_row.find('input[id^="unlinked_ck_"]');
-        var tr;
-        if (input === '') {
-            if (this_ck.is(':checked')) {
-                console.log("checked");
-                this_table.children("tr.notlinked").show();
-            } else {
-                console.log("unchecked");
-                this_table.children("tr.idp_tr").show();
-            }
-        } else {
-            if (this_ck.is(':checked')) {
-                this_table.children("tr.idp_tr").hide();
-                this_table.find("span.inst_name:contains('"+input+"')").each(function() {
-                    tr = $(this).parent().parent();
-                    if (tr.hasClass("notlinked")) {
-                       tr.show();
-                   }
-               });
-            } else {
-                this_table.children("tr.idp_tr").hide();
-                this_table.find("span.inst_name:contains('"+input+"')").parent().parent().show();
-            }
-
-        }
+        var this_table = $(this).parent().parent().parent();
+        row_filter(this_table);
     });
 
     // the linked filter checkbox handler
-    $('[id^="unlinked_ck_"]').on('click', function() {
+    $(":checkbox").on('click', function() {
         var this_table = $(this).parent().parent().parent();
-        if ($(this).is(':checked')) {
-            this_table.children("tr.linked").hide();
-        } else {
-            this_table.children("tr.linked").show();
-        }
+        row_filter(this_table);
     });
+    
+    $("#fed_selection").on('change', function() {
+        fed = $("#fed_selection option:selected").val();
+        if (fed === "XX") {
+            return;
+        }
+        $("#thirdrow").hide();
+        document.location.href = "overview_federation.php?fed_id="+fed;
+    });
+    
+    
+    $("img.cat-icon").tooltip();
+
 });
 
 

@@ -119,13 +119,25 @@ class User extends EntityWithDBProperties
 
     /**
      * This function tests if the current user has been configured as the system superadmin, i.e. if the user is allowed
-     * to execute the 112365365321.php script
+     * to execute the 112365365321.php script and obtain read-only access to admin areas.
      *
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin()
     {
         return in_array($this->userName, \config\Master::SUPERADMINS);
+    }
+    
+    
+    /**
+     * This function tests if the current user has been configured as the system superadmin, i.e. if the user is allowed
+     *  obtain read-only access to admin areas.
+     *
+     * @return boolean TRUE if the user is a support member, FALSE if not 
+     */
+    public function isSupport()
+    {
+        return in_array($this->userName, \config\Master::SUPPORT);
     }
 
     /**

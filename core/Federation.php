@@ -525,6 +525,9 @@ Best regards,
         // SELECT -> resource, not boolean
         while ($idpQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
             $idp = new IdP($idpQuery->inst_id);
+            if (!isset($idpQuery->realms)) {
+                $idpQuery->realms = '';
+            }
             $name = $idp->name;
             $idpInfo = ['entityID' => $idp->identifier,
                 'title' => $name,

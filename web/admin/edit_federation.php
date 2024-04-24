@@ -39,7 +39,7 @@ $auth->authenticate();
 $fedPost = $_POST['fed_id'];
 
 
-$my_fed = $validator->existingFederation($fedPost, $_SESSION['user']);
+[$my_fed, $editMode] = $validator->existingFederationInt($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
@@ -49,6 +49,15 @@ $langObject = new \core\common\Language();
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
+<?php
+if ($editMode == 'readonly') {
+    print('<style>'
+            . 'button.newoption {visibility: hidden}'
+            . 'input {pointer-events: none} '
+            . '.ui-sortable-handle {pointer-events: none}'
+            . '</style>');
+}
+?>
 </head>
 <body>
 
@@ -90,5 +99,12 @@ $langObject = new \core\common\Language();
         <button type='button' class='newoption' onclick='getXML("fed", "<?php echo $my_fed->tld ?>")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
+    echo "<div>";
+    if ($editMode === 'fullaccess') {
+        echo "<button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button>";
+        $discardLabel = _("Discard changes");
+    } else {
+        $discardLabel = _("Return");
+    }
+    echo "<button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php?fed_id=$fedPost\"'>" . $discardLabel . "</button></div></form>";
     echo $deco->footer();

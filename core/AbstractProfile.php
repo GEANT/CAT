@@ -130,21 +130,47 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const OVERALL_OPENROAMING_LEVEL_WARN = 1;
     const OVERALL_OPENROAMING_LEVEL_ERROR = 0;
     
-    
+/**
+ * constants used for displaying messages
+ */    
     const OPENROAMING_ALL_GOOD = 24;
-    const OPENROAMING_NO_REALM = 17; //n
-    const OPENROAMING_BAD_SRV = 16; //n
-    const OPENROAMING_BAD_NAPTR = 10; // w
-    const OPENROAMING_SOME_BAD_CONNECTIONS = 8; //w
-    const OPENROAMING_NO_DNSSEC = 8; //w
-    const OPENROAMING_NO_NAPTR = 3; //e
-    const OPENROAMING_BAD_NAPTR_RESOLVE = 2; //e
-    const OPENROAMING_BAD_SRV_RESOLVE = 1; //e
-    const OPENROAMING_BAD_CONNECTION = 0; //e
+    const OPENROAMING_NO_REALM = 17; //none
+    const OPENROAMING_BAD_SRV = 16; //none
+    const OPENROAMING_BAD_NAPTR = 10; // warning
+    const OPENROAMING_SOME_BAD_CONNECTIONS = 8; //warning
+    const OPENROAMING_NO_DNSSEC = 8; //warning
+    const OPENROAMING_NO_NAPTR = 3; //error
+    const OPENROAMING_BAD_NAPTR_RESOLVE = 2; //error
+    const OPENROAMING_BAD_SRV_RESOLVE = 1; //error
+    const OPENROAMING_BAD_CONNECTION = 0; //error
     
     
+    const READINESS_LEVEL_NOTREADY = 0;
+    const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
+    const READINESS_LEVEL_SHOWTIME = 2;
     
     
+    const CERT_STATUS_OK = 0;
+    const CERT_STATUS_WARN = 1;
+    const CERT_STATUS_ERROR = 2;
+    
+    const OVERALL_OPENROAMING_INDEX = [
+        self::OVERALL_OPENROAMING_LEVEL_NO => 'OVERALL_OPENROAMING_LEVEL_NO',
+        self::OVERALL_OPENROAMING_LEVEL_GOOD => 'OVERALL_OPENROAMING_LEVEL_GOOD',
+        self::OVERALL_OPENROAMING_LEVEL_NOTE => 'OVERALL_OPENROAMING_LEVEL_NOTE',
+        self::OVERALL_OPENROAMING_LEVEL_WARN => 'OVERALL_OPENROAMING_LEVEL_WARN',
+        self::OVERALL_OPENROAMING_LEVEL_ERROR => 'OVERALL_OPENROAMING_LEVEL_ERROR',      
+    ];
+
+    const OPENROAMING_INDEX = [
+        self::OVERALL_OPENROAMING_LEVEL_NO => 'OVERALL_OPENROAMING_LEVEL_NO',
+    ];
+    
+    const CERT_STATUS_INDEX = [
+        self::CERT_STATUS_OK => 'CERT_STATUS_OK',
+        self::CERT_STATUS_WARN => 'CERT_STATUS_WARN',
+        self::CERT_STATUS_ERROR => 'CERT_STATUS_ERROR',     
+    ];
     
     /**
      *  generates a detailed log of which installer was downloaded
@@ -867,15 +893,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         return $collapsedList;
     }
-
-    const READINESS_LEVEL_NOTREADY = 0;
-    const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
-    const READINESS_LEVEL_SHOWTIME = 2;
-    const CERT_STATUS_OK = 0;
-    const CERT_STATUS_WARN = 1;
-    const CERT_STATUS_ERROR = 2;
     
-
     /**
      * Does the profile contain enough information to generate installers with
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some

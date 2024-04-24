@@ -171,6 +171,12 @@ class IdP extends EntityWithDBProperties
     const PROFILES_INCOMPLETE = 0;
     const PROFILES_CONFIGURED = 1;
     const PROFILES_SHOWTIME = 2;
+    
+    const PROFILES_INDEX = [
+        self::PROFILES_INCOMPLETE => 'PROFILES_INCOMPLETE',
+        self::PROFILES_CONFIGURED => 'PROFILES_CONFIGURED',
+        self::PROFILES_SHOWTIME => 'PROFILES_SHOWTIME',
+    ];
 
     /**
      * looks through all the profiles of the inst and determines the highest prod-ready level among the profiles
