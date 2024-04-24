@@ -101,16 +101,10 @@ $end = $langInstance->rtl ? "left" : "right";
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
     var ajax_timeout = 10000;
     var icons = new Array();
-    /*
-     icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
-     icons[L_WARN] = '../resources/images/icons/Exclamation-yellow-icon.png';
-     icons[L_ERROR] = '../resources/images/icons/Exclamation-orange-icon.png';
-     icons[L_REMARK] = '../resources/images/icons/Star-blue.png';
-     */
-    icons[L_OK] = '../resources/images/icons/Quetto/check-icon.png';
-    icons[L_WARN] = '../resources/images/icons/Quetto/danger-icon.png';
-    icons[L_ERROR] = '../resources/images/icons/Quetto/no-icon.png';
-    icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
+    icons[L_OK] = '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg';
+    icons[L_WARN] = '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg';
+    icons[L_ERROR] = '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg';
+    icons[L_REMARK] = '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg';
     var icon_loading = '../resources/images/icons/loading51.gif';
     var tmp_content;
     var lang = '<?php echo $gui->languageInstance->getLang(); ?>'

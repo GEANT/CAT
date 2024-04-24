@@ -607,7 +607,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code43 = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
         $this->returnCodes[$code43]["message"] = _("It was not possible to determine the TLS version that was used in the EAP exchange.");
-        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_REMARK;
+        $this->returnCodes[$code43]["severity"] = \core\common\Entity::L_REMARK;
 
         /**
          * TLS version problem: old version
