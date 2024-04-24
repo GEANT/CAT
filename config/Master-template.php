@@ -295,4 +295,6 @@ class Master
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
         ];
+	const SUPPORT = [
+	];
 }
