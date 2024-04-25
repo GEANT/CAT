@@ -399,7 +399,7 @@ class RFC6614Tests extends AbstractTest
     private function propertyCheckPolicy($cert)
     {
         $oids = [];
-        if ($cert['extensions']['certificatePolicies']) {
+        if (isset($cert['extensions']['certificatePolicies']) &&  $cert['extensions']['certificatePolicies']) {
             foreach (\config\Diagnostics::RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid) {
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
@@ -439,7 +439,7 @@ class RFC6614Tests extends AbstractTest
      */
     private function getCertificatePropertyField($cert, $field)
     {
-        if ($cert['extensions'][$field]) {
+        if (isset($cert['extensions'][$field]) && $cert['extensions'][$field]) {
             return $cert['extensions'][$field];
         }
         return '';
