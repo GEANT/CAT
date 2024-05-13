@@ -690,9 +690,9 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                             $protstr = implode(';', $protocols);
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest, protocols: '$protstr' }, error: eee, success: capath, dataType: 'json'});
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest, protocols: '$protstr' }, error: eee, success: clients, dataType: 'json'});
                        ";
                         }
                         echo "}
@@ -712,7 +712,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                             $expectedName = $addr['hostname'];
                             print "
                             running_ajax_openroaming++;
-                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'openroamingcapath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest, protocols: '$protstr' }, error: eee, success: capath, dataType: 'json'});
                        ";
                         }
                         echo "}
