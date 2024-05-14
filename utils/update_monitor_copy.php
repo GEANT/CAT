@@ -119,8 +119,8 @@ class updateFromMonitor {
         $this->db_local->query("CREATE TEMPORARY TABLE $tmp_table SELECT * FROM $table LIMIT 0");
         $sourceDB = $this->tablesource[$table_name];
         $this->db->select_db($sourceDB);
-        $result = $this->db->query("SET NAMES 'utf8'");
-        $result = $this->db_local->query("SET NAMES 'utf8mb4'");
+        $this->db->query("SET NAMES 'utf8'");
+        $this->db_local->query("SET NAMES 'utf8mb4'");
         $result = $this->db->query("SELECT * FROM $table");
         $queryFields = implode(',', array_column($this->fields[$table_name],0));
         while ($row = $result->fetch_assoc()) {
@@ -155,7 +155,7 @@ class updateFromMonitor {
         } elseif($this->tablesource[$table_name] == 'eduroamv2') {
                 $this->db_local->select_db('eduroamv2');
         }
-                $result = $this->db_local->query("SET NAMES 'utf8mb4'");
+        $this->db_local->query("SET NAMES 'utf8mb4'");
         $this->db_local->query("DELETE FROM $table");
         $this->db_local->query("INSERT INTO $table SELECT * from $tmp_table");
     }
