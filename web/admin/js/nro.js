@@ -104,12 +104,15 @@ $(document).ready(function() {
         if (fed === "XX") {
             return;
         }
-        $("#thirdrow").hide();
+        $("#main_content").hide();
+        $("#loading_gif").show();
         document.location.href = "overview_federation.php?fed_id="+fed;
     });
     
     
     $("img.cat-icon").tooltip();
+    
+    $("#loading_gif").hide();
 
 });
 

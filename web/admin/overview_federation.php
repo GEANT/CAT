@@ -52,6 +52,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     echo $deco->productheader("FEDERATION");
     $readonly = \config\Master::DB['INST']['readonly'];
     ?>
+    <div id="main_content">
     <h1>
         <?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureFed); ?>
     </h1>
@@ -516,6 +517,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         <br/>
         <?php
     }
-    echo "<hr/>$helptext";
+    echo "<hr/>$helptext</div> <!-- main_content -->";
+    echo  "<img src ='../resources/images/icons/loading51.gif' id='loading_gif' style='display: block; margin-left: auto; margin-right:auto; margin-top:100px'>";
+
     echo $deco->footer();
     
