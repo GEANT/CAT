@@ -310,6 +310,11 @@ class Master
          *
          */
         const DEBUG_LEVEL = 5;
+        
+        const SUPPORT = [
+            
+        ];
+        
         const SUPERADMINS = [
             'admin',
             'eptid:someuser',
