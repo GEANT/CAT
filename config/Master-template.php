@@ -262,6 +262,12 @@ class Master
              * IdP::getExternalDBSyncState();
              * IdP::setExternalDBId($identifier);
              * 
+             * We are now prepared to use a local cache database. For the eduroam case a daily
+             * update is sufficient and is done by the utils/update_monitor_copy.php. In this case
+             * the EXTERNAL is actually a local DB, and EXTERNAL_SOURCE is used as the actual
+             * source for caching. You may use the EXTERNAL as a real extermal database and
+             * do not worry about setting aything in EXTERNAL_SOURCE
+             * 
              * The code for the consortium "eduroam" is already written and may serve as template. See the functions in question. */
             // Marking this as readonly currently has no effect, as we only ever do SELECTs on that database
             'EXTERNAL' => [
@@ -270,6 +276,21 @@ class Master
                 'user' => 'customerservice',
                 'pass' => '2lame4u',
                 'readonly' => TRUE,],
+            /*
+             * EXTERNAL_SOURCE is the source only used in the caching script, if you
+             * do not use local caching then thse settins are irrelevant
+             */
+            'EXTERNAL_SOURCE' => [
+                'host' => 'customerdb.otherhost.example',
+                'db' => 'customer_db',
+                'user' => 'customerservice',
+                'pass' => '2lame4u',
+                'readonly' => TRUE,],
+            
+            
+            
+            
+            
             'enforce-external-sync' => TRUE,
         ];
         /**
@@ -295,6 +316,4 @@ class Master
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
         ];
-	const SUPPORT = [
-	];
 }

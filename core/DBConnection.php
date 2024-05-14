@@ -297,7 +297,6 @@ class DBConnection
         // is ambiguous. Resolve the ambiguity by telling MySQL to always operate
         // in UTC time.
         $this->connection->query("SET SESSION time_zone='+00:00'");
-        $this->connection->query("SET NAMES 'latin1'");
         }
     }
 
