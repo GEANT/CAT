@@ -203,7 +203,7 @@ $langObject = new \core\common\Language();
                 echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 ?>
                 <select name="NRO-list" id="NRO-list">
-                    <option value="notset"><?php echo _("---PPPLEASE CHOOSE---"); ?></option>
+                    <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
                     <?php
                     foreach ($feds as $oneFed) {
                         #echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
