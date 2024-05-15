@@ -69,10 +69,8 @@ var lesstext = "<?php echo "&laquo" ?>";
                 $('.moreall').removeClass('less');
                 $('.moreall').html(morealltext);
             } else {
-                console.log('MMMM');
                 $(this).attr('moretext', $(this).html());
                 $(this).addClass('less');
-                console.log($(this).html());
                 $(this).html(lesstext);
             }
             $(this).parent().prev().toggle();
