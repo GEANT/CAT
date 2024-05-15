@@ -91,7 +91,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $editMode = 'fullaccess';
         }        
         ?>
-    <div class="infobox"><h1>Select a different federation</h1>
+    <div class="infobox"><h1><?php echo _("Select a different federation") ?></h1>
         <select id="fed_selection">
             <option value="XX"><?php echo _("select from below") ?></option>
     <?php
