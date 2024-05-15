@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 12:21+0200\n"
+"POT-Creation-Date: 2024-05-15 15:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -458,7 +458,7 @@ msgid "SubjectAltName:"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:214 web/diag/action_realmcheck.php:557
-#: web/diag/action_realmcheck.php:566 web/diag/show_realmcheck.php:136
+#: web/diag/action_realmcheck.php:566 web/diag/show_realmcheck.php:134
 msgid "Overview"
 msgstr ""
 
@@ -552,7 +552,7 @@ msgid "Dynamic discovery test is not configured"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:291 web/diag/action_realmcheck.php:558
-#: web/diag/action_realmcheck.php:732 web/diag/show_realmcheck.php:137
+#: web/diag/action_realmcheck.php:732 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgid "See the appropriate tab for details."
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:298 web/diag/action_realmcheck.php:559
-#: web/diag/action_realmcheck.php:737 web/diag/show_realmcheck.php:141
+#: web/diag/action_realmcheck.php:737 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
 msgstr ""
 
@@ -1285,7 +1285,7 @@ msgstr ""
 msgid "Server certificate details:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:552 web/diag/show_realmcheck.php:128
+#: web/diag/action_realmcheck.php:552 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
@@ -1311,7 +1311,7 @@ msgstr ""
 msgid "No issues found."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:754 web/diag/show_realmcheck.php:153
+#: web/diag/action_realmcheck.php:754 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
 msgstr ""
 
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "testing..."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:795 web/diag/show_realmcheck.php:164
+#: web/diag/action_realmcheck.php:795 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
 msgstr ""
 
@@ -1640,19 +1640,19 @@ msgid ""
 "does not match any name in the server certificate!"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:132
+#: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
 msgstr ""
 
-#: web/diag/show_realmcheck.php:147
+#: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:172
+#: web/diag/show_realmcheck.php:170
 msgid "Token missing, no data can be presented"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:174
+#: web/diag/show_realmcheck.php:172
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
