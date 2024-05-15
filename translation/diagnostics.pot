@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2024-05-15 12:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,9 +25,9 @@ msgstr ""
 msgid "Product is not configured to run this check."
 msgstr ""
 
-#: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
-#: web/diag/action_realmcheck.php:630
+#: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:249
+#: core/diag/RADIUSTestsUI.php:264 web/diag/action_realmcheck.php:625
+#: web/diag/action_realmcheck.php:641
 msgid "This check was skipped."
 msgstr ""
 
@@ -57,8 +57,8 @@ msgid ""
 "conversation."
 msgstr ""
 
-#: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:134
+#: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:507
+#: web/diag/action_realmcheck.php:129
 msgid "Connection refused"
 msgstr ""
 
@@ -374,7 +374,7 @@ msgstr ""
 msgid "Connected to %s."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1348 web/diag/radius_tests.php:233
+#: core/diag/RADIUSTests.php:1348 web/diag/radius_tests.php:245
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -389,93 +389,85 @@ msgid ""
 "optimal; the list is below."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
+#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:131
 msgid "All tests passed."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:132
 msgid "There were some warnings."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:133
 msgid "There were some errors."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:90 web/diag/action_realmcheck.php:134
 msgid "There were some remarks."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:112
 msgid "PASS"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:100 web/diag/action_realmcheck.php:113
 msgid "FAIL"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:155
 msgid "Subject:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:156
 msgid "Issuer:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:157
 msgid "Valid from:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:158
 msgid "Valid to:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:159
 msgid "Serial number:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:160
 msgid "SHA1 fingerprint:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:142
 msgid "Server certificate"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
-msgid "Subject"
-msgstr ""
-
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
-msgid "Issuer"
+#: core/diag/RADIUSTestsUI.php:110
+msgid "Policies:"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:111
-msgid "Policies"
+msgid "crlDistributionPoint:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
-msgid "crlDistributionPoint"
+#: core/diag/RADIUSTestsUI.php:112
+msgid "authorityInfoAccess:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
-msgid "authorityInfoAccess"
+#: core/diag/RADIUSTestsUI.php:113
+msgid "SubjectAltName:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
-msgid "SubjectAltName"
-msgstr ""
-
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
-#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:214 web/diag/action_realmcheck.php:557
+#: web/diag/action_realmcheck.php:566 web/diag/show_realmcheck.php:136
 msgid "Overview"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:214
+#: core/diag/RADIUSTestsUI.php:216 web/diag/action_realmcheck.php:574
 msgid "DNS checks"
 msgstr ""
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
+#: core/diag/RADIUSTestsUI.php:219 web/diag/action_realmcheck.php:592
 msgid "Checking NAPTR existence:"
 msgstr ""
 
@@ -483,103 +475,103 @@ msgstr ""
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:584
+#: core/diag/RADIUSTestsUI.php:222 core/diag/RFC7585Tests.php:157
+#: web/diag/action_realmcheck.php:595
 msgid "This realm has no NAPTR records."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
+#: core/diag/RADIUSTestsUI.php:225 web/diag/action_realmcheck.php:598
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
+#: core/diag/RADIUSTestsUI.php:228 web/diag/action_realmcheck.php:601
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
+#: core/diag/RADIUSTestsUI.php:233 web/diag/action_realmcheck.php:607
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
+#: core/diag/RADIUSTestsUI.php:239 core/diag/RADIUSTestsUI.php:252
+#: web/diag/action_realmcheck.php:614 web/diag/action_realmcheck.php:628
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
+#: core/diag/RADIUSTestsUI.php:246 web/diag/action_realmcheck.php:622
 msgid "Checking SRVs:"
 msgstr ""
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
+#: core/diag/RADIUSTestsUI.php:255 web/diag/action_realmcheck.php:631
 #, php-format
 msgid "%d host names discovered."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
+#: core/diag/RADIUSTestsUI.php:261 web/diag/action_realmcheck.php:638
 msgid "Checking IP address resolution:"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
+#: core/diag/RADIUSTestsUI.php:267 web/diag/action_realmcheck.php:644
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr ""
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
+#: core/diag/RADIUSTestsUI.php:270 web/diag/action_realmcheck.php:647
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
-#: web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:657
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:655
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:280 web/diag/action_realmcheck.php:657
 msgid "but there were DNS errors! Check them!"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:280 web/diag/action_realmcheck.php:657
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
+#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:585
 msgid "Dynamic discovery test is not configured"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
-#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:291 web/diag/action_realmcheck.php:558
+#: web/diag/action_realmcheck.php:732 web/diag/show_realmcheck.php:137
 msgid "Static connectivity tests"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
-#: web/diag/action_realmcheck.php:429
+#: core/diag/RADIUSTestsUI.php:295 core/diag/RADIUSTestsUI.php:301
+#: web/diag/action_realmcheck.php:428 web/diag/action_realmcheck.php:433
+#: web/diag/action_realmcheck.php:438
 msgid "See the appropriate tab for details."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
-#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:298 web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:737 web/diag/show_realmcheck.php:141
 msgid "Dynamic connectivity tests"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
+#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:757
 msgid "STATIC connectivity tests"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
+#: core/diag/RADIUSTestsUI.php:314 web/diag/action_realmcheck.php:759
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -589,184 +581,195 @@ msgid ""
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
-#: web/diag/action_realmcheck.php:881
+#: core/diag/RADIUSTestsUI.php:320
 #, php-format
-msgid "Testing from: %s"
+msgid "Testing from: <strong>%s"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
+#: core/diag/RADIUSTestsUI.php:327 web/diag/action_realmcheck.php:161
 msgid "Connected to undetermined server"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
-#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
+#: core/diag/RADIUSTestsUI.php:327 core/diag/RADIUSTestsUI.php:495
+#: web/diag/action_realmcheck.php:274 web/diag/action_realmcheck.php:392
+#: web/diag/action_realmcheck.php:412 web/diag/action_realmcheck.php:473
 #, php-format
 msgid "elapsed time: %sms."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
-#: web/diag/action_realmcheck.php:454
+#: core/diag/RADIUSTestsUI.php:344 web/diag/action_realmcheck.php:403
+#: web/diag/action_realmcheck.php:463
 msgid "Extensions"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
+#: core/diag/RADIUSTestsUI.php:352 web/diag/action_realmcheck.php:404
 msgid "show server certificate details"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
+#: core/diag/RADIUSTestsUI.php:364 web/diag/action_realmcheck.php:817
 msgid "Checking server handshake..."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
+#: core/diag/RADIUSTestsUI.php:376 web/diag/action_realmcheck.php:830
+msgid "supported TLS protocols: "
+msgstr ""
+
+#: core/diag/RADIUSTestsUI.php:379 web/diag/action_realmcheck.php:833
+msgid "not supported: "
+msgstr ""
+
+#: core/diag/RADIUSTestsUI.php:421 web/diag/action_realmcheck.php:124
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
+#: core/diag/RADIUSTestsUI.php:425 core/diag/RADIUSTestsUI.php:516
 msgid "Test failed"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:430
+#: core/diag/RADIUSTestsUI.php:451
 msgid "Client certificate"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:462 web/diag/action_realmcheck.php:115
 msgid "expected result: "
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:465 web/diag/action_realmcheck.php:271
+msgid "this test was skipped - no appropriate client certificate"
+msgstr ""
+
+#: core/diag/RADIUSTestsUI.php:475 web/diag/action_realmcheck.php:116
 msgid "Server accepted this client certificate"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
+#: core/diag/RADIUSTestsUI.php:478 web/diag/action_realmcheck.php:121
 msgid "You should update your list of accredited CAs"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
+#: core/diag/RADIUSTestsUI.php:480 web/diag/action_realmcheck.php:122
 msgid "Get it from here."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
+#: core/diag/RADIUSTestsUI.php:482 web/diag/action_realmcheck.php:119
 msgid "Server did not accept this client certificate - reason"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:488 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:491 web/diag/action_realmcheck.php:118
 msgid "Server did not accept this client certificate"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:499 web/diag/action_realmcheck.php:120
 msgid "Rest of tests for this CA skipped"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:501
+#: core/diag/RADIUSTestsUI.php:528
 msgid "These tests were skipped because of previous errors."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
+#: core/diag/RADIUSTestsUI.php:539 web/diag/action_realmcheck.php:803
 msgid "DYNAMIC connectivity tests"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:549 web/diag/action_realmcheck.php:816
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:555 web/diag/action_realmcheck.php:816
 msgid "All tests passed, congratulations!"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
-#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:556 web/diag/action_realmcheck.php:126
+#: web/diag/action_realmcheck.php:817 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
-msgid "Checking if certificates from  CAs are accepted..."
+#: core/diag/RADIUSTestsUI.php:559
+msgid "Checking if certificates from CAs are accepted..."
 msgstr ""
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
+#: core/diag/RADIUSTestsUI.php:559 web/diag/action_realmcheck.php:868
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:97
+#: core/diag/RFC6614Tests.php:98
 msgid "eduPKI"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:98
+#: core/diag/RFC6614Tests.php:99
 msgid "Nicolaus Copernicus University"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:99
+#: core/diag/RFC6614Tests.php:100
 msgid "accredited"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:100
+#: core/diag/RFC6614Tests.php:101
 msgid "non-accredited"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:101
+#: core/diag/RFC6614Tests.php:102
 msgid "correct certificate"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:102
+#: core/diag/RFC6614Tests.php:103
 msgid "certificate with wrong policy OID"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:103
+#: core/diag/RFC6614Tests.php:104
 msgid "expired certificate"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:104
+#: core/diag/RFC6614Tests.php:105
 msgid "revoked certificate"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:105
+#: core/diag/RFC6614Tests.php:106
 msgid "pass"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:106
+#: core/diag/RFC6614Tests.php:107
 msgid "fail"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:107
+#: core/diag/RFC6614Tests.php:108
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:354
+#: core/diag/RFC6614Tests.php:373
 msgid "No TLS connection established: Connection refused"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:356
+#: core/diag/RFC6614Tests.php:375
 msgid "certificate expired"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:358
+#: core/diag/RFC6614Tests.php:377
 msgid "certificate was revoked"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:360
+#: core/diag/RFC6614Tests.php:380
 msgid "bad policy"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:362
+#: core/diag/RFC6614Tests.php:382
 msgid "unknown authority"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:365
+#: core/diag/RFC6614Tests.php:385
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
 #.
-#: core/diag/RFC7585Tests.php:162
+#: core/diag/RFC7585Tests.php:163
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
 
@@ -1238,88 +1241,117 @@ msgstr ""
 msgid "DYNAMIC"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:119
+#: web/diag/action_realmcheck.php:114
 msgid "Client certificate:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:151
+#: web/diag/action_realmcheck.php:143
+msgid "Subject"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:144
+msgid "Issuer"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:145
+msgid "Valid to"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:146
+msgid "SubjectAltName"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:147
 msgid "Certificate policies"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:148
+msgid "crlDistributionPoint"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:149
+msgid "authorityInfoAccess"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:150 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:217
+#: web/diag/action_realmcheck.php:214
 msgid "Some required input is missing!"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:442
+#: web/diag/action_realmcheck.php:451
 msgid "Server certificate details:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:552 web/diag/show_realmcheck.php:128
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
-#: web/diag/action_realmcheck.php:780
+#: web/diag/action_realmcheck.php:560 web/diag/action_realmcheck.php:743
+#: web/diag/action_realmcheck.php:805
 msgid "OpenRoaming connectivity tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:561
 msgid "Live login tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:563
-msgid "DNS checks"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:569
+#: web/diag/action_realmcheck.php:580
 msgid "OpenRoaming DNS checks"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:576
+#: web/diag/action_realmcheck.php:587
 msgid "OpenRoaming connectivity test is not configured"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:611
 msgid "No issues found."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:754 web/diag/show_realmcheck.php:153
 msgid "Repeat static connectivity tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
-#: web/diag/action_realmcheck.php:818
+#: web/diag/action_realmcheck.php:763 web/diag/action_realmcheck.php:921
+#, php-format
+msgid "Testing from: %s"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:768 web/diag/action_realmcheck.php:841
+#: web/diag/action_realmcheck.php:858
 msgid "testing..."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:795 web/diag/show_realmcheck.php:164
 msgid "Repeat dynamic connectivity tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:770
+#: web/diag/action_realmcheck.php:795
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:821
+#: web/diag/action_realmcheck.php:861
 msgid "not implemented yet"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:842
+#: web/diag/action_realmcheck.php:868
+msgid "Checking if certificates from  CAs are accepted..."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:882
 msgid "Live login test"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:855
+#: web/diag/action_realmcheck.php:895
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:856
+#: web/diag/action_realmcheck.php:896
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1327,7 +1359,7 @@ msgid ""
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:857
+#: web/diag/action_realmcheck.php:897
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1335,43 +1367,43 @@ msgid ""
 "accounts in the wild are considered harmful!"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:865
+#: web/diag/action_realmcheck.php:905
 msgid "Password-based EAP types"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:866
+#: web/diag/action_realmcheck.php:906
 msgid "Real (inner) username:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:867
+#: web/diag/action_realmcheck.php:907
 msgid "Anonymous outer ID (optional):"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:908
 msgid "Password:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:872
+#: web/diag/action_realmcheck.php:912
 msgid "Certificate-based EAP types"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:913
 msgid "Certificate file (.p12 or .pfx):"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:874
+#: web/diag/action_realmcheck.php:914
 msgid "Certificate password, if any:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:875
+#: web/diag/action_realmcheck.php:915
 msgid "Username, if different from certificate Subject:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:877
+#: web/diag/action_realmcheck.php:917
 msgid "Submit credentials"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:899
+#: web/diag/action_realmcheck.php:939
 #, php-format
 msgid "Return to %s administrator area"
 msgstr ""
@@ -1519,61 +1551,61 @@ msgstr ""
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
 
-#: web/diag/radius_tests.php:173
+#: web/diag/radius_tests.php:185
 msgid "<strong>Test successful.</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:177
+#: web/diag/radius_tests.php:189
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:180
+#: web/diag/radius_tests.php:192
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:185
+#: web/diag/radius_tests.php:197
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
 
-#: web/diag/radius_tests.php:190
+#: web/diag/radius_tests.php:202
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/diag/radius_tests.php:194
+#: web/diag/radius_tests.php:206
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
 
-#: web/diag/radius_tests.php:200 web/diag/radius_tests.php:242
+#: web/diag/radius_tests.php:212 web/diag/radius_tests.php:254
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
 
-#: web/diag/radius_tests.php:205 web/diag/radius_tests.php:246
+#: web/diag/radius_tests.php:217 web/diag/radius_tests.php:258
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
 
-#: web/diag/radius_tests.php:210
+#: web/diag/radius_tests.php:222
 msgid "<strong>Test FAILED</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:231
+#: web/diag/radius_tests.php:243
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
 
-#: web/diag/radius_tests.php:237
+#: web/diag/radius_tests.php:249
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1583,40 +1615,44 @@ msgid ""
 "appears misconfigured or it is unreachable."
 msgstr ""
 
-#: web/diag/radius_tests.php:250
+#: web/diag/radius_tests.php:262
 msgid "unhandled error"
 msgstr ""
 
-#: web/diag/radius_tests.php:274
+#: web/diag/radius_tests.php:282 web/diag/radius_tests.php:353
+msgid "<strong>ERROR</strong>: connectivity problem!"
+msgstr ""
+
+#: web/diag/radius_tests.php:297
 #, php-format
 msgid "elapsed time: %d"
 msgstr ""
 
-#: web/diag/radius_tests.php:276
+#: web/diag/radius_tests.php:299
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
 
-#: web/diag/radius_tests.php:286
+#: web/diag/radius_tests.php:309
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:130
+#: web/diag/show_realmcheck.php:132
 msgid "Tests timestamp: "
 msgstr ""
 
-#: web/diag/show_realmcheck.php:145
+#: web/diag/show_realmcheck.php:147
 msgid "Repeat connectivity tests"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:170
+#: web/diag/show_realmcheck.php:172
 msgid "Token missing, no data can be presented"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:172
+#: web/diag/show_realmcheck.php:174
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""

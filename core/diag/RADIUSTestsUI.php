@@ -317,42 +317,42 @@ class RADIUSTestsUI extends AbstractTest
             $hostindex = $udp->hostindex;
             $result = $udp->result[0];
             $out[] = '<hr>';
-            $out[] = '<strong>'.sprintf(_("Testing from: %s"), \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name']).'</strong>';
+            $out[] = sprintf(_("Testing from: <strong>%s"), \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name']).'</strong>';
+            $out[] = '<ul style="list-style-type: none;"><li>';
             $out[] = "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 <tr>
 <td class='icon_td'><img src='".$this->stateIcons[$result->level]."' id='src".$hostindex."_img'></td>
 <td id='src$hostindex' colspan=2>
 ";
-            $out[] = '<strong>'.($result->server ? $result->server : _("Connected to undetermined server")).'</strong><br/>'.sprintf (_("elapsed time: %sms."), $result->time_millisec).'<p>'.$result->message.'</p>';
+            $out[] = '<strong>'.($result->server ? $result->server : _("Connected to undetermined server")).'</strong><br/>'.sprintf (_("elapsed time: %sms."), $result->time_millisec).'<div>'.$result->message.'</div>';
                     
             if ($result->level > \core\common\Entity::L_OK && property_exists($result, 'cert_oddities')) {
                 foreach ($result->cert_oddities as $oddities) {
                     $out[] = '<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="'.$this->stateIcons[$oddities->level].'"></td><td>'.$oddities->message.'</td></tr>';
                 }
             }
-            $cert_data = '';
-            foreach ($result->server_cert as $sckey => $sc) {
-                if (array_key_exists($sckey, $this->certFields)) {
-                    $cert_data .= '<dt>'.$this->certFields[$sckey].'</dt><dd>'.$sc.'</dd>';
+            $more = '';
+            if ($result->server_cert) {
+                $more .= '<div class="more">';
+                $certdesc = '<br>'.$this->certFields['title'].'<ul>';
+                foreach ($result->server_cert as $sckey => $sc) {
+                    if (array_key_exists($sckey, $this->certFields)) {
+                        $certdesc .= '<li>'.$this->certFields[$sckey].' '.$sc;
+                    }
                 }
-            }
-            $out[] = "<tr class='server_cert' style='display: ";
-            $out[] = ($result->server_cert ? 'table-row_id' : 'none').";'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list' style='display: none;'>";
-            $out[] = $cert_data;
-                        
-            $ext = '';
-            foreach ($result->server_cert->extensions as $extkey => $extval) {
-                if ($ext) {
-                    $ext .= '<br>';
+                if ($result->server_cert->extensions) {
+                    $certdesc .= '<li>' . _('Extensions') . '<ul>';
+                    foreach ($result->server_cert->extensions as $ekey => $eval) {
+                        $certdesc .= '<li>' . $ekey . ': ' . $eval;
+                    }
+                    $certdesc .= '</ul>';
                 }
-                $ext .= '<strong>'.$extkey.': </strong>'.'<i>'.$extval.'</i>';   
-            }
-            if ($ext != '') {
-                $out[] = '<dt>'._('Extensions').'</dt></dd><dd>'.$ext.'</dd>';
-            }
-            $out[] = "</dl><a href='' class='morelink'>"._("show server certificate details")."&raquo;</a></div></tr>";
-                        
-            $out[] = "</td></tr></table>";
+                $certdesc .= '</ul>';
+                $more .= '<span class="morecontent"><span>'.$certdesc.
+                        '</span>&nbsp;&nbsp;<a href="" class="morelink">'._("show server certificate details").'&raquo;</a></span></td></tr>';
+                $out[] = $more . '</ul>';
+            }            
+            $out[] = "</td></tr></table></ul>";
         }
         $out[] = '</fieldset>';
         return join('', $out);            

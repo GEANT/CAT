@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2024-05-15 12:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: devices/Devices-template.php:143
+#: devices/Devices-template.php:149
 msgid "MS Windows 8 and newer"
 msgstr ""
 
-#: devices/Devices-template.php:158
+#: devices/Devices-template.php:166
 msgid "MS Windows 8"
 msgstr ""
 
-#: devices/Devices-template.php:174
+#: devices/Devices-template.php:184
 msgid "MS Windows 7"
 msgstr ""
 
-#: devices/Devices-template.php:187
+#: devices/Devices-template.php:199
 msgid "MS Windows Vista"
 msgstr ""
 
-#: devices/Devices-template.php:201
+#: devices/Devices-template.php:213
 msgid "Apple device"
 msgstr ""
 
-#: devices/Devices-template.php:212 devices/Devices-template.php:228
-#: devices/Devices-template.php:244 devices/Devices-template.php:260
-#: devices/Devices-template.php:275 devices/Devices-template.php:290
-#: devices/Devices-template.php:305 devices/Devices-template.php:320
-#: devices/Devices-template.php:335 devices/Devices-template.php:350
+#: devices/Devices-template.php:224 devices/Devices-template.php:240
+#: devices/Devices-template.php:256 devices/Devices-template.php:272
+#: devices/Devices-template.php:287 devices/Devices-template.php:302
+#: devices/Devices-template.php:317 devices/Devices-template.php:332
+#: devices/Devices-template.php:347 devices/Devices-template.php:362
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -50,47 +50,47 @@ msgid ""
 "the profile, this time it is your computer password."
 msgstr ""
 
-#: devices/Devices-template.php:217
+#: devices/Devices-template.php:229
 msgid "Apple macOS Catalina"
 msgstr ""
 
-#: devices/Devices-template.php:233
+#: devices/Devices-template.php:245
 msgid "Apple macOS Mojave"
 msgstr ""
 
-#: devices/Devices-template.php:249
+#: devices/Devices-template.php:261
 msgid "Apple macOS High Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:265
+#: devices/Devices-template.php:277
 msgid "Apple macOS Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:280
+#: devices/Devices-template.php:292
 msgid "Apple OS X El Capitan"
 msgstr ""
 
-#: devices/Devices-template.php:295
+#: devices/Devices-template.php:307
 msgid "Apple OS X Yosemite"
 msgstr ""
 
-#: devices/Devices-template.php:310
+#: devices/Devices-template.php:322
 msgid "Apple OS X Mavericks"
 msgstr ""
 
-#: devices/Devices-template.php:325
+#: devices/Devices-template.php:337
 msgid "Apple OS X Mountain Lion"
 msgstr ""
 
-#: devices/Devices-template.php:340
+#: devices/Devices-template.php:352
 msgid "Apple OS X Lion"
 msgstr ""
 
-#: devices/Devices-template.php:355
+#: devices/Devices-template.php:367
 msgid "Apple iOS mobile device (iOS 7-11)"
 msgstr ""
 
-#: devices/Devices-template.php:365
+#: devices/Devices-template.php:377
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -98,19 +98,19 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: devices/Devices-template.php:370
+#: devices/Devices-template.php:382
 msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr ""
 
-#: devices/Devices-template.php:384
+#: devices/Devices-template.php:396
 msgid "Linux"
 msgstr ""
 
-#: devices/Devices-template.php:405
+#: devices/Devices-template.php:417
 msgid "Chrome OS"
 msgstr ""
 
-#: devices/Devices-template.php:411
+#: devices/Devices-template.php:423
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -119,16 +119,16 @@ msgid ""
 "added to the preferred networks."
 msgstr ""
 
-#: devices/Devices-template.php:416
+#: devices/Devices-template.php:428
 msgid "Android 8 and higher"
 msgstr ""
 
-#: devices/Devices-template.php:424 devices/Devices-template.php:452
-#: devices/Devices-template.php:467 devices/Devices-template.php:494
-#: devices/Devices-template.php:508 devices/Devices-template.php:522
-#: devices/Devices-template.php:536 devices/Devices-template.php:550
-#: devices/Devices-template.php:564 devices/Devices-template.php:578
-#: devices/Devices-template.php:592
+#: devices/Devices-template.php:438 devices/Devices-template.php:466
+#: devices/Devices-template.php:483 devices/Devices-template.php:510
+#: devices/Devices-template.php:524 devices/Devices-template.php:538
+#: devices/Devices-template.php:552 devices/Devices-template.php:566
+#: devices/Devices-template.php:580 devices/Devices-template.php:594
+#: devices/Devices-template.php:608
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -137,16 +137,16 @@ msgid ""
 "to create all necessary settings."
 msgstr ""
 
-#: devices/Devices-template.php:426 devices/Devices-template.php:454
-#: devices/Devices-template.php:469 devices/Devices-template.php:496
-#: devices/Devices-template.php:510 devices/Devices-template.php:524
-#: devices/Devices-template.php:538 devices/Devices-template.php:552
-#: devices/Devices-template.php:566 devices/Devices-template.php:580
-#: devices/Devices-template.php:594
+#: devices/Devices-template.php:440 devices/Devices-template.php:468
+#: devices/Devices-template.php:485 devices/Devices-template.php:512
+#: devices/Devices-template.php:526 devices/Devices-template.php:540
+#: devices/Devices-template.php:554 devices/Devices-template.php:568
+#: devices/Devices-template.php:582 devices/Devices-template.php:596
+#: devices/Devices-template.php:610
 msgid "as local download"
 msgstr ""
 
-#: devices/Devices-template.php:428 devices/Devices-template.php:470
+#: devices/Devices-template.php:442 devices/Devices-template.php:486
 #, php-format
 msgid ""
 "Use our app, it will guide you through the setup process:%s(or download it "
@@ -157,84 +157,84 @@ msgid ""
 "span>"
 msgstr ""
 
-#: devices/Devices-template.php:438 devices/Devices-template.php:480
+#: devices/Devices-template.php:452 devices/Devices-template.php:496
 msgid "here"
 msgstr ""
 
-#: devices/Devices-template.php:439 devices/Devices-template.php:481
+#: devices/Devices-template.php:453 devices/Devices-template.php:497
 msgid "clicking here"
 msgstr ""
 
-#: devices/Devices-template.php:445
+#: devices/Devices-template.php:459
 msgid "Android 8 to 10"
 msgstr ""
 
-#: devices/Devices-template.php:460
+#: devices/Devices-template.php:474
 msgid "Android 4.3 to 7"
 msgstr ""
 
-#: devices/Devices-template.php:487
+#: devices/Devices-template.php:503
 msgid "Android 10.0 Q"
 msgstr ""
 
-#: devices/Devices-template.php:501
+#: devices/Devices-template.php:517
 msgid "Android 9.0 Pie"
 msgstr ""
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:531
 msgid "Android 8.0 Oreo"
 msgstr ""
 
-#: devices/Devices-template.php:529
+#: devices/Devices-template.php:545
 msgid "Android 7.0 Nougat"
 msgstr ""
 
-#: devices/Devices-template.php:543
+#: devices/Devices-template.php:559
 msgid "Android 6.0 Marshmallow"
 msgstr ""
 
-#: devices/Devices-template.php:557
+#: devices/Devices-template.php:573
 msgid "Android 5.0 Lollipop"
 msgstr ""
 
-#: devices/Devices-template.php:571
+#: devices/Devices-template.php:587
 msgid "Android 4.4 KitKat"
 msgstr ""
 
-#: devices/Devices-template.php:585
+#: devices/Devices-template.php:601
 msgid "Android 4.3"
 msgstr ""
 
-#: devices/Devices-template.php:600 devices/Devices-template.php:623
+#: devices/Devices-template.php:616 devices/Devices-template.php:639
 msgid "EAP config"
 msgstr ""
 
-#: devices/Devices-template.php:606
+#: devices/Devices-template.php:622
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
 "eduroamCAT app for Android."
 msgstr ""
 
-#: devices/Devices-template.php:611
+#: devices/Devices-template.php:627
 msgid "EAP generic"
 msgstr ""
 
-#: devices/Devices-template.php:616
+#: devices/Devices-template.php:632
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
 "the GetEduroam applications."
 msgstr ""
 
-#: devices/Devices-template.php:628
+#: devices/Devices-template.php:644
 #, php-format
 msgid ""
 "This option provides an EAP config XML file with multiple "
 "EAPIdentityProvider elements and all language versions"
 msgstr ""
 
-#: devices/Devices-template.php:634
+#: devices/Devices-template.php:650
 msgid "Test"
 msgstr ""
 
@@ -554,7 +554,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1190
 msgid "All files"
 msgstr ""
 
@@ -570,8 +570,8 @@ msgid "Write the file"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:148 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1332 devices/ms/Files/common.inc:1352
-#: devices/ms/Files/common.inc:1403
+#: devices/ms/Files/common.inc:1336 devices/ms/Files/common.inc:1356
+#: devices/ms/Files/common.inc:1407
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Network installation had errors."
 msgstr ""
 
-#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1002
+#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1006
 msgid "Please contact ${SUPPORT}."
 msgstr ""
 
@@ -817,61 +817,61 @@ msgid ""
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:654
+#: devices/ms/Files/common.inc:658
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
 msgstr ""
 
-#: devices/ms/Files/common.inc:659
+#: devices/ms/Files/common.inc:663
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 
-#: devices/ms/Files/common.inc:665
+#: devices/ms/Files/common.inc:669
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:681
+#: devices/ms/Files/common.inc:685
 msgid "Do you want to enable access on wired interfaces?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:722
+#: devices/ms/Files/common.inc:726
 msgid "Profiles installation"
 msgstr ""
 
-#: devices/ms/Files/common.inc:741
+#: devices/ms/Files/common.inc:745
 msgid "Checking for profile $R8"
 msgstr ""
 
-#: devices/ms/Files/common.inc:749
+#: devices/ms/Files/common.inc:753
 msgid "found profile $R8"
 msgstr ""
 
-#: devices/ms/Files/common.inc:778
+#: devices/ms/Files/common.inc:782
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
 msgstr ""
 
-#: devices/ms/Files/common.inc:778 devices/ms/Files/common.inc:781
+#: devices/ms/Files/common.inc:782 devices/ms/Files/common.inc:785
 msgid "Click OK to continue with installation."
 msgstr ""
 
-#: devices/ms/Files/common.inc:781
+#: devices/ms/Files/common.inc:785
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
 msgstr ""
 
-#: devices/ms/Files/common.inc:789
+#: devices/ms/Files/common.inc:793
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
 
-#: devices/ms/Files/common.inc:844
+#: devices/ms/Files/common.inc:848
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -885,147 +885,147 @@ msgid ""
 "username and password."
 msgstr ""
 
-#: devices/ms/Files/common.inc:854
+#: devices/ms/Files/common.inc:858
 msgid "Please restart your system after installation finishes."
 msgstr ""
 
-#: devices/ms/Files/common.inc:878
+#: devices/ms/Files/common.inc:882
 msgid "installing wired profile"
 msgstr ""
 
-#: devices/ms/Files/common.inc:919 devices/ms/Files/common.inc:944
+#: devices/ms/Files/common.inc:923 devices/ms/Files/common.inc:948
 msgid "deleting profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:953
+#: devices/ms/Files/common.inc:957
 msgid "installing profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1002
+#: devices/ms/Files/common.inc:1006
 msgid "Profile installation error for $R1."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1021
+#: devices/ms/Files/common.inc:1025
 msgid "deleting profile $R6"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1051
+#: devices/ms/Files/common.inc:1055
 msgid "installing credentials for wired"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1058
+#: devices/ms/Files/common.inc:1062
 msgid "installing credentials TLS"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1148
+#: devices/ms/Files/common.inc:1152
 msgid "installing credentials for profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1168 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1172 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1181
 #, php-format
 msgid "%s installer for"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1181
 msgid "Install personal certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1180
+#: devices/ms/Files/common.inc:1184
 msgid "Preparing to install personal certificate."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1180
+#: devices/ms/Files/common.inc:1184
 msgid "Click OK to continue"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1190
 msgid "Certificate files (*.p12)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1190
 msgid "Certificate files (*pfx)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1189
+#: devices/ms/Files/common.inc:1193
 msgid "certificate password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1191 devices/ms/Files/common.inc:1454
+#: devices/ms/Files/common.inc:1195 devices/ms/Files/common.inc:1458
 msgid "Username:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1195
+#: devices/ms/Files/common.inc:1199
 msgid "Selected file: $Cert_file"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1197
+#: devices/ms/Files/common.inc:1201
 msgid "import password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1232
+#: devices/ms/Files/common.inc:1236
 msgid "No certificate file selected"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1236
+#: devices/ms/Files/common.inc:1240
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1238
+#: devices/ms/Files/common.inc:1242
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1312
+#: devices/ms/Files/common.inc:1316
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1347
+#: devices/ms/Files/common.inc:1351
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1349
+#: devices/ms/Files/common.inc:1353
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1450
+#: devices/ms/Files/common.inc:1454
 msgid "User credentials"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1457
+#: devices/ms/Files/common.inc:1461
 msgid "Password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1460
+#: devices/ms/Files/common.inc:1464
 msgid "Repeat password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1475
+#: devices/ms/Files/common.inc:1479
 msgid "Missing username"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1487
+#: devices/ms/Files/common.inc:1491
 msgid "Missing password"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1493
+#: devices/ms/Files/common.inc:1497
 msgid "Password mismatch"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1586 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1590 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1586
+#: devices/ms/Files/common.inc:1590
 msgid "Checking for existing wireless profiles"
 msgstr ""
 

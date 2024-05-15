@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2024-05-15 12:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,46 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: core/AbstractProfile.php:263
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+
+#: core/AbstractProfile.php:297
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr ""
+
+#: core/AbstractProfile.php:315
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:342
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:348
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+
+#: core/AbstractProfile.php:358
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+
+#: core/AbstractProfile.php:365
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr ""
 
 #: core/CAT.php:143
 msgid "Andorra"
@@ -328,13 +368,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:92
+#: core/Federation.php:106
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:274 core/common/OutsideComm.php:281
+#: core/Federation.php:298 core/common/OutsideComm.php:281
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -346,7 +386,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:291
+#: core/Federation.php:315
 #, php-format
 msgid ""
 "Hi,\n"
@@ -361,27 +401,26 @@ msgid ""
 "%s"
 msgstr ""
 
-#. / organisation
-#: core/Federation.php:308
+#: core/Federation.php:333
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:397
+#: core/IdP.php:403
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the %s %s in your %s federation %s has been deleted from %s.\n"
+"    the %s %s in your %s federation %s has been deleted from %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
 
-#: core/IdP.php:406
+#: core/IdP.php:412
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -435,7 +474,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:166
+#: core/User.php:189
 msgid "Feedback"
 msgstr ""
 
@@ -470,54 +509,54 @@ msgstr ""
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:120
+#: core/common/Entity.php:123
 msgid "National Roaming Operator"
 msgstr ""
 
-#: core/common/Entity.php:121
+#: core/common/Entity.php:124
 msgid "identity provider"
 msgstr ""
 
-#: core/common/Entity.php:122
+#: core/common/Entity.php:125
 msgid "organisation"
 msgstr ""
 
-#: core/common/Entity.php:123
+#: core/common/Entity.php:126
 msgid "Identity Provider"
 msgstr ""
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:127
 msgid "Wi-Fi Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:128
 msgid "Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:129
 msgid "Service Provider"
 msgstr ""
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:130
 msgid "participant"
 msgstr ""
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:131
 msgid "Organisation"
 msgstr ""
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:132
 msgid "organization"
 msgstr ""
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:133
 msgid "entity"
 msgstr ""
 
 #: core/common/OutsideComm.php:291
 #, php-format
 msgid ""
-"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
 msgstr ""
 
 #: core/common/OutsideComm.php:292
@@ -610,26 +649,26 @@ msgstr ""
 msgid "Input validation error: "
 msgstr ""
 
-#: web/lib/common/InputValidation.php:270
+#: web/lib/common/InputValidation.php:342
 msgid "Realm is empty!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:279
+#: web/lib/common/InputValidation.php:351
 msgid "Realm contains an @ sign!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:280
+#: web/lib/common/InputValidation.php:352
 msgid "Realm begins with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:281
+#: web/lib/common/InputValidation.php:353
 msgid "Realm ends with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:282
+#: web/lib/common/InputValidation.php:354
 msgid "Realm contains spaces!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:295
+#: web/lib/common/InputValidation.php:367
 msgid "Realm does not contain at least one . (dot)!"
 msgstr ""
