@@ -69,8 +69,10 @@ var lesstext = "<?php echo "&laquo" ?>";
                 $('.moreall').removeClass('less');
                 $('.moreall').html(morealltext);
             } else {
+                console.log('MMMM');
                 $(this).attr('moretext', $(this).html());
                 $(this).addClass('less');
+                console.log($(this).html());
                 $(this).html(lesstext);
             }
             $(this).parent().prev().toggle();
@@ -160,7 +162,7 @@ if ($check_realm !== FALSE) {
                 ?>
                 <div id="tabs-3">
                     <!--<button id="run_d_tests" onclick="run_dynamic()"><?php echo _("Repeat dynamic connectivity tests") ?></button>-->
-                    <?php print $realmTests->printDynamic(); ?>
+                    <?php print $realmTests->printDynamic();?>
                     
                 </div>
             <?php

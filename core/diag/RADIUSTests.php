@@ -493,7 +493,7 @@ class RADIUSTests extends AbstractTest {
             switch ($desiredCheck) {
                 case self::LINEPARSE_TLSVERSION:
                     $version = [];
-                    if (preg_match("/Using TLS version (.*)$/", $inputarray[$counter], $version)) {
+                    if (isset($inputarray[$counter]) && preg_match("/Using TLS version (.*)$/", $inputarray[$counter], $version)) {
                         switch (trim($version[1])) {
                             case self::TLS_VERSION_1_3:
                                 return self::TLS_VERSION_1_3;
@@ -739,7 +739,6 @@ network={
     private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
         $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
-
 // ... and run the verification test
         $verifyResultEaponly = [];
         $verifyResultAllcerts = [];
@@ -772,6 +771,7 @@ network={
         if (count($verifyResultAllcerts) == 0 || count($verifyResultEaponly) == 0) {
             throw new Exception("No output at all from openssl?");
         }
+        $testresults['cert_oddities'] = array();
         if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
             if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
@@ -1356,8 +1356,10 @@ network={
             $o = [];
             $o['code'] = $oddity;
             $o['message'] = isset($this->returnCodes[$oddity]["message"]) && $this->returnCodes[$oddity]["message"] ? $this->returnCodes[$oddity]["message"] : $oddity;
-            $o['level'] = $this->returnCodes[$oddity]["severity"];
-            $ret['level'] = max($ret['level'], $this->returnCodes[$oddity]["severity"]);
+            if (isset($this->returnCodes[$oddity]['severity'])) {
+                $o['level'] = $this->returnCodes[$oddity]["severity"];
+                $ret['level'] = max($ret['level'], $this->returnCodes[$oddity]["severity"]);
+            }
             $ret['cert_oddities'][] = $o;
         }
         \core\common\Entity::outOfThePotatoes();

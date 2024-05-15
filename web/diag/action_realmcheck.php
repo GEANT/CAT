@@ -265,9 +265,16 @@ $end = $langInstance->rtl ? "left" : "right";
                             state = notaccepted + ': ' + data.ca[key].certificate[c].resultcomment;
                         }
                     }
-                    cliinfo = cliinfo + '<li><table><tbody><tr><td class="icon_td"><img class="icon" src="' + icons[level] + '" style="width: 24px;"></td><td>' + state;
-                    cliinfo = cliinfo + ' <?php echo "(" . sprintf(_("elapsed time: %sms."), "'+data.ca[key].certificate[c].time_millisec+'&nbsp;") . ")"; ?>' + add + '</td></tr>';
-                    cliinfo = cliinfo + '</tbody></table></ul></li>';
+                    
+                    cliinfo = cliinfo + '<li>';
+                    if (data.ca[key].certificate[c].finalerror && data.ca[key].certificate[c].finalerror==2) {
+                        cliinfo = cliinfo + ' <?php echo _("this test was skipped - no appropriate client certificate");?>' + '</ul></li>';
+                    } else {
+                        cliinfo = cliinfo + '<table><tbody><tr><td class="icon_td"><img class="icon" src="' + icons[level] + '" style="width: 24px;"></td><td>' + state;
+                        cliinfo = cliinfo + ' <?php echo "(" . sprintf(_("elapsed time: %sms."), "'+data.ca[key].certificate[c].time_millisec+'&nbsp;") . ")"; ?>' + add + '</td></tr>';
+                        cliinfo = cliinfo + '</tbody></table></ul></li>';
+                    }
+                   
                     if (data.ca[key].certificate[c].finalerror === 1) {
                         cliinfo = cliinfo + '<li>' + restskipped + '</li>';
                     }
@@ -378,7 +385,6 @@ $end = $langInstance->rtl ? "left" : "right";
     }
 
     function udp(data, status) {
-        console.log("udp - ajax - start");
         show_debug(JSON.stringify(data));
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
@@ -413,12 +419,10 @@ $end = $langInstance->rtl ? "left" : "right";
         global_level_udp = Math.max(global_level_udp, v.level);
         $(".server_cert").show();
         running_ajax_stat--;
-        console.log(running_ajax_stat);
         ajax_end();
     }
     
     function ajax_end() {
-        console.log("ajax_end");
         if (running_ajax_stat === 0) {
             $("#main_static_ico").attr('src', icons[global_level_udp]);
             $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
