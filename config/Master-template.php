@@ -278,7 +278,7 @@ class Master
                 'readonly' => TRUE,],
             /*
              * EXTERNAL_SOURCE is the source only used in the caching script, if you
-             * do not use local caching then thse settins are irrelevant
+             * do not use local caching then these settings are irrelevant
              */
             'EXTERNAL_SOURCE' => [
                 'host' => 'customerdb.otherhost.example',
@@ -286,10 +286,6 @@ class Master
                 'user' => 'customerservice',
                 'pass' => '2lame4u',
                 'readonly' => TRUE,],
-            
-            
-            
-            
             
             'enforce-external-sync' => TRUE,
         ];
