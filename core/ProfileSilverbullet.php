@@ -246,14 +246,16 @@ class ProfileSilverbullet extends AbstractProfile {
             return $returnedData->expiry;
         }
     }
-
+    
     /**
      * retrieves the authentication records from the RADIUS servers 
      * 
      * @param int $userId the numerical user ID of the user in question
+     * @param boolean $testActivity set true if we are only interested in checking
+     *        user existance in auth database
      * @return array
      */
-    public function getUserAuthRecords($userId) {
+    public function getUserAuthRecords($userId, $testActivity = false) {
         // find out all certificate CNs belonging to the user, including expired and revoked ones
         $userData = $this->userStatus($userId);
         $certNames = [];
@@ -269,16 +271,23 @@ class ProfileSilverbullet extends AbstractProfile {
         $serverHandles = DBConnection::handle("RADIUS");
         $returnarray = [];
         foreach ($serverHandles as $oneDbServer) {
-            $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid, operatorname FROM eduroamauth WHERE username = $namesCondensed ORDER BY authdate DESC");
+            if ($testActivity === true) {
+                $query = $oneDbServer->exec("SELECT username FROM eduroamauth WHERE username = $namesCondensed");
+                $row_cnt = $query->num_rows;
+                if ($row_cnt !== 0) {
+                    return [1];
+                }
+            } else {
+                $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid, operatorname FROM eduroamauth WHERE username = $namesCondensed ORDER BY authdate DESC");
             // SELECT -> resource, not boolean
-            while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
-                $returnarray[] = ["CN" => $returnedData->username, "TIMESTAMP" => $returnedData->authdate, "RESULT" => $returnedData->reply, "MAC" => $returnedData->callingid, "OPERATOR" => $returnedData->operatorname];
+                while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
+                    $returnarray[] = ["CN" => $returnedData->username, "TIMESTAMP" => $returnedData->authdate, "RESULT" => $returnedData->reply, "MAC" => $returnedData->callingid, "OPERATOR" => $returnedData->operatorname];
+                }
             }
         }
         usort($returnarray, function($one, $another) {
             return $one['TIMESTAMP'] < $another['TIMESTAMP'];
         });
-
         return $returnarray;
     }
 
@@ -343,14 +352,16 @@ class ProfileSilverbullet extends AbstractProfile {
     public function listActiveUsers() {
         // users are active if they have a non-expired invitation OR a non-expired, non-revoked certificate
         $userCount = [];
-        $users = $this->databaseHandle->exec("SELECT DISTINCT u.id AS usercount FROM silverbullet_user u, silverbullet_invitation i, silverbullet_certificate c "
+        $users = $this->databaseHandle->exec("SELECT DISTINCT u.id AS usercount FROM "
+                . "silverbullet_user u JOIN silverbullet_invitation i ON u.id = i.silverbullet_user_id "
+                . "JOIN silverbullet_certificate c ON u.id = c.silverbullet_user_id "
                 . "WHERE u.profile_id = ? "
                 . "AND ( "
                 . "( u.id = i.silverbullet_user_id AND i.expiry >= NOW() )"
                 . "     OR"
                 . "  ( u.id = c.silverbullet_user_id AND c.expiry >= NOW() AND c.revocation_status != 'REVOKED' ) "
                 . ")", "i", $this->identifier);
-        // SELECT -> resource, not boolean
+      // SELECT -> resource, not boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
             $userCount[$res->usercount] = "ACTIVE";
         }

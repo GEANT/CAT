@@ -179,7 +179,7 @@ class DBConnection
         }
 
 
-        if ($isMoreThanSelect) {
+        if ($isMoreThanSelect || \config\Master::DEBUG_LEVEL == 5) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
             if ($types !== NULL) {
                 $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . /** @scrutinizer ignore-type */ print_r($arguments, true));

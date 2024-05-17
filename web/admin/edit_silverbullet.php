@@ -597,7 +597,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                         <input type='text' name='invitationsquantity' value='5' maxlength='3' style='width: 30px;'/>
                     </label>
                     </form>";
-                } elseif (count($profile->getUserAuthRecords($oneUserId)) == 0) { // previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
+                } elseif (count($profile->getUserAuthRecords($oneUserId, true)) == 0) { // previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
                     ${$outputBuffer} .= $formtext . "
                     <input type='hidden' name='userid' value='$oneUserId'/>
                     <button type='submit' class='delete' name='command' value='" . \web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete User") . "</button>
