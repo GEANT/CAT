@@ -38,7 +38,8 @@ $validator = new \web\lib\common\InputValidation();
 $Gui = new \web\lib\user\Gui();
 
 if (isset($_REQUEST['token'])) {
-    $recoverToken = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+    $recoverTokenUnfiltered = filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token') ?? "INVALID";
+    $recoverToken = htmlspecialchars(strip_tags($recoverTokenUnfiltered));
     $cleanToken = $validator->token($recoverToken);
     if ($cleanToken) {
         // check status of this silverbullet token according to info in DB:
@@ -83,7 +84,8 @@ if ($profile !== NULL) {
 }
 
 $action = filter_input(INPUT_GET, 'action', FILTER_VALIDATE_INT);
-$caAndSerial = filter_input(INPUT_GET, 'serial', FILTER_SANITIZE_STRING);
+$caAndSerialUnfiltered = filter_input(INPUT_GET, 'serial');
+$caAndSerial = htmlspecialchars(strip_tags($caAndSerialUnfiltered));
 
 if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $caAndSerial !== NULL && $caAndSerial !== FALSE) {
     $tuple = explode(':',$caAndSerial);

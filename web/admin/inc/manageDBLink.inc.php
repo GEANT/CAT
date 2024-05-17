@@ -66,12 +66,12 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: ../overview_federation.php");
                 exit;
             }
-            // okay, he did submit an inst. It's either a (string) handle from a promising 
+            // okay, they did sumbit an inst. It's either a (string) handle from a promising 
             // candidate, or "other" as selected from the drop-down list
             if ($_POST['inst_link'] != "other") {
-                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link', FILTER_SANITIZE_STRING)));
+                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link'))); // validator will do additional checks
             } elseif (isset($_POST['inst_link_other'])) {
-                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other', FILTER_SANITIZE_STRING)));
+                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other'))); // validator will do additional checks
             }
             break;
         case web\lib\common\FormElements::BUTTON_DELETE:
