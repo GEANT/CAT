@@ -42,8 +42,7 @@ if (isset($_SESSION['user'])) {
 }
 $inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT);
 $profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_VALIDATE_INT);
-$realmUnfiltered = ilter_input(INPUT_GET, 'realm') ?? filter_input(INPUT_POST, 'realm');
-$realm = htmlspecialchars(strip_tags($realmUnfiltered));
+$realm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm') ?? filter_input(INPUT_POST, 'realm')));
 if ($inst_id && $profile_id) {
     $my_inst = $validator->existingIdP($inst_id, $user);
     $my_profile = $validator->existingProfile($profile_id, $my_inst->identifier);
