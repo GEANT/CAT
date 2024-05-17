@@ -120,8 +120,8 @@ class Authentication extends \core\common\Entity {
     public function deauthenticate() {
 
         $as = new \SimpleSAML\Auth\Simple(\config\Master::AUTHENTICATION['ssp-authsource']);
-        $servername = filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING);
-        $scriptself = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING);
+        $servername = htmlspecialchars(strip_tags(filter_input(INPUT_SERVER, 'SERVER_NAME')));
+        $scriptself = htmlspecialchars(strip_tags(filter_input(INPUT_SERVER, 'PHP_SELF')));
         $url = "https://www.eduroam.org"; // fallback if something goes wrong during URL construction below
         $trailerPosition = strrpos($scriptself, "/inc/logout.php");
         if ($trailerPosition !== FALSE) {

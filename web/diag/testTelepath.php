@@ -21,8 +21,8 @@
 
 require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
-$therealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
-$thevisited = filter_input(INPUT_GET, 'visited', FILTER_SANITIZE_STRING);
+$therealm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
+$thevisited = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'visited')));
 $languageObject = new core\common\Language();
 $languageObject->setTextDomain("diagnostics");
 

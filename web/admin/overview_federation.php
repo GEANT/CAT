@@ -205,7 +205,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     if (isset($_POST['submitbutton']) &&
             $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
-        $mgmt->invalidateToken(filter_input(INPUT_POST, 'invitation_id', FILTER_SANITIZE_STRING));
+        $mgmt->invalidateToken(htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'invitation_id'))));
     }
 
     if (isset($_GET['invitation'])) {

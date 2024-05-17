@@ -28,20 +28,19 @@ $uiElements = new \web\lib\admin\UIElements();
 $validator = new web\lib\common\InputValidation();
 $deco = new \web\lib\admin\PageDecoration();
 $loggerInstance = new core\common\Logging();
-
-$inst = $validator->existingIdP(filter_input(INPUT_GET, 'inst_id'));
+[$inst, $editMode] = $validator->existingIdPInt(filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT), $_SESSION['user']);
 
 // this page may have been called for the first time, when the profile does not
 // actually exist in the DB yet. If so, we will need to create it first.
 if (!isset($_REQUEST['profile_id'])) {
-    // someone might want to trick himself into this page by sending an inst_id but
+    // someone might want to trick themselves into this page by sending an inst_id but
     // not having permission for silverbullet. Sanity check that the fed in question
     // does allow SB and that the IdP doesn't have any non-SB profiles
     if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
+    [$inst, $editMode] = $validator->existingIdPInt(filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT), $_SESSION['user']);
 
-    $inst = $validator->existingIdP(filter_input(INPUT_GET, 'inst_id'));
     if ($inst->profileCount() > 0) {
         foreach ($inst->listProfiles() as $oneProfile) {
             $profileEapMethod = $oneProfile->getEapMethodsInOrderOfPreference()[0];
@@ -68,7 +67,7 @@ if (!isset($_REQUEST['profile_id'])) {
     $_GET['profile_id'] = $newProfile->identifier;
     $profile = $newProfile;
 } else {
-    $profile = $validator->existingProfile(filter_input(INPUT_GET, "profile_id"));
+    $profile = $validator->existingProfile(filter_input(INPUT_GET, "profile_id", FILTER_VALIDATE_INT));
 }
 // at this point, we should really have a SB profile in our hands, not a RADIUS one
 if (!($profile instanceof \core\ProfileSilverbullet)) {
@@ -83,7 +82,7 @@ $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?i
 
 $invitationObject = NULL;
 if (isset($_POST['token'])) {
-    $invitationObject = new core\SilverbulletInvitation($validator->token(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)));
+    $invitationObject = new core\SilverbulletInvitation($validator->token(htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'token')))));
 }
 
 if (isset($_POST['command'])) {
@@ -170,7 +169,7 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial']) && isset($_POST['certAlgo'])) {
-                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
+                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial')); 
                 if ($certSerial === FALSE) {
                     continue;
                 }

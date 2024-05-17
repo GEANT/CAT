@@ -106,12 +106,12 @@ var lesstext = "<?php echo "&laquo" ?>";
 require dirname(__DIR__).'/skins/modern/diag/js/diag_js.php';
 echo $deco->productheader("ADMIN");
 $norefresh = NULL;
-$norefresh = filter_input(INPUT_GET, 'norefresh', FILTER_SANITIZE_STRING); 
+$norefresh = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'norefresh'))); 
 if ($norefresh) {
     $norefresh = true;
 }
 $check_realm = false;
-$token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
+$token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token')));
 if ($token) {
     $realmTests = new \core\diag\RADIUSTestsUI($token);
     if ($realmTests->realm) {

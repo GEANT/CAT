@@ -39,8 +39,8 @@ $idp_problem = array(
     'technical' => _("User claims connectivity problems but has been authenticated successfully"),
     'abuse-copyright' => _("User claims that mandatory open port is not open")
 );
-$queryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
-$realmFromURL = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$queryType = filter_input(INPUT_GET, 'type'); // no need to filter - exact values are tested later
+$realmFromURL = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
 if (!$realmFromURL) {
     $realmFromURL = '';
 }
@@ -205,7 +205,7 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                 case 'cdetails':
                 case 'token':
                     // all of the above have to be printable strings, so sanitise them all in one go
-                    $returnArray[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+                    $returnArray[$key] = htmlspecialchars(strip_tags($value));
                     break;
                 case 'tests_result':     
                     $returnArray[$key] = filter_var($value, FILTER_VALIDATE_INT);

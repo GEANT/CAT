@@ -63,7 +63,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // the GET URL *is* the request.
         // don't just cut off at last slash; base64 data may have embedded slashes
         // so remove the leading slash first:
-        $rawStream = filter_input(INPUT_SERVER, $_SERVER['PHP_SELF'], FILTER_SANITIZE_STRING);
+        $rawStream = htmlspecialchars(strip_tags(filter_input(INPUT_SERVER, $_SERVER['PHP_SELF'])));
         // and now find and cut at every slash until SLASHES_IN_URL is reached
         for ($iterator = 0; $iterator < SLASHES_IN_URL_INCL_LEADING; $iterator++) {
             $nextSlash = strpos($rawStream, '/');

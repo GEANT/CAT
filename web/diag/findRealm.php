@@ -43,14 +43,13 @@ $returnArray = [];
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
-$givenRealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
-$outerUser = filter_input(INPUT_GET, 'outeruser', FILTER_SANITIZE_STRING);
-$realmQueryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
-$realmCountry = filter_input(INPUT_GET, 'co', FILTER_SANITIZE_STRING);
-$realmOu = filter_input(INPUT_GET, 'ou', FILTER_SANITIZE_STRING);
-$forTests = filter_input(INPUT_GET, 'addtest', FILTER_SANITIZE_STRING);
-$token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
-$protocols = [];
+$givenRealm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
+$outerUser = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'outeruser')));
+$realmQueryType = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'type')));
+$realmCountry = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'co')));
+$realmOu = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'ou')));
+$forTests = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'addtest')));
+$token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
 if ($token && !is_dir($jsonDir.'/'.$token)) {
     mkdir($jsonDir.'/'.$token, 0777, true);
 }
@@ -122,30 +121,17 @@ if (!is_null($givenRealm)) {
             $srv = 0;
             $hosts = 0;
         } 
-        $toTest = array(); 
+        $toTest = array();
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-            $ssltest = 1;
-            if (isset($addr['unavailable']) && $addr['unavailable']) {
-                $ssltest = 0;
-            }
             $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
             $expectedName = $addr['hostname'];
-            $protocols = [];
-            if (isset($addr['protocols'])) {
-                foreach($addr['protocols'] as $protocol) {
-                    if ($protocol['enabled']) {
-                        $protocols[] = $protocol['type'];
-                    }
-                } 
-            }
             $toTest[$hostindex] = array(
                                         'host' => $host,
                                         'name' => $expectedName,
-                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port'],
-                                        'ssltest' => $ssltest,
-                                        'protocols' => implode(';', $protocols)
+                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port']
             );
         }
+ 
         $details['totest'] = $toTest;
         $details['rfc7585suite'] = base64_encode(serialize($rfc7585suite));
         $details['testsuite'] = base64_encode(serialize($testsuite));
@@ -208,12 +194,11 @@ if (!is_null($givenRealm)) {
 
 $returnArray['outeruser'] = $outerUser;
 $returnArray['datetime'] = date("Y-m-d H:i:s");
-$loggerInstance->debug(4, "findRealm finish");
 $loggerInstance->debug(4, $returnArray);
 $json_data = json_encode($returnArray);
 
 if ($token) {
-    $loggerInstance->debug(4, 'JSON data written to ' .$jsonDir.'/'.$token);
+    $loggerInstance->debug(4, $jsonDir.'/'.$token);
     file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);
 }
 echo($json_data);

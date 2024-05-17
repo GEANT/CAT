@@ -20,9 +20,9 @@
  */
 
 require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-$realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
-$visited = filter_input(INPUT_GET,'visited', FILTER_SANITIZE_STRING);
-$nro = filter_input(INPUT_GET,'nro', FILTER_SANITIZE_STRING);
+$realm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
+$visited = htmlspecialchars(strip_tags(filter_input(INPUT_GET,'visited')));
+$nro = htmlspecialchars(strip_tags(filter_input(INPUT_GET,'nro')));
 \core\CAT::sessionStart();
 $languageObject = new core\common\Language();
 $languageObject->setTextDomain("diagonstics");

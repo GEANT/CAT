@@ -22,7 +22,7 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $sp = filter_input(INPUT_GET, 'sp', FILTER_VALIDATE_INT);
-$givenRealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$givenRealm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
 $auth = new \web\lib\admin\Authentication();
 $isauth = 0;
 if ($auth->isAuthenticated()) {

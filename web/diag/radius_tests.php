@@ -89,7 +89,7 @@ if (!is_numeric($hostindex)) {
 
 $token = '';
 if (isset($_REQUEST['token'])) {
-    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+    $token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
 }
 
 $ssltest = -1;
@@ -104,7 +104,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
-    $filteredHost = filter_input(INPUT_GET, 'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'src', FILTER_SANITIZE_STRING);
+    $filteredHost = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'src') ?? filter_input(INPUT_POST, 'src')));
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
@@ -115,9 +115,9 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     //}
     // host IP address testing passed. So let's take our port number back
     $host = $filteredHost;
-    $expectedName = filter_input(INPUT_GET, 'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'expectedname', FILTER_SANITIZE_STRING);
+    $expectedName = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'expectedname') ?? filter_input(INPUT_POST, 'expectedname')));
 }
-$protstr = filter_input(INPUT_GET, 'protocols', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'protocols', FILTER_SANITIZE_STRING);
+$protstr = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'protocols') ?? filter_input(INPUT_POST, 'protocols')));
 $protocols = [];
 if ($protstr != '') {
     $protocols = explode(';', $protstr);
@@ -145,7 +145,7 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = $validator->syntaxConformUser(filter_input(INPUT_POST, 'tls_username', FILTER_SANITIZE_STRING));
+                        $tls_username = $validator->syntaxConformUser(htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'tls_username'))));
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);

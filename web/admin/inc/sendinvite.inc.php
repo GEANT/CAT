@@ -40,7 +40,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
-$newmailaddress = filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_STRING);
+$newmailaddress = filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_EMAIL);
 $totalSegments = explode(",", $newmailaddress);
 $validAddresses = core\common\OutsideComm::exfiltrateValidAddresses($newmailaddress);
 $newcountry = "";
@@ -66,25 +66,25 @@ if (isset($_GET['inst_id'])) {
 }
 
 if (isset($_POST['creation'])) {
-    $filteredCreation = filter_input(INPUT_POST, 'creation', FILTER_SANITIZE_STRING);
+    $filteredCreation = htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'creation')));
 } else {
     $filteredCreation = NULL;
 }
 
 if (isset($_POST['name'])) {
-    $filteredName = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $filteredName = htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'name')));
 } else {
     $filteredName = NULL;
 }
 
 if (isset($_POST['country'])) {
-    $filteredCountry = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+    $filteredCountry = htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'country')));
 } else {
     $filteredCountry = NULL;
 }
 
 if (isset($_POST['externals'])) {
-    $filteredExternals = filter_input(INPUT_POST, 'externals', FILTER_SANITIZE_STRING);
+    $filteredExternals = htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'externals')));
 } else {
     $filteredExternals = NULL;
 }

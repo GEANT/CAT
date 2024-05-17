@@ -55,7 +55,8 @@ switch ($_GET['token']) {
         $federation = \config\ConfAssistant::CONSORTIUM['selfservice_registration'];
         break;
     default:
-        $token = $validator->token(filter_input(INPUT_GET,'token',FILTER_SANITIZE_STRING));
+        $tokenUnfiltered = $validator->token(filter_input(INPUT_GET,'token'));
+        $token = htmlspecialchars(strip_tags($token));
         $checkval = $usermgmt->checkTokenValidity($token);
 }
 

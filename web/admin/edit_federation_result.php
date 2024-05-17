@@ -39,7 +39,7 @@ $auth->authenticate();
 echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed), "FEDERATION");
 $my_fed = $validator->existingFederation($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
-    $submitGiven = filter_input(INPUT_POST, 'submitbutton', FILTER_SANITIZE_STRING);
+    $submitGiven = filter_input(INPUT_POST, 'submitbutton');
 } else {
     $submitGiven = NULL;
 }
