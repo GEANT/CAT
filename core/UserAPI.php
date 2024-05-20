@@ -566,11 +566,12 @@ class UserAPI extends CAT
      */
     private function deviceFromRequest()
     {
+        $devId = NULL;
         if (isset($_GET['device'])) {
             $devId = htmlspecialchars(strip_tags($_GET['device']));
-        } else {
+        } elseif (isset($_POST['device'])) {
             $devId = htmlspecialchars(strip_tags($_POST['device']));
-        }
+        } 
         if ($devId === NULL || $devId === FALSE) {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
             return NULL;

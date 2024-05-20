@@ -375,7 +375,7 @@ class UIElements extends \core\common\Entity {
         if ($now + \config\ConfAssistant::CERT_WARNINGS['expiry_critical'] > $details['full_details']['validTo_time_t']) {
             $leftBorderColor = "red";
             $message = _("Certificate expired!") . "<br>";
-        } elseif($now + \config\ConfAssistant::CERT_WARNINGS['expiry_warnings']  > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
+        } elseif($now + \config\ConfAssistant::CERT_WARNINGS['expiry_warning']  > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
