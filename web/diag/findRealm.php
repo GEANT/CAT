@@ -123,12 +123,26 @@ if (!is_null($givenRealm)) {
         } 
         $toTest = array();
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+            $ssltest = 1;
+            if (isset($addr['unavailable']) && $addr['unavailable']) {
+                $ssltest = 0;
+            }            
             $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
             $expectedName = $addr['hostname'];
+            $protocols = [];
+            if (isset($addr['protocols'])) {
+                foreach($addr['protocols'] as $protocol) {
+                    if ($protocol['enabled']) {
+                        $protocols[] = $protocol['type'];
+                    }
+                } 
+            }
             $toTest[$hostindex] = array(
                                         'host' => $host,
                                         'name' => $expectedName,
-                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port']
+                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port'],
+                                        'ssltest' => $ssltest,
+                                        'protocols' => implode(';', $protocols)                
             );
         }
  
@@ -198,7 +212,7 @@ $loggerInstance->debug(4, $returnArray);
 $json_data = json_encode($returnArray);
 
 if ($token) {
-    $loggerInstance->debug(4, $jsonDir.'/'.$token);
+    $loggerInstance->debug(4, 'JSON data written to ' .$jsonDir.'/'.$token);
     file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);
 }
 echo($json_data);
