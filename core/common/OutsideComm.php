@@ -26,6 +26,7 @@ namespace core\common;
  * This class contains a number of functions for talking to the outside world
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Developer
  */
@@ -35,9 +36,10 @@ class OutsideComm extends Entity
     /**
      * downloads a file from the internet
      * @param string $url the URL to download
+     * @param int $timeout the timeout to download
      * @return string|boolean the data we got back, or FALSE on failure
      */
-    public static function downloadFile($url)
+    public static function downloadFile($url, $timeout=0)
     {
         $loggerInstance = new \core\common\Logging();
         if (!preg_match("/:\/\//", $url)) {
@@ -45,7 +47,11 @@ class OutsideComm extends Entity
             return FALSE;
         }
         # we got a URL, download it
-        $download = fopen($url, "rb");
+        if ($timeout > 0) {
+            $download = @fopen($url, 'rb', false, stream_context_create(['http' => ['timeout' => $timeout]]));
+        } else {
+            $download = fopen($url, "rb");
+        }
         if ($download === FALSE) {
             $loggerInstance->debug(2, "Failed to open handle for $url");
             return FALSE;

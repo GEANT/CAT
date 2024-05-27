@@ -150,9 +150,9 @@ if ($check_realm !== FALSE) {
             <div id="tabs-2">
                 <!--<button id="run_s_tests" onclick="run_udp()"><?php echo _("Repeat static connectivity tests") ?></button>-->
                 <p>
-                <?php print $realmTests->printStatic(); ?>
+                <?php print $realmTests->printStatic();?>
 
-
+            <!-- tabs-2 end -->
             </div>
 
             <?php
@@ -161,10 +161,14 @@ if ($check_realm !== FALSE) {
                 <div id="tabs-3">
                     <!--<button id="run_d_tests" onclick="run_dynamic()"><?php echo _("Repeat dynamic connectivity tests") ?></button>-->
                     <?php print $realmTests->printDynamic();?>
-                    
+                <!-- tabs-3 end -->    
                 </div>
             <?php
             }
+            ?>
+    <!-- tabs end --> 
+    </div>
+<?php
 } else {
         if (is_null($token)) {
             echo '<p><h1>'._("Token missing, no data can be presented").'</h1>';

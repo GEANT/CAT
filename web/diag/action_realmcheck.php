@@ -44,7 +44,7 @@ $inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT);
 $profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_VALIDATE_INT);
 $realm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm') ?? filter_input(INPUT_POST, 'realm')));
 if ($inst_id && $profile_id) {
-    $my_inst = $validator->existingIdP($inst_id, $user);
+    [$my_inst, $editMode] = $validator->existingIdPInt($inst_id, $user);
     $my_profile = $validator->existingProfile($profile_id, $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");

@@ -159,38 +159,42 @@ class RADIUSTestsUI extends AbstractTest
     
     public function setGlobalDynamicResult()
     {
-        foreach ($this->allReachabilityResults['capath'] as $capath) {
-            $this->globalLevelDynamic = max($this->globalLevelDynamic, $capath->level);
+        if (isset($this->allReachabilityResults['capath'])) {
+            foreach ($this->allReachabilityResults['capath'] as $capath) {
+                $this->globalLevelDynamic = max($this->globalLevelDynamic, $capath->level);
+            }
         }
-        foreach ($this->allReachabilityResults['clients'] as $clients) {
-            $srefused = FALSE;
-            $level = \core\common\Entity::L_OK;
-            foreach ($clients->ca as $ca) {
-                foreach ($ca->certificate as $certificate) {
-                    if ($certificate->returncode == \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
-                        $srefused = $this->areFailed = TRUE;
+        if (isset($this->allReachabilityResults['clients'])) {
+            foreach ($this->allReachabilityResults['clients'] as $clients) {
+                $srefused = FALSE;
+                $level = \core\common\Entity::L_OK;
+                foreach ($clients->ca as $ca) {
+                    foreach ($ca->certificate as $certificate) {
+                        if ($certificate->returncode == \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
+                            $srefused = $this->areFailed = TRUE;
+                        }
                     }
-                }
-                if (!$srefused) {
-                    foreach ($clients->ca as $cca) {
-                        foreach ($cca->certificate as $certificate) {
-                            $level = $certificate->returncode;
-                            if ($level < 0) {
-                                $level = \core\common\Entity::L_ERROR;
-                                $this->areFailed = TRUE;
-                            }
-                            if ($certificate->expected != 'PASS') {
-                                if ($certificate->connected == 1) {
-                                    $level = \core\common\Entity::L_WARN;
-                                } else {
-                                    $level = \core\common\Entity::L_OK;
+                    if (!$srefused) {
+                        foreach ($clients->ca as $cca) {
+                            foreach ($cca->certificate as $certificate) {
+                                $level = $certificate->returncode;
+                                if ($level < 0) {
+                                    $level = \core\common\Entity::L_ERROR;
+                                    $this->areFailed = TRUE;
+                                }
+                                if ($certificate->expected != 'PASS') {
+                                    if ($certificate->connected == 1) {
+                                        $level = \core\common\Entity::L_WARN;
+                                    } else {
+                                        $level = \core\common\Entity::L_OK;
+                                    }
                                 }
                             }
-                        }
-                    }   
-                } 
+                        }   
+                    } 
+                }
+                $this->globalLevelDynamic = max($this->globalLevelDynamic, $level);
             }
-            $this->globalLevelDynamic = max($this->globalLevelDynamic, $level);
         }
     }           
 
@@ -349,10 +353,12 @@ class RADIUSTestsUI extends AbstractTest
                 }
                 $certdesc .= '</ul>';
                 $more .= '<span class="morecontent"><span>'.$certdesc.
-                        '</span>&nbsp;&nbsp;<a href="" class="morelink">'._("show server certificate details").'&raquo;</a></span></td></tr>';
-                $out[] = $more . '</ul>';
-            }            
-            $out[] = "</td></tr></table></ul>";
+                        '</span><a href="" class="morelink">'._("show server certificate details").'&raquo;</a></span></div>';
+            }     
+            if ($more != '' ) {
+                $out[] = '<tr><td>&nbsp;</td><td colspan="2">'.$more.'</td></tr>';
+            }
+            $out[] = "</table></ul>";
         }
         $out[] = '</fieldset>';
         return join('', $out);            
