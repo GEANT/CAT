@@ -327,6 +327,9 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
 <link rel='stylesheet' type='text/css' href='css/silverbullet.css.php' />
+if ($editMode == 'readonly') {
+    print('<style>.admin_only {visibility: hidden}</style>');
+}
 </head>
 
 <body>
@@ -472,7 +475,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                 . "<button type='submit' "
                                 . "name='command' "
                                 . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
-                                . "class='delete' "
+                                . "class='delete admin_only' "
                                 . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), \config\ConfAssistant::CONSORTIUM['display_name']) . "\")'>"
                                 . _("Revoke")
                                 . "</button>"
@@ -512,7 +515,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                         case core\SilverbulletInvitation::SB_TOKENSTATUS_VALID:
                         case core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                             $hasOnePendingInvite = TRUE;
-                            $tokenHtmlBuffer .= "<tr class='sb-certificate-row_id'><td></td>";
+                            $tokenHtmlBuffer .= "<tr class='sb-certificate-row_id admin_only'><td></td>";
                             $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
                             $tokenHtmlBuffer .= "<td>";
                             $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"), "<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");
@@ -533,7 +536,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                     </form>
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>" . _("Manual:") . "</td><td>
-				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
+				<button type='button' class='clipboardButton admin_only' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
                                     <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupQRWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
@@ -565,7 +568,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                         <span><input type='text' maxlength='19' class='sb-date-picker' name='userexpiry' value='" . $profile->getUserExpiryDate($oneUserId) . "'>&nbsp;(UTC)</span>
                     </div>
                     <input type='hidden' name='userid' value='$oneUserId'/>
-                    <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY . "'>" . _("Update") . "</button>
+                    <button type='submit' class='admin_only' name='command' value='" . \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY . "'>" . _("Update") . "</button>
                     </form>
                 </td>
                 <td>
@@ -578,7 +581,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                     <button type='submit' "
                             . "name='command' "
                             . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
-                            . "class='delete' "
+                            . "class='delete admin_only' "
                             . ( count($validCerts) > 0 ? "onclick='return confirm(\"" . $deletionText . "\")' " : "" )
                             . ">"
                             . _("Deactivate User")
@@ -591,7 +594,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                 if (new DateTime() < new DateTime($expiryDate)) { // current user, allow sending new token
                     ${$outputBuffer} .= $formtext . "
                     <input type='hidden' name='userid' value='$oneUserId'/>
-                    <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_NEWINVITATION . "'>" . _("New Invitation") . "</button>
+                    <button type='submit' name='command' class='admin_only' value='" . \web\lib\common\FormElements::BUTTON_NEWINVITATION . "'>" . _("New Invitation") . "</button>
                     <label>" . _("Activations:") . "
                         <input type='text' name='invitationsquantity' value='5' maxlength='3' style='width: 30px;'/>
                     </label>
@@ -599,7 +602,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                 } elseif (count($profile->getUserAuthRecords($oneUserId, true)) == 0) { // previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
                     ${$outputBuffer} .= $formtext . "
                     <input type='hidden' name='userid' value='$oneUserId'/>
-                    <button type='submit' class='delete' name='command' value='" . \web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete User") . "</button>
+                    <button type='submit' class='delete admin_only' name='command' value='" . \web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete User") . "</button>
                     </form>";
                 }
                 ${$outputBuffer} .= "</div>
@@ -644,7 +647,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
         </fieldset>
     </div>
     <!--Add new user and user import forms -->
-    <div class="tabbed" id="tabs">
+    <div class="tabbed admin_only" id="tabs">
         <ul>
             <li>	
                 <a href="#tabs-3"><?php echo _("Add new user"); ?></a>

@@ -20,15 +20,15 @@
 
 /* various jquery scripts for the NRO admin page */
 
-function row_filter(table) {
-    var linked = table.find('[id^="unlinked_ck_"]').is(':checked');
-    var broken_cert = table.find('[id^="brokencert_ck_"]').is(':checked');
-    var or_warn = table.find('[id^="or_ck_"]').is(':checked');
-    var profile_warn = table.find('[id^="profile_ck_"]').is(':checked');
-    var input = table.find('[id^="qsearch_"]').val().toLowerCase();
+function row_filter(tbody) {
+    var linked = tbody.find('[id^="unlinked_ck_"]').is(':checked');
+    var broken_cert = tbody.find('[id^="brokencert_ck_"]').is(':checked');
+    var or_warn = tbody.find('[id^="or_ck_"]').is(':checked');
+    var profile_warn = tbody.find('[id^="profile_ck_"]').is(':checked');
+    var input = tbody.find('[id^="qsearch_"]').val().toLowerCase();
     var tr_visible;
     var inp_found;
-    table.children("tr.idp_tr").each(function() {
+    tbody.children("tr.idp_tr").each(function() {
         tr_visible = true;
         if (linked && $(this).hasClass('linked')) {
             tr_visible = false;
@@ -48,13 +48,17 @@ function row_filter(table) {
                 tr_visible = false;
             }
         }
-        
         if (tr_visible) {
             $(this).show();
         } else {
             $(this).hide();            
         }
     });
+}
+
+function filter_action() {
+    var this_tbody = $(this).parent().parent().parent();
+    row_filter(this_tbody);
 }
 
 $(document).ready(function() {
@@ -88,16 +92,10 @@ $(document).ready(function() {
 
     // handler for the text filter (must take into account possible filtering 
     // on linked status
-    $('[id^="qsearch_"]').keyup(function() {
-        var this_table = $(this).parent().parent().parent();
-        row_filter(this_table);
-    });
+    $('[id^="qsearch_"]').keyup(filter_action);
 
     // the linked filter checkbox handler
-    $(":checkbox").on('click', function() {
-        var this_table = $(this).parent().parent().parent();
-        row_filter(this_table);
-    });
+    $(":checkbox").on('click', filter_action);
     
     $("#fed_selection").on('change', function() {
         fed = $("#fed_selection option:selected").val();
@@ -109,11 +107,11 @@ $(document).ready(function() {
         document.location.href = "overview_federation.php?fed_id="+fed;
     });
     
-    
     $("img.cat-icon").tooltip();
-    
     $("#loading_gif").hide();
-
+    $("tbody.fedlist").each(function() {
+        row_filter($(this));
+    });
 });
 
 
