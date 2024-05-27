@@ -314,6 +314,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $thefed = new \core\Federation($fedId);
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tr><td colspan='9'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";
+            echo "<tbody class='fedlist'>";
             echo "<tr><td colspan='1'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
             echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
             echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
@@ -498,6 +499,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     }
                 }
             }
+            echo "</tbody>";
         }
         ?>
     </table>
