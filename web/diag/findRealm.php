@@ -96,7 +96,7 @@ if (!is_null($givenRealm)) {
             $details['admins'] = '';
         }        
         $details['status'] = 1;
-        $details['realm'] = $givenRealm;       
+        $details['realm'] = $givenRealm;   
         break;
     }
     if (is_null($foundIndex)) {
@@ -104,10 +104,13 @@ if (!is_null($givenRealm)) {
         $details['admins'] = '';
         $details['status'] = 0;
     } 
+    
     if ($forTests) {
-        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);     
+        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm); 
+        
         $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
-        $naptr = $rfc7585suite->relevantNAPTR();
+        
+        $naptr = $rfc7585suite->relevantNAPTR(); 
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
             $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
             if ($naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
@@ -215,5 +218,6 @@ if ($token) {
     $loggerInstance->debug(4, 'JSON data written to ' .$jsonDir.'/'.$token);
     file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);
 }
+header("Content-type: application/json; utf-8");
 echo($json_data);
 

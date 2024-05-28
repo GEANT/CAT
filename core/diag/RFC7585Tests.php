@@ -418,7 +418,8 @@ class RFC7585Tests extends AbstractTest
             return RADIUSTests::RETVAL_INVALID;
         }
         $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
-        $this->hostTLSprotocols();
+        // sslscan hangs when tls1 is enabled
+        //$this->hostTLSprotocols();
         return count($this->NAPTR_hostname_records);
     }
     

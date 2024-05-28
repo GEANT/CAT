@@ -381,4 +381,5 @@ $json_data = json_encode($returnarray);
 if ($token != '') {
     file_put_contents($jsonDir.'/'.$token.'/'.$test_type.'_'.$hostindex, $json_data);
 }
+header("Content-type: application/json; utf-8");
 echo($json_data);

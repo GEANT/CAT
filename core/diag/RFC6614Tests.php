@@ -228,9 +228,9 @@ class RFC6614Tests extends AbstractTest
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
                 $prot = "-no_ssl3";
-                if (in_array("TLS1.3", $protocols) && count($protocols) > 1) {
-                    $prot .= ' -no_tls1_3';
-                }
+                //if (in_array("TLS1.3", $protocols) && count($protocols) > 1) {
+                $prot .= ' -no_tls1_3';
+                //}
                 $add .= ' ' . $prot;
                 $opensslbabble = $this->execOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
