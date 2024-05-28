@@ -172,16 +172,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             <h2>
                 <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
             </h2>
-            <table>
+            <table width='100%'>
                 <tbody>
                 <!-- idp stats -->
                 <tr>
                     <th scope='col' style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
-                    <th scope='col' colspan='3'> <?php echo _("Public Download") ?></th>
+                    <th scope='col' style='text-align:right;' colspan='3'> <?php echo _("Public Download") ?></th>
                 </tr>
                 <tr>
                     <td> <?php echo count($thefed->listIdentityProviders(0)); ?></td>
-                    <td colspan='3'> <?php echo count($thefed->listIdentityProviders(1)); ?>
+                    <td style='text-align:right;' colspan='3'> <?php echo count($thefed->listIdentityProviders(1)); ?>
                     </td>
                 </tr>
                 </tbody>
@@ -194,7 +194,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     <th scope='col' style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
                     <th scope='col' style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
-                <?php echo $thefed->downloadStats("table"); ?>
+                <?php echo $thefed->downloadStats("table", "FEDERATION"); ?>
                 </tbody>
             </table>
             <button style="position:absolute; bottom:9px;" class="stat-button"><?php echo _("Show downloads") ?></button>
