@@ -588,6 +588,39 @@ class SanityTests extends CAT
     }
 
     /**
+     * test if sslscan is available
+     * 
+     * @return void
+     */
+    private function testSslscan()
+    {
+        $A = $this->getExecPath('sslscan'); 
+        if ($A['exec'] != "" && $A['exec_is'] == "EXPLICIT" && !file_exists($A['exec'])) { 
+            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>sslscan</strong> is configured explicitly and was not found on your system!");    
+        } else {
+            exec($A['exec'] . ' --version --xml=-', $output, $res);
+            if ($res == 0) {
+                $xml = simplexml_load_string(implode($output));
+                $resarray = json_decode(json_encode((array)$xml),true);
+                $t = 'sslscan';
+                if (isset($resarray['@attributes']) and isset($resarray['@attributes']['version'])) {
+                    $t = 'sslscan ' . $resarray['@attributes']['version'];
+                }
+            } else {
+                $t = '';
+            }
+            if ($t != '') {
+                if ($A['exec_is'] == "EXPLICIT") {
+                    $this->storeTestResult(\core\common\Entity::L_OK, "<strong>$t</strong> was found and is configured explicitly in your config.");
+                } else {
+                    $this->storeTestResult(\core\common\Entity::L_WARN, "<strong>$t</strong> was found, but is not configured with an absolute path in your config.");
+                }
+            } else {
+                $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>sslscan</strong> was not found on your system!");
+            }
+        }
+    }
+    /**
      * test if makensis is available
      * 
      * @return void
