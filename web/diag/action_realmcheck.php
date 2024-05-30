@@ -148,6 +148,7 @@ $end = $langInstance->rtl ? "left" : "right";
     servercert['policies'] = "<?php echo _("Certificate policies") ?>";
     servercert['crlDistributionPoint'] = "<?php echo _("crlDistributionPoint") ?>";
     servercert['authorityInfoAccess'] = "<?php echo _("authorityInfoAccess") ?>";
+    servercert['public_key_length'] = "<?php echo _("Public key length") ?>"
     var lessalltext = "<?php echo _("Hide detailed information for all tests") ?>";
     var addresses = new Array();
     var clients_level = L_OK;
@@ -159,6 +160,7 @@ $end = $langInstance->rtl ? "left" : "right";
     server_cert.validTo = "<?php echo _("Valid to:") ?>";
     server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
     server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
+    server_cert.public_key_length = "<?php echo _("Public key length") ?>"
     var not_known_server = "<?php echo _("Connected to undetermined server") ?>";
     var running_ajax_openroaming = 0;
     $(document).ready(function () {

@@ -1333,6 +1333,7 @@ network={
                     'validTo' => $this->printTm($certdata['validTo_time_t']),
                     'serialNumber' => $certdata['serialNumber'] . sprintf(" (0x%X)", $certdata['serialNumber']),
                     'sha1' => $certdata['sha1'],
+                    'public_key_length' => $certdata['public_key_length'],
                     'extensions' => $certdata['extensions']
                 ];
             }

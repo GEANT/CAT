@@ -106,6 +106,7 @@ class RADIUSTestsUI extends AbstractTest
             'validTo' => _("Valid to:"),
             'serialNumber' => _("Serial number:"),
             'sha1' => _("SHA1 fingerprint:"),
+            'public_key_length' => _("Public key length:"),
             'title' => _("Server certificate"),
             'policies' => _("Policies:"),
             'crldistributionpoints' =>  _("crlDistributionPoint:"),
