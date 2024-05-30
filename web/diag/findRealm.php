@@ -132,20 +132,11 @@ if (!is_null($givenRealm)) {
             }            
             $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
             $expectedName = $addr['hostname'];
-            $protocols = [];
-            if (isset($addr['protocols'])) {
-                foreach($addr['protocols'] as $protocol) {
-                    if ($protocol['enabled']) {
-                        $protocols[] = $protocol['type'];
-                    }
-                } 
-            }
             $toTest[$hostindex] = array(
                                         'host' => $host,
                                         'name' => $expectedName,
                                         'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port'],
-                                        'ssltest' => $ssltest,
-                                        'protocols' => implode(';', $protocols)                
+                                        'ssltest' => $ssltest                                                       
             );
         }
  

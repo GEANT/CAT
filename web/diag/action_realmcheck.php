@@ -99,7 +99,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
-    var ajax_timeout = 10000;
+    var ajax_timeout = 18000;
     var icons = new Array();
     icons[L_OK] = '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg';
     icons[L_WARN] = '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg';
@@ -712,20 +712,11 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                                 $ssltest = 0;
                             }
                             //$rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
-                            $protocols = [];
-                            if (isset($addr['protocols'])) {
-                                foreach ($addr['protocols'] as $protocol) {
-                                    if ($protocol['enabled']) {
-                                        $protocols[] = $protocol['type'];
-                                    }
-                                }
-                            }
-                            $protstr = implode(';', $protocols);
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest, protocols: '$protstr' }, hostindex: '$hostindex', error: error_handler, success: capath, dataType: 'json'});
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName', ssltest: $ssltest }, hostindex: '$hostindex', error: error_handler, success: capath, dataType: 'json'});
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest, protocols: '$protstr' }, hostindex: '$hostindex', error: error_handler, success: clients, dataType: 'json'});
+                            $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest }, hostindex: '$hostindex', error: error_handler, success: clients, dataType: 'json'});
                        ";
                         }
                         echo "}

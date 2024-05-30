@@ -117,11 +117,6 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     $host = $filteredHost;
     $expectedName = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'expectedname') ?? filter_input(INPUT_POST, 'expectedname')));
 }
-$protstr = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'protocols') ?? filter_input(INPUT_POST, 'protocols')));
-$protocols = [];
-if ($protstr != '') {
-    $protocols = explode(';', $protstr);
-}
 if (is_null($expectedName)) {
     $expectedName = '';
 }
@@ -347,7 +342,7 @@ switch ($test_type) {
     case 'clients':
         $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
         if ($ssltest) {
-            $testresult = $rfc6614suite->tlsClientSideCheck($host, $expectedName, $check_realm, $protocols);
+            $testresult = $rfc6614suite->tlsClientSideCheck($host, $expectedName, $check_realm);
         } else {
             $testresult = \core\diag\RADIUSTests::RETVAL_SKIPPED;
             $returnarray['message'] = _("<strong>ERROR</strong>: connectivity problem!");

@@ -200,7 +200,7 @@ class RFC6614Tests extends AbstractTest
      * @param string $host       IP:port
      * @return int returncode
      */
-    public function tlsClientSideCheck(string $host, string $ename, string $realm, array $protocols = [])
+    public function tlsClientSideCheck(string $host, string $ename, string $realm)
     {
         $res = RADIUSTests::RETVAL_OK;
         if (!is_array(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) || count(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) == 0) {
@@ -227,11 +227,8 @@ class RFC6614Tests extends AbstractTest
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
-                $prot = "-no_ssl3";
-                //if (in_array("TLS1.3", $protocols) && count($protocols) > 1) {
-                $prot .= ' -no_tls1_3';
-                //}
-                $add .= ' ' . $prot;
+                // tls1_3 connections have a problem in strdout/stderr buffering 
+                $add .= ' ' . "-no_ssl3 -no_tls1_3";
                 $opensslbabble = $this->execOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                 if ($cert['expected'] == 'PASS') {
