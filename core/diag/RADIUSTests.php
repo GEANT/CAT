@@ -356,7 +356,7 @@ class RADIUSTests extends AbstractTest {
             return RADIUSTests::CERTPROB_NO_CDP_HTTP;
         }
         // first and second sub-match is the full URL... check it
-        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]), 10);
+        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]), \config\Diagnostics::TIMEOUTS['crl_download']);
         if ($crlcontent === FALSE) {
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }

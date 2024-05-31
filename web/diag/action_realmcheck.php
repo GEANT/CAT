@@ -99,7 +99,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
-    var ajax_timeout = 18000;
+    var ajax_timeout = <?php echo \config\Diagnostics::TIMEOUTS['ajax_radius_tests'] ?>;
     var icons = new Array();
     icons[L_OK] = '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg';
     icons[L_WARN] = '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg';
@@ -389,6 +389,7 @@ $end = $langInstance->rtl ? "left" : "right";
 
     function udp(data, status) {
         show_debug(JSON.stringify(data));
+        console.log("udp return");
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
         if (v.server !== 0) {
@@ -559,6 +560,10 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 global_level_dyn = L_ERROR;
                 $("#srcca" + this.hostindex + "_img").attr('src', icons[L_ERROR]);
                 $("#srcca" + this.hostindex).html('<strong>'+connection_timeout+'</strong>');
+                if (caller == 'clients') {
+                    $("#srcclient" + this.hostindex + "_img").attr('src', icons[L_ERROR]);
+                    $("#srcclient" + this.hostindex).html('<strong>'+connection_timeout+'</strong>');                    
+                }
             }        
         }   
         ajax_end('');
