@@ -81,6 +81,7 @@ if ($testedProfile !== NULL) {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
 }
+
 $translate1 = _("STATIC");
 $translate2 = _("DYNAMIC");
 $errorstate = [];
@@ -389,7 +390,6 @@ $end = $langInstance->rtl ? "left" : "right";
 
     function udp(data, status) {
         show_debug(JSON.stringify(data));
-        console.log("udp return");
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
         if (v.server !== 0) {
@@ -566,7 +566,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 }
             }        
         }   
-        ajax_end('');
+        ajax_end();
     }
 
     function show_debug(text) {

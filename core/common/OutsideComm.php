@@ -53,7 +53,7 @@ class OutsideComm extends Entity
             $download = fopen($url, "rb");
         }
         if ($download === FALSE) {
-            $loggerInstance->debug(2, "Failed to open handle for $url");
+            $loggerInstance->debug(2, "Failed to open handle for $url \n");
             return FALSE;
         }
         $data = stream_get_contents($download);

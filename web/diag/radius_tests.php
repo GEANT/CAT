@@ -26,7 +26,6 @@ $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
-session_write_close();
 $jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
 
 $additional_message = [
@@ -81,6 +80,7 @@ if (isset($_REQUEST['profile_id'])) {
         $testsuite = new \core\diag\RADIUSTests($check_realm, '@'.$check_realm);
     }
 }
+session_write_close();
 
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
