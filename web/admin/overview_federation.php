@@ -122,6 +122,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             exit(0);
         } else {
             $feds = $user->getAttributes("user:fedadmin");
+            $editMode = 'fullaccess';
         }
     }
     foreach ($feds as $onefed) {
