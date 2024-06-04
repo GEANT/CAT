@@ -278,6 +278,16 @@ class AbstractTest extends \core\common\Entity
     const CERTPROB_DYN_SERVER_NAME_MISMATCH = -233;
 
     /**
+     * The unexpected eof error
+     */
+    const CERTPROB_UNEXPECTED_EOF = -234;
+    
+    /**
+     * The unknown problem
+     */
+    const CERTPROB_UNKNOWN_PROBLEM = -235;
+    
+    /**
      * initialises the error messages.
      * 
      * @throws Exception

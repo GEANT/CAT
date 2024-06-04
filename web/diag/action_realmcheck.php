@@ -125,6 +125,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var moretext = "<?php echo _("more") . "&raquo;" ?>";
     var lesstext = "<?php echo "&laquo" ?>";
     var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
+    var eof_error = "<?php echo \core\diag\RADIUSTests::CERTPROB_UNEXPECTED_EOF ?>";
     var unknownca_code = "<?php echo \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA ?>";
     var refused_code = "<?php echo \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
     var refused_info = "<?php echo _("Connection refused") ?>";

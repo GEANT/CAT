@@ -206,9 +206,6 @@ class RFC6614Tests extends AbstractTest
         if (!is_array(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) || count(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
         }
-        if (preg_match("/\[/", $host)) {
-            return RADIUSTests::RETVAL_INVALID;
-        }
         foreach (\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
@@ -365,7 +362,7 @@ class RFC6614Tests extends AbstractTest
             $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 1;
         } else {
             $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 0;
-            if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
+            if (preg_match('/connect: Connection refused/', $output)) {
                 $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
                 $resComment = _("No TLS connection established: Connection refused");
             } elseif (preg_match('/sslv3 alert certificate expired/', $output)) {
@@ -378,8 +375,12 @@ class RFC6614Tests extends AbstractTest
             } elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
                 $resComment = _("unknown authority");
                 $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
+            } elseif (preg_match('/unexpected eof while reading/', $output)) {
+                $resComment = _("unexpected eof while reading");
+                $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = RADIUSTests::CERTPROB_UNEXPECTED_EOF;
             } else {
-                $resComment = _("unknown authority or no certificate policy or another problem");
+                $resComment = _("unknown problem");
+                $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = RADIUSTests::CERTPROB_UNKNOWN_PROBLEM;
             }
             $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['resultcomment'] = $resComment;
         }

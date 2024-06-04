@@ -169,6 +169,7 @@ class RADIUSTestsUI extends AbstractTest
             foreach ($this->allReachabilityResults['clients'] as $clients) {
                 $srefused = FALSE;
                 $level = \core\common\Entity::L_OK;
+                $maxlevel = $level;
                 foreach ($clients->ca as $ca) {
                     foreach ($ca->certificate as $certificate) {
                         if ($certificate->returncode == \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
@@ -187,14 +188,23 @@ class RADIUSTestsUI extends AbstractTest
                                     if ($certificate->connected == 1) {
                                         $level = \core\common\Entity::L_WARN;
                                     } else {
-                                        $level = \core\common\Entity::L_OK;
+                                        
+                                        if ($certificate->status == 'EXPIRED' && property_exists($certificate, 'reason')) {
+                                            //print '<pre>'; print_r($certificate); print '</pre>';
+                                            $level = \core\common\Entity::L_WARN;
+                                        } else {
+                                            $level = \core\common\Entity::L_OK;
+                                        }
                                     }
                                 }
+                                if ($level > $maxlevel) {
+                                    $maxlevel = $level;
+                                }
                             }
-                        }   
+                        }
                     } 
                 }
-                $this->globalLevelDynamic = max($this->globalLevelDynamic, $level);
+                $this->globalLevelDynamic = max($this->globalLevelDynamic, $maxlevel);
             }
         }
     }           
