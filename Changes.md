@@ -2,27 +2,30 @@ Changes in 2.1.2
 =====================
 - [FEATURE #1]  add support for device-specific options be displayed only
                 for devices they belong to
-- [FEATURE #2]  add warnings about certificate expiry and cerificates
+- [FEATURE #2]  add warnings about certificate expiry and certificates
                 without CA extensions to the profile management interface, 
-                block adding server certificates to the system
-- [FEATURE #3]  add read-only mode for NRO admins abd superadmins and expand
+                block adding bad certificates to the system
+- [FEATURE #3]  add read-only mode for NRO admins and superadmins and expand
                 the NRO management page, in particular icons showing status,
-                certificate problems and OpenRoaming readiness
+                certificate validity problems and OpenRoaming readiness
 - [FEATURE #4]  add a script to be used to test the OpenRoaming readiness
                 of IdPs
-- [FEATURE #5]  add per-idp statistics to the API calls STATISTICS-FED 
-                and DATADUMP-FED
-- [FEATURE #6]  add FLAG-NO-LOGO flag for DATADUMP-FED to elliminate logos
+- [FEATURE #5]  add per-idp statistics to the API calls STATISTICS-FED
+- [FEATURE #6]  add FLAG-NO-LOGO flag for DATADUMP-FED to eliminate logos
                 from the dump 
 - [FEATURE #7]  replace Quetto icons with the Tabler ones
 - [FEATURE #8]  add new SUPPORT role with read-only access to IdP settings
 - [FEATURE #9]  a rewrite of dynamic connectivity tests
-- [FEATURE #10] extenstions to the eduPKI server certificates interface to
-                display detailed infoation about certificates to be issued
+- [FEATURE #10] extensions to the eduPKI server certificates interface to
+                display detailed information about certificates to be issued
+- [FEATURE #11] add optional local cache of the external (eduroam) database
+- [FEATURE #12] add TIMEOUTS constant to config/Diagnostics.php to elliminate
+                very long delays in testing sites - this requires updting 
+                your instance following the Diagnostics-template.php
 - [BUGFIX #1]   multiple improvements to the code, in particular eliminating
                 the deprecated FILTER_SANITIZE_STRING usage
 - [BUGFIX #2]   replaced slow SQL queries in Managed IdP area with much faster ones
-- [BUGfix #3]   fixed blocking of Ajax requests caused by php sessions
+- [BUGFIX #3]   fixed blocking of Ajax requests caused by php sessions
 
 Changes in 2.1
 =====================

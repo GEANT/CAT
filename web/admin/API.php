@@ -181,21 +181,14 @@ switch ($inputDecoded['ACTION']) {
         $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
         $logoFlag = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::FLAG_NOLOGO);
         $detail = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DETAIL);
-        $idpStatFlag = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::FLAG_ADD_STATS);
         if ($logoFlag === "TRUE") {
             $noLogo = 'general:logo_file';
         }
         if ($idpIdentifier === FALSE) {
             $allIdPs = $fed->listIdentityProviders(0);
-            if ($idpStatFlag === "TRUE") {
-                $fedStats = $fed->downloadStats('array', $detail);
-            }
             foreach ($allIdPs as $instanceId => $oneIdP) {
                 $theIdP = $oneIdP["instance"];
                 $retArray[$instanceId] = $theIdP->getAttributes(null, $noLogo);
-                if ($idpStatFlag === "TRUE") {
-                    $retArray[$instanceId]['STAT'] = $fedStats[$instanceId];
-                }
             }
         } else {
             try {

@@ -573,7 +573,7 @@ class UserAPI extends CAT
             $devId = htmlspecialchars(strip_tags($_POST['device']));
         } 
         if ($devId === NULL || $devId === FALSE) {
-            $this->loggerInstance->debug(2, "Invalid device id provided\n");
+            $this->loggerInstance->debug(4, "Invalid device id provided\n");
             return NULL;
         }
         if (!isset(\devices\Devices::listDevices()[$devId])) {

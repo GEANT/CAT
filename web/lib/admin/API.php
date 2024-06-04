@@ -246,7 +246,6 @@ class API {
      * This section defines allowed flags for actions
      */
     const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listings
-    const FLAG_ADD_STATS = "FLAG-ADD-STATS"; // add IdP statistice - only used in ACTION_FEDERATION_LISTIDP
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
      * 
@@ -344,9 +343,9 @@ class API {
         ],
         API::ACTION_FEDERATION_LISTIDP => [
             "REQ" => [],
-            "OPT" => [API::AUXATTRIB_CAT_INST_ID, API::AUXATTRIB_DETAIL],
+            "OPT" => [API::AUXATTRIB_CAT_INST_ID],
             "RETVAL" => [API::AUXATTRIB_CAT_INST_ID => "JSON_DATA"],
-            "FLAG" => [API::FLAG_NOLOGO, API::FLAG_ADD_STATS],
+            "FLAG" => [API::FLAG_NOLOGO],
         ],
         // RADIUS profile actions.
         API::ACTION_NEWPROF_RADIUS => [
