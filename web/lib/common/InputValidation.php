@@ -263,10 +263,14 @@ class InputValidation extends \core\common\Entity
             throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
         }
         $retvalStep1 = trim($retvalStep0);
-        // if some funny person wants to inject markup tags, remove them        
-        $retval = htmlspecialchars(strip_tags($retvalStep1), ENT_NOQUOTES);             
-        if ($retval === '') {
-            throw new Exception("filter_var failure for string sanitisation.");
+        // if some funny person wants to inject markup tags, remove them
+        if ($retvalStep1 !== '') {
+            $retval = htmlspecialchars(strip_tags($retvalStep1), ENT_NOQUOTES);             
+            if ($retval === '') {
+                throw new Exception("filter_var failure for string sanitisation.");
+            }
+        } else {
+            $retval = '';
         }
         // unless explicitly wanted, take away intermediate disturbing whitespace
         // a simple "space" is NOT disturbing :-)
