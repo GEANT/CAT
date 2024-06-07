@@ -184,7 +184,7 @@ class Master
             'hr' => ['display' => 'Hrvatski', 'locale' => 'hr_HR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'it' => ['display' => 'Italiano', 'locale' => 'it_IT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'hu' => ['display' => 'Magyar', 'locale' => 'hu_HU.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
-            'nb' => ['display' => 'Norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'nb' => ['display' => 'norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
 //            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
