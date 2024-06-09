@@ -212,7 +212,7 @@ class Messages:
     overridden with translated strings.
     """
     quit = "Really quit?"
-    username_prompt = "enter your userid"
+    username_prompt = "enter your userid (username@domain)"
     enter_password = "enter password"
     enter_import_password = "enter your import password"
     incorrect_password = "incorrect password"
@@ -466,6 +466,41 @@ class InstallerData:
                 self.confirm_exit()
         return output
 
+    def __get_username_password_atomic(self) -> None:
+        """
+        use single form to get username, password and password confirmation
+        """
+        while True:
+            if self.graphics == 'zenity':
+                command = ['zenity', '--forms',
+            		   f"--add-entry={Messages.username_prompt}",
+                       f"--add-password={Messages.enter_password}",
+                       f"--add-password={Messages.repeat_password}",
+                       '--width=500', '--text=' + "aaaa"]
+ 
+            output = ''
+            while not output:
+                shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                             stderr=subprocess.PIPE)
+                out, _ = shell_command.communicate()
+                output = out.decode('utf-8')
+                if self.graphics == 'yad':
+                    output = output[:-2]
+                output = output.strip()
+                if shell_command.returncode == 1:
+                    self.confirm_exit()
+ 
+            if self.graphics == 'zenity':
+                self.username, password, password1 = output.split("|")
+ 
+            if not self.__validate_user_name():
+                continue
+            if password != password1:
+                self.alert(Messages.passwords_differ)
+                continue
+            self.password = password
+            break
+
     def get_user_cred(self) -> None:
         """
         Get user credentials both username/password and personal certificate
@@ -481,29 +516,32 @@ class InstallerData:
         read user password and set the password property
         do nothing if silent mode is set
         """
-        password = "a"
-        password1 = "b"
         if self.silent:
             return
-        if self.username:
-            user_prompt = self.username
-        elif Config.hint_user_input:
-            user_prompt = '@' + Config.user_realm
+        elif self.graphics == 'zenity':
+        	self.__get_username_password_atomic()
         else:
-            user_prompt = ''
-        while True:
-            self.username = self.prompt_nonempty_string(
-                1, Messages.username_prompt, user_prompt)
-            if self.__validate_user_name():
-                break
-        while password != password1:
-            password = self.prompt_nonempty_string(
-                0, Messages.enter_password)
-            password1 = self.prompt_nonempty_string(
-                0, Messages.repeat_password)
-            if password != password1:
-                self.alert(Messages.passwords_differ)
-        self.password = password
+            password = "a"
+            password1 = "b"
+            if self.username:
+                user_prompt = self.username
+            elif Config.hint_user_input:
+                user_prompt = '@' + Config.user_realm
+            else:
+                user_prompt = ''
+            while True:
+                self.username = self.prompt_nonempty_string(
+                    1, Messages.username_prompt, user_prompt)
+                if self.__validate_user_name():
+                    break
+            while password != password1:
+                password = self.prompt_nonempty_string(
+                    0, Messages.enter_password)
+                password1 = self.prompt_nonempty_string(
+                    0, Messages.repeat_password)
+                if password != password1:
+                    self.alert(Messages.passwords_differ)
+            self.password = password
 
     def __check_graphics(self, command) -> bool:
         shell_command = subprocess.Popen(['which', command],
