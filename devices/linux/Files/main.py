@@ -473,7 +473,7 @@ class InstallerData:
         while True:
             if self.graphics == 'zenity':
                 command = ['zenity', '--forms',
-            		       f"--add-entry={Messages.username_prompt}",
+                           f"--add-entry={Messages.username_prompt}",
                            f"--add-password={Messages.enter_password}",
                            f"--add-password={Messages.repeat_password}",
                            '--width=500', '--text=' + "aaaa", "--separator", "\n"]
