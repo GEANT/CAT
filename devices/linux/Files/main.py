@@ -476,7 +476,13 @@ class InstallerData:
             		   f"--add-entry={Messages.username_prompt}",
                        f"--add-password={Messages.enter_password}",
                        f"--add-password={Messages.repeat_password}",
-                       '--width=500', '--text=' + "aaaa"]
+                       '--width=500', '--text=' + "aaaa", "--separator", "\n"]
+            elif self.graphics == 'yad':
+                command = ['yad', '--form', '--title="Login"',
+                           f"--field='{Messages.username_prompt}'",
+                           f"--field='{Messages.enter_password}:H'",
+                           f"--field='{Messages.repeat_password}:H'",
+                           "--separator", "\n"]
  
             output = ''
             while not output:
@@ -491,7 +497,9 @@ class InstallerData:
                     self.confirm_exit()
  
             if self.graphics == 'zenity':
-                self.username, password, password1 = output.split("|")
+                self.username, password, password1 = output.split("\n")
+            elif self.graphics == 'yad':
+                self.username, password, password1, _ = output.split("\n")
  
             if not self.__validate_user_name():
                 continue
@@ -518,7 +526,7 @@ class InstallerData:
         """
         if self.silent:
             return
-        elif self.graphics == 'zenity':
+        elif self.graphics == 'zenity' or self.graphics == 'yad':
         	self.__get_username_password_atomic()
         else:
             password = "a"
