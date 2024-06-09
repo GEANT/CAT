@@ -496,10 +496,8 @@ class InstallerData:
                 if shell_command.returncode == 1:
                     self.confirm_exit()
  
-            if self.graphics == 'zenity':
+            if self.graphics == 'zenity' or self.graphics == 'yad':
                 self.username, password, password1 = output.split("\n")
-            elif self.graphics == 'yad':
-                self.username, password, password1, _ = output.split("\n")
  
             if not self.__validate_user_name():
                 continue
