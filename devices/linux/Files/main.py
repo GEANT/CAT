@@ -212,6 +212,7 @@ class Messages:
     overridden with translated strings.
     """
     quit = "Really quit?"
+    credentials_title = "Credentials"
     credentials_prompt = "Please, enter your credentials:"
     username_prompt = "enter your userid (username@domain)"
     enter_password = "enter password"
@@ -475,7 +476,7 @@ class InstallerData:
         while True:
             if self.graphics == 'zenity':
                 command = ['zenity', '--forms', '--width=500',
-                           "--title=Login",
+                           f"--title={Messages.credentials_title}",
                            f"--text={Messages.credentials_prompt}",
                            f"--add-entry={Messages.username_prompt}",
                            f"--add-password={Messages.enter_password}",
@@ -483,7 +484,7 @@ class InstallerData:
                            "--separator", output_fields_separator]
             elif self.graphics == 'yad':
                 command = ['yad', '--form',
-                           "--title=Login",
+                           f"--title={Messages.credentials_title}",
                            f"--text={Messages.credentials_prompt}",
                            f"--field='{Messages.username_prompt}'", self.username,
                            f"--field='{Messages.enter_password}':H",
