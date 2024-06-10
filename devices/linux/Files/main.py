@@ -212,6 +212,7 @@ class Messages:
     overridden with translated strings.
     """
     quit = "Really quit?"
+    credentials_prompt = "Please, enter your credentials:"
     username_prompt = "enter your userid (username@domain)"
     enter_password = "enter password"
     enter_import_password = "enter your import password"
@@ -470,19 +471,24 @@ class InstallerData:
         """
         use single form to get username, password and password confirmation
         """
+        output_fields_separator = "\n\n\n\n\n"
         while True:
             if self.graphics == 'zenity':
-                command = ['zenity', '--forms',
+                command = ['zenity', '--forms', '--width=500',
+                           "--title=Login",
+                           f"--text={Messages.credentials_prompt}",
                            f"--add-entry={Messages.username_prompt}",
                            f"--add-password={Messages.enter_password}",
                            f"--add-password={Messages.repeat_password}",
-                           '--width=500', '--text=' + "aaaa", "--separator", "\n"]
+                           "--separator", output_fields_separator]
             elif self.graphics == 'yad':
-                command = ['yad', '--form', '--title="Login"',
-                           f"--field='{Messages.username_prompt}'",
-                           f"--field='{Messages.enter_password}:H'",
-                           f"--field='{Messages.repeat_password}:H'",
-                           "--separator", "\n"]
+                command = ['yad', '--form',
+                           "--title=Login",
+                           f"--text={Messages.credentials_prompt}",
+                           f"--field='{Messages.username_prompt}'", self.username,
+                           f"--field='{Messages.enter_password}':H",
+                           f"--field='{Messages.repeat_password}':H",
+                           "--separator", output_fields_separator]
  
             output = ''
             while not output:
@@ -491,13 +497,13 @@ class InstallerData:
                 out, _ = shell_command.communicate()
                 output = out.decode('utf-8')
                 if self.graphics == 'yad':
-                    output = output[:-2]
+                    output = output[:-(len(output_fields_separator)+1)]
                 output = output.strip()
                 if shell_command.returncode == 1:
                     self.confirm_exit()
  
             if self.graphics == 'zenity' or self.graphics == 'yad':
-                self.username, password, password1 = output.split("\n")
+                self.username, password, password1 = output.split(output_fields_separator)
  
             if not self.__validate_user_name():
                 continue
