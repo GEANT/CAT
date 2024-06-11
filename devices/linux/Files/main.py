@@ -212,7 +212,9 @@ class Messages:
     overridden with translated strings.
     """
     quit = "Really quit?"
-    username_prompt = "enter your userid"
+    credentials_title = "Credentials"
+    credentials_prompt = "Please, enter your credentials:"
+    username_prompt = "enter your userid (username@domain)"
     enter_password = "enter password"
     enter_import_password = "enter your import password"
     incorrect_password = "incorrect password"
@@ -466,6 +468,52 @@ class InstallerData:
                 self.confirm_exit()
         return output
 
+    def __get_username_password_atomic(self) -> None:
+        """
+        use single form to get username, password and password confirmation
+        """
+        output_fields_separator = "\n\n\n\n\n"
+        while True:
+            if self.graphics == 'zenity':
+                command = ['zenity', '--forms', '--width=500',
+                           f"--title={Messages.credentials_title}",
+                           f"--text={Messages.credentials_prompt}",
+                           f"--add-entry={Messages.username_prompt}",
+                           f"--add-password={Messages.enter_password}",
+                           f"--add-password={Messages.repeat_password}",
+                           "--separator", output_fields_separator]
+            elif self.graphics == 'yad':
+                command = ['yad', '--form',
+                           f"--title={Messages.credentials_title}",
+                           f"--text={Messages.credentials_prompt}",
+                           f"--field='{Messages.username_prompt}'", self.username,
+                           f"--field='{Messages.enter_password}':H",
+                           f"--field='{Messages.repeat_password}':H",
+                           "--separator", output_fields_separator]
+ 
+            output = ''
+            while not output:
+                shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                             stderr=subprocess.PIPE)
+                out, _ = shell_command.communicate()
+                output = out.decode('utf-8')
+                if self.graphics == 'yad':
+                    output = output[:-(len(output_fields_separator)+1)]
+                output = output.strip()
+                if shell_command.returncode == 1:
+                    self.confirm_exit()
+ 
+            if self.graphics == 'zenity' or self.graphics == 'yad':
+                self.username, password, password1 = output.split(output_fields_separator)
+ 
+            if not self.__validate_user_name():
+                continue
+            if password != password1:
+                self.alert(Messages.passwords_differ)
+                continue
+            self.password = password
+            break
+
     def get_user_cred(self) -> None:
         """
         Get user credentials both username/password and personal certificate
@@ -481,29 +529,32 @@ class InstallerData:
         read user password and set the password property
         do nothing if silent mode is set
         """
-        password = "a"
-        password1 = "b"
         if self.silent:
             return
-        if self.username:
-            user_prompt = self.username
-        elif Config.hint_user_input:
-            user_prompt = '@' + Config.user_realm
+        elif self.graphics == 'zenity' or self.graphics == 'yad':
+            self.__get_username_password_atomic()
         else:
-            user_prompt = ''
-        while True:
-            self.username = self.prompt_nonempty_string(
-                1, Messages.username_prompt, user_prompt)
-            if self.__validate_user_name():
-                break
-        while password != password1:
-            password = self.prompt_nonempty_string(
-                0, Messages.enter_password)
-            password1 = self.prompt_nonempty_string(
-                0, Messages.repeat_password)
-            if password != password1:
-                self.alert(Messages.passwords_differ)
-        self.password = password
+            password = "a"
+            password1 = "b"
+            if self.username:
+                user_prompt = self.username
+            elif Config.hint_user_input:
+                user_prompt = '@' + Config.user_realm
+            else:
+                user_prompt = ''
+            while True:
+                self.username = self.prompt_nonempty_string(
+                    1, Messages.username_prompt, user_prompt)
+                if self.__validate_user_name():
+                    break
+            while password != password1:
+                password = self.prompt_nonempty_string(
+                    0, Messages.enter_password)
+                password1 = self.prompt_nonempty_string(
+                    0, Messages.repeat_password)
+                if password != password1:
+                    self.alert(Messages.passwords_differ)
+            self.password = password
 
     def __check_graphics(self, command) -> bool:
         shell_command = subprocess.Popen(['which', command],
