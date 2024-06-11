@@ -97,7 +97,7 @@ except ImportError:
 
 try:
     from OpenSSL import crypto
-except ImportError:
+except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
     CRYPTO_AVAILABLE = False
 
 
