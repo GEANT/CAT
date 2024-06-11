@@ -569,7 +569,7 @@ class InstallerData:
 
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
-            for cmd in ('yad', 'zenity', 'kdialog'):
+            for cmd in ('zenity', 'kdialog', 'yad'):
                 if self.__check_graphics(cmd):
                     return
         self.graphics = 'tty'
