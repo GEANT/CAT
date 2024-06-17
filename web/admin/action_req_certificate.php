@@ -130,6 +130,16 @@ $langObject = new \core\common\Language();
                 } else {
                     $ou = $serverInfo["names"][$langInstance->getLang()];
                 }
+		$modou = 0;
+		if (str_contains($ou, ',')) {
+		    $modou = 1;
+		    $ou = str_replace(",", " ", $ou);
+		}
+		$ou = preg_replace('/\s+/', ' ',  $ou);
+		if (strlen($ou) >= 64) {
+			$ou = substr($ou, 0, 64);
+			$modou += 2;
+		}
                 $DN[] = "O=".iconv('UTF-8', 'ASCII//TRANSLIT', $ou);
                 $serverList = explode(",", $serverInfo["servers"]);
                 $DN[] = "CN=" . $serverList[0];
@@ -147,7 +157,6 @@ $langObject = new \core\common\Language();
                 }
                 $firstName = $serverInfo["contacts"][0]["name"];
                 $firstMail = $serverInfo["contacts"][0]["mail"];
-
                 break;
             default:
                 throw new Exception("Sorry: Unknown level of issuance requested.");
@@ -155,7 +164,21 @@ $langObject = new \core\common\Language();
         echo "<p style='font-size: large'>" . _("Requesting a certificate with the following properties");
         echo "<ul>";
         echo "<li>" . _("Policy OIDs: ") . implode(", ", $policies) . "</li>";
-        echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN) . "</li>";
+	echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN);
+	if ($modou > 0) {
+	    echo " (";
+            echo _("Organization field adjusted"). ': ';
+	    $desc = array();
+	    if ($modou >= 2) {
+		$desc[] = _("truncated to 64 chars");
+	    }
+	    if ($modou == 1 || $modou == 3) {
+		$desc[] = _("commas replaced");
+            }
+	    echo implode(', ', $desc);
+	    echo ")";
+	}
+        echo "</li>";
         echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
         echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
