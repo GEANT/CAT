@@ -107,12 +107,15 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     
     
     </div>
-    <?php } ?>
+    <?php } 
+    if ($editMode === 'fullaccess') {
+    ?>
     <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
         <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
     </form>
 
     <?php
+    }
     $mgmt = new \core\UserManagement();
     $fed_id = '';
     if (!$user->isSuperadmin() && !$user->isSupport()) {
@@ -407,7 +410,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                         throw new \Exception("Impossible OpenRoaming status!");
                 }
                 if ($orIcon === "") {
-                        $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$status]);
+                        $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
                         $orIcon = $uiElements->catIcon($iconData);                    
                 }
                                 
