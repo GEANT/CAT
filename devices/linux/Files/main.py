@@ -26,6 +26,8 @@ Authors:
 Contributors:
     Steffen Klemer https://github.com/sklemer1
     ikreb7 https://github.com/ikreb7
+    Dimitri Papadopoulos Orfanos https://github.com/DimitriPapadopoulos
+    sdasda7777 https://github.com/sdasda7777
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
