@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
  * **************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project,
@@ -27,6 +26,8 @@ Authors:
 Contributors:
     Steffen Klemer https://github.com/sklemer1
     ikreb7 https://github.com/ikreb7
+    Dimitri Papadopoulos Orfanos https://github.com/DimitriPapadopoulos
+    sdasda7777 https://github.com/sdasda7777
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
@@ -98,9 +99,8 @@ except ImportError:
 
 try:
     from OpenSSL import crypto
-except ImportError:
+except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
     CRYPTO_AVAILABLE = False
-
 
 
 def detect_desktop_environment() -> str:
@@ -185,7 +185,7 @@ def run_installer() -> None:
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
                                    password=password, pfx_file=pfx_file)
-    
+
     if wpa_conf:
         NM_AVAILABLE = False
 
@@ -208,12 +208,13 @@ def run_installer() -> None:
     installer_data.show_info(Messages.installation_finished)
 
 
-class Messages(object):
+class Messages:
     """
     These are initial definitions of messages, but they will be
     overridden with translated strings.
     """
     quit = "Really quit?"
+    credentials_prompt = "Please, enter your credentials:"
     username_prompt = "enter your userid"
     enter_password = "enter password"
     enter_import_password = "enter your import password"
@@ -250,7 +251,7 @@ class Messages(object):
     # "Output written to %s"
 
 
-class Config(object):
+class Config:
     """
     This is used to prepare settings during installer generation.
     """
@@ -277,7 +278,7 @@ class Config(object):
     hint_user_input = False
 
 
-class InstallerData(object):
+class InstallerData:
     """
     General user interaction handling, supports zenity, KDialog, yad and
     standard command-line interface
@@ -356,7 +357,7 @@ class InstallerData(object):
                        '--question', '--text=' + question + "\n\n" + prompt]
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
-                       '--title=', Config.title]
+                       '--title=' + Config.title]
         elif self.graphics == 'yad':
             command = ['yad', '--image="dialog-question"',
                        '--button=gtk-yes:0',
@@ -380,7 +381,7 @@ class InstallerData(object):
         if self.graphics == "zenity":
             command = ['zenity', '--info', '--width=500', '--text=' + data]
         elif self.graphics == "kdialog":
-            command = ['kdialog', '--msgbox', data]
+            command = ['kdialog', '--msgbox', data, '--title=' + Config.title]
         elif self.graphics == "yad":
             command = ['yad', '--button=OK', '--width=500', '--text=' + data]
         else:
@@ -405,7 +406,7 @@ class InstallerData(object):
         if self.graphics == 'zenity':
             command = ['zenity', '--warning', '--text=' + text]
         elif self.graphics == "kdialog":
-            command = ['kdialog', '--sorry', text]
+            command = ['kdialog', '--sorry', text, '--title=' + Config.title]
         elif self.graphics == "yad":
             command = ['yad', '--text=' + text]
         else:
@@ -445,7 +446,7 @@ class InstallerData(object):
                 hide_text = '--password'
             else:
                 hide_text = '--inputbox'
-            command = ['kdialog', hide_text, prompt]
+            command = ['kdialog', hide_text, prompt, '--title=' + Config.title]
         elif self.graphics == 'yad':
             if show == 0:
                 hide_text = ':H'
@@ -467,14 +468,60 @@ class InstallerData(object):
                 self.confirm_exit()
         return output
 
+    def __get_username_password_atomic(self) -> None:
+        """
+        use single form to get username, password and password confirmation
+        """
+        output_fields_separator = "\n\n\n\n\n"
+        while True:
+            if self.graphics == 'zenity':
+                command = ['zenity', '--forms', '--width=500',
+                           f"--title={Config.title}",
+#                           f"--text={Messages.credentials_prompt}",
+                           f"--add-entry={Messages.username_prompt}",
+                           f"--add-password={Messages.enter_password}",
+                           f"--add-password={Messages.repeat_password}",
+                           "--separator", output_fields_separator]
+            elif self.graphics == 'yad':
+                command = ['yad', '--form',
+                           f"--title={Config.title}",
+#                           f"--text={Messages.credentials_prompt}",
+                           f"--field={Messages.username_prompt}", self.username,
+                           f"--field={Messages.enter_password}:H",
+                           f"--field={Messages.repeat_password}:H",
+                           "--separator", output_fields_separator]
+
+            output = ''
+            while not output:
+                shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                             stderr=subprocess.PIPE)
+                out, _ = shell_command.communicate()
+                output = out.decode('utf-8')
+                if self.graphics == 'yad':
+                    output = output[:-(len(output_fields_separator)+1)]
+                output = output.strip()
+                if shell_command.returncode == 1:
+                    self.confirm_exit()
+
+            if self.graphics in ('zenity', 'yad'):
+                self.username, password, password1 = output.split(output_fields_separator)
+
+            if not self.__validate_user_name():
+                continue
+            if password != password1:
+                self.alert(Messages.passwords_differ)
+                continue
+            self.password = password
+            break
+
     def get_user_cred(self) -> None:
         """
         Get user credentials both username/password and personal certificate
         based
         """
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             self.__get_username_password()
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             self.__get_p12_cred()
 
     def __get_username_password(self) -> None:
@@ -482,29 +529,32 @@ class InstallerData(object):
         read user password and set the password property
         do nothing if silent mode is set
         """
-        password = "a"
-        password1 = "b"
         if self.silent:
             return
-        if self.username:
-            user_prompt = self.username
-        elif Config.hint_user_input:
-            user_prompt = '@' + Config.user_realm
+        elif self.graphics in ('zenity', 'yad'):
+            self.__get_username_password_atomic()
         else:
-            user_prompt = ''
-        while True:
-            self.username = self.prompt_nonempty_string(
-                1, Messages.username_prompt, user_prompt)
-            if self.__validate_user_name():
-                break
-        while password != password1:
-            password = self.prompt_nonempty_string(
-                0, Messages.enter_password)
-            password1 = self.prompt_nonempty_string(
-                0, Messages.repeat_password)
-            if password != password1:
-                self.alert(Messages.passwords_differ)
-        self.password = password
+            password = "a"
+            password1 = "b"
+            if self.username:
+                user_prompt = self.username
+            elif Config.hint_user_input:
+                user_prompt = '@' + Config.user_realm
+            else:
+                user_prompt = ''
+            while True:
+                self.username = self.prompt_nonempty_string(
+                    1, Messages.username_prompt, user_prompt)
+                if self.__validate_user_name():
+                    break
+            while password != password1:
+                password = self.prompt_nonempty_string(
+                    0, Messages.enter_password)
+                password1 = self.prompt_nonempty_string(
+                    0, Messages.repeat_password)
+                if password != password1:
+                    self.alert(Messages.passwords_differ)
+            self.password = password
 
     def __check_graphics(self, command) -> bool:
         shell_command = subprocess.Popen(['which', command],
@@ -519,8 +569,8 @@ class InstallerData(object):
 
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
-            for cmd in ['zenity', 'kdialog', 'yad']:
-                if self.__check_graphics(cmd) == True:
+            for cmd in ('yad', 'zenity', 'kdialog'):
+                if self.__check_graphics(cmd):
                     return
         self.graphics = 'tty'
 
@@ -555,9 +605,9 @@ class InstallerData(object):
             if shell_command.returncode != 0:
                 debug("first password run failed")
                 command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
-                       'pass:' + self.password, '-nokeys', '-clcerts']
+                            'pass:' + self.password, '-nokeys', '-clcerts']
                 shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
+                                                  stderr=subprocess.PIPE)
                 out, err = shell_command1.communicate()
                 if shell_command1.returncode != 0:
                     return False
@@ -597,8 +647,7 @@ class InstallerData(object):
             p_count = 0
             pfx_file = ''
             for my_file in my_dir:
-                if my_file.endswith('.p12') or my_file.endswith('*.pfx') or \
-                        my_file.endswith('.P12') or my_file.endswith('*.PFX'):
+                if my_file.endswith(('.p12', '*.pfx', '.P12', '*.PFX')):
                     p_count += 1
                     pfx_file = my_file
             prompt = "personal certificate file (p12 or pfx)"
@@ -630,7 +679,7 @@ class InstallerData(object):
         if self.graphics == 'kdialog':
             command = ['kdialog', '--getopenfilename',
                        '.', '*.p12 *.P12 *.pfx *.PFX | ' +
-                       Messages.p12_filter, '--title', Messages.p12_title]
+                       Messages.p12_filter, '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
             cert, _ = shell_command.communicate()
@@ -732,7 +781,7 @@ class InstallerData(object):
         return True
 
 
-class WpaConf(object):
+class WpaConf:
     """
     Prepare and save wpa_supplicant config file
     """
@@ -750,13 +799,13 @@ class WpaConf(object):
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
         """
 
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
                          f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
                 interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
 
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
                          f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
 
@@ -765,8 +814,7 @@ class WpaConf(object):
 
     def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
-        wpa_conf = get_config_path() + \
-                   '/cat_installer/cat_installer.conf'
+        wpa_conf = get_config_path() + '/cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
             for ssid in ssids:
                 net = self.__prepare_network_block(ssid, user_data)
@@ -807,7 +855,7 @@ class IwdConfiguration:
         EAP-PEAP-Phase2-Method=MSCHAPV2
         EAP-PEAP-Phase2-Identity={username}@{realm}
         EAP-PEAP-Phase2-Password={password}
-        
+
         [Settings]
         AutoConnect=true
         """.format(anonymous_identity=Config.anonymous_identity,
@@ -827,7 +875,7 @@ class IwdConfiguration:
         EAP-TTLS-Phase2-Method=Tunneled-PAP
         EAP-TTLS-Phase2-Identity={username}@{realm}
         EAP-TTLS-Phase2-Password={password}
-        
+
         [Settings]
         AutoConnect=true
         """.format(anonymous_identity=Config.anonymous_identity,
@@ -837,7 +885,7 @@ class IwdConfiguration:
                    password=user_data.password)
 
 
-class CatNMConfigTool(object):
+class CatNMConfigTool:
     """
     Prepare and save NetworkManager configuration
     """
@@ -870,7 +918,7 @@ class CatNMConfigTool(object):
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -960,7 +1008,7 @@ class CatNMConfigTool(object):
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
-        if self.nm_version == "0.9" or self.nm_version == "1.0":
+        if self.nm_version in ("0.9", "1.0"):
             match_key = 'altsubject-matches'
             match_value = server_alt_subject_name_list
         else:
@@ -972,13 +1020,13 @@ class CatNMConfigTool(object):
             'ca-cert': dbus.ByteArray(
                 "file://{0}\0".format(self.cacert_file).encode('utf8')),
             match_key: match_value}
-        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+        if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
             if Config.anonymous_identity != '':
                 s_8021x_data['anonymous-identity'] = Config.anonymous_identity
             s_8021x_data['password-flags'] = 0
-        if Config.eap_outer == 'TLS':
+        elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(

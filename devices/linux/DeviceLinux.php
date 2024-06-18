@@ -128,6 +128,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'username_prompt'=> _("enter your userid"),
         'enter_password' => _("enter password"),
         'enter_import_password' => _("enter your import password"),
+        'credentials_prompt' => _("Please, enter your credentials:"),
         'incorrect_password' => _("incorrect password"),
         'repeat_password' => _("repeat your password"),
         'passwords_differ'=> _("passwords do not match"),
@@ -149,6 +150,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'wrong_realm' => _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."),
         'wrong_realm_suffix' => _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."),
         'user_cert_missing' => _("personal certificate file not found"),
+        'cat_dir_exists' => _("Directory {} exists; some of its files may be overwritten")
         ];
         foreach ($messages as $name => $value) {
             $this->writeConfigLine($file, 'Messages.', $name, $value.'"');
@@ -172,7 +174,7 @@ class DeviceLinux extends \core\DeviceConfig {
             'profilename' => $this->attributes['profile:name'][0],
             'url' => $contacts['url'],
             'email' => $contacts['email'],
-            'title' => "eduroam CAT",
+            'title' => \config\Master::APPEARANCE['productname'],
             'server_match' => $this->glueServerNames(),
             'eap_outer' => $eapMethod['OUTER'],
             'eap_inner' => $eapMethod['INNER'],

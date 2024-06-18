@@ -108,14 +108,6 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     
     </div>
     <?php } 
-    if ($editMode === 'fullaccess') {
-    ?>
-    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
-        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
-    </form>
-
-    <?php
-    }
     $mgmt = new \core\UserManagement();
     $fed_id = '';
     if (!$user->isSuperadmin() && !$user->isSupport()) {
@@ -127,7 +119,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $feds = $user->getAttributes("user:fedadmin");
             $editMode = 'fullaccess';
         }
+    }    
+    if ($editMode === 'fullaccess') {
+    ?>
+    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
+        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
+    </form>
+
+    <?php
     }
+
     foreach ($feds as $onefed) {
         $thefed = new \core\Federation(strtoupper($onefed['value']));
         ?>

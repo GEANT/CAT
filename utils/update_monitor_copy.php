@@ -172,12 +172,10 @@ class updateFromMonitor {
 $myDB = new updateFromMonitor();
 
 foreach (array_keys($myDB->fields) as $table) {
-    print("$table\n");
     $myDB->update_table($table);
 }
 
 foreach (array_keys($myDB->fields) as $table) {
-    print("$table\n");
     $myDB->fill_table($table);
 }
 
