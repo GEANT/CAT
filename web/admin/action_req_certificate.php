@@ -133,7 +133,7 @@ $langObject = new \core\common\Language();
 		$modou = 0;
 		if (str_contains($ou, ',')) {
 		    $modou = 1;
-		    $ou = str_replace(",", " ", $ou);
+		    $ou = str_replace(",", "/,", $ou);
 		}
 		$ou = preg_replace('/\s+/', ' ',  $ou);
 		if (strlen($ou) >= 64) {
@@ -173,7 +173,7 @@ $langObject = new \core\common\Language();
 		$desc[] = _("truncated to 64 chars");
 	    }
 	    if ($modou == 1 || $modou == 3) {
-		$desc[] = _("commas replaced");
+		$desc[] = _("commas escaped");
             }
 	    echo implode(', ', $desc);
 	    echo ")";
