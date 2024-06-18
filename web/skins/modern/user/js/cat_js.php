@@ -101,6 +101,7 @@ const guiTexts = {
   "openRoamingText4": "<?php $cat->javaScriptEscapedEcho(sprintf(_("I have read and accept <a href='%s' target='_blank'>%s</a>"), $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_LINK"], $cat->textTemplates->templates[user\NETWORK_TERMS_AND_PRIV]["OpenRoaming"]["TOU_TEXT"])) ?>",
   "openRoamingDisabled": "<?php $cat->javaScriptEscapedEcho(_("OpenRoaming is not supported on this device")) ?>",
   "downloadAnother": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_CHOOSE_ANOTHER]) ?>",
+  "downloadFor": "<?php $cat->javaScriptEscapedEcho($cat->textTemplates->templates[user\DOWNLOAD_FOR_MESSAGE]) ?>",
   "consortium": "<?php $cat->javaScriptEscapedEcho(_(\config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
   "consortiumOnly": "<?php $cat->javaScriptEscapedEcho(sprintf(_("%s only"), \config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
   "consortiumAndOR": "<?php $cat->javaScriptEscapedEcho(sprintf(_("%s and OpenRoaming"), \config\ConfAssistant::CONSORTIUM['display_name'])) ?>",
