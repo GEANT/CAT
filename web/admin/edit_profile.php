@@ -210,27 +210,28 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                  if (this.value.length > 0)
                                       { this.form.elements[\"anon_support\"].removeAttribute(\"disabled\");
                                         document.getElementById(\"anon_support_label\").removeAttribute(\"style\");
-                                        
-                                        this.form.elements[\"checkuser_support\"].removeAttribute(\"disabled\");
+                                         this.form.elements[\"checkuser_support\"].removeAttribute(\"disabled\");
+                                       
+                                        this.form.elements[\"verify_support\"].removeAttribute(\"disabled\");
                                         document.getElementById(\"checkuser_label\").removeAttribute(\"style\");
-                                        
                                         document.getElementById(\"verify_label\").removeAttribute(\"style\");
                                         document.getElementById(\"hint_label\").removeAttribute(\"style\");
+                                        document.getElementById(\"verify_label\").removeAttribute(\"style\");
 
                                       } else
                                       { this.form.elements[\"anon_support\"].checked = false;
                                         this.form.elements[\"anon_support\"].setAttribute(\"disabled\", \"disabled\");
                                         this.form.elements[\"anon_local\"].setAttribute(\"disabled\", \"disabled\");
                                         document.getElementById(\"anon_support_label\").setAttribute(\"style\", \"color:#999999\");
-                                        
+                                        this.form.elements[\"verify_support\"].checked = false;
+                                        this.form.elements[\"verify_support\"].setAttribute(\"disabled\", \"disabled\");                                        
                                         this.form.elements[\"checkuser_support\"].checked = false;
                                         this.form.elements[\"checkuser_support\"].setAttribute(\"disabled\", \"disabled\");
                                         this.form.elements[\"checkuser_local\"].setAttribute(\"disabled\", \"disabled\");
                                         document.getElementById(\"checkuser_label\").setAttribute(\"style\", \"color:#999999\");
-                                                                                
                                         this.form.elements[\"hint_support\"].checked = false;
                                         this.form.elements[\"hint_support\"].setAttribute(\"disabled\", \"disabled\");
-                                        
+                                        document.getElementById(\"verify_label\").setAttribute(\"style\", \"color:#999999\");                                        
                                         document.getElementById(\"hint_label\").setAttribute(\"style\", \"color:#999999\");
                                       };'/>"; ?>
                 </td>
