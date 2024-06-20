@@ -144,21 +144,27 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
-        $certStatus = $theProfile->certificateStatus();
-        switch ($certStatus) {
-            case core\AbstractProfile::CERT_STATUS_OK:
-                $iconData = $uiElements->iconData('CERT_STATUS_OK');
-                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
-                break;
-            case core\AbstractProfile::CERT_STATUS_WARN:
-                $iconData = $uiElements->iconData('CERT_STATUS_WARN');
-                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));                
-                break;
-            case core\AbstractProfile::CERT_STATUS_ERROR:
-                $iconData = $uiElements->iconData('CERT_STATUS_ERROR');
-                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
-                break;            
-        }    
+        if ($theProfile->isRedirected()) {
+            $iconData = $uiElements->iconData('PROFILES_REDIRECTED');
+            $iconData['text'] = _("Profile redirected");
+            $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+        } else {
+            $certStatus = $theProfile->certificateStatus();
+            switch ($certStatus) {
+                case core\AbstractProfile::CERT_STATUS_OK:
+                    $iconData = $uiElements->iconData('CERT_STATUS_OK');
+                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+                    break;
+                case core\AbstractProfile::CERT_STATUS_WARN:
+                    $iconData = $uiElements->iconData('CERT_STATUS_WARN');
+                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));                
+                    break;
+                case core\AbstractProfile::CERT_STATUS_ERROR:
+                    $iconData = $uiElements->iconData('CERT_STATUS_ERROR');
+                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+                    break;            
+            }
+        }
         $buffer_headline .= "</div>";
 
         echo $buffer_headline;

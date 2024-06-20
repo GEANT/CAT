@@ -171,25 +171,40 @@ class IdP extends EntityWithDBProperties
     const PROFILES_INCOMPLETE = 0;
     const PROFILES_CONFIGURED = 1;
     const PROFILES_SHOWTIME = 2;
+    const PROFILES_REDIRECTED = 3;
     
     const PROFILES_INDEX = [
         self::PROFILES_INCOMPLETE => 'PROFILES_INCOMPLETE',
         self::PROFILES_CONFIGURED => 'PROFILES_CONFIGURED',
         self::PROFILES_SHOWTIME => 'PROFILES_SHOWTIME',
+        self::PROFILES_REDIRECTED => 'PROFILES_REDIRECTED',
     ];
 
     /**
      * looks through all the profiles of the inst and determines the highest prod-ready level among the profiles
-     * @return int highest level of completeness of all the profiles of the inst
+     * @return int highest level of completeness of all the profiles of the inst or PROFILES_REDIRECTED if all profiles are redirected
      */
+    
     public function maxProfileStatus()
     {
-        $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
+        $redirectProfileIds = [];
+        $allProfileLevels = $this->databaseHandle->exec("SELECT profile_id, sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC");
         // SELECT yields a resource, not a boolean
-        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
-            return $res->maxlevel;
+        if ($allProfileLevels->num_rows == 0 ) {
+            return self::PROFILES_INCOMPLETE;
         }
-        return self::PROFILES_INCOMPLETE;
+        $allProfilesArray = $allProfileLevels->fetch_all(MYSQLI_ASSOC);
+        $max_level = $allProfilesArray[0]['maxlevel'];        
+        $redirectProfiles = $this->databaseHandle->exec("SELECT profile.profile_id as profile_id FROM profile JOIN profile_option ON profile.profile_id=profile_option.profile_id WHERE inst_id = $this->identifier AND profile.showtime=1 AND option_name='device-specific:redirect' AND device_id IS NULL");
+        while ($res = $redirectProfiles->fetch_object()) {
+            $redirectProfileIds[] = $res->profile_id;
+        }        
+        foreach ($allProfilesArray as $profile) {
+            if (!in_array($profile['profile_id'], $redirectProfileIds)) {
+                return($max_level);
+            }            
+        }
+        return self::PROFILES_REDIRECTED;
     }
 
     /**

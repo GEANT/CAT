@@ -346,10 +346,14 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 $idp_instance = $idps[$index]['instance'];
                 // get max profile status
                 $profileClass = '';
-                if ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME) {
+                $maxProfileStatus = $idp_instance->maxProfileStatus();
+                if ($maxProfileStatus == \core\IdP::PROFILES_REDIRECTED) {
+                    $status = \core\IdP::PROFILES_REDIRECTED;
+                    $profileClass = 'profileredirected';
+                } elseif ($maxProfileStatus >= \core\IdP::PROFILES_SHOWTIME) {
                     $status = \core\IdP::PROFILES_SHOWTIME;
                     $profileClass = 'profileok';
-                } elseif ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED) {
+                } elseif ($maxProfileStatus >= \core\IdP::PROFILES_CONFIGURED) {
                     $status = \core\IdP::PROFILES_CONFIGURED;
                     $profileClass = 'profilewarn';                    
                 } else {

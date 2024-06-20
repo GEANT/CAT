@@ -895,6 +895,19 @@ abstract class AbstractProfile extends EntityWithDBProperties
     }
     
     /**
+     * Is the profile global redirection set?
+     * 
+     * @return bool
+     */
+    public function isRedirected() {
+        $result = $this->databaseHandle->exec("SELECT profile_id FROM profile_option WHERE profile_id = ? AND option_name='device-specific:redirect' AND device_id IS NULL", "i", $this->identifier);
+        if ($result->num_rows == 0) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
      * Does the profile contain enough information to generate installers with
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
      * heavy lifting here.

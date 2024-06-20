@@ -691,6 +691,7 @@ class UIElements extends \core\common\Entity {
             'PROFILES_SHOWTIME' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
             'PROFILES_CONFIGURED' => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
             'PROFILES_INCOMPLETE' => ['img' => 'Tabler/access-point-off-red.svg', 'text' => _("No configured profiles")],
+            'PROFILES_REDIRECTED' => ['img' => 'Tabler/external-link.svg', 'text' => _("All active profiles redirected")],
             'IDP_LINKED' => ['img' => 'Tabler/database-green.svg', 'text' => _("Linked")],
             'IDP_NOT_LINKED' => ['img' => 'Tabler/database-off-red.svg', 'text' => _("NOT linked")],
             'CERTS_NOT_SHOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Not showing cert info if no profiles are visible")],
