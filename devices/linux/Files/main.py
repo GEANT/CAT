@@ -229,6 +229,7 @@ class Messages:
     cert_error = "Certificate file not found, looks like a CAT error"
     unknown_version = "Unknown version"
     dbus_error = "DBus connection problem, a sudo might help"
+    ok = "OK"
     yes = "Y"
     nay = "N"
     p12_filter = "personal certificate file (p12 or pfx)"
@@ -526,7 +527,7 @@ class InstallerData:
                         root.destroy()
                     return inner
                 
-                login_button = tk.Button(root, text="Login", command=submit(self))
+                login_button = tk.Button(root, text=Messages.ok, command=submit(self))
                 login_button.grid(row=4, column=0, columnspan=2)
                 
                 root.mainloop()
