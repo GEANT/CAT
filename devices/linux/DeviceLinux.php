@@ -141,6 +141,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'dbus_error' => _("DBus connection problem, a sudo might help"),
         'yes' => _("Y"),
         'no' => _("N"),
+        'ok' => _("OK"),
         'p12_filter' => _("personal certificate file (p12 or pfx)"),
         'all_filter' => _("All files"),
         'p12_title' => _("personal certificate file (p12 or pfx)"),
