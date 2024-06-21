@@ -441,7 +441,7 @@ class InstallerData:
                     return output
         elif self.graphics == 'tkinter':
             from tkinter import simpledialog
-            simpledialog.askstring("Input", "Enter a string:",
+            simpledialog.askstring(Config.title, prompt,
                                    initialvalue=val,
                                    show="*" if show == 0 else "")
         else:
