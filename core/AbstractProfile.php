@@ -150,6 +150,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const READINESS_LEVEL_SHOWTIME = 2;
     
     
+    const CERT_STATUS_NONE = -1;
     const CERT_STATUS_OK = 0;
     const CERT_STATUS_WARN = 1;
     const CERT_STATUS_ERROR = 2;
@@ -941,7 +942,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         $result = $this->databaseHandle->exec($query, "i", $this->identifier);
         $rows = $result->fetch_all();
         $x509 = new \core\common\X509();
-        $profileStatus = self::CERT_STATUS_OK;
+        $profileStatus = self::CERT_STATUS_NONE;
         foreach ($rows as $row) {
             $encodedCert = $row[0];
             $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t']- time();

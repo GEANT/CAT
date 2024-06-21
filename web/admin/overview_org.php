@@ -148,22 +148,23 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             $iconData = $uiElements->iconData('PROFILES_REDIRECTED');
             $iconData['text'] = _("Profile redirected");
             $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
-        } else {
-            $certStatus = $theProfile->certificateStatus();
-            switch ($certStatus) {
-                case core\AbstractProfile::CERT_STATUS_OK:
-                    $iconData = $uiElements->iconData('CERT_STATUS_OK');
-                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
-                    break;
-                case core\AbstractProfile::CERT_STATUS_WARN:
-                    $iconData = $uiElements->iconData('CERT_STATUS_WARN');
-                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));                
-                    break;
-                case core\AbstractProfile::CERT_STATUS_ERROR:
-                    $iconData = $uiElements->iconData('CERT_STATUS_ERROR');
-                    $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
-                    break;            
-            }
+            
+        } 
+        
+        $certStatus = $theProfile->certificateStatus();
+        switch ($certStatus) {
+            case core\AbstractProfile::CERT_STATUS_OK:
+                $iconData = $uiElements->iconData('CERT_STATUS_OK');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+                break;
+            case core\AbstractProfile::CERT_STATUS_WARN:
+                $iconData = $uiElements->iconData('CERT_STATUS_WARN');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));                
+                break;
+            case core\AbstractProfile::CERT_STATUS_ERROR:
+                $iconData = $uiElements->iconData('CERT_STATUS_ERROR');
+                $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+                break;            
         }
         $buffer_headline .= "</div>";
 
