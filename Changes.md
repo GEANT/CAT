@@ -10,7 +10,7 @@ Changes in 2.1.2
                 certificate validity problems and OpenRoaming readiness
 - [FEATURE #4]  add a script to be used to test the OpenRoaming readiness
                 of IdPs
-- [FEATURE #5]  add per-idp statistics to the API calls STATISTICS-FED
+- [FEATURE #5]  add per-idp statistics and per-profile to the API calls STATISTICS-FED
 - [FEATURE #6]  add FLAG-NO-LOGO flag for DATADUMP-FED to eliminate logos
                 from the dump 
 - [FEATURE #7]  replace Quetto icons with the Tabler ones
@@ -18,10 +18,14 @@ Changes in 2.1.2
 - [FEATURE #9]  a rewrite of dynamic connectivity tests
 - [FEATURE #10] extensions to the eduPKI server certificates interface to
                 display detailed information about certificates to be issued
-- [FEATURE #11] add optional local cache of the external (eduroam) database
-- [FEATURE #12] add TIMEOUTS constant to config/Diagnostics.php to elliminate
-                very long delays in testing sites - this requires updting 
+- [FEATURE #11] avoiding problems for eduPKI server certificates for institutions
+                with long names and names containing commas
+- [FEATURE #12] add optional local cache of the external (eduroam) database
+- [FEATURE #13] add TIMEOUTS constant to config/Diagnostics.php to eliminate
+                very long delays in testing sites - this requires updating 
                 your instance following the Diagnostics-template.php
+- [FEATURE #14] Improvemens to the linux python installed, in particular add support
+                for Tkinker and yad provided by https://github.com/sdasda7777
 - [BUGFIX #1]   multiple improvements to the code, in particular eliminating
                 the deprecated FILTER_SANITIZE_STRING usage
 - [BUGFIX #2]   replaced slow SQL queries in Managed IdP area with much faster ones
