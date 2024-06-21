@@ -229,6 +229,7 @@ class Messages:
     cert_error = "Certificate file not found, looks like a CAT error"
     unknown_version = "Unknown version"
     dbus_error = "DBus connection problem, a sudo might help"
+    ok = "OK"
     yes = "Y"
     nay = "N"
     p12_filter = "personal certificate file (p12 or pfx)"
@@ -351,23 +352,27 @@ class InstallerData:
                     return 0
                 if i == nay:
                     return 1
-        command = []
-        if self.graphics == "zenity":
-            command = ['zenity', '--title=' + Config.title, '--width=500',
-                       '--question', '--text=' + question + "\n\n" + prompt]
-        elif self.graphics == 'kdialog':
-            command = ['kdialog', '--yesno', question + "\n\n" + prompt,
-                       '--title=' + Config.title]
-        elif self.graphics == 'yad':
-            command = ['yad', '--image="dialog-question"',
-                       '--button=gtk-yes:0',
-                       '--button=gtk-no:1',
-                       '--width=500',
-                       '--wrap',
-                       '--text=' + question + "\n\n" + prompt,
-                       '--title=' + Config.title]
-        returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
-        return returncode
+        elif self.graphics == 'tkinter':
+            from tkinter import messagebox
+            return 0 if messagebox.askyesno(Config.title, question + "\n\n" + prompt) else 1
+        else:
+            command = []
+            if self.graphics == "zenity":
+                command = ['zenity', '--title=' + Config.title, '--width=500',
+                           '--question', '--text=' + question + "\n\n" + prompt]
+            elif self.graphics == 'kdialog':
+                command = ['kdialog', '--yesno', question + "\n\n" + prompt,
+                           '--title=' + Config.title]
+            elif self.graphics == 'yad':
+                command = ['yad', '--image="dialog-question"',
+                           '--button=gtk-yes:0',
+                           '--button=gtk-no:1',
+                           '--width=500',
+                           '--wrap',
+                           '--text=' + question + "\n\n" + prompt,
+                           '--title=' + Config.title]
+            returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
+            return returncode
 
     def show_info(self, data: str) -> None:
         """
@@ -377,16 +382,19 @@ class InstallerData:
             return
         if self.graphics == 'tty':
             print(data)
-            return
-        if self.graphics == "zenity":
-            command = ['zenity', '--info', '--width=500', '--text=' + data]
-        elif self.graphics == "kdialog":
-            command = ['kdialog', '--msgbox', data, '--title=' + Config.title]
-        elif self.graphics == "yad":
-            command = ['yad', '--button=OK', '--width=500', '--text=' + data]
+        elif self.graphics == 'tkinter':
+            from tkinter import messagebox
+            messagebox.showinfo(Config.title, data)
         else:
-            sys.exit(1)
-        subprocess.call(command, stderr=subprocess.DEVNULL)
+            if self.graphics == "zenity":
+                command = ['zenity', '--info', '--width=500', '--text=' + data]
+            elif self.graphics == "kdialog":
+                command = ['kdialog', '--msgbox', data, '--title=' + Config.title]
+            elif self.graphics == "yad":
+                command = ['yad', '--button=OK', '--width=500', '--text=' + data]
+            else:
+                sys.exit(1)
+            subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def confirm_exit(self) -> None:
         """
@@ -402,16 +410,19 @@ class InstallerData:
             return
         if self.graphics == 'tty':
             print(text)
-            return
-        if self.graphics == 'zenity':
-            command = ['zenity', '--warning', '--text=' + text]
-        elif self.graphics == "kdialog":
-            command = ['kdialog', '--sorry', text, '--title=' + Config.title]
-        elif self.graphics == "yad":
-            command = ['yad', '--text=' + text]
+        elif self.graphics == 'tkinter':
+            from tkinter import messagebox
+            messagebox.showwarning(Config.title, text)
         else:
-            sys.exit(1)
-        subprocess.call(command, stderr=subprocess.DEVNULL)
+            if self.graphics == 'zenity':
+                command = ['zenity', '--warning', '--text=' + text]
+            elif self.graphics == "kdialog":
+                command = ['kdialog', '--sorry', text, '--title=' + Config.title]
+            elif self.graphics == "yad":
+                command = ['yad', '--text=' + text]
+            else:
+                sys.exit(1)
+            subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def prompt_nonempty_string(self, show: int, prompt: str, val: str = '') -> str:
         """
@@ -429,44 +440,50 @@ class InstallerData:
                 output = inp.strip()
                 if output != '':
                     return output
-        command = []
-        if self.graphics == 'zenity':
-            if val == '':
-                default_val = ''
-            else:
-                default_val = '--entry-text=' + val
-            if show == 0:
-                hide_text = '--hide-text'
-            else:
-                hide_text = ''
-            command = ['zenity', '--entry', hide_text, default_val,
-                       '--width=500', '--text=' + prompt]
-        elif self.graphics == 'kdialog':
-            if show == 0:
-                hide_text = '--password'
-            else:
-                hide_text = '--inputbox'
-            command = ['kdialog', hide_text, prompt, '--title=' + Config.title]
-        elif self.graphics == 'yad':
-            if show == 0:
-                hide_text = ':H'
-            else:
-                hide_text = ''
-            command = ['yad', '--form', '--field=' + hide_text,
-                       '--text=' + prompt, val]
+        elif self.graphics == 'tkinter':
+            from tkinter import simpledialog
+            simpledialog.askstring(Config.title, prompt,
+                                   initialvalue=val,
+                                   show="*" if show == 0 else "")
+        else:
+            command = []
+            if self.graphics == 'zenity':
+                if val == '':
+                    default_val = ''
+                else:
+                    default_val = '--entry-text=' + val
+                if show == 0:
+                    hide_text = '--hide-text'
+                else:
+                    hide_text = ''
+                command = ['zenity', '--entry', hide_text, default_val,
+                           '--width=500', '--text=' + prompt]
+            elif self.graphics == 'kdialog':
+                if show == 0:
+                    hide_text = '--password'
+                else:
+                    hide_text = '--inputbox'
+                command = ['kdialog', hide_text, prompt, '--title=' + Config.title]
+            elif self.graphics == 'yad':
+                if show == 0:
+                    hide_text = ':H'
+                else:
+                    hide_text = ''
+                command = ['yad', '--form', '--field=' + hide_text,
+                           '--text=' + prompt, val]
 
-        output = ''
-        while not output:
-            shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
-            out, _ = shell_command.communicate()
-            output = out.decode('utf-8')
-            if self.graphics == 'yad':
-                output = output[:-2]
-            output = output.strip()
-            if shell_command.returncode == 1:
-                self.confirm_exit()
-        return output
+            output = ''
+            while not output:
+                shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                                 stderr=subprocess.PIPE)
+                out, _ = shell_command.communicate()
+                output = out.decode('utf-8')
+                if self.graphics == 'yad':
+                    output = output[:-2]
+                output = output.strip()
+                if shell_command.returncode == 1:
+                    self.confirm_exit()
+            return output
 
     def __get_username_password_atomic(self) -> None:
         """
@@ -474,37 +491,78 @@ class InstallerData:
         """
         output_fields_separator = "\n\n\n\n\n"
         while True:
-            if self.graphics == 'zenity':
-                command = ['zenity', '--forms', '--width=500',
-                           f"--title={Config.title}",
-#                           f"--text={Messages.credentials_prompt}",
-                           f"--add-entry={Messages.username_prompt}",
-                           f"--add-password={Messages.enter_password}",
-                           f"--add-password={Messages.repeat_password}",
-                           "--separator", output_fields_separator]
-            elif self.graphics == 'yad':
-                command = ['yad', '--form',
-                           f"--title={Config.title}",
-#                           f"--text={Messages.credentials_prompt}",
-                           f"--field={Messages.username_prompt}", self.username,
-                           f"--field={Messages.enter_password}:H",
-                           f"--field={Messages.repeat_password}:H",
-                           "--separator", output_fields_separator]
+            password = "a"
+            password1 = "b"
+            if self.graphics == 'tkinter':
+                import tkinter as tk
+                
+                root = tk.Tk()
+                root.title(Config.title)
 
-            output = ''
-            while not output:
-                shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
-                out, _ = shell_command.communicate()
-                output = out.decode('utf-8')
-                if self.graphics == 'yad':
-                    output = output[:-(len(output_fields_separator)+1)]
-                output = output.strip()
-                if shell_command.returncode == 1:
-                    self.confirm_exit()
+#               desc_label = tk.Label(root, text=Messages.credentials_prompt)
+#               desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
+    
+                username_label = tk.Label(root, text=Messages.username_prompt)
+                username_label.grid(row=1, column=0, sticky=tk.W)
 
-            if self.graphics in ('zenity', 'yad'):
-                self.username, password, password1 = output.split(output_fields_separator)
+                username_entry = tk.Entry(root, textvariable=tk.StringVar(root, value=self.username))
+                username_entry.grid(row=1, column=1)
+
+                password_label = tk.Label(root, text=Messages.enter_password)
+                password_label.grid(row=2, column=0, sticky=tk.W)
+
+                password_entry = tk.Entry(root, show="*")
+                password_entry.grid(row=2, column=1)
+
+                password1_label = tk.Label(root, text=Messages.repeat_password)
+                password1_label.grid(row=3, column=0, sticky=tk.W)
+
+                password1_entry = tk.Entry(root, show="*")
+                password1_entry.grid(row=3, column=1)
+                
+                def submit(installer):
+                    def inner():
+                        nonlocal password, password1
+                        (installer.username, password, password1) = (username_entry.get(), password_entry.get(), password1_entry.get())
+                        root.destroy()
+                    return inner
+                
+                login_button = tk.Button(root, text=Messages.ok, command=submit(self))
+                login_button.grid(row=4, column=0, columnspan=2)
+                
+                root.mainloop()
+            else:
+                if self.graphics == 'zenity':
+                    command = ['zenity', '--forms', '--width=500',
+                               f"--title={Config.title}",
+#                              f"--text={Messages.credentials_prompt}",
+                               f"--add-entry={Messages.username_prompt}",
+                               f"--add-password={Messages.enter_password}",
+                               f"--add-password={Messages.repeat_password}",
+                               "--separator", output_fields_separator]
+                elif self.graphics == 'yad':
+                    command = ['yad', '--form',
+                               f"--title={Config.title}",
+#                              f"--text={Messages.credentials_prompt}",
+                               f"--field={Messages.username_prompt}", self.username,
+                               f"--field={Messages.enter_password}:H",
+                               f"--field={Messages.repeat_password}:H",
+                               "--separator", output_fields_separator]
+
+                output = ''
+                while not output:
+                    shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                                     stderr=subprocess.PIPE)
+                    out, _ = shell_command.communicate()
+                    output = out.decode('utf-8')
+                    if self.graphics == 'yad':
+                        output = output[:-(len(output_fields_separator)+1)]
+                    output = output.strip()
+                    if shell_command.returncode == 1:
+                        self.confirm_exit()
+
+                if self.graphics in ('zenity', 'yad'):
+                    self.username, password, password1 = output.split(output_fields_separator)
 
             if not self.__validate_user_name():
                 continue
@@ -531,7 +589,7 @@ class InstallerData:
         """
         if self.silent:
             return
-        elif self.graphics in ('zenity', 'yad'):
+        elif self.graphics in ('tkinter', 'zenity', 'yad'):
             self.__get_username_password_atomic()
         else:
             password = "a"
@@ -569,6 +627,12 @@ class InstallerData:
 
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
+            try:
+                import tkinter
+                self.graphics = 'tkinter'
+                return
+            except ModuleNotFoundError:
+                pass
             for cmd in ('yad', 'zenity', 'kdialog'):
                 if self.__check_graphics(cmd):
                     return
