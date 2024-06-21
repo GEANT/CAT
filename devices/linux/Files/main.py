@@ -411,7 +411,7 @@ class InstallerData:
             print(text)
         elif self.graphics == 'tkinter':
             from tkinter import messagebox
-            messagebox.showinfo(Config.title, text)
+            messagebox.showwarning(Config.title, text)
         else:
             if self.graphics == 'zenity':
                 command = ['zenity', '--warning', '--text=' + text]
