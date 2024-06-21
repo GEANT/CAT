@@ -442,7 +442,7 @@ class InstallerData:
         elif self.graphics == 'tkinter':
             from tkinter import simpledialog
             simpledialog.askstring("Input", "Enter a string:",
-                                   initialvalue=val
+                                   initialvalue=val,
                                    show="*" if show == 0 else "")
         else:
             command = []
@@ -496,25 +496,28 @@ class InstallerData:
                 import tkinter as tk
                 
                 root = tk.Tk()
-                root.title("Login Prompt")
+                root.title(Config.title)
 
+#               desc_label = tk.Label(root, text=Messages.credentials_prompt)
+#               desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
+    
                 username_label = tk.Label(root, text=Messages.username_prompt)
-                username_label.pack()
+                username_label.grid(row=1, column=0, sticky=tk.W)
 
                 username_entry = tk.Entry(root, textvariable=tk.StringVar(root, value=self.username))
-                username_entry.pack()
+                username_entry.grid(row=1, column=1)
 
                 password_label = tk.Label(root, text=Messages.enter_password)
-                password_label.pack()
+                password_label.grid(row=2, column=0, sticky=tk.W)
 
                 password_entry = tk.Entry(root, show="*")
-                password_entry.pack()
+                password_entry.grid(row=2, column=1)
 
                 password1_label = tk.Label(root, text=Messages.repeat_password)
-                password1_label.pack()
+                password1_label.grid(row=3, column=0, sticky=tk.W)
 
                 password1_entry = tk.Entry(root, show="*")
-                password1_entry.pack()
+                password1_entry.grid(row=3, column=1)
                 
                 def submit(installer):
                     def inner():
@@ -524,7 +527,7 @@ class InstallerData:
                     return inner
                 
                 login_button = tk.Button(root, text="Login", command=submit(self))
-                login_button.pack()
+                login_button.grid(row=4, column=0, columnspan=2)
                 
                 root.mainloop()
             else:
