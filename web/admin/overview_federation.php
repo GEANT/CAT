@@ -349,7 +349,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 $maxProfileStatus = $idp_instance->maxProfileStatus();
                 if ($maxProfileStatus == \core\IdP::PROFILES_REDIRECTED) {
                     $status = \core\IdP::PROFILES_REDIRECTED;
-                    $profileClass = 'profileredirected';
+                    $profileClass = 'profileredirected profileok';
                 } elseif ($maxProfileStatus >= \core\IdP::PROFILES_SHOWTIME) {
                     $status = \core\IdP::PROFILES_SHOWTIME;
                     $profileClass = 'profileok';
