@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2024-06-27 12:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -554,7 +554,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1187
 msgid "All files"
 msgstr ""
 
@@ -570,8 +570,8 @@ msgid "Write the file"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:148 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1332 devices/ms/Files/common.inc:1352
-#: devices/ms/Files/common.inc:1403
+#: devices/ms/Files/common.inc:1333 devices/ms/Files/common.inc:1353
+#: devices/ms/Files/common.inc:1404
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Network installation had errors."
 msgstr ""
 
-#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1002
+#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1003
 msgid "Please contact ${SUPPORT}."
 msgstr ""
 
@@ -901,131 +901,131 @@ msgstr ""
 msgid "installing profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1002
+#: devices/ms/Files/common.inc:1003
 msgid "Profile installation error for $R1."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1021
+#: devices/ms/Files/common.inc:1022
 msgid "deleting profile $R6"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1051
+#: devices/ms/Files/common.inc:1052
 msgid "installing credentials for wired"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1058
+#: devices/ms/Files/common.inc:1059
 msgid "installing credentials TLS"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1148
+#: devices/ms/Files/common.inc:1149
 msgid "installing credentials for profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1168 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1169 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1178
 #, php-format
 msgid "%s installer for"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1177
+#: devices/ms/Files/common.inc:1178
 msgid "Install personal certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1180
+#: devices/ms/Files/common.inc:1181
 msgid "Preparing to install personal certificate."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1180
+#: devices/ms/Files/common.inc:1181
 msgid "Click OK to continue"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1187
 msgid "Certificate files (*.p12)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1186
+#: devices/ms/Files/common.inc:1187
 msgid "Certificate files (*pfx)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1189
+#: devices/ms/Files/common.inc:1190
 msgid "certificate password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1191 devices/ms/Files/common.inc:1454
+#: devices/ms/Files/common.inc:1192 devices/ms/Files/common.inc:1455
 msgid "Username:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1195
+#: devices/ms/Files/common.inc:1196
 msgid "Selected file: $Cert_file"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1197
+#: devices/ms/Files/common.inc:1198
 msgid "import password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1232
+#: devices/ms/Files/common.inc:1233
 msgid "No certificate file selected"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1236
+#: devices/ms/Files/common.inc:1237
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1238
+#: devices/ms/Files/common.inc:1239
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1312
+#: devices/ms/Files/common.inc:1313
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1347
+#: devices/ms/Files/common.inc:1348
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1349
+#: devices/ms/Files/common.inc:1350
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1450
+#: devices/ms/Files/common.inc:1451
 msgid "User credentials"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1457
+#: devices/ms/Files/common.inc:1458
 msgid "Password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1460
+#: devices/ms/Files/common.inc:1461
 msgid "Repeat password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1475
+#: devices/ms/Files/common.inc:1476
 msgid "Missing username"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1487
+#: devices/ms/Files/common.inc:1488
 msgid "Missing password"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1493
+#: devices/ms/Files/common.inc:1494
 msgid "Password mismatch"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1586 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1587 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1586
+#: devices/ms/Files/common.inc:1587
 msgid "Checking for existing wireless profiles"
 msgstr ""
 
