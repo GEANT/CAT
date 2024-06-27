@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 15:34+0000\n"
+"POT-Creation-Date: 2024-06-27 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,41 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/AbstractProfile.php:263
+#: core/AbstractProfile.php:264
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
 
-#: core/AbstractProfile.php:297
+#: core/AbstractProfile.php:298
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr ""
 
-#: core/AbstractProfile.php:315
+#: core/AbstractProfile.php:316
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
 
-#: core/AbstractProfile.php:342
+#: core/AbstractProfile.php:343
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
 
-#: core/AbstractProfile.php:348
+#: core/AbstractProfile.php:349
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
 
-#: core/AbstractProfile.php:358
+#: core/AbstractProfile.php:359
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
 
-#: core/AbstractProfile.php:365
+#: core/AbstractProfile.php:366
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -368,13 +368,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:106
+#: core/Federation.php:109
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:298 core/common/OutsideComm.php:281
+#: core/Federation.php:306 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -386,7 +386,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:315
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
@@ -401,12 +401,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/Federation.php:333
+#: core/Federation.php:341
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:403
+#: core/IdP.php:418
 #, php-format
 msgid ""
 "Hi,\n"
@@ -420,7 +420,7 @@ msgid ""
 "    %s"
 msgstr ""
 
-#: core/IdP.php:412
+#: core/IdP.php:427
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -553,86 +553,86 @@ msgstr ""
 msgid "entity"
 msgstr ""
 
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
 msgstr ""
 
-#: core/common/OutsideComm.php:292
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:301
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:303
+#: core/common/OutsideComm.php:309
 msgid "Hello,"
 msgstr ""
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:311
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:317
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr ""
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s administrator"
 msgstr ""
 
-#: core/common/OutsideComm.php:322
+#: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:334
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
 
-#: core/common/OutsideComm.php:330
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
 
-#: core/common/OutsideComm.php:332
+#: core/common/OutsideComm.php:338
 msgid "and enter the invitation token"
 msgstr ""
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:340
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
 
-#: core/common/OutsideComm.php:335
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:342
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -640,7 +640,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr ""
 
-#: core/common/OutsideComm.php:372
+#: core/common/OutsideComm.php:378
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr ""
@@ -649,26 +649,26 @@ msgstr ""
 msgid "Input validation error: "
 msgstr ""
 
-#: web/lib/common/InputValidation.php:342
+#: web/lib/common/InputValidation.php:346
 msgid "Realm is empty!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:351
+#: web/lib/common/InputValidation.php:355
 msgid "Realm contains an @ sign!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:352
+#: web/lib/common/InputValidation.php:356
 msgid "Realm begins with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:353
+#: web/lib/common/InputValidation.php:357
 msgid "Realm ends with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:354
+#: web/lib/common/InputValidation.php:358
 msgid "Realm contains spaces!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:367
+#: web/lib/common/InputValidation.php:371
 msgid "Realm does not contain at least one . (dot)!"
 msgstr ""

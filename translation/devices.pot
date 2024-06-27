@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 15:34+0000\n"
+"POT-Creation-Date: 2024-06-27 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -500,76 +500,84 @@ msgstr ""
 msgid "enter your import password"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:131 devices/linux/DeviceLinuxSh.php:133
+#: devices/linux/DeviceLinux.php:131
+msgid "Please, enter your credentials:"
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:132 devices/linux/DeviceLinuxSh.php:133
 msgid "incorrect password"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:132 devices/linux/DeviceLinuxSh.php:134
+#: devices/linux/DeviceLinux.php:133 devices/linux/DeviceLinuxSh.php:134
 msgid "repeat your password"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:133 devices/linux/DeviceLinuxSh.php:135
+#: devices/linux/DeviceLinux.php:134 devices/linux/DeviceLinuxSh.php:135
 msgid "passwords do not match"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:134 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:135
+#: devices/linux/DeviceLinux.php:136
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinux.php:145
+#: devices/linux/DeviceLinux.php:144
+msgid "OK"
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1190
 msgid "All files"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:148
+#: devices/linux/DeviceLinux.php:148 devices/linux/DeviceLinuxSh.php:148
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:148 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1336 devices/ms/Files/common.inc:1356
 #: devices/ms/Files/common.inc:1407
 msgid ""
@@ -577,43 +585,47 @@ msgid ""
 "'john@example.net'!"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:149
+#: devices/linux/DeviceLinux.php:151
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:150
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:338
+#: devices/linux/DeviceLinux.php:154
+msgid "Directory {} exists; some of its files may be overwritten"
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:341
 msgid "This installer has been prepared for {0}"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:338 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:488 devices/ms/Files/common.inc:495
 msgid "More information and comments:"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:339 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:521
 msgid "Installer created with software from the GEANT project."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:367
+#: devices/linux/DeviceLinux.php:370
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:369
+#: devices/linux/DeviceLinux.php:372
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
 
