@@ -961,8 +961,13 @@ class SanityTests extends CAT
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'tls';
         $mail->Host = \config\Master::MAILSETTINGS['host'];
-        $mail->Username = \config\Master::MAILSETTINGS['user'];
-        $mail->Password = \config\Master::MAILSETTINGS['pass'];
+        if (\config\Master::MAILSETTINGS['user'] === NULL && \config\Master::MAILSETTINGS['pass'] === NULL) {
+            $mail->SMTPAuth = false;
+        } else {
+            $mail->SMTPAuth = true;
+            $mail->Username = \config\Master::MAILSETTINGS['user'];
+            $mail->Password = \config\Master::MAILSETTINGS['pass'];
+        }
         $mail->SMTPOptions = \config\Master::MAILSETTINGS['options'];
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
@@ -973,6 +978,7 @@ class SanityTests extends CAT
         $mail->Subject = "testing CAT configuration mail";
         $mail->Body = "Testing CAT mailing\n";
         $sent = $mail->send();
+        
         if ($sent) {
             $this->storeTestResult(\core\common\Entity::L_OK, "mailer settings appear to be working, check " . \config\Master::APPEARANCE['abuse-mail'] . " mailbox if the message was receiced.");
         } else {
