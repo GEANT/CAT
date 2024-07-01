@@ -56,7 +56,7 @@ switch ($_GET['token']) {
         break;
     default:
         $tokenUnfiltered = $validator->token(filter_input(INPUT_GET,'token'));
-        $token = htmlspecialchars(strip_tags($token));
+        $token = htmlspecialchars(strip_tags($tokenUnfiltered));
         $checkval = $usermgmt->checkTokenValidity($token);
 }
 
