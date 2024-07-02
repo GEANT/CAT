@@ -90,7 +90,7 @@ class IdP extends EntityWithDBProperties
 
         $this->identifier = $instId;
 
-        $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
+        $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate, type FROM institution WHERE inst_id = $this->identifier");
         // SELECT -> returns resource, not boolean
         if (!$instQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
@@ -113,7 +113,7 @@ class IdP extends EntityWithDBProperties
             "flag" => NULL];
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
-        $eligibility = $this->eligibility();
+        $eligibility = $this->eligibility($instQuery->type);
         if (in_array(IdP::ELIGIBILITY_IDP, $eligibility) && in_array(IdP::ELIGIBILITY_SP, $eligibility)) {
             $eligType = IdP::TYPE_IDPSP . "";
             $this->type = $eligType;
@@ -123,7 +123,7 @@ class IdP extends EntityWithDBProperties
             $eligType = IdP::TYPE_SP . "";
         }
         $this->type = $eligType;
-        $this->loggerInstance->debug(4, "--- END Constructing new IdP object ... ---\n");
+        $this->loggerInstance->debug(4, "--- END Constructing new IdP object $instId ... ---\n");
     }
 
     /**
@@ -301,18 +301,15 @@ class IdP extends EntityWithDBProperties
      * 
      * @return array list of eligibilities
      */
-    public function eligibility()
+    public function eligibility($type)
     {
-        $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE inst_id = $this->identifier");
-        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
-            switch ($iterator->type) {
-                case "IdP":
-                    return [IdP::ELIGIBILITY_IDP];
-                case "SP":
-                    return [IdP::ELIGIBILITY_SP];
-                default:
-                    return [IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP];
-            }
+        switch ($type) {
+            case "IdP":
+                return [IdP::ELIGIBILITY_IDP];
+            case "SP":
+                return [IdP::ELIGIBILITY_SP];
+            default:
+                return [IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP];
         }
     }
 

@@ -27,3 +27,10 @@
 
 UPDATE profile_option_dict SET flag='SPECIFIC' WHERE name = 'device-specific:geteduroam';
 UPDATE profile_option_dict SET flag='SPECIFIC' WHERE name = 'device-specific:geantlink';
+ALTER TABLE profile_option ADD KEY profile_id (profile_id);
+ALTER TABLE profile ADD KEY showtime (showtime);
+ALTER TABLE profile ADD KEY sufficient_config (sufficient_config);
+ALTER TABLE profile ADD KEY openroaming (openroaming);
+ALTER TABLE institution ADD KEY country (country);
+ALTER TABLE institution ADD KEY external_db_id (external_db_id);
+ALTER TABLE institution ADD KEY external_db_syncstate (external_db_syncstate);

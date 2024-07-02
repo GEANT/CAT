@@ -28,6 +28,7 @@ $cat = new \core\CAT(); // initialises Entity static members
 
 //$OpenRoamingSymbol = "<img src='../resources/images/icons/or.svg' alt='OpenRoaming' title='OpenRoaming' class='cat-icon'>";
 $OpenRoamingSymbol = "OR";
+$fedArray = [];
 $stausIcons = [
     \core\IdP::PROFILES_SHOWTIME => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
     \core\IdP::PROFILES_CONFIGURED => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
@@ -128,9 +129,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
 
     <?php
     }
-
     foreach ($feds as $onefed) {
-        $thefed = new \core\Federation(strtoupper($onefed['value']));
+        $fedId = strtoupper($onefed['value']);
+        $fedArray[$fedId] = new \core\Federation($fedId);
+    }
+    
+    foreach ($fedArray as $fedId => $thefed) {
         ?>
 
         <div class='infobox'><h2>
@@ -314,9 +318,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         </tr>
         <?php
         $userIdps = $user->listOwnerships();
-        foreach ($feds as $onefed) {
-            $fedId = strtoupper($onefed['value']);
-            $thefed = new \core\Federation($fedId);
+        foreach ($fedArray as $fedId => $thefed) {
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tr><td colspan='9'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";
             echo "<tbody class='fedlist'>";

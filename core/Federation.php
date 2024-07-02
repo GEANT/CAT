@@ -68,7 +68,8 @@ class Federation extends EntityWithDBProperties
      * @var string
      */
     public $tld;
-    
+
+    private $idpArray = [];
     /**
      * retrieve the statistics from the database in an internal array representation
      * 
@@ -231,6 +232,7 @@ class Federation extends EntityWithDBProperties
         } else {
             throw new Exception("This database type is never an array!");
         }
+        $this->loggerInstance->debug(4, $fedname, "Creating federation:", " \n");
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
                                             FROM $this->entityOptionTable
@@ -532,7 +534,12 @@ Best regards,
         $returnarray = [];
         // SELECT -> resource, not boolean
         while ($idpQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
-            $idp = new IdP($idpQuery->inst_id);
+            if (isset($this->idpArray[$idpQuery->inst_id])) {
+                $idp = $this->idpArray[$idpQuery->inst_id];
+            } else {
+                $idp = new IdP($idpQuery->inst_id);
+                $this->idpArray[$idpQuery->inst_id] = $idp;
+            }
             if (!isset($idpQuery->realms)) {
                 $idpQuery->realms = '';
             }
