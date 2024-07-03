@@ -53,7 +53,7 @@ class CAT extends \core\common\Entity
      */
     public const VERSION_MAJOR = 2;
     public const VERSION_MINOR = 1;
-    public const VERSION_PATCH = 1;
+    public const VERSION_PATCH = 2;
     public const VERSION_EXTRA = "";
     private const RELEASE_VERSION = FALSE;
     private const USER_API_VERSION = 2;
@@ -619,7 +619,9 @@ class CAT extends \core\common\Entity
      */
     public static function sessionStart()
     {
+        $loggerInstance = new \core\common\Logging();
         if (session_status() != PHP_SESSION_ACTIVE) {
+            $loggerInstance->debug(4, "Session start\n");
             session_name("CAT");
             session_set_cookie_params([
                 'lifetime' => 0,
@@ -628,7 +630,7 @@ class CAT extends \core\common\Entity
                 'secure' => (isset($_SERVER['HTTPS']) ? TRUE : FALSE),
                 'httponly' => false,
                 'samesite' => 'strict'
-        ]);            
+        ]);               
             session_start();
         }
     }

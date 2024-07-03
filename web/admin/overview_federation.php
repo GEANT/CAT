@@ -19,6 +19,13 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+/**
+ * This page displays the dashboard overview of a Federation.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
+ */
+
 require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 $deco = new \web\lib\admin\PageDecoration();

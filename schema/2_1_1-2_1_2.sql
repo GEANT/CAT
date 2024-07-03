@@ -20,8 +20,8 @@
  */
 
 /**
- * Author:  twoln
- * Created: 16 Mau 2024
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * Created: 16 May 2024
  */
 
 
