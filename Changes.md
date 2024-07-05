@@ -30,6 +30,8 @@ Changes in 2.1.2
                 the deprecated FILTER_SANITIZE_STRING usage
 - [BUGFIX #2]   replaced slow SQL queries in Managed IdP area with much faster ones
 - [BUGFIX #3]   fixed blocking of Ajax requests caused by php sessions
+- [BUGFIX #4]   added several mising indexes in tables
+- [BUGFIX #5]   reduced number of database queries in overrvier_federation.php
 
 Changes in 2.1
 =====================
