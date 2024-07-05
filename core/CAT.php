@@ -65,7 +65,7 @@ class CAT extends \core\common\Entity
     private const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
     private const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     private const COPYRIGHT_MIN_YEAR = 2011;
-    private const COPYRIGHT_MAX_YEAR = 2022;
+    private const COPYRIGHT_MAX_YEAR = 2024;
 
     /**
      * This is the user-displayed string; controlled by the four options above
