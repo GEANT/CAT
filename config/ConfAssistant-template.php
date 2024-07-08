@@ -83,7 +83,7 @@ class ConfAssistant
         'interworking-consortium-oi' => ['001bc50460'],
         'interworking-domainname-fallback' => 'eduroam.org',
         'networks' => [
-            'eduroam®'     => [
+            'eduroam'     => [
                 'ssid' => ['eduroam'], 
                 'oi' => [
                     '001bc50460' /* eduroam RCOI */ 

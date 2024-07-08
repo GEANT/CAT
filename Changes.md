@@ -26,6 +26,8 @@ Changes in 2.1.2
                 your instance following the Diagnostics-template.php
 - [FEATURE #14] Improvemens to the linux python installed, in particular add support
                 for Tkinker and yad provided by https://github.com/sdasda7777
+- [FEATURE #15] Removing the Registered Trademark character form the eduroam profile
+                name in Windows
 - [BUGFIX #1]   multiple improvements to the code, in particular eliminating
                 the deprecated FILTER_SANITIZE_STRING usage
 - [BUGFIX #2]   replaced slow SQL queries in Managed IdP area with much faster ones
