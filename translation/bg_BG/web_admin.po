@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2015-2016,2018-2023\n"
@@ -246,7 +246,7 @@ msgid "Property Value"
 msgstr "Стойност на свойство"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:247
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Държава:"
 
@@ -410,7 +410,7 @@ msgstr ""
 "като резервен, ако системата няма име на езика, който потребителя иска да "
 "изтегли."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Свойства на средата"
 
@@ -1817,7 +1817,7 @@ msgstr "Конфигуриран / Видим / OpenRoaming"
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "%s Име"
@@ -1970,7 +1970,7 @@ msgstr "Профил: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP типове</strong> (по реда на предпочитанията):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "ОК"
 
@@ -2086,7 +2086,7 @@ msgid "VLAN tag for own users"
 msgstr "VLAN таг за собствените потребители"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "Областта да се счита собствените потребители"
 
@@ -2458,7 +2458,7 @@ msgstr ""
 "Вие сте %s администратор. Може да каните нови администратори, които на свой "
 "ред да назначават следващи администратори. "
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "%s администратор"
@@ -3024,7 +3024,7 @@ msgstr "Прочетете инструкциите в wiki."
 msgid "select language"
 msgstr "изберете език"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "по подразбиране/други езици"
 
@@ -3036,11 +3036,11 @@ msgstr "(по подразбиране/други езици)"
 msgid "file content"
 msgstr "съдържание на файла"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "включване"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "изключване"
 
@@ -3227,158 +3227,153 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Използвайте GEANTlink за TTLS (Windows 8 и 10)"
 
 #: web/lib/admin/UIElements.php:117
-msgid "Show the dedicated geteduroam download page for this device"
-msgstr ""
-"Покажете специалната страница за изтегляне на eduroam за това устройство"
-
-#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Описание на профил"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Персонализирано име на суфикса на инсталатора"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Действително име"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "Е-мейл адрес"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Премахни/Забрани SSID"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Задължително прокси, филтриращо съдържанието "
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Персонализиран CSS файл за потребителската област"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "%s лого"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Предпочитан слой за потребителската област"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Включва %s брандирането в инсталаторите"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Начална страница"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Персонализиран текст в поканите на %s"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "Разрешете %s"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Не прекратявайте EAP"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: максимум потребители на профил"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Много %s с Доставчик на Удостоверителни Услуги при създаване"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Позволете на %s да се включи в"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: Персонализиран NAPTR Target"
 
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN за собствените потребители"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Атрибут на персонализиран Operator-Name"
 
-#: web/lib/admin/UIElements.php:243
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Основни %s детайли"
 
-#: web/lib/admin/UIElements.php:261
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Общи детейли на Helpdesk "
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:340
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Имаше грешка, докато сертификатът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:349
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Имаше грешка при обработването на сертификата!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "Главен CA"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "Междинен CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Има<strong>СЪРВЪРЕН</strong> сертификат!"
 
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Предварителен преглед на лого файла."
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Имаше грешка, докато файлът се извличаше от базата данни!"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Файлът съществува"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Предварителен преглед"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Забележка"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Предупреждение!"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Грешка!"

@@ -3,6 +3,6 @@ import sys
 try:
     import posix_ipc
     sys.exit(0)
-except ModuleNotFoundError as err:
+except ModuleNotFoundError:
     # Error handling
     sys.exit(1)

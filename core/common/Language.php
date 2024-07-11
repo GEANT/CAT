@@ -174,7 +174,7 @@ class Language
      * pick a proper value for a given language
      * @param array $valueArray an array of (locale,content) records
      * @return string localised value corresponding to the chosen
-     * locale or to the default locale C if a better mach was not available
+     * locale or to the default locale C if a better match was not available
      */
     public function getLocalisedValue($valueArray)
     {

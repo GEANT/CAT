@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2014-2020,2022-2023\n"
@@ -21,31 +21,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/Devices-template.php:143
+#: devices/Devices-template.php:139
 msgid "MS Windows 8 and newer"
 msgstr "MS Windows 8 и по-нов"
 
-#: devices/Devices-template.php:158
+#: devices/Devices-template.php:154
 msgid "MS Windows 8"
 msgstr "MS Windows 8"
 
-#: devices/Devices-template.php:174
+#: devices/Devices-template.php:170
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:187
+#: devices/Devices-template.php:183
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:201
+#: devices/Devices-template.php:197
 msgid "Apple device"
 msgstr "Apple устройство"
 
-#: devices/Devices-template.php:212 devices/Devices-template.php:228
-#: devices/Devices-template.php:244 devices/Devices-template.php:260
-#: devices/Devices-template.php:275 devices/Devices-template.php:290
-#: devices/Devices-template.php:305 devices/Devices-template.php:320
-#: devices/Devices-template.php:335 devices/Devices-template.php:350
+#: devices/Devices-template.php:208 devices/Devices-template.php:224
+#: devices/Devices-template.php:240 devices/Devices-template.php:256
+#: devices/Devices-template.php:271 devices/Devices-template.php:286
+#: devices/Devices-template.php:301 devices/Devices-template.php:316
+#: devices/Devices-template.php:331 devices/Devices-template.php:346
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -58,47 +58,47 @@ msgstr ""
 "бъде позволено да правите промени в профила, този път това е паролата за "
 "Вашия компютър."
 
-#: devices/Devices-template.php:217
+#: devices/Devices-template.php:213
 msgid "Apple macOS Catalina"
 msgstr "Apple macOS Catalina"
 
-#: devices/Devices-template.php:233
+#: devices/Devices-template.php:229
 msgid "Apple macOS Mojave"
 msgstr "Apple macOS Mojave"
 
-#: devices/Devices-template.php:249
+#: devices/Devices-template.php:245
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:265
+#: devices/Devices-template.php:261
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:280
+#: devices/Devices-template.php:276
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:295
+#: devices/Devices-template.php:291
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:310
+#: devices/Devices-template.php:306
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:325
+#: devices/Devices-template.php:321
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:340
+#: devices/Devices-template.php:336
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:355
+#: devices/Devices-template.php:351
 msgid "Apple iOS mobile device (iOS 7-11)"
 msgstr "Мобилно устройство Apple iOS (iOS 7-11)"
 
-#: devices/Devices-template.php:365
+#: devices/Devices-template.php:361
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -110,19 +110,19 @@ msgstr ""
 "бъдете подканени за паролата на сертификата и там трябва да въведете PIN "
 "кода за влизане, показан на тази страница."
 
-#: devices/Devices-template.php:370
+#: devices/Devices-template.php:366
 msgid "Apple iOS mobile device (iOS 5 and 6)"
 msgstr "Мобилно устройство Apple iOS (iOS 5 и 6)"
 
-#: devices/Devices-template.php:384
+#: devices/Devices-template.php:380
 msgid "Linux"
 msgstr "Линукс"
 
-#: devices/Devices-template.php:405
+#: devices/Devices-template.php:401
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:411
+#: devices/Devices-template.php:407
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -135,16 +135,16 @@ msgstr ""
 "'Import ONC file'. Импортът е невидим; към предпочитаните мрежи ще бъдат "
 "добавени новите мрежови дефиниции."
 
-#: devices/Devices-template.php:416
+#: devices/Devices-template.php:412
 msgid "Android 8 and higher"
 msgstr "Android 8 и по-висока версия"
 
-#: devices/Devices-template.php:424 devices/Devices-template.php:452
-#: devices/Devices-template.php:467 devices/Devices-template.php:494
-#: devices/Devices-template.php:508 devices/Devices-template.php:522
-#: devices/Devices-template.php:536 devices/Devices-template.php:550
-#: devices/Devices-template.php:564 devices/Devices-template.php:578
-#: devices/Devices-template.php:592
+#: devices/Devices-template.php:419 devices/Devices-template.php:434
+#: devices/Devices-template.php:448 devices/Devices-template.php:463
+#: devices/Devices-template.php:477 devices/Devices-template.php:491
+#: devices/Devices-template.php:505 devices/Devices-template.php:519
+#: devices/Devices-template.php:533 devices/Devices-template.php:547
+#: devices/Devices-template.php:561
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -157,85 +157,60 @@ msgstr ""
 "използва конфигурационния файл, изтеглен от CAT, за да направи всички "
 "необходими настройки."
 
-#: devices/Devices-template.php:426 devices/Devices-template.php:454
-#: devices/Devices-template.php:469 devices/Devices-template.php:496
-#: devices/Devices-template.php:510 devices/Devices-template.php:524
-#: devices/Devices-template.php:538 devices/Devices-template.php:552
-#: devices/Devices-template.php:566 devices/Devices-template.php:580
-#: devices/Devices-template.php:594
+#: devices/Devices-template.php:421 devices/Devices-template.php:436
+#: devices/Devices-template.php:450 devices/Devices-template.php:465
+#: devices/Devices-template.php:479 devices/Devices-template.php:493
+#: devices/Devices-template.php:507 devices/Devices-template.php:521
+#: devices/Devices-template.php:535 devices/Devices-template.php:549
+#: devices/Devices-template.php:563
 msgid "as local download"
 msgstr "като локално изтегляне"
 
-#: devices/Devices-template.php:428 devices/Devices-template.php:470
-#, php-format
-msgid ""
-"Use our app, it will guide you through the setup process:%s(or download it "
-"manually %s.)<p>After installation, open the app, select your home "
-"institution and the app will collect required information (this will require "
-"an internet connection).<p><span style='font-size:90%%'>If you want to save "
-"the configuration for later offline deployment, you can download it by %s.</"
-"span>"
-msgstr ""
-"Използвайте нашето приложение, което ще ви преведе през процеса на "
-"конфигуриране: %s (или го изтеглете ръчно %s.)<p>След инсталирането отворете "
-"приложението, изберете Вашата институция и приложението ще събере "
-"необходимата информация (това изисква интернет връзка).<p><span style='font-"
-"size:90%%'>Ако искате да запазите конфигурацията, за да работите по-нататък "
-"с  нея офлайн, можете да я изтеглите чрез %s.</span>"
-
-#: devices/Devices-template.php:438 devices/Devices-template.php:480
-msgid "here"
-msgstr "тук"
-
-#: devices/Devices-template.php:439 devices/Devices-template.php:481
-msgid "clicking here"
-msgstr "като кликнете тук"
-
-#: devices/Devices-template.php:445
+#: devices/Devices-template.php:427
 msgid "Android 8 to 10"
 msgstr "Android 8 до 10"
 
-#: devices/Devices-template.php:460
+#: devices/Devices-template.php:442
 msgid "Android 4.3 to 7"
 msgstr "Android 4.3 до 7"
 
-#: devices/Devices-template.php:487
+#: devices/Devices-template.php:456
 msgid "Android 10.0 Q"
 msgstr "Android 10.0 Q"
 
-#: devices/Devices-template.php:501
+#: devices/Devices-template.php:470
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:515
+#: devices/Devices-template.php:484
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:529
+#: devices/Devices-template.php:498
 msgid "Android 7.0 Nougat"
 msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:543
+#: devices/Devices-template.php:512
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:557
+#: devices/Devices-template.php:526
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:571
+#: devices/Devices-template.php:540
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:585
+#: devices/Devices-template.php:554
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:600 devices/Devices-template.php:623
+#: devices/Devices-template.php:569 devices/Devices-template.php:592
 msgid "EAP config"
 msgstr "EAP конфигурация"
 
-#: devices/Devices-template.php:606
+#: devices/Devices-template.php:575
 #, php-format
 msgid ""
 "This option provides an EAP config XML file, which can be consumed by the "
@@ -244,11 +219,11 @@ msgstr ""
 "Тази опция предлага EAP конфигурационен XML файл, който може да се използва "
 "от eduroamCAT приложение за Android."
 
-#: devices/Devices-template.php:611
+#: devices/Devices-template.php:580
 msgid "EAP generic"
 msgstr "EAP стандартен"
 
-#: devices/Devices-template.php:616
+#: devices/Devices-template.php:585
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -257,7 +232,7 @@ msgstr ""
 "Тази опция предлага стандартен EAP конфигурационен XML файл, който може да "
 "се използва от GetEduroam приложения."
 
-#: devices/Devices-template.php:628
+#: devices/Devices-template.php:597
 #, php-format
 msgid ""
 "This option provides an EAP config XML file with multiple "
@@ -266,7 +241,7 @@ msgstr ""
 "Тази опция предоставя EAP конфигурационен XML файл с множество "
 "EAPIdentityProvider елементи и версии за всички езици"
 
-#: devices/Devices-template.php:634
+#: devices/Devices-template.php:603
 msgid "Test"
 msgstr "Тест"
 

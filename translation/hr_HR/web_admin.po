@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, "
 "2012-2013,2015-2016,2018-2020,2022-2023\n"
@@ -250,7 +250,7 @@ msgid "Property Value"
 msgstr "Vrijednost imovine"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:247
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Zemlja:"
 
@@ -410,7 +410,7 @@ msgstr ""
 "uvijek ispuniti barem 'zadani/drugi' jezik, koji će biti korišten kao "
 "rezervni ako sustav nema naziv u jeziku koji koristi korisnik."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Podaci o mediju"
 
@@ -1796,7 +1796,7 @@ msgstr "Konfigurirano / Vidljivo / OpenRoaming"
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "%s Naziv"
@@ -1949,7 +1949,7 @@ msgstr "Profil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tipovi</strong> (redosljed po važnosti):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "OK"
 
@@ -2066,7 +2066,7 @@ msgid "VLAN tag for own users"
 msgstr "VLAN tag za vlastite korisnike"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "Domena s vlastitim korisnicima"
 
@@ -2438,7 +2438,7 @@ msgstr ""
 "Vi ste administrator %s. Možete pozvati nove administratore koji mogu dalje "
 "sami postavljati administratore."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "%s administrator"
@@ -2987,7 +2987,7 @@ msgstr "Pročitajte upute na wiki-u."
 msgid "select language"
 msgstr "odabir jezika"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "predodređen/ostali jezici"
 
@@ -2999,11 +2999,11 @@ msgstr "(predoređeni/ostali jezici)"
 msgid "file content"
 msgstr "sadržaj datoteke"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "uključeno"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "isključeno"
 
@@ -3191,157 +3191,153 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Koristi GEANTlink za TTLS (Windows 8 and 10)"
 
 #: web/lib/admin/UIElements.php:117
-msgid "Show the dedicated geteduroam download page for this device"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Opis profila"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Sufiks naziva installera"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Stvarno ime"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "E-Mail adresa"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Makni/onemogući SSID"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Obavezan proxy filtriranja sadržaja"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Prilagođeni CSS za korisnika"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "%s logo"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Poželjan izgled korisničkog sučelja"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Uključi %s branding u installere"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Početna stranica"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Prilagođeni tekst u %s pozivnici"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "Omogući %s"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Ne prekidajte EAP"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maksimalno korisnika po profilu"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Mint %s sa CA kod stvaranja"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Dozvoli %s Opt-In"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: Prilagođeni NAPTR Target"
 
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN za vlastite korisnike"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Prilagođeni Operator-Name attribute"
 
-#: web/lib/admin/UIElements.php:243
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Općeniti %s detalji"
 
-#: web/lib/admin/UIElements.php:261
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Glavni podaci za helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:340
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Došlo je do pogreške kod preuzimanja certifikata iz baze podataka!"
 
-#: web/lib/admin/UIElements.php:349
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Došlo je do pogreške u obradi certifikata!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "Root CA"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "Intermediate CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Ovo je <strong>SERVER</strong> certifikat!"
 
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Pogled na log datoteku"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Došto je do pogreške kod preuzimanja file-a iz baze!"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Datoteka postoji"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Pogled"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Zabiljeska"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Upozorenje!"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Pogreška!"

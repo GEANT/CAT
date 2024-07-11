@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, "
 "2013,2015-2016,2018-2019,2021-2023\n"
@@ -249,7 +249,7 @@ msgid "Property Value"
 msgstr "Valor de la propietat"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:247
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "País:"
 
@@ -411,7 +411,7 @@ msgstr ""
 "omplir almenys l'idioma per defecte, ja que s'utilitza com a recurs si el "
 "sistema no disposa del mateix idioma que l'usuari vol descarregar."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Propietats del mitjà"
 
@@ -1804,7 +1804,7 @@ msgstr "Configurat / Visible / OpenRoaming"
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "Nom %s"
@@ -1957,7 +1957,7 @@ msgstr "Perfil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipus EAP</strong> (en ordre de preferència):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "OK"
 
@@ -2073,7 +2073,7 @@ msgid "VLAN tag for own users"
 msgstr "etiqueta VLAN per als usuaris propis"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "Domini per a usuaris propis"
 
@@ -2442,7 +2442,7 @@ msgstr ""
 "Sou l'administrador de %s. Podeu invitar-hi nous administradors, que podran "
 "també nomenar d'altres administradors."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrador de %s"
@@ -3008,7 +3008,7 @@ msgstr "Llegiu les instruccions en el wiki"
 msgid "select language"
 msgstr "Selecciona idioma"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "per defecte/altres idiomes"
 
@@ -3020,11 +3020,11 @@ msgstr "(per defecte/altres idiomes)"
 msgid "file content"
 msgstr "contingut de l'arxiu"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "on"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "off"
 
@@ -3213,157 +3213,153 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Utilitzar el client GEANTlink per a TTLS ( Windows 8 i 10)"
 
 #: web/lib/admin/UIElements.php:117
-msgid "Show the dedicated geteduroam download page for this device"
-msgstr "Mostrar la pàgina de descàrrega de geteduroam per a aquest dispositiu"
-
-#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Descripció del perfil"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Instal·lador personalitzat del sufix del nom"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Nom Real"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "Adreça electrònica"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "Elimina/deshabilita SSID"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Proxy de filtratge de continguts obligatori"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Fitxer personalitzat de CSS per a l'àrea d'usuari"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "Logo de %s"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Tema preferit per a l'Àrea d'usuari"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Incloure la marca de %s als instal·ladors"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "Pàgina d'Inici de %s"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Text personalitzat a les invitacions %s"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "Habilitar %s"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: No finalitzar EAP"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: Màxim d'usuaris per perfil"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Produir %s amb CA en crear-los"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Permetre %s Opt-In"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: objectiu NAPTR personalitzat"
 
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN per als usuaris propis"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Valor Operator-Name personalitzat"
 
-#: web/lib/admin/UIElements.php:243
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Detalls generals de %s"
 
-#: web/lib/admin/UIElements.php:261
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Detalls globals del SAU"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:340
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Hi ha hagut un error recuperant el certificat de la base de dades!"
 
-#: web/lib/admin/UIElements.php:349
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Hi ha hagut un error processant el certificat!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "CA Arrel"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "CA intermedi"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Aquest és un certificat de <strong>SERVIDOR</strong>!"
 
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Vista prèvia del fitxer de logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Hi ha hagut un error recuperant el registre de la base de dades!"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Existeix l'arxiu"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Vista prèvia"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Observació"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Alerta!"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Error!"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 16:12+0000\n"
+"POT-Creation-Date: 2023-08-14 13:14+0200\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, "
 "2018-2020,2022-2023\n"
@@ -250,7 +250,7 @@ msgid "Property Value"
 msgstr "Wert"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_participant.php:94
-#: web/lib/admin/UIElements.php:247
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Land:"
 
@@ -416,7 +416,7 @@ msgstr ""
 "anzugeben, da dies verwendet wird wenn die genaue angefragte Sprachvariante "
 "nicht vorliegt."
 
-#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:261
+#: web/admin/edit_participant.php:134 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Netzzugangsmedien"
 
@@ -1838,7 +1838,7 @@ msgstr "Konfiguriert / Öffentlich / OpenRoaming"
 
 #: web/admin/overview_federation.php:244 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:129
 #, php-format
 msgid "%s Name"
 msgstr "%s Name"
@@ -1991,7 +1991,7 @@ msgstr "Profil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP Typen</strong> (absteigende Präferenz):"
 
-#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:416
+#: web/admin/overview_org.php:104 web/lib/admin/UIElements.php:415
 msgid "OK"
 msgstr "OK"
 
@@ -2109,7 +2109,7 @@ msgid "VLAN tag for own users"
 msgstr "VLAN Nummer für eigene Nutzer"
 
 #: web/admin/overview_org.php:356 web/admin/overview_sp.php:225
-#: web/lib/admin/UIElements.php:142
+#: web/lib/admin/UIElements.php:141
 msgid "Realm to be considered own users"
 msgstr "RADIUS Realms der eigenen Benutzer "
 
@@ -2482,7 +2482,7 @@ msgstr ""
 "Sie sind der %s Administrator. Sie können neue Administratoren hinzufügen, "
 "die wiederum selbst neue Administratoren hinzufügen können."
 
-#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:121
+#: web/admin/inc/manageAdmins.inc.php:153 web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Administrator"
@@ -3053,7 +3053,7 @@ msgstr "Lesen Sie die Anweisungen im Wiki."
 msgid "select language"
 msgstr "Sprache"
 
-#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:177
+#: web/lib/admin/OptionDisplay.php:365 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "Standard/andere Sprachen"
 
@@ -3065,11 +3065,11 @@ msgstr "Standard/andere Sprachen"
 msgid "file content"
 msgstr "Dateiinhalt"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "aktiv"
 
-#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:211
+#: web/lib/admin/OptionDisplay.php:491 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "nicht aktiv"
 
@@ -3259,158 +3259,154 @@ msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "GEANTlink für TTLS nutzen (Windows 8 und 10)"
 
 #: web/lib/admin/UIElements.php:117
-msgid "Show the dedicated geteduroam download page for this device"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:118
 msgid "Profile Description"
 msgstr "Profilbeschreibung"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 msgid "Custom Installer Name Suffix"
 msgstr "Eigenes Kürzel im Dateinamen"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 msgid "OpenRoaming"
 msgstr "OpenRoaming"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 msgid "Real Name"
 msgstr "Name"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:122
 msgid "E-Mail Address"
 msgstr "E-Mail Adresse"
 
-#: web/lib/admin/UIElements.php:124
+#: web/lib/admin/UIElements.php:123
 msgid "Remove/Disable SSID"
 msgstr "SSID entfernen/deaktivieren"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:124
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Erzwungener Filter Proxy"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:125
 msgid "Custom CSS file for User Area"
 msgstr "Eigene CSS Datei für Nutzerbereich"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:126
 #, php-format
 msgid "%s Logo"
 msgstr "%s Logo"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:127
 msgid "Preferred Skin for User Area"
 msgstr "Anzeigevariante im Nutzerbereich"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "%s Name und/oder Logo in Installationsprogramme einbinden"
 
-#: web/lib/admin/UIElements.php:131
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Homepage"
 
-#: web/lib/admin/UIElements.php:132
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Zusätzlicher Text in %s Einladungen"
 
-#: web/lib/admin/UIElements.php:133
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "Enable %s"
 msgstr "%s aktivieren"
 
-#: web/lib/admin/UIElements.php:134
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: EAP Terminierung verhindern"
 
-#: web/lib/admin/UIElements.php:135
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: Maximale Nutzerzahl pro Profil"
 
-#: web/lib/admin/UIElements.php:136
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "%s mit vorausgefüllter CA erstellen"
 
-#: web/lib/admin/UIElements.php:137
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "OpenRoaming: Allow %s Opt-In"
 msgstr "OpenRoaming: Nutzung für %s erlauben"
 
-#: web/lib/admin/UIElements.php:138
+#: web/lib/admin/UIElements.php:137
 msgid "OpenRoaming: Custom NAPTR Target"
 msgstr "OpenRoaming: abweichendes NAPTR Ziel"
 
-#: web/lib/admin/UIElements.php:141
+#: web/lib/admin/UIElements.php:140
 msgid "VLAN for own users"
 msgstr "VLAN für eigene Nutzer"
 
-#: web/lib/admin/UIElements.php:143
+#: web/lib/admin/UIElements.php:142
 msgid "Custom Operator-Name attribute"
 msgstr "Benutzerdefiniertes Operator-Name Attribut"
 
-#: web/lib/admin/UIElements.php:243
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Allgemeine %s Einstellungen"
 
-#: web/lib/admin/UIElements.php:261
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Angaben zum Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:340
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 "Beim Abholen des Zertifikats aus der Datenbank ist ein Fehler aufgetreten!"
 
-#: web/lib/admin/UIElements.php:349
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Fehler beim Verarbeiten des Zertifikats!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Root CA"
 msgstr "Wurzel-CA"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "Intermediate CA"
 msgstr "Zwischen-CA"
 
-#: web/lib/admin/UIElements.php:359
+#: web/lib/admin/UIElements.php:358
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Es handelt sich um ein <strong>SERVER</strong> Zertifikat!"
 
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Vorschau des Logos"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:392
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Beim Abholen der Datei aus der Datenbank ist ein Fehler aufgetreten!"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "File exists"
 msgstr "Datei existiert"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:398
 msgid "Preview"
 msgstr "Vorschau"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Remark"
 msgstr "Hinweis"
 
-#: web/lib/admin/UIElements.php:418
+#: web/lib/admin/UIElements.php:417
 msgid "Warning!"
 msgstr "Warnung!"
 
-#: web/lib/admin/UIElements.php:419
+#: web/lib/admin/UIElements.php:418
 msgid "Error!"
 msgstr "Fehler!"
