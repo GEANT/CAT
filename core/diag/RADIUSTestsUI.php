@@ -63,6 +63,7 @@ class RADIUSTestsUI extends AbstractTest
     private $hosts;
     private $testSuite;
     private $areFailed = FALSE;
+    private $allCApathFailed = FALSE;
     private $globalInfo = [];
     private $stateIcons = [];
     private $states;
@@ -190,7 +191,6 @@ class RADIUSTestsUI extends AbstractTest
                                     } else {
                                         
                                         if ($certificate->status == 'EXPIRED' && property_exists($certificate, 'reason')) {
-                                            //print '<pre>'; print_r($certificate); print '</pre>';
                                             $level = \core\common\Entity::L_WARN;
                                         } else {
                                             $level = \core\common\Entity::L_OK;
@@ -379,11 +379,15 @@ class RADIUSTestsUI extends AbstractTest
     {
         $capathtest = [];
         $capathtest[] = '<p><strong>'._("Checking server handshake...")."</strong><p>";
+        $allfailed = TRUE;
         foreach ($this->allReachabilityResults['capath'] as $capath) {
-            $hostindex = $capath->hostindex;
-            $level = $capath->level;
+            $hostindex = $capath->hostindex;          
             if ($capath->level == \core\common\Entity::L_OK && $capath->result == \core\diag\RADIUSTests::RETVAL_INVALID) {
-                $level = \core\common\Entity::L_WARN;
+                $capath->level = \core\common\Entity::L_ERROR;
+            }
+            $level = $capath->level; 
+            if ($level == \core\common\Entity::L_OK) {
+                $allfailed = FALSE;
             }
             $capathtest[] = '<p><strong>'.$this->hostMap[$capath->IP].'</strong> ('.$capath->name.') ';
             $prots = [];
@@ -445,6 +449,7 @@ class RADIUSTestsUI extends AbstractTest
 </table>';
             $capathtest[] = '</li></ul>';
         }
+        $this->allCApathFailed = $allfailed;
         return $capathtest;
     }
 
@@ -554,7 +559,6 @@ class RADIUSTestsUI extends AbstractTest
         $out = [];
         $out[] = "<div id='dynamic_tests'><fieldset class='option_container'>
             <legend><strong>"._("DYNAMIC connectivity tests")."</strong></legend>";
-        
         if (count($this->rfc7585suite->NAPTR_hostname_records) > 0) {    
             $capathtest = $this->collectCAPath();
             $clientstest = $this->collectClients();
@@ -569,8 +573,10 @@ class RADIUSTestsUI extends AbstractTest
                 $out[] = 'none';
             }
             $out[] = '" id="dynamic_result_pass"><b>'.
-                                _("All tests passed, congratulations!").'</b></div>'.
-                                '<div style="align:left;"><a href="" class="moreall"><i>'._('Show detailed information for all tests').'&raquo;</i></a></div>';
+                                _("All tests passed, congratulations!").'</b></div>';
+            if (!$this->allCApathFailed) {
+                $out[] = '<div style="align:left;"><a href="" class="moreall"><i>'._('Show detailed information for all tests').'&raquo;</i></a></div>';
+            }
             $out[] = join('', $capathtest);
             if (!empty($clientstest)) {
                 $out[] = '<span id="clientstest" style="display: ;"><p><hr><b>'._('Checking if certificates from CAs are accepted...').'</b><p>'._('A few client certificates will be tested to check if servers are resistant to some certificate problems.').'<p>';

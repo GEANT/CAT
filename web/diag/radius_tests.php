@@ -266,10 +266,15 @@ switch ($test_type) {
         $consortiumName = 'openroaming';
     case 'capath':
         $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName, $consortiumName);
+        $returnarray['IP'] = $host;
+        $returnarray['hostindex'] = $hostindex;
+        $returnarray['consortium'] = $consortiumName;
+        $returnarray['name'] = $expectedName;
         if ($ssltest) {
             $testresult = $rfc6614suite->cApathCheck($host);
             if ($testresult == \core\diag\RADIUSTests::RETVAL_INVALID) {
                 $returnarray['result'] = $testresult;
+                $returnarray['level'] = \core\common\Entity::L_ERROR;
                 break;
             }
         } else {
@@ -277,10 +282,7 @@ switch ($test_type) {
             $returnarray['message'] = _("<strong>ERROR</strong>: connectivity problem!");
             $returnarray['level'] = \core\common\Entity::L_WARN;
         }
-        $returnarray['IP'] = $host;
-        $returnarray['hostindex'] = $hostindex;
-        $returnarray['consortium'] = $consortiumName;
-        $returnarray['name'] = $expectedName;
+        
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
         if (!isset($rfc6614suite->TLS_CA_checks_result[$host])) {
