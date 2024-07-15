@@ -668,6 +668,7 @@ button.guess_os {
     background-repeat:no-repeat;
     position: relative;
     background-position: <?php echo $start ?>;
+    background-size: 50px 50px;
 }
 
 #download_text_1 div {
