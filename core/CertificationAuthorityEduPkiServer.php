@@ -16,27 +16,16 @@ use \SoapFault;
 
 class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implements CertificationAuthorityInterface
 {
-    #private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.pem";
-    #private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.clearkey";
-    #private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
-    #private const EDUPKI_RA_ID = 100;
-    #private const EDUPKI_CERT_PROFILE_BOTH = "eduroam IdP and SP";
-    #private const EDUPKI_CERT_PROFILE_IDP = "eduroam IdP";
-    #private const EDUPKI_CERT_PROFILE_SP = "eduroam SP";
-    #private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
-    #private const EDUPKI_ENDPOINT_PUBLIC = "https://pki.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1";
-    #private const EDUPKI_ENDPOINT_RA = "https://ra.edupki.org/edupki-ca/cgi-bin/ra/soap?wsdl=1";
-    
-    private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
-    private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
-    private const LOCATION_WEBROOT = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
-    private const EDUPKI_RA_ID = 700;
-    private const EDUPKI_CERT_PROFILE_BOTH = "Radius Server SOAP";
-    private const EDUPKI_CERT_PROFILE_IDP = "Radius Server SOAP";
-    private const EDUPKI_CERT_PROFILE_SP = "Radius Server SOAP";
-    private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
-    private const EDUPKI_ENDPOINT_PUBLIC = "https://pki.edupki.org/edupki-test-ca/cgi-bin/pub/soap?wsdl=1";
-    private const EDUPKI_ENDPOINT_RA = "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1";
+    private $locationRaCert;
+    private $locationRaKey;
+    private $locationWebRoot;
+    private $eduPkiRaId;
+    private $eduPkiCertProfileBoth;
+    private $eduPkiCertProfileIdp;
+    private $eduPkiCertProfileSp;
+    private $eduPkiRaPkeyPassphrase;
+    private $eduPkiEndpointPublic;
+    private $eduPkiEndpointRa;
 
     /**
      * sets up the environment so that we can talk to eduPKI
@@ -45,17 +34,42 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      */
     public function __construct()
     {
+            
+        if ( \config\ConfAssistant::eduPKI['testing'] === true ) {
+            $this->locationRaCert = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+            $this->locationRaKey = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
+            $this->locationWebRoot = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
+            $this->eduPkiRaId = 700;
+            $this->eduPkiCertProfileBoth = "Radius Server SOAP";
+            $this->eduPkiCertProfileIdp = "Radius Server SOAP";
+            $this->eduPkiCertProfileSp = "Radius Server SOAP";
+            $this->eduPkiRaPkeyPassphrase = "...";
+            $this->eduPkiEndpointPublic = "https://pki.edupki.org/edupki-test-ca/cgi-bin/pub/soap?wsdl=1";
+            $this->eduPkiEndpointRa = "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1";
+        } else {
+            $this->locationRaCert = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.pem";
+            $this->locationRaKey = ROOT . "/config/SilverbulletClientCerts/edupki-prod-ra.clearkey";
+            $this->locationWebRoot = ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem";
+            $this->eduPkiRaId = 100;
+            $this->eduPkiCertProfileBoth = "eduroam IdP and SP";
+            $this->eduPkiCertProfileIdp = "eduroam IdP";
+            $this->eduPkiCertProfileSp = "eduroam SP";
+            $this->eduPkiRaPkeyPassphrase = "...";
+            $this->eduPkiEndpointPublic = "https://pki.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1";
+            $this->eduPkiEndpointRa = "https://ra.edupki.org/edupki-ca/cgi-bin/ra/soap?wsdl=1";        
+        }
+        
         $this->databaseType = "INST";
         parent::__construct();
 
-        if (stat(CertificationAuthorityEduPkiServer::LOCATION_RA_CERT) === FALSE) {
-            throw new Exception("RA operator PEM file not found: " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT);
+        if (stat($this->locationRaCert) === FALSE) {
+            throw new Exception("RA operator PEM file not found: " . $this->locationRaCert);
         }
-        if (stat(CertificationAuthorityEduPkiServer::LOCATION_RA_KEY) === FALSE) {
-            throw new Exception("RA operator private key file not found: " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY);
+        if (stat($this->locationRaKey) === FALSE) {
+            throw new Exception("RA operator private key file not found: " . $this->locationRaKey);
         }
-        if (stat(CertificationAuthorityEduPkiServer::LOCATION_WEBROOT) === FALSE) {
-            throw new Exception("CA website root CA file not found: " . CertificationAuthorityEduPkiServer::LOCATION_WEBROOT);
+        if (stat($this->locationWebRoot) === FALSE) {
+            throw new Exception("CA website root CA file not found: " . $this->locationWebRoot);
         }
     }
 
@@ -113,11 +127,11 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {            
             if (in_array("eduroam IdP", $csr["POLICIES"]) && in_array("eduroam SP", $csr["POLICIES"])) {
-                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_BOTH;
+                $profile = $this->eduPkiCertProfileBoth;
             } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
-                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_IDP;
+                $profile = $this->eduPkiCertProfileIdp;
             } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
-                $profile = CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE_SP;
+                $profile = $this->eduPkiCertProfileSp;
             } else {
                 throw new Exception("Unexpected policies requested.");
             }
@@ -129,7 +143,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             }
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
-            $this->loggerInstance->debug(5, "PARAM_1: " . CertificationAuthorityEduPkiServer::EDUPKI_RA_ID . "\n");
+            $this->loggerInstance->debug(5, "PARAM_1: " . $this->eduPkiRaId . "\n");
             $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR_STRING"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_3: ");
             $this->loggerInstance->debug(5, $altArray);
@@ -140,7 +154,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
             $soapNewRequest = $soapPub->newRequest(
-                    CertificationAuthorityEduPkiServer::EDUPKI_RA_ID, # RA-ID
+                    $this->eduPkiRaId, # RA-ID
                     $csr["CSR_STRING"], # Request im PEM-Format
                     $altArray, # altNames
                     $profile, # Zertifikatprofil
@@ -173,7 +187,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $expiry->setTimezone(new \DateTimeZone("UTC"));
             $soapExpiryChange = $soap->setRequestParameters(
                     $soapReqnum, [
-                "RaID" => CertificationAuthorityEduPkiServer::EDUPKI_RA_ID,
+                "RaID" => $this->eduPkiRaId,
                 "Role" => $profile,
                 "Subject" => $csr['SUBJECT'],
                 "SubjectAltNames" => $altArray,
@@ -207,7 +221,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(2, "Actual content to be signed is this:\n  $soapCleartext\n");
-            $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
+            $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . $this->locationRaKey . " -signer " . $this->locationRaCert;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
@@ -322,7 +336,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n$soapRawRevRequest\n");
-        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
+        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . $this->locationRaKey . " -signer " . $this->locationRaCert;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
             $output = [];
             $return = 999;
@@ -367,7 +381,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                 'verify_peer' => true,
                 'verify_peer_name' => true,
                 // below is the CA "/C=DE/O=Deutsche Telekom AG/OU=T-TeleSec Trust Center/CN=Deutsche Telekom Root CA 2"
-                'cafile' => CertificationAuthorityEduPkiServer::LOCATION_WEBROOT,
+                'cafile' => $this->locationWebRoot,
                 'verify_depth' => 5,
                 'capture_peer_cert' => true,
             ],
@@ -375,19 +389,19 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         $url = "";
         switch ($type) {
             case "PUBLIC":
-                $url = CertificationAuthorityEduPkiServer::EDUPKI_ENDPOINT_PUBLIC;
+                $url = $this->eduPkiEndpointPublic;
                 $context_params['ssl']['peer_name'] = 'pki.edupki.org';
                 break;
             case "RA":
-                $url = CertificationAuthorityEduPkiServer::EDUPKI_ENDPOINT_RA;
+                $url = $this->eduPkiEndpointRa;
                 $context_params['ssl']['peer_name'] = 'ra.edupki.org';
                 break;
             default:
                 throw new Exception("Unknown type of eduPKI interface requested.");
         }
         if ($type == "RA") { // add client auth parameters to the context
-            $context_params['ssl']['local_cert'] = CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
-            $context_params['ssl']['local_pk'] = CertificationAuthorityEduPkiServer::LOCATION_RA_KEY;
+            $context_params['ssl']['local_cert'] = $this->locationRaCert;
+            $context_params['ssl']['local_pk'] = $this->locationRaKey;
             // $context_params['ssl']['passphrase'] = SilverbulletCertificate::EDUPKI_RA_PKEY_PASSPHRASE;
         }
         // initialise connection to eduPKI CA / eduroam RA
