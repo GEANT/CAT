@@ -187,10 +187,10 @@ class Master
             'nb' => ['display' => 'norsk', 'locale' => 'nb_NO.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'pl' => ['display' => 'Polski', 'locale' => 'pl_PL.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'pt' => ['display' => 'Português', 'locale' => 'pt_PT.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
-//            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
 //            'sr' => ['display' => 'Srpski', 'locale' => 'sr_RS@latin', 'latin_based' => TRUE, 'rtl' => FALSE],
             'fi' => ['display' => 'Suomi', 'locale' => 'fi_FI.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
-//            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
+            'tr' => ['display' => 'Türkçe', 'locale' => 'tr_TR.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
             'uk' => ['display' => 'Українська', 'locale' => 'uk_UA.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. There are even more in the "translation/" subdir.
