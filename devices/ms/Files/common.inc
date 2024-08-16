@@ -984,7 +984,6 @@ Function InstallProfile
             Push ${PROFILE_STATE_IGNORE}
             Pop $profile_result
             IfFileExists "$TEMP\nohs_wlan_prof-$R0.xml" 0 noInstall
-=======
 ; the nohs profile exists so we try to use that
             !insertmacro debug_cat 1 "Retrying installation with the non-hs profile"
             !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\nohs_wlan_prof-$R0.xml"
