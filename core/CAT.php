@@ -65,7 +65,7 @@ class CAT extends \core\common\Entity
     private const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
     private const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     private const COPYRIGHT_MIN_YEAR = 2011;
-    private const COPYRIGHT_MAX_YEAR = 2024;
+    private const COPYRIGHT_MAX_YEAR = 2022;
 
     /**
      * This is the user-displayed string; controlled by the four options above
@@ -157,6 +157,7 @@ class CAT extends \core\common\Entity
             'IS' => _("Iceland"),
             'IT' => _("Italy"),
             'HU' => _("Hungary"),
+            'KS' => _("Kosovo"),
             'LU' => _("Luxembourg"),
             'LV' => _("Latvia"),
             'LT' => _("Lithuania"),
