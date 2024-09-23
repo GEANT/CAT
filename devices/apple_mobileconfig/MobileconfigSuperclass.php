@@ -687,13 +687,14 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
     {
         $retval = "";
         $this->serial = 0;
+        $this->loggerInstance->debug(3, $this->attributes['internal:networks'], "NETWORKS:\n", "\n");
         foreach ($this->attributes['internal:networks'] as $netName => $netDefinition) {
             // mobileconfig network blocks can only hold one SSID each, so iterate here
             foreach ($netDefinition['ssid'] as $ssid) {
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid, $netName);
             }
             // mobileconfig network blocks can accommodate a list of RCOIs in one statement, so just call it
-            if ($this->selectedEapObject->isPasswordRequired() === FALSE || $netName != 'eduroam®') {
+            if ($this->selectedEapObject->isPasswordRequired() === FALSE || $netName != 'eduroam') {
                 $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $netDefinition['oi'], $netName);
             }
         }

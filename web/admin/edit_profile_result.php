@@ -91,6 +91,7 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
         }
     }
     $checkuser_name = htmlentities($checkuser_local);
+    $anonLocal = htmlentities($anon_local);
     ?>
     <h1><?php
         $tablecaption = _("Submitted attributes for this profile");
@@ -155,7 +156,6 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
         }
 // process and save submitted files
         echo $optionParser->processSubmittedFields($profile, $_POST, $_FILES);
-
         if ($redirect !== FALSE) {
             if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
                 echo $uiElements->boxError(_("Redirection can't be activated - you did not specify a target location!"));
