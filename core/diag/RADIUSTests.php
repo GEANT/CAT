@@ -746,11 +746,13 @@ network={
 // so test if there's something PEMy in the file at all
 // serverchain.pem is the output from eapol_test; incomingserver.pem is written by extractIncomingCertsfromEAP() if there was at least one server cert.
         if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
-            exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem 2>&1", $verifyResultEaponly);
-            $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
+            $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem 2>&1";
+            exec($cmdString, $verifyResultEaponly);
+            $this->loggerInstance->debug(4, $cmdString."\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . /** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE) . "\n");
-            exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem 2>&1", $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
+            $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem 2>&1";
+            exec($cmdString, $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, $cmdString."\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . /** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
@@ -771,7 +773,9 @@ network={
         if (count($verifyResultAllcerts) == 0 || count($verifyResultEaponly) == 0) {
             throw new Exception("No output at all from openssl?");
         }
-        $testresults['cert_oddities'] = array();
+        if (!isset($testresults['cert_oddities'])) {
+            $testresults['cert_oddities'] = array();
+        }
         if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
             if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
@@ -994,7 +998,6 @@ network={
      * @throws Exception
      */
     private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
-
         /*
          *  EAP's house rules:
          * 1) it is unnecessary to include the root CA itself (adding it has
@@ -1269,7 +1272,7 @@ network={
 
             if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE && !in_array(RADIUSTests::CERTPROB_NO_SERVER_CERT, $testresults['cert_oddities'])) {
                 $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
-                $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);
+                $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);       
             }
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $bundle["INTERMEDIATE_OBSERVED_ODDITIES"] ?? []);
