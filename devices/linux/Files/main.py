@@ -99,6 +99,7 @@ except ImportError:
 
 try:
     from OpenSSL import crypto
+    crypto.load_pkcs12 # missing in newer versions
 except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
     CRYPTO_AVAILABLE = False
 
@@ -443,9 +444,13 @@ class InstallerData:
                     return output
         elif self.graphics == 'tkinter':
             from tkinter import simpledialog
-            simpledialog.askstring(Config.title, prompt,
-                                   initialvalue=val,
-                                   show="*" if show == 0 else "")
+            while True:
+                output = simpledialog.askstring(Config.title, prompt,
+                                                initialvalue=val,
+                                                show="*" if show == 0 else "")
+                if output:
+                    return output
+                
         else:
             command = []
             if self.graphics == 'zenity':
@@ -755,6 +760,14 @@ class InstallerData:
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
             cert, _ = shell_command.communicate()
+        if self.graphics == 'tkinter':
+            from tkinter import filedialog as fd
+            return fd.askopenfilename(title=Messages.p12_title,
+                                      filetypes=(("Certificate file",
+                                                  ("*.p12", "*.P12", "*.pfx",
+                                                   "*.PFX")),))
+
+            
         return cert.decode('utf-8').strip()
 
     @staticmethod
