@@ -69,6 +69,8 @@ parser.add_argument('--pfxfile', action='store', dest='pfx_file',
                     help='set path to user certificate file')
 parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
                     help='generate wpa_supplicant config file without configuring the system')
+parser.add_argument("--gui", action='store', dest='gui',
+                    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
 if ARGS.debug:
     DEBUG_ON = True
@@ -170,6 +172,7 @@ def run_installer() -> None:
     password = ''
     silent = False
     pfx_file = ''
+    gui = ''
     wpa_conf = False
 
     if ARGS.username:
@@ -182,6 +185,8 @@ def run_installer() -> None:
         pfx_file = ARGS.pfx_file
     if ARGS.wpa_conf:
         wpa_conf = ARGS.wpa_conf
+    if ARGS.gui:
+        gui = ARGS.gui
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
@@ -288,12 +293,16 @@ class InstallerData:
     """
 
     def __init__(self, silent: bool = False, username: str = '',
-                 password: str = '', pfx_file: str = '') -> None:
+                 password: str = '', pfx_file: str = '', gui: str = '') -> None:
         self.graphics = ''
         self.username = username
         self.password = password
         self.silent = silent
         self.pfx_file = pfx_file
+        if gui in ('tty', 'tkinker', 'yad', 'zenity', 'kdialog'):
+            self.gui = gui
+        else:
+            self.gui = ''
         debug("starting constructor")
         if silent:
             self.graphics = 'tty'
@@ -632,7 +641,14 @@ class InstallerData:
             return False
 
     def __get_graphics_support(self) -> None:
-        if os.environ.get('DISPLAY') is not None:
+        self.graphics = 'tty'
+        if self.gui == 'tty':
+            return
+        if os.environ.get('DISPLAY') is None:
+            return
+        if self.gui != 'tkinter':
+            if self.__check_graphics(self.gui):
+                return            
             try:
                 import tkinter
                 self.graphics = 'tkinter'
@@ -642,7 +658,6 @@ class InstallerData:
             for cmd in ('yad', 'zenity', 'kdialog'):
                 if self.__check_graphics(cmd):
                     return
-        self.graphics = 'tty'
 
     def __process_p12(self) -> bool:
         debug('process_p12')
