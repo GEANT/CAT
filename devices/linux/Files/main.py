@@ -514,8 +514,8 @@ class InstallerData:
                 root = tk.Tk()
                 root.title(Config.title)
 
-#               desc_label = tk.Label(root, text=Messages.credentials_prompt)
-#               desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
+                desc_label = tk.Label(root, text=Messages.credentials_prompt)
+                desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
     
                 username_label = tk.Label(root, text=Messages.username_prompt)
                 username_label.grid(row=1, column=0, sticky=tk.W)
@@ -550,7 +550,7 @@ class InstallerData:
                 if self.graphics == 'zenity':
                     command = ['zenity', '--forms', '--width=500',
                                f"--title={Config.title}",
-#                              f"--text={Messages.credentials_prompt}",
+                               f"--text={Messages.credentials_prompt}",
                                f"--add-entry={Messages.username_prompt}",
                                f"--add-password={Messages.enter_password}",
                                f"--add-password={Messages.repeat_password}",
@@ -558,7 +558,7 @@ class InstallerData:
                 elif self.graphics == 'yad':
                     command = ['yad', '--form',
                                f"--title={Config.title}",
-#                              f"--text={Messages.credentials_prompt}",
+                               f"--text={Messages.credentials_prompt}",
                                f"--field={Messages.username_prompt}", self.username,
                                f"--field={Messages.enter_password}:H",
                                f"--field={Messages.repeat_password}:H",
