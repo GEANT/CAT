@@ -299,7 +299,7 @@ class InstallerData:
         self.password = password
         self.silent = silent
         self.pfx_file = pfx_file
-        if gui in ('tty', 'tkinker', 'yad', 'zenity', 'kdialog'):
+        if gui in ('tty', 'tkinter', 'yad', 'zenity', 'kdialog'):
             self.gui = gui
         else:
             self.gui = ''
@@ -653,7 +653,7 @@ class InstallerData:
                 import tkinter
                 self.graphics = 'tkinter'
                 return
-            except ModuleNotFoundError:
+            except:
                 pass
             for cmd in ('yad', 'zenity', 'kdialog'):
                 if self.__check_graphics(cmd):
