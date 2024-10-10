@@ -190,7 +190,7 @@ def run_installer() -> None:
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
-                                   password=password, pfx_file=pfx_file)
+                                   password=password, pfx_file=pfx_file, gui=gui)
 
     if wpa_conf:
         NM_AVAILABLE = False
