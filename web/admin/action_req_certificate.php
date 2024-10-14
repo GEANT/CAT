@@ -87,14 +87,51 @@ $langObject = new \core\common\Language();
         $DN = ["DC=eduroam", "DC=geant", "DC=net"];
         $expiryDays = 1825;
     }
-
-    // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
-    // also send user back to the overview page
-    if (isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
+    $subject_prefix = implode(', ', array_reverse($DN));
+    /* Messages */
+    $messages = [
+    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with ') . 
+                       $subject_prefix  . '<br>' . _("See CSR generation rules below."),
+    'WRONG_CRL' => _('Submitted Certificate Signing Request is broken - unable to extracts the public key from CSR')
+    ];
+    $settings = array();
+    if  (isset($_SESSION['CSR_ERRORS']) && $_SESSION['CSR_ERRORS'] != '') {
+        print '<h3 id="errorbox"><font color="red">'. $messages[$_SESSION['CSR_ERRORS']].'</font></h3>';
+        unset($_SESSION['CSR_ERRORS']);
+    }
+    if  (isset($_SESSION['FORM_SETTINGS']) && $_SESSION['FORM_SETTINGS'] != '') {
+        $settings = $_SESSION['FORM_SETTINGS'];
+        unset($_SESSION['FORM_SETTINGS']);
+    }
+    if (empty($settings) && isset($_POST['LEVEL'])) {
+        $settings = array('LEVEL' => $_POST['LEVEL'], 'NRO-list' => $_POST['NRO-list'], 'INST-list' => $_POST['INST-list']);
+    }
+    if  ( isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
         // basic sanity checks before we hand this over to openssl
         $sanitisedCsr = $validator->string($_POST['CSR'] ?? "", TRUE);
+        //print $sanitisedCsr; 
+        
         if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
-            throw new Exception("Sorry: Unable to parse the submitted public key - no public key inside?");
+            $_SESSION['CSR_ERRORS'] = 'WRONG_CSR';
+            $_SESSION['FORM_SETTINGS'] = $settings;
+            header("Location: action_req_certificate.php");
+        }
+        $subject = openssl_csr_get_subject($sanitisedCsr);
+        $subject_keys = array_keys($subject);
+        $dc = array();
+        if (!empty($subject_keys) && $subject_keys[0] == 'DC' && $subject['DC']) {
+            foreach ($subject['DC'] as $v) {
+                $dc[] = 'DC=' . $v;
+            }
+            if ($DN !== array_reverse($dc)) {
+                $dc = array();
+                $_SESSION['CSR_ERRORS'] = 'WRONG_SUBJECT';
+                $_SESSION['FORM_SETTINGS'] = $settings;
+            }
+        }
+        if (empty($dc)) {
+            header("Location: action_req_certificate.php");
+            exit;
         }
         $policies = [];
         switch ($_POST['LEVEL'] ?? "") {
@@ -130,6 +167,7 @@ $langObject = new \core\common\Language();
                 } else {
                     $ou = $serverInfo["names"][$langInstance->getLang()];
                 }
+                print($ou);
 		$modou = 0;
 		if (str_contains($ou, ',')) {
 		    $modou = 1;
@@ -218,19 +256,27 @@ $langObject = new \core\common\Language();
                 echo "</div>";
                 break;
             case 1:
-                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO"';
+                if (empty($settings) || (isset($settings['LEVEL']) && $settings['LEVEL'] == 'NRO')) {
+                    echo ' checked';
+                }
+                echo '>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 echo " <strong>" . $cat->knownFederations[$feds[0]->tld] . "</strong>";
                 echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $feds[0]->tld . '"/>';
                 break;
             default:
-                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO" checked>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
+                echo '<input type="radio" name="LEVEL" id="NRO" value="NRO"';
+                if (empty($settings) || isset($settings['LEVEL']) && $settings['LEVEL'] == 'NRO') {
+                    echo ' checked';
+                }
+                echo '>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
                 ?>
                 <select name="NRO-list" id="NRO-list">
                     <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
                     <?php
                     foreach ($feds as $oneFed) {
-                        #echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
-                        echo '<option value="AAA' . strtoupper($oneFed->tld) . '">' . $oneIdP["names"][$langObject->getLang()] . "</option>";
+                        echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                        #echo '<option value="AAA' . strtoupper($oneFed->tld) . '">' . $oneIdP["names"][$langObject->getLang()] . "</option>";
                         
                     }
                     ?>
@@ -241,28 +287,41 @@ $langObject = new \core\common\Language();
         ?>
         <script>
             var instservers = [];
+            var instpolicies = [];
             var nroservers = '<?php echo str_replace(",", ", ", array_key_first($serverInfo));?>';
-        <?php   
+        <?php 
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
                 $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["names"][$langObject->getLang()];
                 echo "instservers['" . $id . "']='" . str_replace(",", ", ", $oneIdP["servers"]) . "';\n";
+                echo "instpolicies['" . $id . "']='";
+                if ($oneIdP["type"] == 'IdPSP') {
+                    echo "eduroam IdP/SP";
+                } else {
+                    echo "eduroam " . $oneIdP["type"];
+                }
+                echo "';\n";
             }
+            
         }
         ?>
             $(document).on('change', '#INST-list' , function() {
                     //alert(instservers[$(this).val()]);
                     $("#INST").prop('checked', true);
-                    $("#certlevel").html("<?php echo _('organizational level'); ?>");
+                    $("#certlevel").html("<?php echo _('organizational level certificate'); ?>");
                     $("#serversinfo").html(instservers[$(this).val()]);
+                    $("#policiesinfo").html(instpolicies[$(this).val()]);
+                    $("#errorbox").html("");
                     //$("input[name=LEVEL][value=INST]").prop('checked', true);
                   
                 });
                 $(document).on('change', '#NRO' , function() {
                     $("#INST-list").val("notset");
-                    $("#certlevel").html("<?php echo _('NRO level'); ?>");
+                    $("#certlevel").html("<?php echo _('NRO level certificate'); ?>");
                     $("#serversinfo").html(nroservers);
+                    $("#policiesinfo").html("eduroam IdP/SP");
+                    $("#errorbox").html("");
                 });
         </script>
         <?php if (count($allIdPs) > 0) {
@@ -270,12 +329,17 @@ $langObject = new \core\common\Language();
        
                    
         <br/>
-        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
+        <input type="radio" name="LEVEL" id="INST" value="INST" 
+            <?php if (isset($settings['LEVEL']) && $settings['LEVEL'] == 'INST') { echo ' checked'; } ?>       
+        >
+            <?php printf(_("Certificate for %s "), $uiElements->nomenclatureParticipant); ?></input>
         <select name="INST-list" id="INST-list">
             <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
 <?php
 foreach ($allIdPs as $id => $name) {
-    echo '<option value="' . $id . '">' . $name . "</option>";
+    echo '<option value="' . $id . '"';
+    if (isset($settings['INST-list']) && $settings['INST-list'] == $id) { echo ' selected'; }
+    echo '>' . $name . "</option>";
 }
 ?>
         </select>
@@ -286,8 +350,16 @@ foreach ($allIdPs as $id => $name) {
             ?>
             <span id='certlevel'><?php echo _('NRO level certificate');?></span>
             
-        </span>for server names:
+        for server names:
         <span id='serversinfo'><?php echo str_replace(",", ", ", array_key_first($serverInfo)); ?></span>
+        with policies appropriate for
+        <span id='policiesinfo'>
+        <?php if (empty($policies)) {?>
+        eduroam IdP/SP
+        <?php } else {
+           echo implode(', ', $policies); 
+        }?>
+        </span>
         </h3>
         <?php
         } else {
@@ -300,9 +372,12 @@ foreach ($allIdPs as $id => $name) {
         <?php
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
-        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
+        <p>
         <?php 
-        echo "openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced";
+        echo _("The CSR subject field has to start with ") .'<b>' . $subject_prefix . '</b><br>';
+        echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
+        <?php 
+        echo "<b>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced</b>";
         ?>
         <h2><?php echo _("3. Submission"); ?></h2>
 <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
@@ -330,11 +405,12 @@ echo $deco->footer();
               ok = false;
           }
         }
-        var csr = document.getElementById('CSR').value;
+        var csr = document.getElementById('CSR').value.trim();
         if (csr == '') {
             alert('Your CSR is empty!');
             ok = false;
         } else {
+            
             if (!csr.startsWith('-----BEGIN CERTIFICATE REQUEST-----')) {
                 alert('The CSR must start with -----BEGIN CERTIFICATE REQUEST-----');
                 ok = false;

@@ -130,7 +130,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                 $profile = $this->eduPkiCertProfileBoth;
             } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
                 $profile = $this->eduPkiCertProfileIdp;
-            } elseif (in_array("eduroam IdP", $csr["POLICIES"])) {
+            } elseif (in_array("eduroam SP", $csr["POLICIES"])) {
                 $profile = $this->eduPkiCertProfileSp;
             } else {
                 throw new Exception("Unexpected policies requested.");
