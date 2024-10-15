@@ -293,7 +293,7 @@ $langObject = new \core\common\Language();
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
-                $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["names"][$langObject->getLang()];
+                $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["name"];            
                 echo "instservers['" . $id . "']='" . str_replace(",", ", ", $oneIdP["servers"]) . "';\n";
                 echo "instpolicies['" . $id . "']='";
                 if ($oneIdP["type"] == 'IdPSP') {
