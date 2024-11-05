@@ -205,7 +205,7 @@ class MapOpenLayers extends AbstractMap {
                 view.fit(extent, {padding: [10, 0, 10, 0]});
             } else {
                 view.setCenter([0,0]);
-                locate_country('" . $cat->knownFederations[strtoupper($this->fedName)] . "'); // use the federation code to locate the country
+                locate_country('" . $cat->knownFederations[strtoupper($this->fedName)]['name'] . "'); // use the federation code to locate the country
                 map.setView(view);
             }
             view.setMaxZoom(20);
