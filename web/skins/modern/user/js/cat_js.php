@@ -254,6 +254,7 @@ function showProfile(prof) {
   $("#profile_redirect").hide();
   $("#silverbullet").hide();
   $("#other_installers").hide();
+  $("#user_welcome").hide();
   $("#devices").hide();
   // no matching profile hide stuff and return
   if (prof == 0) {
