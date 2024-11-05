@@ -289,7 +289,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         $query = "SELECT ROid, instid, type, inst_name, servers, contacts FROM eduroamv2.view_tls_inst WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
         $instServerTransaction = $this->db->exec($query, "s", $tld);
         while ($instServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instServerTransaction)) {
-            $contactList = $this->dissectCollapsedContacts($instServerResponses->contacts);
+            $contactList = $this::dissectCollapsedContacts($instServerResponses->contacts);
             $names = $this->splitNames($instServerResponses->inst_name);
             $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
             $retval[$instServerResponses->ROid . "-". $instServerResponses->instid] = [
@@ -299,8 +299,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
                 "servers" => $instServerResponses->servers,
                 "contacts" => $contactList];
         }
-        usort($retval, array($this, "usortInstitution"));
-        return $retval;
-    }
+        uasort($retval, array($this, "usortInstitution"));
+        return $retval;        
+    }  
 
 }

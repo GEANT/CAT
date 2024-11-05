@@ -141,8 +141,9 @@ $langObject = new \core\common\Language();
                 }
                 $fed = $validator->existingFederation($_POST['NRO-list']);
                 $country = strtoupper($fed->tld);
-                $DN[] = "C=$country";
-                $DN[] = "O=NRO of " . iconv('UTF-8', 'ASCII//TRANSLIT', $cat->knownFederations[strtoupper($fed->tld)]);
+                $code = isset($cat->knownFederations[$country]['code']) ? $cat->knownFederations[$country]['code'] : $country ;
+                $DN[] = "C=$code";
+                $DN[] = "O=NRO of " . iconv('UTF-8', 'ASCII//TRANSLIT', $cat->knownFederations[$country]['name']);
                 $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
                 $serverList = explode(",", array_key_first($serverInfo));
                 $DN[] = "CN=" . $serverList[0];
@@ -155,12 +156,14 @@ $langObject = new \core\common\Language();
             case "INST":
                 $matches = [];
                 preg_match('/^([A-Z][A-Z]).*\-.*/', $_POST['INST-list'], $matches);
+                print("MMMM="); print_r($_POST);
                 $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
                 if ($user->isFederationAdmin($matches[1]) === FALSE) {
                     throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
                 }
                 $country = strtoupper($matches[1]);
-                $DN[] = "C=$country";
+                $code = isset($cat->knownFederations[$country]['code']) ? $cat->knownFederations[$country]['code'] : $country ;
+                $DN[] = "C=$code";
                 $serverInfo = $extInsts[$_POST['INST-list']];
                 if (isset($serverInfo["names"]["en"])) {
                     $ou = $serverInfo["names"]["en"];
@@ -261,7 +264,7 @@ $langObject = new \core\common\Language();
                     echo ' checked';
                 }
                 echo '>' . sprintf(_("Certificate for %s") ." ", $uiElements->nomenclatureFed) . '</input>';
-                echo " <strong>" . $cat->knownFederations[$feds[0]->tld] . "</strong>";
+                echo " <strong>" . $cat->knownFederations[$feds[0]->tld]['name'] . "</strong>";
                 echo '<input type="hidden" name="NRO-list" id="NRO-list" value="' . $feds[0]->tld . '"/>';
                 break;
             default:
@@ -275,7 +278,7 @@ $langObject = new \core\common\Language();
                     <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
                     <?php
                     foreach ($feds as $oneFed) {
-                        echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld] . "</option>";
+                        echo '<option value="' . strtoupper($oneFed->tld) . '">' . $cat->knownFederations[$oneFed->tld]['name'] . "</option>";
                         #echo '<option value="AAA' . strtoupper($oneFed->tld) . '">' . $oneIdP["names"][$langObject->getLang()] . "</option>";
                         
                     }
