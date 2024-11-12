@@ -1,8 +1,8 @@
-VERSION = CAT-2.1.2
-VV = $(VERSION)/
+VERSION = CAT-2.1.2.1
+WLANSetEAPUserData = devices/ms/Files/WLANSetEAPUserData
 .PHONY: translation
 
-all: translation documentation
+all: translation WLANSetEAPUserData documentation
 
 documentation:
 	rm -Rf web/apidoc build 
@@ -41,6 +41,17 @@ translation: pull_from_transifex
         done; \
 	rm messages.mo
 
+WLANSetEAPUserData:
+	rm -rf ${WLANSetEAPUserData}
+	mkdir ${WLANSetEAPUserData}
+	curl -o ${WLANSetEAPUserData}/WLANSetEAPUserData-1.1.zip -L https://github.com/rozmansi/WLANSetEAPUserData/releases/download/1.1/WLANSetEAPUserData-1.1.zip
+	curl -o ${WLANSetEAPUserData}/WLANSetEAPUserData-1.1-src.tar.gz -L https://github.com/rozmansi/WLANSetEAPUserData/archive/refs/tags/1.1.tar.gz
+	cd ${WLANSetEAPUserData}; unzip WLANSetEAPUserData-1.1.zip
+	mv ${WLANSetEAPUserData}/ARM64/WLANSetEAPUserData.exe ${WLANSetEAPUserData}/WLANSetEAPUserDataARM64.exe
+	mv ${WLANSetEAPUserData}/Win32/WLANSetEAPUserData.exe ${WLANSetEAPUserData}/WLANSetEAPUserData32.exe
+	mv ${WLANSetEAPUserData}/x64/WLANSetEAPUserData.exe ${WLANSetEAPUserData}/WLANSetEAPUserData64.exe
+	rmdir ${WLANSetEAPUserData}/ARM64 ${WLANSetEAPUserData}/Win32 ${WLANSetEAPUserData}/x64
+	rm ${WLANSetEAPUserData}/WLANSetEAPUserData-1.1.zip
 
 distribution: all
 	git submodule update --init devices/ms/Files/GEANTLink
