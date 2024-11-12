@@ -1,3 +1,21 @@
+Changes in 2.1.2.1
+=====================
+- [BUGFIX #1]   some fixes to RADIUS tests
+- [BUGFIX #2]   fixed mobileconfig generating an unnecessary profile
+- [BUGFIX #3]   added Kosovo to the list of known federations
+- [BUGFIX #4]   fixed the problem with special anonymous identity not being saved
+- [BUGFIX #5]   fixing the problem with sending invites to multiple addressees
+- [FEATURE #1]  multiple additions to the linux installer: 
+                tinker part of the linux installer; 
+                added --gui flag to the linux installer (mainly for testing);
+                enabled an additional label on the credentials window;
+                catching more exceptions on module import;
+                improving behaviour on missing python module
+- [FEATURE #2]  improved RADIUS/TLS certificate management for NRO
+- [FEATURE #3]  added support for ARM processors in Windows installers
+
+
+
 Changes in 2.1.2
 =====================
 - [FEATURE #1]  add support for device-specific options be displayed only
