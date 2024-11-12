@@ -59,7 +59,8 @@ abstract class WindowsCommon extends \core\DeviceConfig
         if (!($this->copyFile('cat32.ico') &&
                 $this->copyFile('cat_150.bmp') &&
                 $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserDatax86.exe') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserDatax64.exe'))) {
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserDatax64.exe') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserDataARM64.exe', 'WLANSetEAPUserDataARM64.exe'))) {
             throw new Exception("Copying needed files (part 2) failed for at least one file!");
         }
         if (!$this->translateFile('common.inc', 'common.nsh')) {
@@ -408,7 +409,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         $fcontents .= '
 Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONSORTIUM['display_name'], $attr['general:instname'][0])) . '"
 !define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONSORTIUM['display_name'], $attr['general:instname'][0])) . '"
-!define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
+!define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '.' . \core\CAT::VERSION_PATCH . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
 !define LOCALE "' . preg_replace('/\..*$/', '', \config\Master::LANGUAGES[$this->languageInstance->getLang()]['locale']) . '"

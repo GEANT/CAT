@@ -10,14 +10,15 @@
     "require": {
         "geoip2/geoip2": "^2.9",
         "phpmailer/phpmailer": "^6.0",
-	"simplesamlphp/simplesamlphp": "^2.0",
+        "simplesamlphp/simplesamlphp": "^2.3",
         "chillerlan/php-qrcode": "^4.3",
         "pear/net_dns2": "1.5.3",
         "components/jquery": "^3.6"
     },
     "config": {
         "allow-plugins": {
-            "simplesamlphp/composer-module-installer": true
+            "simplesamlphp/composer-module-installer": true,
+            "simplesamlphp/composer-xmlprovider-installer": true
         }
     }
 }

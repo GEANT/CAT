@@ -145,7 +145,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'p12_filter' => _("personal certificate file (p12 or pfx)"),
         'all_filter' => _("All files"),
         'p12_title' => _("personal certificate file (p12 or pfx)"),
-        'save_wpa_conf' => _("NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text."),
+        'save_wpa_conf' => _("DBus module not found - please install dbus-python! NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text."),
         'save_wpa_confirm' => _("Write the file"),
         'wrongUsernameFormat' =>_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"),
         'wrong_realm' => _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."),

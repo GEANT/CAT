@@ -200,7 +200,6 @@ class Federation extends EntityWithDBProperties
      */
     public function __construct($fedname)
     {
-
         // initialise the superclass variables
 
         $this->databaseType = "INST";
@@ -221,7 +220,7 @@ class Federation extends EntityWithDBProperties
         // $this->tld = $fedname;
         $fedIdentifiers = array_keys($cat->knownFederations);
         $this->tld = $fedIdentifiers[array_search(strtoupper($fedname), $fedIdentifiers)];
-        $this->name = $cat->knownFederations[$this->tld];
+        $this->name = $cat->knownFederations[$this->tld]['name'];
         // end of spoon-feed
         
         parent::__construct(); // we now have access to our database handle

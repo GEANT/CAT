@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-27 14:10+0200\n"
+"POT-Creation-Date: 2024-11-11 10:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,194 +126,198 @@ msgid "Hungary"
 msgstr ""
 
 #: core/CAT.php:160
-msgid "Luxembourg"
+msgid "Kosovo"
 msgstr ""
 
 #: core/CAT.php:161
-msgid "Latvia"
+msgid "Luxembourg"
 msgstr ""
 
 #: core/CAT.php:162
-msgid "Lithuania"
+msgid "Latvia"
 msgstr ""
 
 #: core/CAT.php:163
-msgid "Macedonia"
+msgid "Lithuania"
 msgstr ""
 
 #: core/CAT.php:164
-msgid "Serbia"
+msgid "Macedonia"
 msgstr ""
 
 #: core/CAT.php:165
-msgid "Netherlands"
+msgid "Serbia"
 msgstr ""
 
 #: core/CAT.php:166
-msgid "Norway"
+msgid "Netherlands"
 msgstr ""
 
 #: core/CAT.php:167
-msgid "Poland"
+msgid "Norway"
 msgstr ""
 
 #: core/CAT.php:168
-msgid "Portugal"
+msgid "Poland"
 msgstr ""
 
 #: core/CAT.php:169
-msgid "Romania"
+msgid "Portugal"
 msgstr ""
 
 #: core/CAT.php:170
-msgid "Slovenia"
+msgid "Romania"
 msgstr ""
 
 #: core/CAT.php:171
-msgid "Spain"
+msgid "Slovenia"
 msgstr ""
 
 #: core/CAT.php:172
-msgid "Sweden"
+msgid "Spain"
 msgstr ""
 
 #: core/CAT.php:173
-msgid "Slovakia"
+msgid "Sweden"
 msgstr ""
 
 #: core/CAT.php:174
-msgid "Switzerland"
+msgid "Slovakia"
 msgstr ""
 
 #: core/CAT.php:175
-msgid "Turkey"
+msgid "Switzerland"
 msgstr ""
 
 #: core/CAT.php:176
+msgid "Turkey"
+msgstr ""
+
+#: core/CAT.php:177 core/CAT.php:379
 msgid "United Kingdom"
 msgstr ""
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Australia"
 msgstr ""
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Canada"
 msgstr ""
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Israel"
 msgstr ""
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Japan"
 msgstr ""
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "New Zealand"
 msgstr ""
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "U.S.A."
 msgstr ""
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Brazil"
 msgstr ""
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Chile"
 msgstr ""
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Peru"
 msgstr ""
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Venezuela"
 msgstr ""
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Default"
 msgstr ""
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Armenia"
 msgstr ""
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Azerbaijan"
 msgstr ""
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Belarus"
 msgstr ""
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Ecuador"
 msgstr ""
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Hong Kong"
 msgstr ""
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Kenya"
 msgstr ""
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Korea"
 msgstr ""
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Kazakhstan"
 msgstr ""
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Morocco"
 msgstr ""
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Moldova"
 msgstr ""
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Montenegro"
 msgstr ""
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Macau"
 msgstr ""
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Malta"
 msgstr ""
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Russia"
 msgstr ""
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Singapore"
 msgstr ""
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Thailand"
 msgstr ""
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Taiwan"
 msgstr ""
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "South Africa"
 msgstr ""
 
-#: core/CAT.php:484 core/IdPlist.php:79
+#: core/CAT.php:485 core/IdPlist.php:79
 msgid "Unnamed Entity"
 msgstr ""
 
@@ -368,13 +372,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:109
+#: core/Federation.php:110
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:306 core/common/OutsideComm.php:287
+#: core/Federation.php:307 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -386,7 +390,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:323
+#: core/Federation.php:324
 #, php-format
 msgid ""
 "Hi,\n"
@@ -401,12 +405,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/Federation.php:341
+#: core/Federation.php:342
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:418
+#: core/IdP.php:415
 #, php-format
 msgid ""
 "Hi,\n"
@@ -420,7 +424,7 @@ msgid ""
 "    %s"
 msgstr ""
 
-#: core/IdP.php:427
+#: core/IdP.php:424
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""

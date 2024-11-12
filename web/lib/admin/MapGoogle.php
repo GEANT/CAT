@@ -106,7 +106,7 @@ class MapGoogle extends AbstractMap {
             geocoder.geocode({'address':\"" . preg_replace("/\"/", "&quot;", $this->instName) . "\", 'region':\"" . strtolower($this->fedName) . "\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
-                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)] . "\");
+                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)]['name'] . "\");
                 } else {
                     var i;
                     for(i = 0; i < r.length; i++) {
@@ -115,7 +115,7 @@ class MapGoogle extends AbstractMap {
                         break;
                     }
                     if(Addr.country != \"" . strtoupper($this->fedName) . "\")
-                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)] . "\");
+                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)]['name'] . "\");
                     else {
                         addMarker(r[i].geometry.location,15,null);
                     }

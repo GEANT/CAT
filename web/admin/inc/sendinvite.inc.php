@@ -40,7 +40,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
-$newmailaddress = filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_EMAIL);
+$newmailaddress = htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'mailaddr')));
 $totalSegments = explode(",", $newmailaddress);
 $validAddresses = core\common\OutsideComm::exfiltrateValidAddresses($newmailaddress);
 $newcountry = "";

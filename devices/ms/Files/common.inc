@@ -164,6 +164,12 @@ LicenseData ${LICENSE_FILE}
 
 ;-----------------------------------
 
+VIProductVersion "${VERSION}.0"
+VIAddVersionKey "ProductName" "${APPLICATION}"
+VIAddVersionKey "FileDescription" "${APPLICATION}"
+VIAddVersionKey "CompanyName" "GÉANT"
+VIAddVersionKey "ProductVersion" "${VERSION}"
+
 MiscButtonText "" "" "" "<?php WindowsCommon::echoNsis( _("Finish"))?>"
 ;----------------------------------
 ;  FUNCTIONS
@@ -765,8 +771,10 @@ Function CheckWirelessProfiles
   !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
   File "WLANSetEAPUserDatax86.exe"
   File "WLANSetEAPUserDatax64.exe"
+  File "WLANSetEAPUserDataARM64.exe"
   nsArray::Set Delete_files "WLANSetEAPUserDatax86.exe"
   nsArray::Set Delete_files "WLANSetEAPUserDatax64.exe"
+  nsArray::Set Delete_files "WLANSetEAPUserDataARM64.exe"
   !endif
   ${ForEach} $R9 0 $profile_count + 1
     Push $R9

@@ -379,7 +379,7 @@ class SanityTests extends CAT
             include_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
             $SSPconfig = \SimpleSAML\Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
-            if ((int) $sspVersion[0] >= $this->needversionSSP['major'] && (int) $sspVersion[1] >= $this->needversionSSP['minor']) {
+            if ( (int) $sspVersion[0] > $this->needversionSSP['major'] || ((int) $sspVersion[0] == $this->needversionSSP['major'] && (int) $sspVersion[1] >= $this->needversionSSP['minor'])) {
                 $this->storeTestResult(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficiently recent. You are running " . implode('.', $sspVersion));
             } else {
                 $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->needversionSSP));

@@ -53,7 +53,8 @@ from shutil import copyfile
 from typing import List, Type, Union
 
 NM_AVAILABLE = True
-CRYPTO_AVAILABLE = True
+NEW_CRYPTO_AVAILABLE = True
+OPENSSL_CRYPTO_AVAILABLE = False
 DEBUG_ON = False
 
 parser = argparse.ArgumentParser(description='eduroam linux installer.')
@@ -69,6 +70,8 @@ parser.add_argument('--pfxfile', action='store', dest='pfx_file',
                     help='set path to user certificate file')
 parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
                     help='generate wpa_supplicant config file without configuring the system')
+parser.add_argument("--gui", action='store', dest='gui',
+                    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
 if ARGS.debug:
     DEBUG_ON = True
@@ -79,8 +82,7 @@ def debug(msg) -> None:
     """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
-    else:
-        print("DEBUG:" + str(msg))
+    print("DEBUG:" + str(msg))
 
 
 def byte_to_string(barray: List) -> str:
@@ -93,14 +95,23 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
+    print("WARNING: Cannot import the dbus module - please install dbus-python!")
     debug("Cannot import the dbus module")
     NM_AVAILABLE = False
 
 
 try:
-    from OpenSSL import crypto
-except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
-    CRYPTO_AVAILABLE = False
+    from cryptography.hazmat.primitives.serialization import pkcs12
+    from cryptography.hazmat.backends import default_backend
+    from cryptography.x509.oid import NameOID
+except ImportError:
+    NEW_CRYPTO_AVAILABLE = False
+    try:
+        from OpenSSL import crypto
+        crypto.load_pkcs12  # missing in newer versions
+        OPENSSL_CRYPTO_AVAILABLE = True
+    except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
+        OPENSSL_CRYPTO_AVAILABLE = False
 
 
 def detect_desktop_environment() -> str:
@@ -169,6 +180,7 @@ def run_installer() -> None:
     password = ''
     silent = False
     pfx_file = ''
+    gui = ''
     wpa_conf = False
 
     if ARGS.username:
@@ -181,10 +193,12 @@ def run_installer() -> None:
         pfx_file = ARGS.pfx_file
     if ARGS.wpa_conf:
         wpa_conf = ARGS.wpa_conf
+    if ARGS.gui:
+        gui = ARGS.gui
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
-                                   password=password, pfx_file=pfx_file)
+                                   password=password, pfx_file=pfx_file, gui=gui)
 
     if wpa_conf:
         NM_AVAILABLE = False
@@ -287,12 +301,16 @@ class InstallerData:
     """
 
     def __init__(self, silent: bool = False, username: str = '',
-                 password: str = '', pfx_file: str = '') -> None:
+                 password: str = '', pfx_file: str = '', gui: str = '') -> None:
         self.graphics = ''
         self.username = username
         self.password = password
         self.silent = silent
         self.pfx_file = pfx_file
+        if gui in ('tty', 'tkinter', 'yad', 'zenity', 'kdialog'):
+            self.gui = gui
+        else:
+            self.gui = ''
         debug("starting constructor")
         if silent:
             self.graphics = 'tty'
@@ -443,9 +461,13 @@ class InstallerData:
                     return output
         elif self.graphics == 'tkinter':
             from tkinter import simpledialog
-            simpledialog.askstring(Config.title, prompt,
-                                   initialvalue=val,
-                                   show="*" if show == 0 else "")
+            while True:
+                output = simpledialog.askstring(Config.title, prompt,
+                                                initialvalue=val,
+                                                show="*" if show == 0 else "")
+                if output:
+                    return output
+
         else:
             command = []
             if self.graphics == 'zenity':
@@ -496,13 +518,13 @@ class InstallerData:
             password1 = "b"
             if self.graphics == 'tkinter':
                 import tkinter as tk
-                
+
                 root = tk.Tk()
                 root.title(Config.title)
 
-#               desc_label = tk.Label(root, text=Messages.credentials_prompt)
-#               desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
-    
+                desc_label = tk.Label(root, text=Messages.credentials_prompt)
+                desc_label.grid(row=0, column=0, columnspan=2, sticky=tk.W)
+
                 username_label = tk.Label(root, text=Messages.username_prompt)
                 username_label.grid(row=1, column=0, sticky=tk.W)
 
@@ -520,23 +542,23 @@ class InstallerData:
 
                 password1_entry = tk.Entry(root, show="*")
                 password1_entry.grid(row=3, column=1)
-                
+
                 def submit(installer):
                     def inner():
                         nonlocal password, password1
                         (installer.username, password, password1) = (username_entry.get(), password_entry.get(), password1_entry.get())
                         root.destroy()
                     return inner
-                
+
                 login_button = tk.Button(root, text=Messages.ok, command=submit(self))
                 login_button.grid(row=4, column=0, columnspan=2)
-                
+
                 root.mainloop()
             else:
                 if self.graphics == 'zenity':
                     command = ['zenity', '--forms', '--width=500',
                                f"--title={Config.title}",
-#                              f"--text={Messages.credentials_prompt}",
+                               f"--text={Messages.credentials_prompt}",
                                f"--add-entry={Messages.username_prompt}",
                                f"--add-password={Messages.enter_password}",
                                f"--add-password={Messages.repeat_password}",
@@ -544,7 +566,7 @@ class InstallerData:
                 elif self.graphics == 'yad':
                     command = ['yad', '--form',
                                f"--title={Config.title}",
-#                              f"--text={Messages.credentials_prompt}",
+                               f"--text={Messages.credentials_prompt}",
                                f"--field={Messages.username_prompt}", self.username,
                                f"--field={Messages.enter_password}:H",
                                f"--field={Messages.repeat_password}:H",
@@ -590,7 +612,7 @@ class InstallerData:
         """
         if self.silent:
             return
-        elif self.graphics in ('tkinter', 'zenity', 'yad'):
+        if self.graphics in ('tkinter', 'zenity', 'yad'):
             self.__get_username_password_atomic()
         else:
             password = "a"
@@ -622,28 +644,53 @@ class InstallerData:
         shell_command.wait()
         if shell_command.returncode == 0:
             self.graphics = command
+            debug("Using "+command)
             return True
-        else:
-            return False
+        return False
 
     def __get_graphics_support(self) -> None:
-        if os.environ.get('DISPLAY') is not None:
+        self.graphics = 'tty'
+        if self.gui == 'tty':
+            return
+        if os.environ.get('DISPLAY') is None:
+            return
+        if self.gui != 'tkinter':
+            if self.__check_graphics(self.gui):
+                return
             try:
                 import tkinter
                 self.graphics = 'tkinter'
                 return
-            except ModuleNotFoundError:
+            except Exception:
                 pass
             for cmd in ('yad', 'zenity', 'kdialog'):
                 if self.__check_graphics(cmd):
                     return
-        self.graphics = 'tty'
 
     def __process_p12(self) -> bool:
         debug('process_p12')
         pfx_file = get_config_path() + '/cat_installer/user.p12'
-        if CRYPTO_AVAILABLE:
-            debug("using crypto")
+        if NEW_CRYPTO_AVAILABLE:
+            debug("using new crypto")
+            try:
+                p12 = pkcs12.load_key_and_certificates(
+                                        open(pfx_file,'rb').read(),
+                                        self.password, backend=default_backend())
+            except Exception as error:
+                debug("Incorrect password ({}).".format(error))
+                return False
+            else:
+                if Config.use_other_tls_id:
+                    return True
+                try:
+                    self.username = p12[1].subject.\
+                        get_attributes_for_oid(NameOID.COMMON_NAME)[0].value
+                except crypto.Error:
+                    self.username = p12[1].subject.\
+                        get_attributes_for_oid(NameOID.EMAIL_ADDRESS)[0].value
+                return True
+        if OPENSSL_CRYPTO_AVAILABLE:
+            debug("using openssl crypto")
             try:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
                                          self.password)
@@ -660,46 +707,45 @@ class InstallerData:
                     self.username = p12.get_certificate().\
                         get_subject().emailAddress
                 return True
-        else:
-            debug("using openssl")
-            command = ['openssl', 'pkcs12', '-in', pfx_file, '-passin',
-                       'pass:' + self.password, '-nokeys', '-clcerts']
-            shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
-            out, _ = shell_command.communicate()
-            if shell_command.returncode != 0:
-                debug("first password run failed")
-                command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
-                            'pass:' + self.password, '-nokeys', '-clcerts']
-                shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
-                                                  stderr=subprocess.PIPE)
-                out, err = shell_command1.communicate()
-                if shell_command1.returncode != 0:
-                    return False
-            if Config.use_other_tls_id:
-                return True
-            out_str = out.decode('utf-8').strip()
-            # split only on commas that are not inside double quotes
-            subject = re.split(r'\s*[/,]\s*(?=([^"]*"[^"]*")*[^"]*$)',
-                               re.findall(r'subject=/?(.*)$',
-                                          out_str, re.MULTILINE)[0])
-            cert_prop = {}
-            for field in subject:
-                if field:
-                    cert_field = re.split(r'\s*=\s*', field)
-                    cert_prop[cert_field[0].lower()] = cert_field[1]
-            if cert_prop['cn'] and re.search(r'@', cert_prop['cn']):
-                debug('Using cn: ' + cert_prop['cn'])
-                self.username = cert_prop['cn']
-            elif cert_prop['emailaddress'] and \
-                    re.search(r'@', cert_prop['emailaddress']):
-                debug('Using email: ' + cert_prop['emailaddress'])
-                self.username = cert_prop['emailaddress']
-            else:
-                self.username = ''
-                self.alert("Unable to extract username "
-                           "from the certificate")
+        debug("using openssl")
+        command = ['openssl', 'pkcs12', '-in', pfx_file, '-passin',
+                   'pass:' + self.password, '-nokeys', '-clcerts']
+        shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)
+        out, _ = shell_command.communicate()
+        if shell_command.returncode != 0:
+            debug("first password run failed")
+            command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
+                        'pass:' + self.password, '-nokeys', '-clcerts']
+            shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
+                                              stderr=subprocess.PIPE)
+            out, err = shell_command1.communicate()
+            if shell_command1.returncode != 0:
+                return False
+        if Config.use_other_tls_id:
             return True
+        out_str = out.decode('utf-8').strip()
+        # split only on commas that are not inside double quotes
+        subject = re.split(r'\s*[/,]\s*(?=([^"]*"[^"]*")*[^"]*$)',
+                           re.findall(r'subject=/?(.*)$',
+                                      out_str, re.MULTILINE)[0])
+        cert_prop = {}
+        for field in subject:
+            if field:
+                cert_field = re.split(r'\s*=\s*', field)
+                cert_prop[cert_field[0].lower()] = cert_field[1]
+        if cert_prop['cn'] and re.search(r'@', cert_prop['cn']):
+            debug('Using cn: ' + cert_prop['cn'])
+            self.username = cert_prop['cn']
+        elif cert_prop['emailaddress'] and \
+                re.search(r'@', cert_prop['emailaddress']):
+            debug('Using email: ' + cert_prop['emailaddress'])
+            self.username = cert_prop['emailaddress']
+        else:
+            self.username = ''
+            self.alert("Unable to extract username "
+                       "from the certificate")
+        return True
 
     def __select_p12_file(self) -> str:
         """
@@ -742,9 +788,9 @@ class InstallerData:
                                              stderr=subprocess.PIPE)
             cert, _ = shell_command.communicate()
         if self.graphics == 'kdialog':
-            command = ['kdialog', '--getopenfilename',
-                       '.', '*.p12 *.P12 *.pfx *.PFX | ' +
-                       Messages.p12_filter, '--title=' + Messages.p12_title]
+            command = ['kdialog', '--getopenfilename', '.', +
+#                       '.', '*.p12 *.P12 *.pfx *.PFX | ' + Messages.p12_filter,  # removed filter due to the changed syntax in newer versions
+                       '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
             cert, _ = shell_command.communicate()
@@ -755,6 +801,12 @@ class InstallerData:
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
             cert, _ = shell_command.communicate()
+        if self.graphics == 'tkinter':
+            from tkinter import filedialog as fd
+            return fd.askopenfilename(title=Messages.p12_title,
+                                      filetypes=(("Certificate file",
+                                                  ("*.p12", "*.P12", "*.pfx",
+                                                   "*.PFX")),))
         return cert.decode('utf-8').strip()
 
     @staticmethod
@@ -786,7 +838,7 @@ class InstallerData:
         else:
             while not self.password:
                 self.password = self.prompt_nonempty_string(
-                    0, Messages.enter_import_password)
+                    0, Messages.enter_import_password).encode('utf-8')
                 if not self.__process_p12():
                     self.alert(Messages.incorrect_password)
                     self.password = ''
