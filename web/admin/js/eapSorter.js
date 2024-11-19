@@ -23,7 +23,7 @@ $(function () {
         connectWith: "ol.eapmethods",
         tolerance: 'pointer',
         out: function (event, ui) {
-            ui.item.toggleClass("eap1");
+            ui.item.removeClass("eap1");
         },
         stop: function (event, ui) {
             $(".eapm").removeAttr('value');
