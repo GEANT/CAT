@@ -95,8 +95,8 @@ class IdPlist extends common\Entity
                     $keywords[$keyword['lang'].'_7'] =
                         iconv('UTF-8', 'ASCII//TRANSLIT', $value);
                 }
-                $q ="SELECT DISTINCT realm FROM profile WHERE inst_id=? AND realm NOT LIKE '%hosted.eduroam.org'";
-                $realms = $handle->exec($q,'i', $queryResult->inst_id);
+                $q = "SELECT DISTINCT realm FROM profile WHERE inst_id=? AND realm NOT LIKE '%hosted.eduroam.org'";
+                $realms = $handle->exec($q, 'i', $queryResult->inst_id);
                 while ($outerId = mysqli_fetch_row(/** @scrutinizer ignore-type */ $realms)) {
                     if (preg_match('/.*@(.*)$/', $outerId[0], $matches)) {
                         $keywords[] = $matches[1];
@@ -345,7 +345,7 @@ class IdPlist extends common\Entity
                 case 'device-specific:redirect':
                     $redirect = $opt[1];
                     if (!empty($profile->device_id)) {
-                        $redirect .= ':' . $profile->device_id;
+                        $redirect .= ':'.$profile->device_id;
                     }
                     break;
                 case 'profile:name': 
