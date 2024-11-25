@@ -10,7 +10,7 @@
  * of the copyright in all material which was developed by a member of the GÉANT
  * project. GÉANT Vereniging (Association) is registered with the Chamber of 
  * Commerce in Amsterdam with registration number 40535155 and operates in the 
- * UK as a branch of GÉANT Vereniging.
+ * UK as a branch of GÉANT VerenrdStuiging.
  * 
  * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
  * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
@@ -34,6 +34,7 @@ $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
 require_once "inc/click_button_js.php";
+$langInstance = new core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -42,9 +43,12 @@ require_once "inc/click_button_js.php";
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
-<script type="text/javascript" src="js/eapSorter.js"></script> 
+<script type="text/javascript" src="js/eapSorter.js"></script>
 <link rel='stylesheet' type='text/css' href='css/eapSorter.css.php' />
 <!-- EAP sorting code end -->
+<script type="text/javascript" src="js/wizard.js"></script> 
+<link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
+
 <?php
 // initialize inputs
 
@@ -67,6 +71,7 @@ $hint = FALSE;
 $realm = "";
 $prefill_name = "";
 $blacklisted = FALSE;
+$loggerInstance = new \core\common\Logging();
 
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
     $wizardStyle = FALSE;
@@ -94,6 +99,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $prefill_name = $my_profile->name;
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
+
     // is there a general redirect? it is one which have device = 0
     $blacklistEntries = $my_profile->getAttributes("device-specific:redirect");
     $blacklisted = FALSE;
@@ -103,7 +109,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         }
     }
 } else {
-    $loggerInstance = new \core\common\Logging();
+//    $loggerInstance = new \core\common\Logging();
     $wizardStyle = TRUE;
     $prefill_methods = [];
     $minting = $fed->getAttributes("fed:minted_ca_file");
@@ -141,12 +147,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     if ($temp_profile !== NULL) {
     }
 }
+$wizard = new \web\lib\admin\Wizard($wizardStyle);
 ?>
 </head>
 <body>
     <?php
     echo $deco->productheader("ADMIN-IDP");
     ?>
+    <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
     <h1>
         <?php
         if ($wizardStyle) {
@@ -173,21 +181,13 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         </legend>
         <?php
         if ($wizardStyle) {
-            echo "<p>" . _("We will now define a profile for your user group(s).  You can add as many profiles as you like by choosing the appropriate button on the end of the page. After we are done, the wizard is finished and you will be taken to the main IdP administration page.") . "</p>";
+             echo "<p>" . _("We will now define a profile for your user group(s).  You can add as many profiles as you like by choosing the appropriate button on the end of the page. After we are done, the wizard is finished and you will be taken to the main IdP administration page.") . "</p>";
         }
-        ?>
-        <h3><?php echo _("Profile Name and RADIUS realm"); ?></h3>
-        <?php
-        if ($wizardStyle) {
-            echo "<p>" . _("First of all we need a name for the profile. This will be displayed to end users, so you may want to choose a descriptive name like 'Professors', 'Students of the Faculty of Bioscience', etc.") . "</p>";
-            echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
-            echo "<p>" . _("You can also tell us your RADIUS realm. ");
-            if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
-                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), \config\ConfAssistant::CONSORTIUM['display_name']);
-            }
-            echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
-        }
-
+         ?>
+        <h3><?php echo _("Profile Name and RADIUS realm"); ?>
+        </h3>
+        <?php    
+        echo $wizard->displayHelp("profile");
         echo $optionDisplay->prefilledOptionTable("profile", $my_inst->federation);
         ?>
         <button type='button' class='newoption' onclick='getXML("profile", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
@@ -240,11 +240,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         <h3><?php echo _("Realm Options"); ?></h3>
 
         <?php
-        if ($wizardStyle) {
-            echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
-            echo "<p>" . _("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix.") . "</p>";
-            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the information which of those (outer ID) username we can use for testing.") . "</p>";
-        }
+        echo $wizard->displayHelp("realm");
         ?>
         <p>
 
@@ -333,10 +329,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     <h3><?php echo _("Installer Download Location"); ?></h3>
 
     <?php
-    if ($wizardStyle) {
-        echo "<p>" . _("The CAT has a download area for end users. There, they will, for example, learn about the support pointers you entered earlier. The CAT can also immediately offer the installers for the profile for download. If you don't want that, you can instead enter a web site location where you want your users to be redirected to. You, as the administrator, can still download the profiles to place them on that page (see the 'Compatibility Matrix' button on the dashboard).") . "</p>";
-    }
-    ?>
+    echo $wizard->displayHelp("redirect");
+     ?>
     <p>
 
         <?php
@@ -355,9 +349,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 <fieldset class="option_container">
     <legend><strong><?php echo _("Supported EAP types"); ?></strong></legend>
     <?php
-    if ($wizardStyle) {
-        echo "<p>" . _("Now, we need to know which EAP types your IdP supports. If you support multiple EAP types, you can assign every type a priority (1=highest). This tool will always generate an automatic installer for the EAP type with the highest priority; only if the user's device can't use that EAP type, we will use an EAP type further down in the list.") . "</p>";
-    }
+    echo $wizard->displayHelp("eap_support");
     ?>
     <?php
     $methods = \core\common\EAP::listKnownEAPTypes();
@@ -465,20 +457,17 @@ foreach ($fields as $name => $description) {
     echo "<fieldset class='option_container' id='" . $name . "_override'>
     <legend><strong>$description</strong></legend>
     <p>";
-
+    echo $wizard->displayHelp($name);
     if (count(${"has_" . $name . "_options"}) > 0) {
         printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count(${"has_" . $name . "_options"})), "<ul>" . ${$name . "_text"} . "</ul>");
     }
-
     echo "</p>";
-
     echo $optionDisplay->prefilledOptionTable($name, $my_inst->federation);
     ?>
     <button type='button' class='newoption' onclick='getXML("<?php echo $name ?>", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
     <?php
     echo "</fieldset>";
 }
-
 if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
 }
@@ -490,3 +479,4 @@ if ($editMode == 'fullaccess') {
 }
 echo "<p><button type='submit' id='submitbutton' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>".$discardLabel."</button></p></form>";
 echo $deco->footer();
+
