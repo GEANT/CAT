@@ -134,7 +134,7 @@ class IdP extends EntityWithDBProperties
      */
     public function listProfiles(bool $activeOnly = FALSE)
     {
-        $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
+        $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "")." ORDER BY preference";
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
         // SELECT -> resource, not boolean
