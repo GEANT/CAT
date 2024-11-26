@@ -788,8 +788,7 @@ class InstallerData:
                                              stderr=subprocess.PIPE)
             cert, _ = shell_command.communicate()
         if self.graphics == 'kdialog':
-            command = ['kdialog', '--getopenfilename', '.', +
-#                       '.', '*.p12 *.P12 *.pfx *.PFX | ' + Messages.p12_filter,  # removed filter due to the changed syntax in newer versions
+            command = ['kdialog', '--getopenfilename', '.',
                        '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
