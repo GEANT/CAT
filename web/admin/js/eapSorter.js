@@ -19,11 +19,28 @@
  */
 
 $(function () {
-    $("#sortable1, #sortable2").sortable({
+    $("#sortable1").sortable({
         connectWith: "ol.eapmethods",
         tolerance: 'pointer',
         out: function (event, ui) {
-            ui.item.toggleClass("eap1");
+            ui.item.removeClass("eap1");
+        },
+        stop: function (event, ui) {
+            $(".eapm").removeAttr('value');
+            $(".eapmv").removeAttr('value');
+            $("#sortable1").children().each(function (index) {
+                var v = $(this).html();
+                $("#EAP-" + v).val(v);
+                $("#EAP-" + v + "-priority").val(index + 1);
+            });
+        }
+    }).disableSelection();   
+    
+    $("#sortable2").sortable({
+        connectWith: "ol.eapmethods",
+        tolerance: 'pointer',
+        out: function (event, ui) {
+            ui.item.addClass("eap1");
         },
         stop: function (event, ui) {
             $(".eapm").removeAttr('value');
