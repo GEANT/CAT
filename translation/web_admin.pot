@@ -103,7 +103,7 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:95
 msgid ""
-"Submitted Certificate Signing Request is broken - unable to extracts the "
+"Submitted Certificate Signing Request is broken - unable to extract the "
 "public key from CSR"
 msgstr ""
 
