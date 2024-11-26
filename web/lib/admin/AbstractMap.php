@@ -135,22 +135,13 @@ abstract class AbstractMap extends \core\common\Entity {
      */
     protected function htmlPreEdit($wizardMode, $additional) {
         \core\common\Entity::intoThePotatoes();
+        $wizard = new \web\lib\admin\Wizard($wizardMode);
+        
+        
+        
         $retval = "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
-
-        if ($wizardMode) {
-            $retval .= "<p>" .
-                    _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
-                    "</p>
-                     <ul>" .
-                    _("<li>Drag the marker in the map to your place, or</li>
-<li>enter your street address in the field below for lookup, or</li>
-<li>use the 'Locate Me!' button</li>") .
-                    "</ul>
-                     <strong>" .
-                    _("We will use the coordinates as indicated by the marker for geolocation.") .
-                    "</strong>";
-        }
+        $retval .= $wizard->displayHelp("location");
         if ($additional) {
             $retval .= _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
         }

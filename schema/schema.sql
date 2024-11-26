@@ -131,6 +131,7 @@ CREATE TABLE `profile` (
   `sufficient_config` tinyint(1) NULL DEFAULT NULL,
   `openroaming` int(2) NOT NULL DEFAULT 4,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `preference` int DEFAULT '1000',
   PRIMARY KEY (`profile_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

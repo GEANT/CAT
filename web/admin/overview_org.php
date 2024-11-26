@@ -227,6 +227,12 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                             <?php echo _("Delete") ?>
                         </button>
                     </form>
+                    
+                    <form action='duplicate_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <button type='submit' name='profile_duplicate'>
+                    <?php echo _("Duplicate this profile"); ?>
+                </button>
+            </form>
                     <?php } ?>
                 </div>
                 <?php
@@ -623,11 +629,9 @@ $(document).ready(function() {
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <div>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
                                 <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
                             </button>
-                        </div>
                     </form>&nbsp;
                     <?php
                 }
@@ -656,7 +660,15 @@ $(document).ready(function() {
             }
             ?>
         </h2>
-        <?php
+    <?php if(count($profiles_for_this_idp) > 1 && $readonly === FALSE && $editMode === 'fullaccess') { ?>
+                    <form method='post' action='sort_profiles.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
+                        <div>
+                            <button type='submit' name='profile_sorting'>
+                                <?php echo _("Change the order of profiles"); ?>
+                            </button>
+                        </div>
+                    </form>  <p>  
+    <?php }
         if (count($profiles_for_this_idp) == 0) { // no profiles yet.
             printf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureIdP);
         }

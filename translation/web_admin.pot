@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 10:54+0100\n"
+"POT-Creation-Date: 2024-11-26 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,83 +231,46 @@ msgstr ""
 msgid "Back to Overview Page"
 msgstr ""
 
-#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/edit_federation.php:45 web/admin/edit_participant.php:45
+#: web/admin/duplicate_profile.php:39
 #, php-format
-msgid "%s: Editing %s '%s'"
+msgid "%s: Profile duplication (Step 1)"
 msgstr ""
 
-#. / nomenclature for federation, then actual federation name
-#: web/admin/edit_federation.php:69 web/admin/edit_participant.php:90
+#: web/admin/duplicate_profile.php:43 web/admin/duplicate_profile_result.php:94
+#: web/admin/sort_profiles.php:86 web/admin/sort_profiles_result.php:40
+msgid "No write access to this IdP"
+msgstr ""
+
+#: web/admin/duplicate_profile.php:57
 #, php-format
-msgid "Editing %s information for '%s'"
+msgid "Duplicate profile '%s' ..."
 msgstr ""
 
-#: web/admin/edit_federation.php:73 web/admin/edit_federation.php:94
+#: web/admin/duplicate_profile.php:60
+msgid "New profile default name: "
+msgstr ""
+
+#: web/admin/duplicate_profile.php:66
+msgid ""
+"The names from the source profile will be replaced with the one you provide."
+msgstr ""
+
+#: web/admin/duplicate_profile.php:68
+msgid "Create duplicate"
+msgstr ""
+
+#: web/admin/duplicate_profile.php:69 web/admin/sort_profiles.php:127
+msgid "Cancel"
+msgstr ""
+
+#: web/admin/duplicate_profile_result.php:90
 #, php-format
-msgid "%s Properties"
+msgid "%s: Profile duplication (Step 2)"
 msgstr ""
 
-#: web/admin/edit_federation.php:77 web/admin/edit_hotspot.php:205
-#: web/admin/edit_participant.php:100 web/admin/edit_silverbullet.php:346
-#: web/admin/edit_user.php:45 web/admin/overview_federation.php:72
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:56
-msgid "Property Type"
-msgstr ""
-
-#: web/admin/edit_federation.php:78 web/admin/edit_hotspot.php:206
-#: web/admin/edit_participant.php:101 web/admin/edit_user.php:46
-#: web/admin/overview_federation.php:73 web/admin/overview_federation.php:154
-#: web/admin/overview_user.php:57
-msgid "Language if applicable"
-msgstr ""
-
-#: web/admin/edit_federation.php:79 web/admin/edit_hotspot.php:207
-#: web/admin/edit_participant.php:102 web/admin/edit_silverbullet.php:347
-#: web/admin/edit_user.php:47 web/admin/overview_federation.php:74
-#: web/admin/overview_federation.php:155 web/admin/overview_user.php:58
-msgid "Property Value"
-msgstr ""
-
-#: web/admin/edit_federation.php:82 web/admin/edit_participant.php:106
-#: web/lib/admin/UIElements.php:248
-msgid "Country:"
-msgstr ""
-
-#: web/admin/edit_federation.php:99 web/admin/edit_hotspot.php:240
-#: web/admin/edit_participant.php:139 web/admin/edit_participant.php:193
-#: web/admin/edit_participant.php:219 web/admin/edit_profile.php:193
-#: web/admin/edit_profile.php:477 web/admin/edit_user.php:63
-#: web/admin/inc/toggleRedirect.inc.php:141
-msgid "Add new option"
-msgstr ""
-
-#: web/admin/edit_federation.php:104 web/admin/edit_hotspot.php:244
-#: web/admin/edit_participant.php:230 web/admin/edit_profile.php:491
-#: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:144
-msgid "Save data"
-msgstr ""
-
-#: web/admin/edit_federation.php:105 web/admin/edit_hotspot.php:244
-#: web/admin/edit_participant.php:225 web/admin/edit_profile.php:489
-#: web/admin/edit_user.php:71
-msgid "Discard changes"
-msgstr ""
-
-#: web/admin/edit_federation.php:107 web/admin/edit_participant.php:222
-#: web/admin/edit_profile.php:486
-msgid "Return"
-msgstr ""
-
-#. / first productname (eduroam CAT), then nomenclature for 'federation'
-#: web/admin/edit_federation_result.php:39
+#: web/admin/duplicate_profile_result.php:138
 #, php-format
-msgid "%s: %s Customisation (submission completed)"
-msgstr ""
-
-#: web/admin/edit_federation_result.php:49
-#, php-format
-msgid "Submitted attributes for %s '%s'"
+msgid "Copied %s to %s"
 msgstr ""
 
 #.
@@ -393,10 +356,90 @@ msgstr ""
 #. *
 #.
 #. $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
+#: web/admin/duplicate_profile_result.php:140
 #: web/admin/edit_federation_result.php:61
 #: web/admin/edit_participant_result.php:173
-#: web/admin/edit_profile_result.php:361
+#: web/admin/edit_profile_result.php:361 web/admin/sort_profiles_result.php:61
 msgid "Continue to dashboard"
+msgstr ""
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/edit_federation.php:45 web/admin/edit_participant.php:45
+#, php-format
+msgid "%s: Editing %s '%s'"
+msgstr ""
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/edit_federation.php:69 web/admin/edit_participant.php:92
+#, php-format
+msgid "Editing %s information for '%s'"
+msgstr ""
+
+#: web/admin/edit_federation.php:73 web/admin/edit_federation.php:94
+#, php-format
+msgid "%s Properties"
+msgstr ""
+
+#: web/admin/edit_federation.php:77 web/admin/edit_hotspot.php:205
+#: web/admin/edit_participant.php:102 web/admin/edit_silverbullet.php:346
+#: web/admin/edit_user.php:45 web/admin/overview_federation.php:72
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:56
+msgid "Property Type"
+msgstr ""
+
+#: web/admin/edit_federation.php:78 web/admin/edit_hotspot.php:206
+#: web/admin/edit_participant.php:103 web/admin/edit_user.php:46
+#: web/admin/overview_federation.php:73 web/admin/overview_federation.php:154
+#: web/admin/overview_user.php:57
+msgid "Language if applicable"
+msgstr ""
+
+#: web/admin/edit_federation.php:79 web/admin/edit_hotspot.php:207
+#: web/admin/edit_participant.php:104 web/admin/edit_silverbullet.php:347
+#: web/admin/edit_user.php:47 web/admin/overview_federation.php:74
+#: web/admin/overview_federation.php:155 web/admin/overview_user.php:58
+msgid "Property Value"
+msgstr ""
+
+#: web/admin/edit_federation.php:82 web/admin/edit_participant.php:108
+#: web/lib/admin/UIElements.php:248
+msgid "Country:"
+msgstr ""
+
+#: web/admin/edit_federation.php:99 web/admin/edit_hotspot.php:240
+#: web/admin/edit_participant.php:134 web/admin/edit_participant.php:146
+#: web/admin/edit_participant.php:157 web/admin/edit_profile.php:193
+#: web/admin/edit_profile.php:467 web/admin/edit_user.php:63
+#: web/admin/inc/toggleRedirect.inc.php:141
+msgid "Add new option"
+msgstr ""
+
+#: web/admin/edit_federation.php:104 web/admin/edit_hotspot.php:244
+#: web/admin/edit_participant.php:168 web/admin/edit_profile.php:480
+#: web/admin/edit_user.php:68 web/admin/inc/toggleRedirect.inc.php:144
+msgid "Save data"
+msgstr ""
+
+#: web/admin/edit_federation.php:105 web/admin/edit_hotspot.php:244
+#: web/admin/edit_participant.php:163 web/admin/edit_profile.php:478
+#: web/admin/edit_user.php:71
+msgid "Discard changes"
+msgstr ""
+
+#: web/admin/edit_federation.php:107 web/admin/edit_participant.php:160
+#: web/admin/edit_profile.php:475
+msgid "Return"
+msgstr ""
+
+#. / first productname (eduroam CAT), then nomenclature for 'federation'
+#: web/admin/edit_federation_result.php:39
+#, php-format
+msgid "%s: %s Customisation (submission completed)"
+msgstr ""
+
+#: web/admin/edit_federation_result.php:49
+#, php-format
+msgid "Submitted attributes for %s '%s'"
 msgstr ""
 
 #. terms of use popup, going interactive
@@ -459,17 +502,17 @@ msgstr ""
 msgid "%s: %s enrollment wizard (step 2)"
 msgstr ""
 
-#: web/admin/edit_participant.php:88
+#: web/admin/edit_participant.php:90
 #, php-format
 msgid "Step 2: General Information about your %s"
 msgstr ""
 
-#: web/admin/edit_participant.php:95
+#: web/admin/edit_participant.php:97
 #, php-format
 msgid "%s general properties"
 msgstr ""
 
-#: web/admin/edit_participant.php:122
+#: web/admin/edit_participant.php:124
 #, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
@@ -478,176 +521,19 @@ msgid ""
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
 
-#: web/admin/edit_participant.php:127
+#: web/admin/edit_participant.php:129
 msgid "General Information"
 msgstr ""
 
-#: web/admin/edit_participant.php:131
-msgid ""
-"Some properties are valid across all deployment profiles. This is the place "
-"where you can describe those properties in a fine-grained way. The solicited "
-"information is used as follows:"
-msgstr ""
-
-#: web/admin/edit_participant.php:133
-msgid ""
-"<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
-"all installers where a custom logo is possible. We accept any image format, "
-"but for best results, we suggest SVG. If you don't upload a logo, we will "
-"use the generic logo instead (see top-right corner of this page)."
-msgstr ""
-
-#: web/admin/edit_participant.php:134
-#, php-format
-msgid ""
-"<strong>Name</strong>: The %s may have names in multiple languages. It is "
-"recommended to always populate at least the 'default/other' language, as it "
-"is used as a fallback if the system does not have a name in the exact "
-"language the user requests a download in."
-msgstr ""
-
-#: web/admin/edit_participant.php:146 web/lib/admin/UIElements.php:262
+#: web/admin/edit_participant.php:141 web/lib/admin/UIElements.php:262
 msgid "Media Properties"
 msgstr ""
 
-#: web/admin/edit_participant.php:150
-#, php-format
-msgid ""
-"In this section, you define on which media %s should be configured on user "
-"devices."
-msgstr ""
-
-#: web/admin/edit_participant.php:153
-msgid "Additional SSIDs:"
-msgstr ""
-
-#: web/admin/edit_participant.php:153
-msgid "SSIDs:"
-msgstr ""
-
-#: web/admin/edit_participant.php:160
-#, php-format
-msgid "We will always configure this SSID for WPA2/AES: %s."
-msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: web/admin/edit_participant.php:161
-#, php-format
-msgid ""
-"It is also possible to define custom additional SSIDs with the option '%s' "
-"below."
-msgstr ""
-
-#: web/admin/edit_participant.php:163
-msgid "Please configure which SSIDs should be configured in the installers."
-msgstr ""
-
-#: web/admin/edit_participant.php:165
-msgid ""
-"By default, we will only configure the SSIDs with WPA2/AES encryption. By "
-"using the '(with WPA/TKIP)' option you can specify that we should include "
-"legacy support for WPA/TKIP where possible."
-msgstr ""
-
-#: web/admin/edit_participant.php:169
-msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
-
-#: web/admin/edit_participant.php:169
-msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
-
-#: web/admin/edit_participant.php:176
-#, php-format
-msgid "We will always configure this Consortium OI: %s."
-msgid_plural "We will always configure these Consortium OIs: %s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: web/admin/edit_participant.php:178
-#, php-format
-msgid ""
-"It is also possible to define custom additional OIs with the option '%s' "
-"below."
-msgstr ""
-
-#: web/admin/edit_participant.php:180
-msgid ""
-"Please configure which Consortium OIs should be configured in the installers."
-msgstr ""
-
-#: web/admin/edit_participant.php:183
-msgid "Support for wired IEEE 802.1X:"
-msgstr ""
-
-#: web/admin/edit_participant.php:184
-msgid ""
-"If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the "
-"installation process a bit more difficult on some platforms (Windows: needs "
-"administrator privileges; Apple: attempting to install a profile with wired "
-"support on a device without an active wired ethernet card will fail)."
-msgstr ""
-
-#: web/admin/edit_participant.php:186
-msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
-
-#: web/admin/edit_participant.php:187
-msgid ""
-"If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option, "
-"the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr ""
-
-#: web/admin/edit_participant.php:199
+#: web/admin/edit_participant.php:152
 msgid "Helpdesk Details for all users"
 msgstr ""
 
-#: web/admin/edit_participant.php:202
-msgid ""
-"This section can be used to upload specific Terms of Use for your users and "
-"to display details of how your users can reach your local helpdesk."
-msgstr ""
-
-#: web/admin/edit_participant.php:206
-#, php-format
-msgid ""
-"Do you provide helpdesk services for your users? If so, it would be nice if "
-"you would tell us the pointers to this helpdesk."
-msgstr ""
-
-#: web/admin/edit_participant.php:208
-msgid ""
-"If you enter a value here, it will be added to the installers for all your "
-"users, and will be displayed on the download page. If you operate separate "
-"helpdesks for different user groups (we call this 'profiles') specify per-"
-"profile helpdesk information later in this wizard. If you operate no help "
-"desk at all, just leave these fields empty."
-msgstr ""
-
-#: web/admin/edit_participant.php:210
-#, php-format
-msgid ""
-"For %s deployments, providing at least a local e-mail contact is required."
-msgstr ""
-
-#: web/admin/edit_participant.php:210
-msgid ""
-"This is the contact point for your organisation. It may be displayed "
-"publicly."
-msgstr ""
-
-#: web/admin/edit_participant.php:213
-msgid "Providing at least a local support e-mail contact is required."
-msgstr ""
-
-#: web/admin/edit_participant.php:213
-msgid "This is the contact point for your end users' level 1 support."
-msgstr ""
-
-#: web/admin/edit_participant.php:228
+#: web/admin/edit_participant.php:166
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
@@ -766,25 +652,25 @@ msgstr ""
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr ""
 
-#: web/admin/edit_profile.php:153
+#: web/admin/edit_profile.php:161
 msgid "Step 3: Defining a user group profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:156
+#: web/admin/edit_profile.php:164
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr ""
 
-#: web/admin/edit_profile.php:158
+#: web/admin/edit_profile.php:166
 #, php-format
 msgid "View profile '%s' ..."
 msgstr ""
 
-#: web/admin/edit_profile.php:172
+#: web/admin/edit_profile.php:180
 msgid "General Profile properties"
 msgstr ""
 
-#: web/admin/edit_profile.php:176
+#: web/admin/edit_profile.php:184
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -792,39 +678,8 @@ msgid ""
 "main IdP administration page."
 msgstr ""
 
-#: web/admin/edit_profile.php:179
+#: web/admin/edit_profile.php:187
 msgid "Profile Name and RADIUS realm"
-msgstr ""
-
-#: web/admin/edit_profile.php:182
-msgid ""
-"First of all we need a name for the profile. This will be displayed to end "
-"users, so you may want to choose a descriptive name like 'Professors', "
-"'Students of the Faculty of Bioscience', etc."
-msgstr ""
-
-#: web/admin/edit_profile.php:183
-msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile "
-"is for. If you specify it, it will be displayed on the download page after "
-"the user has selected the profile name in the list."
-msgstr ""
-
-#: web/admin/edit_profile.php:184
-msgid "You can also tell us your RADIUS realm. "
-msgstr ""
-
-#: web/admin/edit_profile.php:186
-#, php-format
-msgid ""
-"This is useful if you want to use the sanity check module later, which tests "
-"reachability of your realm in the %s infrastructure. "
-msgstr ""
-
-#: web/admin/edit_profile.php:188
-msgid ""
-"It is required to enter the realm name if you want to support anonymous "
-"outer identities (see below)."
 msgstr ""
 
 #: web/admin/edit_profile.php:195
@@ -843,127 +698,86 @@ msgstr ""
 msgid "Realm Options"
 msgstr ""
 
-#: web/admin/edit_profile.php:244
-#, php-format
-msgid ""
-"Some installers support a feature called 'Anonymous outer identity'. If you "
-"don't know what this is, please read <a href='%s'>this article</a>."
-msgstr ""
-
-#: web/admin/edit_profile.php:245
-msgid ""
-"On some platforms, the installers can suggest username endings and/or verify "
-"the user input to contain the realm suffix."
-msgstr ""
-
-#: web/admin/edit_profile.php:246
-msgid ""
-"The realm check feature needs to know an outer ID which actually gets a "
-"chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the information which of those (outer ID) "
-"username we can use for testing."
-msgstr ""
-
-#: web/admin/edit_profile.php:254
+#: web/admin/edit_profile.php:250
 msgid "Username Handling Options"
 msgstr ""
 
-#: web/admin/edit_profile.php:256
+#: web/admin/edit_profile.php:252
 msgid "Option name"
 msgstr ""
 
-#: web/admin/edit_profile.php:257
+#: web/admin/edit_profile.php:253
 msgid "Option checkbox"
 msgstr ""
 
-#: web/admin/edit_profile.php:260
+#: web/admin/edit_profile.php:256
 msgid "Outer Identity Handling"
 msgstr ""
 
-#: web/admin/edit_profile.php:266
+#: web/admin/edit_profile.php:262
 msgid "Enable Anonymous Outer Identity:"
 msgstr ""
 
-#: web/admin/edit_profile.php:284
+#: web/admin/edit_profile.php:280
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
 
-#: web/admin/edit_profile.php:299
+#: web/admin/edit_profile.php:295
 msgid "Inner Identity (Username) Handling"
 msgstr ""
 
-#: web/admin/edit_profile.php:305
+#: web/admin/edit_profile.php:301
 msgid "Enforce realm suffix in username"
 msgstr ""
 
-#: web/admin/edit_profile.php:323
+#: web/admin/edit_profile.php:319
 msgid "Enforce exact realm in username"
 msgstr ""
 
-#: web/admin/edit_profile.php:333
+#: web/admin/edit_profile.php:329
 msgid "Installer Download Location"
 msgstr ""
 
 #: web/admin/edit_profile.php:337
-msgid ""
-"The CAT has a download area for end users. There, they will, for example, "
-"learn about the support pointers you entered earlier. The CAT can also "
-"immediately offer the installers for the profile for download. If you don't "
-"want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the "
-"profiles to place them on that page (see the 'Compatibility Matrix' button "
-"on the dashboard)."
-msgstr ""
-
-#: web/admin/edit_profile.php:343
 msgid "Redirect end users to own web page:"
 msgstr ""
 
-#: web/admin/edit_profile.php:356
+#: web/admin/edit_profile.php:350
 msgid "Supported EAP types"
 msgstr ""
 
-#: web/admin/edit_profile.php:359
-msgid ""
-"Now, we need to know which EAP types your IdP supports. If you support "
-"multiple EAP types, you can assign every type a priority (1=highest). This "
-"tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will "
-"use an EAP type further down in the list."
-msgstr ""
-
-#: web/admin/edit_profile.php:382
+#: web/admin/edit_profile.php:374 web/admin/sort_profiles.php:99
 msgid "EAP type support"
 msgstr ""
 
-#: web/admin/edit_profile.php:385
+#: web/admin/edit_profile.php:377
 msgid "Supported EAP types for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:399
+#: web/admin/edit_profile.php:391
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
 
-#: web/admin/edit_profile.php:407
+#: web/admin/edit_profile.php:399
 msgid "Unsupported EAP types"
 msgstr ""
 
-#: web/admin/edit_profile.php:460
+#: web/admin/edit_profile.php:452
 msgid "Helpdesk Details for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:461
+#: web/admin/edit_profile.php:453
 msgid "EAP Details for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:462
+#: web/admin/edit_profile.php:454
 msgid "Media Properties for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:470
+#: web/admin/edit_profile.php:462
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -974,7 +788,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/edit_profile.php:483
+#: web/admin/edit_profile.php:472
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -1555,7 +1369,7 @@ msgstr ""
 msgid "Hide downloads"
 msgstr ""
 
-#: web/admin/overview_federation.php:65 web/admin/overview_org.php:574
+#: web/admin/overview_federation.php:65 web/admin/overview_org.php:580
 #: web/admin/overview_sp.php:77
 #, php-format
 msgid "%s Overview"
@@ -1600,11 +1414,11 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: web/admin/overview_federation.php:174 web/admin/overview_org.php:571
+#: web/admin/overview_federation.php:174 web/admin/overview_org.php:577
 msgid "Edit ..."
 msgstr ""
 
-#: web/admin/overview_federation.php:176 web/admin/overview_org.php:568
+#: web/admin/overview_federation.php:176 web/admin/overview_org.php:574
 msgid "View ..."
 msgstr ""
 
@@ -1959,233 +1773,241 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: web/admin/overview_org.php:277 web/admin/overview_sp.php:49
+#: web/admin/overview_org.php:233
+msgid "Duplicate this profile"
+msgstr ""
+
+#: web/admin/overview_org.php:283 web/admin/overview_sp.php:49
 msgid "Successfully set profile"
 msgstr ""
 
-#: web/admin/overview_org.php:278 web/admin/overview_sp.php:50
+#: web/admin/overview_org.php:284 web/admin/overview_sp.php:50
 msgid "Some problem occurred during profile update"
 msgstr ""
 
-#: web/admin/overview_org.php:306 web/admin/overview_sp.php:152
+#: web/admin/overview_org.php:312 web/admin/overview_sp.php:152
 msgid "inactive"
 msgstr ""
 
-#: web/admin/overview_org.php:306 web/admin/overview_sp.php:152
+#: web/admin/overview_org.php:312 web/admin/overview_sp.php:152
 msgid "active"
 msgstr ""
 
-#: web/admin/overview_org.php:309
+#: web/admin/overview_org.php:315
 msgid "Deployment Details"
 msgstr ""
 
-#: web/admin/overview_org.php:317 web/admin/overview_sp.php:155
+#: web/admin/overview_org.php:323 web/admin/overview_sp.php:155
 msgid "Your primary RADIUS server"
 msgstr ""
 
-#: web/admin/overview_org.php:320 web/admin/overview_org.php:344
+#: web/admin/overview_org.php:326 web/admin/overview_org.php:350
 #: web/admin/overview_sp.php:158 web/admin/overview_sp.php:182
 msgid "IPv4"
 msgstr ""
 
-#: web/admin/overview_org.php:326 web/admin/overview_org.php:350
+#: web/admin/overview_org.php:332 web/admin/overview_org.php:356
 #: web/admin/overview_sp.php:164 web/admin/overview_sp.php:188
 msgid "IPv6"
 msgstr ""
 
-#: web/admin/overview_org.php:330 web/admin/overview_org.php:353
+#: web/admin/overview_org.php:336 web/admin/overview_org.php:359
 #: web/admin/overview_sp.php:168 web/admin/overview_sp.php:191
 msgid "RADIUS port number: "
 msgstr ""
 
-#: web/admin/overview_org.php:341 web/admin/overview_sp.php:179
+#: web/admin/overview_org.php:347 web/admin/overview_sp.php:179
 msgid "Your backup RADIUS server"
 msgstr ""
 
-#: web/admin/overview_org.php:365 web/admin/overview_sp.php:203
+#: web/admin/overview_org.php:371 web/admin/overview_sp.php:203
 msgid "RADIUS shared secret"
 msgstr ""
 
-#: web/admin/overview_org.php:371 web/admin/overview_sp.php:209
+#: web/admin/overview_org.php:377 web/admin/overview_sp.php:209
 msgid "Custom Operator-Name"
 msgstr ""
 
-#: web/admin/overview_org.php:379 web/admin/overview_sp.php:216
+#: web/admin/overview_org.php:385 web/admin/overview_sp.php:216
 msgid "VLAN tag for own users"
 msgstr ""
 
-#: web/admin/overview_org.php:388 web/admin/overview_sp.php:225
+#: web/admin/overview_org.php:394 web/admin/overview_sp.php:225
 #: web/lib/admin/UIElements.php:143
 msgid "Realm to be considered own users"
 msgstr ""
 
-#: web/admin/overview_org.php:398 web/admin/overview_sp.php:235
+#: web/admin/overview_org.php:404 web/admin/overview_sp.php:235
 msgid "Advanced Configuration"
 msgstr ""
 
-#: web/admin/overview_org.php:402 web/admin/overview_sp.php:239
+#: web/admin/overview_org.php:408 web/admin/overview_sp.php:239
 #, php-format
 msgid "Do you really want to deactivate the %s deployment?"
 msgstr ""
 
-#: web/admin/overview_org.php:403 web/admin/overview_sp.php:240
+#: web/admin/overview_org.php:409 web/admin/overview_sp.php:240
 msgid "Deactivate"
 msgstr ""
 
-#: web/admin/overview_org.php:411 web/admin/overview_sp.php:248
+#: web/admin/overview_org.php:417 web/admin/overview_sp.php:248
 msgid "Activation failure."
 msgstr ""
 
-#: web/admin/overview_org.php:414 web/admin/overview_sp.php:251
+#: web/admin/overview_org.php:420 web/admin/overview_sp.php:251
 msgid "Activation failure for your primary RADIUS server."
 msgstr ""
 
-#: web/admin/overview_org.php:416 web/admin/overview_sp.php:253
+#: web/admin/overview_org.php:422 web/admin/overview_sp.php:253
 msgid "Activation failure for your backup RADIUS server."
 msgstr ""
 
-#: web/admin/overview_org.php:428
+#: web/admin/overview_org.php:434
 msgid "Accept Terms of Use"
 msgstr ""
 
-#: web/admin/overview_org.php:433 web/admin/overview_org.php:465
+#: web/admin/overview_org.php:439 web/admin/overview_org.php:471
 #, php-format
 msgid "Do you really want to remove this %s deployment?"
 msgstr ""
 
-#: web/admin/overview_org.php:434 web/admin/overview_org.php:466
+#: web/admin/overview_org.php:440 web/admin/overview_org.php:472
 msgid "Remove deployment"
 msgstr ""
 
-#: web/admin/overview_org.php:443 web/admin/overview_sp.php:265
+#: web/admin/overview_org.php:449 web/admin/overview_sp.php:265
 msgid "Activate"
 msgstr ""
 
-#: web/admin/overview_org.php:451 web/admin/overview_sp.php:273
+#: web/admin/overview_org.php:457 web/admin/overview_sp.php:273
 msgid "Failure during deactivation, your request is queued for handling"
 msgstr ""
 
-#: web/admin/overview_org.php:454 web/admin/overview_sp.php:276
+#: web/admin/overview_org.php:460 web/admin/overview_sp.php:276
 msgid ""
 "Deactivation failure for your primary RADIUS server, your request is queued."
 msgstr ""
 
-#: web/admin/overview_org.php:456 web/admin/overview_sp.php:278
+#: web/admin/overview_org.php:462 web/admin/overview_sp.php:278
 msgid ""
 "Deactivation failure for your backup RADIUS server, your request is queued."
 msgstr ""
 
-#: web/admin/overview_org.php:477
+#: web/admin/overview_org.php:483
 msgid "Hotspot Usage Statistics"
 msgstr ""
 
-#: web/admin/overview_org.php:479
+#: web/admin/overview_org.php:485
 msgid "5 most recent authentications"
 msgstr ""
 
-#: web/admin/overview_org.php:480 web/admin/inc/deploymentStats.inc.php:40
+#: web/admin/overview_org.php:486 web/admin/inc/deploymentStats.inc.php:40
 msgid ""
 "(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-"
 "IPv6-Address/Called-Station-Id)"
 msgstr ""
 
-#: web/admin/overview_org.php:484 web/admin/inc/deploymentStats.inc.php:44
+#: web/admin/overview_org.php:490 web/admin/inc/deploymentStats.inc.php:44
 msgid "Timestamp (UTC)"
 msgstr ""
 
-#: web/admin/overview_org.php:485 web/admin/inc/deploymentStats.inc.php:45
+#: web/admin/overview_org.php:491 web/admin/inc/deploymentStats.inc.php:45
 msgid "Realm"
 msgstr ""
 
-#: web/admin/overview_org.php:486 web/admin/inc/deploymentStats.inc.php:46
+#: web/admin/overview_org.php:492 web/admin/inc/deploymentStats.inc.php:46
 #: web/admin/inc/userStats.inc.php:43
 msgid "MAC Address"
 msgstr ""
 
-#: web/admin/overview_org.php:487 web/admin/inc/deploymentStats.inc.php:47
+#: web/admin/overview_org.php:493 web/admin/inc/deploymentStats.inc.php:47
 msgid "Chargeable-User-Identity"
 msgstr ""
 
-#: web/admin/overview_org.php:488 web/admin/inc/deploymentStats.inc.php:48
+#: web/admin/overview_org.php:494 web/admin/inc/deploymentStats.inc.php:48
 #: web/admin/inc/userStats.inc.php:44
 msgid "Result"
 msgstr ""
 
-#: web/admin/overview_org.php:489 web/admin/inc/deploymentStats.inc.php:49
+#: web/admin/overview_org.php:495 web/admin/inc/deploymentStats.inc.php:49
 msgid "AP Identifier"
 msgstr ""
 
-#: web/admin/overview_org.php:499 web/admin/inc/deploymentStats.inc.php:60
+#: web/admin/overview_org.php:505 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Success"
 msgstr ""
 
-#: web/admin/overview_org.php:499 web/admin/inc/deploymentStats.inc.php:60
+#: web/admin/overview_org.php:505 web/admin/inc/deploymentStats.inc.php:60
 #: web/admin/inc/userStats.inc.php:55
 msgid "Failure"
 msgstr ""
 
-#: web/admin/overview_org.php:506
+#: web/admin/overview_org.php:512
 msgid "Last hour"
 msgstr ""
 
-#: web/admin/overview_org.php:509
+#: web/admin/overview_org.php:515
 msgid "Last 30 days"
 msgstr ""
 
-#: web/admin/overview_org.php:512
+#: web/admin/overview_org.php:518
 msgid "Last 6 months"
 msgstr ""
 
-#: web/admin/overview_org.php:535 web/admin/overview_sp.php:44
+#: web/admin/overview_org.php:541 web/admin/overview_sp.php:44
 #, php-format
 msgid "%s: %s Dashboard"
 msgstr ""
 
-#: web/admin/overview_org.php:577 web/admin/overview_sp.php:79
+#: web/admin/overview_org.php:583 web/admin/overview_sp.php:79
 #, php-format
 msgid "%s general settings"
 msgstr ""
 
-#: web/admin/overview_org.php:602 web/admin/overview_org.php:708
+#: web/admin/overview_org.php:608 web/admin/overview_org.php:720
 #, php-format
 msgid "%s: %s Deployment Details"
 msgstr ""
 
-#: web/admin/overview_org.php:628
+#: web/admin/overview_org.php:633
 #, php-format
 msgid "Add %s profile ..."
 msgstr ""
 
-#: web/admin/overview_org.php:643
+#: web/admin/overview_org.php:647
 msgid "New RADIUS/EAP profile (manual setup) ..."
 msgstr ""
 
-#: web/admin/overview_org.php:650
+#: web/admin/overview_org.php:654
 msgid "New RADIUS/EAP profile (autodetect server details) ..."
 msgstr ""
 
+#: web/admin/overview_org.php:667
+msgid "Change the order of profiles"
+msgstr ""
+
 #. no profiles yet.
-#: web/admin/overview_org.php:661
+#: web/admin/overview_org.php:673
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr ""
 
-#: web/admin/overview_org.php:686
+#: web/admin/overview_org.php:698
 msgid "User Downloads"
 msgstr ""
 
-#: web/admin/overview_org.php:719 web/admin/overview_sp.php:309
+#: web/admin/overview_org.php:731 web/admin/overview_sp.php:309
 #, php-format
 msgid "Add %s deployment ..."
 msgstr ""
 
-#: web/admin/overview_org.php:723
+#: web/admin/overview_org.php:735
 msgid "Helpdesk mail address is required but missing!"
 msgstr ""
 
 #. no profiles yet.
-#: web/admin/overview_org.php:754 web/admin/overview_sp.php:130
+#: web/admin/overview_org.php:766 web/admin/overview_sp.php:130
 #, php-format
 msgid "There are not yet any known deployments for your %s."
 msgstr ""
@@ -2332,6 +2154,36 @@ msgstr ""
 #: web/admin/overview_user.php:241
 #, php-format
 msgid "New %s Registration"
+msgstr ""
+
+#: web/admin/sort_profiles.php:39
+#, php-format
+msgid "%s: Profile ordering for '%s'"
+msgstr ""
+
+#: web/admin/sort_profiles.php:94
+#, php-format
+msgid "Change the order of profiles for '%s'"
+msgstr ""
+
+#: web/admin/sort_profiles.php:97
+msgid ""
+"Pofiles with orange background are not visible in the public download "
+"interface"
+msgstr ""
+
+#: web/admin/sort_profiles.php:120
+msgid "Use \"drag &amp; drop\" to arrange the profiles order."
+msgstr ""
+
+#: web/admin/sort_profiles_result.php:38
+#, php-format
+msgid "%s: Profile sorting"
+msgstr ""
+
+#: web/admin/sort_profiles_result.php:48
+#, php-format
+msgid "Saved new profiles order for '%s'"
 msgstr ""
 
 #: web/admin/inc/deploymentStats.inc.php:39
@@ -2718,39 +2570,21 @@ msgstr ""
 msgid "Operator Domain"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:139 web/lib/admin/UIElements.php:99
+#: web/lib/admin/AbstractMap.php:143 web/lib/admin/UIElements.php:99
 msgid "Location"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:143
-msgid ""
-"The user download interface (see <a href='../'>here</a>), uses geolocation "
-"to suggest possibly matching IdPs to the user. The more precise you define "
-"the location here, the easier your users will find you."
-msgstr ""
-
 #: web/lib/admin/AbstractMap.php:146
-msgid ""
-"<li>Drag the marker in the map to your place, or</li>\n"
-"<li>enter your street address in the field below for lookup, or</li>\n"
-"<li>use the 'Locate Me!' button</li>"
-msgstr ""
-
-#: web/lib/admin/AbstractMap.php:151
-msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
-
-#: web/lib/admin/AbstractMap.php:155
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:169
+#: web/lib/admin/AbstractMap.php:160
 msgid "Latitude:"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:169
+#: web/lib/admin/AbstractMap.php:160
 msgid "Longitude:"
 msgstr ""
 
@@ -3317,4 +3151,256 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:697
 msgid "Not showing cert info if no profiles are visible"
+msgstr ""
+
+#. SUPPORT
+#: web/lib/admin/Wizard.php:67
+msgid ""
+"This section can be used to upload specific Terms of Use for your users and "
+"to display details of how your users can reach your local helpdesk."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:70
+#, php-format
+msgid ""
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:72
+msgid ""
+"If you enter a value here, it will be added to the installers for all your "
+"users, and will be displayed on the download page. If you operate separate "
+"helpdesks for different user groups (we call this 'profiles') specify per-"
+"profile helpdesk information later in this wizard. If you operate no help "
+"desk at all, just leave these fields empty."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:74
+#, php-format
+msgid ""
+"For %s deployments, providing at least a local e-mail contact is required."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:74
+msgid ""
+"This is the contact point for your organisation. It may be displayed "
+"publicly."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:77
+msgid "Providing at least a local support e-mail contact is required."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:77
+msgid "This is the contact point for your end users' level 1 support."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:83
+#, php-format
+msgid ""
+"In this section, you define on which media %s should be configured on user "
+"devices."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:85
+msgid "Additional SSIDs:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:85
+msgid "SSIDs:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:92
+#, php-format
+msgid "We will always configure this SSID for WPA2/AES: %s."
+msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/lib/admin/Wizard.php:93
+#, php-format
+msgid ""
+"It is also possible to define custom additional SSIDs with the option '%s' "
+"below."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:95
+msgid "Please configure which SSIDs should be configured in the installers."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:97
+msgid ""
+"By default, we will only configure the SSIDs with WPA2/AES encryption. By "
+"using the '(with WPA/TKIP)' option you can specify that we should include "
+"legacy support for WPA/TKIP where possible."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:101
+msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:101
+msgid "Hotspot 2.0 / Passpoint Consortia:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:108
+#, php-format
+msgid "We will always configure this Consortium OI: %s."
+msgid_plural "We will always configure these Consortium OIs: %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/lib/admin/Wizard.php:110
+#, php-format
+msgid ""
+"It is also possible to define custom additional OIs with the option '%s' "
+"below."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:112
+msgid ""
+"Please configure which Consortium OIs should be configured in the installers."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:115
+msgid "Support for wired IEEE 802.1X:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:116
+msgid ""
+"If you want to configure your users' devices with IEEE 802.1X support for "
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:118
+msgid "Removal of bootstrap/onboarding SSIDs:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:119
+msgid ""
+"If you use a captive portal to distribute configurations, you may want to "
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:126
+msgid ""
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:128
+msgid ""
+"<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
+"all installers where a custom logo is possible. We accept any image format, "
+"but for best results, we suggest SVG. If you don't upload a logo, we will "
+"use the generic logo instead (see top-right corner of this page)."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:129
+#, php-format
+msgid ""
+"<strong>Name</strong>: The %s may have names in multiple languages. It is "
+"recommended to always populate at least the 'default/other' language, as it "
+"is used as a fallback if the system does not have a name in the exact "
+"language the user requests a download in."
+msgstr ""
+
+#. PROFILE GENERAL
+#: web/lib/admin/Wizard.php:134
+msgid ""
+"First of all we need a name for the profile. This will be displayed to end "
+"users, so you may want to choose a descriptive name like 'Professors', "
+"'Students of the Faculty of Bioscience', etc."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:135
+msgid ""
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
+"the user has selected the profile name in the list."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:136
+msgid "You can also tell us your RADIUS realm. "
+msgstr ""
+
+#: web/lib/admin/Wizard.php:138
+#, php-format
+msgid ""
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
+msgstr ""
+
+#: web/lib/admin/Wizard.php:140
+msgid ""
+"It is required to enter the realm name if you want to support anonymous "
+"outer identities (see below)."
+msgstr ""
+
+#. REALM
+#: web/lib/admin/Wizard.php:144
+#, php-format
+msgid ""
+"Some installers support a feature called 'Anonymous outer identity'. If you "
+"don't know what this is, please read <a href='%s'>this article</a>."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:145
+msgid ""
+"On some platforms, the installers can suggest username endings and/or verify "
+"the user input to contain the realm suffix."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:146
+msgid ""
+"The realm check feature needs to know an outer ID which actually gets a "
+"chance to authenticate. If your RADIUS server lets only select usernames "
+"pass, it is useful to supply the information which of those (outer ID) "
+"username we can use for testing."
+msgstr ""
+
+#. REDIRECT
+#: web/lib/admin/Wizard.php:150
+msgid ""
+"The CAT has a download area for end users. There, they will, for example, "
+"learn about the support pointers you entered earlier. The CAT can also "
+"immediately offer the installers for the profile for download. If you don't "
+"want that, you can instead enter a web site location where you want your "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"on the dashboard)."
+msgstr ""
+
+#. EAP
+#: web/lib/admin/Wizard.php:154
+msgid ""
+"Now, we need to know which EAP types your IdP supports. If you support "
+"multiple EAP types, you can assign every type a priority (1=highest). This "
+"tool will always generate an automatic installer for the EAP type with the "
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:159
+msgid ""
+"The user download interface (see <a href='../'>here</a>), uses geolocation "
+"to suggest possibly matching IdPs to the user. The more precise you define "
+"the location here, the easier your users will find you."
+msgstr ""
+
+#: web/lib/admin/Wizard.php:162
+msgid ""
+"<li>Drag the marker in the map to your place, or</li>\n"
+"<li>enter your street address in the field below for lookup, or</li>\n"
+"<li>use the 'Locate Me!' button</li>"
+msgstr ""
+
+#: web/lib/admin/Wizard.php:167
+msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
