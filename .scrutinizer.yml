@@ -500,7 +500,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
                   title: "Generating Windows 10 installer via API call"
                 - 
-                  command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'executable.*Intel.*Windows'
+                  command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'executable.*Windows.*Intel'
                   title: "Checking whether output is a Windows executable"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
