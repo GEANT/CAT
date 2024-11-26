@@ -92,7 +92,7 @@ $langObject = new \core\common\Language();
     $messages = [
     'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with ') . 
                        $subject_prefix  . '<br>' . _("See CSR generation rules below."),
-    'WRONG_CRL' => _('Submitted Certificate Signing Request is broken - unable to extracts the public key from CSR')
+    'WRONG_CRL' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
     ];
     $settings = array();
     if  (isset($_SESSION['CSR_ERRORS']) && $_SESSION['CSR_ERRORS'] != '') {
