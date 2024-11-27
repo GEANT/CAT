@@ -1,4 +1,4 @@
-VERSION = CAT-2.1.2.1
+VERSION = CAT-2.1.3
 WLANSetEAPUserData = devices/ms/Files/WLANSetEAPUserData
 .PHONY: translation
 
