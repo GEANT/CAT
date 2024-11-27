@@ -123,7 +123,7 @@ $profiles_for_this_idp = $my_inst->listProfiles();
         </table>
     </div>
     <form action="sort_profiles_result.php?inst_id=<?php echo $my_inst->identifier?>" method='post' accept-charset='UTF-8'>
-        <button type=submit">Save profiles order</button>
+        <button type=submit"><?php echo _("Save profiles order") ?></button>
         <button type="button" class="delete" id="cancel" name="cancel" value="abort" onclick="javascript:window.location = 'overview_org.php?inst_id=<?php echo $my_inst->identifier?>'"><?php echo _("Cancel") ?></button>       
     <?php
     foreach ($D as $id=>$priority) {

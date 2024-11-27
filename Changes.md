@@ -1,10 +1,5 @@
-Changes in 2.1.2.1
+Changes in 2.1.3
 =====================
-- [BUGFIX #1]   some fixes to RADIUS tests
-- [BUGFIX #2]   fixed mobileconfig generating an unnecessary profile
-- [BUGFIX #3]   added Kosovo to the list of known federations
-- [BUGFIX #4]   fixed the problem with special anonymous identity not being saved
-- [BUGFIX #5]   fixing the problem with sending invites to multiple addressees
 - [FEATURE #1]  multiple additions to the linux installer: 
                 tinker part of the linux installer; 
                 added --gui flag to the linux installer (mainly for testing);
@@ -13,8 +8,17 @@ Changes in 2.1.2.1
                 improving behaviour on missing python module
 - [FEATURE #2]  improved RADIUS/TLS certificate management for NRO
 - [FEATURE #3]  added support for ARM processors in Windows installers
-
-
+- [FEATURE #4]  added IdP realms to DiscoJuice keywords, so now you can select IdP
+                by typing in realms
+- [FEATURE #5]  added profile sorting feature
+- [FEATURE #6]  added profile dupplication feature
+- [FEATURE #7]  added help icons displaying hints in the admin area
+- [BUGFIX #1]   some fixes to RADIUS tests
+- [BUGFIX #2]   fixed mobileconfig generating an unnecessary profile
+- [BUGFIX #3]   added Kosovo to the list of known federations
+- [BUGFIX #4]   fixed the problem with special anonymous identity not being saved
+- [BUGFIX #5]   fixed the problem with sending invites to multiple addressees
+- [BUGFIX #5]   fixed a minor problem with EAP sorting interface
 
 Changes in 2.1.2
 =====================
