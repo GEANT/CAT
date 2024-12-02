@@ -636,7 +636,11 @@ abstract class AbstractProfile extends EntityWithDBProperties
             if (isset($devlist[$devId])) {
                 $finalarray[$devlist[$devId]['display']] = $count;
             }
+            
         }
+        \core\common\Entity::intoThePotatoes();
+        ksort($finalarray, SORT_STRING|SORT_FLAG_CASE);
+        \core\common\Entity::outOfThePotatoes();
         return $finalarray;
     }
 
