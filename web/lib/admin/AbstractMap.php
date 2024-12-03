@@ -136,10 +136,7 @@ abstract class AbstractMap extends \core\common\Entity {
     protected function htmlPreEdit($wizardMode, $additional) {
         \core\common\Entity::intoThePotatoes();
         $wizard = new \web\lib\admin\Wizard($wizardMode);
-        
-        
-        
-        $retval = "<fieldset class='option_container'>
+        $retval = "<fieldset class='option_container_map'>
         <legend><strong>" . _("Location") . "</strong></legend>";
         $retval .= $wizard->displayHelp("location");
         if ($additional) {

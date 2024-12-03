@@ -71,7 +71,7 @@ if ($editMode == 'fullaccess') {
         }
     }
 }
-$mapCode = web\lib\admin\AbstractMap::instance($my_inst, !$additional);
+$mapCode = web\lib\admin\AbstractMap::instance($my_inst, $editMode == 'readonly');
 
 echo $mapCode->htmlHeadCode();
 ?>
