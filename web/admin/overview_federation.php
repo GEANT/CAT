@@ -208,7 +208,10 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     <th scope='col' style='text-align:left;'> <?php echo _("Downloads"); ?></th>
                     <th scope='col' style='text-align:left;'> <?php echo _("Admin"); ?></th>
                     <th scope='col' style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
-                    <th scope='col' style='text-align:left;'> <?php echo _("User"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php 
+/// this should not be translated as "Username"
+                    echo _("User"); 
+                    ?></th>
                 </tr>
                 <?php echo $thefed->downloadStats("table", "FEDERATION"); ?>
                 </tbody>
