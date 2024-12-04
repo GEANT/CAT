@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 11:39+0100\n"
+"POT-Creation-Date: 2024-12-04 11:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,7 +236,7 @@ msgstr ""
 msgid "%s: Profile duplication (Step 1)"
 msgstr ""
 
-#: web/admin/duplicate_profile.php:43 web/admin/duplicate_profile_result.php:94
+#: web/admin/duplicate_profile.php:43 web/admin/duplicate_profile_result.php:97
 #: web/admin/sort_profiles.php:86 web/admin/sort_profiles_result.php:40
 msgid "No write access to this IdP"
 msgstr ""
@@ -263,12 +263,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: web/admin/duplicate_profile_result.php:90
+#: web/admin/duplicate_profile_result.php:93
 #, php-format
 msgid "%s: Profile duplication (Step 2)"
 msgstr ""
 
-#: web/admin/duplicate_profile_result.php:138
+#: web/admin/duplicate_profile_result.php:141
 #, php-format
 msgid "Copied %s to %s"
 msgstr ""
@@ -356,7 +356,7 @@ msgstr ""
 #. *
 #.
 #. $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
-#: web/admin/duplicate_profile_result.php:140
+#: web/admin/duplicate_profile_result.php:143
 #: web/admin/edit_federation_result.php:61
 #: web/admin/edit_participant_result.php:173
 #: web/admin/edit_profile_result.php:361 web/admin/sort_profiles_result.php:61
@@ -1063,8 +1063,9 @@ msgstr ""
 msgid "Manage %s users"
 msgstr ""
 
+#. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:211 web/admin/inc/manageAdmins.inc.php:167
+#: web/admin/overview_federation.php:213 web/admin/inc/manageAdmins.inc.php:167
 msgid "User"
 msgstr ""
 
@@ -1361,7 +1362,7 @@ msgstr ""
 msgid "%s: %s Management"
 msgstr ""
 
-#: web/admin/overview_federation.php:51 web/admin/overview_federation.php:216
+#: web/admin/overview_federation.php:51 web/admin/overview_federation.php:219
 msgid "Show downloads"
 msgstr ""
 
@@ -1443,168 +1444,168 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: web/admin/overview_federation.php:238 web/admin/inc/manageAdmins.inc.php:110
+#: web/admin/overview_federation.php:241 web/admin/inc/manageAdmins.inc.php:110
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_federation.php:241 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:244 web/admin/inc/manageAdmins.inc.php:113
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_federation.php:244 web/admin/inc/manageAdmins.inc.php:116
+#: web/admin/overview_federation.php:247 web/admin/inc/manageAdmins.inc.php:116
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr ""
 
-#: web/admin/overview_federation.php:249 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:252 web/admin/inc/manageAdmins.inc.php:121
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_federation.php:249 web/admin/inc/manageAdmins.inc.php:121
+#: web/admin/overview_federation.php:252 web/admin/inc/manageAdmins.inc.php:121
 msgid "Sent successfully."
 msgstr ""
 
-#: web/admin/overview_federation.php:252 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:255 web/admin/inc/manageAdmins.inc.php:124
 msgid "No invitation email could be sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:252 web/admin/inc/manageAdmins.inc.php:124
+#: web/admin/overview_federation.php:255 web/admin/inc/manageAdmins.inc.php:124
 msgid "Sending failure!"
 msgstr ""
 
-#: web/admin/overview_federation.php:258 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:130
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:133
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:267 web/admin/inc/manageAdmins.inc.php:136
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr ""
 
-#: web/admin/overview_federation.php:269 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:272 web/admin/inc/manageAdmins.inc.php:141
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
 
-#: web/admin/overview_federation.php:269 web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/overview_federation.php:272 web/admin/inc/manageAdmins.inc.php:141
 msgid "Partial success."
 msgstr ""
 
-#: web/admin/overview_federation.php:272 web/admin/inc/manageAdmins.inc.php:144
+#: web/admin/overview_federation.php:275 web/admin/inc/manageAdmins.inc.php:144
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:275 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:278 web/admin/inc/manageAdmins.inc.php:147
 msgid "Error: unknown result code of invitation!?!"
 msgstr ""
 
-#: web/admin/overview_federation.php:275 web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/overview_federation.php:278 web/admin/inc/manageAdmins.inc.php:147
 msgid "Unknown result!"
 msgstr ""
 
-#: web/admin/overview_federation.php:289
+#: web/admin/overview_federation.php:292
 #, php-format
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
 
-#: web/admin/overview_federation.php:292 web/admin/overview_sp.php:109
+#: web/admin/overview_federation.php:295 web/admin/overview_sp.php:109
 #: web/admin/overview_sp.php:119 web/admin/overview_user.php:232
 msgid "Go!"
 msgstr ""
 
-#: web/admin/overview_federation.php:299
+#: web/admin/overview_federation.php:302
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr ""
 
-#: web/admin/overview_federation.php:305
+#: web/admin/overview_federation.php:308
 msgid "Participant Details"
 msgstr ""
 
-#: web/admin/overview_federation.php:307 web/admin/overview_user.php:131
+#: web/admin/overview_federation.php:310 web/admin/overview_user.php:131
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:97
 #: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "%s Name"
 msgstr ""
 
-#: web/admin/overview_federation.php:308
+#: web/admin/overview_federation.php:311
 msgid "Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:310
+#: web/admin/overview_federation.php:313
 msgid "Cert"
 msgstr ""
 
-#: web/admin/overview_federation.php:315
+#: web/admin/overview_federation.php:318
 #, php-format
 msgid "%s Database Link Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:321
+#: web/admin/overview_federation.php:324
 msgid "Administrator Management"
 msgstr ""
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:330
+#: web/admin/overview_federation.php:333
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:332
+#: web/admin/overview_federation.php:335
 msgid "Quick search:"
 msgstr ""
 
-#: web/admin/overview_federation.php:452
+#: web/admin/overview_federation.php:455
 msgid "manage"
 msgstr ""
 
-#: web/admin/overview_federation.php:452
+#: web/admin/overview_federation.php:455
 msgid "view"
 msgstr ""
 
-#: web/admin/overview_federation.php:469
+#: web/admin/overview_federation.php:472
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:481 web/admin/overview_user.php:199
+#: web/admin/overview_federation.php:484 web/admin/overview_user.php:199
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:494
+#: web/admin/overview_federation.php:497
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:511
+#: web/admin/overview_federation.php:514
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:512 web/admin/inc/manageAdmins.inc.php:218
+#: web/admin/overview_federation.php:515 web/admin/inc/manageAdmins.inc.php:218
 #, php-format
 msgid "(expires %s)"
 msgstr ""
 
-#: web/admin/overview_federation.php:534
+#: web/admin/overview_federation.php:537
 #, php-format
 msgid "Register a new %s!"
 msgstr ""
@@ -1965,7 +1966,7 @@ msgstr ""
 msgid "%s general settings"
 msgstr ""
 
-#: web/admin/overview_org.php:608 web/admin/overview_org.php:720
+#: web/admin/overview_org.php:608 web/admin/overview_org.php:722
 #, php-format
 msgid "%s: %s Deployment Details"
 msgstr ""
@@ -1997,17 +1998,25 @@ msgstr ""
 msgid "User Downloads"
 msgstr ""
 
-#: web/admin/overview_org.php:731 web/admin/overview_sp.php:309
+#: web/admin/overview_org.php:703
+msgid "global"
+msgstr ""
+
+#: web/admin/overview_org.php:703
+msgid "this month"
+msgstr ""
+
+#: web/admin/overview_org.php:733 web/admin/overview_sp.php:309
 #, php-format
 msgid "Add %s deployment ..."
 msgstr ""
 
-#: web/admin/overview_org.php:735
+#: web/admin/overview_org.php:737
 msgid "Helpdesk mail address is required but missing!"
 msgstr ""
 
 #. no profiles yet.
-#: web/admin/overview_org.php:766 web/admin/overview_sp.php:130
+#: web/admin/overview_org.php:768 web/admin/overview_sp.php:130
 #, php-format
 msgid "There are not yet any known deployments for your %s."
 msgstr ""
@@ -2574,21 +2583,21 @@ msgstr ""
 msgid "Operator Domain"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:143 web/lib/admin/UIElements.php:99
+#: web/lib/admin/AbstractMap.php:140 web/lib/admin/UIElements.php:99
 msgid "Location"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:146
+#: web/lib/admin/AbstractMap.php:143
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:160
+#: web/lib/admin/AbstractMap.php:157
 msgid "Latitude:"
 msgstr ""
 
-#: web/lib/admin/AbstractMap.php:160
+#: web/lib/admin/AbstractMap.php:157
 msgid "Longitude:"
 msgstr ""
 
