@@ -1045,5 +1045,13 @@ input.missing_input {
 }
 
 .downloads tr td {
-text-align: right;
+    text-align: <?php echo $end;?>;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.downloads tr td:first-child {
+    text-align: <?php echo $start;?>;
 }

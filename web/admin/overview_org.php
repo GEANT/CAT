@@ -697,11 +697,13 @@ $(document).ready(function() {
                     <p>
                         <strong><?php echo _("User Downloads"); ?></strong>
                     </p>
-                    <table>
+                    <table class="downloads">
+                        <tr><td></td>
                         <?php
+                        echo "<td>"._("global")."</td><td>"._("this month")."</td></tr>";
                         $stats = $profile_list->getUserDownloadStats();
                         foreach ($stats as $dev => $count) {
-                            echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
+                            echo "<tr><td><strong>$dev</strong></td><td>".$count['current']."</td><td>".$count['monthly']."</td></tr>";
                         }
                         ?>
                     </table>
