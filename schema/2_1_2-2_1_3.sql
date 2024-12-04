@@ -26,3 +26,17 @@
 
 
 ALTER TABLE profile ADD COLUMN `preference` int DEFAULT '1000';
+
+CREATE TABLE `downloads_history` (
+  `profile_id` int NOT NULL,
+  `device_id` varchar(32) NOT NULL,
+  `downloads_admin` int NOT NULL DEFAULT '0',
+  `downloads_user` int NOT NULL DEFAULT '0',
+  `downloads_silverbullet` int NOT NULL DEFAULT '0',
+  `openroaming` int DEFAULT '0',
+  `stat_date` date DEFAULT NULL,
+  UNIQUE KEY `profile_device` (`profile_id`,`device_id`,`stat_date`),
+  KEY `profile_id` (`profile_id`),
+  KEY `device_id` (`device_id`),
+  KEY `stat_date` (`stat_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

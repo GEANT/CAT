@@ -588,6 +588,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $lang = $this->languageInstance->getLang();
             $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, openroaming, downloads_$area) VALUES (? ,?, ?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "issi", $this->identifier, $device, $lang, $openRoaming);
+            $this->frontendHandle->exec("INSERT INTO downloads_history (profile_id, device_id, downloads_$area, openroaming, stat_date) VALUES (?, ?, 1, ?, DATE_FORMAT(NOW(), '%Y-%m-01')) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "isi", $this->identifier, $device, $openRoaming);
             // get eap_type from the downloads table
             $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
             // SELECT queries always return a resource, not a boolean
@@ -634,9 +635,26 @@ abstract class AbstractProfile extends EntityWithDBProperties
         $devlist = \devices\Devices::listDevices($this->identifier);
         foreach ($returnarray as $devId => $count) {
             if (isset($devlist[$devId])) {
-                $finalarray[$devlist[$devId]['display']] = $count;
+                $finalarray[$devlist[$devId]['display']]['current'] = $count;
             }
+            
         }
+
+        $monthlyList = [];
+        $monthly = $this->frontendHandle->exec("SELECT downloads_user,device_id FROM downloads_history WHERE profile_id=? AND stat_date=DATE_FORMAT(NOW(),'%Y-%m-01')", "i",  $this->identifier);
+        while ($statsQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $monthly)) {
+            $monthlyList[$statsQuery->device_id] = $statsQuery->downloads_user;
+        }
+        foreach ($monthlyList as $devId => $count) {
+            if (isset($devlist[$devId])) {
+                $finalarray[$devlist[$devId]['display']]['monthly'] = $count;
+            }
+            
+        }        
+        
+        \core\common\Entity::intoThePotatoes();
+        ksort($finalarray, SORT_STRING|SORT_FLAG_CASE);
+        \core\common\Entity::outOfThePotatoes();
         return $finalarray;
     }
 

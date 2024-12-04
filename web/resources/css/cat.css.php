@@ -368,6 +368,15 @@ fieldset.option_container {
     vertical-align: top;
 }
 
+fieldset.option_container_map {
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    min-width: 500px;
+    min-height: 150px;
+    max-width: 90%;
+    vertical-align: top;
+}
 
 div.googlemap {
     min-width: 300px;
@@ -1033,4 +1042,16 @@ input.missing_input {
 .server_cert dl dd {
     font-style: italic;
     font-family: Arial;
+}
+
+.downloads tr td {
+    text-align: <?php echo $end;?>;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.downloads tr td:first-child {
+    text-align: <?php echo $start;?>;
 }

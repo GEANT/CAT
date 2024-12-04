@@ -36,6 +36,7 @@ $validator = new \web\lib\common\InputValidation();
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
+
 function copyRow($row, $feldsArray, $table, $dbHandle) {
     $fieldsList = implode(',', array_keys($row));
     foreach ($row as $key => $value) {
@@ -43,7 +44,9 @@ function copyRow($row, $feldsArray, $table, $dbHandle) {
             if ($value === null) {
                 $row[$key] = 'NULL';
             } else {
-                $row[$key] = '"'.$value.'"';
+                $e1 = str_replace('\\', '\\\\', $value);
+                $e2 = str_replace('"', '\"', $e1);
+                $row[$key] = '"'.$e2.'"';
             }
         }
     }

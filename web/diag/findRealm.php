@@ -39,7 +39,6 @@ $jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
-
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
@@ -53,10 +52,7 @@ $token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_
 if ($token && !is_dir($jsonDir.'/'.$token)) {
     mkdir($jsonDir.'/'.$token, 0777, true);
 }
-if (is_null($outerUser)) {
-    $outerUser = '';
-}
-if (!is_null($givenRealm)) {
+if ($givenRealm != '') {
     $realmElems = explode('.', $givenRealm);
     $lap = count($realmElems);
     $i = 0;

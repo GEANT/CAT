@@ -518,7 +518,7 @@ class CAT extends \core\common\Entity
             }
         } else {
             foreach ($this->knownFederations as $fedIdentifier => $value) {
-                $returnArray = $value['name'];
+                $returnArray[$fedIdentifier] = $value['name'];
             }
         }
         asort($returnArray, SORT_LOCALE_STRING);
