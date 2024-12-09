@@ -156,7 +156,6 @@ $langObject = new \core\common\Language();
             case "INST":
                 $matches = [];
                 preg_match('/^([A-Z][A-Z]).*\-.*/', $_POST['INST-list'], $matches);
-                print("MMMM="); print_r($_POST);
                 $extInsts = $externalDb->listExternalTlsServersInstitution($matches[1]);
                 if ($user->isFederationAdmin($matches[1]) === FALSE) {
                     throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
