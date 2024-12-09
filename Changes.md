@@ -11,14 +11,16 @@ Changes in 2.1.3
 - [FEATURE #4]  added IdP realms to DiscoJuice keywords, so now you can select IdP
                 by typing in realms
 - [FEATURE #5]  added profile sorting feature
-- [FEATURE #6]  added profile dupplication feature
+- [FEATURE #6]  added profile duplication feature
 - [FEATURE #7]  added help icons displaying hints in the admin area
+- [FEATURE #8]  added monthly download statistics
 - [BUGFIX #1]   some fixes to RADIUS tests
 - [BUGFIX #2]   fixed mobileconfig generating an unnecessary profile
 - [BUGFIX #3]   added Kosovo to the list of known federations
 - [BUGFIX #4]   fixed the problem with special anonymous identity not being saved
 - [BUGFIX #5]   fixed the problem with sending invites to multiple addressees
 - [BUGFIX #5]   fixed a minor problem with EAP sorting interface
+- [BUGFIX #6]   fixed problems with adding localities to new IdPs and drag&drop behaviour
 
 Changes in 2.1.2
 =====================
