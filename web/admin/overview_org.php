@@ -717,6 +717,7 @@ $(document).ready(function() {
         <hr/>
         <?php
     }
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
     if (preg_match("/SP/", $my_inst->type)) {
         ?>
         <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
@@ -780,6 +781,7 @@ $(document).ready(function() {
                     throw new Exception("We were asked to operate on something that is neither a classic nor a Managed hotspot deployment!");
             }
         }
+    }
     }
     echo $deco->footer();
     
