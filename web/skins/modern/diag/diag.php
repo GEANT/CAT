@@ -437,6 +437,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
         var token = '';
         var user = '';
         var realm = '';
+        var outer = '';
         if (id === 'realm_in_db') {
             $('#select_idp_area').hide();
             $('#select_idp_area').html('');
@@ -445,14 +446,19 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
         } else {
             /* realm_in_db_admin click */
             realmfield = trimRealm($("#admin_realm").val());
+            outer = $.trim($("#outer_user").val());
             at = realmfield.indexOf("@");
             if (at >=0) {
                 user = realmfield.substring(0, at);
                 realm = realmfield.substring(at+1);
             } else {
                 user = '';
+                if (outer != "") {
+                    user = outer;
+                } 
                 realm = realmfield;
             }
+
             if ($('#select_sp_problem').val() == 'technical') {
                 token = generateId();
                 addtest = 1;
@@ -495,7 +501,8 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                     }
                 }
                 if (addtest) {
-                    runConnectionTests(data, realm, user, token, 'diag');
+                console.log(data);
+                    runConnectionTests(data, realm, data.outeruser, token, 'diag');
                 }   
                 if (realmFound == 0) {
                     $('#external_db_info').html('This realm is not registered with eduroam database, the report will be sent to eduroam OT group.');
@@ -704,6 +711,11 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
         return false;
     });
     $(document).on('keyup change', '#admin_realm' , function() {
+            if ($('#admin_realm').val().length > 0) {
+                if ($('#admin_realm').val().indexOf('@') >= 0 &&  $('#outer_user_row').hasClass('visible_row')) {
+                    $('#outer_user_row').removeClass('visible_row').addClass('hidden_row');
+                }
+            }    
             if ($('#admin_realm').val().length == 0 || (!isEmail($(this).val(), true) && !isDomain($(this).val()))) {
                 $('#realm_problem').html('');
                 $('#admin_realm').addClass('error_input');
@@ -722,6 +734,10 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                 $('#admin_realm').removeClass('error_input');
                 $('#admin_realm').attr('title', '');
                 $('#realm_in_db_admin').show();
+                if ($('#admin_realm').val().indexOf('@') == -1) {
+                    $('#outer_user_realm').html('@' + $('#admin_realm').val());
+                    $('#outer_user_row').removeClass('hidden_row').addClass('visible_row');
+                }
             }
     });
     $(document).on('keyup change', '#email' , function() {

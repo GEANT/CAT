@@ -23,6 +23,7 @@
  * This page displays the dashboard overview of an entire IdP.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
 ?>
 <?php
@@ -227,12 +228,11 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                             <?php echo _("Delete") ?>
                         </button>
                     </form>
-                    
                     <form action='duplicate_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button type='submit' name='profile_duplicate'>
-                    <?php echo _("Duplicate this profile"); ?>
-                </button>
-            </form>
+                            <?php echo _("Duplicate this profile"); ?>
+                	</button>
+                    </form>
                     <?php } ?>
                 </div>
                 <?php
@@ -283,10 +283,10 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
         \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
     ];
-
     $radius_status = array();
     $radius_status[0] = $deploymentObject->radius_status_1;
     $radius_status[1] = $deploymentObject->radius_status_2;
+    $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
     $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
     if (is_array($retry)) {
         foreach ($retry as $id => $stat) {
@@ -297,7 +297,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
     }
     ?>
     <div style='display: table-row_id;'>
-        <div class='profilebox' style='display: table-cell;'>
+        <div class='profilebox' id="profilebox_<?php echo $deploymentObject->identifier;?>" style='display: table-cell;'>
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
@@ -313,6 +313,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 ?></h2>
             <table>
                 <caption><?php echo _("Deployment Details"); ?></caption>
+                <form>
                 <tr>
                     <th class='wai-invisible' scope='col'><?php echo("Server IP addresses"); ?></th>
                     <th class='wai-invisible' scope='col'><?php echo("Server Port label"); ?></th>
@@ -371,6 +372,35 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
                 </tr>
+                <?php if ($deploymentObject->radsec_priv != '' && $deploymentObject->radsec_cert != '') {?>
+                <tr>
+                        <td><strong><?php echo _("RADSEC credentials"); ?></strong></td>
+                        <td>
+                            <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
+                            <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
+                            <input type="hidden" id="ca_cert_data" value="<?php echo $cacert;?>">
+                            <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc" style="background-color: gray; color: white" type="submit"><?php echo _('private key');?></button>
+                            <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" style="background-color: gray; color: white" type="submit"><?php echo _('certificate');?></button>
+                            <button class="ca_cert" name="showca" style="background-color: gray; color: white" type="submit"><?php echo _('CA certificate');?></button>
+                        </td>
+                </tr>
+                <?php 
+                }
+                if ($deploymentObject->pskkey != '') {?>
+                <tr>
+                        <td><strong><?php echo _("TLS-PSK identity"); ?></strong></td>
+                        <td>
+                           SP_<?php echo $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
+                        </td>
+                </tr>
+                
+                <tr>
+                        <td><strong><?php echo _("TLS-PSK key"); ?></strong></td>
+                        <td>
+                           <?php echo $deploymentObject->pskkey;?>
+                        </td>
+                </tr>
+                <?php } ?>
                 <tr><td colspan="4"><hr></td></tr>
                 <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
                     <tr>
@@ -385,18 +415,25 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         <td><strong><?php echo _("VLAN tag for own users"); ?></strong></td>
                         <td><?php echo $vlan; ?></td>
                     </tr>
-                <?php } ?>
-                <?php
+                <?php } 
                 $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
-                if (!empty($allRealms)) {
-                    ?>
-                    <tr>
+                if (!empty($allRealms) || $vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                ?>
+                
+                <tr>
                         <td><strong><?php echo _("Realm to be considered own users"); ?></strong></td>
-                        <td><?php echo implode(', ', $allRealms); ?></td>
-                    </tr>
-                    <?php
+                        <td>
+                <?php
+                
+                if (!empty($allRealms)) {
+                    echo implode(', ', $allRealms);
+                } else {
+                    echo _('not set, be aware that VLAN setting is not used until a realm is added');
+                }
                 }
                 ?>
+                </td></tr>
+                </form>
             </table>
             <div class='buttongroupprofilebox' style='clear:both;'>
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -562,6 +599,29 @@ echo $mapCode->htmlHeadCode();
 $(document).ready(function() {    
     $("img.cat-icon").tooltip();
 });
+$(document).on('click', '.sp_priv_key' , function(e) {
+    var did = $(this).attr('id').substring('priv_key_'.length);
+    var OpenWindow = window.open('','_blank','width=600,height=800,resizable=1');
+    var content = $("#priv_key_data_" + did).val();
+    OpenWindow.document.write('<html><head><title>Private key</title><body><pre>'+content+'</body>');
+    OpenWindow.document.write('</body></html>');
+    e.preventDefault();
+});
+$(document).on('click', '.sp_cert' , function(e) {
+    var did = $(this).attr('id').substring('cert_'.length);
+    var OpenWindow = window.open('','_blank','width=600,height=500,resizable=1');
+    var content = $("#cert_data_" + did).val();
+    OpenWindow.document.write('<html><head><title>Certificate</title><body><pre>'+content+'</body>');
+    OpenWindow.document.write('</body></html>');
+    e.preventDefault();
+});
+$(document).on('click', '.ca_cert' , function(e) {
+    var OpenWindow = window.open('','_blank','width=600,height=500,resizable=1');
+    var content = $("#ca_cert_data").val();
+    OpenWindow.document.write('<html><head><title>CA Certificate</title><body><pre>'+content+'</body>');
+    OpenWindow.document.write('</body></html>');
+    e.preventDefault();
+});
 </script>        
         
 <body <?php echo $mapCode->bodyTagCode(); ?>>
@@ -623,15 +683,16 @@ $(document).ready(function() {
                         default:
                     }
                 }
-
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
                     // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <div>
                             <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
                                 <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
                             </button>
+                        </div>
                     </form>&nbsp;
                     <?php
                 }
@@ -660,15 +721,15 @@ $(document).ready(function() {
             }
             ?>
         </h2>
-    <?php if(count($profiles_for_this_idp) > 1 && $readonly === FALSE && $editMode === 'fullaccess') { ?>
+        <?php if(count($profiles_for_this_idp) > 1 && $readonly === FALSE && $editMode === 'fullaccess') { ?>
                     <form method='post' action='sort_profiles.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
                         <div>
                             <button type='submit' name='profile_sorting'>
                                 <?php echo _("Change the order of profiles"); ?>
                             </button>
                         </div>
-                    </form>  <p>  
-    <?php }
+                    </form>  <p>
+        <?php }
         if (count($profiles_for_this_idp) == 0) { // no profiles yet.
             printf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureIdP);
         }
@@ -697,13 +758,11 @@ $(document).ready(function() {
                     <p>
                         <strong><?php echo _("User Downloads"); ?></strong>
                     </p>
-                    <table class="downloads">
-                        <tr><td></td>
+                    <table>
                         <?php
-                        echo "<td>"._("global")."</td><td>"._("this month")."</td></tr>";
                         $stats = $profile_list->getUserDownloadStats();
                         foreach ($stats as $dev => $count) {
-                            echo "<tr><td><strong>$dev</strong></td><td>".$count['current']."</td><td>".$count['monthly']."</td></tr>";
+                            echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
                         }
                         ?>
                     </table>
@@ -763,7 +822,7 @@ $(document).ready(function() {
             }
             ?>
         </h2>
-        <?php
+        <?php 
         $hotspotProfiles = $my_inst->listDeployments();
         if (count($hotspotProfiles) == 0) { // no profiles yet.
             echo sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot);

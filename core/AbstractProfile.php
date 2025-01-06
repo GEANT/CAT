@@ -26,6 +26,7 @@
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Developer
  *
@@ -480,12 +481,12 @@ abstract class AbstractProfile extends EntityWithDBProperties
         if ($realm == FALSE) { // we can't really return anything useful here
             throw new Exception("Unable to construct a realmcheck username if the admin did not tell us the realm. You shouldn't have called this function in this context.");
         }
-        if (count($this->getAttributes("internal:checkuser_outer")) > 0) {
+        if (count($this->getAttributes("internal:checkuser_outer")) > 0 && $this->getAttributes("internal:checkuser_value")[0]['value'] != NULL) {
             // we are supposed to use a specific outer username for checks, 
             // which is different from the outer username we put into installers
             return $this->getAttributes("internal:checkuser_value")[0]['value']."@".$realm;
         }
-        if (count($this->getAttributes("internal:use_anon_outer")) > 0) {
+        if (count($this->getAttributes("internal:use_anon_outer")) > 0 && $this->getAttributes("internal:anon_local_value")[0]['value'] != NULL ) {
             // no special check username, but there is an anon outer ID for
             // installers - so let's use that one
             return $this->getAttributes("internal:anon_local_value")[0]['value']."@".$realm;

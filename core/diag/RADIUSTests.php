@@ -127,8 +127,7 @@ class RADIUSTests extends AbstractTest {
      * @throws Exception
      */
     public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
-        parent::__construct();
-
+        parent::__construct();   
         $this->realm = $realm;
         $this->outerUsernameForChecks = $outerUsernameForChecks;
         $this->expectedCABundle = $expectedCABundle;
@@ -861,7 +860,6 @@ network={
     private function executeEapolTest($tmpDir, $probeindex, $eaptype, $outerUser, $innerUser, $password, $opnameCheck, $frag) {
         $finalInner = $innerUser;
         $finalOuter = $outerUser;
-
         $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
         // the config intentionally does not include CA checking. We do this
         // ourselves after getting the chain with -o.

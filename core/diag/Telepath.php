@@ -19,7 +19,15 @@
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
  */
-
+/**
+ * This file contains code for diagnostics tests
+ *
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
+ *
+ * @package Developer
+ * 
+ */
 namespace core\diag;
 
 use \Exception;
@@ -434,13 +442,13 @@ class Telepath extends AbstractTest
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
             $readinessLevel = $profileObject->readinessLevel();
-
             switch ($readinessLevel) {
                 case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
                 // fall-througuh intended: use the data even if non-public but complete
                 case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                     $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $profileObject->identifier];
-                    $this->testsuite = new RADIUSTests($this->realm, $profileObject->getRealmCheckOuterUsername(), $profileObject->getEapMethodsinOrderOfPreference(1), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
+                    $outer = $profileObject->getRealmCheckOuterUsername();
+                    $this->testsuite = new RADIUSTests($this->realm, $outer, $profileObject->getEapMethodsinOrderOfPreference(1), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
                     break;
                 case \core\AbstractProfile::READINESS_LEVEL_NOTREADY:
                     $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
@@ -453,6 +461,37 @@ class Telepath extends AbstractTest
         }
     }
 
+    /**
+     * Produces "the best" testsuite parameters basing on CAT profiles
+     * 
+     * @return testsuite object
+     */
+    public function getOuter()
+    {
+        if ($this->catProfile > 0) {
+            $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
+            $readinessLevel = $profileObject->readinessLevel();
+            switch ($readinessLevel) {
+                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                // fall-througuh intended: use the data even if non-public but complete
+                case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $profileObject->identifier];
+                    $outer = $profileObject->getRealmCheckOuterUsername();
+                    $p = strpos($outer, '@');
+                    if ($p !== false) {
+                        $outer = substr($outer, 0, $p);
+                    }
+                    break;
+                case \core\AbstractProfile::READINESS_LEVEL_NOTREADY:
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
+                    break;
+                default:
+            }
+        } else {
+            $outer = "anonymous";
+        }
+        return $outer;
+    }
     /**
      * Does the main meditation job
      * @return array the findings
@@ -533,7 +572,6 @@ class Telepath extends AbstractTest
                     $this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] = 0.95;
             }
         }
-
         $this->normaliseResultSet();
         $jsonSuspects = json_encode($this->possibleFailureReasons, JSON_PRETTY_PRINT);
         $jsonEvidence = json_encode($this->additionalFindings, JSON_PRETTY_PRINT);

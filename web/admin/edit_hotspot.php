@@ -23,6 +23,7 @@
  * This page is used to edit a RADIUS profile by its administrator.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
  */
 ?>
 <?php
@@ -42,8 +43,8 @@ if (!isset($_GET['deployment_id'])) {
     ) {*/
     if (isset($_POST['consortium']) &&  $_POST['consortium'] == "eduroam")
     {
-        $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
-        header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+        $deployment = $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
+        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
         exit(0);
     } else {
         throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
@@ -100,14 +101,15 @@ if (isset($_POST['submitbutton'])) {
                 if (isset($_POST['agreement']) && $_POST['agreement'] == "true") {
                     $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
                 }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
                 exit(0);
             case web\lib\common\FormElements::BUTTON_DELETE:
                 $response = $deployment->setRADIUSconfig();
                 if (in_array('OK', $response)) {
                     $deployment->deactivate();
                 }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . 
+                       $deployment->identifier);
                 exit(0);
             case web\lib\common\FormElements::BUTTON_REMOVESP:
                 $deployment->remove();
@@ -119,7 +121,7 @@ if (isset($_POST['submitbutton'])) {
                     if (in_array('OK', $response)) {
                         $deployment->activate();
                     }
-                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
                     exit(0);
                 } else {
                     throw new Exception("Activate button pushed without acknowledged ToUs!");
@@ -148,7 +150,7 @@ if (isset($_POST['submitbutton'])) {
                 } else {
                     $response = ['NOOP', 'NOOP'];
                 }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
                 exit(0);
             default:
                 throw new Exception("Unknown button action requested!");
@@ -157,10 +159,10 @@ if (isset($_POST['submitbutton'])) {
     if (isset($_POST['command'])) {
         switch ($_POST['command']) {
         case web\lib\common\FormElements::BUTTON_CLOSE:
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier) . '#profilebox_' . $deployment->identifier;
             exit(0);
         default:
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
             exit(0);
         }
     }

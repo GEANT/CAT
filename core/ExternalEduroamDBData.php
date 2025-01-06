@@ -25,6 +25,7 @@
  * querying the external database.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Developer
  *
@@ -283,10 +284,13 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * 
      * @return array
      */
-    public function listExternalTlsServersInstitution($tld) {
+    public function listExternalTlsServersInstitution($tld, $include_not_ready=FALSE) {
         $retval = [];
         // this includes servers of type "staging", which is fine
-        $query = "SELECT ROid, instid, type, inst_name, servers, contacts FROM eduroamv2.view_tls_inst WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
+        $query = "SELECT ROid, instid, type, inst_name, servers, contacts, ts FROM eduroamv2.view_tls_inst WHERE country = ?";
+        if (!$include_not_ready) {
+            $query = $query . " AND servers IS NOT NULL AND contacts IS NOT NULL";
+        }
         $instServerTransaction = $this->db->exec($query, "s", $tld);
         while ($instServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instServerTransaction)) {
             $contactList = $this::dissectCollapsedContacts($instServerResponses->contacts);
@@ -297,7 +301,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
                 "name" => $thelanguage,
                 "type" => array_search($instServerResponses->type, self::TYPE_MAPPING),
                 "servers" => $instServerResponses->servers,
-                "contacts" => $contactList];
+                "contacts" => $contactList,
+                "ts" => $instServerResponses->ts];
         }
         uasort($retval, array($this, "usortInstitution"));
         return $retval;        

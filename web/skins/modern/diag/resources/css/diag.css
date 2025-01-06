@@ -34,6 +34,9 @@ td.icon_td img {
 .hidden_row {
     visibility:collapse;
 }
+.hidden_row_one {
+    visibility:collapse;
+}
 .visible_row {
     visibility:visible;
 }

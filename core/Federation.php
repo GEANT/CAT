@@ -25,6 +25,7 @@
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  * 
  * @package Developer
  * 
@@ -651,9 +652,11 @@ Best regards,
         if (count($retArray) <= 0) {
             return Federation::UNKNOWN_IDP;
         }
-        if (count($retArray) > 1) {
+        /* No AMBIGUOUS_IDP
+         if (count($retArray) > 1) {
             return Federation::AMBIGUOUS_IDP;
         }
+        */
 
         return array_pop($retArray);
     }
@@ -670,7 +673,7 @@ Best regards,
         $candidatesExternalDb = Federation::UNKNOWN_IDP;
         $dbHandle = DBConnection::handle("INST");
         $realmSearchStringCat = "%@$realm";
-        $candidateCatQuery = $dbHandle->exec("SELECT p.profile_id as id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
+        $candidateCatQuery = $dbHandle->exec("SELECT p.profile_id as id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ? and p.showtime = 1", "s", $realmSearchStringCat);
         // this is a SELECT returning a resource, not a boolean
         $candidatesCat = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateCatQuery, $country);
 

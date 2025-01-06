@@ -26,6 +26,7 @@
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Developer
  *
@@ -155,6 +156,27 @@ class DeploymentManaged extends AbstractDeployment
     public $radius_status_2;
     
     /**
+     * the client private key
+     * 
+     * @var string
+     */
+    public $radsec_priv;
+    
+    /**
+     * the client certificate
+     * 
+     * @var string
+     */
+    public $radsec_cert; 
+    
+    /**
+     * the TLS-PSK key
+     * 
+     * @var string
+     */
+    public $pskkey;
+    
+    /**
      * the consortium this deployment is attached to
      * 
      * @var string
@@ -185,11 +207,12 @@ class DeploymentManaged extends AbstractDeployment
         if (!is_numeric($deploymentIdRaw)) {
             throw new Exception("Managed SP instances have to have a numeric identifier");
         }
-        $propertyQuery = "SELECT consortium, status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2,radius_status_1,radius_status_2,consortium FROM deployment WHERE deployment_id = ?";
+        $propertyQuery = "SELECT consortium,status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2,radius_status_1,radius_status_2,radsec_priv,radsec_cert,pskkey FROM deployment WHERE deployment_id = ?";
         $queryExec = $this->databaseHandle->exec($propertyQuery, "i", $deploymentIdRaw);
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $queryExec) == 0) {
             throw new Exception("Attempt to construct an unknown DeploymentManaged!");
         }
+        
         $this->identifier = $deploymentIdRaw;
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $queryExec)) {
             if ($iterator->secret == NULL && $iterator->radius_instance_1 == NULL) {
@@ -219,9 +242,13 @@ class DeploymentManaged extends AbstractDeployment
                 $this->radius_status_2 = $iterator->radius_status_2;
                 $this->status = $iterator->status;
                 $this->consortium = $iterator->consortium;
+                $this->radsec_cert = $iterator->radsec_cert;
+                $this->radsec_priv = $iterator->radsec_priv;
+                $this->pskkey = $iterator->pskkey;
             }
         }
         $server1 = $this->radius_instance_1;
+        
         $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server1);
         while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server1details)) {
             $this->host1_v4 = $iterator2->radius_ip4;
@@ -270,7 +297,6 @@ class DeploymentManaged extends AbstractDeployment
         // only check the consortium pool group we want to attach to
         $cons = $this->consortium;
         $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = ? AND consortium = ?", "ss", $federation, $cons);
-
         $serverCandidates = [];
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
             $maxSupportedClients = DeploymentManaged::MAX_CLIENTS_PER_SERVER;
@@ -307,6 +333,36 @@ class DeploymentManaged extends AbstractDeployment
         return array_shift($serverCandidates);
     }
 
+    /**
+     * create TLS credentials for client
+     * 
+     * @throws Exception
+     */
+    private function createTLScredentials()
+    {
+        $clientName = "SP_" . $this->identifier . '-' . $this->institution;
+        $dn = array(
+                    "organizationName" => "eduroam",
+                    "organizationalUnitName" => "eduroam Managed SP",
+                    "commonName" => $clientName
+        );
+        // Generate a new private (and public) key pair
+        $privkey = openssl_pkey_new(array(
+                                          "private_key_bits" => 4096,
+                                          "private_key_type" => OPENSSL_KEYTYPE_RSA));
+        // export private key to $clientprivateKey (as string)
+        openssl_pkey_export($privkey, $this->radsec_priv);
+        // Generate a certificate signing request
+        $csr = openssl_csr_new($dn, $privkey,
+                               array('digest_alg' => 'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"));
+        // get CA certificate and private key
+        $caprivkey = array(file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key"),
+                            \config\Master::MANAGEDSP['capass']);
+        $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+        $clientcert = openssl_csr_sign($csr, $cacert, $caprivkey, \config\Master::MANAGEDSP['daystoexpiry'],
+                          array('digest_alg'=>'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), rand());
+        openssl_x509_export($clientcert, $this->radsec_cert);
+    } 
     /**
      * retrieves usage statistics for the deployment
      * 
@@ -368,11 +424,14 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         // and make up a shared secret that is halfways readable
-        $futureSecret = $this->randomString(16, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        $futureSecret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
+        $futureTlsClient = $this->createTLScredentials();
+        $futurePSKkey = bin2hex(openssl_random_pseudo_bytes(32));
         $cons = $this->consortium;
         $id = $this->identifier;
-        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = ?, radius_instance_2 = ?, port_instance_1 = ?, port_instance_2 = ?, secret = ?, consortium = ? WHERE deployment_id = ?", "ssiissi", $ourserver, $ourSecondServer, $foundFreePort1, $foundFreePort2, $futureSecret, $cons, $id);
-        return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer];
+        
+        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = ?, radius_instance_2 = ?, port_instance_1 = ?, port_instance_2 = ?, secret = ?, radsec_priv = ?, radsec_cert = ?, pskkey = ?, consortium = ? WHERE deployment_id = ?", "ssiisssssi", $ourserver, $ourSecondServer, $foundFreePort1, $foundFreePort2, $futureSecret, $this->radsec_priv, $this->radsec_cert, $futurePSKkey, $cons, $id);
+        return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer, "pskkey" => $futurePSKkey];
     }
 
     /**
@@ -460,15 +519,14 @@ class DeploymentManaged extends AbstractDeployment
      */
     private function sendToRADIUS(int $idx, $post)
     {
-
         $hostname = "radius_hostname_$idx";
-        $ch = curl_init("http://" . $this->$hostname);
+        $ch = curl_init("http://" . $this->$hostname . ':8080');
         if ($ch === FALSE) {
             $res = 'FAILURE';
         } else {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ": $post\n");
+            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ":8080/$post\n");
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -645,7 +703,10 @@ class DeploymentManaged extends AbstractDeployment
     {
         $remove = ($this->status == \core\AbstractDeployment::INACTIVE) ? 0 : 1;
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
-        $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
+        $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . 
+                '&secret=' . $this->secret .
+                '&country=' . $this->getAttributes("internal:country")[0]['value'] .
+                '&pskkey=' . $this->pskkey . '&';
         if ($remove) {
             $toPostTemplate = $toPostTemplate . 'remove=1&';
         } else {
@@ -665,7 +726,12 @@ class DeploymentManaged extends AbstractDeployment
         $response = array();
         foreach ($toPost as $key => $value) {
             $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
-            $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            // temporarly one server $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            if ($key == 2) {
+                $response['res[2]'] = 'OK'; 
+            } else {
+                $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            }
         }
         if ($onlyone) {
             $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;

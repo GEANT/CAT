@@ -84,6 +84,10 @@ if ($queryType == 'sp') {
                 <div id='tests_info_area'></div>
         </td>
     </tr>
+    <tr id='outer_user_row' class='hidden_row'>
+        <td>" . _("Do you prefer to use a specific outer identity for diagnostics test?") . "</td>
+        <td>  <input type='text' name='outer_user' id='outer_user' value=''><span id='outer_user_realm'></span>
+    </tr>
     <tr class='hidden_row'>
         <td>" . _("What is the authentication timestamp of the user session in question?") . "</td>
         <td><input type='text' id='timestamp' name='timestamp'>

@@ -90,7 +90,7 @@ $langObject = new \core\common\Language();
     $subject_prefix = implode(', ', array_reverse($DN));
     /* Messages */
     $messages = [
-    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with ') . 
+    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with') . ' ' .
                        $subject_prefix  . '<br>' . _("See CSR generation rules below."),
     'WRONG_CRL' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
     ];
@@ -110,12 +110,13 @@ $langObject = new \core\common\Language();
         // basic sanity checks before we hand this over to openssl
         $sanitisedCsr = $validator->string($_POST['CSR'] ?? "", TRUE);
         //print $sanitisedCsr; 
-        
-        if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
+        $pubkey = openssl_csr_get_public_key($sanitisedCsr);
+        if ($pubkey === FALSE) {
             $_SESSION['CSR_ERRORS'] = 'WRONG_CSR';
             $_SESSION['FORM_SETTINGS'] = $settings;
             header("Location: action_req_certificate.php");
         }
+        //$info = openssl_pkey_get_details($pubkey);
         $subject = openssl_csr_get_subject($sanitisedCsr);
         $subject_keys = array_keys($subject);
         $dc = array();
@@ -311,20 +312,28 @@ $langObject = new \core\common\Language();
             $(document).on('change', '#INST-list' , function() {
                     //alert(instservers[$(this).val()]);
                     $("#INST").prop('checked', true);
+                    $("#certinfo").show();
+                    $("#additionalinfo").hide();
+                    $("#ondb").hide();
                     $("#certlevel").html("<?php echo _('organizational level certificate'); ?>");
                     $("#serversinfo").html(instservers[$(this).val()]);
                     $("#policiesinfo").html(instpolicies[$(this).val()]);
                     $("#errorbox").html("");
                     //$("input[name=LEVEL][value=INST]").prop('checked', true);
                   
-                });
-                $(document).on('change', '#NRO' , function() {
+            });
+            $(document).on('change', '#NRO' , function() {
                     $("#INST-list").val("notset");
                     $("#certlevel").html("<?php echo _('NRO level certificate'); ?>");
                     $("#serversinfo").html(nroservers);
                     $("#policiesinfo").html("eduroam IdP/SP");
                     $("#errorbox").html("");
-                });
+            });
+            $(document).on('change', '#INST' , function() {
+                    $("#certinfo").hide();
+                    $("#additionalinfo").show();
+                    $("#ondb").show();
+            });
         </script>
         <?php if (count($allIdPs) > 0) {
         ?>
@@ -346,7 +355,12 @@ foreach ($allIdPs as $id => $name) {
 ?>
         </select>
         </br>
-        <h3>
+        <h3 id="additionalinfo">
+            <?php
+            echo _('You have to choose institution for which you want to apply!')
+            ?>
+        </h3>
+        <h3 id="certinfo">
             <?php 
             echo _('According to the above settings you will receive')
             ?>
@@ -370,8 +384,17 @@ foreach ($allIdPs as $id => $name) {
             echo "</div>";
         }
         ?>
-        <br/>
         <?php
+        echo '<div id="ondb"><h4 style="margin: 0">' . _("Can't you find an institiutin on the select list above?") . '</h4>';
+        echo _("Most likely we do not have required data on this institution in the eduroam database.");
+        echo '<br/>';
+        ?>
+        <a target="_blank" href="overview_radsec_readiness.php">
+        <?php
+        echo _('On this page');
+        echo '</a> ';
+        echo _('you can check what information is in the datatabase');
+        echo '</div>';
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p>
@@ -397,6 +420,10 @@ foreach ($allIdPs as $id => $name) {
 echo $deco->footer();
 ?>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $("#additionalinfo").hide();
+        $("#ondb").hide();
+    });
     function check_csr() {
         var ok = true;
         var level = $("input[type='radio'][name='LEVEL']:checked").val();

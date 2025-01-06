@@ -49,6 +49,7 @@ $realmCountry = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'co')));
 $realmOu = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'ou')));
 $forTests = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'addtest')));
 $token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
+
 if ($token && !is_dir($jsonDir.'/'.$token)) {
     mkdir($jsonDir.'/'.$token, 0777, true);
 }
@@ -101,11 +102,14 @@ if ($givenRealm != '') {
         $details['status'] = 0;
     } 
     
-    if ($forTests) {
-        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm); 
-        
-        $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
-        
+    if ($forTests) {       
+        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);
+        if ($outerUser == '') {
+            $telepath = new \core\diag\Telepath($givenRealm);
+            $outerUser = $telepath->getOuter();
+        }
+        $testsuite = new \core\diag\RADIUSTests($givenRealm, $outerUser . '@' . $givenRealm);
+       
         $naptr = $rfc7585suite->relevantNAPTR(); 
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
             $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
