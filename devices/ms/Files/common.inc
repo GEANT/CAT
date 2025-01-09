@@ -30,7 +30,6 @@ SetCompressor bzip2
 CRCCheck on
 ;ManifestDPIAware true
 
-
 !define DEBUG_CAT 5
 Var HEADLINE
 Var TEXT
@@ -504,6 +503,31 @@ $R1$\r$\n$\n\
 ${EndIf}
 FunctionEnd
 
+Function EncodeDollarForPFX
+   ;$R0 will contain the current string location
+   Push $R0
+   Push $R1
+   Push $R2
+   Push $R9
+   Push 0
+   Pop $R0
+   ;$R9 will contain the output string
+   StrCpy $R9 ""
+   StrLen $R2 $0
+   ${Do}
+     StrCpy $R1 $0 1 $R0
+     ${If} $R1 == "$$"
+        StrCpy $R1 "`$$"
+     ${EndIf}
+     StrCpy $R9 "$R9$R1"
+     IntOp $R0 $R0 + 1
+   ${LoopUntil} $R0 = $R2
+   StrCpy $0 $R9
+   Pop $R9
+   Pop $R2
+   Pop $R1
+   Pop $R0 
+FunctionEnd
 
 Function nsDialogsWelcome
   call PrepareWelcomeText  
@@ -1256,6 +1280,7 @@ Function PFXCertificateSelectLeave
    ${Else}
       ${NSD_GetText} $PASS1_F $0
       !ifdef W8
+      Call EncodeDollarForPFX
       !insertmacro debug_cat 3 'Execute: powershell -Command "&{$$securePassword = ConvertTo-SecureString -String $\"password_not_recorded$\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}  "'
       nsExec::ExecToStack 'powershell -Command "&{$$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}"'
       Pop $1
