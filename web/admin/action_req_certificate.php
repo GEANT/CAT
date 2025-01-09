@@ -385,7 +385,7 @@ foreach ($allIdPs as $id => $name) {
         }
         ?>
         <?php
-        echo '<div id="ondb"><h4 style="margin: 0">' . _("Can't you find an institiutin on the select list above?") . '</h4>';
+        echo '<div id="ondb"><h4 style="margin: 0">' . _("Can't you find an institution on the select list above?") . '</h4>';
         echo _("Most likely we do not have required data on this institution in the eduroam database.");
         echo '<br/>';
         ?>
@@ -393,7 +393,7 @@ foreach ($allIdPs as $id => $name) {
         <?php
         echo _('On this page');
         echo '</a> ';
-        echo _('you can check what information is in the datatabase');
+        echo _('you can check what information is in the datatabase') . '.';
         echo '</div>';
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>
