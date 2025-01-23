@@ -92,7 +92,7 @@ $langObject = new \core\common\Language();
     $messages = [
     'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with') . ' ' .
                        $subject_prefix  . '<br>' . _("See CSR generation rules below."),
-    'WRONG_CRL' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
+    'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
     ];
     $settings = array();
     if  (isset($_SESSION['CSR_ERRORS']) && $_SESSION['CSR_ERRORS'] != '') {
@@ -109,8 +109,8 @@ $langObject = new \core\common\Language();
     if  ( isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
         // basic sanity checks before we hand this over to openssl
         $sanitisedCsr = $validator->string($_POST['CSR'] ?? "", TRUE);
-        //print $sanitisedCsr; 
-        $pubkey = openssl_csr_get_public_key($sanitisedCsr);
+        
+        $pubkey = openssl_csr_get_public_key($sanitisedCsr); 
         if ($pubkey === FALSE) {
             $_SESSION['CSR_ERRORS'] = 'WRONG_CSR';
             $_SESSION['FORM_SETTINGS'] = $settings;
@@ -120,12 +120,17 @@ $langObject = new \core\common\Language();
         $subject = openssl_csr_get_subject($sanitisedCsr);
         $subject_keys = array_keys($subject);
         $dc = array();
-        if (!empty($subject_keys) && $subject_keys[0] == 'DC' && $subject['DC']) {
-            foreach ($subject['DC'] as $v) {
-                $dc[] = 'DC=' . $v;
-            }
-            if ($DN !== array_reverse($dc)) {
-                $dc = array();
+        if (!empty($subject_keys)) {
+            if ($subject_keys[0] == 'DC' && $subject['DC']) {
+                foreach ($subject['DC'] as $v) {
+                    $dc[] = 'DC=' . $v;
+                }
+                if ($DN !== array_reverse($dc)) {
+                   $dc = array();
+                   $_SESSION['CSR_ERRORS'] = 'WRONG_SUBJECT';
+                   $_SESSION['FORM_SETTINGS'] = $settings;
+                }
+            } else {
                 $_SESSION['CSR_ERRORS'] = 'WRONG_SUBJECT';
                 $_SESSION['FORM_SETTINGS'] = $settings;
             }
@@ -170,7 +175,6 @@ $langObject = new \core\common\Language();
                 } else {
                     $ou = $serverInfo["names"][$langInstance->getLang()];
                 }
-                print($ou);
 		$modou = 0;
 		if (str_contains($ou, ',')) {
 		    $modou = 1;
