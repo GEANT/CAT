@@ -56,4 +56,5 @@ class FormElements {
     const BUTTON_ACTIVATE = 20;
     const BUTTON_TERMSOFUSE_NEEDACCEPTANCE = 21;
     const BUTTON_REMOVESP = 22;
+    const BUTTON_RENEWTLS = 23;
 }

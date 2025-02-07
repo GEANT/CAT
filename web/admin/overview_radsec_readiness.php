@@ -78,7 +78,7 @@ $langObject = new \core\common\Language();
         echo '<p/>';
         echo _("In the 'Servers' column we show TLS servers names provided for this institution (it means servers having the type 1 - RADIUS over TLS).");
         echo '<br/>';
-        echo _("In the 'Contacts' column we show all contacts having type 1, i.e. any service contact, other contacts are omitted.");
+        echo _("In the 'Contact data' column we show all contacts having type 1, i.e. any service contact, other contacts are omitted.");
         echo '<br/>';
         echo _("In the 'Timestamp' column we show last update time.");
         echo '<p/>';

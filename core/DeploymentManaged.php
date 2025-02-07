@@ -425,7 +425,7 @@ class DeploymentManaged extends AbstractDeployment
         }
         // and make up a shared secret that is halfways readable
         $futureSecret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
-        $futureTlsClient = $this->createTLScredentials();
+        $this->createTLScredentials();
         $futurePSKkey = bin2hex(openssl_random_pseudo_bytes(32));
         $cons = $this->consortium;
         $id = $this->identifier;
@@ -471,7 +471,18 @@ class DeploymentManaged extends AbstractDeployment
         $this->databaseHandle->exec("DELETE FROM deployment_option WHERE deployment_id = ?", "i", $id);
         $this->databaseHandle->exec("DELETE FROM deployment WHERE deployment_id = ?", "i", $id);
     }
-
+    
+    /**
+     * Renews the deployment TLS credentials
+     * 
+     * @return void
+     */
+    public function renewtls()
+    {
+       $id = $this->identifier;
+       $futureTlsClient = $this->createTLScredentials();
+       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = ?, radsec_cert = ? WHERE deployment_id = ?", "ssi", $this->radsec_priv, $this->radsec_cert, $id);           
+    }
     /**
      * marks the deployment as deactivated 
      * 

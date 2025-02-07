@@ -279,7 +279,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
  */
 function displayDeploymentPropertyWidget(&$deploymentObject) {
     // RADIUS status icons
-    $radiusMessages = [
+    $radiusMessages = [ 
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
         \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
     ];
@@ -313,7 +313,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 ?></h2>
             <table>
                 <caption><?php echo _("Deployment Details"); ?></caption>
-                <form>
+                <form action="?inst_id=<?php echo $deploymentObject->institution; ?>" method="post">
                 <tr>
                     <th class='wai-invisible' scope='col'><?php echo("Server IP addresses"); ?></th>
                     <th class='wai-invisible' scope='col'><?php echo("Server Port label"); ?></th>
@@ -372,9 +372,12 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
                 </tr>
-                <?php if ($deploymentObject->radsec_priv != '' && $deploymentObject->radsec_cert != '') {?>
+                <?php if ($deploymentObject->radsec_priv != '' && $deploymentObject->radsec_cert != '') { 
+                    $data = openssl_x509_parse($deploymentObject->radsec_cert);
+                    
+                    ?>
                 <tr>
-                        <td><strong><?php echo _("RADSEC credentials"); ?></strong></td>
+                        <td><strong><?php echo _("RADSEC over TLS credentials"); ?></strong></td>
                         <td>
                             <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
                             <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
@@ -382,20 +385,38 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc" style="background-color: gray; color: white" type="submit"><?php echo _('private key');?></button>
                             <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" style="background-color: gray; color: white" type="submit"><?php echo _('certificate');?></button>
                             <button class="ca_cert" name="showca" style="background-color: gray; color: white" type="submit"><?php echo _('CA certificate');?></button>
-                        </td>
+                            <button name="sendzip" onclick="location.href='inc/sendzip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" style="background-color: gray; color: white" type="button"><?php echo _('download ZIP-file with full data');?></button>
+                        </td
                 </tr>
-                <?php 
+                <tr> <td></td><td>
+                    <?php 
+                    echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
+                    $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
+                    if ($dleft > 0) {
+                        echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
+                    } else {
+                        echo '<br>' . _('If you are using RADSEC over TLS you should urgently renew your credentisls') . '!';
+                    }
+                    ?></td></tr>
+                <tr> <td></td><td>
+                        <?php
+                        echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
+                                _('click on "Renew RADSEC over TLS credentials" button');
+                        ?>
+                </td></tr>
+                <?php         
+                  
                 }
                 if ($deploymentObject->pskkey != '') {?>
                 <tr>
-                        <td><strong><?php echo _("TLS-PSK identity"); ?></strong></td>
+                        <td><strong><?php echo _("RADSEC TLS-PSK identity"); ?></strong></td>
                         <td>
                            SP_<?php echo $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
                         </td>
                 </tr>
                 
                 <tr>
-                        <td><strong><?php echo _("TLS-PSK key"); ?></strong></td>
+                        <td><strong><?php echo _("RADSEC TLS-PSK key"); ?></strong></td>
                         <td>
                            <?php echo $deploymentObject->pskkey;?>
                         </td>
@@ -436,6 +457,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </form>
             </table>
             <div class='buttongroupprofilebox' style='clear:both;'>
+               
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <br/>
                     <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
@@ -513,6 +535,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         <?php
                     }
                     ?>
+                    <div align="right">
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='renewtls' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Renew RADSEC over TLS credentials"); ?>
+                            </button>
+                    </form>
+                    </div>
             </div>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
@@ -574,7 +603,6 @@ function displayClassicHotspotPropertyWidget($deploymentObject) {
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
-
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant));
 require_once "inc/click_button_js.php";
 
@@ -620,6 +648,12 @@ $(document).on('click', '.ca_cert' , function(e) {
     var content = $("#ca_cert_data").val();
     OpenWindow.document.write('<html><head><title>CA Certificate</title><body><pre>'+content+'</body>');
     OpenWindow.document.write('</body></html>');
+    e.preventDefault();
+});
+$(document).on('click', '.send_zip' , function(e) {
+    var OpenWindow = window.open();
+    var content = $("#zip_data").val();
+    OpenWindow.document.write(content);
     e.preventDefault();
 });
 </script>        

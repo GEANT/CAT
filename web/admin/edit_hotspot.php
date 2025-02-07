@@ -115,6 +115,10 @@ if (isset($_POST['submitbutton'])) {
                 $deployment->remove();
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
                 exit(0);
+            case web\lib\common\FormElements::BUTTON_RENEWTLS:
+                $deployment->renewtls();
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+                exit(0);
             case web\lib\common\FormElements::BUTTON_ACTIVATE:
                 if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
                     $response = $deployment->setRADIUSconfig();
