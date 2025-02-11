@@ -334,8 +334,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         }
                         ?>
                     </td>
-                    <td><?php echo _("RADIUS port number: ") ?></td>
-                    <td><?php echo $deploymentObject->port1; ?></td>
+                    <td><?php echo _("RADIUS port number:") . '<br>' . _("RADSEC over TLS port number:") . '<br>' . _("RADSEC TLS-PSK port number:"); ?></td>
+                    <td><?php echo $deploymentObject->port1 . '<br>2083<br>2084'; ?></td>
                     <td>
                         <?php
                         echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
@@ -377,7 +377,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     
                     ?>
                 <tr>
-                        <td><strong><?php echo _("RADSEC over TLS credentials"); ?></strong></td>
+                    <td><strong><?php echo _("RADSEC over TLS credentials"); ?></strong></td>
                         <td>
                             <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
                             <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
