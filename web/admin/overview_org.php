@@ -510,7 +510,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <?php
                             if (isset($_GET['res']) && is_array($_GET['res'])) {
                                 $res = array_count_values($_GET['res']);
-                                if ($res['FAILURE'] > 0) {
+                                if (array_key_exists('FAILURE', $res) && $res['FAILURE'] > 0) {
                                     echo '<br>';
                                     if ($res['FAILURE'] == 2) {
                                         echo ' <span style="color: red;">' . _("Failure during deactivation, your request is queued for handling") . '</span>';
