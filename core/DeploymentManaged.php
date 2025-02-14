@@ -531,13 +531,14 @@ class DeploymentManaged extends AbstractDeployment
     private function sendToRADIUS(int $idx, $post)
     {
         $hostname = "radius_hostname_$idx";
-        $ch = curl_init("http://" . $this->$hostname . ':8080');
+        $ch = curl_init("http://" . $this->$hostname . ':' . \config\Master::MANAGEDSP['radiusconfigport']);
         if ($ch === FALSE) {
             $res = 'FAILURE';
         } else {
+            curl_setopt($ch, CURLOPT_USERAGENT, "CAT-ManagedSP");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ":8080/$post\n");
+            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ':' . \config\Master::MANAGEDSP['radiusconfigport'] . "/$post\n");
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -738,11 +739,11 @@ class DeploymentManaged extends AbstractDeployment
         foreach ($toPost as $key => $value) {
             $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
             // temporarly one server $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            if ($key == 2) {
-                $response['res[2]'] = 'OK'; 
-            } else {
+            //if ($key == 2) {
+            //    $response['res[2]'] = 'OK'; 
+            //} else {
                 $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            }
+            //}
         }
         if ($onlyone) {
             $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;

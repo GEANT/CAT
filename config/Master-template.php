@@ -32,6 +32,7 @@
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Configuration
  */
@@ -289,6 +290,16 @@ class Master
                 'readonly' => TRUE,],
             
             'enforce-external-sync' => TRUE,
+        ];
+        /**
+         * Set of details for Managed SP. 
+         * 
+         * @var array
+         */
+        const MANAGEDSP = [
+            'radiusconfigport' => 8080,
+            'capass' => 'CA_password', 
+            'daystoexpiry' => 365,
         ];
         /**
          * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
