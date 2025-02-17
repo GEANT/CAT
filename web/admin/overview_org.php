@@ -349,7 +349,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     </td>
                     <td>
                         <?php
-                        if ($deploymentObject->status_1) {
+                        if ($deploymentObject->status) {
                             echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
                                 "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
                                 "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' class='cat-icon'>";
@@ -385,7 +385,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     </td>
                     <td>
                         <?php
-                        if ($deploymentObject->status_2) {
+                        if ($deploymentObject->status) {
                             echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
                                 "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
                             "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
