@@ -288,6 +288,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
     $radius_status[1] = $deploymentObject->radius_status_2;
     $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
     $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
+    $isradiusready = radius_ready($deploymentObject);
     if (is_array($retry)) {
         foreach ($retry as $id => $stat) {
             if ($stat) {
@@ -321,7 +322,10 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <th class='wai-invisible' scope='col'><?php echo("Deployment Status"); ?></th>
                 </tr>
                 <tr>
-                    <td><strong><?php echo _("Your primary RADIUS server") ?></strong><br/>
+                    <td>
+                        <strong><?php echo _("Your primary RADIUS server") ?></strong>
+                    </td>
+                    <td>
                         <?php
                         if ($deploymentObject->host1_v4 !== NULL) {
                             echo _("IPv4") . ": " . $deploymentObject->host1_v4;
@@ -334,21 +338,33 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         }
                         ?>
                     </td>
-                    <td><?php echo _("RADIUS port number:") . '<br>' . _("RADSEC over TLS port number:") . '<br>' . _("RADSEC TLS-PSK port number:"); ?></td>
-                    <td><?php echo $deploymentObject->port1 . '<br>2083<br>2084'; ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong><?php echo _("RADIUS port number (UDP)"); ?></strong>
+                    </td>
+                    <td>
+                        <?php echo $deploymentObject->port1; ?>
+                    </td>
                     <td>
                         <?php
-                        echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
-                        "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
-                        "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' class='cat-icon'>";
+                        if ($deploymentObject->status_1) {
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
+                                "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
+                                "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' class='cat-icon'>";
+                        }
                         ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong><?php echo _("Your backup RADIUS server") ?><br/></strong>
+                    <td>
+                        <strong><?php echo _("Your secondary RADIUS server") ?></strong>
+                    </td>
+                    <td>
                         <?php
                         if ($deploymentObject->host2_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                            echo _("IPv4") . ": " . $deploymentObject->host1_v4;
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";
@@ -356,18 +372,40 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         if ($deploymentObject->host2_v6 !== NULL) {
                             echo _("IPv6") . ": " . $deploymentObject->host2_v6;
                         }
-                        ?></td>
-                    <td><?php echo _("RADIUS port number: ") ?></td>
-                    <td><?php echo $deploymentObject->port2; ?></td>
+                        ?>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong><?php echo _("RADIUS port number (UDP)"); ?></strong>
+                    </td>
+                    <td>
+                        <?php echo $deploymentObject->port2; ?>
+                    </td>
                     <td>
                         <?php
-                        echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
-                        "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
-                        "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
+                        if ($deploymentObject->status_2) {
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
+                                "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
+                            "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
+                        }
                         ?>
                     </td>
                 </tr>
-
+                <tr>
+                    <td>
+                        <strong><?php echo _("RADSEC ports for both servers:"); ?></strong>
+                    </td>
+                    <td>
+                        <?php echo _("RADSEC over TLS"); ?>
+                        2083<br>
+                        <?php echo _("RADSEC TLS-PSK"); ?>
+                        2084
+                    </td>
+                    <td></td>
+                </tr>
+               
                 <tr>
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
@@ -400,8 +438,10 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     ?></td></tr>
                 <tr> <td></td><td>
                         <?php
-                        echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
-                                _('click on "Renew RADSEC over TLS credentials" button');
+                        if ($deploymentObject->radsec_cert != NULL) {
+                            echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
+                                 _('click on "Renew RADSEC over TLS credentials" button');
+                        }
                         ?>
                 </td></tr>
                 <?php         
@@ -456,6 +496,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </td></tr>
                 </form>
             </table>
+            <?php
+            if ($isradiusready) { ?>
             <div class='buttongroupprofilebox' style='clear:both;'>
                
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -543,6 +585,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     </form>
                     </div>
             </div>
+            <?php } else { echo _("We are not able to handle a new configuration request now.") . '<br>' . _("Check later.");} ?>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
         <div style='display: table-cell; min-width:200px;'>
@@ -600,6 +643,22 @@ function displayClassicHotspotPropertyWidget($deploymentObject) {
     
 }
 
+/**
+ * checks if both RADIUS servers are ready to accept reconfiguration requests
+ * 
+ * 
+ */
+function radius_ready($dsp) {
+    foreach (array($dsp->host1_v4, $dsp->host2_v4) as $host) {
+        $connection = @fsockopen($host, \config\Master::MANAGEDSP['radiusconfigport']);
+        if (is_resource($connection)) {
+           fclose($connection);
+        } else {
+           return false;
+        }
+    }
+    return true;
+}
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
