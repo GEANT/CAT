@@ -139,7 +139,11 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                 "email:" . $csr["USERMAIL"]
             ];
             foreach ($csr["ALTNAMES"] as $oneAltName) {
-                $altArray[] = "DNS:" . $oneAltName;
+                if (!empty($oneAltName) && preg_match('/(?=^.{1,254}$)(^(?:(?!\d|-)[a-z0-9\-]{1,63}(?<!-)\.)+(?:[a-z]{2,})$)/i', $oneAltName) > 0) {
+                    $altArray[] = "DNS:" . $oneAltName;
+                } else {
+                    $altArray[] = "IP:" . $oneAltName;
+                }
             }
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
