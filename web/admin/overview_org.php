@@ -24,6 +24,7 @@
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
  */
 ?>
 <?php
@@ -231,7 +232,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                     <form action='duplicate_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button type='submit' name='profile_duplicate'>
                             <?php echo _("Duplicate this profile"); ?>
-                	</button>
+                        </button>
                     </form>
                     <?php } ?>
                 </div>
@@ -279,7 +280,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
  */
 function displayDeploymentPropertyWidget(&$deploymentObject) {
     // RADIUS status icons
-    $radiusMessages = [ 
+    $radiusMessages = [
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
         \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
     ];
@@ -405,7 +406,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     </td>
                     <td></td>
                 </tr>
-               
+
                 <tr>
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
@@ -499,7 +500,6 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
             <?php
             if ($isradiusready) { ?>
             <div class='buttongroupprofilebox' style='clear:both;'>
-               
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <br/>
                     <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
@@ -678,13 +678,24 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>    
-<script src="js/popup_redirect.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="js/XHR.js"></script>    
+<script src="js/popup_redirect.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script src="../external/jquery/DataTables/datatables.js"></script>
+<link type="text/css"  rel="stylesheet" href="../external/jquery/DataTables/datatables.css"  media="all" />
 <script>
 $(document).ready(function() {    
     $("img.cat-icon").tooltip();
+    $("table.downloads").DataTable({
+          "dom": 't',
+          "pageLength": 100,
+          "columnDefs": [
+        { orderSequence: ['asc'], targets: [0] },
+        { orderSequence: ['desc', 'asc'], targets: [1] },
+        { orderSequence: ['desc', 'asc'], targets: [2] }
+        ]
+    });
 });
 $(document).on('click', '.sp_priv_key' , function(e) {
     var did = $(this).attr('id').substring('priv_key_'.length);
@@ -715,8 +726,8 @@ $(document).on('click', '.send_zip' , function(e) {
     OpenWindow.document.write(content);
     e.preventDefault();
 });
-</script>        
-        
+</script>
+
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-PARTICIPANT");
@@ -851,14 +862,16 @@ $(document).on('click', '.send_zip' , function(e) {
                     <p>
                         <strong><?php echo _("User Downloads"); ?></strong>
                     </p>
-                    <table>
+                    <table class="downloads" id="downloads_<?php echo $profilecount ?>">
+                        <thead><tr>
                         <?php
+                        echo "<th>"._("Device")."</th><th>"._("global")."</th><th>"._("this month")."</th></tr></thead><tbody>";
                         $stats = $profile_list->getUserDownloadStats();
                         foreach ($stats as $dev => $count) {
-                            echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
+                            echo "<tr><td><strong>$dev</strong></td><td>".$count['current']."</td><td>".$count['monthly']."</td></tr>";
                         }
                         ?>
-                    </table>
+                        </tbody></table>
                 </div>
             </div>
             <!-- dummy div to keep a little distance-->
@@ -915,7 +928,7 @@ $(document).on('click', '.send_zip' , function(e) {
             }
             ?>
         </h2>
-        <?php 
+        <?php
         $hotspotProfiles = $my_inst->listDeployments();
         if (count($hotspotProfiles) == 0) { // no profiles yet.
             echo sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot);
