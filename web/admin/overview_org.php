@@ -364,7 +364,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <td>
                         <?php
                         if ($deploymentObject->host2_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host1_v4;
+                            echo _("IPv4") . ": " . $deploymentObject->host2_v4;
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";

@@ -79,6 +79,7 @@ $langObject = new \core\common\Language();
         if (count($serverInfo) > 0) {
             $feds[] = $fed;
         }
+        $serverList = explode(",", array_key_first($serverInfo));
     }
     if (\config\ConfAssistant::eduPKI['testing'] === true) {
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
@@ -139,6 +140,7 @@ $langObject = new \core\common\Language();
             header("Location: action_req_certificate.php");
             exit;
         }
+        $modou = 0;
         $policies = [];
         switch ($_POST['LEVEL'] ?? "") {
             case "NRO":
@@ -151,7 +153,6 @@ $langObject = new \core\common\Language();
                 $DN[] = "C=$code";
                 $DN[] = "O=NRO of " . iconv('UTF-8', 'ASCII//TRANSLIT', $cat->knownFederations[$country]['name']);
                 $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
-                $serverList = explode(",", array_key_first($serverInfo));
                 $DN[] = "CN=" . $serverList[0];
                 $policies[] = "eduroam IdP";
                 $policies[] = "eduroam SP";
@@ -175,7 +176,6 @@ $langObject = new \core\common\Language();
                 } else {
                     $ou = $serverInfo["names"][$langInstance->getLang()];
                 }
-		$modou = 0;
 		if (str_contains($ou, ',')) {
 		    $modou = 1;
 		    $ou = str_replace(",", "/,", $ou);
@@ -227,7 +227,6 @@ $langObject = new \core\common\Language();
         echo "<li>" . _("subjectAltName:DNS : ") . implode(", ", $serverList) . "</li>";
         echo "<li>" . _("Requester Contact Details: ") . $firstName . " &lt;" . $firstMail . "&gt;" . "</li>";
         echo "</ul></p>";
-
         $vettedCsr = $validator->string($_POST['CSR'], true);
         $newCsrWithMeta = [
             "CSR_STRING" => /* $newCsr */ $vettedCsr,
@@ -365,7 +364,7 @@ foreach ($allIdPs as $id => $name) {
             ?>
         </h3>
         <h3 id="certinfo">
-            <?php 
+            <?php
             echo _('According to the above settings you will receive')
             ?>
             <span id='certlevel'><?php echo _('NRO level certificate');?></span>
@@ -377,8 +376,9 @@ foreach ($allIdPs as $id => $name) {
         <?php if (empty($policies)) {?>
         eduroam IdP/SP
         <?php } else {
-           echo implode(', ', $policies); 
-        }?>
+            echo implode(', ', $policies); 
+            }
+?>
         </span>
         </h3>
         <?php
