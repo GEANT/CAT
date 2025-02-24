@@ -544,7 +544,7 @@ class CAT extends \core\common\Entity
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE id_institution = $externalId $scanforrealm");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE instid = '$externalId' $scanforrealm");
             // split names and contacts into proper pairs
             // SELECT never returns a boolean, always a mysqli_object
             while ($externalEntityQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $infoList)) {
@@ -554,10 +554,9 @@ class CAT extends \core\common\Entity
                     $list['names'][$perlang[0]] = $perlang[1];
                 }
                 $contacts = explode('#', $externalEntityQuery->collapsed_contact);
-                foreach ($contacts as $contact) {
-                    $email1 = explode('e: ', $contact);
-                    $email2 = explode(',', $email1[1]);
-                    $list['admins'][] = ["email" => $email2[0]];
+                $contacts1 = \core\ExternalEduroamDBData::dissectCollapsedContacts($externalEntityQuery->collapsed_contact);
+                foreach ($contacts1 as $contact) {
+                    $list['admins'][] = ["email" => $contact['mail']];
                 }
                 $list['country'] = strtoupper($externalEntityQuery->country);
                 $list['realmlist'] = $externalEntityQuery->realmlist;

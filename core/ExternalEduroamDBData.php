@@ -25,7 +25,6 @@
  * querying the external database.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
- * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Developer
  *
@@ -40,6 +39,8 @@ use \Exception;
  * read-only purposes.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @license see LICENSE file in root directory
  *
@@ -63,12 +64,20 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     private $counter = -1;
 
     /**
-     * our handle to the DB
+     * our handle to the external DB
      * 
      * @var DBConnection
      */
     private $db;
-
+    
+    /**
+     * our handle to the local DB
+     * 
+     * @var DBConnection
+     */
+    private $localDb;
+    
+    
     /**
      * constructor, gives us access to the DB handle we need for queries
      */
@@ -79,6 +88,11 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             throw new Exception("Frontend DB is never an array, always a single DB object.");
         }
         $this->db = $connHandle;
+        $localConnHandle = DBConnection::handle("INST");
+        if (!$localConnHandle instanceof DBConnection) {
+            throw new Exception("Frontend DB is never an array, always a single DB object.");
+        }
+        $this->localDb = $localConnHandle;
     }
 
     /**
@@ -156,21 +170,26 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     /**
      * 
      * @param string $collapsed the blob with contact info from eduroam DB
+     * @return array of contacts represented as array name,mail,phone
      */
-    private function dissectCollapsedContacts($collapsed) {
+    public static function dissectCollapsedContacts($collapsed) {
         $contacts = explode('#', $collapsed);
         $contactList = [];
+        $names = [
+            'n' => 'name',
+            'e' => 'mail',
+            'p' => 'phone'
+        ];
         foreach ($contacts as $contact) {
-            $matches = [];
-            preg_match("/^n: (.*), e: (.*), p: (.*)$/", $contact, $matches);
-            $contactList[] = [
-                "name" => $matches[1],
-                "mail" => $matches[2],
-                "phone" => $matches[3]
-            ];
+            $out = preg_split('/(?:, )?([nep]):/', $contact, -1, PREG_SPLIT_DELIM_CAPTURE);
+            $splitContacts = [];
+            for ($i=1; $i < count($out) ; $i+=2) {
+                $splitContacts[$names[$out[$i]]] = $out[$i+1];
+            }
+            $contactList[] = $splitContacts;
         }
         return $contactList;
-    }
+    }    
 
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
@@ -186,7 +205,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             $eduroamDbType = self::TYPE_MAPPING[$type]; // anything
         }
         $returnarray = [];
-        $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact, type FROM view_active_institution WHERE country = ?";
+        $query = "SELECT instid AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact, type FROM view_active_institution WHERE country = ?";
         if ($eduroamDbType !== NULL) {
             $query .= " AND ( type = '" . ExternalEduroamDBData::TYPE_IDPSP . "' OR type = '" . $eduroamDbType . "')";
         }
@@ -195,7 +214,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
             $names = $this->splitNames($externalQuery->collapsed_name);
             $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
-            $contacts = $this->dissectCollapsedContacts($externalQuery->collapsed_contact);
+            $contacts = $this::dissectCollapsedContacts($externalQuery->collapsed_contact);
             $mails = [];
             foreach ($contacts as $contact) {
                 // extracting real names is nice, but the <> notation
@@ -220,7 +239,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      */
     public function listExternalEntitiesByRealm($realm, $fields = []) {
         $returnArray = [];
-        $defaultFields = ['id_institution', 'country', 'inst_realm', 'name', 'contact', 'type'];
+        $defaultFields = ['instid', 'country', 'inst_realm', 'name', 'contact', 'type'];
         if (empty($fields)) {
             $fields = $defaultFields;
         }
@@ -239,7 +258,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
         return $returnArray;
     }
-
+   
     public function listExternalRealms() {
         return $this->listExternalEntitiesByRealm(""); // leaing realm empty gets *all*
     }
@@ -265,11 +284,11 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     public function listExternalTlsServersFederation($tld) {
         $retval = [];
         // this includes servers of type "staging", which is fine
-        $query = "SELECT servers, contacts FROM eduroamv2.view_tls_ro WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
+        $query = "SELECT servers, contacts FROM view_tls_ro WHERE country = ? AND servers IS NOT NULL AND contacts IS NOT NULL";
         $roTldServerTransaction = $this->db->exec($query, "s", $tld);
         while ($roServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $roTldServerTransaction)) {
             // there is only one row_id
-            $retval[$roServerResponses->servers] = $this->dissectCollapsedContacts($roServerResponses->contacts);
+            $retval[$roServerResponses->servers] = $this::dissectCollapsedContacts($roServerResponses->contacts);
         }
         return $retval;
     }
@@ -287,7 +306,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     public function listExternalTlsServersInstitution($tld, $include_not_ready=FALSE) {
         $retval = [];
         // this includes servers of type "staging", which is fine
-        $query = "SELECT ROid, instid, type, inst_name, servers, contacts, ts FROM eduroamv2.view_tls_inst WHERE country = ?";
+        $query = "SELECT ROid, instid, type, inst_name, servers, contacts, ts FROM view_tls_inst WHERE country = ?";
         if (!$include_not_ready) {
             $query = $query . " AND servers IS NOT NULL AND contacts IS NOT NULL";
         }
@@ -306,6 +325,5 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
         uasort($retval, array($this, "usortInstitution"));
         return $retval;        
-    }  
-
+    }     
 }

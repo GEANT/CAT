@@ -683,7 +683,7 @@ Best regards,
             $realmSearchStringDb2 = "%,$realm";
             $realmSearchStringDb3 = "$realm,%";
             $realmSearchStringDb4 = "%,$realm,%";
-            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
+            $candidateExternalQuery = $externalHandle->exec("SELECT instid as id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
             // SELECT -> resource, not boolean
             $candidatesExternalDb = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateExternalQuery, $country);
         }
