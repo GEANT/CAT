@@ -248,7 +248,6 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         $server1 = $this->radius_instance_1;
-        
         $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server1);
         while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server1details)) {
             $this->host1_v4 = $iterator2->radius_ip4;
@@ -385,7 +384,7 @@ class DeploymentManaged extends AbstractDeployment
             $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND)";
             $conditional2 = "";
         }
-        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
+        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot FROM activity WHERE operatorname = ? $conditional1 ORDER BY activity_time $conditional2", "s", $opName );
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }
         
@@ -711,29 +710,37 @@ class DeploymentManaged extends AbstractDeployment
      * @param int $notify  the flag indicating that an email notification should be sent
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
-    public function setRADIUSconfig($onlyone = 0, $notify = 0)
+    public function setRADIUSconfig($onlyone = 0, $notify = 0, $torevoke = "")
     {
-        $remove = ($this->status == \core\AbstractDeployment::INACTIVE) ? 0 : 1;
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
-        $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . 
+        if ($torevoke != '') {
+            $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier .
+                    "&torevoke=$torevoke";
+            foreach (array_keys($toPost) as $key) {
+                $toPost[$key] = $toPostTemplate;
+            }
+        } else {
+            $remove = ($this->status == \core\AbstractDeployment::INACTIVE) ? 0 : 1;
+            $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . 
                 '&secret=' . $this->secret .
                 '&country=' . $this->getAttributes("internal:country")[0]['value'] .
                 '&pskkey=' . $this->pskkey . '&';
-        if ($remove) {
-            $toPostTemplate = $toPostTemplate . 'remove=1&';
-        } else {
-            $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
-            if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
-                $allRealms = $this->getAllRealms();
-                if (!empty($allRealms)) {
-                    $toPostTemplate = $toPostTemplate . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
-                    $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+            if ($remove) {
+                $toPostTemplate = $toPostTemplate . 'remove=1&';
+            } else {
+                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
+                if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                    $allRealms = $this->getAllRealms();
+                    if (!empty($allRealms)) {
+                        $toPostTemplate = $toPostTemplate . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
+                        $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+                    }
                 }
             }
-        }
-        foreach (array_keys($toPost) as $key) {
-            $elem = 'port' . $key;
-            $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;
+            foreach (array_keys($toPost) as $key) {
+                $elem = 'port' . $key;
+                $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;
+            }
         }
         $response = array();
         foreach ($toPost as $key => $value) {

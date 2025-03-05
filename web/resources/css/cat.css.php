@@ -74,6 +74,10 @@ button {
     border-bottom-color: #043d52;
 }
 
+button[type=submit] {
+    cursor: pointer;
+}
+
 button.pressed {
     background:#095e80;
     border-style:inset;

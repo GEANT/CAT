@@ -24,7 +24,6 @@
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
- * @author Tomasz Wolniewicz <twoln@umk.pl>
  */
 ?>
 <?php
@@ -232,7 +231,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                     <form action='duplicate_profile.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button type='submit' name='profile_duplicate'>
                             <?php echo _("Duplicate this profile"); ?>
-                        </button>
+                	</button>
                     </form>
                     <?php } ?>
                 </div>
@@ -280,7 +279,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
  */
 function displayDeploymentPropertyWidget(&$deploymentObject) {
     // RADIUS status icons
-    $radiusMessages = [
+    $radiusMessages = [ 
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
         \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
     ];
@@ -396,17 +395,14 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </tr>
                 <tr>
                     <td>
-                        <strong><?php echo _("RADSEC ports for both servers:"); ?></strong>
+                        <strong><?php echo _("RADSEC ports for both servers (TLS or TLS-PSK):"); ?></strong>
                     </td>
                     <td>
-                        <?php echo _("RADSEC over TLS"); ?>
-                        2083<br>
-                        <?php echo _("RADSEC TLS-PSK"); ?>
-                        2084
+                        2083
                     </td>
                     <td></td>
                 </tr>
-
+               
                 <tr>
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
@@ -421,21 +417,24 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
                             <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
                             <input type="hidden" id="ca_cert_data" value="<?php echo $cacert;?>">
-                            <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc" style="background-color: gray; color: white" type="submit"><?php echo _('private key');?></button>
-                            <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" style="background-color: gray; color: white" type="submit"><?php echo _('certificate');?></button>
-                            <button class="ca_cert" name="showca" style="background-color: gray; color: white" type="submit"><?php echo _('CA certificate');?></button>
-                            <button name="sendzip" onclick="location.href='inc/sendzip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" style="background-color: gray; color: white" type="button"><?php echo _('download ZIP-file with full data');?></button>
+                            <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc"  type="submit"><?php echo _('private key');?></button>
+                            <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" type="submit"><?php echo _('certificate');?></button>
+                            <button class="ca_cert" name="showca" type="submit"><?php echo _('CA certificate');?></button>
+                            <button name="sendzip" onclick="location.href='inc/sendzip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
                         </td
                 </tr>
                 <tr> <td></td><td>
                     <?php 
-                    echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
+                    echo _('Serial number:') . ' ' . strtoupper(dechex($data['serialNumber'])) . '<br>';
                     $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
-                    if ($dleft > 0) {
+                    if ($dleft < 30) echo '<font color="red">';
+                    echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
+                    if ($dleft > 2) {
                         echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
                     } else {
                         echo '<br>' . _('If you are using RADSEC over TLS you should urgently renew your credentisls') . '!';
                     }
+                    if ($dleft < 30) { echo '</font>'; }
                     ?></td></tr>
                 <tr> <td></td><td>
                         <?php
@@ -497,16 +496,16 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </td></tr>
                 </form>
             </table>
-            <?php
-            if ($isradiusready) { ?>
+            
             <div class='buttongroupprofilebox' style='clear:both;'>
+               
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <br/>
-                    <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
-                </form>
-                <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
+                    <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
+                </form>        
+                <?php if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                             <?php echo _("Deactivate"); ?>
                         </button>
                         <?php
@@ -535,16 +534,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <?php echo _("Accept Terms of Use"); ?>
                         </button>
                     </form>
-                    <div align="right">
-                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='delete' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_REMOVESP; ?>' onclick="return confirm('<?php printf(_("Do you really want to remove this %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
-                                <?php echo _("Remove deployment"); ?>
-                            </button>
-                    </form>
-                    </div>
-                    <?php
-                    } else {
-                        ?>
+                <?php }  
+                    if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                                 <?php echo _("Activate"); ?>
@@ -565,7 +556,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                                     }
                                 }
                             }
-                            ?>
+                           ?>
                         </form>
                         <div align="right">
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -574,18 +565,17 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             </button>
                         </form>
                         </div>
-                        <?php
-                    }
-                    ?>
+                <?php } ?>   
                     <div align="right">
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='renewtls' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                            <button class='renewtls' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Renew RADSEC over TLS credentials"); ?>
                             </button>
                     </form>
                     </div>
+                
             </div>
-            <?php } else { echo _("We are not able to handle a new configuration request now.") . '<br>' . _("Check later.");} ?>
+            <?php if (!$isradiusready) { echo '<p>'. _("We are not able to handle a new configuration request requiring contact with RADIUS servers now.") . '<br>' . _("Check later.");} ?>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
         <div style='display: table-cell; min-width:200px;'>
@@ -602,6 +592,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
         <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
         <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
+        <th scope="col"><strong><?php echo _("Protocol");?></strong></th>
     </tr>
     <?php
     $userAuthData = $deploymentObject->retrieveStatistics(0,5);
@@ -613,6 +604,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                 . "<td>".$oneRecord['ap_id']."</td>"
+                . "<td>".$oneRecord['prot']."</td>"
                 . "</tr>";
     }
     ?>
@@ -678,24 +670,13 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
-<script src="js/XHR.js"></script>    
-<script src="js/popup_redirect.js"></script>
-<script src="../external/jquery/jquery-ui.js"></script> 
+<script src="js/XHR.js" type="text/javascript"></script>    
+<script src="js/popup_redirect.js" type="text/javascript"></script>
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script src="../external/jquery/DataTables/datatables.js"></script>
-<link type="text/css"  rel="stylesheet" href="../external/jquery/DataTables/datatables.css"  media="all" />
 <script>
 $(document).ready(function() {    
     $("img.cat-icon").tooltip();
-    $("table.downloads").DataTable({
-          "dom": 't',
-          "pageLength": 100,
-          "columnDefs": [
-        { orderSequence: ['asc'], targets: [0] },
-        { orderSequence: ['desc', 'asc'], targets: [1] },
-        { orderSequence: ['desc', 'asc'], targets: [2] }
-        ]
-    });
 });
 $(document).on('click', '.sp_priv_key' , function(e) {
     var did = $(this).attr('id').substring('priv_key_'.length);
@@ -726,8 +707,8 @@ $(document).on('click', '.send_zip' , function(e) {
     OpenWindow.document.write(content);
     e.preventDefault();
 });
-</script>
-
+</script>        
+        
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-PARTICIPANT");
@@ -862,16 +843,14 @@ $(document).on('click', '.send_zip' , function(e) {
                     <p>
                         <strong><?php echo _("User Downloads"); ?></strong>
                     </p>
-                    <table class="downloads" id="downloads_<?php echo $profilecount ?>">
-                        <thead><tr>
+                    <table>
                         <?php
-                        echo "<th>"._("Device")."</th><th>"._("global")."</th><th>"._("this month")."</th></tr></thead><tbody>";
                         $stats = $profile_list->getUserDownloadStats();
                         foreach ($stats as $dev => $count) {
-                            echo "<tr><td><strong>$dev</strong></td><td>".$count['current']."</td><td>".$count['monthly']."</td></tr>";
+                            echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
                         }
                         ?>
-                        </tbody></table>
+                    </table>
                 </div>
             </div>
             <!-- dummy div to keep a little distance-->
@@ -928,7 +907,7 @@ $(document).on('click', '.send_zip' , function(e) {
             }
             ?>
         </h2>
-        <?php
+        <?php 
         $hotspotProfiles = $my_inst->listDeployments();
         if (count($hotspotProfiles) == 0) { // no profiles yet.
             echo sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot);

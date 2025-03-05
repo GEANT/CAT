@@ -116,8 +116,15 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
                 exit(0);
             case web\lib\common\FormElements::BUTTON_RENEWTLS:
+                $data = openssl_x509_parse($deployment->radsec_cert);
+                $certdata = array(
+                                  strtoupper(dechex($data['serialNumber'])),
+                                  date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
+                                 );
+                $torevoke = implode('#', $certdata);
+                $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
                 $deployment->renewtls();
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
                 exit(0);
             case web\lib\common\FormElements::BUTTON_ACTIVATE:
                 if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
