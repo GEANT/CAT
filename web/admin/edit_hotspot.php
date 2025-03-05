@@ -118,7 +118,7 @@ if (isset($_POST['submitbutton'])) {
             case web\lib\common\FormElements::BUTTON_RENEWTLS:
                 $data = openssl_x509_parse($deployment->radsec_cert);
                 $certdata = array(
-                                  strtoupper(dechex($data['serialNumber'])),
+                                  $data['serialNumberHex'],
                                   date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
                                  );
                 $torevoke = implode('#', $certdata);
