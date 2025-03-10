@@ -425,7 +425,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </tr>
                 <tr> <td></td><td>
                     <?php 
-                    echo _('Serial number:') . ' ' . strtoupper(dechex($data['serialNumber'])) . '<br>';
+                    echo _('Serial number:') . ' ' . $data['serialNumberHex'] . '<br>';
                     $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
                     if ($dleft < 30) echo '<font color="red">';
                     echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
