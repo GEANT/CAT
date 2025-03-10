@@ -53,6 +53,18 @@ class Logging
     }
 
     /**
+     * writes a message to file (static version)
+     * 
+     * @param string $filename the name of the log file, relative (path to logdir gets prepended)
+     * @param string $message  what to write into the file
+     * @return void
+     */
+    private static function writeToFile_s($filename, $message)
+    {
+        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
+    }
+    
+    /**
      * write debug messages to the log, if the debug level is high enough
      *
      * @param int    $level  the debug level of the message that is to be logged
@@ -85,6 +97,39 @@ class Logging
 
         return;
     }
+    
+    /**
+     * write debug messages to the log, if the debug level is high enough - static version
+     *
+     * @param int    $level  the debug level of the message that is to be logged
+     * @param mixed  $stuff  the stuff to be logged (via print_r)
+     * @param string $prefix prefix to the message, optional
+     * @param string $suffix suffix to the message, optional
+     * @return void
+     */    
+    public static function debug_s($level, $stuff, $prefix = '', $suffix = '')
+    {
+        if (\config\Master::DEBUG_LEVEL < $level) {
+            return;
+        }
+
+        $output = " ($level) ";
+        if ($level > 3) {
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $orig_file = $backtrace[1]['file'] ?? "no file";
+            $file = str_replace(ROOT, "", $orig_file);
+            $function = $backtrace[1]['function'] ?? "no function";
+            $line = $backtrace[1]['line'] ?? "no line";
+            $output .= " [$file / $function / $line] ";
+        }
+        if (is_string($stuff)) {
+            $output .= $prefix . $stuff . $suffix;
+        } else {
+            $output .= $prefix . var_export($stuff, TRUE) . $suffix;
+        }
+        self::writeToFile_s("debug.log", $output);
+        return;
+    }   
 
     /**
      * Writes an audit log entry to the audit log file. These audits are semantic logs; they don't record every single modification
