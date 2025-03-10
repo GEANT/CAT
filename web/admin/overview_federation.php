@@ -128,14 +128,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             $editMode = 'fullaccess';
         }
     }    
-    if ($editMode === 'fullaccess') {
-    ?>
-    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
-        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
-    </form>
-
-    <?php
-    }
+  
     foreach ($feds as $onefed) {
         $fedId = strtoupper($onefed['value']);
         $fedArray[$fedId] = new \core\Federation($fedId);
@@ -143,6 +136,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     
     foreach ($fedArray as $fedId => $thefed) {
         ?>
+        <br>
 
         <div class='infobox'><h2>
                 <?php $tablecaption2 = sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption2; ?>
@@ -218,7 +212,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             </table>
             <button style="position:absolute; bottom:9px;" class="stat-button"><?php echo _("Show downloads") ?></button>
         </div>
-        <?php
+        <br>
+            <?php        
+    if ($editMode === 'fullaccess') {
+    ?>
+    <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
+        <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
+    </form>
+
+    <?php
+    }
     }
 
     if (isset($_POST['submitbutton']) &&
@@ -520,7 +523,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     }
                 }
             }
-            echo "</tbody>";
+            echo "</tbody>";         
         }
         ?>
     </table>

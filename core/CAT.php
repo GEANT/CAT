@@ -531,11 +531,12 @@ class CAT extends \core\common\Entity
      * (if any; for eduroam, this would be the official eduroam database)
      * 
      * @param string $externalId the ID of the institution in the external DB
+     * @param string $ROid - the ID of the federation in the external DB - we assume that it is always of the form strtoupper($country_code).'01'
      * @param string $realm      the function can also try to find an inst by its realm in the external DB
      * @return array a list of institutions, ideally with only one member
      * @throws \Exception
      */
-    public function getExternalDBEntityDetails($externalId, $realm = NULL)
+    public function getExternalDBEntityDetails($externalId, $ROid, $realm = NULL)
     {
         $list = [];
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -544,18 +545,13 @@ class CAT extends \core\common\Entity
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE instid = '$externalId' $scanforrealm");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE instid = '$externalId' AND ROid = '$ROid' $scanforrealm");
             // split names and contacts into proper pairs
             // SELECT never returns a boolean, always a mysqli_object
             while ($externalEntityQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $infoList)) {
-                $names = explode('#', $externalEntityQuery->collapsed_name);
-                foreach ($names as $name) {
-                    $perlang = explode(': ', $name, 2);
-                    $list['names'][$perlang[0]] = $perlang[1];
-                }
-                $contacts = explode('#', $externalEntityQuery->collapsed_contact);
-                $contacts1 = \core\ExternalEduroamDBData::dissectCollapsedContacts($externalEntityQuery->collapsed_contact);
-                foreach ($contacts1 as $contact) {
+                $list['names'] = \core\ExternalEduroamDBData::dissectCollapsedInstitutionNames($externalEntityQuery->collapsed_name)['perlang'];
+                $contacts = \core\ExternalEduroamDBData::dissectCollapsedContacts($externalEntityQuery->collapsed_contact);
+                foreach ($contacts as $contact) {
                     $list['admins'][] = ["email" => $contact['mail']];
                 }
                 $list['country'] = strtoupper($externalEntityQuery->country);
@@ -589,7 +585,7 @@ class CAT extends \core\common\Entity
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $handle = DBConnection::handle("EXTERNAL");
             $timeStart = microtime(true);
-            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_country_eduroamdb ORDER BY country");
+            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_institution ORDER BY country");
             $timeEnd = microtime(true);
             $timeElapsed = $timeEnd - $timeStart;
             // the query yielded a mysqli_result because it's a SELECT, this never gives back a boolean

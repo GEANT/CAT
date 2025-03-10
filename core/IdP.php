@@ -440,7 +440,7 @@ class IdP extends EntityWithDBProperties
         $usedarray = [];
         $matchingCandidates = [];
         $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
-        $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
+        $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id, country FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
         // SELECT -> resource, not boolean
         while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
             $usedarray[] = $alreadyUsedQuery->external_db_id;
@@ -492,13 +492,14 @@ class IdP extends EntityWithDBProperties
     public function getExternalDBId()
     {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $idQuery = $this->databaseHandle->exec("SELECT external_db_id, country FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             // SELECT -> it's a resource, not a boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $idQuery) == 0) {
                 return FALSE;
             }
             $externalIdQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idQuery);
-            return $externalIdQuery->external_db_id;
+            $externalIdQuery->ROid = strtoupper($externalIdQuery->country).'01';
+            return $externalIdQuery;
         }
         return FALSE;
     }
@@ -507,13 +508,14 @@ class IdP extends EntityWithDBProperties
      * Associates the external DB id with a CAT id
      * 
      * @param string $identifier the external DB id, which can be alphanumeric
+     * @param string $country federation identifier in the eduroam DB
      * @return void
      */
-    public function setExternalDBId(string $identifier)
+    public function setExternalDBId(string $identifier, $country)
     {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE country = ? AND external_db_id = ? AND external_db_syncstate = ?", "ssi", $country, $identifier, $syncState);
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $alreadyUsed) == 0) {
                 $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier);

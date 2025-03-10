@@ -74,10 +74,6 @@ button {
     border-bottom-color: #043d52;
 }
 
-button[type=submit] {
-    cursor: pointer;
-}
-
 button.pressed {
     background:#095e80;
     border-style:inset;
@@ -307,7 +303,8 @@ div.graybox {
     display: block;
     padding: 15px;
     text-align: start;
-    width: 850px;
+    min-width: 850px;
+    width: 80%;
     margin: 0px auto 10px;
 }
 
@@ -341,7 +338,8 @@ div#msgbox div {
 }
 
 div#msgbox div div.graybox {
-    width: 850px;
+    min-width: 850px;
+    width: 80%;
     min-height: 50px;
     max-height: 80%;
     overflow: auto;

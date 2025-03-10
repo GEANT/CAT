@@ -246,6 +246,26 @@ class InputValidation extends \core\common\Entity
         $correctIndex = array_search($input, $keyArray);
         return $keyArray[$correctIndex];
     }
+    
+    /**
+     * Test if a given external institution exists and that the provided userEmail
+     * is listed as the admin for this institutution
+     * @param type $extId
+     * @param type $userEmail
+     * @param type $ROid
+     * @return int 1 if found 0 if not
+     * @throws Exception
+     */
+    public function existingExtInstitution($extId, $userEmail = NULL, $ROid = NULL) {
+        if ($ROid === NULL || !preg_match('/^[A-Z][A-Z]01$/', $ROid) ) {
+            throw new Exception("$ROid: No correct federation identifier profided");
+        }
+        if ($userEmail === NULL) {
+            throw new Exception("No $userEmail provided");
+        }
+        $extInst = new \core\ExternalEduroamDBData();
+        return $extInst->verifyExternalEntity($ROid, $extId, $userEmail);
+    }
 
     /**
      * Checks if the input was a valid string.

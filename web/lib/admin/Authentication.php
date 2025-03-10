@@ -65,17 +65,16 @@ class Authentication extends \core\common\Entity {
         $admininfo = $authSimple->getAttributes();
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $session->cleanup();
-
         if (!isset($admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0])) {
             $failtext = "FATAL ERROR: we did not receive a unique user identifier from the authentication source!";
             echo $failtext;
             throw new Exception($failtext);
         }
-
         $user = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0];
 
         $_SESSION['user'] = $user;
         $_SESSION['name'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-name']][0] ?? _("Unnamed User");
+        $_SESSION['auth_email'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-email']][0] ?? _("");
         /*
          * This is a nice pathological test case for a user ID.
          *
@@ -101,7 +100,6 @@ class Authentication extends \core\common\Entity {
                 }
             }
         }
-
         if (count($userObject->getAttributes('user:realname')) > 0 || $newNameReceived) { // we have a real name in the DB. We trust this more than a session one, so set it
             $nameArray = $userObject->getAttributes("user:realname");
             if (!empty($nameArray[0])) {

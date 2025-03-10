@@ -152,8 +152,9 @@ switch ($operationMode) {
             exit(1);
         }
         // a real external DB entry was submitted and all the required parameters are there
-        $newexternalid = $validator->string($_POST['externals']);
-        $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
+        $externals = $validator->string($_POST['externals']);
+        [$fedId, $newexternalid] = explode('-', $externals, 2);
+        $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid, strtoupper($fedId).'01');
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureParticipant . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
@@ -179,7 +180,7 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid);
+        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid, $fedId);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
         break;
     default: // includes OPERATION_MODE_INVALID

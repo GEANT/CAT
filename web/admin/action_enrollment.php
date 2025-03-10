@@ -40,6 +40,9 @@ $usermgmt = new \core\UserManagement();
 
 $auth->authenticate();
 
+$userEmail = $_SESSION['auth_email'];
+
+
 if (!isset($_GET['token'])) {
     $elements->errorPage(_("Error creating new IdP binding!"),_("This page needs to be called with a valid invitation token!"));
 }
@@ -49,6 +52,28 @@ if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL && $_
 }
 
 switch ($_GET['token']) {
+    case "EDUGAIN-SELF-REGISTER":
+        $token = "EDUGAIN-SELF-REGISTER";
+        $extIdUnfiltered = filter_input(INPUT_GET,'extid');
+        $extIdArray = explode('-', htmlspecialchars(strip_tags($extIdUnfiltered)), 2);
+        $ROid = $extIdArray[0];
+        $extId = $extIdArray[1];
+        $fed = new \core\Federation(strtoupper(substr($ROid,0,2)));
+        $newInstFlag = $fed->getAttributes('fed:autoregister-new-inst');
+        if ($newInstFlag === []) {
+            $elements->errorPage(_("Error creating new IdP!"),_("You tried to register in self-service, but this federation does not allow self-service!"));
+        }
+        // we must be sure that this person admins the ext institution 
+        if ($validator->existingExtInstitution($extId, $userEmail, $ROid) === 1) {
+            $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
+            print "IdP ".$extId." in $ROid will be created";
+        }
+        // and check that this institution does not match anuthing in CAT.
+        $usermgmt = new \core\UserManagement();
+        if ($usermgmt->checkForCatMatch($extId, $ROid) === 1) {
+            $elements->errorPage(_("Error creating new IdP!"),_("You tried to register a new institution while it already has a match in CAT or your email is not not listed as admin for this institution in the eduroam DB!"));            
+        }
+        break;
     case "SELF-REGISTER":
         $token = "SELF-REGISTER";
         $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
@@ -83,6 +108,10 @@ $user = $validator->syntaxConformUser($_SESSION['user']);
 $loggerInstance = new \core\common\Logging();
 
 switch ($token) {
+    case "EDUGAIN-SELF-REGISTER":
+        $newidp = $usermgmt->createIdPFromExternal($extId, $fed, $user);
+        $loggerInstance->writeAudit($user, "MOD", "IdP " . $newidp->identifier . " - selfservice eduGAIN registration");
+        break;    
     case "SELF-REGISTER":
         $fed = new \core\Federation($federation);
         $newidp = new \core\IdP($fed->newIdP(core\IdP::TYPE_IDPSP, $user, "FED", "SELFSERVICE"));

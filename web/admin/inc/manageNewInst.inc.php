@@ -89,7 +89,7 @@ if (\config\Master::DB['enforce-external-sync']) {
                 $entities = $thefed->listExternalEntities(TRUE, NULL);
 
                 foreach ($entities as $v) {
-                    echo "<option id='" . $v['contactlist'] . "' value='" . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
+                    echo "<option id='" . $v['contactlist'] . "' value='" . $fed_value['value']. '-' . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
                 }
             }
 

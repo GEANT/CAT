@@ -86,9 +86,8 @@ require_once "inc/click_button_js.php";
         ?>
     </div>
     <?php
-    $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
-
-
+    $instMgmt->listInstitutionsByAdmin(true);
+    $hasInst = $instMgmt->currentInstitutions['existing'];
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
@@ -114,10 +113,9 @@ require_once "inc/click_button_js.php";
             $inst_name = $my_inst->name;
             $fed_id = strtoupper($my_inst->federation);
             $my_idps[$fed_id][$instId] = strtolower($inst_name);
-            $myFeds[$fed_id] = $cat->knownFederations[$fed_id];
+            $myFeds[$fed_id] = $cat->knownFederations[$fed_id]['name'];
             $instlist[$instId] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
         }
-
         asort($myFeds);
 
         foreach ($instlist as $key => $row_id) {
@@ -220,6 +218,7 @@ require_once "inc/click_button_js.php";
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureParticipant) . "</h2>";
     }
+    
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
         if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL) {
             echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
@@ -233,7 +232,45 @@ require_once "inc/click_button_js.php";
                     </button>
                 </form>
              </div>";
-        } else { // self-service registration is allowed! Yay :-)
+        }
+
+        elseif (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === 'eduGAIN') {
+            if ($user->edugain === true) {                
+                $resyncedInst = $instMgmt->currentInstitutions['resynced'];
+                $newInst = $instMgmt->currentInstitutions['new'];
+                if (count($resyncedInst) > 0) {
+                    print "<h3>"._("We have automatically added you to the following institutions:")."</h3>";
+                    foreach ($resyncedInst as $id) {
+                        print $instlist[$id]['name']."<br>";
+                    }
+                }
+                if (count($newInst) > 0) {
+                    echo "<p>"._("The eduroam database says you are an administrator of this following institutions, but there seem to be no matching institutions in CAT.")."<br>";
+                    echo "<table>";
+                    foreach ($newInst as $inst) {
+                        echo "<tr><th>";
+                        $i =0;
+                        foreach ($inst[1] as $lang => $name) {
+                            if ($i > 0) {
+                                echo "; ";
+                            }
+                            $i++;
+                            echo "[$lang] $name";
+                        }
+                        echo "</th><td><div>";
+                        echo "<form action='action_enrollment.php' method='get'>";
+                        echo "<input type='hidden' id='token' name='token' value='EDUGAIN-SELF-REGISTER'/>";
+                        $extid = strtoupper($inst[2]).'01-'.$inst[0];
+                        echo "<input type='hidden' name='extid' value='$extid'>";
+                        echo "<button type='submit' accept-charset='UTF-8' onclick='javascript:window.confirm(\""._("Proceed with creating the CAT IdP?")."\")'>" ._("create CAT profile for this institution")."</button><br>";
+                        echo "</form>";
+                        echo "</div></td></tr>";
+                    }
+                    echo "</table>";
+                }
+            }       
+        }
+        else { // self-service registration is allowed! Yay :-)
             echo "<hr>
             <div style='white-space: nowrap;'>
         <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>

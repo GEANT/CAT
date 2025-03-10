@@ -388,9 +388,10 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
         }
         var comment = <?php echo '"' . _("Fetching realms list") . '..."'; ?>;
         inProgress(1, comment);
+        co = $("#idp_country option:selected").val();
         $.ajax({
             url: "findRealm.php",
-            data: {type: 'realm', ou: inst, lang: lang},
+            data: {type: 'realm', co: co, ou: inst, lang: lang},
             dataType: "json",
             success:function(data) {
                 inProgress(0);

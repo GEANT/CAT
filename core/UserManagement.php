@@ -55,6 +55,9 @@ class UserManagement extends \core\common\Entity
      * @var DBConnection
      */
     private $databaseHandle;
+    public $currentInstitutions;
+    public $newUser = false;
+    public $hasPotenialNewInst = false;
 
     /**
      * Class constructor. Nothing special to be done when constructing.
@@ -142,14 +145,14 @@ class UserManagement extends \core\common\Entity
                              FROM invitations 
                              WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
         // SELECT -> resource, no boolean
-        if ($invitationDetails = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instinfo)) {
-            if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
+        if ($invitationDetails = mysqli_fetch_assoc(/** @scrutinizer ignore-type */ $instinfo)) {
+            if ($invitationDetails['cat_institution_id'] !== NULL) { // add new admin to existing IdP
                 // we can't rely on a unique key on this table (user IDs 
                 // possibly too long), so run a query to find there's an
                 // tuple already; and act accordingly
-                $catId = $invitationDetails->cat_institution_id;
-                $level = $invitationDetails->invite_issuer_level;
-                $destMail = $invitationDetails->invite_dest_mail;
+                $catId = $invitationDetails['cat_institution_id'];
+                $level = $invitationDetails['invite_issuer_level'];
+                $destMail = $invitationDetails['invite_dest_mail'];
                 $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $catId);
                 // SELECT -> resource, not boolean
                 if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) > 0) {
@@ -157,28 +160,20 @@ class UserManagement extends \core\common\Entity
                 } else {
                     $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
                 }
-                $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails['cat_institution_id'] . " - added user as owner");
                 common\Entity::outOfThePotatoes();
-                return new IdP($invitationDetails->cat_institution_id);
+                return new IdP($invitationDetails['cat_institution_id']);
             }
             // create new IdP
-            $fed = new Federation($invitationDetails->country);
+            $fed = new Federation($invitationDetails['country']);
             // find the best name for the entity: C if specified, otherwise English, otherwise whatever
-            if ($invitationDetails->external_db_uniquehandle != NULL) {
-                // see if we had a C language, and if not, pick a good candidate 
-                $cat = new CAT();
-                $externalinfo = $cat->getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
-                $bestnameguess = $externalinfo['names']['C'] ?? $externalinfo['names']['en'] ?? reset($externalinfo['names']);
-                $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
-                foreach ($externalinfo['names'] as $instlang => $instname) {
-                    $idp->addAttribute("general:instname", $instlang, $instname);
-                }
-                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
+            if ($invitationDetails['external_db_uniquehandle'] != NULL) {
+                $idp = $this->newIdPFromExternal($invitationDetails['external_db_uniquehandle'], $fed, $invitationDetails, $owner);
             } else {
-                $bestnameguess = $invitationDetails->name;
-                $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
+                $bestnameguess = $invitationDetails['name'];
+                $idp = new IdP($fed->newIdP($invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
+                $idp->addAttribute("general:instname", 'C', $bestnameguess);
             }
-            $idp->addAttribute("general:instname", 'C', $bestnameguess);
             $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             // in case we have more admins in the queue which were invited to 
@@ -190,15 +185,61 @@ class UserManagement extends \core\common\Entity
 
             $otherPending = $this->databaseHandle->exec("SELECT id
                              FROM invitations 
-                             WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails->name, $invitationDetails->country);
+                             WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails['name'], $invitationDetails['country']);
             // SELECT -> resource, no boolean
             while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
                 $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
             }
-
             common\Entity::outOfThePotatoes();
             return $idp;
         }
+    }
+
+    /**
+     * create new institution based on the edxternalDB data 
+     * @param string $extId - the eduroam database identifier
+     * @param object $fed - the CAT federation object where the institution should be created
+     * @param type $owner
+     * @return type
+     */
+    public function createIdPFromExternal($extId, $fed, $owner)
+    {
+        $cat = new CAT();
+        $ROid = strtoupper($fed->tld).'01';
+        $externalinfo = $cat->getExternalDBEntityDetails($extId, $ROid);
+        $invitationDetails = [
+            'invite_fortype' => $externalinfo['type'],
+            'invite_issuer_level' => "FED",
+            'invite_dest_mail' => $_SESSION['auth_email']
+        ];
+        $idp = $this->newIdPFromExternal($extId, $fed, $invitationDetails, $owner, $externalinfo);
+        $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from auto-registration of $extId");
+        return $idp;
+    }
+    
+    /*
+     * This is the common part of the code for createIdPFromToken and createIdPFromExternal
+     */
+    private function newIdPFromExternal($extId, $fed, $invitationDetails, $owner, $externalinfo = [])
+    {
+        // see if we had a C language, and if not, pick a good candidate 
+        if ($externalinfo == []) {
+            $cat = new CAT();
+            $ROid = strtoupper($fed->tld).'01';
+            $externalinfo = $cat->getExternalDBEntityDetails($extId, $ROid);
+        }
+        print "<p>";
+        print_r($externalinfo);
+        print "<p>";
+        print_r($owner);
+        $bestnameguess = $externalinfo['names']['C'] ?? $externalinfo['names']['en'] ?? reset($externalinfo['names']);
+        $idp = new IdP($fed->newIdP($invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
+        foreach ($externalinfo['names'] as $instlang => $instname) {
+            $idp->addAttribute("general:instname", $instlang, $instname);
+        }
+        $idp->setExternalDBId($extId, strtolower($fed->tld));
+        $idp->addAttribute("general:instname", 'C', $bestnameguess);
+        return $idp;
     }
 
     /**
@@ -266,10 +307,10 @@ class UserManagement extends \core\common\Entity
             if ($instIdentifier instanceof IdP) {
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?, ?)", "ssssi", $instIdentifier->type, $level, $oneDest, $token, $instIdentifier->identifier);
                 $tokenList[$token] = $oneDest;
-            } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
-                // what country are we talking about?
+            } else if (func_num_args() == 5) {
+                $ROid = strtoupper($country).'01';
                 $cat = new CAT();
-                $extinfo = $cat->getExternalDBEntityDetails($externalId);
+                $extinfo = $cat->getExternalDBEntityDetails($externalId, $ROid);
                 $extCountry = $extinfo['country'];
                 $extType = $extinfo['type'];
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?, ?)", "sssssss", $extType, $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
@@ -331,19 +372,182 @@ class UserManagement extends \core\common\Entity
 
     /**
      * For a given persistent user identifier, returns an array of institution identifiers (not the actual objects!) for which this
-     * user is the/a administrator.
+     * user is the/a administrator and also do comparisons to the eduroam DB results.
+     * If the federation autoregister-synced flag is set if it turns out that the eduroam DB
+     * lists the email of the current logged-in admin as an admin of an existing CAT institution
+     * and this institution is synced to the matching external institutuin then this admin
+     * will be automatically added tho the institution and the 'existing' part of $this->currentInstitutions
+     * will be updated. This identifier will also be listed to $this->currentInstitutions['resynced']
      * 
-     * @param string $userid persistent user identifier
+     * If the federation autoregister-new-inst flag is set and there are exeternal institututions which could be
+     * candidated for creating them in CAT - add the identifiers of these institutuins to this->currentInstitutions[new']
+     * 
+     * @param boolean $applyAutoSync controls if automatic additions if the user to the admins should be performed
      * @return array array of institution IDs
-     */
-    public function listInstitutionsByAdmin($userid)
+     */ 
+    public function listInstitutionsByAdmin($applyAutoSync = false)
     {
-        $returnarray = [];
-        $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userid);
-        // SELECT -> resource, not boolean
-        while ($instQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $institutions)) {
-            $returnarray[] = $instQuery->institution_id;
+        $userId = $_SESSION['user'];
+        // get the list of local identifers of institutions managed by this user
+        // it will be returned as $this->currentInstitutions
+        $this->getCurrentInstitutionsByAdmin();
+        if (count($this->currentInstitutions) == 0) {
+            $this->newUser = true;
         }
-        return $returnarray;
+        
+        // check if selfservice_registration is set to eduGAIN - if not then return
+        if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] !== 'eduGAIN') {
+            return $this->currentInstitutions;
+        }
+        // now add additional institutions based on the external DB 
+        // proceed only if user has been authenticated fron an eduGAIN IdP
+        $user = new \core\User($userId);
+        if ($user->edugain !== true) {
+            return $this->currentInstitutions;            
+        }
+        $email = $_SESSION['auth_email'];
+        $externalDB = \core\CAT::determineExternalConnection();
+        // get the list of identifiers in the external DB with this user listed as the admin and linked to CAT institutions
+        $extInstList = $externalDB->listExternalEntitiesByUserEmail($email);
+        $extInstListTmp = $extInstList;
+        // we begin by removing entites in $extInstList which are already managed by this user and synced -
+        // these require not further checking
+        foreach ($extInstListTmp as $country => $extInstCountryList) {
+            for($i = 0; $i < count($extInstCountryList); ++$i) {
+                $extInst = $extInstCountryList[$i];
+                if ($extInst['inst_id'] != NULL && in_array($extInst['inst_id'], $this->currentInstitutions['existing'])) {
+                    unset($extInstList[$country][$i]);
+                }
+            }
+            if (count($extInstList[$country]) == 0) {
+                unset($extInstList[$country]);
+            }
+        }
+        
+        if ($extInstList == []) {
+            return $this->currentInstitutions; 
+        }
+        
+        foreach ($extInstList as $country => $extInstCountryList) {
+            $fed = new Federation($country);
+            $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
+            $newInstFlag = $fed->getAttributes('fed:autoregister-new-inst');
+            foreach ($extInstCountryList as $extInst) {
+                $this->loggerInstance->debug(4, "Testing ".$extInst['external_db_id']."\n");
+                // is institution synced, if so we add this admin
+                if ($extInst['inst_id'] != NULL && $autoSyncedFlag != []) {
+                    $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
+                    if ($applyAutoSync) {
+                        $this->loggerInstance->debug(4, "Adding admin to ".$extInst['inst_id']."\n");
+                        $this->currentInstitutions['existing'][] = $extInst['inst_id'];
+                        $query = "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES (?, ?, 'FED', ?)";
+                        $this->databaseHandle->exec($query, 'sis', $userId, $extInst['inst_id'], $email);
+                    }
+                }
+                
+                // this institution is not synced, perhaps we could create a new one in CAT
+                if ($extInst['inst_id'] == NULL && $newInstFlag != []) {
+                    $this->loggerInstance->debug(4, "Testing ".$extInst['external_db_id']." for potential new inst\n");
+                    // run checks against creating dupplicates in CAT DB
+                    $disectedNames = \core\ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
+                    $names = $disectedNames['joint'];
+                    $realms = \core\ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
+                    $foundMatch = $this->checkForSimilarInstitutions($names, $realms);
+                    $this->loggerInstance->debug(4, $foundMatch, "checkForSimilarInstitutions returned: ","\n");
+                    if ($foundMatch == 0) {
+                        $this->currentInstitutions['new'][] = [$extInst['external_db_id'], $disectedNames['perlang'], $country];
+                    }
+                }
+                
+            }    
+        }
+        $this->loggerInstance->debug(4,$this->currentInstitutions['new'],"\n","\n");
+        return $this->currentInstitutions;
+    }
+    
+    /**
+     * Tests if the institution with these identifier does not yet exist in CAT. 
+     * This is done by testing the admins "new" institutions, this way we also make sure
+     * that this admin is actually also allowed to create the new one
+     * 
+     * @return int 1 or 0. 1 means we are free to create the inst.
+     */
+    
+    public function checkForCatMatch($extId, $ROid) {
+        $this->listInstitutionsByAdmin();
+        foreach ($this->currentInstitutions['new'] as $newInst) {
+            if ($extId == $newInst[0] && $ROid == strtoupper($newInst[2]).'01') {
+                return 0;
+            }
+        }
+        return 1;
+    }
+    
+    /**
+     * get the list of current institutions of the given admin
+     * 
+     * This method does not rerurn anything but sets $this->currentInstitutions
+     * it only fillsh the 'existing' block, leaving the other two for other methods
+     * to deal with
+     */
+    private function getCurrentInstitutionsByAdmin() {
+        $returnarray = [
+            'existing' => [],
+            'resynced' => [],
+            'new' => []
+        ];
+        $userId = $_SESSION['user'];
+        // get the list of local identifers of institutions managed by this user
+        $query = "SELECT ownership.institution_id as inst_id
+                  FROM ownership JOIN institution
+                     ON ownership.institution_id = institution.inst_id
+                     WHERE ownership.user_id = ? ORDER BY ownership.institution_id";
+        $institutions = $this->databaseHandle->exec("SELECT ownership.institution_id as inst_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userId);
+        // SELECT -> resource, not boolean
+        $catInstList = $institutions->fetch_all();
+        foreach ($catInstList as $inst) {
+            $returnarray['existing'][] = $inst[0];
+        }
+        $this->currentInstitutions = $returnarray;
+    }
+
+    /**
+     * given arrays of realms and names check if there already are institutions in CAT that 
+     * could be a match - this is for ellimination and against creating duplicates
+     * still this is not perfect, no realms given and institutions with a slightly different
+     * name will return no-match and thus open possibility for dupplicates
+     * 
+     * @param array $namesToTest
+     * @param arrau $realmsToTest
+     * @return int - 1 - a match was found, 0 - no match found
+     */
+    private function checkForSimilarInstitutions($namesToTest, $realmsToTest) {
+        //generate a list of all existing realms
+        $realmsList = [];
+        $query = 'SELECT DISTINCT realm FROM profile';
+        $realmsResult = $this->databaseHandle->exec($query);
+        while ($anonId = $realmsResult->fetch_row()) {
+            $realmsList[] = mb_strtolower(preg_replace('/^.*@/', '', $anonId[0]), 'UTF-8');
+        }
+        // now test realms
+        $results = array_intersect($realmsToTest, $realmsList);
+        if (count($results) !== 0) {
+            return 1;
+        }
+        
+        // generate a list of all institution names
+        $query = "SELECT DISTINCT CONVERT(option_value USING utf8mb4) FROM institution_option WHERE option_name='general:instname'";
+        $namesResult = $this->databaseHandle->exec($query);
+        $namesList = [];
+        while ($name = $namesResult->fetch_row()) {
+            $namesList[] = mb_strtolower($name[0], 'UTF-8');
+        }
+
+        // now test names
+        $results = array_intersect($namesToTest, $namesList);
+        if (count($results) !== 0) {
+            return 1;
+        }
+        return 0;
     }
 }

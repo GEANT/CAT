@@ -123,12 +123,14 @@ if (isset($_POST['submitbutton'])) {
             // end of left-hand side
             echo "</td><td>";
             // right-hand side: external DB
-            $externalid = $my_inst->getExternalDBId();
-            if (is_bool($externalid)) { // we are in SYNCED state so this cannot happen
+            $extIdObject = $my_inst->getExternalDBId();
+            $externalid = $extIdObject->external_db_id;
+            $ROid = $extIdObject->ROid;
+            if (is_bool($extIdObject)) { // we are in SYNCED state so this cannot happen
                 throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the " . $uiElements->nomenclatureParticipant . "!");
             }
 
-            $extinfo = $cat->getExternalDBEntityDetails($externalid);
+            $extinfo = $cat->getExternalDBEntityDetails($externalid, $ROid);
 
             echo "<table>";
             foreach ($extinfo['names'] as $lang => $name) {
@@ -159,7 +161,7 @@ if (isset($_POST['submitbutton'])) {
             echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("%s Name"), $uiElements->nomenclatureParticipant) . "</th><th>" . _("Administrators") . "</th></tr>";
 
             foreach ($candidates as $candidate) {
-                $info = $cat->getExternalDBEntityDetails($candidate);
+                $info = $cat->getExternalDBEntityDetails($candidate, strtoupper($my_inst->federation).'01');
                 echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
                 foreach ($info['names'] as $lang => $name) {
                     echo "[$lang] $name<br/>";

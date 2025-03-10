@@ -82,6 +82,8 @@ class DBConnection
                 throw new Exception("This type of database (" . strtoupper($database) . ") is not known!");
         }
     }
+    
+    public $dbName;
 
     /**
      * Implemented for safety reasons only. Cloning is forbidden and will tell the user so.
@@ -283,12 +285,14 @@ class DBConnection
                 throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
             }
             $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
+            $this->dbName = \config\Master::DB[$databaseCapitalised]['db'];
         } else { // one of the RADIUS DBs
             $this->connection = new \mysqli(\config\ConfAssistant::DB[$databaseCapitalised]['host'], \config\ConfAssistant::DB[$databaseCapitalised]['user'], \config\ConfAssistant::DB[$databaseCapitalised]['pass'], \config\ConfAssistant::DB[$databaseCapitalised]['db']);
             if ($this->connection->connect_error) {
                 throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
             }
             $this->readOnly = \config\ConfAssistant::DB[$databaseCapitalised]['readonly'];
+            $this->dbName = \config\ConfAssistant::DB[$databaseCapitalised]['db'];
         }
         if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
         // it does not matter for internal time calculations with TIMESTAMPs but

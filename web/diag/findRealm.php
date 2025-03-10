@@ -174,7 +174,7 @@ if ($givenRealm != '') {
                 break;
             case "realm":
                 if ($realmOu) {
-                    $details = $cat->getExternalDBEntityDetails($realmOu);
+                    $details = $cat->getExternalDBEntityDetails($realmOu, strtoupper($realmCountry).'01');
                     if (!empty($details)) {
                         $returnArray['status'] = 1;
                         $returnArray['realms'] = explode(',', $details['realmlist']);

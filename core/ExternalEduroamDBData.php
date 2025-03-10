@@ -25,6 +25,8 @@
  * querying the external database.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package Developer
  *
@@ -166,7 +168,45 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         IdP::TYPE_IDPSP => ExternalEduroamDBData::TYPE_IDPSP,
         IdP::TYPE_SP => ExternalEduroamDBData::TYPE_SP,
     ];
+    
+    /**
+     * separate institution names as written in the eduroam DB into array
+     * 
+     * @param string $collapsed - '#' separated list of names - each name has
+     *      two-letter language prefic followed by ':'
+     * @return array $nameList - tle list contains both separate per-lang entires
+     *        and a joint one, just names no lang info - this used for comparison with CAT institution names
+     */
+    public static function dissectCollapsedInstitutionNames($collapsed) {
+        $names = explode('#', $collapsed);
+        $nameList = [
+            'joint' => [],
+            'perlang' => [],
+        ];
+        foreach ($names as $name) {
+            $perlang = explode(': ', $name, 2);
+            $nameList['perlang'][$perlang[0]] = $perlang[1];
+            if (!in_array($perlang[1], $nameList['joint'])) {
+                $nameList['joint'][] = mb_strtolower(preg_replace('/^..: /', '', $name), 'UTF-8');
+            }
+        } 
+        return $nameList;
+    }
 
+    /**
+     * separate institution realms as written in the eduroam DB into array
+     * 
+     * @param type $collapsed
+     * @return array $realmList
+     */
+    public static function dissectCollapsedInstitutionRealms($collapsed) {
+        if ($collapsed === '' || $collapsed === NULL) {
+            return [];
+        }
+        $realmList = explode(',', $collapsed);
+        return $realmList;        
+    }
+    
     /**
      * 
      * @param string $collapsed the blob with contact info from eduroam DB
@@ -175,21 +215,20 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     public static function dissectCollapsedContacts($collapsed) {
         $contacts = explode('#', $collapsed);
         $contactList = [];
-        $names = [
-            'n' => 'name',
-            'e' => 'mail',
-            'p' => 'phone'
-        ];
         foreach ($contacts as $contact) {
-            $out = preg_split('/(?:, )?([nep]):/', $contact, -1, PREG_SPLIT_DELIM_CAPTURE);
-            $splitContacts = [];
-            for ($i=1; $i < count($out) ; $i+=2) {
-                $splitContacts[$names[$out[$i]]] = $out[$i+1];
+            $matches = [];
+            preg_match("/^n: *([^ ].*), e: *([^ ].*), p: *([^ ].*)$/", $contact, $matches);
+            if (!isset($matches[1])) {
+                continue;
             }
-            $contactList[] = $splitContacts;
+            $contactList[] = [
+                "name" => $matches[1],
+                "mail" => $matches[2],
+                "phone" => $matches[3]
+            ];
         }
         return $contactList;
-    }    
+    }  
 
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
@@ -258,7 +297,64 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
         return $returnArray;
     }
-   
+    
+    /*
+     * retrieves the list of identifiers (external and local) of all institutions
+     * which have the admin email listed in the externam DB, thos that are synced to an
+     * existing CAT institution will also have the local identifier (else NULL)
+     */
+    
+    public function listExternalEntitiesByUserEmail($userEmail){
+        $out = [];
+        $cat = $this->localDb->dbName;
+        $query = "SELECT DISTINCT view_institution_admins.instid, $cat.institution.inst_id,
+            UPPER(view_active_institution.country), view_active_institution.name,
+            view_active_institution.inst_realm, view_active_institution.type
+            FROM view_institution_admins
+            JOIN view_active_institution
+                ON view_institution_admins.instid = view_active_institution.instid
+            LEFT JOIN $cat.institution
+                ON view_institution_admins.instid=$cat.institution.external_db_id
+            WHERE view_active_institution.type != 2 AND view_institution_admins.email= ?";
+        
+        $externals = $this->db->exec($query, 's', $userEmail);
+        while ($row = $externals->fetch_array()) {
+            $external_db_id =  $row[0];
+            $inst_id = $row[1];
+            $country = $row[2];
+            $name = $row[3];
+            $realm = $row[4];
+            $type = $row[5];
+            if (!isset($out[$country])) {
+                $out[$country] = [];
+            }
+            $out[$country][] = ['external_db_id'=>$external_db_id, 'inst_id'=>$inst_id, 'name'=>$name, 'realm'=>$realm, 'type'=>$type];
+        }
+        return $out;
+    }
+    
+    /**
+     * Test if a given external institution exists and if userEmail is provided also
+     * check if this mail is listed as the admin for this institutution
+     * 
+     * @param type $ROid
+     * @param type $extId
+     * @param type $userEmail
+     * @return int 1 if found 0 if not
+     */
+    public function verifyExternalEntity($ROid, $extId, $userEmail = NULL) {
+        $query = "SELECT * FROM view_institution_admins WHERE ROid='$ROid' AND instid='$extId'";
+        if ($userEmail != NULL) {
+            $query .= " AND email='$userEmail'";
+        }
+        $result = $this->db->exec($query);
+        if (mysqli_num_rows(/** @scrutinizer ignore-type */ $result) > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }  
+    
     public function listExternalRealms() {
         return $this->listExternalEntitiesByRealm(""); // leaing realm empty gets *all*
     }

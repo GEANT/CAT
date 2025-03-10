@@ -35,7 +35,7 @@ $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
 
 $auth->authenticate();
-
+$eduroamDb = new \core\ExternalEduroamDBData();
 
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
@@ -70,7 +70,7 @@ $langObject = new \core\common\Language();
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $oneFed) {
         $theFed = new \core\Federation($oneFed['value']);
-        printf("<p>" . _("Certificate Information for %s %s"), $uiElements->nomenclatureFed, $theFed->name) . "</p>";
+        printf("<h2>" . _("Certificate Information for %s %s")."</h2>", $uiElements->nomenclatureFed, $theFed->name);
         foreach ($theFed->listTlsCertificates() as $oneCert) {
             if ($oneCert['STATUS'] == "REQUESTED") {
                 $theFed->updateCertificateStatus($oneCert['REQSERIAL']);
@@ -95,8 +95,23 @@ $langObject = new \core\common\Language();
             echo "</tr>";
         }
         echo "</table>";
+        
+        if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
+            ?>
+            <form action="action_req_certificate.php" method="POST">
+                <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo _("Request new Certificate"); ?></button>
+            </form>
+            <?php
+        } else {
+            ?>
+            <span style="color: red"><?php echo sprintf(_("You can not request certificates because there is no server information for %s in the eduroam DB."), $theFed->tld); ?></span>
+            <?php
+        }
     }
-    $eduroamDb = new \core\ExternalEduroamDBData();
+    
+    
+  /*  
+    
     foreach ($feds as $oneFed2) {
         $theFed = new \core\Federation($oneFed2['value']);
         if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
@@ -111,5 +126,7 @@ $langObject = new \core\common\Language();
             <?php
         }
     }
+   * 
+   */
     echo $deco->footer();
     

@@ -48,6 +48,8 @@ class User extends EntityWithDBProperties
      * @var string
      */
     public $userName;
+    
+    public $edugain = false;
 
     /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
@@ -63,6 +65,7 @@ class User extends EntityWithDBProperties
         $this->entityIdColumn = "user_id";
         $this->identifier = 0; // not used
         $this->userName = $userId;
+        $this->edugain = $this->isFromEduGAIN();
         $optioninstance = Options::instance();
 
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -155,6 +158,32 @@ class User extends EntityWithDBProperties
             }
         }
         return FALSE;
+    }
+    
+    /** This function tests if user's IdP is listed in eduGAIN - it uses an external 
+     *  call to technical eduGAIN API
+     * 
+     * @return boolean true if the IdP is listed, false otherwise
+     * 
+     */
+    public function isFromEduGAIN()
+    {
+        $loggerInstance = new common\Logging();
+        $entityId = preg_replace('/^.*=!/','', $_SESSION['user']);
+        $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$entityId";
+        $ch = curl_init($url);
+        if ($ch === FALSE) {
+            $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
+            return false;
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
+        $response = curl_exec($ch);
+        if ($response === "null") {
+            return false;
+        } else {
+            return true;
+        }
     }
     
     /**

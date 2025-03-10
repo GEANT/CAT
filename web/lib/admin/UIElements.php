@@ -137,6 +137,8 @@ class UIElements extends \core\common\Entity {
             sprintf(_("Mint %s with CA on creation"), $this->nomenclatureIdP) => "fed:minted_ca_file",
             sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant) => "fed:openroaming",
             _("OpenRoaming: Custom NAPTR Target") => "fed:openroaming_customtarget",
+            _("Allow admins listed in eduroam DB to become admins for synced CAT institutions") => "fed:autoregister-synced",
+            _("Allow admins listed in eduroam DB to create new institutions") => "fed:autoregister-new-inst",
             $ssidText => "media:SSID",
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
