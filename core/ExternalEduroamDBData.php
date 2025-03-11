@@ -196,7 +196,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     /**
      * separate institution realms as written in the eduroam DB into array
      * 
-     * @param type $collapsed
+     * @param string $collapsed
      * @return array $realmList
      */
     public static function dissectCollapsedInstitutionRealms($collapsed) {
@@ -298,10 +298,13 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         return $returnArray;
     }
     
-    /*
+    /**
      * retrieves the list of identifiers (external and local) of all institutions
      * which have the admin email listed in the externam DB, thos that are synced to an
      * existing CAT institution will also have the local identifier (else NULL)
+     * 
+     * @param string $userEmail
+     * @return array
      */
     
     public function listExternalEntitiesByUserEmail($userEmail){
@@ -337,9 +340,9 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * Test if a given external institution exists and if userEmail is provided also
      * check if this mail is listed as the admin for this institutution
      * 
-     * @param type $ROid
-     * @param type $extId
-     * @param type $userEmail
+     * @param string $ROid
+     * @param string $extId
+     * @param string $userEmail
      * @return int 1 if found 0 if not
      */
     public function verifyExternalEntity($ROid, $extId, $userEmail = NULL) {
@@ -355,6 +358,10 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         }
     }  
     
+    /**
+     * 
+     * @return array
+     */
     public function listExternalRealms() {
         return $this->listExternalEntitiesByRealm(""); // leaing realm empty gets *all*
     }

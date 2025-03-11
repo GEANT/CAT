@@ -123,4 +123,17 @@ class ExternalNothing implements ExternalLinkInterface
         unset($tld); // not needed
         return [];
     }
+    
+    /**
+     * retrieves the list of identifiers (external and local) of all institutions
+     * which have the admin email listed in the externam DB, thos that are synced to an
+     * existing CAT institution will also have the local identifier (else NULL)
+     * 
+     * @param string $userEmail
+     * @return array
+     */
+    
+    public function listExternalEntitiesByUserEmail($userEmail){
+        return [];
+    }
 }

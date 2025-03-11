@@ -487,7 +487,7 @@ class IdP extends EntityWithDBProperties
     /**
      * Retrieves the external DB identifier of this institution. Returns FALSE if no ID is known.
      * 
-     * @return string|boolean the external identifier; or FALSE if no external ID is known
+     * @return object|boolean the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId()
     {

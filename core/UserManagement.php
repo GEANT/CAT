@@ -199,7 +199,7 @@ class UserManagement extends \core\common\Entity
      * create new institution based on the edxternalDB data 
      * @param string $extId - the eduroam database identifier
      * @param object $fed - the CAT federation object where the institution should be created
-     * @param type $owner
+     * @param string $owner
      * @return type
      */
     public function createIdPFromExternal($extId, $fed, $owner)
@@ -413,7 +413,8 @@ class UserManagement extends \core\common\Entity
         // we begin by removing entites in $extInstList which are already managed by this user and synced -
         // these require not further checking
         foreach ($extInstListTmp as $country => $extInstCountryList) {
-            for($i = 0; $i < count($extInstCountryList); ++$i) {
+            $len = count($extInstCountryList);
+            for($i = 0; $i < $len; ++$i) {
                 $extInst = $extInstCountryList[$i];
                 if ($extInst['inst_id'] != NULL && in_array($extInst['inst_id'], $this->currentInstitutions['existing'])) {
                     unset($extInstList[$country][$i]);
@@ -498,10 +499,6 @@ class UserManagement extends \core\common\Entity
         ];
         $userId = $_SESSION['user'];
         // get the list of local identifers of institutions managed by this user
-        $query = "SELECT ownership.institution_id as inst_id
-                  FROM ownership JOIN institution
-                     ON ownership.institution_id = institution.inst_id
-                     WHERE ownership.user_id = ? ORDER BY ownership.institution_id";
         $institutions = $this->databaseHandle->exec("SELECT ownership.institution_id as inst_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userId);
         // SELECT -> resource, not boolean
         $catInstList = $institutions->fetch_all();
@@ -518,7 +515,7 @@ class UserManagement extends \core\common\Entity
      * name will return no-match and thus open possibility for dupplicates
      * 
      * @param array $namesToTest
-     * @param arrau $realmsToTest
+     * @param array $realmsToTest
      * @return int - 1 - a match was found, 0 - no match found
      */
     private function checkForSimilarInstitutions($namesToTest, $realmsToTest) {

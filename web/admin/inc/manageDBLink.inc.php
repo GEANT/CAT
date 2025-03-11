@@ -46,7 +46,8 @@ $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 
 // DB link administrationis only permitted by federation operator himself
-$isFedAdmin = $user->isFederationAdmin($my_inst->federation);
+$fedId = $my_inst->federation;
+$isFedAdmin = $user->isFederationAdmin($fedId);
 
 // if not, send the user away
 
@@ -69,9 +70,9 @@ if (isset($_POST['submitbutton'])) {
             // okay, they did sumbit an inst. It's either a (string) handle from a promising 
             // candidate, or "other" as selected from the drop-down list
             if ($_POST['inst_link'] != "other") {
-                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link'))); // validator will do additional checks
+                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link')), $fedId); // validator will do additional checks
             } elseif (isset($_POST['inst_link_other'])) {
-                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other'))); // validator will do additional checks
+                $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other')), $fedId); // validator will do additional checks
             }
             break;
         case web\lib\common\FormElements::BUTTON_DELETE:

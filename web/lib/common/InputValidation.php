@@ -250,9 +250,9 @@ class InputValidation extends \core\common\Entity
     /**
      * Test if a given external institution exists and that the provided userEmail
      * is listed as the admin for this institutution
-     * @param type $extId
-     * @param type $userEmail
-     * @param type $ROid
+     * @param string $extId
+     * @param string $userEmail
+     * @param string $ROid
      * @return int 1 if found 0 if not
      * @throws Exception
      */
