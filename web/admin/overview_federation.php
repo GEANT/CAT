@@ -92,7 +92,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         $fedIdentifiers = array_keys($countryList);
         if (isset($_GET['fed_id'])) {
             [$fed, $editMode] = $validator->existingFederationInt($_GET['fed_id'], $_SESSION['user']);
-            $fed_id = $fed->tld;          
+            $fed_id = $fed->tld;
+            $_SESSION['selected_fed'] = $fed_id;
+            $feds = [['name'=>'user:fedadmin', 'value' => $fed_id, 'mode' => '']];
+        } elseif (isset($_SESSION['selected_fed'])) {
+            [$fed, $editMode] = $validator->existingFederationInt($_SESSION['selected_fed'], $_SESSION['user']);
+            $fed_id = $fed->tld;
             $feds = [['name'=>'user:fedadmin', 'value' => $fed_id, 'mode' => '']];
         } else {
             $feds = $user->getAttributes("user:fedadmin");
