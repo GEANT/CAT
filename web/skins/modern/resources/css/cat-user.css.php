@@ -142,10 +142,14 @@ a:active {
 }
 
 button {
-    cursor: pointer;
     background: #575757; 
     color: #FFFFFF; 
     height: 23px;
+}
+
+button:hover {
+     background: #bcd5e4;
+     color:#000;
 }
 
 button.pressed {
@@ -180,6 +184,11 @@ button.delete {
     min-height: 23px;
     color: white;
     background:  #1d4a74;
+}
+
+#device_list button:hover {
+     background: #bcd5e4;
+     color:#000;
 }
 
 #device_list button.more_info_b {
@@ -449,6 +458,24 @@ span.redirect_link a:active {
     text-decoration: none;
 }
 
+span.continue {
+    background: #575757;
+    color: #FFFFFF; height: 23px;
+    padding-<?php echo $start ?>: 5px;
+    padding-<?php echo $end ?>: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    position: relative;
+    cursor:pointer;
+    float: <?php echo $end ?>;
+    height: 14px;
+}
+
+span.continue:hover {
+     background: #bcd5e4;
+     color:#000;
+}
+
 .use_borders button.alertButton {
     color: maroon; 
     background: #bbb; 
@@ -630,6 +657,11 @@ button.guess_os {
     display: none;
 }
 
+button.guess_os:hover {
+     background: #bcd5e4;
+     color:#000;
+}
+
 #guess_os button.more_info_b {
     background-color: #1d4a74;
     border: 6px solid  #e7e7e7;
@@ -644,6 +676,11 @@ button.guess_os {
     height: 100px;
     text-align: center;
     vertical-align: middle;
+}
+
+#guess_os button.more_info_b:hover {
+     background: #bcd5e4;
+     color:#000;
 }
 
 #openroaming_tou {
@@ -1378,7 +1415,7 @@ button.large_button {
 }
 
 button.large_button:hover {
-    background-color: #e7e7e7;
+    background-color: #bcd5e4;
     color: #575757;
     text-decoration: underline;
 }

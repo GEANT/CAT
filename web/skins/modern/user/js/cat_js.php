@@ -377,11 +377,11 @@ function clearUIsettings() {
     $("#other_installers").hide(); // 
     $("#openroaming_check").prop("checked", false);
     $("#g_or_"+recognisedOS).css("background-color", "#bbb");
-    $("#g_or_"+recognisedOS).removeClass('enabled');
+    $("#g_or_"+recognisedOS).css("color", "#fff");
     $("#openroaming_tou").hide();
     $("#g_or_"+recognisedOS).hide();
-    $("button.dev_or").removeClass('enabled');
     $("button.dev_or").css("background-color", "#bbb");
+    $("button.dev_or").css("color", "#fff");
 }
 
 function handlePreagreed() {
@@ -403,7 +403,7 @@ function resetOpenRoaming(mainOs, hs20) {
     return;
   }
   $("#g_or_"+mainOs).css("background-color", "#bbb");
-  $("#g_or_"+mainOs).removeClass('enabled');
+  $("#g_or_"+recognisedOS).css("color", "#fff");
   $("#g_or_"+mainOs).hide();
   switch (openroaming) {
     case 'none':
@@ -602,9 +602,9 @@ function handleGuessOs(recognisedDevice) {
         t += '<br/>&nbsp;<br/>';
       t +=  recognisedDevice.eap_customtext;
     }
-    t += "<br><span class='redirect_link'>"+guiTexts.continue+"</span>";
+    t += "<br><span class='continue'>"+guiTexts.continue+"</span>";
     i_div.html(t);
-    $(".redirect_link").click(function(event) {
+    $(".continue").click(function(event) {
       i_div.hide('fast');
       var dev_id = pressedButton.attr('name');
       var setOpenRoaming = 0;
@@ -979,14 +979,21 @@ $(document).ready(function() {
   $("#openroaming_check").change(function(event) {
     if ($("#openroaming_check").prop("checked") == true) {
         $("[id^='g_or_']").css("background-color", $("button.guess_os").css("background-color"));
-        $("[id^='g_or_']").addClass('enabled');
+        $("[id^='g_or_']").hover(function(){
+            $(this).css("background-color","#bcd5e4");
+            $(this).css("color", "#000");
+           }, 
+           function(){
+            $(this).css("background-color","#1d4a74");
+            $(this).css("color", "#fff");
+           });
         $("#device_list button.dev_or.hs20").css("background-color", $("button.guess_os").css("background-color"));
-        $("#device_list button.dev_or.hs20").addClass('enabled');
     } else {
       $("[id^='g_or_']").css("background-color", "#bbb");
-      $("[id^='g_or_']").removeClass('enabled');
+      $("[id^='g_or_']").css("color", "#fff");
+      $("[id^='g_or_']").off( "mouseenter mouseleave" );
       $("#device_list button.dev_or").css("background-color", "#bbb");
-      $("#device_list button.dev_or").removeClass('enabled');
+      $("#device_list button.dev_or").css("color", "#fff");
     }
   });
 

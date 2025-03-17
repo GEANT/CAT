@@ -51,12 +51,16 @@ td.icon_td img {
     text-transform: uppercase;
     text-decoration: none;
 }
+
 .diag_button {
   transition-duration: 0.4s;
   border-radius: 4px;
+  background: #575757; 
+color: #FFFFFF; 
 }
 
-.diag_button:hover {
-  background-color: #0e68ed;
-  color: white;
+
+button.diag_button:hover {
+  background-color: #bcd5e4;
+  color: #000;
 }

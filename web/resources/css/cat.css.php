@@ -74,8 +74,9 @@ button {
     border-bottom-color: #043d52;
 }
 
-button[type=submit] {
-     cursor: pointer;
+button:hover {
+     background: #bcd5e4;
+     color:#000;
  }
 
 button.pressed {
@@ -96,6 +97,10 @@ button.delete {
     background: maroon;
 }
 
+button.delete:hover {
+    background: red;
+    color:#FFF;
+}
 .problemdescription {
     padding-<?php echo $start;?>:40px;
     padding-top: 10px;
