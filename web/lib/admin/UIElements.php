@@ -96,6 +96,7 @@ class UIElements extends \core\common\Entity {
             _("Support: E-Mail") => "support:email",
             sprintf(_("%s Name"), $this->nomenclatureParticipant) => "general:instname",
             sprintf(_("%s Acronym"), $this->nomenclatureParticipant) => "general:instshortname",
+            _("Institution Alt Name") => "general:instaltname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",

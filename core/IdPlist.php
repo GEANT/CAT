@@ -95,6 +95,12 @@ class IdPlist extends common\Entity
                     $keywords[$keyword['lang'].'_7'] =
                         iconv('UTF-8', 'ASCII//TRANSLIT', $value);
                 }
+                
+                foreach ($options['altnames'] as $keyword) {
+                    $value = $keyword['value'];
+                    $keywords[] = $value;
+                }
+                
                 $q = "SELECT DISTINCT realm FROM profile WHERE inst_id=? AND realm NOT LIKE '%hosted.eduroam.org'";
                 $realms = $handle->exec($q, 'i', $queryResult->inst_id);
                 while ($outerId = mysqli_fetch_row(/** @scrutinizer ignore-type */ $realms)) {
@@ -253,6 +259,7 @@ class IdPlist extends common\Entity
             "JOIN institution_option ON institution.inst_id = institution_option.institution_id
             WHERE (institution_option.option_name = 'general:instname' 
                 OR institution_option.option_name = 'general:geo_coordinates'
+                OR institution_option.option_name = 'general:instaltname'
                 OR institution_option.option_name = 'general:logo_file') ";
 
         $query .= ($country != "" ? "AND institution.country = ? " : "");
@@ -295,6 +302,7 @@ class IdPlist extends common\Entity
     private static function setIdentityProviderAttributes($idp) {
         $options = explode('---', $idp->options);
         $names = [];
+        $altnames = [];
         $geo = [];
         $icon = 0;
         foreach ($options as $option) {
@@ -312,12 +320,17 @@ class IdPlist extends common\Entity
                         'lang' => $opt[2],
                         'value' => $opt[1]
                     ];
+                case 'general:instaltname':
+                    $altnames[] = [
+                        'lang' => $opt[2],
+                        'value' => $opt[1]
+                    ];
                     break;
                 default:
                     break;
             }
         }
-        return ['names' => $names, 'geo' => $geo, 'icon' => $icon];       
+        return ['names' => $names, 'altnames'=> $altnames, 'geo' => $geo, 'icon' => $icon];       
     }
     
     /**
