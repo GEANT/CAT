@@ -148,6 +148,10 @@ CREATE TABLE `deployment` (
   `radius_status_2` tinyint(1) DEFAULT '0',
   `consortium` varchar(64) DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `radsec_priv` blob DEFAULT NULL,
+  `radsec_cert` blob DEFAULT NULL,
+  `radsec_cert_serial_number` blob DEFAULT NULL,
+  `pskkey` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`deployment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -278,7 +278,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
  * @param \core\DeploymentManaged $deploymentObject the deployment to work with
  * @throws Exception
  */
-function displayDeploymentPropertyWidget(&$deploymentObject) {
+function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     // RADIUS status icons
     $radiusMessages = [
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
@@ -408,17 +408,21 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                     <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
                 </tr>
-                <?php if ($deploymentObject->radsec_priv != '' && $deploymentObject->radsec_cert != '') { 
+                <?php if ($deploymentObject->radsec_cert != '') { 
                     $data = openssl_x509_parse($deploymentObject->radsec_cert);
                     
                     ?>
                 <tr>
                     <td><strong><?php echo _("RADSEC over TLS credentials"); ?></strong></td>
                         <td>
+                            <?php if ($deploymentObject->radsec_priv != '') { ?>
                             <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
+                            <?php } ?>
                             <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
                             <input type="hidden" id="ca_cert_data" value="<?php echo $cacert;?>">
+                            <?php if ($deploymentObject->radsec_priv != '') { ?>
                             <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc"  type="submit"><?php echo _('private key');?></button>
+                            <?php } ?>
                             <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" type="submit"><?php echo _('certificate');?></button>
                             <button class="ca_cert" name="showca" type="submit"><?php echo _('CA certificate');?></button>
                             <button name="sendzip" onclick="location.href='inc/sendzip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
@@ -426,6 +430,9 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                 </tr>
                 <tr> <td></td><td>
                     <?php
+                    if ($deploymentObject->radsec_priv == '') {
+                        echo _('The client certificate was created using an uploaded CSR, the private key is not available') . '<br><br>';
+                    }
                     echo _('Serial number:') . ' ' . $data['serialNumberHex'] . '<br>';
                     $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
                     if ($dleft < 30) {
@@ -443,9 +450,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                         <?php
                         if ($deploymentObject->radsec_cert != NULL) {
                             echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
-                                 _('click on "Renew RADSEC over TLS credentials" button');
+                                 _('click on "Renew RADSEC over TLS credentials" button') . '<br>';
+                        
+                        echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
+                                _('Click on "Upload CSR to sign my own TLS credentials"');
                         }
                         ?>
+                        
                 </td></tr>
                 <?php         
                   
@@ -559,6 +570,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             }
                             ?>
                         </form>
+                <?php } 
+                    if ($deploymentObject->status == \core\AbstractDeployment::INACTIVE) { ?>
                         <div align="right">
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_REMOVESP; ?>' onclick="return confirm('<?php printf(_("Do you really want to remove this %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
@@ -572,10 +585,45 @@ function displayDeploymentPropertyWidget(&$deploymentObject) {
                             <button class='renewtls' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Renew RADSEC over TLS credentials"); ?>
                             </button>
+                    </form>           
+                    <form name="csrupload" enctype="multipart/form-data" action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                           <button class='usecsr' style='background-color: yellow; color: black' type='submit' onclick="getFile();"); ?>                
+                                <?php echo _("Upload CSR to sign my own TLS credentials"); ?>
+                            </button>
+                    <div style='height: 0px;width: 0px; overflow:hidden;'>
+                        <input name='submitbutton' id='submitbuttoncsr' value=''>
+                        <input id="upfile" name="upload" type="file" value="upload" onchange="sendcsr(this);" />
+                    </div>
                     </form>
+                        <!--
+                    <label for="csr"><?php echo _("Upload CSR to sign my own TLS credentials"); ?></label>
+                    <div align="right">
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <!--<input type="file" id="csr" class='usecsr' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_USECSR; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">-->
+                    
+  <!-- this is your file input tag, so i hide it!-->
+  <!-- i used the onchange event to fire the form submission-->
+  
+  <!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
+  <!-- <input type="submit" value='submit' > -->
+                    
                     </div>
             </div>
-            <?php if (!$isradiusready) { echo '<p>'. _("We are not able to handle a new configuration request requiring contact with RADIUS servers now.") . '<br>' . _("Check later.");} ?>
+            <?php 
+            if (!$isradiusready) { 
+                echo '<p>'. _("We are not able to handle a new configuration request requiring contact with RADIUS servers now.") . '<br>' . _("Check later.");
+                
+            } 
+            if (count($errormsg) > 0 && array_key_exists($deploymentObject->identifier, $errormsg)) {
+            ?>
+            <div style='color: red'>
+                <b>
+                    <?php echo $errormsg[$deploymentObject->identifier]; ?>
+                </b>
+            </div>
+            <?php
+            }
+            ?>
         </div>
         <div style='width:20px;'></div> <!-- QR code space, reserved -->
         <div style='display: table-cell; min-width:200px;'>
@@ -656,10 +704,19 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant));
 require_once "inc/click_button_js.php";
-
+$error_message = [
+    'WRONGCSR' => _('The uploaded file does not contain a valid CSR!'),
+    'NOCSR' => _('The provided file can not be uploaded.'),
+];
 // let's check if the inst handle actually exists in the DB
 [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
-
+$errormsg = [];
+if (isset($_GET['errormsg'])) {
+    $msg = explode('_', trim($_GET['errormsg']));
+    if (count($msg) == 2) {
+        $errormsg[$msg[1]] = $error_message[$msg[0]];
+    }
+}
 $myfed = new \core\Federation($my_inst->federation);
 
 // delete stored realm
@@ -674,9 +731,38 @@ echo $mapCode->htmlHeadCode();
 <script src="js/popup_redirect.js"></script>
 <script src="../external/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<style>
+    #yourBtn {
+  width: 150px;
+  padding: 10px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border: 1px  solid #000;
+  font-family: Arial;
+  font-size: 13px;
+  text-align: center;
+  background-color: yellow;
+}
+</style>
 <script src="../external/jquery/DataTables/datatables.js"></script>
 <link type="text/css"  rel="stylesheet" href="../external/jquery/DataTables/datatables.css"  media="all" />
 <script>
+function getFile() {
+    if (confirm('<?php printf(_("Do you really want to replace TLS credentials for this deployment? The current TLS credentials will be revoked in 4 hours.")); ?>')) {
+    document.getElementById("upfile").click();   
+    }
+    event.preventDefault(); 
+}
+
+function sendcsr(obj) {
+    //alert(obj.value);
+    var file = obj.value;
+    var fileName = file.split("\\");
+    //alert(fileName[fileName.length - 1]);
+    document.getElementById("submitbuttoncsr").value = '<?php echo web\lib\common\FormElements::BUTTON_USECSR; ?>';
+    document.csrupload.submit();
+    event.preventDefault();
+}
 $(document).ready(function() {    
     $("img.cat-icon").tooltip();
     $("table.downloads").DataTable({
@@ -932,7 +1018,7 @@ $(document).on('click', '.send_zip' , function(e) {
         foreach ($hotspotProfiles as $counter => $deploymentObject) {
             switch (get_class($deploymentObject)) {
                 case "core\DeploymentManaged":
-                    displayDeploymentPropertyWidget($deploymentObject);
+                    displayDeploymentPropertyWidget($deploymentObject, $errormsg);
                     break;
                 case "core\DeploymentClassic":
                     displayClassicHotspotPropertyWidget($deploymentObject);

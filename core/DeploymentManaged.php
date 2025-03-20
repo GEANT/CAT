@@ -170,6 +170,13 @@ class DeploymentManaged extends AbstractDeployment
     public $radsec_cert; 
     
     /**
+     * the client certificate srial number 
+     * 
+     * @var string
+     */
+    public $radsec_cert_serial_no;
+    
+    /**
      * the TLS-PSK key
      * 
      * @var string
@@ -333,6 +340,24 @@ class DeploymentManaged extends AbstractDeployment
     }
 
     /**
+     * create unique serialNumber for a TLS client certificate
+     * 
+     * @throws Exception
+     */
+    private function setTLSSerialNumber($max=PHP_INT_MAX) {
+        $nonDupSerialFound = FALSE;
+        do {
+            $serial = random_int(1000000000, $max);
+            $dupeQuery = $this->databaseHandle->exec("SELECT radsec_cert_serial_number FROM deployment WHERE radsec_cert_serial_number = ?", "i", $serial);
+            // SELECT -> resource, not boolean
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */$dupeQuery) == 0) {
+                $nonDupSerialFound = TRUE;
+            }
+        } while (!$nonDupSerialFound);
+        $this->radsec_cert_serial_no = $serial;
+    }
+    
+    /**
      * create TLS credentials for client
      * 
      * @throws Exception
@@ -358,8 +383,9 @@ class DeploymentManaged extends AbstractDeployment
         $caprivkey = array(file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key"),
                             \config\Master::MANAGEDSP['capass']);
         $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+        $this->setTLSSerialNumber();
         $clientcert = openssl_csr_sign($csr, $cacert, $caprivkey, \config\Master::MANAGEDSP['daystoexpiry'],
-                          array('digest_alg'=>'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), rand());
+                          array('digest_alg'=>'sha512', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
         openssl_x509_export($clientcert, $this->radsec_cert);
     } 
     /**
@@ -429,7 +455,7 @@ class DeploymentManaged extends AbstractDeployment
         $cons = $this->consortium;
         $id = $this->identifier;
         
-        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = ?, radius_instance_2 = ?, port_instance_1 = ?, port_instance_2 = ?, secret = ?, radsec_priv = ?, radsec_cert = ?, pskkey = ?, consortium = ? WHERE deployment_id = ?", "ssiisssssi", $ourserver, $ourSecondServer, $foundFreePort1, $foundFreePort2, $futureSecret, $this->radsec_priv, $this->radsec_cert, $futurePSKkey, $cons, $id);
+        $this->databaseHandle->exec("UPDATE deployment SET radius_instance_1 = ?, radius_instance_2 = ?, port_instance_1 = ?, port_instance_2 = ?, secret = ?, radsec_priv = ?, radsec_cert = ?, radsec_cert_serial_number = ?, pskkey = ?, consortium = ? WHERE deployment_id = ?", "ssiisssissi", $ourserver, $ourSecondServer, $foundFreePort1, $foundFreePort2, $futureSecret, $this->radsec_priv, $this->radsec_cert, $this->radsec_cert_serial_no, $futurePSKkey, $cons, $id);
         return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer, "pskkey" => $futurePSKkey];
     }
 
@@ -480,7 +506,48 @@ class DeploymentManaged extends AbstractDeployment
     {
        $id = $this->identifier;
        $futureTlsClient = $this->createTLScredentials();
-       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = ?, radsec_cert = ? WHERE deployment_id = ?", "ssi", $this->radsec_priv, $this->radsec_cert, $id);           
+       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = ?, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "ssii", $this->radsec_priv, $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
+    }
+    
+    /**
+     * Create new deployment TLS credentials based on uploaded CSR
+     * 
+     * @return void
+     */
+    public function tlsfromcsr($csr)
+    {
+       $id = $this->identifier;
+       $dn = array();
+       $dn['rdnSequence'] = array();
+       $dn['rdnSequence'][0] = array();
+       $dn['rdnSequence'][0][] = array('type' => 'id-at-organizationName', 'value' => array());
+       $dn['rdnSequence'][0][0]['value']['utf8String'] = 'eduroam';
+       $dn['rdnSequence'][1] = array();
+       $dn['rdnSequence'][1][] = array('type' => 'id-at-organizationalUnitName', 'value' => array());
+       $dn['rdnSequence'][1][0]['value']['utf8String'] = 'eduroam Managed SP';
+       $dn['rdnSequence'][2] = array();
+       $dn['rdnSequence'][2][] = array('type' => 'id-at-commonName', 'value' => array());
+       $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP_' . $this->identifier . "-" . $this->institution;
+       $csr->setDN($dn);
+       $pemcakey = file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key");
+       $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass'] );
+       $pemca = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+       $ca = new \phpseclib3\File\X509();
+       $ca->loadX509($pemca);
+       $ca->setPrivateKey($cakey);
+       // Sign the updated request, producing the certificate.
+       $x509 = new \phpseclib3\File\X509();
+       $csr->setExtension('id-ce-keyUsage', ['digitalSignature', 'nonRepudiation', 'keyEncipherment']);
+       $csr->setExtension('id-ce-extKeyUsage', ['id-kp-clientAuth']);
+       $csr->setExtension('id-ce-basicConstraints', ['cA' => false], false);
+       $x509->setEndDate('+' . \config\Master::MANAGEDSP['daystoexpiry'] . ' days');
+       $this->setTLSSerialNumber(999999999999999999);
+       $x509->setSerialNumber($this->radsec_cert_serial_no, 10);
+       $cert = $x509->loadX509($x509->saveX509($x509->sign($ca, $csr)));
+       $this->radsec_cert = $x509->saveX509($cert);
+       $this->radsec_priv = NULL;
+       //$futureTlsClient = $this->createTLScredentials();
+       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = NULL, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "sii", $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
     }
     /**
      * marks the deployment as deactivated 

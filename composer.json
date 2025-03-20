@@ -13,7 +13,8 @@
         "simplesamlphp/simplesamlphp": "^2.3",
         "chillerlan/php-qrcode": "^4.3",
         "pear/net_dns2": "1.5.3",
-        "components/jquery": "^3.6"
+        "components/jquery": "^3.6",
+	"phpseclib/phpseclib" : "~3.0"
     },
     "config": {
         "allow-plugins": {

@@ -29,13 +29,13 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
+
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 // initialize inputs
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $myfed = new \core\Federation($my_inst->federation);
-
 if (!isset($_GET['deployment_id'])) {
     /*if (isset($_POST['consortium']) && ( $_POST['consortium'] == "eduroam" ||
             ( $_POST['consortium'] == "OpenRoaming" && count($myfed->getAttributes("fed:openroaming")) > 0 )
@@ -50,6 +50,7 @@ if (!isset($_GET['deployment_id'])) {
         throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
     }
 }
+
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
@@ -126,6 +127,33 @@ if (isset($_POST['submitbutton'])) {
                 $deployment->renewtls();
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
                 exit(0);
+            case web\lib\common\FormElements::BUTTON_USECSR:
+                if (isset($_FILES['upload']) && $_FILES['upload']['size'] > 0) {
+                    $csrpem = file_get_contents($_FILES['upload']['tmp_name']);
+                    if ($csrpem === FALSE) {
+                    // seems we can't work with this file for some reason. Ignore.
+                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                        exit(0);
+                    }
+                    $csr = new \phpseclib3\File\X509();
+                    $csr->loadCSR($csrpem);
+                    if ($csr->validateSignature()) { 
+                        // valid signature
+                        $data = openssl_x509_parse($deployment->radsec_cert);
+                        $certdata = array(
+                                  $data['serialNumberHex'],
+                                  date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
+                                 );
+                        $torevoke = implode('#', $certdata);
+                        $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
+                        $deployment->tlsfromcsr($csr);
+                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+                        exit(0);
+                    } else {
+                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                        exit(0);
+                    }
+                }
             case web\lib\common\FormElements::BUTTON_ACTIVATE:
                 if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
                     $response = $deployment->setRADIUSconfig();
