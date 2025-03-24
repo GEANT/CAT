@@ -47,8 +47,6 @@ $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <?php
 if ($editMode == 'readonly') {
     print('<style>'

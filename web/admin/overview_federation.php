@@ -43,7 +43,6 @@ $stausIcons = [
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $user = new \core\User($_SESSION['user']);
-require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>

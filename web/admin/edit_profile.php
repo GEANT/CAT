@@ -33,7 +33,6 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
-require_once "inc/click_button_js.php";
 $langInstance = new core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>

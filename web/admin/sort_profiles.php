@@ -37,7 +37,6 @@ $auth->authenticate();
 [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Profile ordering for '%s'"), \config\Master::APPEARANCE['productname'], $my_inst->name));
-require_once "inc/click_button_js.php";
 
 ?>
 <style>
@@ -55,7 +54,6 @@ require_once "inc/click_button_js.php";
 </style>
 <!-- JQuery --> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
 <script>

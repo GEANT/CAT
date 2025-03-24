@@ -244,6 +244,8 @@ class PageDecoration extends \core\common\Entity {
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
         $cssUrl = \core\CAT::getRootUrlPath() . "/resources/css/cat.css.php";
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
+        $retval .= "<script src='".\core\CAT::getRootUrlPath()."/external/jquery/jquery.js'></script>";
+        $retval .= "<script src='".\core\CAT::getRootUrlPath()."/admin/js/click_button.js'></script>";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
         return $retval;
     }

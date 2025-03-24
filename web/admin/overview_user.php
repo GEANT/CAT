@@ -29,7 +29,6 @@ $uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
 $user = new \core\User($_SESSION['user']);
-require_once "inc/click_button_js.php";
 ?>
 
 <script type="text/javascript"><?php require_once "inc/overview_js.php" ?></script>
