@@ -121,7 +121,7 @@ if (isset($_POST['command'])) {
                 }
                 $oneLine = TRUE;
                 while ($oneLine !== FALSE) {
-                    $oneLine = fgets($content);
+                    $oneLine = rtrim(fgets($content));
                     if ($oneLine === FALSE) {
                         break;
                     }
