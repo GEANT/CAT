@@ -210,9 +210,7 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
         }
         // re-instantiate $profile again, we need to do final checks on the
         // full set of new information
-//        $loggerInstance->debug(3, $profile, "PROFILE for save\n", "\nPROFILE for save END\n");
         $reloadedProfileNr2 = \core\ProfileFactory::instantiate($profile->identifier);
-//        $loggerInstance->debug(3, $reloadedProfileNr2, "PTOFILE:\n", "\n");
         $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfileNr2);
         if (count($significantChanges) > 0) {
             $myInstOriginal = new \core\IdP($profile->institution);

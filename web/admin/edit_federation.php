@@ -35,18 +35,29 @@ $uiElements = new web\lib\admin\UIElements();
 
 $auth->authenticate();
 
-
 $fedPost = $_POST['fed_id'];
 
+$wizard = new \web\lib\admin\Wizard(false);
+$wizard->setMessages();
 
 [$my_fed, $editMode] = $validator->existingFederationInt($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
+$availableFedOptions = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay("fed", $my_fed->tld);
+$wizard->setOptionsHelp($availableFedOptions);
+$wizard->setMessages();
+
+
+
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script type="text/javascript" src="js/wizard.js"></script> 
+<link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 <?php
 if ($editMode == 'readonly') {
     print('<style>'
@@ -60,7 +71,7 @@ if ($editMode == 'readonly') {
 <body>
 
     <?php echo $deco->productheader("FEDERATION"); ?>
-
+    <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
     <h1>
         <?php
         /// nomenclature for federation, then actual federation name
@@ -91,6 +102,11 @@ if ($editMode == 'readonly') {
     <fieldset class="option_container">
         <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>
         <?php
+        $options = [
+            'level' => 'fed',
+            'fed_id'=> $my_fed->tld
+        ];
+        echo $wizard->displayHelp("fed_general", $options);
         $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_FED);
         echo $optionDisplay->prefilledOptionTable("fed", $my_fed->tld);
         ?>

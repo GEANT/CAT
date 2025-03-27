@@ -81,7 +81,7 @@ class UIElements extends \core\common\Entity {
      * @return string the human-readable variant
      * @throws \Exception
      */
-    public function displayName($input) {
+    public function displayName($input, $fullDisplay = false) {
         \core\common\Entity::intoThePotatoes();
         $ssidText = _("SSID");
         $passpointOiText = _("HS20 Consortium OI");
@@ -89,72 +89,95 @@ class UIElements extends \core\common\Entity {
         if (!empty(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) && count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
-
-        $displayNames = [_("Support: Web") => "support:url",
-            _("Support: EAP Types") => "support:eap_types",
-            _("Support: Phone") => "support:phone",
-            _("Support: E-Mail") => "support:email",
-            sprintf(_("%s Name"), $this->nomenclatureParticipant) => "general:instname",
-            sprintf(_("%s Acronym"), $this->nomenclatureParticipant) => "general:instshortname",
-            _("Institution Alt Name") => "general:instaltname",
-            _("Location") => "general:geo_coordinates",
-            _("Logo URL") => "general:logo_url",
-            _("Logo image") => "general:logo_file",
-            _("Configure Wired Ethernet") => "media:wired",
-            _("Name (CN) of Authentication Server") => "eap:server_name",
-            _("Valid until") => "eap:ca_vailduntil",
-            _("Enable device assessment") => "eap:enable_nea",
-            _("Terms of Use") => "support:info_file",
-            _("CA Certificate URL") => "eap:ca_url",
-            _("CA Certificate File") => "eap:ca_file",
-            _("Profile Display Name") => "profile:name",
-            _("Production-Ready") => "profile:production",
-            _("Admin Accepted IdP Terms of Use") => 'hiddenprofile:tou_accepted',
-            _("Admin Accepted SP Terms of Use") => 'hiddenmanagedsp:tou_accepted',
-            _("Extra text on downloadpage for device") => "device-specific:customtext",
-            _("Redirection Target") => "device-specific:redirect",
-            _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
-            _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
-            _("Use GEANTlink for TTLS (Windows 8 and 10)") => "device-specific:geantlink",
-            _("Show the dedicated geteduroam download page for this device") => "device-specific:geteduroam",
-            _("Profile Description") => "profile:description",
-            _("Custom Installer Name Suffix") => "profile:customsuffix",
-            _("OpenRoaming") => "media:openroaming",
-            sprintf(_("%s Administrator"), $this->nomenclatureFed) => "user:fedadmin",
-            _("Real Name") => "user:realname",
-            _("E-Mail Address") => "user:email",
-            _("Remove/Disable SSID") => "media:remove_SSID",
-            _("Mandatory Content Filtering Proxy") => "media:force_proxy",
-            _("Custom CSS file for User Area") => "fed:css_file",
-            sprintf(_("%s Logo"), $this->nomenclatureFed) => "fed:logo_file",
-            _("Preferred Skin for User Area") => "fed:desired_skin",
-            sprintf(_("Include %s branding in installers"), $this->nomenclatureFed) => "fed:include_logo_installers",
-            sprintf(_("%s Name"), $this->nomenclatureFed) => "fed:realname",
-            sprintf(_("%s Homepage"), $this->nomenclatureFed) => "fed:url",
-            sprintf(_("Custom text in %s Invitations"), $this->nomenclatureParticipant) => "fed:custominvite",
-            sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']) => "fed:silverbullet",
-            sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
-            sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
-            sprintf(_("Mint %s with CA on creation"), $this->nomenclatureIdP) => "fed:minted_ca_file",
-            sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant) => "fed:openroaming",
-            _("OpenRoaming: Custom NAPTR Target") => "fed:openroaming_customtarget",
-            _("Allow admins listed in eduroam DB to become admins for synced CAT institutions") => "fed:autoregister-synced",
-            _("Allow admins listed in eduroam DB to create new institutions") => "fed:autoregister-new-inst",
-            $ssidText => "media:SSID",
-            $passpointOiText => "media:consortium_OI",
-            _("VLAN for own users") => "managedsp:vlan",
-            _("Realm to be considered own users") => "managedsp:realmforvlan",
-            _("Custom Operator-Name attribute") => "managedsp:operatorname",
+                
+        $displayNames = [
+            "support:url" => ['display' => _("Support: Web"), 'help' => ""],
+            "support:eap_types" => ['display' => _("Support: EAP Types"), 'help' => ""],
+            "support:phone" => ['display' => _("Support: Phone"), 'help' => ""],
+            "support:email" => ['display' => _("Support: E-Mail"), 'help' => ""],
+            "general:instname" => ['display' => sprintf(_("%s Name"), $this->nomenclatureParticipant), 'help' => ""],
+            "general:instshortname" => ['display' => sprintf(_("%s Acronym"), $this->nomenclatureParticipant), 'help' => ""],
+            "general:instaltname" => ['display' => _("Institution Alt Name"), 'help' => ""],
+            "general:geo_coordinates" => ['display' => _("Location"), 'help' => ""],
+            "general:logo_url" => ['display' => _("Logo URL"), 'help' => ""],
+            "general:logo_file" => ['display' => _("Logo image"), 'help' => ""],
+            "media:wired" => ['display' => _("Configure Wired Ethernet"), 'help' => ""],
+            "eap:server_name" => ['display' => _("Name (CN) of Authentication Server"), 'help' => ""],
+            "eap:ca_vailduntil" => ['display' => _("Valid until"), 'help' => ""],
+            "eap:enable_nea" => ['display' => _("Enable device assessment"), 'help' => ""],
+            "support:info_file" => ['display' => _("Terms of Use"), 'help' => ""],
+            "eap:ca_url" => ['display' => _("CA Certificate URL"), 'help' => ""],
+            "eap:ca_file" => ['display' => _("CA Certificate File"), 'help' => ""],
+            "profile:name" => ['display' => _("Profile Display Name"), 'help' => ""],
+            "profile:production" => ['display' => _("Production-Ready"), 'help' => ""],
+            "hiddenprofile:tou_accepted" => ['display' => _("Admin Accepted IdP Terms of Use"), 'help' => ""],
+            "hiddenmanagedsp:tou_accepted" => ['display' => _("Admin Accepted SP Terms of Use"), 'help' => ""],
+            "device-specific:customtext" => ['display' => _("Extra text on downloadpage for device"), 'help' => ""],
+            "device-specific:redirect" => ['display' => _("Redirection Target"), 'help' => ""],
+            "eap-specific:customtext" => ['display' => _("Extra text on downloadpage for device"), 'help' => ""],
+            "eap-specific:tls_use_other_id" => ['display' => _("Turn on selection of EAP-TLS User-Name"), 'help' => ""],
+            "device-specific:geantlink" => ['display' => _("Use GEANTlink for TTLS (Windows 8 and 10)"), 'help' => ""],
+            "device-specific:geteduroam" => ['display' => _("Show the dedicated geteduroam download page for this device"), 'help' => ""],
+            "profile:description" => ['display' => _("Profile Description"), 'help' => ""],
+            "profile:customsuffix" => ['display' => _("Custom Installer Name Suffix"), 'help' => ""],
+            "media:openroaming" => ['display' => _("OpenRoaming"), 'help' => ""],
+            "user:fedadmin" => ['display' => sprintf(_("%s Administrator"), $this->nomenclatureFed), 'help' => ""],
+            "user:realname" => ['display' => _("Real Name"), 'help' => ""],
+            "user:email" => ['display' => _("E-Mail Address"), 'help' => ""],
+            "media:remove_SSID" => ['display' => _("Remove/Disable SSID"), 'help' => ""],
+            "media:force_proxy" => ['display' => _("Mandatory Content Filtering Proxy"), 'help' => ""],
+            "fed:css_file" => ['display' => _("Custom CSS file for User Area"), 'help' => "not available"],
+            "fed:logo_file" => [
+                'display' => sprintf(_("%s Logo"), $this->nomenclatureFed),
+                'help' => _("Your federation logo to be shown on CAT download pages and also on Windows installers if"
+                . " the option to include branding in installers is set as well.")],
+            "fed:desired_skin" => ['display' => _("Preferred Skin for User Area"), 'help' => "not available"],
+            "fed:include_logo_installers" => [
+                'display' => sprintf(_("Include %s branding in installers"), $this->nomenclatureFed),
+                'help' => _("Add your federation logo to Windows installers.")],
+            "fed:realname" => [
+                'display' => sprintf(_("%s Name"), $this->nomenclatureFed),
+                'help' => "The name of your federation."],
+            "fed:url" => ['display' => sprintf(_("%s Homepage"), $this->nomenclatureFed), 'help' => ""],
+            "fed:custominvite" => [
+                'display' => sprintf(_("Custom text in %s Invitations"), $this->nomenclatureParticipant),
+                'help' => _("Your text in invitation mails sent for new IdP")],
+            "fed:silverbullet" => ['display' => sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']), 'help' => ""],
+            "fed:silverbullet-noterm" => ['display' => sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME), 'help' => ""],
+            "fed:silverbullet-maxusers" => ['display' => sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME), 'help' => ""],
+            "fed:minted_ca_file" => [
+                'display' => sprintf(_("Mint %s with CA on creation"), $this->nomenclatureIdP),
+                'help' => _("Set of default CAs to add to new IdPs on signup")],
+            "fed:openroaming" => [
+                'display' => sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant),
+                'help' => _("Allow IdP to set OpenRoaming support for its users.")],
+            "fed:openroaming_customtarget" => ['display' => _("OpenRoaming: Custom NAPTR Target"), 'help' => ""],
+            "fed:autoregister-synced" => [
+                'display' => _("Self registration from eduroam DB: add listed admins to CAT institutions"),
+                'help' => _("With this option turned on if a CAT institution is synced to the eduroam DB it is possble to"
+                        . " to have automatic enlisting of CAT institution admins under some conditions described"
+                        . " <a href='https://wiki.eduroam.org/'>here</a>.")],
+            "fed:autoregister-new-inst" => [
+                'display' => _("Self registration from eduroam DB: allow creating new institutions"),
+                'help' => _("Turn this on and eduroam DB listed institution admins will be allowed to create new institutions"
+                        . " under some conditions described <a href='https://wiki.eduroam.org/'>here</a>.")],
+            "media:SSID" => ['display' => $ssidText, 'help' => ""],
+            "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
+            "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => ""],
+            "managedsp:realmforvlan" => ['display' => _("Realm to be considered own users"), 'help' => ""],
+            "managedsp:operatorname" => ['display' => _("Custom Operator-Name attribute"), 'help' => ""],
         ];
 
-        $find = array_keys($displayNames, $input, TRUE);
-
-        if (count($find) == 0) { // this is an error! throw an Exception
+        if (!isset($displayNames[$input])) { // this is an error! throw an Exception
             throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         \core\common\Entity::outOfThePotatoes();
         // none of the strings have HTML in them, only translators can provide own text for it -> no threat, but complained about by the security review
-        return htmlspecialchars($find[0]);
+        if ($fullDisplay) {
+            return ['display' => htmlspecialchars($displayNames[$input]['display']), 'help' => $displayNames[$input]['help']];
+        } else {
+            return htmlspecialchars($displayNames[$input]['display']);
+        }
     }
 
     /**

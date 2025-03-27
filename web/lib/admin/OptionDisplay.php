@@ -340,6 +340,11 @@ FOO;
                 break;
             default:
                 $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+                $sortArray = [];
+                foreach ($list as $value) {
+                    $sortArray[] = $uiElements->displayName($value);
+                }
+                array_multisort($sortArray, SORT_ASC, $list);
                 foreach ($list as $value) {
                     $listtype = $optioninfo->optionType($value);
                     $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";

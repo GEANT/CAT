@@ -60,7 +60,6 @@ if (isset($_POST['submitbutton'])) {
             if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) == 0) {
                 //terms of use popup, going interactive
                 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Terms of Use"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureHotspot));
-                require_once "inc/click_button_js.php";
                 ?>
                 </head>
                 <body>
@@ -209,7 +208,6 @@ if (isset($_POST['submitbutton'])) {
     $opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
 
     echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
-    require_once "inc/click_button_js.php";
     ?>
     <script src="js/XHR.js" type="text/javascript"></script>
     <script src="js/option_expand.js" type="text/javascript"></script>

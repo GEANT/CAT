@@ -39,8 +39,8 @@ $langInstance = new core\common\Language();
 <script src="js/option_expand.js" type="text/javascript"></script>
 
 <!-- JQuery --> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
 <!-- EAP sorting code -->
 <script type="text/javascript" src="js/eapSorter.js"></script>
 <link rel='stylesheet' type='text/css' href='css/eapSorter.css.php' />
@@ -147,6 +147,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     }
 }
 $wizard = new \web\lib\admin\Wizard($wizardStyle);
+$wizard->setMessages();
 ?>
 </head>
 <body>

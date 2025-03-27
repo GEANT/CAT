@@ -50,6 +50,11 @@ img.wizard_icon {
     font-size: 12px;
 }
 
+#wizard_help_window dl dt {
+    font-weight: bold;
+    font-style: italic;
+}
+
 #wizard_menu_close {
    position: absolute;
 <?php echo $end ?>: 5px;

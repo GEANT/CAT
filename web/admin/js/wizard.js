@@ -18,6 +18,8 @@
  *          <base_url>/copyright.php after deploying the software
  */
 $(function () {
+    $("img.wizard_icon").tooltip();
+
     $("img.wizard_icon").on("click", function() {
         $("#wizard_menu_close").next().html($(this).next().html());
         $("#wizard_help_window").show();
@@ -26,5 +28,5 @@ $(function () {
     $("#wizard_menu_close").on("click", function() {
         $("#wizard_help_window").hide();
     });
-});
     
+});

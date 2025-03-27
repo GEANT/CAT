@@ -1,4 +1,3 @@
-<?php
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -19,15 +18,8 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-?>
-
-<!-- JQuery --> 
-<script type="text/javascript" src="<?php echo \core\CAT::getRootUrlPath() ?>/external/jquery/jquery.js"></script> 
-<!-- JQuery --> 
-<script>
     function click_button() {
         $(this).fadeOut(150).fadeIn(150);
     }
     $(document).on("click", "button", click_button);
-</script>
+ 

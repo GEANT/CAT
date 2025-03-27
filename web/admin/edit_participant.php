@@ -35,6 +35,7 @@ if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
 }
 
 $wizard = new \web\lib\admin\Wizard($wizardStyle);
+$wizard->setMessages();
 [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;

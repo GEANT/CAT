@@ -34,7 +34,8 @@ namespace web\lib\admin;
 class Wizard extends UIElements {
     private $helpMessage;
     public $wizardStyle;
-    
+    private $optionsHelp;
+        
     /**
      * Prepare the messages for the current language and set the wizasrStyle
      * true means we display inline, false - show icons to call help.
@@ -42,27 +43,50 @@ class Wizard extends UIElements {
      * @param boolean $wizardStyle
      */
     public function __construct($wizardStyle) {
+        parent::__construct();
         $this->wizardStyle = $wizardStyle;
-        $this->setMessages(); 
     }
     
-    public function displayHelp($subject) {
+    public function displayHelp($subject, $options = NULL) {
+        $iconTitle = _("Click to open the help window");
         if (!isset($this->helpMessage[$subject])) {
             return '';
+        }
+        if ($options !== NULL) {
+            if (!isset($options['level'])) {
+                return '';
+            }
         }
         if ($this->wizardStyle) {
             $wizardClass = "wizard_visible";
             $content = "<div>";
         } else {
             $wizardClass = "wizard_hidden";
-            $content = "<div style='min-height:28px'><img src='../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg' class='wizard_icon'>";            
+            $content = "<div style='min-height:28px'><img src='../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg' class='wizard_icon' title=\"$iconTitle\">";            
         }
         $content .= "<div class='$wizardClass'>".$this->helpMessage[$subject]."</div></div>";
         return $content;
     }
     
+    public function setOptionsHelp($optionsList) {
+        $this->optionsHelp = [];
+        foreach ($optionsList as $option) {
+            $this->optionsHelp[$option] = $this->displayName($option, true);
+        }
+        array_multisort(array_column($this->optionsHelp,'display'), SORT_ASC, $this->optionsHelp);
+    }
     
-    private function setMessages() {
+    public function setMessages() {
+        // FED general
+        $h = "<p><h3>" . _("Here you set federation-level options.") . "</h3><p>";
+        $h .= "<i>" . _("The following options are available:") . "</i><p>";
+        $h .= "<dl>";
+        foreach ($this->optionsHelp as $o) {
+            $h .= "<dt>". $o['display'] . "</dt>";
+            $h .= "<dd>" . $o['help'] . "</dd>";
+        }
+        $h .= "</dl>";
+        $this->helpMessage['fed_general'] = $h;
         // SUPPORT
         $h = "<p>" . _("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.") . "</p>";
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
