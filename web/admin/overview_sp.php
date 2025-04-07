@@ -221,6 +221,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         ?>
                     </td>
                     <td>
+                        <?php
+                        if ($deploymentObject->status) {
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] .
+                                "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] .
+                                "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' class='cat-icon'>";
+                        }
+                        ?>
                     </td>
                 </tr>
                 <tr>
@@ -242,6 +249,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         ?>
                     </td>
                     <td>
+                        <?php
+                        if ($deploymentObject->status) {
+                            echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
+                                "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
+                            "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
+                        }
+                        ?>
                     </td>
                 </tr>
                 
