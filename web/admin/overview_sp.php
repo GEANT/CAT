@@ -197,6 +197,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr>
                     <td><?php echo _("RADIUS shared secret for both servers"); ?></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
+                    <td></td>
                 </tr>
                 <tr></tr>
                 <tr>
@@ -266,21 +267,24 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     ?>
                 <tr>
                     <td><?php echo _("RADSEC over TLS credentials"); ?></td>
-                        <td>
-                            <?php if ($deploymentObject->radsec_priv != '') { ?>
-                            <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
-                            <?php } ?>
-                            <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
-                            <input type="hidden" id="ca_cert_data" value="<?php echo $cacert;?>">
-                            <?php if ($deploymentObject->radsec_priv != '') { ?>
+                    <td>
+                        <?php if ($deploymentObject->radsec_priv != '') { ?>
+                        <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
+                        <?php } ?>
+                        <input type="hidden" id="cert_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_cert;?>">
+                        <input type="hidden" id="ca_cert_data" value="<?php echo $cacert;?>">
+                        <?php if ($deploymentObject->radsec_priv != '') { ?>
                             <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc"  type="submit"><?php echo _('private key');?></button>
-                            <?php } ?>
-                            <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" type="submit"><?php echo _('certificate');?></button>
-                            <button class="ca_cert" name="showca" type="submit"><?php echo _('CA certificate');?></button>
-                            <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
-                        </td>
+                        <?php } ?>
+                        <button class="sp_cert" id="cert_<?php echo $deploymentObject->identifier;?>" name="showp" type="submit"><?php echo _('certificate');?></button>
+                        <button class="ca_cert" name="showca" type="submit"><?php echo _('CA certificate');?></button>
+                        <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
+                    </td>
+                    <td></td>
                 </tr>
-                <tr> <td></td><td>
+                <tr> 
+                    <td></td>
+                    <td>
                     <?php
                     if ($deploymentObject->radsec_priv == '') {
                         echo _('The client certificate was created using an uploaded CSR, the private key is not available') . '<br><br>';
@@ -299,18 +303,21 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     }
                     if ($dleft < 30) { echo '</font>'; }
                     ?></td></tr>
-                <tr> <td></td><td>
-                        <?php
+                <tr> 
+                <td></td>
+                <td>
+                    <?php
                         if ($deploymentObject->radsec_cert != NULL) {
                             echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
                                  _('click on "Renew RADSEC over TLS credentials" button') . '<br>';
                         
                         echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
                                 _('Click on "Upload CSR to sign my own TLS credentials"');
-                        }
-                        ?>
-                        
-                </td></tr>
+                    }
+                    ?>    
+                </td>
+                <td></td>
+                </tr>
                 <?php         
                   
                 }
@@ -322,31 +329,37 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             <br>
                             <?php echo _("PSK key") . ': ' . $deploymentObject->pskkey; ?>
                         </td>
+                        <td></td>
                 </tr>
                 
                 
-                <?php } ?>
-                <tr><td colspan="4"><hr></td></tr>
-                <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
+                <?php } 
+                $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
+                $opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL;
+                $vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
+                if ( $opname || $vlan || !empty($allRealms)) {
+                ?>
+                <tr></tr>
+                <tr><th colspan="2"><?php echo _('Additional deployment settings');?></th></tr>
+                <?php if ($opname) { ?>
                     <tr>
-                        <td><strong><?php echo _("Custom Operator-Name"); ?></strong></td>
+                        <td><?php echo _("Custom Operator-Name"); ?></td>
                         <td><?php echo $opname; ?></td>
                     </tr>
                     <?php
                 }
-                if ($vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                if ($vlan) {
                     ?>
                     <tr>
-                        <td><strong><?php echo _("VLAN tag for own users"); ?></strong></td>
+                        <td><?php echo _("VLAN tag for own users"); ?></td>
                         <td><?php echo $vlan; ?></td>
                     </tr>
                 <?php } 
-                $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
-                if (!empty($allRealms) || $vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                if (!empty($allRealms) || $vlan) {
                 ?>
                 
                 <tr>
-                        <td><strong><?php echo _("Realm to be considered own users"); ?></strong></td>
+                        <td><?php echo _("Realm to be considered own users"); ?></td>
                         <td>
                 <?php
                 
@@ -354,6 +367,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     echo implode(', ', $allRealms);
                 } else {
                     echo _('not set, be aware that VLAN setting is not used until a realm is added');
+                }
                 }
                 }
                 ?>
