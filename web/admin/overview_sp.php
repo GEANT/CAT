@@ -136,14 +136,11 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <caption><?php echo _("Deployment Details"); ?></caption>
                 <form action="?inst_id=<?php echo $deploymentObject->institution; ?>" method="post">
                 <tr>
-                    <th class='wai-invisible' scope='col'><?php echo("Server IP addresses"); ?></th>
-                    <th class='wai-invisible' scope='col'><?php echo("Server Port label"); ?></th>
-                    <th class='wai-invisible' scope='col'><?php echo("Server Port value"); ?></th>
-                    <th class='wai-invisible' scope='col'><?php echo("Deployment Status"); ?></th>
+                    <th colspan="2"><?php echo("RADIUS over UDP"); ?></th>
                 </tr>
                 <tr>
                     <td>
-                        <strong><?php echo _("Your primary RADIUS server") ?></strong>
+                        <?php echo _("Your primary RADIUS server") ?>
                     </td>
                     <td>
                         <?php
@@ -156,16 +153,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         if ($deploymentObject->host1_v6 !== NULL) {
                             echo _("IPv6") . ": " . $deploymentObject->host1_v6;
                         }
+                        echo "<br/>" . _("port") . ": " . $deploymentObject->port1;
                         ?>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong><?php echo _("RADIUS port number (UDP)"); ?></strong>
-                    </td>
-                    <td>
-                        <?php echo $deploymentObject->port1; ?>
                     </td>
                     <td>
                         <?php
@@ -179,7 +168,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 </tr>
                 <tr>
                     <td>
-                        <strong><?php echo _("Your secondary RADIUS server") ?></strong>
+                        <?php echo _("Your secondary RADIUS server") ?>
                     </td>
                     <td>
                         <?php
@@ -192,16 +181,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         if ($deploymentObject->host2_v6 !== NULL) {
                             echo _("IPv6") . ": " . $deploymentObject->host2_v6;
                         }
+                        echo "<br/>" . _("port") . ": " . $deploymentObject->port2;
                         ?>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong><?php echo _("RADIUS port number (UDP)"); ?></strong>
-                    </td>
-                    <td>
-                        <?php echo $deploymentObject->port2; ?>
                     </td>
                     <td>
                         <?php
@@ -214,25 +195,63 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <strong><?php echo _("RADSEC ports for both servers (TLS or TLS-PSK):"); ?></strong>
-                    </td>
-                    <td>
-                        2083
-                    </td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
+                    <td><?php echo _("RADIUS shared secret for both servers"); ?></td>
                     <td><?php echo $deploymentObject->secret; ?></td>
                 </tr>
+                <tr></tr>
+                <tr>
+                    <th colspan="2"><?php echo("RADIUS over TLS or TLS-PSK"); ?></th>
+                </tr>
+                <tr>
+                    <td>
+                        <?php echo _("Your primary RADIUS server") ?>
+                    </td>
+                    <td>
+                        <?php
+                        if ($deploymentObject->host1_v4 !== NULL) {
+                            echo _("IPv4") . ": " . $deploymentObject->host1_v4;
+                        }
+                        if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
+                            echo "<br/>";
+                        }
+                        if ($deploymentObject->host1_v6 !== NULL) {
+                            echo _("IPv6") . ": " . $deploymentObject->host1_v6;
+                        }
+                        echo "<br/>" . _("port") . ": 2083" ;
+                        ?>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php echo _("Your secondary RADIUS server") ?>
+                    </td>
+                    <td>
+                        <?php
+                        if ($deploymentObject->host2_v4 !== NULL) {
+                            echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                        }
+                        if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
+                            echo "<br/>";
+                        }
+                        if ($deploymentObject->host2_v6 !== NULL) {
+                            echo _("IPv6") . ": " . $deploymentObject->host2_v6;
+                        }
+                        echo "<br/>" . _("port") . ": 2083";
+                        ?>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                
+
+                
                 <?php if ($deploymentObject->radsec_cert != '') { 
                     $data = openssl_x509_parse($deploymentObject->radsec_cert);
-                    
                     ?>
                 <tr>
-                    <td><strong><?php echo _("RADSEC over TLS credentials"); ?></strong></td>
+                    <td><?php echo _("RADSEC over TLS credentials"); ?></td>
                         <td>
                             <?php if ($deploymentObject->radsec_priv != '') { ?>
                             <input type="hidden" id="priv_key_data_<?php echo $deploymentObject->identifier;?>" value="<?php echo $deploymentObject->radsec_priv;?>">
@@ -252,6 +271,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     if ($deploymentObject->radsec_priv == '') {
                         echo _('The client certificate was created using an uploaded CSR, the private key is not available') . '<br><br>';
                     }
+                    echo _('Subject:') . ' ' . $data['name'] . '<br>';
                     echo _('Serial number:') . ' ' . $data['serialNumberHex'] . '<br>';
                     $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
                     if ($dleft < 30) {
@@ -282,18 +302,15 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 }
                 if ($deploymentObject->pskkey != '') {?>
                 <tr>
-                        <td><strong><?php echo _("RADSEC TLS-PSK identity"); ?></strong></td>
+                        <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
                         <td>
-                           SP_<?php echo $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
+                           <?php echo _("PSK Identity") . ': SP_' . $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
+                            <br>
+                            <?php echo _("PSK key") . ': ' . $deploymentObject->pskkey; ?>
                         </td>
                 </tr>
                 
-                <tr>
-                        <td><strong><?php echo _("RADSEC TLS-PSK key"); ?></strong></td>
-                        <td>
-                           <?php echo $deploymentObject->pskkey;?>
-                        </td>
-                </tr>
+                
                 <?php } ?>
                 <tr><td colspan="4"><hr></td></tr>
                 <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
