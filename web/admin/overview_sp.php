@@ -121,7 +121,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
-                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP_$depId";                        
+                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP_$depId-".$deploymentObject->institution;                        
                         
                         break;
                     case "OpenRoaming":
@@ -211,7 +211,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td></td>
                 </tr>
                 <tr></tr>
-                <tr><td colspan="3" style="background-color: #1d4a74; height: 2px"></tr>
+                <tr><td colspan="3" style="background-color: #1d4a74; height: 1px"></tr>
 
                 <tr>
                     <th colspan="2"><?php echo("RADIUS over TLS or TLS-PSK"); ?></th>
@@ -281,6 +281,27 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                     <td><?php echo _("RADSEC over TLS credentials"); ?></td>
                     <td>
+                    <?php
+                    if ($deploymentObject->radsec_priv == '') {
+                        echo _('The client certificate was created using an uploaded CSR, the private key is not available') . '<br><br>';
+                    }
+                    echo _('Subject:') . ' ' . $data['name'] . '<br>';
+                    echo _('Serial number:') . ' ' . $data['serialNumberHex'] . '<br>';
+                    $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
+                    if ($dleft < 30) {
+                        echo '<font color="red">';
+                    }
+                    echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
+                    if ($dleft > 2) {
+                        echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
+                    } else {
+                        echo '<br>' . _('If you are using RADSEC over TLS you should urgently renew your credentisls') . '!';
+                    }
+                    if ($dleft < 30) { echo '</font>'; }
+                    ?></td>
+                </tr><tr><td></td>
+
+                    <td>
                         <span style="display: none;" id="cert_data_<?php echo $depId;?>"><?php echo $deploymentObject->radsec_cert;?></span>
                         <span style="display: none;" id="ca_cert_data_<?php echo $depId;?>"><?php echo $cacert;?></span>
                         <?php if ($deploymentObject->radsec_priv != '') {
@@ -299,36 +320,17 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td></td>
                 </tr>
                 <tr> 
-                    <td></td>
-                    <td>
-                    <?php
-                    if ($deploymentObject->radsec_priv == '') {
-                        echo _('The client certificate was created using an uploaded CSR, the private key is not available') . '<br><br>';
-                    }
-                    echo _('Subject:') . ' ' . $data['name'] . '<br>';
-                    echo _('Serial number:') . ' ' . $data['serialNumberHex'] . '<br>';
-                    $dleft = floor(($data['validTo_time_t']-time())/(24*60*60));
-                    if ($dleft < 30) {
-                        echo '<font color="red">';
-                    }
-                    echo _('Not valid after:') . ' '. date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('Y-m-d H:i:s') . ' UTC';
-                    if ($dleft > 2) {
-                        echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
-                    } else {
-                        echo '<br>' . _('If you are using RADSEC over TLS you should urgently renew your credentisls') . '!';
-                    }
-                    if ($dleft < 30) { echo '</font>'; }
-                    ?></td></tr>
-                <tr> 
                 <td></td>
                 <td>
                     <?php
                         if ($deploymentObject->radsec_cert != NULL) {
+                            echo "<i>";
                             echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
                                  _('click on "Renew RADSEC over TLS credentials" button') . '<br>';
                         
-                        echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
+                            echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
                                 _('Click on "Upload CSR to sign my own TLS credentials"');
+                            echo "</i>";
                     }
                     ?>    
                 </td>
@@ -341,7 +343,9 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                         <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
                         <td>
-                           <?php printf(_("PSK Identity: %s"), 'SP_' . $depId . '-' . $deploymentObject->institution) ;?>
+                            <?php printf(_("PSK Identity: %s"), "<span id='pskid_data_$depId'>SP_".$depId.'-'.$deploymentObject->institution."</span>");
+                            echo copyIcon("pskid_icon_$depId");
+                           ?>
                             <br>
                             <?php printf(_("PSK key: %s"), "<span id='pskkey_data_$depId'>".$deploymentObject->pskkey."</span>");
                             echo copyIcon("pskkey_icon_$depId");
