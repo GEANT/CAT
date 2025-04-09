@@ -29,10 +29,97 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<style>
+    #download_box {
+    display: none;
+    background-color: #ddd;
+    position: absolute;
+    left: 100px;
+    top: 150px;
+    width: 70%;
+    z-index: 100;
+    padding:10px;
+    font-size: 12px;
+    }
+    #download_box_close {
+        position: absolute;
+        right: 5px;
+        top: 7px;
+        cursor: pointer;
+     }
+     #copy_link:hover {
+        opacity: 0.5;
+     }
+      #copy_link:hover path{
+         stroke: red;
+         color: red;
+         fill: red;
+     }
+     
+     
+     #copy_link {
+         stroke: red;
+         color: red;
+         fill: red;         
+     }
+    
+     
+     #copy_link path {
+         stroke: red;
+         color: red;
+         fill: red;         
+     }
+</style>
+
+<script>
+    var currentForm;
+    $(function () {
+        $("button.download").on("click", function(event){
+            event.preventDefault();
+            var boxTitle = $(this).html().replace('<br>', ' ');
+            $("#download_box_text").html(boxTitle);
+            currentForm = $(this).parent("form");
+            console.log(currentForm.attr("action"));
+            $("#copy_link").tooltip({
+                content: $("#copy_link").attr("title")
+            });
+            $("#download_box").show();
+        });
+        $("#download_box_close").on("click", function() {
+            $("#copy_link").tooltip({
+                content: $("#copy_link").attr("title")
+            });
+            $("#download_box").hide();
+        });
+        $("#download_installer").on("click", function() {
+            currentForm.submit();
+            $("#download_box").delay(1000).fadeOut(10);
+        });
+        
+        $("#copy_link").tooltip();
+       
+        $("#copy_link").on("click", function() {
+            navigator.clipboard.writeText(currentForm.attr("action"));
+            $(this).tooltip({
+                content: "<strong><?php echo _("Copied!") ?></strong>"
+            });
+            $(this).fadeOut(150).fadeIn(150);
+        });
+    });
+</script>
 </head>
 <body>
-    <?php
-    echo $deco->productheader("ADMIN-IDP");
+    <?php echo $deco->productheader("ADMIN-IDP"); 
+    $downloadBoxText = '<h2 id="download_box_text">MMM</h2>'._("Click the download button to download the installer or the clipboard copy icon to save the link.");
+    
+    $downloadBoxText .= "<p><button id='download_installer'>"._("Download").'</button>';
+    $downloadBoxText .=  ' <img id="copy_link" src="../resources/images/icons/Tabler/copy.svg" title="'. _("Copy link to clipboard").'" >';
+    
+    ?>
+    <div id="download_box"><img id="download_box_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div><?php echo $downloadBoxText; ?></div></div>
+<?php
     [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 
     $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
@@ -92,18 +179,24 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                 $langObject = new \core\common\Language();
                 $downloadform = "<span style='display:ruby;'>";
                 $formDiffs = ["" => sprintf(_("%s<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name'])];  /* eduroam */
-                if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && isset($factory->device->options['hs20']) && $factory->device->options['hs20'] == 1) {
-                    $formDiffs["<input type='hidden' name='openroaming'  value='1'/>"] = sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']); /* eduroam + OpenRoaming */
+                    if (sizeof($my_profile->getAttributes("media:openroaming")) > 0 && isset($factory->device->options['hs20']) && $factory->device->options['hs20'] == 1) {
+                    $formDiffs["openroaming=1"] = sprintf(_("%s + OpenRoaming<br/>Installer"), config\ConfAssistant::CONSORTIUM['display_name']); /* eduroam + OpenRoaming */
+                }
+                $proto = "http://";
+                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+                    $proto = "https://";
                 }
 
-                foreach ($formDiffs as $inputField => $text) {
-                    $downloadform .= "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
-                                       <input type='hidden' name='device' value='$index'/>
-                                       <input type='hidden' name='generatedfor'  value='admin'/>
-                                       $inputField
+                $formAction = $proto . $_SERVER['SERVER_NAME'] . \config\Master::PATHS['cat_base_url']. "user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "&device=$index";
+
+                foreach ($formDiffs as $extraOption => $text) {
+                    if ($extraOption !== "") {
+                        $formAction .= '&'.$extraOption;
+                    }
+                    $downloadform .= "<form action='$formAction' method='post' accept-charset='UTF-8'>
+                                       <input type='hidden' name='generatedfor', value='admin'>
                                        <button class='download'>$text</button>
-                                 </form>
-                                     ";
+                                      </form>";
                 }
                 $downloadform .= "</span>";
                 // first of all: if redirected, indicate by colour

@@ -152,7 +152,7 @@ button[disabled] {
 }
 
 button.download {
-    font-size: 20px;
+    font-size: 18px;
     min-height: 27px;
 }
 

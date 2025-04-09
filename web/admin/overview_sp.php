@@ -41,6 +41,11 @@ if (isset($_GET['errormsg'])) {
     }
 }
 ?>
+<style>
+    .deployments td:first-child {
+        padding-right: 15px;
+    }
+</style>
 <script>
 function getFile() {
     if (confirm('<?php printf(_("Do you really want to replace TLS credentials for this deployment? The current TLS credentials will be revoked in 4 hours.")); ?>')) {
@@ -59,44 +64,31 @@ function sendcsr(obj) {
     event.preventDefault();
 }
 
-function clipboardCopy(field) {
-    var toCopy = $("#" +field).html();
-    navigator.clipboard.writeText(toCopy);
-    event.preventDefault();
-}
+$(function() {
+    $(".copy_link").tooltip();
+    
+    $(".copy_link").on("click", function() {
+        $(".copy_link").tooltip({
+            content: "<?php echo _("Copy to clipboard") ?>"
+        });
+        var field = $(this).attr("id").replace('_icon', '_data');
+        var toCopy = $("#"+field).html();        
+        navigator.clipboard.writeText(toCopy);
+        $(this).tooltip({
+            content: "<strong><?php echo _("Copied!") ?></strong>"
+        });
+        $(this).fadeOut(150).fadeIn(150);
+    });
+});
 
-$(document).on('click', '.sp_priv_key' , function(e) {
-    var did = $(this).attr('id').substring('priv_key_'.length);
-    var OpenWindow = window.open('','_blank','width=600,height=800,resizable=1');
-    var content = $("#priv_key_data_" + did).val();
-    OpenWindow.document.write('<html><head><title>Private key</title><body><pre>'+content+'</body>');
-    OpenWindow.document.write('</body></html>');
-    e.preventDefault();
-});
-$(document).on('click', '.sp_cert' , function(e) {
-    var did = $(this).attr('id').substring('cert_'.length);
-    var OpenWindow = window.open('','_blank','width=600,height=500,resizable=1');
-    var content = $("#cert_data_" + did).val();
-    OpenWindow.document.write('<html><head><title>Certificate</title><body><pre>'+content+'</body>');
-    OpenWindow.document.write('</body></html>');
-    e.preventDefault();
-});
-$(document).on('click', '.ca_cert' , function(e) {
-    var OpenWindow = window.open('','_blank','width=600,height=500,resizable=1');
-    var content = $("#ca_cert_data").val();
-    OpenWindow.document.write('<html><head><title>CA Certificate</title><body><pre>'+content+'</body>');
-    OpenWindow.document.write('</body></html>');
-    e.preventDefault();
-});
-$(document).on('click', '.send_zip' , function(e) {
-    var OpenWindow = window.open();
-    var content = $("#zip_data").val();
-    OpenWindow.document.write(content);
-    e.preventDefault();
-});
+
 </script>
 
 <?php
+function copyIcon($target) {
+    return '<img class="copy_link" id="'.$target.'" src="../resources/images/icons/Tabler/copy.svg" title="'. _("Copy to clipboard").'" >';
+}
+
 /**
  * displays an infocard about a Managed SP deployment
  * 
@@ -138,13 +130,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 }
                 echo $displayname . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)";
                 ?></h2>
-            <table>
+            <table class="deployments">
                 <caption><?php echo _("Deployment Details"); ?></caption>
                 <form action="?inst_id=<?php echo $deploymentObject->institution; ?>" method="post">
                 <tr>
                     <th colspan="2"><?php echo("RADIUS over UDP"); ?></th>
                 </tr>
-                <tr>
+                <tr style="vertical-align:top">
                     <td>
                         <?php echo _("Your primary RADIUS server") ?>
                     </td>
@@ -172,7 +164,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         ?>
                     </td>
                 </tr>
-                <tr>
+                <tr style="vertical-align:top">
                     <td>
                         <?php echo _("Your secondary RADIUS server") ?>
                     </td>
@@ -200,21 +192,21 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         ?>
                     </td>
                 </tr>
-                <tr>
+                <tr style="vertical-align:bottom">
                     <td><?php echo _("RADIUS shared secret for both servers"); ?></td>
                     <td>
-                        <span id="shared_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->secret;?></span>
-                        <button onclick="clipboardCopy('shared_<?php echo $deploymentObject->identifier;?>')"> 
-                           <?php echo _('copy to clipboard');?>
-                        </button>
+                        <span id="shared_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->secret;?></span>
+                        <?php echo copyIcon("shared_icon_".$deploymentObject->identifier) ?>
                     </td>
                     <td></td>
                 </tr>
                 <tr></tr>
+                <tr><td colspan="3" style="background-color: #1d4a74; height: 2px"></tr>
+
                 <tr>
                     <th colspan="2"><?php echo("RADIUS over TLS or TLS-PSK"); ?></th>
                 </tr>
-                <tr>
+                <tr style="vertical-align:top">
                     <td>
                         <?php echo _("Your primary RADIUS server") ?>
                     </td>
@@ -242,7 +234,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         ?>
                     </td>
                 </tr>
-                <tr>
+                <tr style="vertical-align:top">
                     <td>
                         <?php echo _("Your secondary RADIUS server") ?>
                     </td>
@@ -276,27 +268,22 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <?php if ($deploymentObject->radsec_cert != '') { 
                     $data = openssl_x509_parse($deploymentObject->radsec_cert);
                     ?>
-                <tr>
+                <tr style="vertical-align:top">
                     <td><?php echo _("RADSEC over TLS credentials"); ?></td>
                     <td>
-                        <?php if ($deploymentObject->radsec_priv != '') { ?>
-                        <span style="display: none;" id="priv_key_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->radsec_priv;?></span>
-                        <?php } ?>
-                        <span style="display: none;" id="cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->radsec_cert;?></span>
-                        <span style="display: none;" id="ca_cert_data"><?php echo $cacert;?></span>
-                        <?php if ($deploymentObject->radsec_priv != '') { ?>
-                            <!-- <button class="sp_priv_key" id="priv_key_<?php echo $deploymentObject->identifier;?>" name="showc"  type="submit"><?php echo _('copy private key');?></button>-->
-                        <button onclick="clipboardCopy('priv_key_data_<?php echo $deploymentObject->identifier;?>')">
-                            <?php echo _('copy private key');?>
-                        </button>
-                        <?php } ?>
-                        <button onclick="clipboardCopy('cert_data_<?php echo $deploymentObject->identifier;?>')"> 
-                           <?php echo _('copy certificate');?>
-                        </button>
-                        <button onclick="clipboardCopy('ca_cert_data')">
-                           <?php echo _('copy CA certificate');?>
-                        </button>
                         <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
+                        <br/>
+                        <span style="display: none;" id="cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->radsec_cert;?></span>
+                        <span style="display: none;" id="ca_cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $cacert;?></span>
+                        <?php if ($deploymentObject->radsec_priv != '') {
+                            echo _("private key:") . " " . copyIcon("priv_key_icon_".$deploymentObject->identifier);
+                            echo '<span style="display: none;" id="priv_key_data_'.$deploymentObject->identifier.'">'.$deploymentObject->radsec_priv.'</span>';
+                            echo '&nbsp;&nbsp;';
+                        }
+                            echo _("certificate:") . " " . copyIcon("cert_icon_".$deploymentObject->identifier);
+                            echo '&nbsp;&nbsp;';
+                            echo _("CA certificate:") . " " . copyIcon("ca_cert_icon_".$deploymentObject->identifier);
+                        ?>
                     </td>
                     <td></td>
                 </tr>
@@ -340,16 +327,14 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                   
                 }
                 if ($deploymentObject->pskkey != '') {?>
-                <tr>
+                <tr style="vertical-align:top">
                         <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
                         <td>
                            <?php echo _("PSK Identity") . ': SP_' . $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
                             <br>
-                            <?php echo _("PSK key") . ': ' . $deploymentObject->pskkey . ' ';?>
-                            <span id='pskkey'><?php echo $deploymentObject->pskkey; ?></span>
-                            <button onclick="clipboardCopy('pskkey');">
-                                <?php echo _('copy to clipboard'); ?>
-                            </button>
+                            <?php echo _("PSK key") . ': ' ?>
+                            <span id='pskkey_data_<?php echo $deploymentObject->identifier ?>'><?php echo $deploymentObject->pskkey; ?></span>
+                            <?php echo copyIcon("pskkey_icon_".$deploymentObject->identifier) ?>
                         </td>
                         <td></td>
                 </tr>
