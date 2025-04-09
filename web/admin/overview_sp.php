@@ -33,7 +33,7 @@ $error_message = [
     'NOCSR' => _('The provided file can not be uploaded.'),
 ];
 
-$langInstance = new core\common\Language();
+$langInstance = new \core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";
 
@@ -52,7 +52,7 @@ if (isset($_GET['errormsg'])) {
     img.copy_link {
         position: relative;
         top: 3px;
-        <?php echo start?>: 3px;
+        <?php echo $start ?>: 3px;
         height: 16px;
     }
 </style>
