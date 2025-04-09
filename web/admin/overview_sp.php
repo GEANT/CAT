@@ -97,6 +97,7 @@ function copyIcon($target) {
  */
 function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     // RADIUS status icons
+    $depId = $deploymentObject->identifier;
     $radiusMessages = [
         \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg', 'text' => _("Successfully set profile")],
         \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg', 'text' => _("Some problem occurred during profile update")],
@@ -116,11 +117,12 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     }
     ?>
     <div style='display: table-row_id;'>
-        <div class='profilebox' id="profilebox_<?php echo $deploymentObject->identifier;?>" style='display: table-cell;'>
+        <div class='profilebox' id="profilebox_<?php echo $depId;?>" style='display: table-cell;'>
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
-                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME;
+                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP_$depId";                        
+                        
                         break;
                     case "OpenRoaming":
                         $displayname = "OpenRoaming ANP";
@@ -143,16 +145,20 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td>
                         <?php
                         if ($deploymentObject->host1_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host1_v4;
+                            printf(_("IPv4: %s"), "<span id='host1_v4_data_$depId'>".$deploymentObject->host1_v4."</span>");
+                            echo copyIcon("host1_v4_icon_$depId");
                         }
                         if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
                             echo "<br/>";
                         }
                         if ($deploymentObject->host1_v6 !== NULL) {
-                            echo _("IPv6") . ": " . $deploymentObject->host1_v6;
+                            printf(_("IPv6: %s"), "<span id='host1_v6_data_$depId'>".$deploymentObject->host1_v6."</span>");
+                            echo copyIcon("host1_v6_icon_$depId");                            
                         }
-                        echo "<br/>" . _("port") . ": " . $deploymentObject->port1;
-                        ?>
+                        echo "<br/>";
+                        printf(_("port: %s"), "<span id='port1_data_$depId'>".$deploymentObject->port1."</span>");
+                        echo copyIcon("port1_icon_$depId");                            
+                        ?>                        
                     </td>
                     <td>
                         <?php
@@ -168,18 +174,22 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td>
                         <?php echo _("Your secondary RADIUS server") ?>
                     </td>
-                    <td>
+                    <td>            
                         <?php
                         if ($deploymentObject->host2_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                            printf(_("IPv4: %s"), "<span id='host2_v4_data_$depId'>".$deploymentObject->host2_v4."</span>");
+                            echo copyIcon("host2_v4_icon_$depId");
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";
                         }
                         if ($deploymentObject->host2_v6 !== NULL) {
-                            echo _("IPv6") . ": " . $deploymentObject->host2_v6;
+                            printf(_("IPv6: %s"), "<span id='host2_v6_data_$depId'>".$deploymentObject->host2_v6."</span>");
+                            echo copyIcon("host2_v6_icon_$depId");                            
                         }
-                        echo "<br/>" . _("port") . ": " . $deploymentObject->port2;
+                        echo "<br/>";
+                        printf(_("port: %s"), "<span id='port2_data_$depId'>".$deploymentObject->port2."</span>");
+                        echo copyIcon("port2_icon_$depId");                            
                         ?>
                     </td>
                     <td>
@@ -271,19 +281,19 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                     <td><?php echo _("RADSEC over TLS credentials"); ?></td>
                     <td>
-                        <span style="display: none;" id="cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->radsec_cert;?></span>
-                        <span style="display: none;" id="ca_cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $cacert;?></span>
+                        <span style="display: none;" id="cert_data_<?php echo $depId;?>"><?php echo $deploymentObject->radsec_cert;?></span>
+                        <span style="display: none;" id="ca_cert_data_<?php echo $depId;?>"><?php echo $cacert;?></span>
                         <?php if ($deploymentObject->radsec_priv != '') {
-                            echo _("private key:") . " " . copyIcon("priv_key_icon_".$deploymentObject->identifier);
-                            echo '<span style="display: none;" id="priv_key_data_'.$deploymentObject->identifier.'">'.$deploymentObject->radsec_priv.'</span>';
+                            echo _("private key:") . " " . copyIcon("priv_key_icon_$depId");
+                            echo '<span style="display: none;" id="priv_key_data_'.$depId.'">'.$deploymentObject->radsec_priv.'</span>';
                             echo '&nbsp;&nbsp;';
                         }
-                            echo _("certificate:") . " " . copyIcon("cert_icon_".$deploymentObject->identifier);
+                            echo _("certificate:") . " " . copyIcon("cert_icon_$depId");
                             echo '&nbsp;&nbsp;';
-                            echo _("CA certificate:") . " " . copyIcon("ca_cert_icon_".$deploymentObject->identifier);
+                            echo _("CA certificate:") . " " . copyIcon("ca_cert_icon_$depId");
                         ?>
                         <br/>
-                        <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
+                        <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $depId?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
 
                     </td>
                     <td></td>
@@ -331,11 +341,11 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                         <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
                         <td>
-                           <?php echo _("PSK Identity") . ': SP_' . $deploymentObject->identifier . '-' . $deploymentObject->institution;?>
+                           <?php printf(_("PSK Identity: %s"), 'SP_' . $depId . '-' . $deploymentObject->institution) ;?>
                             <br>
-                            <?php echo _("PSK key") . ': ' ?>
-                            <span id='pskkey_data_<?php echo $deploymentObject->identifier ?>'><?php echo $deploymentObject->pskkey; ?></span>
-                            <?php echo copyIcon("pskkey_icon_".$deploymentObject->identifier) ?>
+                            <?php printf(_("PSK key: %s"), "<span id='pskkey_data_$depId'>".$deploymentObject->pskkey."</span>");
+                            echo copyIcon("pskkey_icon_$depId");
+                            ?>
                         </td>
                         <td></td>
                 </tr>
