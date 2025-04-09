@@ -271,8 +271,6 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                     <td><?php echo _("RADSEC over TLS credentials"); ?></td>
                     <td>
-                        <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
-                        <br/>
                         <span style="display: none;" id="cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->radsec_cert;?></span>
                         <span style="display: none;" id="ca_cert_data_<?php echo $deploymentObject->identifier;?>"><?php echo $cacert;?></span>
                         <?php if ($deploymentObject->radsec_priv != '') {
@@ -284,6 +282,9 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             echo '&nbsp;&nbsp;';
                             echo _("CA certificate:") . " " . copyIcon("ca_cert_icon_".$deploymentObject->identifier);
                         ?>
+                        <br/>
+                        <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $deploymentObject->identifier;?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
+
                     </td>
                     <td></td>
                 </tr>
