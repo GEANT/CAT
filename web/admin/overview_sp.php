@@ -478,12 +478,12 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <?php } ?>
                     <div align="right">
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='renewtls' style='background-color: yellow; color: black' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                            <button class='renewtls' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Renew RADSEC over TLS credentials"); ?>
                             </button>
                     </form>           
                     <form name="csrupload" enctype="multipart/form-data" action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                           <button class='usecsr' style='background-color: yellow; color: black' type='submit' onclick="getFile();"); ?>                
+                           <button class='usecsr' type='submit' onclick="getFile();"); ?>                
                                 <?php echo _("Upload CSR to sign my own TLS credentials"); ?>
                             </button>
                     <div style='height: 0px;width: 0px; overflow:hidden;'>
