@@ -26,6 +26,9 @@
 
 ALTER TABLE `deployment` ADD COLUMN (`radsec_priv` blob DEFAULT NULL,
   `radsec_cert` blob DEFAULT NULL,
+  `radsec_cert_serial_number` blob DEFAULT NULL,
+  `prot` varchar(64) DEFAULT NULL,
+  `owner` varchar(20) DEFAULT NULL,
   `pskkey` varchar(128) DEFAULT NULL);
 
 ALTER TABLE `deployment` CHANGE COLUMN radius_instance_1 radius_instance_1 varchar(64);
