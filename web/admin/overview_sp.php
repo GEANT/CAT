@@ -526,7 +526,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
             <?php $tablecaption = _("Hotspot Usage Statistics");?>
             <h1><?php echo $tablecaption; ?></h1>
             <h2><?php echo _("5 most recent authentications");?></h2>
-            <p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");?></p>
+            <p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)") .'<br>';
+                     echo _("Protocol is a protocol used between a client and RADIUS server, for TLS it is a / separated tuple TLS/TLS-Client-Cert-Serial"); ?></p>
             <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr style='text-align: left;'>

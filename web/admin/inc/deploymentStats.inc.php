@@ -37,7 +37,9 @@ switch ($backlog) {
 ?>
 
 <h1><?php $tablecaption = _("Deployment Usage Records"); echo $tablecaption; ?></h1>
-<p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");?></p>
+<p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");
+         echo _("Protocol is a protocol used between a client and RADIUS server, for TLS it is a / separated tuple TLS/TLS-Client-Cert-Serial");
+   ?></p>
 <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr>
@@ -47,6 +49,7 @@ switch ($backlog) {
         <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
         <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
+        <th scope="col"><strong><?php echo _("Protocol");?></strong></th>
     </tr>
     <?php
     $userAuthData = $deployment->retrieveStatistics($backlogTime);
@@ -59,6 +62,7 @@ switch ($backlog) {
                 . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                 . "<td>".$oneRecord['ap_id']."</td>"
+                . "<td>".$oneRecord['prot']."</td>"
                 . "</tr>";
     }
     ?>
