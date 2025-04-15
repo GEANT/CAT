@@ -233,15 +233,18 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td>
                         <?php
                         if ($deploymentObject->host1_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host1_v4;
+                            printf(_("IPv4: %s"), "<span id='host1_v4_t_data_$depId'>".$deploymentObject->host1_v4."</span>");
+                            echo copyIcon("host1_v4_t_icon_$depId");                             
                         }
                         if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
                             echo "<br/>";
                         }
                         if ($deploymentObject->host1_v6 !== NULL) {
-                            echo _("IPv6") . ": " . $deploymentObject->host1_v6;
+                            printf(_("IPv6: %s"), "<span id='host1_v6_t_data_$depId'>".$deploymentObject->host1_v6."</span>");
+                            echo copyIcon("host1_v6_t_icon_$depId");  
                         }
-                        echo "<br/>" . _("port") . ": 2083" ;
+                        printf(_("port: %s"), "<span id='port1_t_data_$depId'>2083</span>");
+                        echo copyIcon("port1_t_icon_$depId");                          
                         ?>
                     </td>
                     <td>
@@ -261,15 +264,18 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <td>
                         <?php
                         if ($deploymentObject->host2_v4 !== NULL) {
-                            echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                            printf(_("IPv4: %s"), "<span id='host2_v4_t_data_$depId'>".$deploymentObject->host2_v4."</span>");
+                            echo copyIcon("host2_v4_t_icon_$depId");                            
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";
                         }
                         if ($deploymentObject->host2_v6 !== NULL) {
-                            echo _("IPv6") . ": " . $deploymentObject->host2_v6;
+                            printf(_("IPv6: %s"), "<span id='host2_v6_t_data_$depId'>".$deploymentObject->host2_v6."</span>");
+                            echo copyIcon("host2_v6_t_icon_$depId");                            
                         }
-                        echo "<br/>" . _("port") . ": 2083";
+                        printf(_("port: %s"), "<span id='port2_t_data_$depId'>2083</span>");
+                        echo copyIcon("port2_t_icon_$depId");                          
                         ?>
                     </td>
                     <td>
