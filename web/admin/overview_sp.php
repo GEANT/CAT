@@ -243,6 +243,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             printf(_("IPv6: %s"), "<span id='host1_v6_t_data_$depId'>".$deploymentObject->host1_v6."</span>");
                             echo copyIcon("host1_v6_t_icon_$depId");  
                         }
+                        echo "<br/>";
                         printf(_("port: %s"), "<span id='port1_t_data_$depId'>2083</span>");
                         echo copyIcon("port1_t_icon_$depId");                          
                         ?>
@@ -274,6 +275,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             printf(_("IPv6: %s"), "<span id='host2_v6_t_data_$depId'>".$deploymentObject->host2_v6."</span>");
                             echo copyIcon("host2_v6_t_icon_$depId");                            
                         }
+                        echo "<br/>";
                         printf(_("port: %s"), "<span id='port2_t_data_$depId'>2083</span>");
                         echo copyIcon("port2_t_icon_$depId");                          
                         ?>
