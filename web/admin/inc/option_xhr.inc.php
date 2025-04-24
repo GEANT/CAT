@@ -42,7 +42,6 @@ $languageInstance->setTextDomain("web_admin");
 
 // add one option of the specified class
 
-$list = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], $_GET["device"]);
-
+$list = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], (isset($_GET["device"])?$_GET["device"]:NULL));
 $optionDisplay = new \web\lib\admin\OptionDisplay($list);
 echo $optionDisplay->optiontext(array_values($list));

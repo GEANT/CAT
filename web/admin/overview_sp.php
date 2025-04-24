@@ -377,39 +377,55 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
                 $opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL;
                 $vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
-                if ( $opname || $vlan || !empty($allRealms)) {
+                
                 ?>
                 <tr></tr>
                 <tr><th colspan="2"><?php echo _('Additional deployment settings');?></th></tr>
-                <?php if ($opname) { ?>
                     <tr>
-                        <td><?php echo _("Custom Operator-Name"); ?></td>
-                        <td><?php echo $opname; ?></td>
+                        <td>
+                            <?php
+                                if ($opname) {
+                                    echo _("Custom Operator-Name");
+                                } else {
+                                    echo _("Default Operator-Name");
+                                }
+                            ?>
+                        </td>
+                        <td>
+                        <?php
+                                if ($opname) { 
+                                    echo $opname; 
+                                } else {
+                                    echo '1sp.'.$depId.'-'.$deploymentObject->institution.'.hosted.eduroam.org';
+                                }
+                        ?>
+                        </td>
                     </tr>
-                    <?php
-                }
-                if ($vlan) {
+                <?php
+                if (!empty($allRealms) || $vlan) {
                     ?>
                     <tr>
                         <td><?php echo _("VLAN tag for own users"); ?></td>
-                        <td><?php echo $vlan; ?></td>
+                        <td>
+                            <?php 
+                                if ($vlan) {
+                                    echo $vlan;
+                                } else {
+                                    echo _('not set, be aware that realm setting is not used until a VLAN tag is added');
+                                }
+                            ?>
+                        </td>
                     </tr>
-                <?php } 
-                if (!empty($allRealms) || $vlan) {
-                ?>
-                
-                <tr>
+                    <tr>
                         <td><?php echo _("Realm to be considered own users"); ?></td>
                         <td>
-                <?php
-                
-                if (!empty($allRealms)) {
-                    echo implode(', ', $allRealms);
-                } else {
-                    echo _('not set, be aware that VLAN setting is not used until a realm is added');
-                }
-                }
-                }
+                            <?php
+                                if (!empty($allRealms)) {
+                                    echo implode(', ', $allRealms);
+                                } else {
+                                    echo _('not set, be aware that VLAN setting is not used until a realm is added');
+                                }
+                } 
                 ?>
                 </td></tr>
                 </form>
