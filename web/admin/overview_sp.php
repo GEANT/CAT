@@ -131,8 +131,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
-                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP_$depId-".$deploymentObject->institution;                        
-                        
+                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP$depId-".$deploymentObject->institution;
                         break;
                     case "OpenRoaming":
                         $displayname = "OpenRoaming ANP";
@@ -361,7 +360,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 <tr style="vertical-align:top">
                         <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
                         <td>
-                            <?php printf(_("PSK Identity: %s"), "<span id='pskid_data_$depId'>SP_".$depId.'-'.$deploymentObject->institution."</span>");
+                            <?php printf(_("PSK Identity: %s"), "<span id='pskid_data_$depId'>SP".$depId.'-'.$deploymentObject->institution.'</span>');
                             echo copyIcon("pskid_icon_$depId");
                            ?>
                             <br>

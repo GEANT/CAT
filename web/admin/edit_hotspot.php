@@ -268,19 +268,50 @@ if (isset($_POST['submitbutton'])) {
                     if ($vlan !== NULL) {
                         echo "value='$vlan'";
                     }
-                    ?>/>
-                </td>    
+                    ?>
+                    >
+                </td>
             </tr>
-            <tr>
         </table>
         <?php
         echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
         ?>
-        <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option (a realm for own users)"); ?></button>
     </fieldset>
 
     <?php
-    echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+    echo "<p><button type='submit' name='submitbutton' class='deploymentopts' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();
+    ?>
+    <script>
+        $(document).ready(function () {
+            $('.deploymentopts').on('click', function () {
+            var emptyvlan = "<?php echo _("VLAN tag for own users not set, realm setting will be not used."); ?>";
+            var emptyrealm = "<?php echo _("A realm to be considered own users is not set, VLAN tag setting will be not used."); ?>";
+            var query = "<?php echo _("Do you want to save this data after all?"); ?>";
+            
+            var vlan = $("[name='vlan']");
+            var ids= [];
+            var realms = [];
+            $("#expandable_managedsp_options").find('tr').each(function(idx, el) {      
+               var val = $("#" + el.id.substring(7) + "-input-string").val();
+               if (val !== undefined && val != '') {
+                    realms.push(val);
+                }
+            });
+            ack = true;
+            if (realms.length > 0 && vlan.val() == '' ) {
+                ack = confirm (emptyvlan + ' ' + query);      
+            }
+            if (vlan.val() != '' && realms.length == 0) {
+                ack = confirm (emptyrealm + ' ' + query);
+            }
+            if (!ack) {
+                event.preventDefault();
+            }
+            return;
+            });
+        });
+    </script>
 
     

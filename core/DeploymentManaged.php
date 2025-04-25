@@ -364,7 +364,7 @@ class DeploymentManaged extends AbstractDeployment
      */
     private function createTLScredentials()
     {
-        $clientName = "SP_" . $this->identifier . '-' . $this->institution;
+        $clientName = 'SP' . $this->identifier . '-' . $this->institution;
         $dn = array(
                     "organizationName" => "eduroam",
                     "organizationalUnitName" => "eduroam Managed SP",
@@ -410,7 +410,7 @@ class DeploymentManaged extends AbstractDeployment
             $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND )";
             $conditional2 = "DESC";
         }
-        $client = "SP_" . $this->identifier . "-" . $this->institution;
+        $client = 'SP' . $this->identifier . '-' . $this->institution;
         $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
        
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
@@ -529,7 +529,7 @@ class DeploymentManaged extends AbstractDeployment
        $dn['rdnSequence'][1][0]['value']['utf8String'] = 'eduroam Managed SP';
        $dn['rdnSequence'][2] = array();
        $dn['rdnSequence'][2][] = array('type' => 'id-at-commonName', 'value' => array());
-       $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP_' . $this->identifier . "-" . $this->institution;
+       $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP' . $this->identifier . "-" . $this->institution;
        $csr->setDN($dn);
        $pemcakey = file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key");
        $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass'] );
