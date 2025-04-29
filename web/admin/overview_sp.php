@@ -364,7 +364,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             echo copyIcon("pskid_icon_$depId");
                            ?>
                             <br>
-                            <?php printf(_("PSK key: %s"), "<span id='pskkey_data_$depId'>".$deploymentObject->pskkey."</span>");
+                            <?php printf(_("PSK hexphrase: %s"), "<span id='pskkey_data_$depId'>".$deploymentObject->pskkey."</span>");
                             echo copyIcon("pskkey_icon_$depId");
                             ?>
                         </td>
