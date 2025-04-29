@@ -21,7 +21,7 @@
  * */
  
  /**
- * This file is used to pack and send RADSEC credentials.
+ * This file is used to display a deployment.
  * 
  * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
  */
@@ -296,7 +296,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     $data = openssl_x509_parse($deploymentObject->radsec_cert);
                     ?>
                 <tr style="vertical-align:top">
-                    <td><?php echo _("RADSEC over TLS credentials"); ?></td>
+                    <td><?php echo _("RADIUS over TLS credentials"); ?></td>
                     <td>
                     <?php
                     if ($deploymentObject->radsec_priv == '') {
@@ -312,7 +312,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     if ($dleft > 2) {
                         echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
                     } else {
-                        echo '<br>' . _('If you are using RADSEC over TLS you should urgently renew your credentisls') . '!';
+                        echo '<br>' . _('If you are using RADIUS over TLS you should urgently renew your credentisls') . '!';
                     }
                     if ($dleft < 30) { echo '</font>'; }
                     ?></td>
@@ -342,8 +342,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <?php
                         if ($deploymentObject->radsec_cert != NULL) {
                             echo "<i>";
-                            echo _('If your certificate is close to expiry or you need to create new RADSEC over TLS credentials') . '<br>' .
-                                 _('click on "Renew RADSEC over TLS credentials" button') . '<br>';
+                            echo _('If your certificate is close to expiry or you need to create new RADIUS over TLS credentials') . '<br>' .
+                                 _('click on "Renew RADIUS over TLS credentials" button') . '<br>';
                         
                             echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
                                 _('Click on "Upload CSR to sign my own TLS credentials"');
@@ -358,7 +358,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 }
                 if ($deploymentObject->pskkey != '') {?>
                 <tr style="vertical-align:top">
-                        <td><?php echo _("RADSEC over TLS-PSK credentials"); ?></td>
+                        <td><?php echo _("RADIUS over TLS-PSK credentials"); ?></td>
                         <td>
                             <?php printf(_("PSK Identity: %s"), "<span id='pskid_data_$depId'>SP".$depId.'-'.$deploymentObject->institution.'</span>');
                             echo copyIcon("pskid_icon_$depId");
@@ -502,7 +502,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     <div align="right">
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='renewtls' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
-                                <?php echo _("Renew RADSEC over TLS credentials"); ?>
+                                <?php echo _("Renew RADIUS over TLS credentials"); ?>
                             </button>
                     </form>           
                     <form name="csrupload" enctype="multipart/form-data" action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
