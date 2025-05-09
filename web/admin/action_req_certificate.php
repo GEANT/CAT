@@ -298,6 +298,9 @@ $langObject = new \core\common\Language();
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
+                if (count($oneIdP['contacts']) ==0) {
+                    continue;
+                }
                 $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["name"];            
                 echo "instservers['" . $id . "']='" . str_replace(",", ", ", $oneIdP["servers"]) . "';\n";
                 echo "instpolicies['" . $id . "']='";
