@@ -158,6 +158,34 @@ class Logging
                 throw new Exception("Unable to write to AUDIT file (unknown category, requested data was $user, $category, $message!");
         }
     }
+    
+     /**
+     * Writes an audit log entry to the audit log file - static version. These audits are semantic logs; they don't record every single modification
+     * in the database, but provide a logical "who did what" overview. The exact modification SQL statements are logged
+     * automatically with writeSQLAudit() instead. The log file path is configurable in _config.php.
+     * 
+     * @param string $user     persistent identifier of the user who triggered the action
+     * @param string $category type of modification, from the fixed vocabulary: "NEW", "OWN", "MOD", "DEL"
+     * @param string $message  message to log into the audit log
+     * @return boolean TRUE if successful. Will terminate script execution on failure. 
+     * @throws Exception
+     */
+    public static function writeAudit_s($user, $category, $message)
+    {
+        switch ($category) {
+            case "NEW": // created a new object
+            case "OWN": // ownership changes
+            case "MOD": // modified existing object
+            case "DEL": // deleted an object
+                ob_start();
+                echo " ($category)  $user : $message\n";
+                $output = ob_get_clean();
+                self::writeToFile_s("audit-activity.log", $output);
+                return TRUE;
+            default:
+                throw new Exception("Unable to write to AUDIT file (unknown category, requested data was $user, $category, $message!");
+        }
+    }
 
     /**
      * Write an audit log entry to the SQL log file. Every SQL statement which is not a simple SELECT one will be written
@@ -174,5 +202,23 @@ class Logging
         $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
         $logTextStep3 = iconv("UTF-8", "UTF-8//IGNORE", $logTextStep2);
         $this->writeToFile("audit-SQL.log", " " . $logTextStep3 . "\n");
+    }
+    
+    
+    /**
+     * Write an audit log entry to the SQL log file. Every SQL statement which is not a simple SELECT one will be written
+     * to the log file. The log file path is configurable in _config.php.
+     * 
+     * @param string $query the SQL query to be logged
+     * @return void
+     */
+    public static function writeSQLAudit_s($query)
+    {
+        // clean up text to be in one line, with no extra spaces
+        // also clean up non UTF-8 to sanitise possibly malicious inputs
+        $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
+        $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
+        $logTextStep3 = iconv("UTF-8", "UTF-8//IGNORE", $logTextStep2);
+        self::writeToFile_s("audit-SQL.log", " " . $logTextStep3 . "\n");
     }
 }
