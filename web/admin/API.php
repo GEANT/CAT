@@ -91,7 +91,7 @@ switch ($inputDecoded['ACTION']) {
             throw new Exception("We did not receive a valid participant type!");
         }
         $type = $validator->partType($typeRaw);
-        $idp = new \core\IdP($fed->newIdP($type, "PENDING", "API"));
+        $idp = new \core\IdP($fed->newIdP('TOKEN', $type, "PENDING", "API"));
         // now add all submitted attributes
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);

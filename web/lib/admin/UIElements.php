@@ -95,9 +95,9 @@ class UIElements extends \core\common\Entity {
             "support:eap_types" => ['display' => _("Support: EAP Types"), 'help' => ""],
             "support:phone" => ['display' => _("Support: Phone"), 'help' => ""],
             "support:email" => ['display' => _("Support: E-Mail"), 'help' => ""],
-            "general:instname" => ['display' => sprintf(_("%s Name"), $this->nomenclatureParticipant), 'help' => ""],
-            "general:instshortname" => ['display' => sprintf(_("%s Acronym"), $this->nomenclatureParticipant), 'help' => ""],
-            "general:instaltname" => ['display' => _("Institution Alt Name"), 'help' => ""],
+            "general:instname" => ['display' => _("Organisation Name"), 'help' => ""],
+            "general:instshortname" => ['display' => _("Organisation Acronym"), 'help' => ""],
+            "general:instaltname" => ['display' => _("Organisation Alt Name"), 'help' => ""],
             "general:geo_coordinates" => ['display' => _("Location"), 'help' => ""],
             "general:logo_url" => ['display' => _("Logo URL"), 'help' => ""],
             "general:logo_file" => ['display' => _("Logo image"), 'help' => ""],
@@ -154,13 +154,14 @@ class UIElements extends \core\common\Entity {
             "fed:openroaming_customtarget" => ['display' => _("OpenRoaming: Custom NAPTR Target"), 'help' => ""],
             "fed:autoregister-synced" => [
                 'display' => _("Self registration from eduroam DB: add listed admins to CAT institutions"),
-                'help' => _("With this option turned on if a CAT institution is synced to the eduroam DB it is possble to"
-                        . " to have automatic enlisting of CAT institution admins under some conditions described"
-                        . " <a href='https://wiki.eduroam.org/'>here</a>.")],
+                'help' => sprintf(_("With this option turned on if a CAT institution is synced to the eduroam DB it is possble to have automatic enlisting of CAT institution admins under some conditions described <a href='%s'>here</a>."), "https://wiki.eduroam.org/")],
             "fed:autoregister-new-inst" => [
                 'display' => _("Self registration from eduroam DB: allow creating new institutions"),
-                'help' => _("Turn this on and eduroam DB listed institution admins will be allowed to create new institutions"
-                        . " under some conditions described <a href='https://wiki.eduroam.org/'>here</a>.")],
+                'help' => sprintf(_("Turn this on and eduroam DB listed institution admins will be allowed to create new institutions under some conditions described <a href='%s'>here</a>."), "https://wiki.eduroam.org/")],
+            "fed:autoregister-entitlement" => [
+                'display' => _("Self registration based on entitlement: add admins to CAT institutions"),
+                'help' => _("With this option turned on the system will verify the eduGAIN login of the potential administrator and propose takinn control over institutions which use the realm within the scope defined in the user's oairwise-id attrinute.")
+            ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
             "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => ""],

@@ -29,18 +29,43 @@ $uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
 $user = new \core\User($_SESSION['user']);
+$user->edugain = $user->isFromEduGAIN();
+$wizard = new \web\lib\admin\Wizard(false);
+$langInstance = new \core\common\Language();
+$start = $langInstance->rtl ? "right" : "left";
+$end = $langInstance->rtl ? "left" : "right";
 ?>
 
 <script type="text/javascript"><?php require_once "inc/overview_js.php" ?></script>
-
-
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script type="text/javascript" src="js/wizard.js"></script> 
+<link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 </head>
+<script>
+    $(document).ready(function() {
+        $("button.XXX").on("click", function(event) {
+            event.preventDefault();
+            var url = $(this).parent().attr('action');
+            $.post(url, {submitbutton: <?php echo \web\lib\common\FormElements::BUTTON_TAKECONTROL; ?>}, function(data) {
+                location.reload();
+            });
+        });
+    });
+</script>
+<style>
+    table.inst-selection th {
+        text-align: <?php echo $start ?>;
+    }
+</style>
+    
 <body>
     <?php
     echo $deco->productheader("ADMIN");
     ?>
+    <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
     <h1>
         <?php echo _("User Overview"); ?>
     </h1>
@@ -234,18 +259,29 @@ $user = new \core\User($_SESSION['user']);
         }
 
         elseif (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === 'eduGAIN') {
-            if ($user->edugain === true) {                
+            if ($user->edugain !== false) {                
                 $resyncedInst = $instMgmt->currentInstitutions['resynced'];
                 $newInst = $instMgmt->currentInstitutions['new'];
+                $entitlementCatInst = $instMgmt->currentInstitutions['entitlement'];
                 if (count($resyncedInst) > 0) {
-                    print "<h3>"._("We have automatically added you to the following institutions:")."</h3>";
+                    print "<h3>"._("We have automatically added you to the following organisations:")."</h3>";
+                    $helpText = _("We have added the organisations to your profile since your mail is listed as their administrator in the eduroam database.
+                            There may be several reasons why you are seeing this, for instance:
+                            <ul>
+                            <li>your mail has been added as the admin to institutions that you did not manage before
+                            <li>you have logged in via an account in a different IdP but the returned email address is the same as before
+                            <li>your IdP has been modified and it has a different entityId now
+                            <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargettedId attribute but no it is only sending pairwise-id
+                            </ul>");
+                    print $wizard->displayHelpText($helpText);
+
                     foreach ($resyncedInst as $id) {
                         print $instlist[$id]['name']."<br>";
                     }
                 }
                 if (count($newInst) > 0) {
                     echo "<p>"._("The eduroam database says you are an administrator of this following institutions, but there seem to be no matching institutions in CAT.")."<br>";
-                    echo "<table>";
+                    echo "<table class='inst-selection'>";
                     foreach ($newInst as $inst) {
                         echo "<tr><th>";
                         $i =0;
@@ -266,6 +302,29 @@ $user = new \core\User($_SESSION['user']);
                         echo "</div></td></tr>";
                     }
                     echo "</table>";
+                }
+                if (count($entitlementCatInst) > 0) {
+                    echo "<table class='inst-selection'>";
+                    echo "<p>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:<p>");                        
+                    foreach ($entitlementCatInst as $entitlementInst) {
+                            $idp = new \core\IdP($entitlementInst[0]);
+                            echo "<tr><th>";
+                            $names = $idp->getAttributes('general:instname');
+                            $i =0;
+                            foreach ($names as $onename) {
+                                if ($i > 0) {
+                                    echo "; ";
+                                }
+                                $i++;
+                                echo "[".$onename['lang']."] ".$onename['value'];
+                            }
+                            echo "</th><td>";
+                            echo "<form action='inc/manageAdmins.inc.php?inst_id=$idp->identifier' method='post'>";                            
+                            echo "<button type='submit' class='XXX' value='" . \web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . _("take control"). "</button><br/>";
+                            echo "</form>";
+                            echo "</td></tr>";
+                    }
+                    echo "</table>";               
                 }
             }       
         }

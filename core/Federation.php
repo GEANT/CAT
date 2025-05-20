@@ -274,7 +274,7 @@ class Federation extends EntityWithDBProperties
      * @return integer identifier of the new IdP
      * @throws Exception
      */
-    public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL)
+    public function newIdP($model, $type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL)
     {
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
@@ -311,10 +311,8 @@ class Federation extends EntityWithDBProperties
         $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
         $productShort = \config\Master::APPEARANCE['productname'];
         $productLong = \config\Master::APPEARANCE['productname_long'];
-        // notify the fed admins...
-
-        foreach ($admins as $id) {
-            $user = new User($id);
+        if ($model === 'TOKEN') {
+            // notify the fed admins...
             /// arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
             ///                2. IdP name; 
             ///                3. consortium name (e.g. eduroam); 
@@ -324,13 +322,13 @@ class Federation extends EntityWithDBProperties
             ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
             $message = sprintf(_("Hi,
 
-the invitation for the new %s %s in your %s federation %s has been used and the %s was created in %s.
+    the invitation for the new %s %s in your %s federation %s has been used and the %s was created in %s.
 
-We thought you might want to know.
+    We thought you might want to know.
 
-Best regards,
+    Best regards,
 
-%s"),
+    %s"),
                     $prettyPrintType,
                     $bestnameguess,
                     $consortium,
@@ -338,15 +336,45 @@ Best regards,
                     common\Entity::$nomenclature_participant,
                     $productShort,
                     $productLong);
-            /// organisation
-            if (\config\Master::MAILSETTINGS['notify_nro']) {
+        }
+        if ($model === 'SELF') {
+            // notify the fed admins...
+            /// arguments are: 1. nomenclature for "institution"
+            ///                2. IdP name; 
+            ///                3. consortium name (e.g. eduroam); 
+            ///                4. federation shortname, e.g. "LU"; 
+            ///                5. product name (e.g. eduroam CAT);
+            ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
+
+            $message = sprintf(_("Hi,
+
+    the eduGAIN self-registration was used to create a new %s
+           %s
+    in your %s federation %s in %s.
+
+    We thought you might want to know.
+
+    Best regards,
+
+    %s"),
+                    common\Entity::$nomenclature_participant,
+                    $bestnameguess,
+                    $consortium,
+                    strtoupper($this->tld),
+                    $productShort,
+                    $productLong);
+        }
+        if (\config\Master::MAILSETTINGS['notify_nro']) {
+            foreach ($admins as $id) {
+                $user = new User($id);
+                 /// organisation
                 $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
                 if ($retval === FALSE) {
                     $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
                 }
             }
         }
-
+        User::sendMailToCATadmins(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
         return $identifier;
     }
 

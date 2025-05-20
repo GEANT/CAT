@@ -52,6 +52,11 @@ $mgmt = new \core\UserManagement();
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // or an admin of the IdP with federation admin blessings
 $is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
+
+if (in_array($my_inst, $_SESSION['entitledIdPs'])) {
+    $is_admin_with_blessing = true;
+}
+
 // if none of the two, send the user away
 if (!$isFedAdmin && !$is_admin_with_blessing) {
     echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclatureParticipant);
@@ -196,9 +201,12 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
                 </form>
             </td>
             <?php
+            /*
             if ($oneowner['MAIL'] == "SELF-APPOINTED") {
                 echo "<td><a href='overview_org.php?inst_id=".$my_inst->identifier."' target='_blank'>"._("Enter Organisation")."</td>";
             }
+             * 
+             */
             ?>
         </tr>
         <?php

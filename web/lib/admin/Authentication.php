@@ -63,6 +63,7 @@ class Authentication extends \core\common\Entity {
         $authSimple = new \SimpleSAML\Auth\Simple(\config\Master::AUTHENTICATION['ssp-authsource']);
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
+        \core\common\Logging::debug_s(3, $admininfo, "SAML ATTR:\n", "\n");
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $session->cleanup();
         if (!isset($admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0])) {
@@ -75,6 +76,9 @@ class Authentication extends \core\common\Entity {
         $_SESSION['user'] = $user;
         $_SESSION['name'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-name']][0] ?? _("Unnamed User");
         $_SESSION['auth_email'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-email']][0] ?? _("");
+        if (isset($admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']])) {
+            $_SESSION['entitlement'] = $admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']];
+        }
         /*
          * This is a nice pathological test case for a user ID.
          *

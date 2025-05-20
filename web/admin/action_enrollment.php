@@ -63,10 +63,9 @@ switch ($_GET['token']) {
         if ($newInstFlag === []) {
             $elements->errorPage(_("Error creating new IdP!"),_("You tried to register in self-service, but this federation does not allow self-service!"));
         }
-        // we must be sure that this person admins the ext institution 
+        // we must be sure that this person admins the ext institution and that it falls into the current federation
         if ($validator->existingExtInstitution($extId, $userEmail, $ROid) === 1) {
             $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
-            print "IdP ".$extId." in $ROid will be created";
         }
         // and check that this institution does not match anuthing in CAT.
         $usermgmt = new \core\UserManagement();
@@ -114,7 +113,7 @@ switch ($token) {
         break;    
     case "SELF-REGISTER":
         $fed = new \core\Federation($federation);
-        $newidp = new \core\IdP($fed->newIdP(core\IdP::TYPE_IDPSP, $user, "FED", "SELFSERVICE"));
+        $newidp = new \core\IdP($fed->newIdP('SELF', core\IdP::TYPE_IDPSP, $user, "FED", "SELFSERVICE"));
         $loggerInstance->writeAudit($user, "MOD", "IdP " . $newidp->identifier . " - selfservice registration");
         break;
     default:

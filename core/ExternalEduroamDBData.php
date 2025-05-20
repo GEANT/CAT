@@ -283,9 +283,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             $fields = $defaultFields;
         }
         $forSelect = join(', ', $fields);
-        //$query = "SELECT $forSelect FROM view_active_institution WHERE inst_realm like ?'";
         $query = "SELECT $forSelect FROM view_active_institution WHERE inst_realm like '%$realm%'";
-        //$externals = $this->db->exec($query, "s", $realm);
         $externals = $this->db->exec($query);
         // was a SELECT query, so a resource and not a boolean
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
@@ -316,10 +314,10 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             FROM view_institution_admins
             JOIN view_active_institution
                 ON view_institution_admins.instid = view_active_institution.instid
+                AND view_institution_admins.ROid=view_active_institution.ROid
             LEFT JOIN $cat.institution
                 ON view_institution_admins.instid=$cat.institution.external_db_id
             WHERE view_active_institution.type != 2 AND view_institution_admins.email= ?";
-        
         $externals = $this->db->exec($query, 's', $userEmail);
         while ($row = $externals->fetch_array()) {
             $external_db_id =  $row[0];
@@ -346,7 +344,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @return int 1 if found 0 if not
      */
     public function verifyExternalEntity($ROid, $extId, $userEmail = NULL) {
-        $query = "SELECT * FROM view_institution_admins WHERE ROid='$ROid' AND instid='$extId'";
+        $query = "SELECT * FROM view_institution_admins JOIN view_active_institution ON view_institution_admins.instid=view_active_institution.instid AND view_institution_admins.ROid=view_active_institution.ROid WHERE view_active_institution. ROid='$ROid' AND view_institution_admins.instid='$extId'";
         if ($userEmail != NULL) {
             $query .= " AND email='$userEmail'";
         }

@@ -65,7 +65,6 @@ class User extends EntityWithDBProperties
         $this->entityIdColumn = "user_id";
         $this->identifier = 0; // not used
         $this->userName = $userId;
-        $this->edugain = $this->isFromEduGAIN();
         $optioninstance = Options::instance();
 
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -73,7 +72,7 @@ class User extends EntityWithDBProperties
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
             $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $this->userName);
-            $visited = FALSE;
+            $visited = false;
             // SELECT -> resource, not boolean
             while ($userDetailQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $info)) {
                 if (!$visited) {
@@ -101,13 +100,13 @@ class User extends EntityWithDBProperties
      * if the user administers this particular federation.
      * 
      * @param string $federation optional: federation to be checked
-     * @return boolean TRUE if the user is federation admin, FALSE if not 
+     * @return boolean TRUE if the user is federation admin, false if not 
      */
     public function isFederationAdmin($federation = 0)
     {
         $feds = $this->getAttributes("user:fedadmin");
         if (count($feds) == 0) { // not a fedadmin at all
-            return FALSE;
+            return false;
         }
         if ($federation === 0) { // fedadmin for one; that's all we want to know
             return TRUE;
@@ -117,14 +116,14 @@ class User extends EntityWithDBProperties
                 return TRUE;
             }
         }
-        return FALSE; // no luck so far? Not the admin we are looking for.
+        return false; // no luck so far? Not the admin we are looking for.
     }
 
     /**
      * This function tests if the current user has been configured as the system superadmin, i.e. if the user is allowed
      * to execute the 112365365321.php script and obtain read-only access to admin areas.
      *
-     * @return boolean TRUE if the user is a superadmin, FALSE if not 
+     * @return boolean TRUE if the user is a superadmin, false if not 
      */
     public function isSuperadmin()
     {
@@ -136,7 +135,7 @@ class User extends EntityWithDBProperties
      * This function tests if the current user has been configured as the system superadmin, i.e. if the user is allowed
      *  obtain read-only access to admin areas.
      *
-     * @return boolean TRUE if the user is a support member, FALSE if not 
+     * @return boolean TRUE if the user is a support member, false if not 
      */
     public function isSupport()
     {
@@ -147,7 +146,7 @@ class User extends EntityWithDBProperties
      * This function tests if the current user is an ovner of a given IdP
      *
      * @param int $idp integer identifier of the IdP
-     * @return boolean TRUE if the user is an owner, FALSE if not 
+     * @return boolean TRUE if the user is an owner, false if not 
      */
     public function isIdPOwner($idp)
     {
@@ -157,7 +156,7 @@ class User extends EntityWithDBProperties
                 return TRUE;
             }
         }
-        return FALSE;
+        return false;
     }
     
     /** This function tests if user's IdP is listed in eduGAIN - it uses an external 
@@ -168,22 +167,42 @@ class User extends EntityWithDBProperties
      */
     public function isFromEduGAIN()
     {
-        $loggerInstance = new common\Logging();
-        $entityId = preg_replace('/^.*=!/','', $_SESSION['user']);
+        preg_match('/!([^!]+)$/', $_SESSION['user'], $matches);
+        if (!isset($matches[1])) {
+            return false;
+        }
+        $entityId = $matches[1];
         $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$entityId";
+        \core\common\Logging::debug_s(3, $url."\n");
         $ch = curl_init($url);
-        if ($ch === FALSE) {
+        if ($ch === false) {
             $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
             return false;
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
         $response = curl_exec($ch);
-        if ($response === "null") {
+        \core\common\Logging::debug_s(2, $response, "RESP\n", "\n");
+        /*
+        if (json_validate($response) === false) {
+            \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
             return false;
-        } else {
-            return true;
         }
+         * 
+         */
+        $responseDetails = json_decode($response, true);
+        if ($responseDetails['status'] !== 1) {
+            \core\common\Logging::debug_s(3, "EDUGAINRESOLVER returned status 0\n");
+            return false;            
+        }
+        if ($responseDetails['name'] === null) {
+            \core\common\Logging::debug_s(3,"User not in eduGAIN\n");
+            $_SESSION['eduGAIN'] = false;
+            return false;            
+        }
+        \core\common\Logging::debug_s(3,"User in eduGAIN\n");
+        $_SESSION['eduGAIN'] = $responseDetails['regauth'];
+        return true;
     }
     
     /**
@@ -206,24 +225,54 @@ class User extends EntityWithDBProperties
      */
     public function sendMailToUser($subject, $content)
     {
-
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) { // we don't know user's mail address
-            return FALSE;
+            return false;
         }
+        return $this::doMailing($mailaddr[0]["value"], $subject, $content);
+    }
+
+    /**
+     * sending mail to CAT admins (if defined in Master), mainly for debugging purposes
+     * 
+     * @param string $subject
+     * @param string $content
+     * @return boolean did it work?
+     */
+    public static function sendMailToCATadmins($subject, $content) {
+        if (!isset(\config\Master::APPEARANCE['cat-admin-mail']) ||  \config\Master::APPEARANCE['cat-admin-mail'] === []) {
+            return;
+        }
+        foreach (\config\Master::APPEARANCE['cat-admin-mail'] as $mailaddr) {
+            $sent = User::doMailing($mailaddr, $subject, $content);
+            if (!$sent) {
+                \core\common\Logging::debug_s(2, $mailaddr, "Mailing to: ", " failed\n");
+            }
+        }
+    }
+
+    /**
+     * shorthand function for actual email sending to the user
+     * 
+     * @param array $mailaddr the mail address ro mail to
+     * @param string $subject addressee of the mail
+     * @param string $content content of the mail
+     * @return boolean did it work?
+     */    
+    private static function doMailing($mailaddr, $subject, $content) {
         common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
         $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
         $mail->addReplyTo(\config\Master::APPEARANCE['support-contact']['developer-mail'], \config\Master::APPEARANCE['productname'] . " " . _("Feedback"));
-        $mail->addAddress($mailaddr[0]["value"]);
+        $mail->addAddress($mailaddr);
 // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
 
         $sent = $mail->send();
         common\Entity::outOfThePotatoes();
-        return $sent;
+        return $sent;        
     }
 
     /**
@@ -238,6 +287,7 @@ class User extends EntityWithDBProperties
 
     const PROVIDER_STRINGS = [
         "eduPersonTargetedID" => "eduGAIN",
+        "pairwise-id" => "eduGAIN",
         "facebook_targetedID" => "Facebook",
         "google_eppn" => "Google",
         "linkedin_targetedID" => "LinkedIn",
@@ -255,7 +305,7 @@ class User extends EntityWithDBProperties
      * 
      * @param string $mail mail address to search with
      * @param string $lang language for the eduGAIN request
-     * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
+     * @return boolean|array the list of auth source IdPs we found for the mail, or false if none found or invalid input
      */
     public static function findLoginIdPByEmail($mail, $lang)
     {
@@ -264,8 +314,8 @@ class User extends EntityWithDBProperties
         $matchedProviders = [];
         $skipCurl = 0;
         $realmail = filter_var($mail, FILTER_VALIDATE_EMAIL);
-        if ($realmail === FALSE) {
-            return FALSE;
+        if ($realmail === false) {
+            return false;
         }
         $dbHandle = \core\DBConnection::handle("INST");
         $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
@@ -281,16 +331,17 @@ class User extends EntityWithDBProperties
                 $lookFor .= "$name";
             }
             $finding = preg_match("/^(" . $lookFor . "):(.*)/", $oneRow->user_id, $matches);
-            if ($finding === 0 || $finding === FALSE) {
-                return FALSE;
+            if ($finding === 0 || $finding === false) {
+                return false;
             }
 
             $providerStrings = array_keys(User::PROVIDER_STRINGS);
             switch ($matches[1]) {
                 case $providerStrings[0]: // eduGAIN needs to find the exact IdP behind it
+                case $providerStrings[1]:
                     $moreMatches = [];
-                    $exactIdP = preg_match("/.*!(.*)$/", $matches[2], $moreMatches);
-                    if ($exactIdP === 0 || $exactIdP === FALSE) {
+                    $exactIdP = preg_match("/.*!([^!]*)$/", $matches[2], $moreMatches);
+                    if ($exactIdP === 0 || $exactIdP === false) {
                         break;
                     }
                     $idp = $moreMatches[1];
@@ -300,36 +351,44 @@ class User extends EntityWithDBProperties
                         if ($skipCurl == 0) {
                             $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
-                            if ($ch === FALSE) {
+                            if ($ch === false) {
                                 $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
                                 break;
                             }
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
                             $response = curl_exec($ch);
-                            if (is_bool($response)) { // catch both FALSE and TRUE because we use CURLOPT_RETURNTRANSFER
+                            if (json_validate($response) === false) {
+                                \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
+                                return false;
+                            }
+                            if (is_bool($response)) { // catch both false and TRUE because we use CURLOPT_RETURNTRANSFER
                                 $skipCurl = 1;
                             } else {
-                                $name = json_decode($response);
+                                $responseDetails = json_decode($response, true);
+                                if (isset($responseDetails['status']) && $responseDetails['status'] === 1 && $responseDetails['name'] !== null) {
+                                    $name = $responseDetails['name'];
+                                }
                             }
                             curl_close($ch);
                         }
                         $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP: " . $name;
                     }
                     break;
-                case $providerStrings[1]:
+                case $providerStrings[2]:
                 case $providerStrings[2]:
                 case $providerStrings[3]:
                 case $providerStrings[4]:
-                case $providerStrings[5]:
+                case $providerStrings[6]:
                     if (!in_array(User::PROVIDER_STRINGS[$matches[1]], $listOfProviders)) {
                         $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
                     }
                     break;
                 default:
-                    return FALSE;
+                    return false;
             }
         }
+        \core\common\Logging::debug_s(3,$listOfProviders, "PROVIDERS:\n", "\n");
         return $listOfProviders;
     }
 }

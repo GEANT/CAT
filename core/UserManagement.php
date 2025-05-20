@@ -160,7 +160,7 @@ class UserManagement extends \core\common\Entity
                 } else {
                     $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
                 }
-                $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails['cat_institution_id'] . " - added user as owner");
+                common\Logging::writeAudit_s((string) $owner, "OWN", "IdP " . $invitationDetails['cat_institution_id'] . " - added user as owner");
                 common\Entity::outOfThePotatoes();
                 return new IdP($invitationDetails['cat_institution_id']);
             }
@@ -171,10 +171,10 @@ class UserManagement extends \core\common\Entity
                 $idp = $this->newIdPFromExternal($invitationDetails['external_db_uniquehandle'], $fed, $invitationDetails, $owner);
             } else {
                 $bestnameguess = $invitationDetails['name'];
-                $idp = new IdP($fed->newIdP($invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
+                $idp = new IdP($fed->newIdP('TOKEN', $invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
                 $idp->addAttribute("general:instname", 'C', $bestnameguess);
             }
-            $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
+            common\Logging::writeAudit_s($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             // in case we have more admins in the queue which were invited to 
             // administer the same inst but haven't redeemed their invitations 
@@ -210,10 +210,10 @@ class UserManagement extends \core\common\Entity
         $invitationDetails = [
             'invite_fortype' => $externalinfo['type'],
             'invite_issuer_level' => "FED",
-            'invite_dest_mail' => $_SESSION['auth_email']
+            'invite_dest_mail' => $_SESSION['auth_email'],
         ];
         $idp = $this->newIdPFromExternal($extId, $fed, $invitationDetails, $owner, $externalinfo);
-        $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from auto-registration of $extId");
+        common\Logging::writeAudit_s($owner, "NEW", "IdP " . $idp->identifier . " - created from auto-registration of $extId");
         return $idp;
     }
     
@@ -228,12 +228,8 @@ class UserManagement extends \core\common\Entity
             $ROid = strtoupper($fed->tld).'01';
             $externalinfo = $cat->getExternalDBEntityDetails($extId, $ROid);
         }
-        print "<p>";
-        print_r($externalinfo);
-        print "<p>";
-        print_r($owner);
         $bestnameguess = $externalinfo['names']['C'] ?? $externalinfo['names']['en'] ?? reset($externalinfo['names']);
-        $idp = new IdP($fed->newIdP($invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
+        $idp = new IdP($fed->newIdP('SELF', $invitationDetails['invite_fortype'], $owner, $invitationDetails['invite_issuer_level'], $invitationDetails['invite_dest_mail'], $bestnameguess));
         foreach ($externalinfo['names'] as $instlang => $instname) {
             $idp->addAttribute("general:instname", $instlang, $instname);
         }
@@ -341,7 +337,7 @@ class UserManagement extends \core\common\Entity
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
-        $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
+        common\Logging::debug_s(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
             $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token, "expiry" => $invitationQuery->expiry];
         }
@@ -360,7 +356,7 @@ class UserManagement extends \core\common\Entity
                                         WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
         while ($expInvitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
-            $this->loggerInstance->debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
+            common\Logging::debug_s(4, "Retrieving recently expired invitations (expired in last hour)\n");
             if ($expInvitationQuery->cat_institution_id == NULL) {
                 $retval[] = ["country" => $expInvitationQuery->country, "level" => $expInvitationQuery->invite_issuer_level, "name" => $expInvitationQuery->name, "mail" => $expInvitationQuery->invite_dest_mail];
             } else {
@@ -387,31 +383,30 @@ class UserManagement extends \core\common\Entity
      */ 
     public function listInstitutionsByAdmin($applyAutoSync = false)
     {
-        $userId = $_SESSION['user'];
+        $edugain = $_SESSION['eduGAIN'];
         // get the list of local identifers of institutions managed by this user
         // it will be returned as $this->currentInstitutions
         $this->getCurrentInstitutionsByAdmin();
         if (count($this->currentInstitutions) == 0) {
             $this->newUser = true;
         }
-        
-        // check if selfservice_registration is set to eduGAIN - if not then return
+        // check if selfservice_registration is set to eduGAIN - if not then return with the durrent list
         if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] !== 'eduGAIN') {
+            common\Logging::debug_s(4, "selfservice_registration not set to eduGAIN\n");
             return $this->currentInstitutions;
         }
         // now add additional institutions based on the external DB 
-        // proceed only if user has been authenticated fron an eduGAIN IdP
-        $user = new \core\User($userId);
-        if ($user->edugain !== true) {
+        // proceed only if user has been authenticated fron an eduGAIN IdP        
+        if ($edugain === false) {
             return $this->currentInstitutions;            
         }
         $email = $_SESSION['auth_email'];
-        $externalDB = \core\CAT::determineExternalConnection();
+        $externalDB = CAT::determineExternalConnection();
         // get the list of identifiers in the external DB with this user listed as the admin and linked to CAT institutions
         $extInstList = $externalDB->listExternalEntitiesByUserEmail($email);
         $extInstListTmp = $extInstList;
         // we begin by removing entites in $extInstList which are already managed by this user and synced -
-        // these require not further checking
+        // these require no further checking
         foreach ($extInstListTmp as $country => $extInstCountryList) {
             $len = count($extInstCountryList);
             for($i = 0; $i < $len; ++$i) {
@@ -424,46 +419,185 @@ class UserManagement extends \core\common\Entity
                 unset($extInstList[$country]);
             }
         }
-        
-        if ($extInstList == []) {
-            return $this->currentInstitutions; 
-        }
-        
+        // now verify the $extInstList separately for each federation making sure
+        // that the federation allows autoregistration
         foreach ($extInstList as $country => $extInstCountryList) {
             $fed = new Federation($country);
-            $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
-            $newInstFlag = $fed->getAttributes('fed:autoregister-new-inst');
-            foreach ($extInstCountryList as $extInst) {
-                $this->loggerInstance->debug(4, "Testing ".$extInst['external_db_id']."\n");
-                // is institution synced, if so we add this admin
-                if ($extInst['inst_id'] != NULL && $autoSyncedFlag != []) {
-                    $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
-                    if ($applyAutoSync) {
-                        $this->loggerInstance->debug(4, "Adding admin to ".$extInst['inst_id']."\n");
-                        $this->currentInstitutions['existing'][] = $extInst['inst_id'];
-                        $query = "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES (?, ?, 'FED', ?)";
-                        $this->databaseHandle->exec($query, 'sis', $userId, $extInst['inst_id'], $email);
-                    }
-                }
-                
-                // this institution is not synced, perhaps we could create a new one in CAT
-                if ($extInst['inst_id'] == NULL && $newInstFlag != []) {
-                    $this->loggerInstance->debug(4, "Testing ".$extInst['external_db_id']." for potential new inst\n");
-                    // run checks against creating dupplicates in CAT DB
-                    $disectedNames = \core\ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
-                    $names = $disectedNames['joint'];
-                    $realms = \core\ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
-                    $foundMatch = $this->checkForSimilarInstitutions($names, $realms);
-                    $this->loggerInstance->debug(4, $foundMatch, "checkForSimilarInstitutions returned: ","\n");
-                    if ($foundMatch == 0) {
-                        $this->currentInstitutions['new'][] = [$extInst['external_db_id'], $disectedNames['perlang'], $country];
-                    }
-                }
-                
-            }    
+            $this->doExternalDBAutoregister($extInstCountryList, $fed, $applyAutoSync);
+            $this->doExternalDBAutoregisterNew($extInstCountryList, $fed);
         }
-        $this->loggerInstance->debug(4,$this->currentInstitutions['new'],"\n","\n");
+        // now we run tests for adding admins based on pairwise-id and entitlement
+        $entitledCountries = $this->getUserEntitledFed();
+        $entitlementInst = $this->listCatInstitutionsByPairwiseId();
+        common\Logging::debug_s(4, $entitlementInst, "entitlementInst\n", "\n");
+        foreach ($entitlementInst as $country => $instList) {
+            if (!in_array($country, $entitledCountries)) {
+                continue;
+            }
+            $fed = new Federation($country);
+            $this->doEntitlementAutoregister($instList, $fed);
+        }
+        $_SESSION['entitledIdPs'] = array_column($this->currentInstitutions['entitlement'], 0);
+        common\Logging::debug_s(4, $this->currentInstitutions, "currentInstitutions\n", "\n");
         return $this->currentInstitutions;
+    }
+
+    /**
+     * Handle auto-registration of admin for CAT institutions which are synced to
+     * eduroam DB institutions which have the current admin listed
+     * The method verifies that the federation allows auto-registration
+     * 
+     * @param array $extInstCountryList - list of eduroam DB candidate institutions
+     * @param object $fed - the Federation object
+     * @param boolean $applyAutoSync - do we write updated to the databaes?
+     */
+    private function doExternalDBAutoregister($extInstCountryList, $fed, $applyAutoSync = false) {
+        $userId = $_SESSION['user'];
+        $email = $_SESSION['auth_email'];
+        $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
+        if ($autoSyncedFlag == []) {
+            return;
+        }        
+        foreach ($extInstCountryList as $extInst) {
+            common\Logging::debug_s(4, "Testing ".$extInst['external_db_id']."\n");
+            if ($extInst['inst_id'] == null) {
+                // this institution is not synced, skip
+                continue;
+            }
+            // is institution synced, if so we add this admin if the federation allows
+            common\Logging::debug_s(4, "It is synced\n");
+            $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
+            if ($applyAutoSync) {
+                common\Logging::debug_s(4, "Adding admin to ".$extInst['inst_id']."\n");
+                $this->currentInstitutions['existing'][] = $extInst['inst_id'];
+                $query = "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES (?, ?, 'FED', ?)";
+                $this->databaseHandle->exec($query, 'sis', $userId, $extInst['inst_id'], $email);
+            }
+        }
+    }
+    
+    /**
+     * Handle auto-creation of new CAT institutions which match
+     * eduroam DB institutions which have the current admin listed
+     * The method verifies that the federation allows auto-cereation
+     * 
+     * @param array $extInstCountryList - list of eduroam DB candidate institutions
+     * @param object $fed - the Federation object
+     */
+    private function doExternalDBAutoregisterNew($extInstCountryList, $fed) {
+        $newInstFlag = $fed->getAttributes('fed:autoregister-new-inst');
+        if ($newInstFlag == []) {
+            return;
+        }
+        foreach ($extInstCountryList as $extInst) {
+            common\Logging::debug_s(4, "Testing ".$extInst['external_db_id']." for potential new inst\n");
+            if ($extInst['inst_id'] != null) {
+        }
+                continue;
+        }
+        $country = $fed->tld;
+        // now run checks against creating dupplicates in CAT DB
+        $disectedNames = ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
+        $names = $disectedNames['joint'];
+        $realms = ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
+        $foundMatch = $this->checkForSimilarInstitutions($names, $realms);
+        common\Logging::debug_s(4, $foundMatch, "checkForSimilarInstitutions returned: ","\n");
+        if ($foundMatch == 0) {
+            $this->currentInstitutions['new'][] = [$extInst['external_db_id'], $disectedNames['perlang'], $country];
+        }  
+    }
+
+    /**
+     * Handle auto-registration of admin for CAT institutions
+     * based on data from eduGAIN login
+     * The method verifies that the federation allows this type of auto-registration
+     * 
+     * @param boolean $applyAutoSync - do we write updated to the databaes?
+     * @param object $fed - the Federation object
+     */
+    private function doEntitlementAutoregister($instList, $fed) {
+        $useEntitlementFlag = $fed->getAttributes('fed:autoregister-entitlement');
+        if ($useEntitlementFlag == []) {
+            return;
+        }
+        $country = $fed->tld;
+        foreach ($instList as $instId) {
+            if (!in_array($instId, $this->currentInstitutions['existing'])) {
+                $this->currentInstitutions['entitlement'][] = [$instId, $country];
+            }
+        }
+      
+    }
+
+    /**
+     * Generate a list of externalDB institutions for which the admin is entitled
+     * based on the eduPersonEntitlement setting and scope from pairwise-id
+     * The 
+     * @return array indexed by countries
+     */
+    private function listCatInstitutionsByPairwiseId() {
+        if (!isset(\config\ConfAssistant::CONSORTIUM['entitlement'])) {
+            return [];            
+        }
+        // first check if pairwise-id is set
+        $userId = $_SESSION['user'];
+        if (substr($userId, 0, 12) !== 'pairwise-id:') {
+            return [];
+        }
+
+        // next check if entitlement is setand matches our expectations
+        if (!isset($_SESSION['entitlement'])) {
+            return [];
+        }
+
+        // get realm from pariwise-id
+        if (preg_match('/^pairwise-id:[^@]+@([^!]+)!/', $userId, $matches) == 0) {
+            return [];            
+        }
+
+        $userRealm = $matches[1];
+        common\Logging::debug_s(4, $userRealm, "userRealm:", "\n");
+        // list CAT inst_id and country from the profile
+        $query = "SELECT DISTINCT profile.inst_id,country FROM profile JOIN institution on profile.inst_id = institution.inst_id WHERE realm LIKE '%@$userRealm' OR realm LIKE '%@%.$userRealm'";
+        $institutions = $this->databaseHandle->exec($query);
+        $catInstList = $institutions->fetch_all();
+        $returnarray = [];
+        foreach ($catInstList as $inst) {
+            $country = $inst[1];
+            if (!isset($returnarray[$country])) {
+                $returnarray[$country] = [];
+            }
+            $returnarray[$country][] = $inst[0];
+        }
+        return $returnarray;
+    }
+    
+    /**
+     * Get the list of eduroam countries that the user could potentially auto-register
+     * based on eduPersonEntitlement. The list of countries is based on matching between
+     * the eduGAIN federation where the eduGAIN IdP is registered and the counters that this federation serves
+     * Before passing on the list it is checked if particular countries allow entitlement-based
+     * autoregistration
+     * 
+     * @return array indexed by countries
+     */
+    private function getUserEntitledFed() {
+        if (!isset($_SESSION['entitlement'])) {
+            return [];
+        }
+        $entitledCountries = [];
+        $countries = $this->databaseHandle->exec("SELECT country, ROid FROM edugain WHERE reg_auth = ?", 's', $_SESSION['eduGAIN']);
+        $countryList = $countries->fetch_all();
+        foreach ($countryList as $country) {
+            $countryCode = $country[0];
+            $ROid = $country[1];
+            $requiredEntitlement = sprintf(\config\ConfAssistant::CONSORTIUM['entitlement'], $ROid);
+            if (in_array($requiredEntitlement, $_SESSION['entitlement'])) {
+                $entitledCountries[] = $countryCode;
+            }
+        }
+        common\Logging::debug_s(4, $entitledCountries, "entitledCountries:\n", "\n");
+        return $entitledCountries;
     }
     
     /**
@@ -495,7 +629,8 @@ class UserManagement extends \core\common\Entity
         $returnarray = [
             'existing' => [],
             'resynced' => [],
-            'new' => []
+            'new' => [],
+            'entitlement' => []
         ];
         $userId = $_SESSION['user'];
         // get the list of local identifers of institutions managed by this user
