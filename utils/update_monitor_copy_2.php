@@ -19,23 +19,37 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once __DIR__ . "/../core/Psr4Autoloader.php";
-use core\autoloader\Psr4Autoloader;
+/**
+ * This script will download all data from the views in eduroam database and
+ * update the local copy
+ * It should be run daily.
+ * The script does not update the NRO admin table. These admins are updated in the eduroam DB
+ * in a separate way and it is crucial that the updates are porformed more often (hourly)
+ */
+namespace utils;
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
-// instantiate the loader
-$loader = new Psr4Autoloader();
+setlocale(LC_CTYPE, "en_US.UTF-8");
 
-// register the autoloader
-$loader->register();
+$timeStart = microtime(true);
+$myDB = new UpdateFromMonitor();
 
-// register the base directories for the namespace prefix
-// include configuration
-$loader->addNamespace('config', __DIR__ );
-// include CAT/core library
-$loader->addNamespace('core', __DIR__ . "/../core");
-// include CAT/devices library
-$loader->addNamespace('devices', __DIR__ . "/../devices");
-// include CAT/web library
-$loader->addNamespace('web', __DIR__ . "/../web");
-// include CAT/utils
-$loader->addNamespace('utils', __DIR__ . "/../utils");
+foreach (array_keys($myDB->fields['eduroamv2']) as $table) {
+    $myDB->updateTable('eduroamv2', $table);
+}
+
+print "Starting filling tables for eduroamv2\n";
+foreach (array_keys($myDB->fields['eduroamv2']) as $table) {
+    $myDB->fillTable($table);
+}
+print "Finished filling tables for eduroamv2\n";
+
+print "Starting filling inst admin table\n";
+$myDB->updateInstAdminTable('eduroamv2');
+
+$myDB->fillTable('institution_admins');
+print "Finished filling admin table\n";
+
+$timeEnd = microtime(true);
+$timeElapsed = $timeEnd - $timeStart;
+printf("Whole update done in %.2fs\n",$timeElapsed);
