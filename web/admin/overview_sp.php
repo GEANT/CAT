@@ -571,8 +571,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 . "<td>".$oneRecord['realm']."</td>"
                 . "<td>".$oneRecord['mac']."</td>"
                 . "<td>".$oneRecord['cui']."</td>"
-                . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                 . "<td>".$oneRecord['outer_user']."</td>"
+                . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                 . "<td>".$oneRecord['ap_id']."</td>"
                 . "<td>".$oneRecord['prot']."</td>"
                 . "</tr>";
