@@ -173,7 +173,7 @@ class User extends EntityWithDBProperties
         }
         $entityId = $matches[1];
         $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$entityId";
-        \core\common\Logging::debug_s(3, $url."\n");
+        \core\common\Logging::debug_s(3, $url, "URL: ","\n");
         $ch = curl_init($url);
         if ($ch === false) {
             $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
@@ -182,7 +182,7 @@ class User extends EntityWithDBProperties
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
         $response = curl_exec($ch);
-        \core\common\Logging::debug_s(2, $response, "RESP\n", "\n");
+        \core\common\Logging::debug_s(3, $response, "RESP\n", "\n");
         /*
         if (json_validate($response) === false) {
             \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
@@ -191,6 +191,10 @@ class User extends EntityWithDBProperties
          * 
          */
         $responseDetails = json_decode($response, true);
+        if ($responseDetails == null || !isset($responseDetails['status'])) {
+            \core\common\Logging::debug_s(2, $response, "EDUGAINRESOLVER returned incorrect response:\n", "\n");
+            return false;
+        }
         if ($responseDetails['status'] !== 1) {
             \core\common\Logging::debug_s(3, "EDUGAINRESOLVER returned status 0\n");
             return false;            
