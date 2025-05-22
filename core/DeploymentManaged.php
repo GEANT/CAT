@@ -411,7 +411,7 @@ class DeploymentManaged extends AbstractDeployment
             $conditional2 = "DESC";
         }
         $client = 'SP' . $this->identifier . '-' . $this->institution;
-        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
+        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot, outer_user FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
        
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }
