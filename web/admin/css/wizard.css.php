@@ -42,7 +42,7 @@ img.wizard_icon {
     display: none;
     background-color: #ddd;
     position: absolute;
-    left: 100px;
+    <?php echo $start ?>: 100px;
     top: 100px;
     width: 70%;
     z-index: 100;
