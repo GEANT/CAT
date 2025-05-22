@@ -37,7 +37,7 @@ class Wizard extends UIElements {
     private $optionsHelp;
         
     /**
-     * Prepare the messages for the current language and set the wizasrStyle
+     * Prepare the messages for the current language and set the wizardStyle
      * true means we display inline, false - show icons to call help.
      * 
      * @param boolean $wizardStyle
@@ -47,8 +47,17 @@ class Wizard extends UIElements {
         $this->wizardStyle = $wizardStyle;
     }
     
+    /**
+     * Depending on the wizardStyle setting either display help in a fixed window
+     * or display the "i" icon pointing to the help text in a hidden window
+     * The text itself is taken from the helppMessage object indexed bu the $ubject
+     * 
+     * @param string $subject
+     * @param array $options
+     * @return string the HTML content for the page
+     * 
+     */
     public function displayHelp($subject, $options = NULL) {
-        $iconTitle = _("Click to open the help window");
         if (!isset($this->helpMessage[$subject])) {
             return '';
         }
@@ -57,6 +66,30 @@ class Wizard extends UIElements {
                 return '';
             }
         }
+        return $this->displayHelpElement($this->helpMessage[$subject]);
+    }
+
+    /**
+     * Depending on the wizardStyle setting either display help in a fixed window
+     * or display the "i" icon pointing to the help text in a hidden window
+     * The text itself is taken from the $input string
+     * 
+     * @param string $input
+     * @return string the HTML content for the page
+     * 
+     */
+    public function displayHelpText($input) {
+        return $this->displayHelpElement($input);
+    }
+    
+    /**
+     * Create the actual content for displayHelp and displayHelpText
+     * 
+     * @param string $input
+     * @return string the HTML content
+     */
+    private function displayHelpElement($input) {
+        $iconTitle = _("Click to open the help window");
         if ($this->wizardStyle) {
             $wizardClass = "wizard_visible";
             $content = "<div>";
@@ -64,9 +97,10 @@ class Wizard extends UIElements {
             $wizardClass = "wizard_hidden";
             $content = "<div style='min-height:28px'><img src='../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg' class='wizard_icon' title=\"$iconTitle\">";            
         }
-        $content .= "<div class='$wizardClass'>".$this->helpMessage[$subject]."</div></div>";
-        return $content;
+        $content .= "<div class='$wizardClass'>".$input."</div></div>";
+        return $content;        
     }
+    
     
     public function setOptionsHelp($optionsList) {
         $this->optionsHelp = [];
@@ -150,7 +184,9 @@ class Wizard extends UIElements {
         _("Some properties are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:") . "</p>".
             "<ul>".
                 "<li>"._("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>".
-                "<li>".sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."), $this->nomenclatureParticipant) . "</li>".
+                "<li>".sprintf(_("<strong>%s</strong>: The organisation may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."), $this->displayName("general:instname"))."</li>".
+                "<li>".sprintf(_("<strong>%s</strong>: This acronym will be used as an element of the instller file name instead of one automatically created from first letters of every worg in the institution name. You may add acronyms for multiple lunguages (but only one per language). The acronym will also be used as a keyword for the organisation search on the user's downloads page."), $this->displayName("general:instshortname"))."</li>".
+                "<li>".sprintf(_("<strong>%s</strong>: You may add several versoions of the organisation name or acronyms which will be used as additional keywords exclusively for the organisation search on the user's downloads page."), $this->displayName("general:instaltname"))."</li>".
             "</ul>";
         $this->helpMessage['idp_general'] = $h;
         

@@ -138,7 +138,7 @@ if ($device !== NULL) {
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
         if ($editMode == 'fullaccess') {
         ?>
-        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>", "<?php echo $dev;?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>")'><?php echo _("Add new option"); ?></button>
         <br/>
         <hr/>
         <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
