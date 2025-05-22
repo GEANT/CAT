@@ -558,6 +558,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
         <th scope="col"><strong><?php echo _("Realm");?></strong></th>
         <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
         <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
+        <th scope="col"><strong><?php echo _("Outer-User");?></strong></th>
         <th scope="col"><strong><?php echo _("Result");?></strong></th>
         <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
         <th scope="col"><strong><?php echo _("Protocol");?></strong></th>
@@ -571,6 +572,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 . "<td>".$oneRecord['mac']."</td>"
                 . "<td>".$oneRecord['cui']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
+                . "<td>".$oneRecord['outer_user']."</td>"
                 . "<td>".$oneRecord['ap_id']."</td>"
                 . "<td>".$oneRecord['prot']."</td>"
                 . "</tr>";
