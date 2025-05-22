@@ -24,6 +24,12 @@
  * Created: 20 Nov 2024
  */
 
+CREATE TABLE `edugain` (
+`country` varchar(16) DEFAULT NULL,
+`ROid` char(5) DEFAULT NULL,
+`reg_auth` varchar(255) DEFAULT NULL
+);
+
 ALTER TABLE `deployment` ADD COLUMN (`radsec_priv` blob DEFAULT NULL,
   `radsec_cert` blob DEFAULT NULL,
   `radsec_cert_serial_number` blob DEFAULT NULL,
@@ -35,6 +41,7 @@ ALTER TABLE `deployment` CHANGE COLUMN radius_instance_1 radius_instance_1 varch
 ALTER TABLE `deployment` CHANGE COLUMN radius_instance_2 radius_instance_2 varchar(64);
 ALTER TABLE `deployment` CHANGE COLUMN secret secret varchar(64);
 
-INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-synced', 'allow admins listed in eduroam DB to become admins for synced CAT instshow tablesitutions', 'boolean', NULL);
+INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-synced', 'allow admins listed in eduroam DB to become admins for synced CAT institutions', 'boolean', NULL);
 INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-new-inst', 'allow admins listed in eduroam DB to create new institutions', 'boolean', NULL);
+INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-entitlement', 'allow entitlement and scope based addition of admins to CAT institutions', 'boolean', NULL);
 INSERT INTO `profile_option_dict` (name, description, type, flag) VALUES('general:instaltname','alternative name of the institution to be used in Disco search as keyword','string', NULL);
