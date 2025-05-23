@@ -583,15 +583,28 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     }
     ?>
 </table>
-            <div style='display: ruby;'><form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+	    <div style='display: ruby;'>
+            <form style="display: inline;" action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour"); ?></button>
             </form>
-            <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+            <form style="display: inline;" action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-month' name='stats' value='MONTH'><?php echo _("Last 30 days"); ?></button>
             </form>
-            <form action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
+            <form style="display: inline;" action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-full' name='stats' value='FULL'><?php echo _("Last 6 months"); ?></button>
             </form>
+            </div>
+            </br>
+            <?php 
+            echo _('Get statistics as CSV file:').' '; 
+            $query = 'inc/deploymentStats.inc.php?inst_id='.$deploymentObject->institution."&deployment_id=$depId&as=csv&backlog=";
+            ?>
+	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>WEEK';"><?php echo _('Last week');?>
+            </button>
+	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>MONTH';"><?php echo _('Last 30 days');?>
+            </button>
+	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>FULL';"><?php echo _('Last 6 months');?>
+            </button>
             </div>
         </div><!-- statistics space -->
     </div> 
