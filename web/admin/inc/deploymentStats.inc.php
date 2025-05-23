@@ -10,7 +10,6 @@
  */
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 $languageInstance = new \core\common\Language();
@@ -44,35 +43,26 @@ switch ($backlog) {
     <caption><?php echo $tablecaption;?></caption>
     <tr>
         <th scope="col"><strong><?php echo _("Timestamp (UTC)");?></strong></th>
-        <th scope="col"><strong><?php echo _("Realm");?></strong></th>
-        <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
-        <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>
         <th scope="col"><strong><?php echo _("Outer-Identity");?></strong></th>
-        <th scope="col"><strong><?php echo _("Result");?></strong></th>       
+        <th scope="col"><strong><?php echo _("Result");?></strong></th>
+        <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
+        <th scope="col"><strong><?php echo _("Chargeable-User-Identity");?></strong></th>    
         <th scope="col"><strong><?php echo _("AP Identifier");?></strong></th>
         <th scope="col"><strong><?php echo _("Protocol");?></strong></th>
     </tr>
     <?php
     $userAuthData = $deployment->retrieveStatistics($backlogTime);
-    $id = 0;
-    foreach ($userAuthData as $oneRecord) {
-        
+    foreach ($userAuthData as $oneRecord) {    
         echo "<tr class='".($oneRecord['result'] == "OK" ? "auth-success" : "auth-fail" )."'>"
                 . "<td>".$oneRecord['activity_time']."</td>"
                 // $oneRecord['CN'] is a simple string, not an array, so disable Scrutinizer type check here
-                . "<td>".$oneRecord['realm']."</td>"
-                . "<td>".$oneRecord['mac']."</td>"
-                . "<td>".substr($oneRecord['cui'], 0, 18)
-		. ($oneRecord['cui']=='' ? "" : "... " . copyIcon("cui_icon_".$deployment->identifier."_$i") 
-	        . "<span style='display: none;' id='cui_data_".$deployment->identifier."_$i'>".$oneRecord['cui'].'</span>')."</td>" 
                 . "<td>".$oneRecord['outer_user']."</td>"
                 . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
+                . "<td>".$oneRecord['mac']."</td>"
+                . "<td>".$oneRecord['cui']."</td>" 
                 . "<td>".$oneRecord['ap_id']."</td>"
                 . "<td>".$oneRecord['prot']."</td>"
                 . "</tr>";
-        if ($oneRecord['cui']!='') {
-            $i++;
-        }
     }
     ?>
 </table>
