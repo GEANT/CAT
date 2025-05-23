@@ -167,13 +167,14 @@ class User extends EntityWithDBProperties
      */
     public function isFromEduGAIN()
     {
+        $_SESSION['eduGAIN'] = false;
         preg_match('/!([^!]+)$/', $_SESSION['user'], $matches);
         if (!isset($matches[1])) {
             return false;
         }
         $entityId = $matches[1];
         $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$entityId";
-        \core\common\Logging::debug_s(3, $url, "URL: ","\n");
+        \core\common\Logging::debug_s(4, $url, "URL: ","\n");
         $ch = curl_init($url);
         if ($ch === false) {
             $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
@@ -182,7 +183,7 @@ class User extends EntityWithDBProperties
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
         $response = curl_exec($ch);
-        \core\common\Logging::debug_s(3, $response, "RESP\n", "\n");
+        \core\common\Logging::debug_s(4, $response, "RESP\n", "\n");
         /*
         if (json_validate($response) === false) {
             \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
@@ -196,15 +197,14 @@ class User extends EntityWithDBProperties
             return false;
         }
         if ($responseDetails['status'] !== 1) {
-            \core\common\Logging::debug_s(3, "EDUGAINRESOLVER returned status 0\n");
+            \core\common\Logging::debug_s(4, "EDUGAINRESOLVER returned status 0\n");
             return false;            
         }
         if ($responseDetails['name'] === null) {
-            \core\common\Logging::debug_s(3,"User not in eduGAIN\n");
-            $_SESSION['eduGAIN'] = false;
+            \core\common\Logging::debug_s(4,"User not in eduGAIN\n");
             return false;            
         }
-        \core\common\Logging::debug_s(3,"User in eduGAIN\n");
+        \core\common\Logging::debug_s(4,"User in eduGAIN\n");
         $_SESSION['eduGAIN'] = $responseDetails['regauth'];
         return true;
     }
@@ -392,7 +392,7 @@ class User extends EntityWithDBProperties
                     return false;
             }
         }
-        \core\common\Logging::debug_s(3,$listOfProviders, "PROVIDERS:\n", "\n");
+        \core\common\Logging::debug_s(4,$listOfProviders, "PROVIDERS:\n", "\n");
         return $listOfProviders;
     }
 }

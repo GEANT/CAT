@@ -111,6 +111,7 @@ $end = $langInstance->rtl ? "left" : "right";
     </div>
     <?php
     $instMgmt->listInstitutionsByAdmin(true);
+    \core\common\Logging::debug_s(4, $instMgmt->currentInstitutions, "Current Inst:\n", "\n");
     $hasInst = $instMgmt->currentInstitutions['existing'];
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated

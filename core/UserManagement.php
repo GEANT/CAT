@@ -397,7 +397,7 @@ class UserManagement extends \core\common\Entity
         }
         // now add additional institutions based on the external DB 
         // proceed only if user has been authenticated fron an eduGAIN IdP        
-        if ($edugain === false) {
+        if ($edugain == false) {
             return $this->currentInstitutions;            
         }
         $email = $_SESSION['auth_email'];
