@@ -10,7 +10,6 @@
  */
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-error_log("MGW tutaj".serialize($_REQUEST));
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 $languageInstance = new \core\common\Language();
@@ -48,7 +47,9 @@ if ($editMode == 'fullaccess') {
     
     $userAuthData = $deployment->retrieveStatistics($backlogTime);
     if ($format == 'csv') {
-	    $fp = fopen(ROOT . '/var/tmp/' . $deployment->identifier."_$backlog.csv", 'w');
+	    header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="backlog_'.$deployment->identifier.'_'.$backlog.'"');
+	    $fp = fopen('php://output', 'w');
 	    fputcsv($fp, [_("Timestamp (UTC)"), _("Outer-Identity"), _("Result"), _("MAC Address"),
 		          _("Chargeable-User-Identity"), _("AP Identifier"), _("Protocol")], ';', '"', '');
 	    foreach ($userAuthData as $oneRecord) {
@@ -58,14 +59,6 @@ if ($editMode == 'fullaccess') {
 			    $oneRecord['ap_id'], $oneRecord['prot']], ';', '"', '');
             }
 	    fclose($fp);
-	    $data = file_get_contents(ROOT . '/var/tmp/' . $deployment->identifier."_$backlog.csv");
-	    unlink(ROOT . '/var/tmp/' . $deployment->identifier."_$backlog.csv");
-	    if ($data !== FALSE) {
-	        header('Content-Type: text/csv');
-                #header('Content-Disposition: attachment; filename="backlog_'.$deployment->identifier."_$backlog.csv");
-                header('Content-Disposition: attachment; filename="backlog_'.$deployment->identifier.'_'.$backlog.'"');
-	        echo $data;
-	    }
     } else {
     ?>
     
