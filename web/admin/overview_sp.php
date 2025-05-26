@@ -605,7 +605,6 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
             </button>
 	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>FULL';"><?php echo _('Last 6 months');?>
             </button>
-            </div>
         </div><!-- statistics space -->
     </div> 
     <!-- dummy div to keep a little distance-->
