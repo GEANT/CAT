@@ -64,7 +64,7 @@ class IdPlist extends common\Entity
         common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
-        $query = IdPlist::setAllIdentyProvidersQuery($activeOnly, $country);
+        $query = IdPlist::setAllIdentyProvidersQuery($activeOnly, $country, true);
         $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $idpArray = [];
         // SELECTs never return a booleans, always an object
@@ -100,6 +100,7 @@ class IdPlist extends common\Entity
                     $value = $keyword['value'];
                     $keywords[] = $value;
                 }
+                
                 
                 $q = "SELECT DISTINCT realm FROM profile WHERE inst_id=? AND realm NOT LIKE '%hosted.eduroam.org'";
                 $realms = $handle->exec($q, 'i', $queryResult->inst_id);
@@ -244,7 +245,7 @@ class IdPlist extends common\Entity
      * 
      * @return string the query
      */
-    private static function setAllIdentyProvidersQuery($activeOnly = 0, $country = "")
+    private static function setAllIdentyProvidersQuery($activeOnly = 0, $country = "", $addKeywords = false)
     {
         $query = "SELECT distinct institution.inst_id AS inst_id,
             institution.country AS country,
@@ -255,10 +256,16 @@ class IdPlist extends common\Entity
         if ($activeOnly == 1) {
             $query .= "JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id ";
         }
+        $keywordOptions = '';
+        if ($addKeywords === true) {
+            $keywordOptions = "OR institution_option.option_name = 'general:instshortname'
+             OR institution_option.option_name = 'general:instaltname'";
+        }
         $query .= 
             "JOIN institution_option ON institution.inst_id = institution_option.institution_id
-            WHERE (institution_option.option_name = 'general:instname' 
-                OR institution_option.option_name = 'general:geo_coordinates'
+            WHERE (institution_option.option_name = 'general:instname' ".
+                $keywordOptions.
+                " OR institution_option.option_name = 'general:geo_coordinates'
                 OR institution_option.option_name = 'general:instaltname'
                 OR institution_option.option_name = 'general:logo_file') ";
 
@@ -321,6 +328,11 @@ class IdPlist extends common\Entity
                         'value' => $opt[1]
                     ];
                 case 'general:instaltname':
+                    $altnames[] = [
+                        'lang' => $opt[2],
+                        'value' => $opt[1]
+                    ];
+                case 'general:instshortname':
                     $altnames[] = [
                         'lang' => $opt[2],
                         'value' => $opt[1]
