@@ -315,17 +315,19 @@ $langObject = new \core\common\Language();
         }
         ?>
             $(document).on('change', '#INST-list' , function() {
-                    //alert(instservers[$(this).val()]);
                     $("#INST").prop('checked', true);
-                    $("#certinfo").show();
-                    $("#additionalinfo").hide();
-                    $("#ondb").hide();
-                    $("#certlevel").html("<?php echo _('organizational level certificate'); ?>");
-                    $("#serversinfo").html(instservers[$(this).val()]);
-                    $("#policiesinfo").html(instpolicies[$(this).val()]);
                     $("#errorbox").html("");
-                    //$("input[name=LEVEL][value=INST]").prop('checked', true);
-                  
+                    if (instservers[$(this).val()] === undefined) {
+                        $("#ondb").show();
+                    } else {
+                        $("#certinfo").show();
+                        $("#additionalinfo").hide();
+                        $("#ondb").hide();
+                        $("#certlevel").html("<?php echo _('organizational level certificate'); ?>");
+                        $("#serversinfo").html(instservers[$(this).val()]);
+                        $("#policiesinfo").html(instpolicies[$(this).val()]);
+                        //$("input[name=LEVEL][value=INST]").prop('checked', true);
+                    }
             });
             $(document).on('change', '#NRO' , function() {
                     $("#INST-list").val("notset");
