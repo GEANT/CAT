@@ -90,8 +90,8 @@ $langObject = new \core\common\Language();
     $subject_prefix = implode(', ', array_reverse($DN));
     /* Messages */
     $messages = [
-    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with') . ' ' .
-                       $subject_prefix  . '<br>' . _("See CSR generation rules below."),
+    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not follow the expected pattern.') .
+                       '<br>' . _("See CSR generation rules below."),
     'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
     ];
     $settings = array();
