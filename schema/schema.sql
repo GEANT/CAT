@@ -291,6 +291,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:autoregister-synced', 'allow admins listed in eduroam DB to become admins for synced CAT institutions', 'boolean' NULL),
 ('fed:autoregister-new-inst', 'allow admins listed in eduroam DB to create new institutions', 'boolean',NULL),
 ('fed:autoregister-entitlement', 'allow entitlement and scope based addition of admins to CAT institutions', 'boolean', NULL),
+('fed:entitlement-attr', 'the entitlement value used by this federation for self-registration, will override the default geant:eduroam:inst:admin', 'string', NULL),
 ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
 ('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
 ('managedsp:operatorname','Operator-Name attribute to be added to requests','string',NULL),

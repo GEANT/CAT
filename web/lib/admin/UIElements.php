@@ -162,6 +162,10 @@ class UIElements extends \core\common\Entity {
                 'display' => _("Self registration based on entitlement: add admins to CAT institutions"),
                 'help' => _("With this option turned on the system will verify the eduGAIN login of the potential administrator and propose takinn control over institutions which use the realm within the scope defined in the user's oairwise-id attrinute.")
             ],
+            "fed:entitlement-attr" => [
+                'display' => _("Custom entitlement value for self-registration"),
+                'help' => _("If you want to use the SAML eduPersonEntitlement based self-registration you may define a value that will be used in your federation for institutions admins. When this is not set the default value geant:eduroam:inst:admin will be used. This option makes sens only if you have 'Self registration based on entitlement' set")
+            ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
             "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => ""],

@@ -586,12 +586,19 @@ class UserManagement extends \core\common\Entity
             return [];
         }
         $entitledCountries = [];
-        $countries = $this->databaseHandle->exec("SELECT country, ROid FROM edugain WHERE reg_auth = ?", 's', $_SESSION['eduGAIN']);
+        $countries = $this->databaseHandle->exec("SELECT country FROM edugain WHERE reg_auth = ?", 's', $_SESSION['eduGAIN']);
         $countryList = $countries->fetch_all();
+        $countriesTmp = [];
         foreach ($countryList as $country) {
+            $requiredEntitlement = NULL;
             $countryCode = $country[0];
-            $ROid = $country[1];
-            $requiredEntitlement = sprintf(\config\ConfAssistant::CONSORTIUM['entitlement'], $ROid);
+            $fed = new Federation($countryCode);
+            $autoreg = $fed->getAttributes('fed:autoregister-entitlement')[0];
+            $entitlementVal = $fed->getAttributes('fed:entitlement-attr')[0];
+            if (isset($autoreg['value']) && $autoreg['value'] == 'on') {
+                $requiredEntitlement = isset($entitlementVal['value']) ? $entitlementVal['value'] : \config\ConfAssistant::CONSORTIUM['entitlement'];
+            }
+            common\Logging::debug_s(4, $requiredEntitlement, "$countryCode requiredEntitlement\n", "\n");
             if (in_array($requiredEntitlement, $_SESSION['entitlement'])) {
                 $entitledCountries[] = $countryCode;
             }
