@@ -84,11 +84,20 @@ class Master
              *  - NULL (component does not live anywhere, trim functionality from display)
              *  - or an absolute URL to the base directory of an installation with the functionality aspect
              */
-            'CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+            'CONFASSISTANT_SILVERBULLET' => NULL,
             'CONFASSISTANT_RADIUS' => 'LOCAL',
             'DIAGNOSTICS' => 'LOCAL',
-            'CONFASSISTANT_MSP_ONLY' => false,
-            'CONFASSISTANT_MIDP_ONLY' => false,
+
+        ];
+        
+        const FUNCTIONALITY_FLAGS = [
+            /**
+             * this is flag allowing to point to the system that only one service
+             * is in operation allowed values are:
+             * NULL, 'MSP' 'MIDP', 'RADIUS'
+             * only NULL and 'MSP' are used at the moment
+             */
+            'SINGLE_SERVICE' => NULL,
         ];
         /**
          * Various paths.

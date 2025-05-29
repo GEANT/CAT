@@ -104,14 +104,14 @@ if (\config\Master::DB['enforce-external-sync']) {
                 <?php echo _("Name"); ?> <input type='text' size='30' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
             </td>
             <td>
-                <?php if(\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_MSP_ONLY'] !== true) { ?>
+                <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') { ?>
+                &nbsp; <input type='hidden' name='participant_type' value='SP'>
+                <?php } else { ?>
                 <select name="participant_type">
                     <option value="IdPSP" selected><?php printf(_("%s and %s"),$uiElements->nomenclatureIdP, $uiElements->nomenclatureHotspot)?></option>
                     <option value="IdP"><?php printf(_("%s"),$uiElements->nomenclatureIdP)?></option>
                     <option value="SP"><?php printf(_("%s"),$uiElements->nomenclatureHotspot)?></option>
                 </select>
-                <?php } else { ?>
-                &nbsp; <input type='hidden' name='participant_type' value='SP'>
                 <?php } ?>
             </td>
             <td><?php echo $uiElements->nomenclatureFed; ?>
