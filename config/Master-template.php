@@ -32,7 +32,6 @@
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Configuration
  */
@@ -88,6 +87,8 @@ class Master
             'CONFASSISTANT_SILVERBULLET' => 'LOCAL',
             'CONFASSISTANT_RADIUS' => 'LOCAL',
             'DIAGNOSTICS' => 'LOCAL',
+            'CONFASSISTANT_MSP_ONLY' => false,
+            'CONFASSISTANT_MIDP_ONLY' => false,
         ];
         /**
          * Various paths.
@@ -99,6 +100,7 @@ class Master
         const PATHS = [
             'logdir' => '/var/log/CAT/',
             'openssl' => 'openssl',
+            'sslscan' => 'sslscan',
             'cat_base_url' => '/',
         ];
         /**
@@ -116,6 +118,7 @@ class Master
             'ssp-attrib-identifier' => 'eptid',
             'ssp-attrib-email' => 'mail',
             'ssp-attrib-name' => 'cn',
+            'ssp-entitlement' => 'eduPersonEntitlement',
         ];
         /**
          * Configuration for GeoIP2 
@@ -290,16 +293,6 @@ class Master
                 'readonly' => TRUE,],
             
             'enforce-external-sync' => TRUE,
-        ];
-        /**
-         * Set of details for Managed SP. 
-         * 
-         * @var array
-         */
-        const MANAGEDSP = [
-            'radiusconfigport' => 8080,
-            'capass' => 'CA_password', 
-            'daystoexpiry' => 365,
         ];
         /**
          * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
