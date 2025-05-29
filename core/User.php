@@ -184,13 +184,12 @@ class User extends EntityWithDBProperties
         curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
         $response = curl_exec($ch);
         \core\common\Logging::debug_s(4, $response, "RESP\n", "\n");
-        /*
-        if (json_validate($response) === false) {
-            \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
-            return false;
+        if (function_exists('json_validate')) {
+            if (json_validate($response) === false) {
+                \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
+                return false;
+            }
         }
-         * 
-         */
         $responseDetails = json_decode($response, true);
         if ($responseDetails == null || !isset($responseDetails['status'])) {
             \core\common\Logging::debug_s(2, $response, "EDUGAINRESOLVER returned incorrect response:\n", "\n");
@@ -362,9 +361,11 @@ class User extends EntityWithDBProperties
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
                             $response = curl_exec($ch);
-                            if (json_validate($response) === false) {
-                                \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
-                                return false;
+                            if (function_exists('json_validate')) {
+                                if (json_validate($response) === false) {
+                                    \core\common\Logging::debug_s(2, "eduGAIN resolver did not return valid json\n");
+                                    return false;
+                                }
                             }
                             if (is_bool($response)) { // catch both false and TRUE because we use CURLOPT_RETURNTRANSFER
                                 $skipCurl = 1;
