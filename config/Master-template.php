@@ -32,7 +32,6 @@
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  *
  * @package Configuration
  */
@@ -85,9 +84,20 @@ class Master
              *  - NULL (component does not live anywhere, trim functionality from display)
              *  - or an absolute URL to the base directory of an installation with the functionality aspect
              */
-            'CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+            'CONFASSISTANT_SILVERBULLET' => NULL,
             'CONFASSISTANT_RADIUS' => 'LOCAL',
             'DIAGNOSTICS' => 'LOCAL',
+
+        ];
+        
+        const FUNCTIONALITY_FLAGS = [
+            /**
+             * this is flag allowing to point to the system that only one service
+             * is in operation allowed values are:
+             * NULL, 'MSP' 'MIDP', 'RADIUS'
+             * only NULL and 'MSP' are used at the moment
+             */
+            'SINGLE_SERVICE' => NULL,
         ];
         /**
          * Various paths.
@@ -99,6 +109,7 @@ class Master
         const PATHS = [
             'logdir' => '/var/log/CAT/',
             'openssl' => 'openssl',
+            'sslscan' => 'sslscan',
             'cat_base_url' => '/',
         ];
         /**
@@ -116,6 +127,7 @@ class Master
             'ssp-attrib-identifier' => 'eptid',
             'ssp-attrib-email' => 'mail',
             'ssp-attrib-name' => 'cn',
+            'ssp-entitlement' => 'eduPersonEntitlement',
         ];
         /**
          * Configuration for GeoIP2 
@@ -290,16 +302,6 @@ class Master
                 'readonly' => TRUE,],
             
             'enforce-external-sync' => TRUE,
-        ];
-        /**
-         * Set of details for Managed SP. 
-         * 
-         * @var array
-         */
-        const MANAGEDSP = [
-            'radiusconfigport' => 8080,
-            'capass' => 'CA_password', 
-            'daystoexpiry' => 365,
         ];
         /**
          * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini

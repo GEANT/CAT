@@ -90,8 +90,8 @@ $langObject = new \core\common\Language();
     $subject_prefix = implode(', ', array_reverse($DN));
     /* Messages */
     $messages = [
-    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not start with') . ' ' .
-                       $subject_prefix  . '<br>' . _("See CSR generation rules below."),
+    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not follow the expected pattern.') .
+                       '<br>' . _("See CSR generation rules below."),
     'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
     ];
     $settings = array();
@@ -407,7 +407,7 @@ foreach ($allIdPs as $id => $name) {
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p>
         <?php 
-        echo _("The CSR subject field has to start with ") .'<b>' . $subject_prefix . '</b><br>';
+        echo _("The CSR subject field has to start with ") .'<b>' . $subject_prefix . '</b> and follow the pattern given in the example.<br>';
         echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
         <?php 
         echo "<b>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced</b>";
