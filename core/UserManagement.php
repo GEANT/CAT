@@ -491,20 +491,20 @@ class UserManagement extends \core\common\Entity
         }
         foreach ($extInstCountryList as $extInst) {
             common\Logging::debug_s(4, "Testing ".$extInst['external_db_id']." for potential new inst\n");
-            if ($extInst['inst_id'] != null) {
-        }
+            if ($extInst['inst_id'] != null) { // there alreay exeists a CAT institution synced to this one
                 continue;
+            }
+            $country = $fed->tld;
+            // now run checks against creating dupplicates in CAT DB
+            $disectedNames = ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
+            $names = $disectedNames['joint'];
+            $realms = ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
+            $foundMatch = $this->checkForSimilarInstitutions($names, $realms);
+            common\Logging::debug_s(4, $foundMatch, "checkForSimilarInstitutions returned: ","\n");
+            if ($foundMatch == 0) {
+                $this->currentInstitutions['new'][] = [$extInst['external_db_id'], $disectedNames['perlang'], $country];
+            }
         }
-        $country = $fed->tld;
-        // now run checks against creating dupplicates in CAT DB
-        $disectedNames = ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
-        $names = $disectedNames['joint'];
-        $realms = ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
-        $foundMatch = $this->checkForSimilarInstitutions($names, $realms);
-        common\Logging::debug_s(4, $foundMatch, "checkForSimilarInstitutions returned: ","\n");
-        if ($foundMatch == 0) {
-            $this->currentInstitutions['new'][] = [$extInst['external_db_id'], $disectedNames['perlang'], $country];
-        }  
     }
 
     /**
