@@ -1,0 +1,124 @@
+#
+# instId = %(instid)s
+# profileId = %(deploymentid)s
+#
+server site_%(deploymentid)s-%(instid)s {
+listen {
+        type = auth
+        ipv4addr = *
+        port = %(port)s
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+listen {
+        type = auth
+        ipv6addr = *
+        port = %(port)s
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+client all_ipv4 {
+        secret  = %(secret)s
+        shortname = SP%(deploymentid)s-%(instid)s
+        ipv4addr = 0.0.0.0/0
+        add_cui = yes
+        Operator-Name = %(operatorname)s
+	require_message_authenticator = yes
+}
+
+client all_ipv6 {
+        secret  = %(secret)s
+        shortname = SP%(deploymentid)s-%(instid)s-IPv6
+        ipv6addr = ::
+        add_cui = yes
+        Operator-Name = %(operatorname)s
+	require_message_authenticator = yes
+}
+
+authorize {
+        filter_username
+        preprocess
+        operator-name
+        cui
+        suffix
+        update control {
+          &Proxy-To-Realm := any
+        }
+        auth_log_%(deploymentid)s-%(instid)s
+}
+
+session {
+}
+
+post-auth {
+        if (session-state:User-Name && reply:User-Name && request:User-Name && (reply:User-Name == request:User-Name)) {
+                update reply {
+                        &User-Name !* ANY
+                }
+        }
+        update {
+                &reply: += &session-state:
+        }
+        update control {
+                &Tmp-String-0 := "%(country)s"
+        }
+        update control {
+                &Tmp-String-1 := "%(nas_id)s"
+        }
+        update control {
+                &Tmp-String-2 := "UDP"
+        }
+        update control {
+                &Tmp-String-3 := "SP%(deploymentid)s-%(instid)s"
+        }
+        cui
+        split_username_nai
+        update reply {
+                &User-Name -= "%(reply_username)s"
+        }
+        %(vlans)s
+        exec
+        remove_reply_message_if_eap
+        Post-Auth-Type REJECT {
+                attr_filter.access_reject
+                remove_reply_message_if_eap
+                split_username_nai
+                update control {
+                    &Tmp-String-0 := "%(country)s"
+                }
+                update control {
+                    &Tmp-String-1 := "%(nas_id)s"
+                }
+                update control {
+                    &Tmp-String-2 := "UDP"
+                }
+                update control {
+                    &Tmp-String-3 := "SP%(deploymentid)s-%(instid)s"
+                }
+                f_ticks
+                reply_log_%(deploymentid)s-%(instid)s
+        }
+        Post-Auth-Type Challenge {
+        }
+        f_ticks
+        reply_log_%(deploymentid)s-%(instid)s
+}
+
+pre-proxy {
+       operator-name
+       cui
+       pre_proxy_log_%(deploymentid)s-%(instid)s
+}
+
+post-proxy {
+       post_proxy_log_%(deploymentid)s-%(instid)s
+}
+}

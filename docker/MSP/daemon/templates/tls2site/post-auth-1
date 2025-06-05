@@ -1,0 +1,8 @@
+if ( "%(tlsclient)s" == "%(clientcn)s" || "%(tlspskclient)s" == "%(clientcn)s" ) {
+        update control {
+                &Tmp-String-0 := "%(country)s"
+        }
+        update control {
+                &Tmp-String-3 := "%(clientcn)s"
+        }
+}

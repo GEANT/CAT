@@ -1,0 +1,222 @@
+Source: freeradius
+Build-Depends: @BUILDDEPS@ debhelper (>= 9),
+ quilt,
+ dpkg-dev (>= 1.13.19),
+ dh-systemd (>= 1.5) | debhelper (>= 13.3.0),
+ autotools-dev,
+ freetds-dev,
+ libcurl4-openssl-dev | libcurl4-gnutls-dev,
+ libcap-dev,
+ libgdbm-dev,
+ libjson0 | libjson-c2 | libjson-c3 | libjson-c4 | libjson-c5,
+ libjson0-dev | libjson-c-dev,
+ libkrb5-dev | heimdal-dev,
+ libldap2-dev,
+ libpam0g-dev,
+ libpcap-dev,
+ libpcre3-dev,
+ libperl-dev,
+ default-libmysqlclient-dev | libmysqlclient-dev,
+ libpq-dev,
+ libreadline-dev,
+ libsasl2-dev,
+ libsqlite3-dev,
+ libssl-dev,
+ libtalloc-dev,
+ libunbound-dev,
+ libwbclient-dev,
+ libyubikey-dev,
+ libykclient-dev,
+ libmemcached-dev,
+ libhiredis-dev,
+ python3-dev, @PYTWODEPS@
+ samba-dev | samba4-dev,
+ unixodbc-dev
+Section: net
+Priority: optional
+Maintainer: Network RADIUS SARL <info@networkradius.com>
+Uploaders: Stephen Gran <sgran@debian.org>, Mark Hymers <mhy@debian.org>
+Standards-Version: 3.9.8
+Homepage: http://www.freeradius.org/
+
+Package: freeradius
+Architecture: any
+Depends: lsb-base (>= 3.1-23.2), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, freeradius-common, freeradius-config, libfreeradius3 (= ${binary:Version}), ssl-cert, adduser
+Provides: radius-server
+Recommends: freeradius-utils, freeradius-python3 @PYTWOPKG@
+Suggests: freeradius-ldap, freeradius-postgresql, freeradius-mysql, freeradius-krb5, snmp
+Description: high-performance and highly configurable RADIUS server
+ FreeRADIUS is a high-performance RADIUS server with support for:
+  - Authentication by local files, SQL, Kerberos, LDAP, PAM, and more.
+  - Powerful policy configuration language.
+  - Proxying and replicating requests by any criteria.
+  - Support for many EAP types; TLS, PEAP, TTLS, etc.
+  - Many vendor-specific attributes.
+  - Regexp matching in string attributes.
+ and lots more.
+
+Package: freeradius-common
+Depends: adduser, ${misc:Depends}
+Architecture: all
+Conflicts: radiusd-livingston, xtradius, yardradius
+Replaces: freeradius (<< 3)
+Description: FreeRADIUS common files
+ This package contains common files used by several of the other packages from
+ the FreeRADIUS project.
+
+Package: freeradius-config
+Architecture: any
+Depends: freeradius-common (>= 3), ${misc:Depends}, openssl, make
+Breaks: freeradius-config
+Description: FreeRADIUS default config files
+ This package should be used as a base for a site local packages
+ to configure the FreeRADIUS server.
+
+Package: freeradius-utils
+Architecture: any
+Replaces: freeradius (<< 3)
+Conflicts: radiusd-livingston, yardradius
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, freeradius-common, freeradius-config, libfreeradius3 (= ${binary:Version})
+Description: FreeRADIUS client utilities
+ This package contains various client programs and utilities from
+ the FreeRADIUS Server project, including:
+  - radclient
+  - radeapclient
+  - radlast
+  - radsniff
+  - radsqlrelay
+  - radtest
+  - radwho
+  - radzap
+  - rlm_ippool_tool
+  - rlm_sqlippool_tool
+  - smbencrypt
+
+Package: freeradius-perl-util
+Architecture: any
+Depends: libnet-ip-perl
+Recommends: libtemplate-perl, libdbi-perl, libyaml-libyaml-perl, libdbd-pg-perl, libdbd-mysql-perl, libdbd-sqlite3-perl, libdbd-sybase-perl
+Description: FreeRADIUS Perl utilities
+  This package contains utilities for managing IP pools in SQL databases
+
+Package: libfreeradius3
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: FreeRADIUS shared library
+ The FreeRADIUS projects' libfreeradius-radius and libfreeradius-eap, used by
+ the FreeRADIUS server and some of the utilities.
+
+Package: libfreeradius-dev
+Architecture: any
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, libfreeradius3 (= ${binary:Version})
+Description: FreeRADIUS shared library development files
+ The FreeRADIUS projects' libfreeradius-radius and libfreeradius-eap, used by
+ the FreeRADIUS server and some of the utilities.
+ .
+ This package contains the development headers and static library version.
+
+Package: freeradius-dhcp
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: DHCP module for FreeRADIUS server
+ The FreeRADIUS server can act as a DHCP server, and this module
+ is necessary for that.
+
+Package: freeradius-krb5
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: kerberos module for FreeRADIUS server
+ The FreeRADIUS server can use Kerberos to authenticate users, and this module
+ is necessary for that.
+
+Package: freeradius-ldap
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Recommends: libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+Description: LDAP module for FreeRADIUS server
+ The FreeRADIUS server can use LDAP to authenticate users, and this module
+ is necessary for that.
+
+Package: freeradius-rest
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: REST module for FreeRADIUS server
+ The FreeRADIUS server can make calls to remote web APIs, and this module
+ is necessary for that.
+
+Package: freeradius-postgresql
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: PostgreSQL module for FreeRADIUS server
+ The FreeRADIUS server can use PostgreSQL to authenticate users and do
+ accounting, and this module is necessary for that.
+
+Package: freeradius-mysql
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: MySQL module for FreeRADIUS server
+ The FreeRADIUS server can use MySQL to authenticate users and do accounting,
+ and this module is necessary for that.
+
+Package: freeradius-unixodbc
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: unixODBC module for FreeRADIUS server
+ The FreeRADIUS server can use unixODBC to access databases to authenticate users
+ and do accounting, and this module is necessary for that.
+
+Package: freeradius-redis
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: Redis module for FreeRADIUS server
+ This module is required to enable the FreeRADIUS server to access
+ Redis databases.
+
+Package: freeradius-freetds
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: FreeTDS support for FreeRADIUS
+ This module is required to enable the FreeRADIUS server to access
+ Microsoft SQL Server/Sybase databases.
+
+Package: freeradius-memcached
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: Memcached module for FreeRADIUS server
+ The FreeRADIUS server can cache data in memcached and this package
+ contains the required module.
+
+Package: freeradius-python3
+Architecture: any
+Conflicts: freeradius (<< 3.2.2+git161)
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: Python3 module for the FreeRADIUS server
+ This package provides the FreeRADIUS rlm_python3 module. Prior to
+ version 3.2.3 the Python module was included in the freeradius
+ package and would be either Python2 or Python3 depending on the
+ system default.
+
+Package: freeradius-unbound
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: Unbound module for FreeRADIUS server
+ This package is required to add libunbound DNS functionality to the
+ FreeRADIUS server.
+
+Package: freeradius-yubikey
+Architecture: any
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: Yubikey module for FreeRADIUS server
+ This package is required to add Yubikey functionality to the
+ FreeRADIUS server.
+
+Package: freeradius-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: freeradius (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Description: debug symbols for the FreeRADIUS packages
+ FreeRADIUS is a modular, high performance and feature-rich RADIUS server.
+ This package contains the detached debugging symbols for the Debian FreeRADIUS
+ packages.

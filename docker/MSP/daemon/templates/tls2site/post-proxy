@@ -1,0 +1,3 @@
+if ( "%(tlsclient)s" == "%(clientcn)s" || "%(tlspskclient)s" == "%(clientcn)s" ) {
+        post_proxy_log_%(deploymentid)s-%(instid)s
+}

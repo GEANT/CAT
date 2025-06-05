@@ -1,0 +1,11 @@
+linelog f_ticks {
+       #filename = ${logdir}/fticks
+       filename = syslog
+       syslog_facility = local2
+       format = ""
+       reference = "f_ticks.%{%{reply:Packet-Type}:-format}"
+       f_ticks {
+              Access-Accept = "F-TICKS/eduroam/1.0#REALM=%{Stripped-User-Domain}#VISCOUNTRY=%{control:Tmp-String-0}#VISINST=%{Operator-Name}#CSI=%{Calling-Station-Id}#CUI=%{reply:Chargeable-User-Identity}#RESULT=OK#VISAP=%{control:Tmp-String-1}/%{control:Tmp-String-3}#PROT=%{control:Tmp-String-2}#USER=%{request:User-Name}#"
+              Access-Reject = "F-TICKS/eduroam/1.0#REALM=%{Stripped-User-Domain}#VISCOUNTRY=%{control:Tmp-String-0}#VISINST=%{Operator-Name}#CSI=%{Calling-Station-Id}#RESULT=FAIL#VISAP=%{control:Tmp-String-1}/%{control:Tmp-String-3}#PROT=%{control:Tmp-String-2}#USER=%{request:User-Name}#"
+       }
+}

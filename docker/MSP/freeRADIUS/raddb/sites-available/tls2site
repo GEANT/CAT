@@ -1,0 +1,83 @@
+server tls2site {
+listen {
+        type = auth
+        ipaddr = *
+        port = 1816
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+authorize {
+        $INCLUDE ${raddbdir}/tls2site/authorize-blacklist.d/
+        update control {
+                &Tmp-Integer-0 := "0"
+        }
+        $INCLUDE ${raddbdir}/tls2site/authorize-1.d/
+        if (&control:Tmp-Integer-0 == "0") {
+          update control {
+             &Auth-Type := Reject
+          }
+        }
+        filter_username
+        preprocess
+        operator-name
+        cui
+        suffix
+        update control {
+          &Proxy-To-Realm := any
+        }
+        $INCLUDE ${raddbdir}/tls2site/authorize-2.d/
+}
+
+session {
+}
+
+post-auth {
+        if (session-state:User-Name && reply:User-Name && request:User-Name && (reply:User-Name == request:User-Name)) {
+                update reply {
+                        &User-Name !* ANY
+                }
+        }
+        update {
+                &reply: += &session-state:
+        }
+        $INCLUDE ${raddbdir}/tls2site/post-auth-1.d/
+        update control {
+                &Tmp-String-1 := "%{base64:%{NAS-Identifier}/%{NAS-IP-Address}/%{NAS-IPv6-Address}/%{Called-Station-Id}}"
+        }
+        cui
+        split_username_nai
+        update reply {
+                &User-Name -= "%{reply:User-Name}"
+        }
+        $INCLUDE ${raddbdir}/tls2site/post-auth-2.d/
+        exec
+        remove_reply_message_if_eap
+        Post-Auth-Type REJECT {
+                attr_filter.access_reject
+                remove_reply_message_if_eap
+                split_username_nai
+                $INCLUDE ${raddbdir}/tls2site/post-auth-1.d/
+                update control {
+                    &Tmp-String-1 := "%{base64:%{NAS-Identifier}/%{NAS-IP-Address}/%{NAS-IPv6-Address}/%{Called-Station-Id}}"
+                }
+                $INCLUDE ${raddbdir}/tls2site/post-auth-3.d/
+        }
+        Post-Auth-Type Challenge {
+        }
+        $INCLUDE ${raddbdir}/tls2site/post-auth-3.d/
+}
+
+pre-proxy {
+       operator-name
+       cui
+       $INCLUDE ${raddbdir}/tls2site/pre-proxy.d/
+}
+
+post-proxy {
+       $INCLUDE ${raddbdir}/tls2site/post-proxy.d/
+}
+}

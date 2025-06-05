@@ -1,0 +1,21 @@
+services:
+   msp:
+      build: .
+      image: msp
+      container_name: msp
+      network_mode: host
+      attach: false
+      restart: always
+      env_file:
+      - "msp.env"
+      volumes:
+         - mysql-data:/var/lib/mysql
+         - sp-conf:/opt/SPs
+         - sp-logs:/opt/FR/var/log
+volumes:
+  mysql-data:
+    name: mysql-data
+  sp-conf:
+    name: sp-conf
+  sp-logs:
+    name: sp-logs

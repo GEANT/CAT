@@ -1,0 +1,5 @@
+if ( "%(tlsclient)s" == "%(clientcn)s" && "%(tlsclientserial)s" == "%(serial)s" ) {
+    update control {
+            &Auth-Type := Reject
+    }
+}

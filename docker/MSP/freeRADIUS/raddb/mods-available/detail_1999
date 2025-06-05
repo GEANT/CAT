@@ -1,0 +1,23 @@
+detail auth_log_1999 {
+        filename = ${radacctdir}/detail-1999-%Y%m%d
+        permissions = 0600
+        suppress {
+                User-Password
+        }
+}
+detail reply_log_1999 {
+        filename = ${radacctdir}/detail-1999-%Y%m%d
+        permissions = 0600
+}
+detail pre_proxy_log_1999 {
+        filename = ${radacctdir}/detail-1999-%Y%m%d
+        permissions = 0600
+        # You may also strip out passwords completely
+        #suppress {
+                # User-Password
+        #}
+}
+detail post_proxy_log_1999 {
+        filename = ${radacctdir}/detail-1999-%Y%m%d
+        permissions = 0600
+}

@@ -1,0 +1,14 @@
+if ( "%(tlsclient)s" == "%(clientcn)s" || "%(tlspskclient)s" == "%(clientcn)s" ) {
+        if ( "%(tlsclient)s" == "%(clientcn)s" ) {
+           update control {
+                &Tmp-String-2 := "TLS/%(tlsclientserial)s"
+           }
+        }
+        if ( "%(tlspskclient)s" == "%(clientcn)s" ) {
+           update control {
+                &Tmp-String-2 := "TLS-PSK"
+           }
+        }
+        f_ticks
+        reply_log_%(deploymentid)s-%(instid)s
+}

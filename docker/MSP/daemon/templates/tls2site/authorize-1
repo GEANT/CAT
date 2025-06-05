@@ -1,0 +1,8 @@
+if ( "%(tlsclient)s" == "%(clientcn)s" || "%(tlspskclient)s" == "%(clientcn)s" ) {
+          update control {
+                &Tmp-Integer-0 := "1"
+          }
+          update request {
+                &Operator-Name := "%(operatorname)s"
+          }
+}

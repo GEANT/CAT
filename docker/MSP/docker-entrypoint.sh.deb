@@ -1,0 +1,141 @@
+#!/bin/bash -x
+set -e
+hostname=`hostname`
+sed -i "s/RADIUS_CONFIGURATION_NAME/${hostname}/g" /etc/apache2/sites-available/000-default.conf
+sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/sites-available/000-default.conf
+sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/ports.conf
+sed -i "s/CAT_IP/${CAT_IP}/g" /etc/rsyslog.d/23_eduroam.conf
+sed -i "s/CATUSERAGENT/${CATUSERAGENT}/g" /etc/apache2/sites-available/000-default.conf
+sed -i "s/FRRADSECSECRET/${FRRADSECSECRET}/g" /usr/local/etc/radsecproxy.conf
+sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /usr/local/etc/radsecproxy.conf
+sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/FR/etc/raddb/sites-available/site_1999
+sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/FR/etc/raddb/sites-available/tls2site
+sed -i "s/auth = no$/auth = yes/g" /opt/FR/etc/raddb/radiusd.conf
+sed -i "s/FRRADSECSECRET/${FRRADSECSECRET}/g" /opt/FR/etc/raddb/proxy.conf
+sed -i "s/HTTPD_USER/${HTTPD_USER}/g" /opt/scripts/radius_configuration.py
+sed -i "s/HTTPD_GROUP/${HTTPD_GROUP}/g" /opt/scripts/radius_configuration.py
+sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/scripts/radius_configuration.py
+sed -i "s/RADIUS_SP_IPV6/${RADIUS_SP_IPV6}/g" /opt/scripts/radius_configuration.py
+sed -i "s/RADIUS_DB/${RADIUS_DB}/g" /opt/FR/etc/raddb/mods-available/cui
+sed -i "s/RADIUS_USER/${RADIUS_USER}/g" /opt/FR/etc/raddb/mods-available/cui
+sed -i "s/RADIUS_PASS/${RADIUS_PASS}/g" /opt/FR/etc/raddb/mods-available/cui
+sed -i "s/MYSQL_PORT/${MYSQL_PORT}/g" /opt/FR/etc/raddb/mods-available/cui
+sed -i "s/CUI_HASH/${CUI_HASH}/g" /opt/FR/etc/raddb/policy.d/cui
+sed -i "s/MYSQL_PORT/${MYSQL_PORT}/g" /usr/local/db/mysqld.cnf
+sed -i "s/RADIUS_DB/${RADIUS_DB}/g" /usr/local/db/sql
+sed -i "s/RADIUS_USER/${RADIUS_USER}/g" /usr/local/db/sql
+sed -i "s/RADIUS_PASS/${RADIUS_PASS}/g" /usr/local/db/sql
+sed -i "s/\[.*/\/usr\/sbin\/fetch-crl -q/" /etc/cron.d/fetch-crl
+/usr/local/db/radiusdb.py
+cd /opt/FR/etc/raddb/sites-enabled
+rm -f *
+ln -s ../sites-available/site_1999 .
+ln -s ../sites-available/tls_2083 .
+ln -s ../sites-available/tls2site .
+cd ../mods-enabled
+[ -e eap ] && rm eap
+[ ! -e detail_1999 ] && ln -s ../mods-available/detail_1999 .
+[ ! -e cui ] && ln -s ../mods-available/cui .
+[ ! -e psksql ] && ln -s ../mods-available/psksql .
+[ ! -e fticks ] && ln -s ../mods-available/fticks .
+cd /opt/SPs
+for f in *; do
+        case $f in
+                site*)
+			if [ ! -f /opt/FR/etc/raddb/sites-available/$f ]; then
+			  cp $f /opt/FR/etc/raddb/sites-available/
+			fi
+			cd /opt/FR/etc/raddb/sites-enabled
+			if [ ! -f $f ]; then
+			  ln -s ../sites-available/$f .
+			fi
+			cd -
+			;;
+                detail*)
+			if [ ! -f /opt/FR/etc/raddb/mods-available/$f ]; then
+			  cp $f /opt/FR/etc/raddb/mods-available/
+			fi
+			cd /opt/FR/etc/raddb/mods-enabled
+			if [ ! -f $f ]; then
+			  ln -s ../mods-available/$f .
+			fi
+			cd -
+			;;
+		tls2site)
+			cd $f
+			for ff in *; do
+				case $ff in
+					pre-proxy*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/pre-proxy.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/pre-proxy.d/
+						   fi
+						   ;;
+					post-proxy*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/post-proxy.d/$ff ]; then
+						     cp $ff /opt/FR/etc/raddb/$f/post-proxy.d/
+						   fi
+						   ;;
+                                        authorize-1*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/authorize-1.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/authorize-1.d/
+						   fi
+						   ;;
+                                        authorize-2*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/authorize-2.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/authorize-2.d/
+						   fi
+						   ;;
+                                        authorize-blacklist*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/authorize-blacklist.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/authorize-blacklist.d/
+						   fi
+						   ;;
+                                        post-auth-1*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/post-auth-1.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/post-auth-1.d/
+						   fi
+						   ;;
+                                        post-auth-2*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/post-auth-2.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/post-auth-2.d/
+						   fi
+						   ;;
+                                        post-auth-3*)
+						   if [ ! -f /opt/FR/etc/raddb/$f/post-auth-3.d/$ff ]; then
+			                             cp $ff /opt/FR/etc/raddb/$f/post-auth-3.d/
+						   fi
+						   ;;
+				esac
+			done
+			cd .. 
+			;;
+        esac
+done
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+chown -R mysql:mysql /var/lib/mysql
+cp /usr/local/db/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+/usr/sbin/mysqld -u mysql &
+cd /usr/local/etc/radsecproxy.conf.d/eduPKI/ca-certs
+/usr/bin/c_rehash .
+cd /opt/FR/etc/raddb/certs/clients/
+/usr/bin/c_rehash .
+[ ! -d /usr/local/logs ] && mkdir /usr/local/logs
+cd /usr/local/db
+sleep 5 
+if [ ! -d /var/lib/mysql/${RADIUS_DB} ]; then
+  echo "eduroam database do not exist"
+  mysql < sql
+else
+  echo "eduroam database exists"
+fi
+touch /opt/FR/var/log/fticks.log
+chown syslog:adm /opt/FR/var/log/fticks.log
+/usr/sbin/fetch-crl
+/opt/FR/sbin/radiusd
+#/opt/FR/sbin/radiusd -fxx -l /opt/FR/var/log/rrrr&
+/usr/local/sbin/radsecproxy
+/opt/scripts/radius_tools.sh
+/usr/sbin/rsyslogd
+/usr/sbin/apachectl start
+/usr/sbin/cron -f -P
+

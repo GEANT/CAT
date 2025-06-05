@@ -1,0 +1,205 @@
+listen {
+	ipv4addr = *
+	port = 2083
+	type = auth
+	proto = tcp
+	virtual_server = tls2site
+	clients = radsec
+	limit {
+	      max_connections = 16
+	      lifetime = 0
+	      idle_timeout = 30
+	}
+	tls {
+		private_key_file = ${certdir}/servertls.key
+		certificate_file = ${certdir}/servertls.pem
+		ca_file = ${cadir}/clients/eduroamSP-CA.pem
+		fragment_size = 8192
+	#	check_crl = yes
+		ca_path = ${cadir}
+		ca_path_reload_interval = 3600
+		cipher_list = "DEFAULT"
+		cipher_server_preference = no
+		tls_min_version = "1.2"
+		tls_max_version = "1.3"
+		ecdh_curve = ""
+		cache {
+		      enable = no
+		      lifetime = 24 # hours
+		}
+		require_client_cert = yes
+		verify {
+		}
+                psk_query = "%{psksql:select hex(key) from psk_keys where keyid = '%{TLS-PSK-Identity}'}"
+	}
+}
+
+listen {
+	ipv6addr = *
+	port = 2083
+	type = auth
+	proto = tcp
+	virtual_server = tls2site
+	clients = radsec
+	limit {
+	      max_connections = 16
+	      lifetime = 0
+	      idle_timeout = 30
+	}
+	tls {
+		private_key_file = ${certdir}/servertls.key
+		certificate_file = ${certdir}/servertls.pem
+		ca_file = ${cadir}/clients/eduroamSP-CA.pem
+		fragment_size = 8192
+	#	check_crl = yes
+		ca_path = ${cadir}
+		ca_path_reload_interval = 3600
+		cipher_list = "DEFAULT"
+		cipher_server_preference = no
+		tls_min_version = "1.2"
+		tls_max_version = "1.3"
+		ecdh_curve = ""
+		cache {
+		      enable = no
+		      lifetime = 24 # hours
+		}
+		require_client_cert = yes
+		verify {
+		}
+                psk_query = "%{psksql:select hex(key) from psk_keys where keyid = '%{TLS-PSK-Identity}'}"
+	}
+}
+
+clients radsec {
+	client 127.0.0.1 {
+		ipaddr = 127.0.0.1
+		proto = tls
+		secret = radsec
+	}
+	client  all_ipv4 {
+		ipv4addr = 0.0.0.0/0
+		proto = tls
+		secret = radsec
+	}
+	client  all_ipv6 {
+		ipv6addr = ::
+		proto = tls
+		secret = radsec
+	}
+}
+
+home_server tls {
+	ipaddr = 145.100.191.87
+	port = 3083
+	type = auth
+	secret = radsec
+	proto = tcp
+	status_check = none
+
+	tls {
+		private_key_file = ${certdir}/servertls.key
+		certificate_file = ${certdir}/servertls.pem
+		ca_file = ${cadir}/clients/eduroamSP-CA.pem
+
+		#
+		#  For TLS-PSK, the key should be specified
+		#  dynamically, instead of using a hard-coded
+		#  psk_identity and psk_hexphrase.
+		#
+		#  The input to the dynamic expansion will be the PSK
+		#  identity supplied by the client, in the
+		#  TLS-PSK-Identity attribute.  The output of the
+		#  expansion should be a hex string, of no more than
+		#  512 characters.  The string should not be prefixed
+		#  with "0x".  e.g. "abcdef" is OK.  "0xabcdef" is not.
+		#
+
+		#
+		#  For DH cipher suites to work, you have to
+		#  run OpenSSL to create the DH file first:
+		#
+		#  	openssl dhparam -out certs/dh 1024
+		#
+#		dh_file = ${certdir}/dh
+#		random_file = /dev/urandom
+
+		#
+		#  The default fragment size is 1K.
+		#  However, TLS can send 64K of data at once.
+		#  It can be useful to set it higher.
+		#
+		fragment_size = 8192
+
+		#  include_length is a flag which is
+		#  by default set to yes If set to
+		#  yes, Total Length of the message is
+		#  included in EVERY packet we send.
+		#  If set to no, Total Length of the
+		#  message is included ONLY in the
+		#  First packet of a fragment series.
+		#
+	#	include_length = yes
+
+		#  Check the Certificate Revocation List
+		#
+		#  1) Copy CA certificates and CRLs to same directory.
+		#  2) Execute 'c_rehash <CA certs&CRLs Directory>'.
+		#    'c_rehash' is OpenSSL's command.
+		#  3) uncomment the line below.
+		#  5) Restart radiusd
+	#	check_crl = yes
+		ca_path = ${cadir}
+
+	       #
+	       #  If check_cert_issuer is set, the value will
+	       #  be checked against the DN of the issuer in
+	       #  the client certificate.  If the values do not
+	       #  match, the certificate verification will fail,
+	       #  rejecting the user.
+	       #
+	       #  In 2.1.10 and later, this check can be done
+	       #  more generally by checking the value of the
+	       #  TLS-Client-Cert-Issuer attribute.  This check
+	       #  can be done via any mechanism you choose.
+	       #
+	#       check_cert_issuer = "/C=GB/ST=Berkshire/L=Newbury/O=My Company Ltd"
+
+	       #
+	       #  If check_cert_cn is set, the value will
+	       #  be xlat'ed and checked against the CN
+	       #  in the client certificate.  If the values
+	       #  do not match, the certificate verification
+	       #  will fail rejecting the user.
+	       #
+	       #  This check is done only if the previous
+	       #  "check_cert_issuer" is not set, or if
+	       #  the check succeeds.
+	       #
+	       #  In 2.1.10 and later, this check can be done
+	       #  more generally by checking the value of the
+	       #  TLS-Client-Cert-Common-Name attribute.  This check
+	       #  can be done via any mechanism you choose.
+	       #
+	#	check_cert_cn = %{User-Name}
+	#
+		# Set this option to specify the allowed
+		# TLS cipher suites.  The format is listed
+		# in "man 1 ciphers".
+		cipher_list = "DEFAULT"
+
+		#
+		#  Connection timeout for outgoing TLS connections.
+		#  Values are 1..30.
+		#
+		connect_timeout = 30
+	}
+}
+
+home_server_pool tls {
+		 type = fail-over
+		 home_server = tls
+}
+
+realm tls {
+      auth_pool = tls
+}
