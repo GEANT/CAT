@@ -1141,14 +1141,14 @@ class CatNMConfigTool:
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
             if Config.anonymous_identity != '':
                 s_8021x_data['anonymous-identity'] = Config.anonymous_identity
-            s_8021x_data['password-flags'] = 0
+            s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key-password'] = self.user_data.password
-            s_8021x_data['private-key-password-flags'] = 0
+            s_8021x_data['private-key-password-flags'] = 1
         s_con = dbus.Dictionary({
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
