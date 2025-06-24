@@ -95,8 +95,8 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    print("WARNING: Cannot import the dbus module - please install dbus-python!")
-    debug("Cannot import the dbus module")
+    print("WARNING: Cannot import the dbus module for "+sys.executable+" - please install dbus-python!")
+    debug("Cannot import the dbus module for "+sys.executable)
     NM_AVAILABLE = False
 
 
