@@ -108,25 +108,5 @@ $langObject = new \core\common\Language();
             <?php
         }
     }
-    
-    
-  /*  
-    
-    foreach ($feds as $oneFed2) {
-        $theFed = new \core\Federation($oneFed2['value']);
-        if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
-            ?>
-            <form action="action_req_certificate.php" method="POST">
-                <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo _("Request new Certificate"); ?></button>
-            </form>
-            <?php
-        } else {
-            ?>
-            <span style="color: #red"><?php echo sprintf(_("You can not request certificates because there is no server information for %s in the eduroam DB."), $theFed->tld); ?></span>
-            <?php
-        }
-    }
-   * 
-   */
     echo $deco->footer();
     
