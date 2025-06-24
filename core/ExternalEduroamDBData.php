@@ -320,12 +320,12 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             WHERE view_active_institution.type != 2 AND view_institution_admins.email= ?";
         $externals = $this->db->exec($query, 's', $userEmail);
         while ($row = $externals->fetch_array()) {
-            $external_db_id =  $row[0];
-            $inst_id = $row[1];
-            $country = $row[2];
-            $name = $row[3];
-            $realm = $row[4];
-            $type = $row[5];
+            $external_db_id =  $row[0]; // identifier in eduroam DB
+            $inst_id = $row[1]; // identifier in CAT - possibly NULL
+            $country = $row[2]; // country
+            $name = $row[3];  // institution name from eduroam DB
+            $realm = $row[4]; // realms from eduroam DB
+            $type = $row[5]; // institution type from eduroam DB
             if (!isset($out[$country])) {
                 $out[$country] = [];
             }
