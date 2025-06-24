@@ -28,6 +28,7 @@ $uiElements = new web\lib\admin\UIElements();
 
 $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
+$loggerInstance = new \core\common\Logging();
 
 
 header("Content-Type:text/html;charset=utf-8");
@@ -53,7 +54,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // or an admin of the IdP with federation admin blessings
 $is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 
-if (in_array($my_inst, $_SESSION['entitledIdPs'])) {
+if (in_array($my_inst->identifier, $_SESSION['entitledIdPs'])) {
     $is_admin_with_blessing = true;
 }
 
@@ -84,13 +85,9 @@ if (isset($_POST['submitbutton'])) {
             }
             break;
         case web\lib\common\FormElements::BUTTON_TAKECONTROL:
-            if ($isFedAdmin) {
-                $ownermgmt = new \core\UserManagement();
-                $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
-            } else {
-                echo "Fatal Error: you wanted to take control over an " . \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . ", but are not a " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " operator!";
-                exit(1);
-            }
+            $loggerInstance->debug(4, $my_inst->name, "Request to take control for: ", "\n");
+            $ownermgmt = new \core\UserManagement();
+            $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
             break;
         default:
     }
@@ -217,7 +214,6 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
