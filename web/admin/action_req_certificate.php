@@ -90,13 +90,25 @@ $langObject = new \core\common\Language();
     $subject_prefix = implode(', ', array_reverse($DN));
     /* Messages */
     $messages = [
-    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not follow the expected pattern.') .
-                       '<br>' . _("See CSR generation rules below."),
-    'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR')
+    'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not follow the expected pattern.'),
+    'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR'),
+    'SOAP_ERROR' => _('An error while processing request by the eduPKI site'),
+    'HINT' =>  _("See CSR generation rules below."),
     ];
     $settings = array();
     if  (isset($_SESSION['CSR_ERRORS']) && $_SESSION['CSR_ERRORS'] != '') {
-        print '<h3 id="errorbox"><font color="red">'. $messages[$_SESSION['CSR_ERRORS']].'</font></h3>';
+        print '<h3 id="errorbox"><font color="red">'. $messages[$_SESSION['CSR_ERRORS']];
+        if ($_SESSION['CSR_ERRORS'] == 'SOAP_ERROR' && isset($_SESSION['csr_faultcode'])) {
+            print '<br>'. _('Reason') . ': '. $_SESSION['csr_faultcode'];
+            unset($_SESSION['csr_faultcode']);
+        } else {
+            if ($_SESSION['CSR_ERRORS'] == 'WRONG_SUBJECT' && isset($_SESSION['csr_subject'])) {
+                print '<br>'. _('Your subject is:') . ' '. $_SESSION['csr_subject'];
+                unset($_SESSION['csr_subject']);
+            }
+            print '<br>' . $messages['HINT'];
+        }
+        print '</font></h3>';
         unset($_SESSION['CSR_ERRORS']);
     }
     if  (isset($_SESSION['FORM_SETTINGS']) && $_SESSION['FORM_SETTINGS'] != '') {
@@ -118,9 +130,20 @@ $langObject = new \core\common\Language();
         }
         //$info = openssl_pkey_get_details($pubkey);
         $subject = openssl_csr_get_subject($sanitisedCsr);
-        $subject_keys = array_keys($subject);
+        $subject_keys = array_keys($subject); 
         $dc = array();
         if (!empty($subject_keys)) {
+            $dn = '';
+            foreach ($subject_keys as $sk) {
+                if ($dn != '') {
+                    $dn .= ', ';
+                }
+                if (is_array($subject[$sk])) {
+                    $dn .= $sk . '=' . implode(', ' . $sk . '=', $subject[$sk]);
+                } else {
+                    $dn .= $sk . '=' . $subject[$sk];
+                }
+            }
             if ($subject_keys[0] == 'DC' && $subject['DC']) {
                 foreach ($subject['DC'] as $v) {
                     $dc[] = 'DC=' . $v;
@@ -129,11 +152,14 @@ $langObject = new \core\common\Language();
                    $dc = array();
                    $_SESSION['CSR_ERRORS'] = 'WRONG_SUBJECT';
                    $_SESSION['FORM_SETTINGS'] = $settings;
+                   $_SESSION['csr_subject'] = $dn;
                 }
             } else {
                 $_SESSION['CSR_ERRORS'] = 'WRONG_SUBJECT';
                 $_SESSION['FORM_SETTINGS'] = $settings;
+                $_SESSION['csr_subject'] = $dn;
             }
+            
         }
         if (empty($dc)) {
             header("Location: action_req_certificate.php");
@@ -240,6 +266,16 @@ $langObject = new \core\common\Language();
         // our certs can be good for max 5 years
         $fed->requestCertificate($user->identifier, $newCsrWithMeta, $expiryDays);
         echo "<p>" . _("The certificate was requested.") . "</p>";
+        if (isset($_SESSION['CSR_ERRORS']) && $_SESSION['CSR_ERRORS'] == 'SOAP_ERROR') {
+            print '<h3 id="errorbox"><font color="red">'. $messages[$_SESSION['CSR_ERRORS']];
+            if (isset($_SESSION['csr_faultcode'])) {
+                print '<br>'. _('Reason') . ': '. $_SESSION['csr_faultcode'];
+                unset($_SESSION['csr_faultcode']);
+            }
+            unset($_SESSION['CSR_ERRORS']);
+            print '</h3>';
+        }
+        
         ?>
         <form action="overview_certificates.php" method="GET">
             <button type="submit"><?php echo _("Back to Certificate Overview"); ?></button>
@@ -413,7 +449,7 @@ foreach ($allIdPs as $id => $name) {
         echo "<b>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced</b>";
         ?>
         <h2><?php echo _("3. Submission"); ?></h2>
-<?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
+<?php echo _("Please paste your CSR here:"); ?><br><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"></td><?php echo _("Send request"); ?></button>
     <?php
         }

@@ -289,6 +289,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             'http' => [
                 'timeout' => 60,
                 'user_agent' => 'Stefan',
+                'header'=> array( "Accept-language: en" ),
                 'protocol_version' => 1.1
             ],
             'ssl' => [

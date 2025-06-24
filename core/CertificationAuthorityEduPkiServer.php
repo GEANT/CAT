@@ -157,6 +157,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERMAIL"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
+            
             $soapNewRequest = $soapPub->newRequest(
                     $this->eduPkiRaId, # RA-ID
                     $csr["CSR_STRING"], # Request im PEM-Format
@@ -177,9 +178,12 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         } catch (Exception $e) {
             // PHP 7.1 can do this much better
             if (is_soap_fault($e)) {
-                throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}:  {
-                    $e->faultstring
-                }\n");
+                $_SESSION['CSR_ERRORS'] = 'SOAP_ERROR';
+                $_SESSION['csr_faultcode'] = $e->faultstring;
+                #throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}:  {
+                #    $e->faultstring
+                #}\n");
+                return 0;
             }
             throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
         }
@@ -379,8 +383,10 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             'http' => [
                 'timeout' => 60,
                 'user_agent' => 'Stefan',
+                'header'=> "Accept-language: en",
                 'protocol_version' => 1.1
             ],
+            
             'ssl' => [
                 'verify_peer' => true,
                 'verify_peer_name' => true,

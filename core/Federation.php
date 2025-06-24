@@ -433,11 +433,13 @@ class Federation extends EntityWithDBProperties
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $newReq = new CertificationAuthorityEduPkiServer();
         $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
-        $this->loggerInstance->writeAudit($user, "NEW", "Certificate request - NRO: ".$this->tld." - serial: ".$reqserial." - subject: ".$csr['SUBJECT']);
-        $reqQuery = "INSERT INTO federation_servercerts "
+        if ($reqserial > 0) {
+             $this->loggerInstance->writeAudit($user, "NEW", "Certificate request - NRO: ".$this->tld." - serial: ".$reqserial." - subject: ".$csr['SUBJECT']);
+            $reqQuery = "INSERT INTO federation_servercerts "
                 ."(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
                 ."VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
-        $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
+            $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
+        } 
     }
 
     /**
