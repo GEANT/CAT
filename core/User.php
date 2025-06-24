@@ -173,7 +173,7 @@ class User extends EntityWithDBProperties
             return false;
         }
         $entityId = $matches[1];
-        $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$entityId";
+        $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&opt=2&e_id=$entityId";
         \core\common\Logging::debug_s(4, $url, "URL: ","\n");
         $ch = curl_init($url);
         if ($ch === false) {
