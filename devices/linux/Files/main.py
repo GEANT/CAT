@@ -916,15 +916,15 @@ class WpaConf:
         """
 
         if Config.eap_outer in ('PEAP', 'TTLS'):
-            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
-                         f"\tpassword=\"{user_data.password}\"\n"
+            interface += "phase2=\"auth={}\"\n" \
+                         "\tpassword=\"{}\"\n".format(Config.eap_inner, user_data.password)
             if Config.anonymous_identity != '':
-                interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
+                interface += "\tanonymous_identity=\"{}\"\n".format(Config.anonymous_identity)
 
         elif Config.eap_outer == 'TLS':
-            interface += f"\tprivate_key_passwd=\"{user_data.password}\"\n" \
-                         f"\tprivate_key=\"{os.environ.get('HOME')}/.cat_installer/user.p12"
-
+            interface += "\tprivate_key_passwd=\"{}\"\n" \
+                         "\tprivate_key=\"{}/.cat_installer/user.p12" \
+                         .format(user_data.password, os.environ.get('HOME'))
         interface += "\n}"
         return interface
 
@@ -1141,14 +1141,14 @@ class CatNMConfigTool:
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
             if Config.anonymous_identity != '':
                 s_8021x_data['anonymous-identity'] = Config.anonymous_identity
-            s_8021x_data['password-flags'] = 0
+            s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(
                 "file://{0}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key-password'] = self.user_data.password
-            s_8021x_data['private-key-password-flags'] = 0
+            s_8021x_data['private-key-password-flags'] = 1
         s_con = dbus.Dictionary({
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
