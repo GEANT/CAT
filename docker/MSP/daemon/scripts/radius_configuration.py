@@ -129,7 +129,7 @@ def make_conf(data):
                     _vlans.append(UNLANG_DOMAIN % (_r))
                 _vlan_block = 'if (' + ' && '.join(_vlans) + \
                         ') { ' + NL + SPACES + _vlan_block + NL + SPACES + '}' + NL
-        _vlan_block = _vlan_block + _realm_vlan
+        _vlan_block += _realm_vlan
         logger.info('Create/update port: %s, secret: %s, operatorname: %s',
                     data[3], _secret, _operatorname)
         logger.info('VLAN %s', _vlan_block)
@@ -432,7 +432,7 @@ while True:
     elif len(elems) == 9 or len(elems) == 10:
         if make_conf(elems):
             conn.send(b"OK")
-            req_cnt = req_cnt + 1
+            req_cnt += 1
             logger.info("requests count is %d", req_cnt)
         else:
             conn.send(b"FAILURE")
