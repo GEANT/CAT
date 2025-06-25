@@ -65,7 +65,7 @@ UNLANG_DOMAIN = "Stripped-User-Domain != '%s'"
 CAT_LOG = '/opt/scripts/logs/radius_configuration.log'
 MAX_RESTART_REQUESTS = 10
 SOCKET_TIMEOUT = 5.0
-SELECTREVOKED = 'SELECT cert_serial, cert_notafter, createtime, handled from ' + \
+SELECTREVOKED = 'SELECT cert_serial, cert_notafter, createtime, handled from ' \
                 'tls_revoked where client_id="%s"'
 UPDATENEW = 'UPDATE tls_revoked set handled=1 where cert_serial="%s"'
 IN4HOURS = 4*60
