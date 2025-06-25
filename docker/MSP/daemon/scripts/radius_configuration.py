@@ -230,7 +230,7 @@ def make_conf(data):
                             str(data[2]) + '-' + str(data[1]),
                             FR_RADDB + _tls + '/' + _templ + '.d/' +
                             _templ + '_' + str(data[2]) + '-' + str(data[1]))
-    except:
+    except Exception:
         return False
     cur.execute('''INSERT OR IGNORE INTO psk_keys VALUES ("SP%s-%s", X'%s')''' % (
         str(data[2]), str(data[1]), _pskkey))
