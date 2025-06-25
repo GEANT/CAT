@@ -1100,7 +1100,7 @@ class CatNMConfigTool:
             conns = self.settings.ListConnections()
         except dbus.exceptions.DBusException:
             print(Messages.dbus_error)
-            exit(3)
+            sys.exit(3)
         for each in conns:
             con_proxy = self.bus.get_object(self.system_service_name, each)
             connection = dbus.Interface(
