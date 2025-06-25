@@ -53,10 +53,8 @@ logger = init_log()
 con = sqlite3.connect(RADIUS_DB)
 cur = con.cursor()
 
-bl_template = []
 templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
-for _line in templ:
-    bl_template.append(_line)
+bl_template = list(templ)
 templ.close()
 
 SELECTNEW = 'SELECT * FROM tls_revoked where handled=0'

@@ -270,12 +270,10 @@ def handle_blacklisted(clientcn):
     """
     Handle blacklisted certificates
     """
-    bl_template = []
     serials = []
     blacklist = ''
     templ = open(TEMPLATE_DIR + TLS[0] + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
-    for _line in templ:
-        bl_template.append(_line)
+    bl_template = list(templ)
     for _row in cur.execute(SELECTREVOKED % clientcn):
         # _row[0] cert_serial
         # _row[1] cert_notafter
@@ -391,15 +389,11 @@ chown(SOCKET_C, 'HTTPD_USER', 'HTTPD_GROUP')
 sem_restart_req = posix_ipc.Semaphore(SEM_RR)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
 
-site_template = []
 templ = open(TEMPLATE_DIR + TEMPLATE_SITE, 'r', encoding='utf-8')
-for _line in templ:
-    site_template.append(_line)
+site_template = list(templ)
 templ.close()
-detail_template = []
 templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, 'r', encoding='utf-8')
-for _line in templ:
-    detail_template.append(_line)
+detail_template = list(templ)
 templ.close()
 logger.info('Listening on socket %s', SOCKET_C)
 server_c.listen(1)
