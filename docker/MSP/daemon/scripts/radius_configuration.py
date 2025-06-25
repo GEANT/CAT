@@ -371,9 +371,7 @@ def remove_site(site_inst, site_depl):
     con.commit()
     logger.info('key removed for keyid SP%s-%s', str(site_depl), str(site_inst))
     logger.info('Files removed: %d', str(_del))
-    if _del == 4:
-        return True
-    return False
+    return _del == 4
 
 logger = init_log()
 if os.path.exists(SOCKET_C):
