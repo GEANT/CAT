@@ -88,7 +88,7 @@ for row in cur.execute(SELECTNEW):
                 'tlsclientserial' : TLS_CLIENT_SERIAL,
                 'clientcn': _clientcn,
                 'serial': _serial }
-    if _suffix not in blacklist.keys():
+    if _suffix not in blacklist:
         blacklist[_suffix] = []
     blacklist[_suffix].append(_content)
     logger.info('%s with serial %s blacklisted', _clientcn, _serial)
