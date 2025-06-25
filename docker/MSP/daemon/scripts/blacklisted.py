@@ -4,12 +4,9 @@
 """
 Hand freeRADIUS blacklist
 """
-import socket
 import os
 import sys
 import time
-import base64
-from shutil import chown, move, copy
 import logging
 import sqlite3
 import posix_ipc

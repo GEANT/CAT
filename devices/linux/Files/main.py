@@ -658,7 +658,6 @@ class InstallerData:
             if self.__check_graphics(self.gui):
                 return
             try:
-                import tkinter
                 self.graphics = 'tkinter'
                 return
             except Exception:

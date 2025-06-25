@@ -6,13 +6,11 @@ FreeRADIUS restart server
 """
 import sys
 import time
-import datetime
 import logging
 import posix_ipc
 import subprocess
 import os
 import psutil
-import signal
 from pathlib import Path
 
 SEM_RR = '/FR_RESTART'
