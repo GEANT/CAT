@@ -50,7 +50,7 @@ import subprocess
 import sys
 import uuid
 from shutil import copyfile
-from typing import Union
+from typing import Union, Optional
 
 NM_AVAILABLE = True
 NEW_CRYPTO_AVAILABLE = True
@@ -344,7 +344,7 @@ class InstallerData:
         with open(certfile, 'w') as cert:
             cert.write(Config.CA + "\n")
 
-    def ask(self, question: str, prompt: str = '', default: bool = None) -> int:
+    def ask(self, question: str, prompt: str = '', default: Optional[bool] = None) -> int:
         """
         Prompt user for a Y/N reply, possibly supplying a default answer
         """
