@@ -412,7 +412,7 @@ while True:
                         req_cnt)
             waited = req_cnt = 0
             sem_restart_req.release()
-    except socket.error as err:
+    except socket.error:
         if req_cnt > 0:
             if sem_restart_suspended.value > 0:
                 logger.info('Postpone, fr_restart process just sleeping %d',
