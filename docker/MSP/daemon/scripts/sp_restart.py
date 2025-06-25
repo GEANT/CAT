@@ -79,7 +79,6 @@ try:
     posix_ipc.unlink_semaphore(SEM_JUST_SLEEPING)
 except Exception as e:
     logger.info('An exception occurred %s, %s', e, type(e).__name__)
-    pass
 sem_restart_req = posix_ipc.Semaphore(SEM_RR, posix_ipc.O_CREAT)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING,
                                             posix_ipc.O_CREAT)
