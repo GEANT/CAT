@@ -423,17 +423,17 @@ while True:
     logger.info('Received %d elements', len(elems))
     if len(elems) == 4:
         if make_blacklist(elems):
-            conn.send("OK".encode('utf-8'))
+            conn.send(b"OK")
             logger.info("blacklist modified")
         else:
-            conn.send("FAILURE".encode('utf-8'))
+            conn.send(b"FAILURE")
             logger.info("blacklist modification failed")
     elif len(elems) == 9 or len(elems) == 10:
         if make_conf(elems):
-            conn.send("OK".encode('utf-8'))
+            conn.send(b"OK")
             req_cnt = req_cnt + 1
             logger.info("requests count is %d", req_cnt)
         else:
-            conn.send("FAILURE".encode('utf-8'))
+            conn.send(b"FAILURE")
     else:
-        conn.send("FAILURE".encode('utf-8'))
+        conn.send(b"FAILURE")
