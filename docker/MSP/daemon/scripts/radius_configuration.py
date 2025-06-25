@@ -142,25 +142,25 @@ def make_conf(data):
             logger.info('Nothing to remove')
             return 1
         return _res
-    _site = []
-    _detail = []
     for _tls in TLS:
         if not os.path.exists(TEMP_DIR + _tls):
             os.makedirs(TEMP_DIR + _tls)
         if not os.path.exists(CONF_DIR + _tls):
             os.makedirs(CONF_DIR + _tls)
-    for _line in site_template:
-        _site.append(_line % {'hostip': HOSTIP,
-                              'hostipv6': HOSTIPv6,
-                              'country': data[0],
-                              'instid': data[1],
-                              'deploymentid': data[2],
-                              'port': data[3],
-                              'secret': _secret,
-                              'operatorname': _operatorname,
-                              'nas_id': NAS_ID,
-                              'vlans': _vlan_block,
-                              'reply_username': REPLY_USER_NAME})
+    _site = [
+        _line % {'hostip': HOSTIP,
+                 'hostipv6': HOSTIPv6,
+                 'country': data[0],
+                 'instid': data[1],
+                 'deploymentid': data[2],
+                 'port': data[3],
+                 'secret': _secret,
+                 'operatorname': _operatorname,
+                 'nas_id': NAS_ID,
+                 'vlans': _vlan_block,
+                 'reply_username': REPLY_USER_NAME}
+        for _line in site_template
+    ]
     with open(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
               'w', encoding='utf-8') as _out:
         _out.write(''.join(_site))
@@ -187,12 +187,16 @@ def make_conf(data):
         logger.error('No %ssite_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
         return False
 
-    if not os.path.isfile(FR_MODS_A + 'detail_' + str(data[2]) + '-' + str(data[1])):
-        for _line in detail_template:
-            _detail.append(_line % {'port': data[3],
-                                    'instid': data[1],
-                                    'deploymentid': data[2],
-                                    'format': DATE_F})
+    if os.path.isfile(FR_MODS_A + 'detail_' + str(data[2]) + '-' + str(data[1])):
+        _detail = []
+    else:
+        _detail = [
+            _line % {'port': data[3],
+                     'instid': data[1],
+                     'deploymentid': data[2],
+                     'format': DATE_F}
+            for _line in detail_template
+        ]
         with open(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1]), 'w',
                   encoding='utf-8') as _out:
             _out.write(''.join(_detail))
