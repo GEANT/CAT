@@ -429,13 +429,12 @@ while True:
         else:
             conn.send("FAILURE".encode('utf-8'))
             logger.info("blacklist modification failed")
-    else:
-        if len(elems) == 9 or len(elems) == 10:
-            if make_conf(elems):
-                conn.send("OK".encode('utf-8'))
-                req_cnt = req_cnt + 1
-                logger.info("requests count is %d", req_cnt)
-            else:
-                conn.send("FAILURE".encode('utf-8'))
+    elif len(elems) == 9 or len(elems) == 10:
+        if make_conf(elems):
+            conn.send("OK".encode('utf-8'))
+            req_cnt = req_cnt + 1
+            logger.info("requests count is %d", req_cnt)
         else:
             conn.send("FAILURE".encode('utf-8'))
+    else:
+        conn.send("FAILURE".encode('utf-8'))
