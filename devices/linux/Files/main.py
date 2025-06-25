@@ -390,8 +390,7 @@ class InstallerData:
                            '--wrap',
                            '--text=' + question + "\n\n" + prompt,
                            '--title=' + Config.title]
-            returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
-            return returncode
+            return subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def show_info(self, data: str) -> None:
         """
