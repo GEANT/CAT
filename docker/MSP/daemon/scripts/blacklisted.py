@@ -52,7 +52,7 @@ logger = init_log()
 con = sqlite3.connect(RADIUS_DB)
 cur = con.cursor()
 
-templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
+templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
 bl_template = list(templ)
 templ.close()
 
@@ -96,8 +96,7 @@ if len(blacklist) > 0:
         _content = '\n'.join(_contents)
         _lines = []
         if os.path.isfile(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix):
-            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,
-                      'r', encoding='utf-8') as _in:
+            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix, encoding='utf-8') as _in:
                 _lines = _in.readlines()
         _content = ''.join(_lines) + _content
         with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,

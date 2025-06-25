@@ -165,7 +165,7 @@ def make_conf(data):
         _out.write(''.join(_site))
     for _tls in TLS:
         for _templ in TEMPLATES_TLS:
-            with open(TEMPLATE_DIR + _tls + '/' + _templ, 'r',
+            with open(TEMPLATE_DIR + _tls + '/' + _templ,
                       encoding='utf-8') as _f:
                 _lines = _f.readlines()
                 _alllines = ''.join(_lines) % {
@@ -271,7 +271,7 @@ def handle_blacklisted(clientcn):
     """
     serials = []
     blacklist = ''
-    templ = open(TEMPLATE_DIR + TLS[0] + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
+    templ = open(TEMPLATE_DIR + TLS[0] + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
     bl_template = list(templ)
     for _row in cur.execute(SELECTREVOKED % clientcn):
         # _row[0] cert_serial
@@ -388,10 +388,10 @@ chown(SOCKET_C, 'HTTPD_USER', 'HTTPD_GROUP')
 sem_restart_req = posix_ipc.Semaphore(SEM_RR)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
 
-templ = open(TEMPLATE_DIR + TEMPLATE_SITE, 'r', encoding='utf-8')
+templ = open(TEMPLATE_DIR + TEMPLATE_SITE, encoding='utf-8')
 site_template = list(templ)
 templ.close()
-templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, 'r', encoding='utf-8')
+templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, encoding='utf-8')
 detail_template = list(templ)
 templ.close()
 logger.info('Listening on socket %s', SOCKET_C)
