@@ -1132,7 +1132,7 @@ class CatNMConfigTool:
             'eap': [Config.eap_outer.lower()],
             'identity': self.user_data.username,
             'ca-cert': dbus.ByteArray(
-                "file://{0}\0".format(self.cacert_file).encode('utf8')),
+                "file://{}\0".format(self.cacert_file).encode('utf8')),
             match_key: match_value}
         if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
@@ -1142,9 +1142,9 @@ class CatNMConfigTool:
             s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
-                "file://{0}\0".format(self.pfx_file).encode('utf8'))
+                "file://{}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key'] = dbus.ByteArray(
-                "file://{0}\0".format(self.pfx_file).encode('utf8'))
+                "file://{}\0".format(self.pfx_file).encode('utf8'))
             s_8021x_data['private-key-password'] = self.user_data.password
             s_8021x_data['private-key-password-flags'] = 1
         s_con = dbus.Dictionary({
