@@ -376,6 +376,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
                 $opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL;
                 $vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
+                $guest_vlan = $deploymentObject->getAttributes("managedsp:guest_vlan")[0]['value'] ?? NULL;
                 
                 ?>
                 <tr></tr>
@@ -401,6 +402,20 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         </td>
                     </tr>
                 <?php
+                if ($guest_vlan) {
+                    ?>
+                    <tr>
+                        <td><?php echo _("VLAN tag for guests"); ?></td>
+                        <td>
+                            <?php 
+                                if ($guest_vlan) {
+                                    echo $guest_vlan;
+                                }
+                            ?>
+                        </td>
+                    </tr>
+                <?php
+                }
                 if (!empty($allRealms) || $vlan) {
                     ?>
                     <tr>

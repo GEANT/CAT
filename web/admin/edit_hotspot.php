@@ -97,105 +97,109 @@ if (isset($_POST['submitbutton'])) {
                     echo $deco->footer();
                 }
                 exit(0);
-            case web\lib\common\FormElements::BUTTON_TERMSOFUSE_ACCEPTED:
-                if (isset($_POST['agreement']) && $_POST['agreement'] == "true") {
-                    $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
-                }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
-                exit(0);
-            case web\lib\common\FormElements::BUTTON_DELETE:
-                $response = $deployment->setRADIUSconfig();
-                if (in_array('OK', $response)) {
-                    $deployment->deactivate();
-                }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . 
-                       $deployment->identifier);
-                exit(0);
-            case web\lib\common\FormElements::BUTTON_REMOVESP:
-                $deployment->remove();
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
-                exit(0);
-            case web\lib\common\FormElements::BUTTON_RENEWTLS:
-                $data = openssl_x509_parse($deployment->radsec_cert);
-                $certdata = array(
-                                  $data['serialNumberHex'],
-                                  date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
-                                 );
-                $torevoke = implode('#', $certdata);
-                $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
-                $deployment->renewtls();
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
-                exit(0);
-            case web\lib\common\FormElements::BUTTON_USECSR:
-                if (isset($_FILES['upload']) && $_FILES['upload']['size'] > 0) {
-                    $csrpem = file_get_contents($_FILES['upload']['tmp_name']);
-                    if ($csrpem === FALSE) {
+        case web\lib\common\FormElements::BUTTON_TERMSOFUSE_ACCEPTED:
+            if (isset($_POST['agreement']) && $_POST['agreement'] == "true") {
+                $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
+            }
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+            exit(0);
+        case web\lib\common\FormElements::BUTTON_DELETE:
+            $response = $deployment->setRADIUSconfig();
+            if (in_array('OK', $response)) {
+                $deployment->deactivate();
+            }
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . 
+                   $deployment->identifier);
+            exit(0);
+        case web\lib\common\FormElements::BUTTON_REMOVESP:
+            $deployment->remove();
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            exit(0);
+        case web\lib\common\FormElements::BUTTON_RENEWTLS:
+            $data = openssl_x509_parse($deployment->radsec_cert);
+            $certdata = array(
+                    $data['serialNumberHex'],
+                    date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
+            );
+            $torevoke = implode('#', $certdata);
+            $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
+            $deployment->renewtls();
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+            exit(0);
+        case web\lib\common\FormElements::BUTTON_USECSR:
+            if (isset($_FILES['upload']) && $_FILES['upload']['size'] > 0) {
+                $csrpem = file_get_contents($_FILES['upload']['tmp_name']);
+                if ($csrpem === FALSE) {
                     // seems we can't work with this file for some reason. Ignore.
-                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
-                        exit(0);
-                    }
-                    $csr = new \phpseclib3\File\X509();
-                    $csr->loadCSR($csrpem);
-                    if ($csr->validateSignature()) { 
-                        // valid signature
-                        $data = openssl_x509_parse($deployment->radsec_cert);
-                        $certdata = array(
-                                  $data['serialNumberHex'],
-                                  date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
-                                 );
-                        $torevoke = implode('#', $certdata);
-                        $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
-                        $deployment->tlsfromcsr($csr);
-                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
-                        exit(0);
-                    } else {
-                        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
-                        exit(0);
-                    }
+                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                    exit(0);
                 }
-            case web\lib\common\FormElements::BUTTON_ACTIVATE:
-                if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
-                    $response = $deployment->setRADIUSconfig();
-                    if (in_array('OK', $response)) {
-                        $deployment->activate();
-                    }
-                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
+                $csr = new \phpseclib3\File\X509();
+                $csr->loadCSR($csrpem);
+                if ($csr->validateSignature()) { 
+                    // valid signature
+                    $data = openssl_x509_parse($deployment->radsec_cert);
+                    $certdata = array(
+                              $data['serialNumberHex'],
+                              date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
+                             );
+                    $torevoke = implode('#', $certdata);
+                    $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
+                    $deployment->tlsfromcsr($csr);
+                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
                     exit(0);
                 } else {
-                    throw new Exception("Activate button pushed without acknowledged ToUs!");
+                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                    exit(0);
                 }
-            case web\lib\common\FormElements::BUTTON_SAVE:
-                $optionParser = new web\lib\admin\OptionParser();
-                $postArray = $_POST;
-                if (isset($postArray['vlan'])) {
-                    $postArray['option']['S1234567890'] = "managedsp:vlan#int##";
-                    $postArray['value']['S1234567890-integer'] = $postArray['vlan'];
-                }
-                if (isset($postArray['opname'])) {
-                    $postArray['option']['S1234567891'] = "managedsp:operatorname#string##";
-                    $postArray['value']['S1234567891-string'] = $postArray['opname'];
-                }
-                $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
-                // if ToU were already accepted, keep them (would otherwise be auto-deleted
-                if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
-                    $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
-                }
-                // reinstantiate object with new values
-                $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
-                if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
-                    $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
-                    $response = $deploymentReinstantiated->setRADIUSconfig();
-                } else {
-                    $response = ['NOOP', 'NOOP'];
+            }
+        case web\lib\common\FormElements::BUTTON_ACTIVATE:
+            if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
+                $response = $deployment->setRADIUSconfig();
+                if (in_array('OK', $response)) {
+                    $deployment->activate();
                 }
                 header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
                 exit(0);
-            default:
+            } else {
+                throw new Exception("Activate button pushed without acknowledged ToUs!");
+            }
+        case web\lib\common\FormElements::BUTTON_SAVE:
+            $optionParser = new web\lib\admin\OptionParser();
+            $postArray = $_POST;
+            if (isset($postArray['vlan'])) {
+                $postArray['option']['S1234567892'] = "managedsp:vlan#int##";
+                $postArray['value']['S1234567892-integer'] = $postArray['vlan'];
+            }
+            if (isset($postArray['guest_vlan'])) {
+                $postArray['option']['S1234567890'] = "managedsp:guest_vlan#int##";
+                $postArray['value']['S1234567890-integer'] = $postArray['guest_vlan'];
+            }
+            if (isset($postArray['opname'])) {
+                $postArray['option']['S1234567891'] = "managedsp:operatorname#string##";
+                $postArray['value']['S1234567891-string'] = $postArray['opname'];
+            }
+            $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
+            // if ToU were already accepted, keep them (would otherwise be auto-deleted
+            if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
+                $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
+            }
+            // reinstantiate object with new values
+            $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
+            if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
+                $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
+                $response = $deploymentReinstantiated->setRADIUSconfig();
+            } else {
+                $response = ['NOOP', 'NOOP'];
+            }
+            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
+            exit(0);
+          default:
                 throw new Exception("Unknown button action requested!");
-        }
     }
-    if (isset($_POST['command'])) {
-        switch ($_POST['command']) {
+}
+if (isset($_POST['command'])) {
+    switch ($_POST['command']) {
         case web\lib\common\FormElements::BUTTON_CLOSE:
             header("Location: overview_org.php?inst_id=" . $my_inst->identifier) . '#profilebox_' . $deployment->identifier;
             exit(0);
@@ -203,14 +207,14 @@ if (isset($_POST['submitbutton'])) {
             header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
             exit(0);
         }
-    }
-    $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
-    $opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
-
-    echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
-    ?>
-    <script src="js/XHR.js" type="text/javascript"></script>
-    <script src="js/option_expand.js" type="text/javascript"></script>
+}
+$vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
+$guest_vlan = $deployment->getAttributes("managedsp:guest_vlan")[0]['value'] ?? NULL;
+$opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
+echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
+?>
+<script src="js/XHR.js" type="text/javascript"></script>
+<script src="js/option_expand.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -248,12 +252,28 @@ if (isset($_POST['submitbutton'])) {
             <tr>
                 <!-- input for Operator-Name override-->
                 <td>
-                    <span id='opname_label'>
+                    <span id1='opname_label'>
                         <?php echo _("Custom Operator-Name:"); ?>
                     </span>
                 </td>
                 <td>
                     <input type='text' width="20" name="opname" value="<?php echo $opname; ?>"/>
+                </td>
+            </tr>
+            <tr>
+                <!-- input for VLAN identifier for guests-->
+                <td>
+                    <span id='guest_vlan_label'>
+                        <?php echo sprintf(_("VLAN tag for guests:"), ($guest_vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='number' width="4" name='guest_vlan' <?php
+                    if ($guest_vlan !== NULL) {
+                        echo "value='$guest_vlan'";
+                    }
+                    ?>
+                    >
                 </td>
             </tr>
             <tr>

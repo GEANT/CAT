@@ -131,6 +131,7 @@ fi
 touch /opt/FR/var/log/fticks.log
 chown syslog:adm /opt/FR/var/log/fticks.log
 /usr/sbin/fetch-crl
+mkdir -p /opt/FR/var/log/forCAT
 /opt/FR/sbin/radiusd
 #/opt/FR/sbin/radiusd -fxx -l /opt/FR/var/log/rrrr&
 /usr/local/sbin/radsecproxy

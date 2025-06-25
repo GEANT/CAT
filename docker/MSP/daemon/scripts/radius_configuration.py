@@ -42,12 +42,18 @@ FR_MODS_A_REL = '../mods-available/'
 TIME_F = "%Y%m%d%H%M%S"
 DATE_F = "%Y%m%d"
 NL = "\n"
+SPACES = "        "
 REPLY_USER_NAME = "%{reply:User-Name}"
 NAS_ID = "%{base64:%{NAS-Identifier}/%{NAS-IP-Address}/%{NAS-IPv6-Address}/%{Called-Station-Id}}"
 TLS_CLIENT = "%{listen:TLS-Client-Cert-Common-Name}"
 TLS_CLIENT_SERIAL = "%{toupper:%{listen:TLS-Client-Cert-Serial}}"
 TLSPSK_CLIENT = "%{listen:TLS-PSK-Identity}"
 OPERATOR_NAME = "        Operator-Name = "
+UNLANG_GUEST_VLAN = "update reply {" + NL + \
+              "                Tunnel-Private-Group-Id=%s" + NL + \
+              "                Tunnel-Medium-Type:=6" + NL + \
+              "                Tunnel-Type:=VLAN" + NL + \
+              "        }"
 UNLANG_VLAN = "        %s ( Stripped-User-Domain == '%s' ) {" + NL + \
               "            update reply {" + NL + \
               "                Tunnel-Private-Group-Id=%s" + NL + \
@@ -55,6 +61,7 @@ UNLANG_VLAN = "        %s ( Stripped-User-Domain == '%s' ) {" + NL + \
               "                Tunnel-Type:=VLAN" + NL + \
               "            }" + NL + \
               "        }"
+UNLANG_DOMAIN = "Stripped-User-Domain != '%s'"
 CAT_LOG = '/opt/scripts/logs/radius_configuration.log'
 MAX_RESTART_REQUESTS = 10
 SOCKET_TIMEOUT = 5.0
@@ -91,13 +98,17 @@ def make_conf(data):
     _start = time.time()
     _secret = base64.b64decode(data[4]).decode('utf-8')
     _pskkey = base64.b64decode(data[7]).decode('utf-8')
-    _toremove = data[8]
+    _guest_vlan = 0
+    if len(data) == 10:
+        _guest_vlan = str(data[8])
+    _toremove = data[len(data)-1]
     _operatorname = ''
     _clientcn = 'SP' + str(data[2]) + '-' + str(data[1])
     if int(_toremove) == 0:
         if data[5] != '':
             _operatorname = base64.b64decode(data[5]).decode('utf-8')
         _vlans = []
+        _realms = []
         _realm_vlan = ''
         if data[6] != '':
             _el = base64.b64decode(data[6]).decode('utf-8').split('#')
@@ -107,10 +118,22 @@ def make_conf(data):
                 if _idx > 1:
                     _if = 'els' + _if
                 _vlans.append(UNLANG_VLAN % (_if, _el[_idx], _el[0]))
+                _realms.append(_el[_idx])
                 _idx += 1
             _realm_vlan = NL + '\n'.join(_vlans)
+        _vlan_block = ''
+        if _guest_vlan != 0:
+            _vlan_block = UNLANG_GUEST_VLAN % (_guest_vlan)
+            _vlans = []
+            if len(_realms) > 0:
+                for _r in _realms:
+                    _vlans.append(UNLANG_DOMAIN % (_r))
+                _vlan_block = 'if (' + ' && '.join(_vlans) + \
+                        ') { ' + NL + SPACES + _vlan_block + NL + SPACES + '}' + NL
+        _vlan_block = _vlan_block + _realm_vlan
         logger.info('Create/update port: %s, secret: %s, operatorname: %s',
                     data[3], _secret, _operatorname)
+        logger.info('VLAN %s', _vlan_block)
     else:
         logger.info('Remove deployment: %s-%s',
                     str(data[2]), str(data[1]))
@@ -136,7 +159,7 @@ def make_conf(data):
                               'secret': _secret,
                               'operatorname': _operatorname,
                               'nas_id': NAS_ID,
-                              'vlans': _realm_vlan,
+                              'vlans': _vlan_block,
                               'reply_username': REPLY_USER_NAME})
     with open(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
               'w', encoding='utf-8') as _out:
@@ -411,7 +434,7 @@ while True:
             conn.send("FAILURE".encode('utf-8'))
             logger.info("blacklist modification failed")
     else:
-        if len(elems) == 9:
+        if len(elems) == 9 or len(elems) == 10:
             if make_conf(elems):
                 conn.send("OK".encode('utf-8'))
                 req_cnt = req_cnt + 1

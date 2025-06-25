@@ -805,6 +805,9 @@ class DeploymentManaged extends AbstractDeployment
                         $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
                     }
                 }
+                if ($this->getAttributes("managedsp:guest_vlan")[0]['value'] ?? NULL) {
+                    $toPostTemplate = $toPostTemplate . 'guest_vlan=' . $this->getAttributes("managedsp:guest_vlan")[0]['value'] . '&';
+                }
             }
             foreach (array_keys($toPost) as $key) {
                 $elem = 'port' . $key;
