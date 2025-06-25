@@ -235,8 +235,8 @@ def make_conf(data):
                             _templ + '_' + str(data[2]) + '-' + str(data[1]))
     except Exception:
         return False
-    cur.execute('''INSERT OR IGNORE INTO psk_keys VALUES ("SP%s-%s", X'%s')''' % (
-        str(data[2]), str(data[1]), _pskkey))
+    cur.execute('''INSERT OR IGNORE INTO psk_keys VALUES '''
+                f'''("SP{data[2]}-{data[1]}", X'{_pskkey}')''')
     logger.info('key added for keyid SP%s-%s', str(data[2]), str(data[1]))
     con.commit()
     # handled revoked
@@ -315,8 +315,9 @@ def make_blacklist(data):
     _serial = data[2]
     _notAfter = data[3]
     _now = int(time.time())
-    cur.execute('''INSERT OR IGNORE INTO tls_revoked VALUES ("SP%s-%s", "%s", "%s", %d, 0)''' % (
-         _deploymentid, _instid, _serial, _notAfter, _now))
+    cur.execute('''INSERT OR IGNORE INTO tls_revoked VALUES '''
+                f'''("SP{_deploymentid}-{_instid}", "{_serial}", '''
+                f'''"{_notAfter}", {_now}, 0)''')
     con.commit()
     return True
 
