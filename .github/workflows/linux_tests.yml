@@ -65,7 +65,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r devices/linux/Files/requirements.txt
       - name: Test installer
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.3.0
         with:
           name: configuration
       - shell: bash
@@ -93,7 +93,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r devices/linux/Files/requirements.txt
       - name: Test installer
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.3.0
         with:
           name: configuration
       - shell: bash
