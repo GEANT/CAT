@@ -657,7 +657,7 @@ class InstallerData:
             if self.__check_graphics(self.gui):
                 return
             try:
-                import tkinter
+                import tkinter  # noqa: F401
                 self.graphics = 'tkinter'
                 return
             except Exception:
