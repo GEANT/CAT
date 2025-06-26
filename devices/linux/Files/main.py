@@ -50,7 +50,7 @@ import subprocess
 import sys
 import uuid
 from shutil import copyfile
-from typing import Union, Optional
+from typing import List, Optional, Type, Union
 
 NM_AVAILABLE = True
 NEW_CRYPTO_AVAILABLE = True
@@ -85,7 +85,7 @@ def debug(msg) -> None:
     print("DEBUG:" + str(msg))
 
 
-def byte_to_string(barray: list) -> str:
+def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
@@ -143,7 +143,7 @@ def detect_desktop_environment() -> str:
     return desktop_environment
 
 
-def get_system() -> list:
+def get_system() -> List:
     """
     Detect Linux platform. Not used at this stage.
     It is meant to enable password encryption in distros
@@ -901,7 +901,7 @@ class WpaConf:
     """
 
     @staticmethod
-    def __prepare_network_block(ssid: str, user_data: type[InstallerData]) -> str:
+    def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
         interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
@@ -926,7 +926,7 @@ class WpaConf:
         interface += "\n}"
         return interface
 
-    def create_wpa_conf(self, ssids, user_data: type[InstallerData]) -> None:
+    def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
         wpa_conf = get_config_path() + '/cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
@@ -945,7 +945,7 @@ class IwdConfiguration:
             with open(f'/var/lib/iwd/{ssid}.8021x', 'w') as config_file:
                 config_file.write(self.config)
 
-    def _create_eap_pwd_config(self, ssid: str, user_data: type[InstallerData]) -> None:
+    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
         self.conf = f"""
         [Security]
@@ -957,7 +957,7 @@ class IwdConfiguration:
         AutoConnect=True
         """
 
-    def _create_eap_peap_config(self, ssid: str, user_data: type[InstallerData]) -> None:
+    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
         self.conf = f"""
         [Security]
@@ -973,7 +973,7 @@ class IwdConfiguration:
         AutoConnect=true
         """
 
-    def _create_ttls_pap_config(self, ssid: str, user_data: type[InstallerData]) -> None:
+    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
         self.conf = f"""
         [Security]
@@ -1167,7 +1167,7 @@ class CatNMConfigTool:
         })
         self.settings.AddConnection(con)
 
-    def add_connections(self, user_data: type[InstallerData]):
+    def add_connections(self, user_data: Type[InstallerData]):
         """Delete and then add connections to the system"""
         self.__check_opts()
         self.user_data = user_data
