@@ -102,4 +102,3 @@ jobs:
           echo "run_installer()" >> devices/linux/Files/main.py
           cd devices/linux/Files/
           python main.py -d -s --username eduroam_user --password eduroam_password
-          
