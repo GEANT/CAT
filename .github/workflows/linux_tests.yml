@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   python_linting:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -51,8 +51,8 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        os: [ubuntu-20.04]
-        python-version: ["3.6", "3.7", "3.8", "3.9"]
+        os: [ubuntu-22.04]
+        python-version: ["3.7", "3.8", "3.9"]
     needs: [create_test_data_ttls]
     steps:
       - uses: actions/checkout@v4
@@ -74,13 +74,13 @@ jobs:
           echo "run_installer()" >> devices/linux/Files/main.py
           cd devices/linux/Files/
           python main.py -d -s --username eduroam_user --password eduroam_password
-  test_ubuntu_22:
+  test_ubuntu_24:
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 5
       matrix:
-        os: [ubuntu-22.04]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        os: [ubuntu-24.04]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     needs: [create_test_data_ttls]
     steps:
       - uses: actions/checkout@v4
