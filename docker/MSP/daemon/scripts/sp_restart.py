@@ -1,18 +1,15 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 FreeRADIUS restart server
 """
 import sys
 import time
-import datetime
 import logging
 import posix_ipc
 import subprocess
 import os
 import psutil
-import signal
 from pathlib import Path
 
 SEM_RR = '/FR_RESTART'
@@ -45,8 +42,8 @@ def radius_restart():
     """
     start = time.time()
     if sem_restart_req.value > 0:
-        logger.info('Clear semaphore before restart (' +
-                    str(sem_restart_req.value) + ')')
+        logger.info('Clear semaphore before restart (%s)',
+                    sem_restart_req.value)
         while True:
             sem_restart_req.acquire()
             if sem_restart_req.value == 0:
@@ -67,12 +64,12 @@ def radius_restart():
         #p.terminate()  #or p.kill()
     #subprocess.run(["/usr/local/sbin/radsecproxy", "-c", "/usr/local/etc/radsecproxy-psk.conf"])
     end = time.time()
-    logger.info('FR restart ' + str(end-start) + 's.')
+    logger.info('FR restart %ss.', end-start)
     Path(RESTART_TIME).touch()
     sem_restart_suspended.release()
     time.sleep(RESTART_INTERVAL)
     sem_restart_suspended.acquire()
-    
+
 
 logger = init_log()
 
@@ -80,15 +77,14 @@ try:
     sem_js = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
     posix_ipc.unlink_semaphore(SEM_JUST_SLEEPING)
 except Exception as e:
-    logger.info('An exception occurred ' + str(e) + ', ' + type(e).__name__)
-    pass
+    logger.info('An exception occurred %s, %s', e, type(e).__name__)
 sem_restart_req = posix_ipc.Semaphore(SEM_RR, posix_ipc.O_CREAT)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING,
                                             posix_ipc.O_CREAT)
 if sem_restart_suspended.value == 1:
     sem_restart_suspended.acquire()
 logger.info("Waiting until semaphore's value > 0")
-logger.info("Suspended value " + str(sem_restart_suspended.value))
+logger.info("Suspended value %s", sem_restart_suspended.value)
 
 while True:
     sem_restart_req.acquire()

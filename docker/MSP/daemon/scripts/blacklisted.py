@@ -1,15 +1,11 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 Hand freeRADIUS blacklist
 """
-import socket
 import os
 import sys
 import time
-import base64
-from shutil import chown, move, copy
 import logging
 import sqlite3
 import posix_ipc
@@ -56,10 +52,8 @@ logger = init_log()
 con = sqlite3.connect(RADIUS_DB)
 cur = con.cursor()
 
-bl_template = []
-templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
-for _line in templ:
-    bl_template.append(_line)
+templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
+bl_template = list(templ)
 templ.close()
 
 SELECTNEW = 'SELECT * FROM tls_revoked where handled=0'
@@ -91,7 +85,7 @@ for row in cur.execute(SELECTNEW):
                 'tlsclientserial' : TLS_CLIENT_SERIAL,
                 'clientcn': _clientcn,
                 'serial': _serial }
-    if not _suffix in blacklist.keys():
+    if _suffix not in blacklist:
         blacklist[_suffix] = []
     blacklist[_suffix].append(_content)
     logger.info('%s with serial %s blacklisted', _clientcn, _serial)
@@ -102,8 +96,7 @@ if len(blacklist) > 0:
         _content = '\n'.join(_contents)
         _lines = []
         if os.path.isfile(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix):
-            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,
-                      'r', encoding='utf-8') as _in:
+            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix, encoding='utf-8') as _in:
                 _lines = _in.readlines()
         _content = ''.join(_lines) + _content
         with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,

@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 CAT requests listener
@@ -65,7 +64,7 @@ UNLANG_DOMAIN = "Stripped-User-Domain != '%s'"
 CAT_LOG = '/opt/scripts/logs/radius_configuration.log'
 MAX_RESTART_REQUESTS = 10
 SOCKET_TIMEOUT = 5.0
-SELECTREVOKED = 'SELECT cert_serial, cert_notafter, createtime, handled from ' + \
+SELECTREVOKED = 'SELECT cert_serial, cert_notafter, createtime, handled from ' \
                 'tls_revoked where client_id="%s"'
 UPDATENEW = 'UPDATE tls_revoked set handled=1 where cert_serial="%s"'
 IN4HOURS = 4*60
@@ -130,7 +129,7 @@ def make_conf(data):
                     _vlans.append(UNLANG_DOMAIN % (_r))
                 _vlan_block = 'if (' + ' && '.join(_vlans) + \
                         ') { ' + NL + SPACES + _vlan_block + NL + SPACES + '}' + NL
-        _vlan_block = _vlan_block + _realm_vlan
+        _vlan_block += _realm_vlan
         logger.info('Create/update port: %s, secret: %s, operatorname: %s',
                     data[3], _secret, _operatorname)
         logger.info('VLAN %s', _vlan_block)
@@ -142,31 +141,31 @@ def make_conf(data):
             logger.info('Nothing to remove')
             return 1
         return _res
-    _site = []
-    _detail = []
     for _tls in TLS:
         if not os.path.exists(TEMP_DIR + _tls):
             os.makedirs(TEMP_DIR + _tls)
         if not os.path.exists(CONF_DIR + _tls):
             os.makedirs(CONF_DIR + _tls)
-    for _line in site_template:
-        _site.append(_line % {'hostip': HOSTIP,
-                              'hostipv6': HOSTIPv6,
-                              'country': data[0],
-                              'instid': data[1],
-                              'deploymentid': data[2],
-                              'port': data[3],
-                              'secret': _secret,
-                              'operatorname': _operatorname,
-                              'nas_id': NAS_ID,
-                              'vlans': _vlan_block,
-                              'reply_username': REPLY_USER_NAME})
+    _site = [
+        _line % {'hostip': HOSTIP,
+                 'hostipv6': HOSTIPv6,
+                 'country': data[0],
+                 'instid': data[1],
+                 'deploymentid': data[2],
+                 'port': data[3],
+                 'secret': _secret,
+                 'operatorname': _operatorname,
+                 'nas_id': NAS_ID,
+                 'vlans': _vlan_block,
+                 'reply_username': REPLY_USER_NAME}
+        for _line in site_template
+    ]
     with open(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
               'w', encoding='utf-8') as _out:
         _out.write(''.join(_site))
     for _tls in TLS:
         for _templ in TEMPLATES_TLS:
-            with open(TEMPLATE_DIR + _tls + '/' + _templ, 'r',
+            with open(TEMPLATE_DIR + _tls + '/' + _templ,
                       encoding='utf-8') as _f:
                 _lines = _f.readlines()
                 _alllines = ''.join(_lines) % {
@@ -187,12 +186,16 @@ def make_conf(data):
         logger.error('No %ssite_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
         return False
 
-    if not os.path.isfile(FR_MODS_A + 'detail_' + str(data[2]) + '-' + str(data[1])):
-        for _line in detail_template:
-            _detail.append(_line % {'port': data[3],
-                                    'instid': data[1],
-                                    'deploymentid': data[2],
-                                    'format': DATE_F})
+    if os.path.isfile(FR_MODS_A + 'detail_' + str(data[2]) + '-' + str(data[1])):
+        _detail = []
+    else:
+        _detail = [
+            _line % {'port': data[3],
+                     'instid': data[1],
+                     'deploymentid': data[2],
+                     'format': DATE_F}
+            for _line in detail_template
+        ]
         with open(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1]), 'w',
                   encoding='utf-8') as _out:
             _out.write(''.join(_detail))
@@ -230,10 +233,10 @@ def make_conf(data):
                             str(data[2]) + '-' + str(data[1]),
                             FR_RADDB + _tls + '/' + _templ + '.d/' +
                             _templ + '_' + str(data[2]) + '-' + str(data[1]))
-    except:
+    except Exception:
         return False
-    cur.execute('''INSERT OR IGNORE INTO psk_keys VALUES ("SP%s-%s", X'%s')''' % (
-        str(data[2]), str(data[1]), _pskkey))
+    cur.execute('''INSERT OR IGNORE INTO psk_keys VALUES '''
+                f'''("SP{data[2]}-{data[1]}", X'{_pskkey}')''')
     logger.info('key added for keyid SP%s-%s', str(data[2]), str(data[1]))
     con.commit()
     # handled revoked
@@ -266,12 +269,10 @@ def handle_blacklisted(clientcn):
     """
     Handle blacklisted certificates
     """
-    bl_template = []
     serials = []
     blacklist = ''
-    templ = open(TEMPLATE_DIR + TLS[0] + '/' + TEMPLATE_BLACKLIST, 'r', encoding='utf-8')
-    for _line in templ:
-        bl_template.append(_line)
+    templ = open(TEMPLATE_DIR + TLS[0] + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
+    bl_template = list(templ)
     for _row in cur.execute(SELECTREVOKED % clientcn):
         # _row[0] cert_serial
         # _row[1] cert_notafter
@@ -285,7 +286,7 @@ def handle_blacklisted(clientcn):
                 logger.info('%s with serial %s waiting (added %d mins ago)',
                             clientcn, _serial, _inmin)
                 continue
-            else: 
+            else:
                 serials.append(_serial)
         _content = ''.join(bl_template) % {
               'tlsclient' : TLS_CLIENT,
@@ -314,8 +315,9 @@ def make_blacklist(data):
     _serial = data[2]
     _notAfter = data[3]
     _now = int(time.time())
-    cur.execute('''INSERT OR IGNORE INTO tls_revoked VALUES ("SP%s-%s", "%s", "%s", %d, 0)''' % (
-         _deploymentid, _instid, _serial, _notAfter, _now))
+    cur.execute('''INSERT OR IGNORE INTO tls_revoked VALUES '''
+                f'''("SP{_deploymentid}-{_instid}", "{_serial}", '''
+                f'''"{_notAfter}", {_now}, 0)''')
     con.commit()
     return True
 
@@ -371,9 +373,7 @@ def remove_site(site_inst, site_depl):
     con.commit()
     logger.info('key removed for keyid SP%s-%s', str(site_depl), str(site_inst))
     logger.info('Files removed: %d', str(_del))
-    if _del == 4:
-        return True
-    return False
+    return _del == 4
 
 logger = init_log()
 if os.path.exists(SOCKET_C):
@@ -389,15 +389,11 @@ chown(SOCKET_C, 'HTTPD_USER', 'HTTPD_GROUP')
 sem_restart_req = posix_ipc.Semaphore(SEM_RR)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
 
-site_template = []
-templ = open(TEMPLATE_DIR + TEMPLATE_SITE, 'r', encoding='utf-8')
-for _line in templ:
-    site_template.append(_line)
+templ = open(TEMPLATE_DIR + TEMPLATE_SITE, encoding='utf-8')
+site_template = list(templ)
 templ.close()
-detail_template = []
-templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, 'r', encoding='utf-8')
-for _line in templ:
-    detail_template.append(_line)
+templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, encoding='utf-8')
+detail_template = list(templ)
 templ.close()
 logger.info('Listening on socket %s', SOCKET_C)
 server_c.listen(1)
@@ -412,7 +408,7 @@ while True:
                         req_cnt)
             waited = req_cnt = 0
             sem_restart_req.release()
-    except socket.error as err:
+    except OSError:
         if req_cnt > 0:
             if sem_restart_suspended.value > 0:
                 logger.info('Postpone, fr_restart process just sleeping %d',
@@ -428,18 +424,17 @@ while True:
     logger.info('Received %d elements', len(elems))
     if len(elems) == 4:
         if make_blacklist(elems):
-            conn.send("OK".encode('utf-8'))
+            conn.send(b"OK")
             logger.info("blacklist modified")
         else:
-            conn.send("FAILURE".encode('utf-8'))
+            conn.send(b"FAILURE")
             logger.info("blacklist modification failed")
-    else:
-        if len(elems) == 9 or len(elems) == 10:
-            if make_conf(elems):
-                conn.send("OK".encode('utf-8'))
-                req_cnt = req_cnt + 1
-                logger.info("requests count is %d", req_cnt)
-            else:
-                conn.send("FAILURE".encode('utf-8'))
+    elif len(elems) == 9 or len(elems) == 10:
+        if make_conf(elems):
+            conn.send(b"OK")
+            req_cnt += 1
+            logger.info("requests count is %d", req_cnt)
         else:
-            conn.send("FAILURE".encode('utf-8'))
+            conn.send(b"FAILURE")
+    else:
+        conn.send(b"FAILURE")

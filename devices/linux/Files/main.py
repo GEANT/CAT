@@ -50,7 +50,7 @@ import subprocess
 import sys
 import uuid
 from shutil import copyfile
-from typing import List, Type, Union
+from typing import Union, Optional
 
 NM_AVAILABLE = True
 NEW_CRYPTO_AVAILABLE = True
@@ -85,7 +85,7 @@ def debug(msg) -> None:
     print("DEBUG:" + str(msg))
 
 
-def byte_to_string(barray: List) -> str:
+def byte_to_string(barray: list) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
@@ -143,7 +143,7 @@ def detect_desktop_environment() -> str:
     return desktop_environment
 
 
-def get_system() -> List:
+def get_system() -> list:
     """
     Detect Linux platform. Not used at this stage.
     It is meant to enable password encryption in distros
@@ -165,7 +165,7 @@ def get_config_path() -> str:
     xdg_config_home_path = os.environ.get('XDG_CONFIG_HOME')
     if not xdg_config_home_path:
         home_path = os.environ.get('HOME')
-        return '{}/.config'.format(home_path)
+        return f'{home_path}/.config'
     return xdg_config_home_path
 
 
@@ -344,7 +344,7 @@ class InstallerData:
         with open(certfile, 'w') as cert:
             cert.write(Config.CA + "\n")
 
-    def ask(self, question: str, prompt: str = '', default: bool = None) -> int:
+    def ask(self, question: str, prompt: str = '', default: Optional[bool] = None) -> int:
         """
         Prompt user for a Y/N reply, possibly supplying a default answer
         """
@@ -390,8 +390,7 @@ class InstallerData:
                            '--wrap',
                            '--text=' + question + "\n\n" + prompt,
                            '--title=' + Config.title]
-            returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
-            return returncode
+            return subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def show_info(self, data: str) -> None:
         """
@@ -658,7 +657,6 @@ class InstallerData:
             if self.__check_graphics(self.gui):
                 return
             try:
-                import tkinter
                 self.graphics = 'tkinter'
                 return
             except Exception:
@@ -677,7 +675,7 @@ class InstallerData:
                                         open(pfx_file,'rb').read(),
                                         self.password, backend=default_backend())
             except Exception as error:
-                debug("Incorrect password ({}).".format(error))
+                debug(f"Incorrect password ({error}).")
                 return False
             else:
                 if Config.use_other_tls_id:
@@ -695,7 +693,7 @@ class InstallerData:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
                                          self.password)
             except crypto.Error as error:
-                debug("Incorrect password ({}).".format(error))
+                debug(f"Incorrect password ({error}).")
                 return False
             else:
                 if Config.use_other_tls_id:
@@ -903,7 +901,7 @@ class WpaConf:
     """
 
     @staticmethod
-    def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
+    def __prepare_network_block(ssid: str, user_data: type[InstallerData]) -> str:
         interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
@@ -916,10 +914,10 @@ class WpaConf:
         """
 
         if Config.eap_outer in ('PEAP', 'TTLS'):
-            interface += "phase2=\"auth={}\"\n" \
-                         "\tpassword=\"{}\"\n".format(Config.eap_inner, user_data.password)
+            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
+                         f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
-                interface += "\tanonymous_identity=\"{}\"\n".format(Config.anonymous_identity)
+                interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
 
         elif Config.eap_outer == 'TLS':
             interface += "\tprivate_key_passwd=\"{}\"\n" \
@@ -928,7 +926,7 @@ class WpaConf:
         interface += "\n}"
         return interface
 
-    def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
+    def create_wpa_conf(self, ssids, user_data: type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
         wpa_conf = get_config_path() + '/cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
@@ -944,61 +942,52 @@ class IwdConfiguration:
 
     def write_config(self) -> None:
         for ssid in Config.ssids:
-            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as config_file:
+            with open(f'/var/lib/iwd/{ssid}.8021x', 'w') as config_file:
                 config_file.write(self.config)
 
-    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_eap_pwd_config(self, ssid: str, user_data: type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
-        self.conf = """
+        self.conf = f"""
         [Security]
         EAP-Method=PWD
-        EAP-Identity={username}
-        EAP-Password={password}
+        EAP-Identity={user_data.username}
+        EAP-Password={user_data.password}
 
         [Settings]
         AutoConnect=True
-        """.format(username=user_data.username,
-                   password=user_data.password)
+        """
 
-    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_eap_peap_config(self, ssid: str, user_data: type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
-        self.conf = """
+        self.conf = f"""
         [Security]
         EAP-Method=PEAP
-        EAP-Identity={anonymous_identity}
-        EAP-PEAP-CACert={ca_cert}
-        EAP-PEAP-ServerDomainMask={servers}
+        EAP-Identity={Config.anonymous_identity}
+        EAP-PEAP-CACert={Config.CA}
+        EAP-PEAP-ServerDomainMask={Config.servers}
         EAP-PEAP-Phase2-Method=MSCHAPV2
-        EAP-PEAP-Phase2-Identity={username}@{realm}
-        EAP-PEAP-Phase2-Password={password}
+        EAP-PEAP-Phase2-Identity={user_data.username}@{Config.user_realm}
+        EAP-PEAP-Phase2-Password={user_data.password}
 
         [Settings]
         AutoConnect=true
-        """.format(anonymous_identity=Config.anonymous_identity,
-                   ca_cert=Config.CA, servers=Config.servers,
-                   username=user_data.username,
-                   realm=Config.user_realm,
-                   password=user_data.password)
+        """
 
-    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_ttls_pap_config(self, ssid: str, user_data: type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
-        self.conf = """
+        self.conf = f"""
         [Security]
         EAP-Method=TTLS
-        EAP-Identity={anonymous_identity}
-        EAP-TTLS-CACert={ca_cert}
-        EAP-TTLS-ServerDomainMask={servers}
+        EAP-Identity={Config.anonymous_identity}
+        EAP-TTLS-CACert={Config.CA}
+        EAP-TTLS-ServerDomainMask={Config.servers}
         EAP-TTLS-Phase2-Method=Tunneled-PAP
-        EAP-TTLS-Phase2-Identity={username}@{realm}
-        EAP-TTLS-Phase2-Password={password}
+        EAP-TTLS-Phase2-Identity={user_data.username}@{Config.user_realm}
+        EAP-TTLS-Phase2-Password={user_data.password}
 
         [Settings]
         AutoConnect=true
-        """.format(anonymous_identity=Config.anonymous_identity,
-                   ca_cert=Config.CA, servers=Config.servers,
-                   username=user_data.username,
-                   realm=Config.user_realm,
-                   password=user_data.password)
+        """
 
 
 class CatNMConfigTool:
@@ -1102,7 +1091,7 @@ class CatNMConfigTool:
             conns = self.settings.ListConnections()
         except dbus.exceptions.DBusException:
             print(Messages.dbus_error)
-            exit(3)
+            sys.exit(3)
         for each in conns:
             con_proxy = self.bus.get_object(self.system_service_name, each)
             connection = dbus.Interface(
@@ -1134,7 +1123,7 @@ class CatNMConfigTool:
             'eap': [Config.eap_outer.lower()],
             'identity': self.user_data.username,
             'ca-cert': dbus.ByteArray(
-                "file://{0}\0".format(self.cacert_file).encode('utf8')),
+                f"file://{self.cacert_file}\0".encode()),
             match_key: match_value}
         if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
@@ -1144,9 +1133,9 @@ class CatNMConfigTool:
             s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
-                "file://{0}\0".format(self.pfx_file).encode('utf8'))
+                f"file://{self.pfx_file}\0".encode())
             s_8021x_data['private-key'] = dbus.ByteArray(
-                "file://{0}\0".format(self.pfx_file).encode('utf8'))
+                f"file://{self.pfx_file}\0".encode())
             s_8021x_data['private-key-password'] = self.user_data.password
             s_8021x_data['private-key-password-flags'] = 1
         s_con = dbus.Dictionary({
@@ -1178,7 +1167,7 @@ class CatNMConfigTool:
         })
         self.settings.AddConnection(con)
 
-    def add_connections(self, user_data: Type[InstallerData]):
+    def add_connections(self, user_data: type[InstallerData]):
         """Delete and then add connections to the system"""
         self.__check_opts()
         self.user_data = user_data
