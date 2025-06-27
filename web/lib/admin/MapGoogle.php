@@ -228,10 +228,10 @@ class MapGoogle extends AbstractMap {
          */
         function locateMe() {
             $('#address').val(\"" . _("locating") . "\");
-            navigator.geolocation.getCurrentPosition(locate_succes,locate_fail,{maximumAge:3600000, timeout:5000});
+            navigator.geolocation.getCurrentPosition(locate_success,locate_fail,{maximumAge:3600000, timeout:5000});
         }
 
-        function locate_succes(p) {
+        function locate_success(p) {
             var point = new google.maps.LatLng(p.coords.latitude,p.coords.longitude);
             addMarker(point,15,null);
         }

@@ -248,7 +248,7 @@ if ((int) $_POST['submitbutton'] === web\lib\common\FormElements::BUTTON_SAVE) {
         // numbers correspond to RFC7585Tests::OVERALL_LEVEL
         $resultLevel = \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO;
         if (sizeof($reloadedProfileNr2->getAttributes("media:openroaming")) > 0) {
-            $orTests = $reloadedProfileNr2->openroamingRedinessTest();            
+            $orTests = $reloadedProfileNr2->openroamingReadinessTest();            
             foreach ($orTests as $orTest) {
                 switch ($orTest['level']) {
                     case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:

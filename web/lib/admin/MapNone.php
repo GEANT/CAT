@@ -48,10 +48,10 @@ class MapNone extends AbstractMap {
         // no magic required if you want to nothing at all.
         return "<script>
             function locateMe() {
-                navigator.geolocation.getCurrentPosition(locate_succes,locate_fail,{maximumAge:3600000, timeout:5000});
+                navigator.geolocation.getCurrentPosition(locate_success,locate_fail,{maximumAge:3600000, timeout:5000});
             }
 
-            function locate_succes(p) {
+            function locate_success(p) {
                 $('#geo_long').val(p.coords.longitude);
                 $('#geo_lat').val(p.coords.latitude);
             }

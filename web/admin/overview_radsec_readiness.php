@@ -85,7 +85,7 @@ $langObject = new \core\common\Language();
         echo _('To check eduroam database specification see') . 
                 ' <a target="_blank" href="https://monitor.eduroam.org/eduroam-database/v2/docs/eduroam-database-ver30112021.pdf">' .
                 _('this document') . '</a>.<p/>';
-        echo _('If you cannot find your institution on this list it means that this institiution is not present in your upstream data.');        
+        echo _('If you cannot find your institution on this list it means that this institution is not present in your upstream data.');        
         echo '<p/>';
         $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
         $extInsts = $externalDb->listExternalTlsServersInstitution($allAuthorizedFeds[0]['value'], TRUE);
