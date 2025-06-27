@@ -286,8 +286,7 @@ def handle_blacklisted(clientcn):
                 logger.info('%s with serial %s waiting (added %d mins ago)',
                             clientcn, _serial, _inmin)
                 continue
-            else:
-                serials.append(_serial)
+            serials.append(_serial)
         _content = ''.join(bl_template) % {
               'tlsclient' : TLS_CLIENT,
               'tlsclientserial' : TLS_CLIENT_SERIAL,
