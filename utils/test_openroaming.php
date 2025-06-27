@@ -15,7 +15,7 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
  * 
  * list all profiles
  * foreach profile create the profile object
- * run profile->openroamingRedinessTest 
+ * run profile->openroamingReadinessTest 
  * this will also update the profile table
  * The output from the tests is irrelevant
  * 
@@ -31,5 +31,5 @@ if (!$allOpenRoamingProfiles) {
 while ( $row = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allOpenRoamingProfiles)) {
     $profileId = $row->profile_id;
     $profile = \core\ProfileFactory::instantiate($profileId);
-    $res = $profile->openroamingRedinessTest();
+    $res = $profile->openroamingReadinessTest();
 }

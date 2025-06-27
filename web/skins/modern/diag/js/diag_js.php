@@ -43,7 +43,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         if (type === 'idp' || type === 'sp') {
             shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
             shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
-            shtml = shtml + '<td>' + <?php echo '"'._("Select institiution:").'"'; ?> + '</td><td></td></tr>';
+            shtml = shtml + '<td>' + <?php echo '"'._("Select institution:").'"'; ?> + '</td><td></td></tr>';
             if (type === 'idp') {
                 shtml = shtml + '<tr id="row_idp_realm"></tr>';
             }

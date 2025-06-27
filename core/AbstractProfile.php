@@ -254,7 +254,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * 
      * @return array of arrays of the form [['level' => $level, 'explanation' => $explanation, 'reason' => $reason]];
      */
-    public function openroamingRedinessTest() {
+    public function openroamingReadinessTest() {
         // do OpenRoaming initial diagnostic checks
         // numbers correspond to RFC7585Tests::OVERALL_LEVEL
         $results = [];

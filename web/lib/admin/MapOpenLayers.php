@@ -55,11 +55,11 @@ class MapOpenLayers extends AbstractMap {
         var addressService = 'https://nominatim.openstreetmap.org/search'; // the address search service
         var map; // the main map
         var markersArray = new Array(); // holds  all saved locations
-        var extent; // the boundng box for locations
+        var extent; // the bounding box for locations
         var selectedMarker; // used to pass information about market to be identified
         var jmarkers; // set in the surrounding PHP script as a json array to pass saved locations
         var markersSource = new ol.source.Vector(); // the vector source for locations
-        var tmpSource = new ol.source.Vector(); // the vector source for temporaty markers
+        var tmpSource = new ol.source.Vector(); // the vector source for temporary markers
         var icon = new ol.style.Icon({ // the main location icon
             opacity: 1,
             src: '../resources/images/icons/location_marker.png'
@@ -70,7 +70,7 @@ class MapOpenLayers extends AbstractMap {
             src: '../resources/images/icons/location_marker_highlighted.png'
         });        
 
-        var circle =  new ol.style.Circle({ // the temporatu icon
+        var circle =  new ol.style.Circle({ // the temporary icon
           radius: 10,
           stroke: new ol.style.Stroke({
             color: 'white',
@@ -84,11 +84,11 @@ class MapOpenLayers extends AbstractMap {
 // use HTML5 geolocation
         function locateMe() {
             $('#address').val(\"" . _("locating") . "\");
-            navigator.geolocation.getCurrentPosition(locate_succes,locate_fail,{maximumAge:3600000, timeout:5000});
+            navigator.geolocation.getCurrentPosition(locate_success,locate_fail,{maximumAge:3600000, timeout:5000});
         }
         
-// on geolocation success set variables and show the temporaty marker
-        function locate_succes(p) {
+// on geolocation success set variables and show the temporary marker
+        function locate_success(p) {
             $('#address').val('');
             showTmpPointer(p.coords.longitude, p.coords.latitude);
         }

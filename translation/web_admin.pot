@@ -3563,7 +3563,7 @@ msgid "There are some minor OpenRoaming configuration issues"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:720
-msgid "There are some avarege level OpenRoaming configuration issues"
+msgid "There are some averege level OpenRoaming configuration issues"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:721
