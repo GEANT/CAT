@@ -658,10 +658,11 @@ class InstallerData:
                 return
             try:
                 import tkinter  # noqa: F401
-                self.graphics = 'tkinter'
-                return
             except Exception:
                 pass
+            else:
+                self.graphics = 'tkinter'
+                return
             for cmd in ('yad', 'zenity', 'kdialog'):
                 if self.__check_graphics(cmd):
                     return
