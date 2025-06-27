@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-04 11:05+0100\n"
+"POT-Creation-Date: 2025-06-27 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -562,7 +562,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1198
+#: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr ""
 
@@ -579,8 +579,8 @@ msgid "Write the file"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1344 devices/ms/Files/common.inc:1364
-#: devices/ms/Files/common.inc:1415
+#: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1440
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -611,12 +611,12 @@ msgid "This installer has been prepared for {0}"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
-#: devices/ms/Files/common.inc:494 devices/ms/Files/common.inc:501
+#: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
-#: devices/ms/Files/common.inc:527
+#: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr ""
 
@@ -740,158 +740,158 @@ msgid ""
 "called with %d SSIDs to configure."
 msgstr ""
 
-#: devices/ms/Files/common.inc:149
+#: devices/ms/Files/common.inc:148
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr ""
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:149
 msgid "Installation complete"
 msgstr ""
 
-#: devices/ms/Files/common.inc:151
+#: devices/ms/Files/common.inc:150
 msgid "Network profiles have been installed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:151
+#: devices/ms/Files/common.inc:150
 msgid "Your system is ready."
 msgstr ""
 
-#: devices/ms/Files/common.inc:152
+#: devices/ms/Files/common.inc:151
 msgid "Network installation had errors."
 msgstr ""
 
-#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1014
+#: devices/ms/Files/common.inc:151 devices/ms/Files/common.inc:1038
 msgid "Please contact ${SUPPORT}."
 msgstr ""
 
-#: devices/ms/Files/common.inc:160
+#: devices/ms/Files/common.inc:159
 msgid "Accept"
 msgstr ""
 
-#: devices/ms/Files/common.inc:161
+#: devices/ms/Files/common.inc:160
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
 msgstr ""
 
-#: devices/ms/Files/common.inc:173
+#: devices/ms/Files/common.inc:172
 msgid "Finish"
 msgstr ""
 
-#: devices/ms/Files/common.inc:207
+#: devices/ms/Files/common.inc:206
 msgid "searching for certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:269
+#: devices/ms/Files/common.inc:268
 msgid "installing certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:275
+#: devices/ms/Files/common.inc:274
 msgid "could not install certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:482
+#: devices/ms/Files/common.inc:481
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 
-#: devices/ms/Files/common.inc:484
+#: devices/ms/Files/common.inc:483
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
 
-#: devices/ms/Files/common.inc:490 devices/ms/Files/common.inc:498
+#: devices/ms/Files/common.inc:489 devices/ms/Files/common.inc:497
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr ""
 
-#: devices/ms/Files/common.inc:491
+#: devices/ms/Files/common.inc:490
 msgid "The installer will create the following wireless profiles:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:499
+#: devices/ms/Files/common.inc:498
 msgid "The installer will create the wireless profile:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:593
+#: devices/ms/Files/common.inc:617
 msgid ""
 "Your Windows 10 has not been updated which means that you are likely to have "
 "problems accessing network. We suggest that you quit this installation, "
 "update your Windows and try again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:600
+#: devices/ms/Files/common.inc:624
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:608 devices/ms/Files/common.inc:615
+#: devices/ms/Files/common.inc:632 devices/ms/Files/common.inc:639
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:624
+#: devices/ms/Files/common.inc:648
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:664
+#: devices/ms/Files/common.inc:688
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
 msgstr ""
 
-#: devices/ms/Files/common.inc:669
+#: devices/ms/Files/common.inc:693
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 
-#: devices/ms/Files/common.inc:675
+#: devices/ms/Files/common.inc:699
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:691
+#: devices/ms/Files/common.inc:715
 msgid "Do you want to enable access on wired interfaces?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:732
+#: devices/ms/Files/common.inc:756
 msgid "Profiles installation"
 msgstr ""
 
-#: devices/ms/Files/common.inc:751
+#: devices/ms/Files/common.inc:775
 msgid "Checking for profile $R8"
 msgstr ""
 
-#: devices/ms/Files/common.inc:759
+#: devices/ms/Files/common.inc:783
 msgid "found profile $R8"
 msgstr ""
 
-#: devices/ms/Files/common.inc:790
+#: devices/ms/Files/common.inc:814
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
 msgstr ""
 
-#: devices/ms/Files/common.inc:790 devices/ms/Files/common.inc:793
+#: devices/ms/Files/common.inc:814 devices/ms/Files/common.inc:817
 msgid "Click OK to continue with installation."
 msgstr ""
 
-#: devices/ms/Files/common.inc:793
+#: devices/ms/Files/common.inc:817
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
 msgstr ""
 
-#: devices/ms/Files/common.inc:801
+#: devices/ms/Files/common.inc:825
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
 
-#: devices/ms/Files/common.inc:856
+#: devices/ms/Files/common.inc:880
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -905,147 +905,147 @@ msgid ""
 "username and password."
 msgstr ""
 
-#: devices/ms/Files/common.inc:866
+#: devices/ms/Files/common.inc:890
 msgid "Please restart your system after installation finishes."
 msgstr ""
 
-#: devices/ms/Files/common.inc:890
+#: devices/ms/Files/common.inc:914
 msgid "installing wired profile"
 msgstr ""
 
-#: devices/ms/Files/common.inc:931 devices/ms/Files/common.inc:956
+#: devices/ms/Files/common.inc:955 devices/ms/Files/common.inc:980
 msgid "deleting profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:965
+#: devices/ms/Files/common.inc:989
 msgid "installing profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1014
+#: devices/ms/Files/common.inc:1038
 msgid "Profile installation error for $R1."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1033
+#: devices/ms/Files/common.inc:1057
 msgid "deleting profile $R6"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1063
+#: devices/ms/Files/common.inc:1087
 msgid "installing credentials for wired"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1070
+#: devices/ms/Files/common.inc:1094
 msgid "installing credentials TLS"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1184
 msgid "installing credentials for profile $R1"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1180 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1204 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1189
+#: devices/ms/Files/common.inc:1213
 #, php-format
 msgid "%s installer for"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1189
+#: devices/ms/Files/common.inc:1213
 msgid "Install personal certificate"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1192
+#: devices/ms/Files/common.inc:1216
 msgid "Preparing to install personal certificate."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1192
+#: devices/ms/Files/common.inc:1216
 msgid "Click OK to continue"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1198
+#: devices/ms/Files/common.inc:1222
 msgid "Certificate files (*.p12)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1198
+#: devices/ms/Files/common.inc:1222
 msgid "Certificate files (*pfx)"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1201
+#: devices/ms/Files/common.inc:1225
 msgid "certificate password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1203 devices/ms/Files/common.inc:1466
+#: devices/ms/Files/common.inc:1227 devices/ms/Files/common.inc:1491
 msgid "Username:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1207
+#: devices/ms/Files/common.inc:1231
 msgid "Selected file: $Cert_file"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1209
+#: devices/ms/Files/common.inc:1233
 msgid "import password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1244
+#: devices/ms/Files/common.inc:1268
 msgid "No certificate file selected"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1248
+#: devices/ms/Files/common.inc:1272
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1250
+#: devices/ms/Files/common.inc:1274
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1324
+#: devices/ms/Files/common.inc:1349
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1359
+#: devices/ms/Files/common.inc:1384
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1361
+#: devices/ms/Files/common.inc:1386
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1462
+#: devices/ms/Files/common.inc:1487
 msgid "User credentials"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1469
+#: devices/ms/Files/common.inc:1494
 msgid "Password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1472
+#: devices/ms/Files/common.inc:1497
 msgid "Repeat password:"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1487
+#: devices/ms/Files/common.inc:1512
 msgid "Missing username"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1499
+#: devices/ms/Files/common.inc:1524
 msgid "Missing password"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1505
+#: devices/ms/Files/common.inc:1530
 msgid "Password mismatch"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1598 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1623 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr ""
 
-#: devices/ms/Files/common.inc:1598
+#: devices/ms/Files/common.inc:1623
 msgid "Checking for existing wireless profiles"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-04 11:05+0100\n"
+"POT-Creation-Date: 2025-06-27 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,19 +369,19 @@ msgstr ""
 msgid "Additional Comments:"
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1347
+#: core/diag/RADIUSTests.php:1345
 #, php-format
 msgid "Connected to %s."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1352 web/diag/radius_tests.php:240
+#: core/diag/RADIUSTests.php:1350 web/diag/radius_tests.php:240
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1357
+#: core/diag/RADIUSTests.php:1355
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -966,7 +966,7 @@ msgstr ""
 msgid "end-user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:151
 msgid "or"
 msgstr ""
 
@@ -1099,131 +1099,131 @@ msgstr ""
 msgid "Fetching realms list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:401
+#: web/skins/modern/diag/diag.php:402
 msgid "Check realm(s):"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:413
+#: web/skins/modern/diag/diag.php:414
 msgid "Realm:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:472 web/skins/modern/diag/diag.php:534
 msgid "Running realm tests"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:582
 msgid "Diagnostics results for selected realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:575
+#: web/skins/modern/diag/diag.php:583
 msgid "An unknown problem occurred"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:578
+#: web/skins/modern/diag/diag.php:586
 msgid "This test includes checking of the following realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:580
+#: web/skins/modern/diag/diag.php:588
 msgid "This test includes checking of the following realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:590
+#: web/skins/modern/diag/diag.php:598
 msgid "You should report this to"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:658
+#: web/skins/modern/diag/diag.php:666
 msgid "eduroam admin report submission"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:661
+#: web/skins/modern/diag/diag.php:669
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:671 web/skins/modern/diag/diag.php:695
 msgid "Reason"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
+#: web/skins/modern/diag/diag.php:672 web/skins/modern/diag/diag.php:699
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
+#: web/skins/modern/diag/diag.php:673 web/skins/modern/diag/diag.php:700
 msgid "Calling-Station-Id"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
+#: web/skins/modern/diag/diag.php:674 web/skins/modern/diag/diag.php:701
 msgid "Additional description"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:667
+#: web/skins/modern/diag/diag.php:675
 msgid "An email to contact the reporter"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:668
+#: web/skins/modern/diag/diag.php:676
 msgid "Test result"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
+#: web/skins/modern/diag/diag.php:678 web/diag/adminQuery.php:260
 msgid "failure"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:680 web/diag/adminQuery.php:258
 msgid "success"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:675
+#: web/skins/modern/diag/diag.php:683
 msgid "Test URL"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:676
+#: web/skins/modern/diag/diag.php:684
 msgid "Email to IdP administrators "
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:678
+#: web/skins/modern/diag/diag.php:686
 msgid "send successfully"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:680
+#: web/skins/modern/diag/diag.php:688
 msgid "not sent - failure while sending"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:693
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:696
 msgid "SP's Operator-Name"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:697
 msgid "User's outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:698
 msgid "IdP email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:694
+#: web/skins/modern/diag/diag.php:702
 msgid "How to contact the user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:720
+#: web/skins/modern/diag/diag.php:733
 msgid "Wrong format of realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
+#: web/skins/modern/diag/diag.php:747 web/skins/modern/diag/diag.php:769
 msgid "Wrong format of email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:743
+#: web/skins/modern/diag/diag.php:760
 msgid "MAC address is incomplete"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:761
+#: web/skins/modern/diag/diag.php:778
 msgid "Wrong format of outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:770
+#: web/skins/modern/diag/diag.php:787
 msgid "Wrong string given as OperatorName"
 msgstr ""
 
@@ -1447,7 +1447,7 @@ msgstr ""
 msgid "User claims that mandatory open port is not open"
 msgstr ""
 
-#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:130
 msgid "Select your problem"
 msgstr ""
 
@@ -1455,105 +1455,109 @@ msgstr ""
 msgid "What is the realm of the IdP in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
+#: web/diag/adminQuery.php:88
+msgid "Do you prefer to use a specific outer identity for diagnostics test?"
+msgstr ""
+
+#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:98 web/diag/adminQuery.php:166
 msgid "What is the MAC address of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:98
+#: web/diag/adminQuery.php:102
 msgid "Additional comments"
 msgstr ""
 
-#: web/diag/adminQuery.php:102
+#: web/diag/adminQuery.php:106
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 
-#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
+#: web/diag/adminQuery.php:114 web/diag/adminQuery.php:182
 msgid "Now you can send your query"
 msgstr ""
 
-#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
+#: web/diag/adminQuery.php:115 web/diag/adminQuery.php:183
 msgid "Send"
 msgstr ""
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:134
 msgid "Identify the SP by one of following means"
 msgstr ""
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:138
 msgid "SP Operator-Name attribute"
 msgstr ""
 
-#: web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:142
 msgid "Select the SP manually:"
 msgstr ""
 
-#: web/diag/adminQuery.php:141
+#: web/diag/adminQuery.php:145
 msgid "click to select country and organisation"
 msgstr ""
 
-#: web/diag/adminQuery.php:147
+#: web/diag/adminQuery.php:151
 msgid "at least describe the SP location"
 msgstr ""
 
-#: web/diag/adminQuery.php:151
+#: web/diag/adminQuery.php:155
 msgid "What is the outer ID of the user session in question?"
 msgstr ""
 
-#: web/diag/adminQuery.php:166
+#: web/diag/adminQuery.php:170
 msgid "Additional comments about the problem"
 msgstr ""
 
-#: web/diag/adminQuery.php:170
+#: web/diag/adminQuery.php:174
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
 
-#: web/diag/adminQuery.php:174
+#: web/diag/adminQuery.php:178
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 
-#: web/diag/adminQuery.php:248
+#: web/diag/adminQuery.php:252
 msgid "Suspected a technical problem with the IdP"
 msgstr ""
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:253
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr ""
 
-#: web/diag/adminQuery.php:251
+#: web/diag/adminQuery.php:255
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 
-#: web/diag/adminQuery.php:252
+#: web/diag/adminQuery.php:256
 msgid "The overall result was "
 msgstr ""
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:262
 msgid "To see details go to "
 msgstr ""
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:264
 msgid "The reported problem details are as follows"
 msgstr ""
 
-#: web/diag/adminQuery.php:261
+#: web/diag/adminQuery.php:265
 msgid "timestamp"
 msgstr ""
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:266
 msgid "client MAC address"
 msgstr ""
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:268
 msgid "additional comments"
 msgstr ""
 
-#: web/diag/adminQuery.php:266
+#: web/diag/adminQuery.php:270
 msgid "You can contact the incident reporter at"
 msgstr ""
 

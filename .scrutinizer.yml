@@ -177,7 +177,7 @@ build:
                       const GEOIP = [];
                       const MAILSETTINGS = [];
                       const LANGUAGES = [
-                      'ar' => ['display' => 'العربية', 'locale' => 'ar_SA.utf8', 'latin_based' => FALSE, 'rtl' => TRUE],
+                      'ar' => ['display' => 'العربية', 'locale' => 'ar.utf8', 'latin_based' => FALSE, 'rtl' => TRUE],
                       'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE, 'rtl' => FALSE],
                       'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
                       'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE, 'rtl' => FALSE],
@@ -500,7 +500,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
                   title: "Generating Windows 10 installer via API call"
                 - 
-                  command: file /home/scrutinizer/artifacts/WinInstaller.exe
+                  command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'Windows'
                   title: "Checking whether output is a Windows executable"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose

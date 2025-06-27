@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-04 11:05+0100\n"
+"POT-Creation-Date: 2025-06-27 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,41 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/AbstractProfile.php:264
+#: core/AbstractProfile.php:265
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
 
-#: core/AbstractProfile.php:298
+#: core/AbstractProfile.php:299
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr ""
 
-#: core/AbstractProfile.php:316
+#: core/AbstractProfile.php:317
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
 
-#: core/AbstractProfile.php:343
+#: core/AbstractProfile.php:344
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
 
-#: core/AbstractProfile.php:349
+#: core/AbstractProfile.php:350
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
 
-#: core/AbstractProfile.php:359
+#: core/AbstractProfile.php:360
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
 
-#: core/AbstractProfile.php:366
+#: core/AbstractProfile.php:367
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -321,39 +321,39 @@ msgstr ""
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:644
 msgid "Profile deactivation succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:644
 msgid "Profile activation/modification succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:646
 msgid "Profile deactivation failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:646
 msgid "Profile activation/modification failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:512
+#: core/DeploymentManaged.php:650
 msgid "on both RADIUS servers: primary and backup"
 msgstr ""
 
-#: core/DeploymentManaged.php:515
+#: core/DeploymentManaged.php:653
 msgid "on primary RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:517
+#: core/DeploymentManaged.php:655
 msgid "on backup RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:525
+#: core/DeploymentManaged.php:663
 msgid "RADIUS profile update problem fixed"
 msgstr ""
 
-#: core/DeploymentManaged.php:527
+#: core/DeploymentManaged.php:665
 msgid "RADIUS profile update problem"
 msgstr ""
 
@@ -372,17 +372,18 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:110
+#: core/Federation.php:111
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:307 core/common/OutsideComm.php:287
+#: core/Federation.php:308 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr ""
 
+#. notify the fed admins...
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
 #. /                3. consortium name (e.g. eduroam);
@@ -390,22 +391,46 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:324
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the %s was created in %s.\n"
+"    the invitation for the new %s %s in your %s federation %s has been used "
+"and the %s was created in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
 
-#: core/Federation.php:342
+#. notify the fed admins...
+#. / arguments are: 1. nomenclature for "institution"
+#. /                2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:349
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"    the eduGAIN self-registration was used to create a new %s\n"
+"           %s\n"
+"    in your %s federation %s in %s.\n"
+"\n"
+"    We thought you might want to know.\n"
+"\n"
+"    Best regards,\n"
+"\n"
+"    %s"
+msgstr ""
+
+#. / organisation
+#: core/Federation.php:371 core/Federation.php:377
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
@@ -478,7 +503,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:189
+#: core/User.php:270
 msgid "Feedback"
 msgstr ""
 
@@ -653,26 +678,26 @@ msgstr ""
 msgid "Input validation error: "
 msgstr ""
 
-#: web/lib/common/InputValidation.php:346
+#: web/lib/common/InputValidation.php:366
 msgid "Realm is empty!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:355
+#: web/lib/common/InputValidation.php:375
 msgid "Realm contains an @ sign!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:356
+#: web/lib/common/InputValidation.php:376
 msgid "Realm begins with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:357
+#: web/lib/common/InputValidation.php:377
 msgid "Realm ends with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:358
+#: web/lib/common/InputValidation.php:378
 msgid "Realm contains spaces!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:371
+#: web/lib/common/InputValidation.php:391
 msgid "Realm does not contain at least one . (dot)!"
 msgstr ""

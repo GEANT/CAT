@@ -11,7 +11,9 @@ documentation:
 pull_from_transifex:
 	tx pull --all --force
 
-translation: pull_from_transifex
+translation: pull_from_transifex translation_source lang_translations
+
+translation_source:
 	echo "****************************************"
 	echo "*** Generating templates from source ***"
 	echo "****************************************"
@@ -21,6 +23,8 @@ translation: pull_from_transifex
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php web/admin/*.php web/admin/inc/*.php web/lib/admin/*.php -o translation/web_admin.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php web/user/*.php web/*.php web/lib/user/*.php -o translation/web_user.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php --join-existing web/skins/*/*.php web/skins/*/accountstatus/*.php web/skins/modern/user/*.php web/skins/modern/user/js/*.php -o translation/web_user.pot
+
+lang_translations:
 	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .git`; do \
 		echo "********************************************"; \
                 echo "*** Now translating in $$lang ***"; \
