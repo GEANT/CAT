@@ -27,6 +27,10 @@ jobs:
           flake8 devices/linux/Files/main.py --count --exit-zero
           pip install pylint
           pylint devices/linux/Files/main.py --exit-zero
+      - name: Lint with ruff
+        run: |
+          pip install ruff
+          ruff check
 
   create_test_data_ttls:
     runs-on: ubuntu-latest
