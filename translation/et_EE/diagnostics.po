@@ -1844,7 +1844,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Ühendustestidel esines vigu"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
+msgid "Select institution:"
 msgstr "Vali asutus:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

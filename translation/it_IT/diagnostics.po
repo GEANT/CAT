@@ -1917,7 +1917,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Dai test di connettività sono risultati alcuni errori"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
+msgid "Select institution:"
 msgstr "Seleziona l'organizzazione:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

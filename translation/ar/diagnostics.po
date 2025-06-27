@@ -1832,7 +1832,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "كانت هناك بعض الأخطاء من اختبارات الاتصال"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
+msgid "Select institution:"
 msgstr "اختر المؤسسة:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

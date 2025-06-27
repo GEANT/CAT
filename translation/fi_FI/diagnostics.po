@@ -1857,7 +1857,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Yhteystesteissä oli virheitä"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
+msgid "Select institution:"
 msgstr "Valitse organisaatio:"
 
 #: web/skins/modern/diag/js/diag_js.php:72
