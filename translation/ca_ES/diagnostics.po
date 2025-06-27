@@ -1883,7 +1883,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Hi ha errors en els tests de connectivitat"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institution:"
+msgid "Select institiution:"
 msgstr "Trieu institució:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

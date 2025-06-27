@@ -1840,7 +1840,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Tilkoblingstestene ga noen feil"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institution:"
+msgid "Select institiution:"
 msgstr "Velg institusjon:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

@@ -1920,7 +1920,7 @@ msgid "There were some errors from connectivity tests"
 msgstr "Υπήρξαν μερικά σφάλματα για δοκιμές συνδεσιμότητας"
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institution:"
+msgid "Select institiution:"
 msgstr "Επιλέξτε ίδρυμα:"
 
 #: web/skins/modern/diag/js/diag_js.php:72

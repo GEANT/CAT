@@ -1796,7 +1796,7 @@ msgid "There were some errors from connectivity tests"
 msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institution:"
+msgid "Select institiution:"
 msgstr "Válasszon intézményt:"
 
 #: web/skins/modern/diag/js/diag_js.php:72
