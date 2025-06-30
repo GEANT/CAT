@@ -160,7 +160,7 @@ class UIElements extends \core\common\Entity {
                 'help' => sprintf(_("Turn this on and eduroam DB listed institution admins will be allowed to create new institutions under some conditions described <a href='%s'>here</a>."), "https://wiki.eduroam.org/")],
             "fed:autoregister-entitlement" => [
                 'display' => _("Self registration based on entitlement: add admins to CAT institutions"),
-                'help' => _("With this option turned on the system will verify the eduGAIN login of the potential administrator and propose taking control over institutions which use the realm within the scope defined in the user's oairwise-id attribute.")
+                'help' => _("With this option turned on the system will verify the eduGAIN login of the potential administrator and propose taking control over institutions which use the realm within the scope defined in the user's pairwise-id attribute.")
             ],
             "fed:entitlement-attr" => [
                 'display' => _("Custom entitlement value for self-registration"),

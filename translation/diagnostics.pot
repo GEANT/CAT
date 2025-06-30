@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-27 12:16+0200\n"
+"POT-Creation-Date: 2025-06-30 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1067,6 +1067,7 @@ msgid "Fetching institutions list"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institution:"
 msgstr ""
 
@@ -1691,10 +1692,6 @@ msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
-
-#: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institution:"
 msgstr ""
 
 #: web/skins/modern/diag/js/diag_js.php:72

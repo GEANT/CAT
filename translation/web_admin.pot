@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-27 12:16+0200\n"
+"POT-Creation-Date: 2025-06-30 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -459,7 +459,7 @@ msgid "Property Value"
 msgstr ""
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:279
+#: web/lib/admin/UIElements.php:280
 msgid "Country:"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgstr ""
 msgid "General Information"
 msgstr ""
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:293
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:294
 msgid "Media Properties"
 msgstr ""
 
@@ -1425,12 +1425,12 @@ msgid ""
 "%s in the eduroam DB."
 msgstr ""
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:722
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:723
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:723
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:724
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1802,8 +1802,8 @@ msgstr ""
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr ""
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:479
-#: web/lib/admin/UIElements.php:483
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:480
+#: web/lib/admin/UIElements.php:484
 msgid "OK"
 msgstr ""
 
@@ -1960,7 +1960,7 @@ msgstr ""
 #: web/admin/overview_radsec_readiness.php:88
 msgid ""
 "If you cannot find your institution on this list it means that this "
-"institiution is not present in your upstream data."
+"institution is not present in your upstream data."
 msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:103
@@ -2166,7 +2166,7 @@ msgid ""
 "not set, be aware that realm setting is not used until a VLAN tag is added"
 msgstr ""
 
-#: web/admin/overview_sp.php:434 web/lib/admin/UIElements.php:172
+#: web/admin/overview_sp.php:434 web/lib/admin/UIElements.php:173
 msgid "Realm to be considered own users"
 msgstr ""
 
@@ -3064,7 +3064,7 @@ msgstr ""
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:386 web/lib/admin/UIElements.php:209
+#: web/lib/admin/OptionDisplay.php:386 web/lib/admin/UIElements.php:210
 msgid "default/other languages"
 msgstr ""
 
@@ -3076,11 +3076,11 @@ msgstr ""
 msgid "file content"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:243
+#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:244
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:243
+#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:244
 msgid "off"
 msgstr ""
 
@@ -3416,7 +3416,7 @@ msgstr ""
 #, php-format
 msgid ""
 "With this option turned on if a CAT institution is synced to the eduroam DB "
-"it is possble to have automatic enlisting of CAT institution admins under "
+"it is possible to have automatic enlisting of CAT institution admins under "
 "some conditions described <a href='%s'>here</a>."
 msgstr ""
 
@@ -3439,8 +3439,8 @@ msgstr ""
 #: web/lib/admin/UIElements.php:163
 msgid ""
 "With this option turned on the system will verify the eduGAIN login of the "
-"potential administrator and propose takinn control over institutions which "
-"use the realm within the scope defined in the user's oairwise-id attrinute."
+"potential administrator and propose taking control over institutions which "
+"use the realm within the scope defined in the user's pairwise-id attribute."
 msgstr ""
 
 #: web/lib/admin/UIElements.php:166
@@ -3457,136 +3457,140 @@ msgid ""
 msgstr ""
 
 #: web/lib/admin/UIElements.php:171
+msgid "VLAN for guests"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:172
 msgid "VLAN for own users"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:173
+#: web/lib/admin/UIElements.php:174
 msgid "Custom Operator-Name attribute"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:275
+#: web/lib/admin/UIElements.php:276
 #, php-format
 msgid "General %s details"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:294
 msgid "Global Helpdesk Details"
 msgstr ""
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:373
+#: web/lib/admin/UIElements.php:374
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:382
+#: web/lib/admin/UIElements.php:383
 msgid "There was an error processing the certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:390
+#: web/lib/admin/UIElements.php:391
 msgid "Root CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:390
+#: web/lib/admin/UIElements.php:391
 msgid "Intermediate CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:398 web/lib/admin/UIElements.php:422
+#: web/lib/admin/UIElements.php:399 web/lib/admin/UIElements.php:423
 msgid "more info"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:408
+#: web/lib/admin/UIElements.php:409
 msgid "Certificate expired!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:413
+#: web/lib/admin/UIElements.php:414
 msgid "Certificate close to expiry!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:420
+#: web/lib/admin/UIElements.php:421
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:439
+#: web/lib/admin/UIElements.php:440
 msgid "Preview of logo file"
 msgstr ""
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:456
+#: web/lib/admin/UIElements.php:457
 msgid "There was an error while retrieving the file from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:462
+#: web/lib/admin/UIElements.php:463
 msgid "File exists"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:462
+#: web/lib/admin/UIElements.php:463
 msgid "Preview"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:480
+#: web/lib/admin/UIElements.php:481
 msgid "Remark"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:481 web/lib/admin/UIElements.php:484
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:482 web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:486
 msgid "Warning!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:482
+#: web/lib/admin/UIElements.php:483
 msgid "Error!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:715
+#: web/lib/admin/UIElements.php:716
 msgid "All certificates are valid long enough"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:716
+#: web/lib/admin/UIElements.php:717
 msgid "At least one certificate is close to expiry"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:717
+#: web/lib/admin/UIElements.php:718
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:719
 msgid "OpenRoaming appears to be configured properly"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:720
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:720
-msgid "There are some averege level OpenRoaming configuration issues"
+#: web/lib/admin/UIElements.php:721
+msgid "There are some average level OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:722
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:725
 msgid "No configured profiles"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:725
+#: web/lib/admin/UIElements.php:726
 msgid "All active profiles redirected"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:726
+#: web/lib/admin/UIElements.php:727
 msgid "Linked"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:728
 msgid "NOT linked"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:729
 msgid "Not showing cert info if no profiles are visible"
 msgstr ""
 
@@ -3764,17 +3768,17 @@ msgstr ""
 #: web/lib/admin/Wizard.php:188
 #, php-format
 msgid ""
-"<strong>%s</strong>: This acronym will be used as an element of the instller "
-"file name instead of one automatically created from first letters of every "
-"worg in the institution name. You may add acronyms for multiple lunguages "
-"(but only one per language). The acronym will also be used as a keyword for "
-"the organisation search on the user's downloads page."
+"<strong>%s</strong>: This acronym will be used as an element of the "
+"installer file name instead of one automatically created from first letters "
+"of every word in the institution name. You may add acronyms for multiple "
+"languages (but only one per language). The acronym will also be used as a "
+"keyword for the organisation search on the user's downloads page."
 msgstr ""
 
 #: web/lib/admin/Wizard.php:189
 #, php-format
 msgid ""
-"<strong>%s</strong>: You may add several versoions of the organisation name "
+"<strong>%s</strong>: You may add several versions of the organisation name "
 "or acronyms which will be used as additional keywords exclusively for the "
 "organisation search on the user's downloads page."
 msgstr ""
