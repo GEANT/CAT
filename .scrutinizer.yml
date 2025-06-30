@@ -497,7 +497,7 @@ build:
                   command: cat /home/scrutinizer/artifacts/ChromeInstaller.onc | jq -r .Type | grep UnencryptedConfiguration
                   title: "Checking whether output parses as JSON with expected top-level parameter"
                 - 
-                  command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
+                  command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=333 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
                   title: "Generating Windows 10 installer via API call"
                 - 
                   command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'Windows'
