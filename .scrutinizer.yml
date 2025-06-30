@@ -485,6 +485,7 @@ build:
                     - mv ARM64/WLANSetEAPUserData.exe WLANSetEAPUserDataARM64.exe
                     - mv Win32/WLANSetEAPUserData.exe WLANSetEAPUserData32.exe
                     - mv x64/WLANSetEAPUserData.exe WLANSetEAPUserData64.exe
+                    - cd /home/scrutinizer/build
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
             tests:
                 override:
