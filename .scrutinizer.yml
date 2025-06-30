@@ -478,6 +478,13 @@ build:
                     - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - cp /home/scrutinizer/build/signer/ms_windows_sign-template /home/scrutinizer/build/signer/ms_windows_sign
+                    - mkdir /home/scrutinizer/build/devices/ms/Files/WLANSetEAPUserData
+                    - wget -O /home/scrutinizer/build/devices/ms/Files/WLANSetEAPUserData/WLANSetEAPUserData-1.1.zip https://github.com/rozmansi/WLANSetEAPUserData/releases/download/1.1/WLANSetEAPUserData-1.1.zip
+                    - cd /home/scrutinizer/build/devices/ms/Files/WLANSetEAPUserData/
+                    - unzip WLANSetEAPUserData-1.1.zip
+                    - mv ARM64/WLANSetEAPUserData.exe WLANSetEAPUserDataARM64.exe
+                    - mv Win32/WLANSetEAPUserData.exe WLANSetEAPUserData32.exe
+                    - mv x64/WLANSetEAPUserData.exe WLANSetEAPUserData64.exe
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
             tests:
                 override:
@@ -503,7 +510,7 @@ build:
                   command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'Windows'
                   title: "Checking whether output is a Windows executable"
                 - 
-                  command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_global\&profile=333 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
+                  command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
                   title: "Generating a Apple High Sierra installer via API call"
                 - 
                   command: openssl smime -verify -in /home/scrutinizer/artifacts/AppleInstaller.mobileconfig -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4
