@@ -168,6 +168,7 @@ class UIElements extends \core\common\Entity {
             ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
+            "managedsp:guest_vlan" => ['display' => _("VLAN for guests"), 'help' => ""],
             "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => ""],
             "managedsp:realmforvlan" => ['display' => _("Realm to be considered own users"), 'help' => ""],
             "managedsp:operatorname" => ['display' => _("Custom Operator-Name attribute"), 'help' => ""],
