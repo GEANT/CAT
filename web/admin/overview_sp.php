@@ -321,13 +321,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         <span style="display: none;" id="cert_data_<?php echo $depId;?>"><?php echo $deploymentObject->radsec_cert;?></span>
                         <span style="display: none;" id="ca_cert_data_<?php echo $depId;?>"><?php echo $cacert;?></span>
                         <?php if ($deploymentObject->radsec_priv != '') {
-                            echo _("private key:").copyIcon("priv_key_icon_$depId");
+                            echo _("private key").copyIcon("priv_key_icon_$depId")."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                             echo '<span style="display: none;" id="priv_key_data_'.$depId.'">'.$deploymentObject->radsec_priv.'</span>';
                             echo '&nbsp;&nbsp;';
                         }
-                            echo _("certificate:").copyIcon("cert_icon_$depId");
+                            echo _("certificate").copyIcon("cert_icon_$depId")."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                             echo '&nbsp;&nbsp;';
-                            echo _("CA certificate:").copyIcon("ca_cert_icon_$depId");
+                            echo _("CA certificate").copyIcon("ca_cert_icon_$depId");
                         ?>
                         <br/>
                         <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $depId?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
