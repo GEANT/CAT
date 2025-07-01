@@ -623,8 +623,10 @@ class DeploymentManaged extends AbstractDeployment
         }
         $this->loggerInstance->debug(1, "Database update");
         $id = $this->identifier;
-        $resValue = ($res == 'OK' ? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE);
-        $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = ? WHERE deployment_id = ?", "ii", $resValue, $id);
+        if ($res == 'OK' || $res == 'FAILURE') {
+            $resValue = ($res == 'OK' ? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE);
+            $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = ? WHERE deployment_id = ?", "ii", $resValue, $id);
+        }
         return $res;
     }
 
@@ -833,5 +835,81 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         return $response;
+    }
+    /**
+     * prepare request to get RADIUS logs for given deployment
+     * @param int $onlyone the flag indicating on which server to conduct modifications
+     *
+     * 
+     * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
+     */
+    public function getRADIUSLogs($onlyone = 0, $logs = 0)
+    {
+        $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
+        if ($logs) {
+            $toPostTemplate = 'logid=DEBUG-' . $this->identifier . '-' .$this->institution . "&backlog=$logs";
+            foreach (array_keys($toPost) as $key) {
+                $toPost[$key] = $toPostTemplate;
+            }
+        }
+        $response = array();
+        $tempdir = \core\common\Entity::createTemporaryDirectory("test");
+        $zipdir = $tempdir['dir'];
+        foreach ($toPost as $key => $value) {
+            $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
+            $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            $paths = [];
+            if (substr($response['res[' . $key . ']'], 0, 8) == 'ZIPDATA:') {
+                $data = substr($response['res[' . $key . ']'], 8);
+                if (!file_exists("$zipdir/$key")) {
+                    mkdir("$zipdir/$key", 0755, true );
+                }
+                $fileHandle = fopen("$zipdir/$key/detail.zip", "wb");
+                fwrite($fileHandle, $data);
+                fclose($fileHandle);
+            }
+        }
+        $zipt = new \ZipArchive;
+        $zipt->open("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip', \ZipArchive::CREATE);
+        $cnt = 0;
+        foreach ($toPost as $key => $value) {
+            if (file_exists("$zipdir/$key/detail.zip")) {
+                $zipf = new \ZipArchive;
+                $zipf->open("$zipdir/$key/detail.zip");
+                if ($zipf->numFiles > 0) {
+                    $zipf->extractTo("$zipdir/$key/");
+                }
+                $zipf->close();
+                unlink("$zipdir/$key/detail.zip");
+                $files = scandir("$zipdir/$key/");
+                foreach($files as $file) {
+                  if ($file == '.' || $file == '..') continue;
+                  $data = file_get_contents("$zipdir/$key/$file");
+                  $zipt->addFromString("radius-$key/$file", $data);
+                  $cnt += 1;
+                  unlink("$zipdir/$key/$file");
+                } 
+                if (file_exists("$zipdir/$key")) {
+                    rmdir("$zipdir/$key");
+                }
+            }
+        }
+        if ($cnt == 0) {
+            $zipt->addEmptyDir('.');
+        }
+        $zipt->close();
+        if (file_exists("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip')) {
+            $data = file_get_contents("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip');
+            unlink("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip'); 
+            rmdir($zipdir);
+        }     
+        if ($data !== FALSE) {
+            header('Content-Type: application/zip');
+            header("Content-Disposition: attachment; filename=\"detail-".$this->identifier . '-' .$this->institution.".zip\"");
+            header("Content-Transfer-Encoding: binary");
+            echo $data;
+        } 
+        
+        return;
     }
 }

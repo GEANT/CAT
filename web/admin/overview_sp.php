@@ -36,7 +36,6 @@ $error_message = [
 $langInstance = new \core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";
-
 $errormsg = [];
 if (isset($_GET['errormsg'])) {
     $msg = explode('_', trim($_GET['errormsg']));
@@ -598,7 +597,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     }
     ?>
 </table>
-	    <div style='display: ruby;'>
+            <div style='display: ruby;'>
             <form style="display: inline;" action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour"); ?></button>
             </form>
@@ -621,9 +620,24 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
 	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>FULL';"><?php echo _('Last 6 months');?>
             </button>
         </div><!-- statistics space -->
+        <div style='height:5px'></div>
+        <div style='display: table-cell; min-width:200px;'>
+            <h1><?php echo _("Hotspot Debug Logs"); ?></h1>
+            <h2><?php echo _('To get detailed logs from RADIUS sites click a button bellow.'); 
+            $query = 'inc/deploymentLogs.inc.php?inst_id='.$deploymentObject->institution."&deployment_id=$depId&backlog=";
+            ?></h2>
+            <?php echo _('You will receive zip file with logs from both RADIUS servers: primary (folder named radius-1) and secondary (folder named radius-2).') . '<br>' .
+                  _('If no logs are available an empty zip file is provided.');?>
+            <div style='height:3px'></div>
+            <button name="logs" type="button" onclick="location.href='<?php echo $query;?>1';"><?php echo _('Today');?>
+            </button>
+            <button name="logs" type="button" onclick="location.href='<?php echo $query;?>7';"><?php echo _('Last 7 days');?>
+            </button>
+        </div>
     </div> 
     <!-- dummy div to keep a little distance-->
     <div style='height:20px'></div>
+    
     <?php
 }
 

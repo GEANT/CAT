@@ -146,7 +146,7 @@ class OptionDisplay extends \core\common\Entity
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();
         
-        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
+        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname|managedsp:guest_vlan";
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
@@ -187,6 +187,7 @@ class OptionDisplay extends \core\common\Entity
                 break;
             case "managedsp":
                 unset($list[array_search("managedsp:vlan", $list)]);
+                unset($list[array_search("managedsp:guest_vlan", $list)]);
                 unset($list[array_search("managedsp:operatorname", $list)]);
                 break;
             case "fed":
