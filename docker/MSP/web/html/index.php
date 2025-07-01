@@ -1,9 +1,30 @@
 <?php
 include "./lib.inc";
+define("ZIPDIR", '/opt/FR/var/log/forCAT/');
 $remove = 0;
 $opn = $vlans = '';
 $guest_vlan = 0;
 error_log(serialize($_REQUEST));
+# when a request contains logid and backlog ";s:11:"DEBUG-11-52";s:7:"backlog";s:1:"7";}
+if ( isset($_REQUEST['logid']) && isset($_REQUEST['backlog']) ) {
+	if (substr($_REQUEST['logid'], 0, 5) == 'DEBUG') {
+          $logid = substr($_REQUEST['logid'], 6);
+        }
+  	$res = cat_socket(implode(':', array($logid, $_REQUEST['backlog'])));
+	error_log('GOT '.$res);
+	if (substr($res, 0, strlen(ZIPDIR)) == ZIPDIR) {
+            error_log('GOT filename '.$res);
+            $za = new ZipArchive();
+            $za->open($res);
+	    header('Content-Type: application/zip');
+            header("Content-Disposition: attachment; filename=\"detail_".$logid.".zip\"");
+            header("Content-Transfer-Encoding: binary");
+	    echo 'ZIPDATA:'.file_get_contents($res);
+	    error_log('Sent data in response');
+	}
+        error_log('with '.$za->numFiles . ' files');
+	exit;
+}
 # MUST provide: deployment_id, inst_id
 #               and port, secret, pskkey, country or torevoke
 # MAY provide: operatorname, vlanno, vlanrealms[], guest_vlan, remove

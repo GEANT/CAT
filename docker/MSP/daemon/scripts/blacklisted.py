@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # pylint: disable=invalid-name
 """
-Hand freeRADIUS blacklist
+Handling freeRADIUS blacklist
 """
 import os
 import sys
@@ -52,8 +52,10 @@ logger = init_log()
 con = sqlite3.connect(RADIUS_DB)
 cur = con.cursor()
 
+bl_template = []
 templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
-bl_template = list(templ)
+for _line in templ:
+    bl_template.append(_line)
 templ.close()
 
 SELECTNEW = 'SELECT * FROM tls_revoked where handled=0'
@@ -96,7 +98,8 @@ if len(blacklist) > 0:
         _content = '\n'.join(_contents)
         _lines = []
         if os.path.isfile(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix):
-            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix, encoding='utf-8') as _in:
+            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix, 
+                      encoding='utf-8') as _in:
                 _lines = _in.readlines()
         _content = ''.join(_lines) + _content
         with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,

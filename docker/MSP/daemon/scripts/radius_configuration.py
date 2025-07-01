@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 CAT requests listener
@@ -6,16 +7,18 @@ CAT requests listener
 import socket
 import os
 import sys
+import datetime
 import time
 import base64
 from shutil import chown, move, copy
 import logging
 import sqlite3
+import zipfile
 import posix_ipc
 
 # set server IP
-HOSTIP = 'RADIUS_SP_IP'
-HOSTIPv6 = 'RADIUS_SP_IPV6'
+HOSTIP = '83.97.95.201'
+HOSTIPv6 = '83.97.95.201V6'
 
 SOCKET_C = '/opt/Socket/CAT_requests/queue'
 SEM_RR = '/FR_RESTART'
@@ -38,6 +41,8 @@ FR_SITES_A_REL = '../sites-available/'
 FR_MODS_A = '/opt/FR/etc/raddb/mods-available/'
 FR_MODS_E = '/opt/FR/etc/raddb/mods-enabled/'
 FR_MODS_A_REL = '../mods-available/'
+FR_LOGS = '/opt/FR/var/log/radius/radacct/'
+ZIPS = '/opt/FR/var/log/forCAT/'
 TIME_F = "%Y%m%d%H%M%S"
 DATE_F = "%Y%m%d"
 NL = "\n"
@@ -196,6 +201,12 @@ def make_conf(data):
                      'format': DATE_F}
             for _line in detail_template
         ]
+        with open(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1]), 'w',
+                  encoding='utf-8') as _out:
+            _out.write(''.join(_detail))
+        if not os.path.isfile(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1])):
+            logger.error('No %sdetail_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
+            return False
         with open(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1]), 'w',
                   encoding='utf-8') as _out:
             _out.write(''.join(_detail))
@@ -370,8 +381,8 @@ def remove_site(site_inst, site_depl):
     cur.execute('''DELETE FROM psk_keys WHERE keyid="%s"''' % ('SP' +
                 str(site_depl) + '-' + str(site_inst)))
     con.commit()
-    logger.info('key removed for keyid SP%s-%s', str(site_depl), str(site_inst))
-    logger.info('Files removed: %d', str(_del))
+    logger.info('key removed for keyid SP%s-%s', site_depl, site_inst)
+    logger.info('Files removed: %d', _del)
     return _del == 4
 
 logger = init_log()
@@ -384,7 +395,7 @@ cur = con.cursor()
 server_c = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 server_c.settimeout(SOCKET_TIMEOUT)
 server_c.bind(SOCKET_C)
-chown(SOCKET_C, 'HTTPD_USER', 'HTTPD_GROUP')
+chown(SOCKET_C, 'www-data', 'www-data')
 sem_restart_req = posix_ipc.Semaphore(SEM_RR)
 sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
 
@@ -421,6 +432,31 @@ while True:
     buff = conn.recv(1024).decode('utf-8')
     elems = buff.split(':')
     logger.info('Received %d elements', len(elems))
+    if len(elems) == 2:
+        tozip = []
+        detailzip = ZIPS + "detail-" + elems[0] + ".zip"
+        cnt = 0
+        compression = zipfile.ZIP_DEFLATED
+        zf = zipfile.ZipFile(detailzip, mode="w")
+        _now = datetime.datetime.now()
+        for _d in range(0,int(elems[1])):
+            _delta = datetime.timedelta(days = _d)
+            tozip.append('detail-' + elems[0] + '-' + (_now-_delta).strftime('%Y%m%d'))
+        os.chdir(FR_LOGS)
+        try:
+            for _fn in tozip:
+                if os.path.isfile(_fn):
+                    zf.write(_fn, _fn, compress_type=compression)
+                    cnt += 1
+        finally:
+            zf.close()
+        logger.info('Log for deployment %s prepared, includes %s day(s), contains %d files',
+                     elems[0], elems[1], cnt)
+        if os.path.exists(detailzip):
+            conn.send(detailzip.encode('utf-8'))
+        else:
+            conn.send(b"OK")
+        continue
     if len(elems) == 4:
         if make_blacklist(elems):
             conn.send(b"OK")

@@ -9,8 +9,9 @@ RUN apt-get install -y devscripts equivs wget quilt gcc curl nmap lsof \
             rsyslog \
             mysql-server bind9-dnsutils \
             nettle-dev mysql-server bind9-dnsutils \
-            cron apache2 php libapache2-mod-php php-mysql telnet vim fetch-crl net-tools \
-            python3-pymysql python3-pip python3-psutil
+            cron apache2 php libapache2-mod-php telnet vim fetch-crl net-tools
+RUN apt-get update
+RUN apt-get install -y php-zip php-mysql python3-pymysql python3-pip python3-psutil
 
 WORKDIR /etc/rsyslog.d
 COPY rsyslog/23_eduroam.conf .
