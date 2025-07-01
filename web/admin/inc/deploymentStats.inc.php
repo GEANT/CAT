@@ -48,7 +48,7 @@ if ($editMode == 'fullaccess') {
     $userAuthData = $deployment->retrieveStatistics($backlogTime);
     if ($format == 'csv') {
 	    header('Content-Type: text/csv');
-            header('Content-Disposition: attachment; filename="backlog_'.$deployment->identifier.'_'.$backlog.'"');
+            header('Content-Disposition: attachment; filename="backlog_'.$deployment->identifier.'_'.$backlog.'.csv"');
 	    $fp = fopen('php://output', 'w');
 	    fputcsv($fp, [_("Timestamp (UTC)"), _("Outer-Identity"), _("Result"), _("MAC Address"),
 		          _("Chargeable-User-Identity"), _("AP Identifier"), _("Protocol")], ';', '"', '');
