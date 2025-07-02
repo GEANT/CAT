@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 10:45+0200\n"
+"POT-Creation-Date: 2025-07-02 20:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1690,7 +1690,7 @@ msgstr ""
 msgid "Device Compatibility matrix"
 msgstr ""
 
-#: web/admin/overview_installers.php:106 web/admin/overview_sp.php:88
+#: web/admin/overview_installers.php:106 web/admin/overview_sp.php:87
 msgid "Copied!"
 msgstr ""
 
@@ -1882,7 +1882,7 @@ msgstr ""
 msgid "%s general settings"
 msgstr ""
 
-#: web/admin/overview_org.php:370 web/admin/overview_sp.php:657
+#: web/admin/overview_org.php:370 web/admin/overview_sp.php:671
 #, php-format
 msgid "%s: %s Deployment Details"
 msgstr ""
@@ -2001,356 +2001,382 @@ msgstr ""
 msgid "The provided file can not be uploaded."
 msgstr ""
 
-#: web/admin/overview_sp.php:61
+#: web/admin/overview_sp.php:60
 #, php-format
 msgid ""
 "Do you really want to replace TLS credentials for this deployment? The "
 "current TLS credentials will be revoked in 4 hours."
 msgstr ""
 
-#: web/admin/overview_sp.php:82 web/admin/overview_sp.php:99
+#: web/admin/overview_sp.php:81 web/admin/overview_sp.php:98
 msgid "Copy to clipboard"
 msgstr ""
 
-#: web/admin/overview_sp.php:112
+#: web/admin/overview_sp.php:111
 msgid "Successfully set profile"
 msgstr ""
 
-#: web/admin/overview_sp.php:113
+#: web/admin/overview_sp.php:112
 msgid "Some problem occurred during profile update"
 msgstr ""
 
-#: web/admin/overview_sp.php:142
+#: web/admin/overview_sp.php:141
 msgid "inactive"
 msgstr ""
 
-#: web/admin/overview_sp.php:142
+#: web/admin/overview_sp.php:141
 msgid "active"
 msgstr ""
 
-#: web/admin/overview_sp.php:145
+#: web/admin/overview_sp.php:144
 msgid "Deployment Details"
 msgstr ""
 
-#: web/admin/overview_sp.php:152 web/admin/overview_sp.php:230
+#: web/admin/overview_sp.php:151 web/admin/overview_sp.php:229
 msgid "Your primary RADIUS server"
 msgstr ""
 
-#: web/admin/overview_sp.php:157 web/admin/overview_sp.php:189
-#: web/admin/overview_sp.php:235 web/admin/overview_sp.php:267
+#: web/admin/overview_sp.php:156 web/admin/overview_sp.php:188
+#: web/admin/overview_sp.php:234 web/admin/overview_sp.php:266
 #, php-format
 msgid "IPv4: %s"
 msgstr ""
 
-#: web/admin/overview_sp.php:164 web/admin/overview_sp.php:196
-#: web/admin/overview_sp.php:242 web/admin/overview_sp.php:274
+#: web/admin/overview_sp.php:163 web/admin/overview_sp.php:195
+#: web/admin/overview_sp.php:241 web/admin/overview_sp.php:273
 #, php-format
 msgid "IPv6: %s"
 msgstr ""
 
-#: web/admin/overview_sp.php:168 web/admin/overview_sp.php:200
-#: web/admin/overview_sp.php:246 web/admin/overview_sp.php:278
+#: web/admin/overview_sp.php:167 web/admin/overview_sp.php:199
+#: web/admin/overview_sp.php:245 web/admin/overview_sp.php:277
 #, php-format
 msgid "port: %s"
 msgstr ""
 
-#: web/admin/overview_sp.php:184 web/admin/overview_sp.php:262
+#: web/admin/overview_sp.php:183 web/admin/overview_sp.php:261
 msgid "Your secondary RADIUS server"
 msgstr ""
 
-#: web/admin/overview_sp.php:215
+#: web/admin/overview_sp.php:214
 msgid "RADIUS shared secret for both servers"
 msgstr ""
 
-#: web/admin/overview_sp.php:299
+#: web/admin/overview_sp.php:298
 msgid "RADIUS over TLS credentials"
 msgstr ""
 
-#: web/admin/overview_sp.php:303
+#: web/admin/overview_sp.php:302
 msgid ""
 "The client certificate was created using an uploaded CSR, the private key is "
 "not available"
 msgstr ""
 
-#: web/admin/overview_sp.php:305
+#: web/admin/overview_sp.php:304
 msgid "Subject:"
 msgstr ""
 
-#: web/admin/overview_sp.php:306
+#: web/admin/overview_sp.php:305
 msgid "Serial number:"
 msgstr ""
 
-#: web/admin/overview_sp.php:311
+#: web/admin/overview_sp.php:310
 msgid "Not valid after:"
 msgstr ""
 
-#: web/admin/overview_sp.php:313
+#: web/admin/overview_sp.php:312
 msgid "Number of days to expiry:"
 msgstr ""
 
-#: web/admin/overview_sp.php:315
+#: web/admin/overview_sp.php:314
 msgid ""
 "If you are using RADIUS over TLS you should urgently renew your credentisls"
 msgstr ""
 
-#: web/admin/overview_sp.php:325
-msgid "private key:"
+#: web/admin/overview_sp.php:324
+msgid "private key"
 msgstr ""
 
-#: web/admin/overview_sp.php:329
-msgid "certificate:"
+#: web/admin/overview_sp.php:328
+msgid "certificate"
 msgstr ""
 
-#: web/admin/overview_sp.php:331
-msgid "CA certificate:"
+#: web/admin/overview_sp.php:330
+msgid "CA certificate"
 msgstr ""
 
-#: web/admin/overview_sp.php:334
+#: web/admin/overview_sp.php:333
 msgid "download ZIP-file with full data"
 msgstr ""
 
-#: web/admin/overview_sp.php:345
+#: web/admin/overview_sp.php:344
 msgid ""
 "If your certificate is close to expiry or you need to create new RADIUS over "
 "TLS credentials"
 msgstr ""
 
-#: web/admin/overview_sp.php:346
+#: web/admin/overview_sp.php:345
 msgid "click on \"Renew RADIUS over TLS credentials\" button"
 msgstr ""
 
-#: web/admin/overview_sp.php:348
+#: web/admin/overview_sp.php:347
 msgid "You can upload your own CSR to replace default TLS credentials."
 msgstr ""
 
-#: web/admin/overview_sp.php:349
+#: web/admin/overview_sp.php:348
 msgid "Click on \"Upload CSR to sign my own TLS credentials\""
 msgstr ""
 
-#: web/admin/overview_sp.php:361
+#: web/admin/overview_sp.php:360
 msgid "RADIUS over TLS-PSK credentials"
 msgstr ""
 
-#: web/admin/overview_sp.php:363
+#: web/admin/overview_sp.php:362
 #, php-format
 msgid "PSK Identity: %s"
 msgstr ""
 
-#: web/admin/overview_sp.php:367
+#: web/admin/overview_sp.php:366
 #, php-format
 msgid "PSK hexphrase: %s"
 msgstr ""
 
-#: web/admin/overview_sp.php:383
+#: web/admin/overview_sp.php:382
 msgid "Additional deployment settings"
 msgstr ""
 
-#: web/admin/overview_sp.php:388
+#: web/admin/overview_sp.php:387
 msgid "Custom Operator-Name"
 msgstr ""
 
-#: web/admin/overview_sp.php:390
+#: web/admin/overview_sp.php:389
 msgid "Default Operator-Name"
 msgstr ""
 
-#: web/admin/overview_sp.php:408
+#: web/admin/overview_sp.php:407
 msgid "VLAN tag for guests"
 msgstr ""
 
-#: web/admin/overview_sp.php:422
+#: web/admin/overview_sp.php:421
 msgid "VLAN tag for own users"
 msgstr ""
 
-#: web/admin/overview_sp.php:428
+#: web/admin/overview_sp.php:427
 msgid ""
 "not set, be aware that realm setting is not used until a VLAN tag is added"
 msgstr ""
 
-#: web/admin/overview_sp.php:434 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
 msgid "Realm to be considered own users"
 msgstr ""
 
-#: web/admin/overview_sp.php:440
+#: web/admin/overview_sp.php:439
 msgid "not set, be aware that VLAN setting is not used until a realm is added"
 msgstr ""
 
-#: web/admin/overview_sp.php:450
+#: web/admin/overview_sp.php:449
 msgid "Advanced Configuration"
 msgstr ""
 
-#: web/admin/overview_sp.php:454
+#: web/admin/overview_sp.php:453
 #, php-format
 msgid "Do you really want to deactivate the %s deployment?"
 msgstr ""
 
-#: web/admin/overview_sp.php:455
+#: web/admin/overview_sp.php:454
 msgid "Deactivate"
 msgstr ""
 
-#: web/admin/overview_sp.php:463
+#: web/admin/overview_sp.php:462
 msgid "Activation failure."
 msgstr ""
 
-#: web/admin/overview_sp.php:466
+#: web/admin/overview_sp.php:465
 msgid "Activation failure for your primary RADIUS server."
 msgstr ""
 
-#: web/admin/overview_sp.php:468
+#: web/admin/overview_sp.php:467
 msgid "Activation failure for your backup RADIUS server."
 msgstr ""
 
-#: web/admin/overview_sp.php:480
+#: web/admin/overview_sp.php:479
 msgid "Accept Terms of Use"
 msgstr ""
 
-#: web/admin/overview_sp.php:487
+#: web/admin/overview_sp.php:486
 msgid "Activate"
 msgstr ""
 
-#: web/admin/overview_sp.php:495
+#: web/admin/overview_sp.php:494
 msgid "Failure during deactivation, your request is queued for handling"
 msgstr ""
 
-#: web/admin/overview_sp.php:498
+#: web/admin/overview_sp.php:497
 msgid ""
 "Deactivation failure for your primary RADIUS server, your request is queued."
 msgstr ""
 
-#: web/admin/overview_sp.php:500
+#: web/admin/overview_sp.php:499
 msgid ""
 "Deactivation failure for your backup RADIUS server, your request is queued."
 msgstr ""
 
-#: web/admin/overview_sp.php:511
+#: web/admin/overview_sp.php:510
 #, php-format
 msgid "Do you really want to remove this %s deployment?"
 msgstr ""
 
-#: web/admin/overview_sp.php:512
+#: web/admin/overview_sp.php:511
 msgid "Remove deployment"
 msgstr ""
 
-#: web/admin/overview_sp.php:519 web/admin/overview_sp.php:536
+#: web/admin/overview_sp.php:518 web/admin/overview_sp.php:535
 #, php-format
 msgid ""
 "Do you really want to replace TLS credentials for this %s deployment? The "
 "current TLS credentials will be revoked in 4 hours."
 msgstr ""
 
-#: web/admin/overview_sp.php:520
+#: web/admin/overview_sp.php:519
 msgid "Renew RADIUS over TLS credentials"
 msgstr ""
 
-#: web/admin/overview_sp.php:525 web/admin/overview_sp.php:533
+#: web/admin/overview_sp.php:524 web/admin/overview_sp.php:532
 msgid "Upload CSR to sign my own TLS credentials"
 msgstr ""
 
-#: web/admin/overview_sp.php:548
+#: web/admin/overview_sp.php:547
 msgid ""
 "We are not able to handle a new configuration request requiring contact with "
 "RADIUS servers now."
 msgstr ""
 
-#: web/admin/overview_sp.php:548
+#: web/admin/overview_sp.php:547
 msgid "Check later."
 msgstr ""
 
-#: web/admin/overview_sp.php:564
+#: web/admin/overview_sp.php:563
 msgid "Hotspot Usage Statistics"
 msgstr ""
 
-#: web/admin/overview_sp.php:566
+#: web/admin/overview_sp.php:565
 msgid "5 most recent authentications"
 msgstr ""
 
-#: web/admin/overview_sp.php:567
+#: web/admin/overview_sp.php:566
 msgid ""
 "<b>AP Identifier</b> is a / separated tuple of NAS-Identifier/NAS-IP-Address/"
 "NAS-IPv6-Address/Called-Station-Id"
 msgstr ""
 
-#: web/admin/overview_sp.php:568
+#: web/admin/overview_sp.php:567
 msgid ""
 "<b>Protocol</b> is a protocol used between a client and RADIUS server, for "
 "TLS it is a / separated tuple TLS/<i>TLS-Client-Cert-Serial</i>"
 msgstr ""
 
-#: web/admin/overview_sp.php:572 web/admin/inc/deploymentStats.inc.php:53
+#: web/admin/overview_sp.php:571 web/admin/inc/deploymentStats.inc.php:53
 #: web/admin/inc/deploymentStats.inc.php:72
 msgid "Timestamp (UTC)"
 msgstr ""
 
-#: web/admin/overview_sp.php:573 web/admin/inc/deploymentStats.inc.php:53
+#: web/admin/overview_sp.php:572 web/admin/inc/deploymentStats.inc.php:53
 #: web/admin/inc/deploymentStats.inc.php:73
 msgid "Outer-Identity"
 msgstr ""
 
-#: web/admin/overview_sp.php:574 web/admin/inc/deploymentStats.inc.php:53
+#: web/admin/overview_sp.php:573 web/admin/inc/deploymentStats.inc.php:53
 #: web/admin/inc/deploymentStats.inc.php:74 web/admin/inc/userStats.inc.php:44
 msgid "Result"
 msgstr ""
 
-#: web/admin/overview_sp.php:575 web/admin/inc/deploymentStats.inc.php:53
+#: web/admin/overview_sp.php:574 web/admin/inc/deploymentStats.inc.php:53
 #: web/admin/inc/deploymentStats.inc.php:75 web/admin/inc/userStats.inc.php:43
 msgid "MAC Address"
 msgstr ""
 
-#: web/admin/overview_sp.php:576 web/admin/inc/deploymentStats.inc.php:54
+#: web/admin/overview_sp.php:575 web/admin/inc/deploymentStats.inc.php:54
 #: web/admin/inc/deploymentStats.inc.php:76
 msgid "Chargeable-User-Identity"
 msgstr ""
 
-#: web/admin/overview_sp.php:577 web/admin/inc/deploymentStats.inc.php:54
+#: web/admin/overview_sp.php:576 web/admin/inc/deploymentStats.inc.php:54
 #: web/admin/inc/deploymentStats.inc.php:77
 msgid "AP Identifier"
 msgstr ""
 
-#: web/admin/overview_sp.php:578 web/admin/inc/deploymentStats.inc.php:54
+#: web/admin/overview_sp.php:577 web/admin/inc/deploymentStats.inc.php:54
 #: web/admin/inc/deploymentStats.inc.php:78
 msgid "Protocol"
 msgstr ""
 
-#: web/admin/overview_sp.php:587 web/admin/inc/deploymentStats.inc.php:57
+#: web/admin/overview_sp.php:586 web/admin/inc/deploymentStats.inc.php:57
 #: web/admin/inc/deploymentStats.inc.php:86 web/admin/inc/userStats.inc.php:55
 msgid "Success"
 msgstr ""
 
-#: web/admin/overview_sp.php:587 web/admin/inc/deploymentStats.inc.php:57
+#: web/admin/overview_sp.php:586 web/admin/inc/deploymentStats.inc.php:57
 #: web/admin/inc/deploymentStats.inc.php:86 web/admin/inc/userStats.inc.php:55
 msgid "Failure"
 msgstr ""
 
-#: web/admin/overview_sp.php:603
+#: web/admin/overview_sp.php:602
 msgid "Last hour"
 msgstr ""
 
-#: web/admin/overview_sp.php:606 web/admin/overview_sp.php:619
+#: web/admin/overview_sp.php:605 web/admin/overview_sp.php:618
 msgid "Last 30 days"
 msgstr ""
 
-#: web/admin/overview_sp.php:609 web/admin/overview_sp.php:621
+#: web/admin/overview_sp.php:608 web/admin/overview_sp.php:620
 msgid "Last 6 months"
 msgstr ""
 
-#: web/admin/overview_sp.php:614
+#: web/admin/overview_sp.php:613
 msgid "Get statistics as CSV file:"
 msgstr ""
 
-#: web/admin/overview_sp.php:617
+#: web/admin/overview_sp.php:616
 msgid "Last week"
 msgstr ""
 
-#: web/admin/overview_sp.php:668
+#: web/admin/overview_sp.php:625
+msgid "Hotspot Debug Logs"
+msgstr ""
+
+#: web/admin/overview_sp.php:626
+msgid "To get detailed logs from RADIUS sites click a button bellow."
+msgstr ""
+
+#: web/admin/overview_sp.php:629
+msgid ""
+"You will receive zip file with logs from both RADIUS servers: primary "
+"(folder named radius-1) and secondary (folder named radius-2)."
+msgstr ""
+
+#: web/admin/overview_sp.php:630
+msgid "If no logs are available an empty zip file is provided."
+msgstr ""
+
+#: web/admin/overview_sp.php:632
+msgid "Today"
+msgstr ""
+
+#: web/admin/overview_sp.php:634
+msgid "Last 7 days"
+msgstr ""
+
+#: web/admin/overview_sp.php:682
 #, php-format
 msgid "Add %s deployment ..."
 msgstr ""
 
-#: web/admin/overview_sp.php:672
+#: web/admin/overview_sp.php:686
 msgid "Helpdesk mail address is required but missing!"
 msgstr ""
 
 #. no profiles yet.
-#: web/admin/overview_sp.php:703
+#: web/admin/overview_sp.php:717
 #, php-format
 msgid "There are not yet any known deployments for your %s."
 msgstr ""
@@ -3002,7 +3028,7 @@ msgstr ""
 msgid "Always; T&C Pre-Agreed"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:265
+#: web/lib/admin/OptionDisplay.php:266
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -3019,7 +3045,7 @@ msgid ""
 "while they are not."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:267
+#: web/lib/admin/OptionDisplay.php:268
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -3029,19 +3055,19 @@ msgid ""
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:268
+#: web/lib/admin/OptionDisplay.php:269
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:269
+#: web/lib/admin/OptionDisplay.php:270
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:271
+#: web/lib/admin/OptionDisplay.php:272
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -3050,37 +3076,37 @@ msgid ""
 "installers needs to present this information via its own channel."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:273
+#: web/lib/admin/OptionDisplay.php:274
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:275
+#: web/lib/admin/OptionDisplay.php:276
 msgid "Read the instructions in the wiki."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:385
+#: web/lib/admin/OptionDisplay.php:386
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:386 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
 msgid "default/other languages"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:461
+#: web/lib/admin/OptionDisplay.php:462
 msgid "(default/other languages)"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:496
+#: web/lib/admin/OptionDisplay.php:497
 msgid "file content"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:512 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
 msgid "off"
 msgstr ""
 
