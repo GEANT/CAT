@@ -76,15 +76,14 @@ $langObject = new \core\common\Language();
         echo '</p>';
         echo _('Below you can select an institution and check what information on this institution is present in the eduroam database.');
         echo '<p/>';
-        echo _("In the 'Servers' column we show RADIUS servers names provided for this institution (it means servers having the type 1 - RADIUS over TLS).");
+        echo _("In the 'Servers' column we show TLS servers names provided for this institution (it means servers having the type 1 - RADIUS over TLS).");
         echo '<br/>';
         echo _("In the 'Contact data' column we show all contacts having type 1, i.e. any service contact, other contacts are omitted.");
         echo '<br/>';
         echo _("In the 'Timestamp' column we show last update time.");
         echo '<p/>';
-        echo _('To check eduroam database specification see') . 
-                ' <a target="_blank" href="https://monitor.eduroam.org/eduroam-database/v2/docs/eduroam-database-ver30112021.pdf">' .
-                _('this document') . '</a>.<p/>';
+        printf(_("To check eduroam database specification see <a href='%s'>this document</a>."), "https://monitor.eduroam.org/eduroam-database/v2/docs/eduroam-database-ver30112021.pdf");
+        echo '<p/>';
         echo _('If you cannot find your institution on this list it means that this institution is not present in your upstream data.');        
         echo '<p/>';
         $allAuthorizedFeds = $user->getAttributes("user:fedadmin");

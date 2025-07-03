@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-03 11:25+0200\n"
+"POT-Creation-Date: 2025-07-03 12:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: web/admin/action_req_certificate.php:316
 #: web/admin/action_req_certificate.php:391
-#: web/admin/overview_radsec_readiness.php:96
+#: web/admin/overview_radsec_readiness.php:95
 msgid "---PLEASE CHOOSE---"
 msgstr ""
 
@@ -1935,7 +1935,7 @@ msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:79
 msgid ""
-"In the 'Servers' column we show RADIUS servers names provided for this "
+"In the 'Servers' column we show TLS servers names provided for this "
 "institution (it means servers having the type 1 - RADIUS over TLS)."
 msgstr ""
 
@@ -1950,45 +1950,43 @@ msgid "In the 'Timestamp' column we show last update time."
 msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:85
-msgid "To check eduroam database specification see"
+#, php-format
+msgid ""
+"To check eduroam database specification see <a href='%s'>this document</a>."
 msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:87
-msgid "this document"
-msgstr ""
-
-#: web/admin/overview_radsec_readiness.php:88
 msgid ""
 "If you cannot find your institution on this list it means that this "
 "institution is not present in your upstream data."
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:103
-#: web/admin/overview_radsec_readiness.php:107
-#: web/admin/overview_radsec_readiness.php:133
+#: web/admin/overview_radsec_readiness.php:102
+#: web/admin/overview_radsec_readiness.php:106
+#: web/admin/overview_radsec_readiness.php:132
 msgid "no data"
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:174
+#: web/admin/overview_radsec_readiness.php:173
 #: web/admin/inc/manageNewInst.inc.php:71
 #: web/admin/inc/manageNewInst.inc.php:104
 msgid "Name"
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:176
+#: web/admin/overview_radsec_readiness.php:175
 #: web/admin/inc/manageNewInst.inc.php:72
 msgid "Type"
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:179
+#: web/admin/overview_radsec_readiness.php:178
 msgid "Servers"
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:182
+#: web/admin/overview_radsec_readiness.php:181
 msgid "Contact data"
 msgstr ""
 
-#: web/admin/overview_radsec_readiness.php:185
+#: web/admin/overview_radsec_readiness.php:184
 #: web/admin/inc/userStats.inc.php:41
 msgid "Timestamp"
 msgstr ""
