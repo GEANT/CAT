@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-02 20:48+0200\n"
+"POT-Creation-Date: 2025-07-03 11:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1924,7 +1924,7 @@ msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:75
 #, php-format
-msgid "eduroamDB status for %s %s"
+msgid "eduroam DB status for %s %s"
 msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:77
