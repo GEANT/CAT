@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-03 11:01+0200\n"
+"POT-Creation-Date: 2025-07-03 11:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1935,7 +1935,7 @@ msgstr ""
 
 #: web/admin/overview_radsec_readiness.php:79
 msgid ""
-"In the 'Servers' column we show TLS servers names provided for this "
+"In the 'Servers' column we show RADIUS servers names provided for this "
 "institution (it means servers having the type 1 - RADIUS over TLS)."
 msgstr ""
 
