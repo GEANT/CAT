@@ -36,7 +36,6 @@ $error_message = [
 $langInstance = new \core\common\Language();
 $start = $langInstance->rtl ? "right" : "left";
 $end = $langInstance->rtl ? "left" : "right";
-
 $errormsg = [];
 if (isset($_GET['errormsg'])) {
     $msg = explode('_', trim($_GET['errormsg']));
@@ -322,13 +321,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         <span style="display: none;" id="cert_data_<?php echo $depId;?>"><?php echo $deploymentObject->radsec_cert;?></span>
                         <span style="display: none;" id="ca_cert_data_<?php echo $depId;?>"><?php echo $cacert;?></span>
                         <?php if ($deploymentObject->radsec_priv != '') {
-                            echo _("private key:").copyIcon("priv_key_icon_$depId");
+                            echo _("private key").copyIcon("priv_key_icon_$depId")."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                             echo '<span style="display: none;" id="priv_key_data_'.$depId.'">'.$deploymentObject->radsec_priv.'</span>';
                             echo '&nbsp;&nbsp;';
                         }
-                            echo _("certificate:").copyIcon("cert_icon_$depId");
+                            echo _("certificate").copyIcon("cert_icon_$depId")."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                             echo '&nbsp;&nbsp;';
-                            echo _("CA certificate:").copyIcon("ca_cert_icon_$depId");
+                            echo _("CA certificate").copyIcon("ca_cert_icon_$depId");
                         ?>
                         <br/>
                         <button name="sendzip" onclick="location.href='inc/sendZip.inc.php?inst_id=<?php echo $deploymentObject->institution;?>&dep_id=<?php echo $depId?>'" type="button"><?php echo _('download ZIP-file with full data');?></button>
@@ -598,7 +597,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
     }
     ?>
 </table>
-	    <div style='display: ruby;'>
+            <div style='display: ruby;'>
             <form style="display: inline;" action="inc/deploymentStats.inc.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>" onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method='post'>
                 <button type='submit' id='stats-hour' name='stats' value='HOUR'><?php echo _("Last hour"); ?></button>
             </form>
@@ -621,9 +620,24 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
 	    <button name="sendcsv" type="button" onclick="location.href='<?php echo $query;?>FULL';"><?php echo _('Last 6 months');?>
             </button>
         </div><!-- statistics space -->
+        <div style='height:5px'></div>
+        <div style='display: table-cell; min-width:200px;'>
+            <h1><?php echo _("Hotspot Debug Logs"); ?></h1>
+            <h2><?php echo _('To get detailed logs from RADIUS sites click a button bellow.'); 
+            $query = 'inc/deploymentLogs.inc.php?inst_id='.$deploymentObject->institution."&deployment_id=$depId&backlog=";
+            ?></h2>
+            <?php echo _('You will receive zip file with logs from both RADIUS servers: primary (folder named radius-1) and secondary (folder named radius-2).') . '<br>' .
+                  _('If no logs are available an empty zip file is provided.');?>
+            <div style='height:3px'></div>
+            <button name="logs" type="button" onclick="location.href='<?php echo $query;?>1';"><?php echo _('Today');?>
+            </button>
+            <button name="logs" type="button" onclick="location.href='<?php echo $query;?>7';"><?php echo _('Last 7 days');?>
+            </button>
+        </div>
     </div> 
     <!-- dummy div to keep a little distance-->
     <div style='height:20px'></div>
+    
     <?php
 }
 
