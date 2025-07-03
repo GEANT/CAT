@@ -72,7 +72,7 @@ $langObject = new \core\common\Language();
     foreach ($feds as $oneFed) {
         $theFed = new \core\Federation($oneFed['value']);
         echo '<p>';
-        printf(_("eduroamDB status for %s %s"), $uiElements->nomenclatureFed, $theFed->name);
+        printf(_("eduroam DB status for %s %s"), $uiElements->nomenclatureFed, $theFed->name);
         echo '</p>';
         echo _('Below you can select an institution and check what information on this institution is present in the eduroam database.');
         echo '<p/>';
