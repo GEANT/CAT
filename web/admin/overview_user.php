@@ -272,7 +272,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             <li>your mail has been added as the admin to institutions that you did not manage before
                             <li>you have logged in via an account in a different IdP but the returned email address is the same as before
                             <li>your IdP has been modified and it has a different entityId now
-                            <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargettedId attribute but no it is only sending pairwise-id
+                            <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargettedId attribute but now it is only sending pairwise-id
                             </ul>");
                     print $wizard->displayHelpText($helpText);
 
