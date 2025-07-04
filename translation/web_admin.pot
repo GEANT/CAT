@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-04 12:38+0200\n"
+"POT-Creation-Date: 2025-07-04 13:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,28 +263,31 @@ msgid "2. CSR generation"
 msgstr ""
 
 #: web/admin/action_req_certificate.php:446
-msgid "The CSR subject field has to start with "
+#, php-format
+msgid ""
+"The CSR subject field has to start with <b>%s</b>  and follow the pattern "
+"given in the example."
 msgstr ""
 
-#: web/admin/action_req_certificate.php:447
+#: web/admin/action_req_certificate.php:448
 msgid ""
 "One way to generate an acceptable certificate request is via this openssl "
 "one-liner:"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:451
+#: web/admin/action_req_certificate.php:452
 msgid "3. Submission"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:452
+#: web/admin/action_req_certificate.php:453
 msgid "Please paste your CSR here:"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:453
+#: web/admin/action_req_certificate.php:454
 msgid "Send request"
 msgstr ""
 
-#: web/admin/action_req_certificate.php:460
+#: web/admin/action_req_certificate.php:461
 msgid "Back to Overview Page"
 msgstr ""
 
@@ -1414,6 +1417,26 @@ msgstr ""
 msgid "Certificate Information for %s %s"
 msgstr ""
 
+#: web/admin/overview_certificates.php:80
+msgid "Request Serial"
+msgstr ""
+
+#: web/admin/overview_certificates.php:80
+msgid "Distinguished Name"
+msgstr ""
+
+#: web/admin/overview_certificates.php:80
+msgid "Expiry"
+msgstr ""
+
+#: web/admin/overview_certificates.php:80 web/admin/overview_installers.php:117
+msgid "Download"
+msgstr ""
+
+#: web/admin/overview_certificates.php:90
+msgid "Display"
+msgstr ""
+
 #: web/admin/overview_certificates.php:102
 msgid "Request new Certificate"
 msgstr ""
@@ -1698,10 +1721,6 @@ msgstr ""
 msgid ""
 "Click the download button to download the installer or the clipboard copy "
 "icon to save the link."
-msgstr ""
-
-#: web/admin/overview_installers.php:117
-msgid "Download"
 msgstr ""
 
 #: web/admin/overview_installers.php:118

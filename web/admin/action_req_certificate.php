@@ -443,7 +443,8 @@ foreach ($allIdPs as $id => $name) {
         <h2><?php echo _("2. CSR generation"); ?></h2>
         <p>
         <?php 
-        echo _("The CSR subject field has to start with ") .'<b>' . $subject_prefix . '</b> and follow the pattern given in the example.<br>';
+        printf(_("The CSR subject field has to start with <b>%s</b>  and follow the pattern given in the example."), $subject_prefix);
+        echo '<br>';
         echo _("One way to generate an acceptable certificate request is via this openssl one-liner:"); ?></p>
         <?php 
         echo "<b>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /". implode('/', array_reverse($DN)) ."/C=XY/O=WillBeReplaced/CN=will.be.replaced</b>";

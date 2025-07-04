@@ -77,7 +77,7 @@ $langObject = new \core\common\Language();
             }
         }
         echo "<table>";
-        echo "<tr><th>Request Serial</th><th>Distinguished Name</th><th>Status</th><th>Expiry</th><th>Download</th></tr>";
+        echo "<tr><th>"._("Request Serial")."</th><th>"._("Distinguished Name")."</th><th>Status</th><th>"._("Expiry")."</th><th>"._("Download")."</th></tr>";
         foreach ($theFed->listTlsCertificates() as $oneCert) { // fetch list a second time, in case we got a cert
             $status = $oneCert['STATUS'];
             echo "<tr>";
@@ -87,7 +87,7 @@ $langObject = new \core\common\Language();
             <td>
                 <form action='inc/showCert.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8' method="POST">
                     <input type="hidden" name="certdata" value="<?php echo $oneCert['CERT'];?>"/>
-                <button type="submit">Display</button>
+                <button type="submit"><?php echo _("Display");?></button>
                 </form>
             <td>
                 <?php
