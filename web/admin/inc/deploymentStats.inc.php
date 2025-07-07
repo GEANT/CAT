@@ -64,7 +64,7 @@ if ($editMode == 'fullaccess') {
     
     <h1><?php $tablecaption = _("Deployment Usage Records"); echo $tablecaption; ?></h1>
     <p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");
-             echo _("Protocol is a protocol used between a client and RADIUS server, for TLS it is a / separated tuple TLS/TLS-Client-Cert-Serial");
+             echo _("Protocol is a protocol used between a client and RADIUS server, for TLS it is a /-separated tuple TLS/TLS-Client-Cert-Serial");
        ?></p>
     <table class='authrecord'>
         <caption><?php echo $tablecaption;?></caption>

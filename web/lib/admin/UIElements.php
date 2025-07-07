@@ -164,7 +164,7 @@ class UIElements extends \core\common\Entity {
             ],
             "fed:entitlement-attr" => [
                 'display' => _("Custom entitlement value for self-registration"),
-                'help' => _("If you want to use the SAML eduPersonEntitlement based self-registration you may define a value that will be used in your federation for institutions admins. When this is not set the default value geant:eduroam:inst:admin will be used. This option makes sens only if you have 'Self registration based on entitlement' set")
+                'help' => _("If you want to use the SAML eduPersonEntitlement based self-registration you may define a value that will be used in your federation for institutions admins. When this is not set the default value geant:eduroam:inst:admin will be used. This option makes sense only if you have 'Self registration based on entitlement' set")
             ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],

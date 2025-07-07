@@ -92,7 +92,7 @@ $langObject = new \core\common\Language();
     $messages = [
     'WRONG_SUBJECT' => _('Submitted Certificate Signing Request contains subject field that does not follow the expected pattern.'),
     'WRONG_CSR' => _('Submitted Certificate Signing Request is broken - unable to extract the public key from CSR'),
-    'SOAP_ERROR' => _('An error while processing request by the eduPKI site'),
+    'SOAP_ERROR' => _('An error occurred while processing request by the eduPKI site'),
     'HINT' =>  _("See CSR generation rules below."),
     ];
     $settings = array();
@@ -437,7 +437,7 @@ foreach ($allIdPs as $id => $name) {
         <?php
         echo _('On this page');
         echo '</a> ';
-        echo _('you can check what information is in the datatabase') . '.';
+        echo _('you can check what information is in the database') . '.';
         echo '</div>';
         if (count($feds) > 0 || count($allIdPs) > 0) {?>
         <h2><?php echo _("2. CSR generation"); ?></h2>

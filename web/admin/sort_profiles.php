@@ -92,7 +92,7 @@ $profiles_for_this_idp = $my_inst->listProfiles();
 <h1><?php printf(_("Change the order of profiles for '%s'"), $my_inst->name); ?></h1>
 
    <div class="profilebox">
-       <?php echo _("Pofiles with orange background are not visible in the public download interface"); ?><p>
+       <?php echo _("Profiles with orange background are not visible in the public download interface"); ?><p>
         <table style="border:none">
             <caption><?php echo _("EAP type support"); ?></caption>
             <tr>

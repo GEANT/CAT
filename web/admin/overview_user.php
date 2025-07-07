@@ -272,7 +272,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             <li>your mail has been added as the admin to institutions that you did not manage before
                             <li>you have logged in via an account in a different IdP but the returned email address is the same as before
                             <li>your IdP has been modified and it has a different entityId now
-                            <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargettedId attribute but now it is only sending pairwise-id
+                            <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargetedId attribute but now it is only sending pairwise-id
                             </ul>");
                     print $wizard->displayHelpText($helpText);
 
@@ -281,7 +281,7 @@ $end = $langInstance->rtl ? "left" : "right";
                     }
                 }
                 if (count($newInst) > 0) {
-                    echo "<p>"._("The eduroam database says you are an administrator of this following institutions, but there seem to be no matching institutions in CAT.")."<br>";
+                    echo "<p>"._("The eduroam database says you are an administrator of these following institutions, but there seem to be no matching institutions in CAT.")."<br>";
                     echo "<table class='inst-selection'>";
                     foreach ($newInst as $inst) {
                         echo "<tr><th>";

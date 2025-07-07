@@ -35,7 +35,7 @@ $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: Profie ordering"), \config\Master::APPEARANCE['productname'])); 
+echo $deco->defaultPagePrelude(sprintf(_("%s: Profile ordering"), \config\Master::APPEARANCE['productname'])); 
 if ($editMode !== 'fullaccess') {
     echo "<h2>"._("No write access to this IdP");
     echo $deco->footer();

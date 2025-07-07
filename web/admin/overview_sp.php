@@ -563,8 +563,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
             <?php $tablecaption = _("Hotspot Usage Statistics");?>
             <h1><?php echo $tablecaption; ?></h1>
             <h2><?php echo _("5 most recent authentications");?></h2>
-            <p><?php echo _("<b>AP Identifier</b> is a / separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id") .'<br>';
-                     echo _("<b>Protocol</b> is a protocol used between a client and RADIUS server, for TLS it is a / separated tuple TLS/<i>TLS-Client-Cert-Serial</i>"); ?></p>
+            <p><?php echo _("<b>AP Identifier</b> is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id") .'<br>';
+                     echo _("<b>Protocol</b> is a protocol used between a client and RADIUS server, for TLS it is a /-separated tuple TLS/<i>TLS-Client-Cert-Serial</i>"); ?></p>
             <table class='authrecord'>
     <caption><?php echo $tablecaption;?></caption>
     <tr style='text-align: left;'>
@@ -623,7 +623,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
         <div style='height:5px'></div>
         <div style='display: table-cell; min-width:200px;'>
             <h1><?php echo _("Hotspot Debug Logs"); ?></h1>
-            <h2><?php echo _('To get detailed logs from RADIUS sites click a button bellow.'); 
+            <h2><?php echo _('To get detailed logs from RADIUS sites click a button below.'); 
             $query = 'inc/deploymentLogs.inc.php?inst_id='.$deploymentObject->institution."&deployment_id=$depId&backlog=";
             ?></h2>
             <?php echo _('You will receive zip file with logs from both RADIUS servers: primary (folder named radius-1) and secondary (folder named radius-2).') . '<br>' .
