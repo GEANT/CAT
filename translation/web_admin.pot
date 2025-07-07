@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-04 13:37+0200\n"
+"POT-Creation-Date: 2025-07-07 10:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,7 @@ msgid ""
 msgstr ""
 
 #: web/admin/action_req_certificate.php:95
-msgid "An error while processing request by the eduPKI site"
+msgid "An error occurred while processing request by the eduPKI site"
 msgstr ""
 
 #: web/admin/action_req_certificate.php:96
@@ -255,7 +255,7 @@ msgid "On this page"
 msgstr ""
 
 #: web/admin/action_req_certificate.php:440
-msgid "you can check what information is in the datatabase"
+msgid "you can check what information is in the database"
 msgstr ""
 
 #: web/admin/action_req_certificate.php:443
@@ -2282,14 +2282,14 @@ msgstr ""
 
 #: web/admin/overview_sp.php:566
 msgid ""
-"<b>AP Identifier</b> is a / separated tuple of NAS-Identifier/NAS-IP-Address/"
+"<b>AP Identifier</b> is a /-separated tuple of NAS-Identifier/NAS-IP-Address/"
 "NAS-IPv6-Address/Called-Station-Id"
 msgstr ""
 
 #: web/admin/overview_sp.php:567
 msgid ""
 "<b>Protocol</b> is a protocol used between a client and RADIUS server, for "
-"TLS it is a / separated tuple TLS/<i>TLS-Client-Cert-Serial</i>"
+"TLS it is a /-separated tuple TLS/<i>TLS-Client-Cert-Serial</i>"
 msgstr ""
 
 #: web/admin/overview_sp.php:571 web/admin/inc/deploymentStats.inc.php:53
@@ -2362,7 +2362,7 @@ msgid "Hotspot Debug Logs"
 msgstr ""
 
 #: web/admin/overview_sp.php:626
-msgid "To get detailed logs from RADIUS sites click a button bellow."
+msgid "To get detailed logs from RADIUS sites click a button below."
 msgstr ""
 
 #: web/admin/overview_sp.php:629
@@ -2529,14 +2529,14 @@ msgid ""
 "                            <li>your IdP has been modified and it has a "
 "different entityId now\n"
 "                            <li>your IdP has changed it's behaviour, for "
-"instance it was previously sending the eduPersonTargettedId attribute but "
-"now it is only sending pairwise-id\n"
+"instance it was previously sending the eduPersonTargetedId attribute but now "
+"it is only sending pairwise-id\n"
 "                            </ul>"
 msgstr ""
 
 #: web/admin/overview_user.php:284
 msgid ""
-"The eduroam database says you are an administrator of this following "
+"The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
 msgstr ""
 
@@ -2575,7 +2575,7 @@ msgstr ""
 
 #: web/admin/sort_profiles.php:95
 msgid ""
-"Pofiles with orange background are not visible in the public download "
+"Profiles with orange background are not visible in the public download "
 "interface"
 msgstr ""
 
@@ -2589,7 +2589,7 @@ msgstr ""
 
 #: web/admin/sort_profiles_result.php:38
 #, php-format
-msgid "%s: Profie ordering"
+msgid "%s: Profile ordering"
 msgstr ""
 
 #: web/admin/sort_profiles_result.php:48
@@ -2610,7 +2610,7 @@ msgstr ""
 #: web/admin/inc/deploymentStats.inc.php:67
 msgid ""
 "Protocol is a protocol used between a client and RADIUS server, for TLS it "
-"is a / separated tuple TLS/TLS-Client-Cert-Serial"
+"is a /-separated tuple TLS/TLS-Client-Cert-Serial"
 msgstr ""
 
 #: web/admin/inc/displayQRcode.inc.php:41
@@ -3495,8 +3495,8 @@ msgid ""
 "If you want to use the SAML eduPersonEntitlement based self-registration you "
 "may define a value that will be used in your federation for institutions "
 "admins. When this is not set the default value geant:eduroam:inst:admin will "
-"be used. This option makes sens only if you have 'Self registration based on "
-"entitlement' set"
+"be used. This option makes sense only if you have 'Self registration based "
+"on entitlement' set"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:171
