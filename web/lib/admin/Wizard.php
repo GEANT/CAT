@@ -114,12 +114,14 @@ class Wizard extends UIElements {
         // FED general
         $h = "<p><h3>" . _("Here you set federation-level options.") . "</h3><p>";
         $h .= "<i>" . _("The following options are available:") . "</i><p>";
-        $h .= "<dl>";
-        foreach ($this->optionsHelp as $o) {
-            $h .= "<dt>". $o['display'] . "</dt>";
-            $h .= "<dd>" . $o['help'] . "</dd>";
+        if (isset($this->optionsHelp)) {
+            $h .= "<dl>";
+            foreach ($this->optionsHelp as $o) {
+                $h .= "<dt>". $o['display'] . "</dt>";
+                $h .= "<dd>" . $o['help'] . "</dd>";
+            }
+            $h .= "</dl>";
         }
-        $h .= "</dl>";
         $this->helpMessage['fed_general'] = $h;
         // SUPPORT
         $h = "<p>" . _("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.") . "</p>";
