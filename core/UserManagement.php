@@ -593,10 +593,10 @@ class UserManagement extends \core\common\Entity
             $requiredEntitlement = NULL;
             $countryCode = $country[0];
             $fed = new Federation($countryCode);
-            $autoreg = $fed->getAttributes('fed:autoregister-entitlement')[0];
-            $entitlementVal = $fed->getAttributes('fed:entitlement-attr')[0];
-            if (isset($autoreg['value']) && $autoreg['value'] == 'on') {
-                $requiredEntitlement = isset($entitlementVal['value']) ? $entitlementVal['value'] : \config\ConfAssistant::CONSORTIUM['entitlement'];
+            $autoreg = $fed->getAttributes('fed:autoregister-entitlement');
+            $entitlementVal = $fed->getAttributes('fed:entitlement-attr');
+            if (isset($autoreg[0]['value']) && $autoreg[0]['value'] == 'on') {
+                $requiredEntitlement = isset($entitlementVal[0]['value']) ? $entitlementVal[0]['value'] : \config\ConfAssistant::CONSORTIUM['entitlement'];
             }
             common\Logging::debug_s(4, $requiredEntitlement, "$countryCode requiredEntitlement\n", "\n");
             if (in_array($requiredEntitlement, $_SESSION['entitlement'])) {
