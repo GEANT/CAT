@@ -54,8 +54,7 @@ cur = con.cursor()
 
 bl_template = []
 templ = open(TEMPLATE_DIR + TLS2SITE + '/' + TEMPLATE_BLACKLIST, encoding='utf-8')
-for _line in templ:
-    bl_template.append(_line)
+bl_template = list(templ)
 templ.close()
 
 SELECTNEW = 'SELECT * FROM tls_revoked where handled=0'
@@ -98,7 +97,7 @@ if len(blacklist) > 0:
         _content = '\n'.join(_contents)
         _lines = []
         if os.path.isfile(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix):
-            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix, 
+            with open(CONF_DIR + TLS2SITE + '/' + TLS_BLACKLIST + '_' + _suffix,
                       encoding='utf-8') as _in:
                 _lines = _in.readlines()
         _content = ''.join(_lines) + _content

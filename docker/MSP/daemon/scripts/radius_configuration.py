@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 CAT requests listener
@@ -439,7 +438,7 @@ while True:
         compression = zipfile.ZIP_DEFLATED
         zf = zipfile.ZipFile(detailzip, mode="w")
         _now = datetime.datetime.now()
-        for _d in range(0,int(elems[1])):
+        for _d in range(int(elems[1])):
             _delta = datetime.timedelta(days = _d)
             tozip.append('detail-' + elems[0] + '-' + (_now-_delta).strftime('%Y%m%d'))
         os.chdir(FR_LOGS)
