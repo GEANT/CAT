@@ -387,11 +387,13 @@ CREATE TABLE `activity` (
   `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `prot` varchar(64) DEFAULT NULL,
   `owner` varchar(20) DEFAULT NULL,
+  `outer_user` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `operatorname` (`operatorname`),
   KEY `activity_time` (`activity_time`),
   KEY `result` (`result`),
   KEY `owner` (`owner`),
+  KEY `outer_user` (`outer_user`),
   KEY `mac` (`mac`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

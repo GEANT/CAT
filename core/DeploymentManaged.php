@@ -741,6 +741,7 @@ class DeploymentManaged extends AbstractDeployment
         if (($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
             $allRealms = array_values(array_unique(array_column($this->getAttributes("managedsp:realmforvlan"), "value")));
         }
+        /*
         foreach ($allProfiles as $profile) {
             if ($realm = ($profile->getAttributes("internal:realm")[0]['value'] ?? NULL)) {
                 if (!in_array($realm, $allRealms)) {
@@ -748,6 +749,7 @@ class DeploymentManaged extends AbstractDeployment
                 }
             }
         }
+        */
         return $allRealms;
     }
 
