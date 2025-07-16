@@ -53,18 +53,18 @@ TLS_CLIENT_SERIAL = "%{toupper:%{listen:TLS-Client-Cert-Serial}}"
 TLSPSK_CLIENT = "%{listen:TLS-PSK-Identity}"
 OPERATOR_NAME = "        Operator-Name = "
 UNLANG_GUEST_VLAN = "update reply {" + NL + \
-              "                Tunnel-Private-Group-Id=%s" + NL + \
+              "                Tunnel-Private-Group-Id=%d" + NL + \
               "                Tunnel-Medium-Type:=6" + NL + \
               "                Tunnel-Type:=VLAN" + NL + \
-              "        }"
-UNLANG_VLAN = "        %s ( Stripped-User-Domain == '%s' ) {" + NL + \
+              "            }"
+UNLANG_VLAN = " {" + NL + \
               "            update reply {" + NL + \
               "                Tunnel-Private-Group-Id=%s" + NL + \
               "                Tunnel-Medium-Type:=6" + NL + \
               "                Tunnel-Type:=VLAN" + NL + \
               "            }" + NL + \
               "        }"
-UNLANG_DOMAIN = "Stripped-User-Domain != '%s'"
+UNLANG_DOMAIN = "Stripped-User-Domain == '%s'"
 CAT_LOG = '/opt/scripts/logs/radius_configuration.log'
 MAX_RESTART_REQUESTS = 10
 SOCKET_TIMEOUT = 5.0
@@ -103,7 +103,7 @@ def make_conf(data):
     _pskkey = base64.b64decode(data[7]).decode('utf-8')
     _guest_vlan = 0
     if len(data) == 10:
-        _guest_vlan = str(data[8])
+        _guest_vlan = int(data[8])
     _toremove = data[len(data)-1]
     _operatorname = ''
     _clientcn = 'SP' + str(data[2]) + '-' + str(data[1])
@@ -115,25 +115,17 @@ def make_conf(data):
         _realm_vlan = ''
         if data[6] != '':
             _el = base64.b64decode(data[6]).decode('utf-8').split('#')
-            _idx = 1
-            while _idx < len(_el):
-                _if = 'if'
-                if _idx > 1:
-                    _if = 'els' + _if
-                _vlans.append(UNLANG_VLAN % (_if, _el[_idx], _el[0]))
-                _realms.append(_el[_idx])
-                _idx += 1
-            _realm_vlan = NL + '\n'.join(_vlans)
-        _vlan_block = ''
+            _forif = [UNLANG_DOMAIN % (r) for r in _el[1:]]
+            _realm_vlan = 'if (' + ' || '.join(_forif) + ') ' + \
+                (UNLANG_VLAN % (_el[0]))
         if _guest_vlan != 0:
             _vlan_block = UNLANG_GUEST_VLAN % (_guest_vlan)
-            _vlans = []
-            if len(_realms) > 0:
-                for _r in _realms:
-                    _vlans.append(UNLANG_DOMAIN % (_r))
-                _vlan_block = 'if (' + ' && '.join(_vlans) + \
-                        ') { ' + NL + SPACES + _vlan_block + NL + SPACES + '}' + NL
-        _vlan_block += _realm_vlan
+            if _realm_vlan != '':
+                _vlan_block = _realm_vlan + ' else { ' + _vlan_block + \
+                        NL + SPACES + '}'
+            _vlan_block +=  NL
+        else:
+            _vlan_block = _realm_vlan
         logger.info('Create/update port: %s, secret: %s, operatorname: %s',
                     data[3], _secret, _operatorname)
         logger.info('VLAN %s', _vlan_block)
@@ -182,7 +174,7 @@ def make_conf(data):
                     'instid': data[1],
                     'deploymentid': data[2],
                     'operatorname': _operatorname,
-                    'vlans': _realm_vlan}
+                    'vlans': _vlan_block}
             with open(TEMP_DIR + _tls + '/' + _templ + '_' +  str(data[2]) +
                       '-' + str(data[1]), 'w', encoding='utf-8') as _out:
                 _out.write(''.join(_alllines))
