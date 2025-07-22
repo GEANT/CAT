@@ -351,10 +351,15 @@ $langObject = new \core\common\Language();
         }
         ?>
             $(document).on('change', '#INST-list' , function() {
+                    if ($(this).val() == 'notset') {
+                        $("#additionalinfo").show();
+                        $("#certinfo").hide();  
+                    }
                     $("#INST").prop('checked', true);
                     $("#errorbox").html("");
                     if (instservers[$(this).val()] === undefined) {
                         $("#ondb").show();
+                        $("#certinfo").hide();
                     } else {
                         $("#certinfo").show();
                         $("#additionalinfo").hide();
