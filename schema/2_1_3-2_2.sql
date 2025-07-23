@@ -38,7 +38,7 @@ ALTER TABLE `activity` ADD COLUMN (
 ALTER TABLE `activity` ADD KEY (
   `outer_user` (`outer_user`),
   `owner` (`owner`));
-  
+
 ALTER TABLE `deployment` ADD COLUMN (`radsec_priv` blob DEFAULT NULL,
   `radsec_cert` blob DEFAULT NULL,
   `radsec_cert_serial_number` blob DEFAULT NULL,
@@ -54,3 +54,5 @@ INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-entitlement', 'allow
 INSERT INTO `profile_option_dict` VALUES ('fed:entitlement-attr', 'the entitlement value used by this federation for self-registration, will override the default geant:eduroam:inst:admin', 'string', NULL);
 INSERT INTO `profile_option_dict` (name, description, type, flag) VALUES('general:instaltname','alternative name of the institution to be used in Disco search as keyword','string', NULL);
 INSERT INTO `profile_option_dict` (name, description,type,flag) values ('managedsp:guest_vlan','VLAN tag to add for guest users','integer',NULL);
+DELETE FROM `profile_option_dict` WHERE name = 'fed:desired_skin';
+DELETE FROM `profile_option_dict` WHERE name = 'fed:css_file';
