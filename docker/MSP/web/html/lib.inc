@@ -1,4 +1,5 @@
 <?php
+include 'server/secret.php';
 define('SOCKET', '/opt/Socket/CAT_requests/queue');
 
 function cat_socket($obj) {

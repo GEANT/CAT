@@ -19,7 +19,7 @@ COPY rsyslog/23_eduroam.conf .
 RUN mkdir -p /var/log/radsecproxy
 
 WORKDIR /var/www/html
-RUN mkdir sp
+RUN mkdir -p  sp/server
 COPY web/html sp
 RUN mkdir -p /opt/Socket/CAT_requests
 RUN chown -R www-data:www-data /opt/Socket/CAT_requests
