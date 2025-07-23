@@ -44,6 +44,7 @@ use \Exception;
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
  *
  * @license see LICENSE file in root directory
  *
@@ -195,6 +196,14 @@ class DeploymentManaged extends AbstractDeployment
      */
     public $termsAndConditions;
     
+    public $server1_token;
+    public $server2_token;
+    public $server1_secret;
+    public $server2_secret;
+    public $server1_iv;
+    public $server2_iv;
+    
+    
     /**
      * Class constructor for existing deployments (use 
      * IdP::newDeployment() to actually create one). Retrieves all 
@@ -255,18 +264,24 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         $server1 = $this->radius_instance_1;
-        $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server1);
+        $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6, server_token, server_secret, server_iv FROM managed_sp_servers WHERE server_id = ?", "s", $server1);
         while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server1details)) {
             $this->host1_v4 = $iterator2->radius_ip4;
             $this->host1_v6 = $iterator2->radius_ip6;
             $this->radius_hostname_1 = $iterator2->mgmt_hostname;
+            $this->server1_token = $iterator2->server_token;
+            $this->server1_secret = $iterator2->server_secret;
+            $this->server1_iv = $iterator2->server_iv;
         }
         $server2 = $this->radius_instance_2;
-        $server2details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = ?", "s", $server2);
+        $server2details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6, server_token, server_secret, server_iv FROM managed_sp_servers WHERE server_id = ?", "s", $server2);
         while ($iterator3 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server2details)) {
             $this->host2_v4 = $iterator3->radius_ip4;
             $this->host2_v6 = $iterator3->radius_ip6;
             $this->radius_hostname_2 = $iterator3->mgmt_hostname;
+            $this->server2_token = $iterator3->server_token;
+            $this->server2_secret = $iterator3->server_secret;
+            $this->server2_iv = $iterator3->server_iv;
         }
         $thisLevelAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
                                             FROM $this->entityOptionTable
@@ -599,6 +614,16 @@ class DeploymentManaged extends AbstractDeployment
     private function sendToRADIUS(int $idx, $post)
     {
         $hostname = "radius_hostname_$idx";
+        $p = "server$idx" . "_secret";
+        $key = $this->$p;
+        $p = "server$idx" . "_iv";
+        $iv = $this->$p;
+        $p = "server$idx" . "_token";
+        $token = $this->$p;
+        $encrypted = openssl_encrypt($post . "&token=$token", "CHACHA20", $key, 0, $iv);
+        if ($encrypted !== false) {
+            $post = "enc=". urlencode(base64_encode($encrypted));
+        }
         $ch = curl_init("http://" . $this->$hostname . ':' . \config\Master::MANAGEDSP['radiusconfigport']);
         if ($ch === FALSE) {
             $res = 'FAILURE';
@@ -621,7 +646,6 @@ class DeploymentManaged extends AbstractDeployment
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);
         }
-        $this->loggerInstance->debug(1, "Database update");
         $id = $this->identifier;
         if ($res == 'OK' || $res == 'FAILURE') {
             $resValue = ($res == 'OK' ? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE);
@@ -822,11 +846,11 @@ class DeploymentManaged extends AbstractDeployment
         foreach ($toPost as $key => $value) {
             $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
             // temporarly one server $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            //if ($key == 2) {
-            //    $response['res[2]'] = 'OK'; 
-            //} else {
+            if ($key == 2) {
+                $response['res[2]'] = 'OK'; 
+            } else {
                 $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            //}
+            }
         }
         if ($onlyone) {
             $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
@@ -848,8 +872,10 @@ class DeploymentManaged extends AbstractDeployment
     public function getRADIUSLogs($onlyone = 0, $logs = 0)
     {
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
+        $randomiv = "";
         if ($logs) {
-            $toPostTemplate = 'logid=DEBUG-' . $this->identifier . '-' .$this->institution . "&backlog=$logs";
+            $randomiv = bin2hex(random_bytes(8));
+            $toPostTemplate = 'logid=DEBUG-' . $this->identifier . '-' .$this->institution . "&backlog=$logs&iv=$randomiv";
             foreach (array_keys($toPost) as $key) {
                 $toPost[$key] = $toPostTemplate;
             }
@@ -859,10 +885,18 @@ class DeploymentManaged extends AbstractDeployment
         $zipdir = $tempdir['dir'];
         foreach ($toPost as $key => $value) {
             $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
+            $p = "server$key" . "_secret";
+            $secret = $this->$p;
+            $p = "server$key" . "_token";
+            $token = $this->$p;
             $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
             $paths = [];
-            if (substr($response['res[' . $key . ']'], 0, 8) == 'ZIPDATA:') {
-                $data = substr($response['res[' . $key . ']'], 8);
+            if (substr($response['res[' . $key . ']'], 0, 8) == 'ZIPDATA:' && $randomiv != '') {
+                $encrypted = substr($response['res[' . $key . ']'], 8);
+                $data = openssl_decrypt($encrypted, "CHACHA20", $secret, 0, $randomiv);
+                if ($data !== false && substr($data, 0, strlen($token)) == $token) {
+                    $data = substr($data, strlen($token));
+                }
                 if (!file_exists("$zipdir/$key")) {
                     mkdir("$zipdir/$key", 0755, true );
                 }

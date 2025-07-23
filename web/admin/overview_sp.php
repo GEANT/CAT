@@ -202,7 +202,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     </td>
                     <td>
                         <?php
-                        if ($deploymentObject->status) {
+                        if ($deploymentObject->status && $deploymentObject->radius_status_2) {
                             echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
                                 "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
                             "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
@@ -280,7 +280,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                     </td>
                     <td>
                         <?php
-                        if ($deploymentObject->status) {
+                        if ($deploymentObject->status && $deploymentObject->radius_status_2) {
                             echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
                                 "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] .
                             "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' class='cat-icon'>";
@@ -630,6 +630,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                   _('If no logs are available an empty zip file is provided.');?>
             <div style='height:3px'></div>
             <button name="logs" type="button" onclick="location.href='<?php echo $query;?>1';"><?php echo _('Today');?>
+            </button>
+            <button name="logs" type="button" onclick="location.href='<?php echo $query;?>2';"><?php echo _('Last 2 days');?>
             </button>
             <button name="logs" type="button" onclick="location.href='<?php echo $query;?>7';"><?php echo _('Last 7 days');?>
             </button>
