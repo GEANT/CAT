@@ -4,6 +4,12 @@ hostname=`hostname`
 sed -i "s/RADIUS_CONFIGURATION_NAME/${hostname}/g" /etc/apache2/sites-available/000-default.conf
 sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/sites-available/000-default.conf
 sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/ports.conf
+sed -i "s/SERVER_TOKEN_VALUE/${SERVER_TOKEN}/g" /var/www/html/sp/server/secret.php
+sed -i "s/SERVER_SECRET_VALUE/${SERVER_SECRET}/g" /var/www/html/sp/server/secret.php
+sed -i "s/SERVER_IV_VALUE/${SERVER_IV}/g" /var/www/html/sp/server/secret.php
+chmod 500 /var/www/html/sp/server/
+chmod 400 /var/www/html/sp/server/*
+chown -R www-data /var/www/html/sp/server
 sed -i "s/CAT_IP/${CAT_IP}/g" /etc/rsyslog.d/23_eduroam.conf
 sed -i "s/CATUSERAGENT/${CATUSERAGENT}/g" /etc/apache2/sites-available/000-default.conf
 sed -i "s/FRRADSECSECRET/${FRRADSECSECRET}/g" /usr/local/etc/radsecproxy.conf
@@ -26,6 +32,8 @@ sed -i "s/RADIUS_DB/${RADIUS_DB}/g" /usr/local/db/sql
 sed -i "s/RADIUS_USER/${RADIUS_USER}/g" /usr/local/db/sql
 sed -i "s/RADIUS_PASS/${RADIUS_PASS}/g" /usr/local/db/sql
 sed -i "s/\[.*/\/usr\/sbin\/fetch-crl -q/" /etc/cron.d/fetch-crl
+phpini=`find / -name php.ini|grep php.ini|grep apache2`
+sed -i "s/memory_limit = 128M/memory_limit = 1024M/" $phpini
 /usr/local/db/radiusdb.py
 cd /opt/FR/etc/raddb/sites-enabled
 rm -f *
@@ -131,7 +139,9 @@ fi
 touch /opt/FR/var/log/fticks.log
 chown syslog:adm /opt/FR/var/log/fticks.log
 /usr/sbin/fetch-crl
+rm -rf /opt/FR/var/log/forCAT
 mkdir -p /opt/FR/var/log/forCAT
+chown -R www-data /opt/FR/var/log/forCAT
 /opt/FR/sbin/radiusd
 #/opt/FR/sbin/radiusd -fxx -l /opt/FR/var/log/rrrr&
 /usr/local/sbin/radsecproxy
