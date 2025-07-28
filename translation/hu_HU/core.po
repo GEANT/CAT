@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022,2024-2025
 # Pozsonyi Dóra <pozsonyi@niif.hu>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>, 2012,2019,2022,2024-2025\n"
 "Language-Team: Hungarian (Hungary) (http://app.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -19,6 +19,58 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/AbstractProfile.php:265
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+"A profile nem tartalmaz realm információt , ezért OpenRoaming DNS "
+"ellenőrzést nem tudjuk megtenni."
+
+#: core/AbstractProfile.php:299
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr " OpenRoaming NAPTR rekord nem szokott SRV-re mutatni."
+
+#: core/AbstractProfile.php:317
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+"Az SRV-rekordokban lévő DNS nevek nem felelnek meg a tényleges gazdagép IP-"
+"címeknek. Az OpenRoaming nem fog működni."
+
+#: core/AbstractProfile.php:344
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+"Az ellenőrzés által felfedezett OpenRoaming-végpontok mindegyikben hiba "
+"volt. Az OpenRoaming valószínűleg nem fog működni."
+
+#: core/AbstractProfile.php:350
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+"A felfedezett OpenRoaming-végpontok esetén a végpontok csak egy részében nem "
+"volt hiba."
+
+#: core/AbstractProfile.php:360
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+"Legalább egy DNS-válasz nem használ DNSSEC-et. Az OpenRoaming ANP-k "
+"megtagadhatják a csatlakozást a végponthoz."
+
+#: core/AbstractProfile.php:367
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr ""
+"Az OpenRoaming DNS-részével kapcsolatos kezdeti diagnosztika (beleértve a "
+"DNSSEC-et is) sikeres volt."
 
 #: core/CAT.php:143
 msgid "Andorra"
@@ -89,230 +141,234 @@ msgid "Hungary"
 msgstr "Magyarország"
 
 #: core/CAT.php:160
+msgid "Kosovo"
+msgstr "Koszovó"
+
+#: core/CAT.php:161
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: core/CAT.php:161
+#: core/CAT.php:162
 msgid "Latvia"
 msgstr "Lettország"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Lithuania"
 msgstr "Litvánia"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Macedonia"
 msgstr "Macedónia"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Serbia"
 msgstr "Szerbia"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Netherlands"
 msgstr "Hollandia"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "Norway"
 msgstr "Norvégia"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "Poland"
 msgstr "Lengyelország"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Portugal"
 msgstr "Portugália"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Romania"
 msgstr "Románia"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Slovenia"
 msgstr "Szlovénia"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Spain"
 msgstr "Spanyolország"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Sweden"
 msgstr "Svédország"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Slovakia"
 msgstr "Szlovákia"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Switzerland"
 msgstr "Svájc"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Turkey"
 msgstr "Törökország"
 
-#: core/CAT.php:176
+#: core/CAT.php:177 core/CAT.php:379
 msgid "United Kingdom"
 msgstr "Egyesült Királyság"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Australia"
 msgstr "Ausztrália"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Israel"
 msgstr "Izrael"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Japan"
 msgstr "Japán"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "New Zealand"
 msgstr "Új Zéland"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "U.S.A."
 msgstr "USA"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Brazil"
 msgstr "Brazilia"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Chile"
 msgstr "Chile"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Peru"
 msgstr "Peru"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Armenia"
 msgstr "Örményország"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Azerbaijan"
 msgstr "Azerbajdzsán"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Belarus"
 msgstr "Fehéroroszország"
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Ecuador"
 msgstr "Ekvádor"
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Kenya"
 msgstr "Kenya"
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kyrgyzstan"
 msgstr "Kirgizisztán"
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Korea"
 msgstr "Korea"
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Kazakhstan"
 msgstr "Kazahsztán"
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Morocco"
 msgstr "Marokko"
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Moldova"
 msgstr "Moldova"
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Macau"
 msgstr "Makaó"
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Malta"
 msgstr "Málta"
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Russia"
 msgstr "Oroszország"
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Singapore"
 msgstr "Szingapúr"
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Thailand"
 msgstr "Tájföld"
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "South Africa"
 msgstr "Dél Afrika"
 
-#: core/CAT.php:484 core/IdPlist.php:79
+#: core/CAT.php:485 core/IdPlist.php:83
 msgid "Unnamed Entity"
 msgstr "Azonosítatlan entitás"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile deactivation succeeded"
 msgstr "Profile deaktáválsa sikeres"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile activation/modification succeeded"
 msgstr "Profile aktiválás/módosítás sikeres."
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile deactivation failed"
 msgstr "Profile deaktiváls nem sikerült"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile activation/modification failed"
 msgstr "Profile aktiválás/módosítás nem sikerült"
 
-#: core/DeploymentManaged.php:512
+#: core/DeploymentManaged.php:676
 msgid "on both RADIUS servers: primary and backup"
 msgstr "mindkettő RADIUS szerveren (elsődleges és másodlagos is)"
 
-#: core/DeploymentManaged.php:515
+#: core/DeploymentManaged.php:679
 msgid "on primary RADIUS server"
 msgstr "az elsődleges RADIUS szerveren"
 
-#: core/DeploymentManaged.php:517
+#: core/DeploymentManaged.php:681
 msgid "on backup RADIUS server"
 msgstr "a második RADIUS szerveren"
 
-#: core/DeploymentManaged.php:525
+#: core/DeploymentManaged.php:689
 msgid "RADIUS profile update problem fixed"
 msgstr "RADIUS profile frissítéss probléma javításra került "
 
-#: core/DeploymentManaged.php:527
+#: core/DeploymentManaged.php:691
 msgid "RADIUS profile update problem"
 msgstr "RADIUS profile frissítési probléma"
 
@@ -332,17 +388,18 @@ msgstr ""
 "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:92
+#: core/Federation.php:111
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(megszüntetett) %s"
 
 #. / IdP and SP
-#: core/Federation.php:274 core/common/OutsideComm.php:281
+#: core/Federation.php:308 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr "%s és %s"
 
+#. notify the fed admins...
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
 #. /                3. consortium name (e.g. eduroam);
@@ -350,19 +407,19 @@ msgstr "%s és %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:291
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the %s was created in %s.\n"
+"    the invitation for the new %s %s in your %s federation %s has been used "
+"and the %s was created in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
 "Hello,\n"
 "\n"
@@ -375,24 +432,57 @@ msgstr ""
 "\n"
 "%s"
 
-#. / organisation
-#: core/Federation.php:308
-#, php-format
-msgid "%s in your federation was created"
-msgstr "%s létre jött a föderációban"
-
-#: core/IdP.php:397
+#. notify the fed admins...
+#. / arguments are: 1. nomenclature for "institution"
+#. /                2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:349
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the %s %s in your %s federation %s has been deleted from %s.\n"
+"    the eduGAIN self-registration was used to create a new %s\n"
+"           %s\n"
+"    in your %s federation %s in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
+msgstr ""
+"Hi,\n"
+"\n"
+"    tAz EdiuGAIN segítségével létrejött a z új %s\n"
+"           %s\n"
+"    a te %s federation %s  %s.\n"
+"\n"
+"    Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"Üdvözlettel\n"
+"\n"
+"    %s"
+
+#. / organisation
+#: core/Federation.php:371 core/Federation.php:377
+#, php-format
+msgid "%s in your federation was created"
+msgstr "%s létre jött a föderációban"
+
+#: core/IdP.php:415
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"    the %s %s in your %s federation %s has been deleted from %s.\n"
+"\n"
+"    We thought you might want to know.\n"
+"\n"
+"    Best regards,\n"
+"\n"
+"    %s"
 msgstr ""
 "Hello!\n"
 "\n"
@@ -404,7 +494,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:406
+#: core/IdP.php:424
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s-t a szövetségből töröltük"
@@ -468,7 +558,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "Meghívó rendszer%s"
 
-#: core/User.php:166
+#: core/User.php:270
 msgid "Feedback"
 msgstr "Visszajelzés"
 
@@ -503,57 +593,57 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:120
+#: core/common/Entity.php:123
 msgid "National Roaming Operator"
 msgstr "Nemzeti Roaming Szolgáltató"
 
-#: core/common/Entity.php:121
+#: core/common/Entity.php:124
 msgid "identity provider"
 msgstr "Azonosító Szolgáltató"
 
-#: core/common/Entity.php:122
+#: core/common/Entity.php:125
 msgid "organisation"
 msgstr "Szervezet"
 
-#: core/common/Entity.php:123
+#: core/common/Entity.php:126
 msgid "Identity Provider"
 msgstr "Azonosító Szolgáltató"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:127
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi Hotspot"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:128
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:129
 msgid "Service Provider"
 msgstr "Szolgáltató"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:130
 msgid "participant"
 msgstr "résztvevő"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:131
 msgid "Organisation"
 msgstr "Szervezet"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:132
 msgid "organization"
 msgstr "szervezet"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:133
 msgid "entity"
 msgstr "bejegyzés"
 
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
-"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
 msgstr " %s %s   %s %s meghívott hogy kezelje a  %svele együtt."
 
-#: core/common/OutsideComm.php:292
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
@@ -562,53 +652,53 @@ msgstr ""
 " %s %s meghívott, hogy jövőben menedzseld %s  \"%s\" (%s). A szervezet   %s "
 "lesz."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr " %s %s meghívott, hogy jövőben menedzseld %s  \"%s\"  Ez a   %s ."
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:301
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Ez a meghívás 24 óráig érvényes, azaz egészen 1 %s"
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:303
+#: core/common/OutsideComm.php:309
 msgid "Hello,"
 msgstr "Üdvözlünk!"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:311
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
 
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:317
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "További üzenet  %s rendszergazdától:"
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s administrator"
 msgstr " %s rendszergazda"
 
-#: core/common/OutsideComm.php:322
+#: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:334
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "A %s rendszergazda felvételéhez kérjük, kattintson az alábbi linkre:"
 
-#: core/common/OutsideComm.php:330
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -617,11 +707,11 @@ msgstr ""
 "Ha a linkre kattintás nem működik, akkor is megkeresheted a%s "
 "adminisztrátori felületet "
 
-#: core/common/OutsideComm.php:332
+#: core/common/OutsideComm.php:338
 msgid "and enter the invitation token"
 msgstr "és írd be a meghívó tokent"
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:340
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -629,12 +719,12 @@ msgstr ""
 "NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel "
 "tudják használni a tokent az Ön nevében!"
 
-#: core/common/OutsideComm.php:335
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Sok sikert kívánunk neked a  %s-hoz."
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:342
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -642,7 +732,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr "Üdvözlettel,    %s üzemeltetés"
 
-#: core/common/OutsideComm.php:372
+#: core/common/OutsideComm.php:378
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s Meghívást kaptál arra, hogy kezelhesd%s"
@@ -651,26 +741,26 @@ msgstr "%s Meghívást kaptál arra, hogy kezelhesd%s"
 msgid "Input validation error: "
 msgstr "Hiba az input adatokban:"
 
-#: web/lib/common/InputValidation.php:270
+#: web/lib/common/InputValidation.php:366
 msgid "Realm is empty!"
 msgstr "Üres Realm!"
 
-#: web/lib/common/InputValidation.php:279
+#: web/lib/common/InputValidation.php:375
 msgid "Realm contains an @ sign!"
 msgstr "A Realm nevében @ karakter van!"
 
-#: web/lib/common/InputValidation.php:280
+#: web/lib/common/InputValidation.php:376
 msgid "Realm begins with a . (dot)!"
 msgstr "A Realm neve ponttal kezdődik!"
 
-#: web/lib/common/InputValidation.php:281
+#: web/lib/common/InputValidation.php:377
 msgid "Realm ends with a . (dot)!"
 msgstr "A Realm neve pontra végződik!"
 
-#: web/lib/common/InputValidation.php:282
+#: web/lib/common/InputValidation.php:378
 msgid "Realm contains spaces!"
 msgstr "A Realm nevében szóköz van!"
 
-#: web/lib/common/InputValidation.php:295
+#: web/lib/common/InputValidation.php:391
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "A Realm nevében nincs legalább 1 pont!"

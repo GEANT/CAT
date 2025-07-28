@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Minseok Jang <msjang@kisti.re.kr>, 2018,2022\n"
 "Language-Team: Korean (Korea) (http://app.transifex.com/eduroam_devel/cat/"
@@ -18,6 +18,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: core/AbstractProfile.php:265
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+
+#: core/AbstractProfile.php:299
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr ""
+
+#: core/AbstractProfile.php:317
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:344
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:350
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+
+#: core/AbstractProfile.php:360
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+
+#: core/AbstractProfile.php:367
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr ""
 
 #: core/CAT.php:143
 msgid "Andorra"
@@ -88,230 +128,234 @@ msgid "Hungary"
 msgstr "헝가리"
 
 #: core/CAT.php:160
+msgid "Kosovo"
+msgstr ""
+
+#: core/CAT.php:161
 msgid "Luxembourg"
 msgstr "룩셈부르크"
 
-#: core/CAT.php:161
+#: core/CAT.php:162
 msgid "Latvia"
 msgstr "라트비아"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Lithuania"
 msgstr "리투아니아"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Macedonia"
 msgstr "마케도니아"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Serbia"
 msgstr "세르비아"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Netherlands"
 msgstr "네덜란드"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "Norway"
 msgstr "노르웨이"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "Poland"
 msgstr "폴란드"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Portugal"
 msgstr "포르투갈"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Romania"
 msgstr "루마니아"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Slovenia"
 msgstr "슬로베니아"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Spain"
 msgstr "스페인"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Sweden"
 msgstr "스웨덴"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Slovakia"
 msgstr "슬로바키아"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Switzerland"
 msgstr "스위스"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Turkey"
 msgstr "터키"
 
-#: core/CAT.php:176
+#: core/CAT.php:177 core/CAT.php:379
 msgid "United Kingdom"
 msgstr "영국"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Australia"
 msgstr "호주"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Canada"
 msgstr "캐나다"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Israel"
 msgstr "이스라엘"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Japan"
 msgstr "일본"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "New Zealand"
 msgstr "뉴질랜드"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "U.S.A."
 msgstr "미국"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Brazil"
 msgstr "브라질"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Chile"
 msgstr "칠레"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Peru"
 msgstr "페루"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Venezuela"
 msgstr "베네수엘라"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Default"
 msgstr "기본값"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Armenia"
 msgstr "아르메니아"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Azerbaijan"
 msgstr "아제르바이잔"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Belarus"
 msgstr "벨로루시"
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Ecuador"
 msgstr "에콰도르"
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Hong Kong"
 msgstr "홍콩"
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Kenya"
 msgstr "케냐"
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kyrgyzstan"
 msgstr "키르기즈스탄"
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Korea"
 msgstr "한국"
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Kazakhstan"
 msgstr "카자흐스탄"
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Morocco"
 msgstr "모로코"
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Moldova"
 msgstr "몰도바"
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Montenegro"
 msgstr "몬테네그로"
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Macau"
 msgstr "마카오"
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Malta"
 msgstr "말타"
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Russia"
 msgstr "러시아"
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Singapore"
 msgstr "싱가포르"
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Thailand"
 msgstr "태국"
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Taiwan"
 msgstr "대만"
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "South Africa"
 msgstr "남아프리카"
 
-#: core/CAT.php:484 core/IdPlist.php:79
+#: core/CAT.php:485 core/IdPlist.php:83
 msgid "Unnamed Entity"
 msgstr "이름이 없는 엔티티"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile deactivation succeeded"
 msgstr "프로필을 비활성화 성공"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile activation/modification succeeded"
 msgstr "프로필 활성화/수정 성공"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile deactivation failed"
 msgstr "프로필 비활성화 실패"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile activation/modification failed"
 msgstr "프로필 활성화/수정 실패"
 
-#: core/DeploymentManaged.php:512
+#: core/DeploymentManaged.php:676
 msgid "on both RADIUS servers: primary and backup"
 msgstr "기본 및 백업 RADIUS 서버 모두에서"
 
-#: core/DeploymentManaged.php:515
+#: core/DeploymentManaged.php:679
 msgid "on primary RADIUS server"
 msgstr "기본 RADIUS 서버에서"
 
-#: core/DeploymentManaged.php:517
+#: core/DeploymentManaged.php:681
 msgid "on backup RADIUS server"
 msgstr "백업 RADIUS 서버에서"
 
-#: core/DeploymentManaged.php:525
+#: core/DeploymentManaged.php:689
 msgid "RADIUS profile update problem fixed"
 msgstr "RADIUS 프로필 업데이트 문제가 해결됨"
 
-#: core/DeploymentManaged.php:527
+#: core/DeploymentManaged.php:691
 msgid "RADIUS profile update problem"
 msgstr "RADIUS 프로필 업데이트 문제"
 
@@ -330,17 +374,18 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr "죄송합니다. 추가\b적인 정보가 없습니다."
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:92
+#: core/Federation.php:111
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(지원중단) %s"
 
 #. / IdP and SP
-#: core/Federation.php:274 core/common/OutsideComm.php:281
+#: core/Federation.php:308 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr "%s 그리고 %s"
 
+#. notify the fed admins...
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
 #. /                3. consortium name (e.g. eduroam);
@@ -348,42 +393,65 @@ msgstr "%s 그리고 %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:291
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the %s was created in %s.\n"
+"    the invitation for the new %s %s in your %s federation %s has been used "
+"and the %s was created in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
+msgstr ""
+
+#. notify the fed admins...
+#. / arguments are: 1. nomenclature for "institution"
+#. /                2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:349
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"    the eduGAIN self-registration was used to create a new %s\n"
+"           %s\n"
+"    in your %s federation %s in %s.\n"
+"\n"
+"    We thought you might want to know.\n"
+"\n"
+"    Best regards,\n"
+"\n"
+"    %s"
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:308
+#: core/Federation.php:371 core/Federation.php:377
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s가 당신의 페더레이션에서 생성됨"
 
-#: core/IdP.php:397
+#: core/IdP.php:415
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the %s %s in your %s federation %s has been deleted from %s.\n"
+"    the %s %s in your %s federation %s has been deleted from %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
 
-#: core/IdP.php:406
+#: core/IdP.php:424
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s가 당신의 페더레이션에서 삭제됨"
@@ -437,7 +505,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:166
+#: core/User.php:270
 msgid "Feedback"
 msgstr "피드백"
 
@@ -472,119 +540,119 @@ msgstr "EAP-PWD"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:120
+#: core/common/Entity.php:123
 msgid "National Roaming Operator"
 msgstr "국가로밍관리기관(NRO)"
 
-#: core/common/Entity.php:121
+#: core/common/Entity.php:124
 msgid "identity provider"
 msgstr "계정관리기관(IdP)"
 
-#: core/common/Entity.php:122
+#: core/common/Entity.php:125
 msgid "organisation"
 msgstr "기관"
 
-#: core/common/Entity.php:123
+#: core/common/Entity.php:126
 msgid "Identity Provider"
 msgstr "계정관리기관(IdP)"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:127
 msgid "Wi-Fi Hotspot"
 msgstr "와이파이 핫스팟"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:128
 msgid "Hotspot"
 msgstr "핫스팟"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:129
 msgid "Service Provider"
 msgstr "서비스 제공자"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:130
 msgid "participant"
 msgstr ""
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:131
 msgid "Organisation"
 msgstr ""
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:132
 msgid "organization"
 msgstr "기관"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:133
 msgid "entity"
 msgstr "엔티티"
 
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
-"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
 msgstr ""
 
-#: core/common/OutsideComm.php:292
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:301
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "초대장은 지금부터 24시간 동안, %s까지 유효합니다."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:303
+#: core/common/OutsideComm.php:309
 msgid "Hello,"
 msgstr "안녕하세요, "
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:311
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr "이 메일에 회신하지 마십시오. 발신 전용 주소입니다."
 
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:317
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "%s 관리자의 추가 메시지: "
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s administrator"
 msgstr "%s 관리자"
 
-#: core/common/OutsideComm.php:322
+#: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "이 메일에 답신을 하면, %s 관리자에게 전달됩니다."
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:334
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
 
-#: core/common/OutsideComm.php:330
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
 
-#: core/common/OutsideComm.php:332
+#: core/common/OutsideComm.php:338
 msgid "and enter the invitation token"
 msgstr "그리고, 초대 토큰(Invitation Token)을 입력하세요."
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:340
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -592,12 +660,12 @@ msgstr ""
 "토큰이 만료되기 전에 메일을 전달하지 마십시오. 수신자가 대신 토큰을 사용할 "
 "수 있습니다."
 
-#: core/common/OutsideComm.php:335
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:342
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -605,7 +673,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr ""
 
-#: core/common/OutsideComm.php:372
+#: core/common/OutsideComm.php:378
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: 당신은 1%s 의 관리자로 초대되었습니다."
@@ -614,26 +682,26 @@ msgstr "%s: 당신은 1%s 의 관리자로 초대되었습니다."
 msgid "Input validation error: "
 msgstr "입력 유효성 검사 오류:"
 
-#: web/lib/common/InputValidation.php:270
+#: web/lib/common/InputValidation.php:366
 msgid "Realm is empty!"
 msgstr "렐름(Realm)이 비었습니다."
 
-#: web/lib/common/InputValidation.php:279
+#: web/lib/common/InputValidation.php:375
 msgid "Realm contains an @ sign!"
 msgstr "렐름(Realm)에 @기호가 있습니다."
 
-#: web/lib/common/InputValidation.php:280
+#: web/lib/common/InputValidation.php:376
 msgid "Realm begins with a . (dot)!"
 msgstr "렐름(Realm)이 구두점(.)으로 시작합니다."
 
-#: web/lib/common/InputValidation.php:281
+#: web/lib/common/InputValidation.php:377
 msgid "Realm ends with a . (dot)!"
 msgstr "렐름(Realm)이 구두점(.)으로 끝납니다."
 
-#: web/lib/common/InputValidation.php:282
+#: web/lib/common/InputValidation.php:378
 msgid "Realm contains spaces!"
 msgstr "렐름(Realm)에 공백이 있습니다."
 
-#: web/lib/common/InputValidation.php:295
+#: web/lib/common/InputValidation.php:391
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "렐름(Realm)은 적어도 하나의 구두점(.)을 포함해야 합니다."

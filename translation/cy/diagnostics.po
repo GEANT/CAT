@@ -5,15 +5,16 @@
 #
 # Translators:
 # Huw Waters <huwwaters@gmail.com>, 2018
+# Stefan Paetow, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Huw Waters <huwwaters@gmail.com>, 2018\n"
+"Last-Translator: Stefan Paetow, 2025\n"
 "Language-Team: Welsh (https://app.transifex.com/eduroam_devel/teams/11799/"
 "cy/)\n"
 "Language: cy\n"
@@ -23,118 +24,144 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
-#: core/diag/AbstractTest.php:325
+#: core/diag/AbstractTest.php:335
 msgid "Completed"
-msgstr ""
+msgstr "Cwblhawyd"
 
-#: core/diag/AbstractTest.php:332
+#: core/diag/AbstractTest.php:342
 msgid "Product is not configured to run this check."
-msgstr ""
+msgstr "Nid yw'r cynnyrch wedi'i ffurfweddu i redeg y gwiriad hwn."
 
-#: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
-#: web/diag/action_realmcheck.php:630
+#: core/diag/AbstractTest.php:348 core/diag/RADIUSTestsUI.php:264
+#: core/diag/RADIUSTestsUI.php:279 web/diag/action_realmcheck.php:662
+#: web/diag/action_realmcheck.php:678
 msgid "This check was skipped."
-msgstr ""
+msgstr "Hepgorwyd y siec hon."
 
-#: core/diag/AbstractTest.php:345
+#: core/diag/AbstractTest.php:355
 msgid "There were errors during the test."
-msgstr ""
+msgstr "Roedd gwallau yn ystod y prawf."
 
-#: core/diag/AbstractTest.php:353
+#: core/diag/AbstractTest.php:363
 msgid "There was no reply at all from the RADIUS server."
-msgstr ""
+msgstr "Ni chafwyd ateb o gwbl gan y gweinydd RADIUS."
 
-#: core/diag/AbstractTest.php:360
+#: core/diag/AbstractTest.php:370
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
+"Roedd cyfathrebu deugyfeiriadol gyda'r gweinydd RADIUS, ond daeth i ben "
+"hanner ffordd drwodd."
 
-#: core/diag/AbstractTest.php:367
+#: core/diag/AbstractTest.php:377
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
+"Gwrthododd y gweinydd RADIUS y cais dilysu ar unwaith yn ei ateb cyntaf."
 
-#: core/diag/AbstractTest.php:374
+#: core/diag/AbstractTest.php:384
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
-msgstr ""
+msgstr "Gwrthododd y gweinydd RADIUS y cais dilysu ar ôl sgwrs EAP."
 
-#: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:134
+#: core/diag/AbstractTest.php:391 core/diag/RADIUSTestsUI.php:529
+#: web/diag/action_realmcheck.php:131
 msgid "Connection refused"
-msgstr ""
+msgstr "Gwrthodwyd y cysylltiad"
 
-#: core/diag/AbstractTest.php:388
+#: core/diag/AbstractTest.php:398
 msgid "Not enough data provided to perform an authentication"
-msgstr ""
+msgstr "Dim digon o ddata wedi'i ddarparu i gyflawni dilysiad"
 
-#: core/diag/AbstractTest.php:395
+#: core/diag/AbstractTest.php:405
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
+"Nid yw cyfrinair y tystysgrif a ddarparwyd gennych yn cyfateb i ffeil "
+"tystysgrif."
 
-#: core/diag/AbstractTest.php:403
+#: core/diag/AbstractTest.php:413
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
+"Mae'r gadwyn tystysgrif yn cynnwys y tystysgrif AT gwraidd. Nid yw hyn yn "
+"ateb unrhyw ddiben defnyddiol ond mae'n chwyddo'r cyfnewid pecynnau, gan "
+"arwain o bosibl at fwy o deithiau crwn ac felly dilysu arafach."
 
-#: core/diag/AbstractTest.php:410
+#: core/diag/AbstractTest.php:420
 msgid "There is more than one server certificate in the chain."
-msgstr ""
+msgstr "Mae mwy nag un tystysgrif gweinydd yn y gadwyn."
 
-#: core/diag/AbstractTest.php:417
+#: core/diag/AbstractTest.php:427
 msgid "There is no server certificate in the chain."
-msgstr ""
+msgstr "Nid oes tystysgrif gweinydd yn y gadwyn."
 
-#: core/diag/AbstractTest.php:424
+#: core/diag/AbstractTest.php:434
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
+"Mae o leiaf un tystysgrif yn y gadwyn wedi'i llofnodi â'r algorithm llofnod "
+"MD5. Bydd llawer o Systemau Gweithredu, gan gynnwys Apple iOS, yn methu â "
+"dilysu'r tystysgrif hon."
 
-#: core/diag/AbstractTest.php:431
+#: core/diag/AbstractTest.php:441
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
+"Mae o leiaf un tystysgrif yn y gadwyn wedi'i llofnodi â'r algorithm llofnod "
+"SHA-1. Bydd llawer o Systemau Gweithredu, gan gynnwys Apple iOS, yn methu â "
+"dilysu'r tystysgrif hon."
 
-#: core/diag/AbstractTest.php:438
+#: core/diag/AbstractTest.php:448
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
+"Roedd gan o leiaf un tystysgrif yn y gadwyn allwedd gyhoeddus o lai na 2048 "
+"did. Mae llawer o systemau gweithredu diweddar yn ystyried hyn yn "
+"annerbyniol a byddant yn methu â dilysu tystysgrif y gweinydd."
 
-#: core/diag/AbstractTest.php:445
+#: core/diag/AbstractTest.php:455
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
+"Nid oes gan tystysgrif y gweinydd yr estyniad 'extendedKeyUsage: TLS Web "
+"Server Authentication'. Bydd y rhan fwyaf o Systemau Gweithredu Microsoft yn "
+"methu â dilysu'r tystysgrif hon."
 
-#: core/diag/AbstractTest.php:452
+#: core/diag/AbstractTest.php:462
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
 msgstr ""
+"Nid oedd tystysgrif y gweinydd yn cynnwys Pwynt Dosbarthu CRL, gan greu "
+"problemau cydnawsedd â Windows Phone 8."
 
-#: core/diag/AbstractTest.php:459
+#: core/diag/AbstractTest.php:469
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
+"Nid yw estyniad 'Pwynt Dosbarthu CRL' tystysgrif y gweinydd yn pwyntio at "
+"URL HTTP/HTTPS. Mae'n bosibl y bydd rhai Systemau Gweithredu yn methu â "
+"dilysu'r tystysgrif hon. Ni fydd yn bosibl gwirio dilysrwydd tystysgrif "
+"gweinydd yn erbyn CRL."
 
-#: core/diag/AbstractTest.php:466
+#: core/diag/AbstractTest.php:476
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -142,20 +169,30 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
+"Mae'r estyniad 'CRL Distribution Point' yn tystysgrif y gweinydd yn pwyntio "
+"at lleoliad lle nad oes modd dod o hyd i CRL wedi'i amgodio gan DER. Mae "
+"rhai Systemau Gweithredu yn gwirio dilysrwydd tystysgrif trwy ymgynghori â'r "
+"CRL a byddant yn methu â dilysu'r tystysgrif. Ni fydd yn bosibl gwirio "
+"dilysrwydd tystysgrif gweinydd yn erbyn CRL."
 
-#: core/diag/AbstractTest.php:473
+#: core/diag/AbstractTest.php:483
 msgid "The server certificate was revoked by the CA!"
-msgstr ""
+msgstr "Diddymwyd tystysgrif y gweinydd gan y AT!"
 
-#: core/diag/AbstractTest.php:480
+#: core/diag/AbstractTest.php:490
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
 "also contains names which are a proper hostname, and you only use those for "
 "your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
+"Roedd y tystysgrif yn cynnwys CN neu subjectAltName:DNS nad yw'n dosrannu "
+"fel enw gwesteiwr. Gall hyn fod yn broblematig i rai ceiswyr. Os yw'r "
+"tystysgrif hefyd yn cynnwys enwau sy'n enw gwesteiwr iawn, a'ch bod chi'n "
+"defnyddio'r rhai hynny ar gyfer eich ffurfweddiad hymbilwyr yn unig, yna "
+"gallwch chi anwybyddu'r hysbysiad hwn yn ddiogel."
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:497
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -163,14 +200,21 @@ msgid ""
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
 msgstr ""
+"Roedd y tystysgrif yn cynnwys CN neu subjectAltName:DNS sy'n cynnwys nod "
+"chwilio ('*'). Gall hyn fod yn broblematig i rai ceiswyr. Os yw'r tystysgrif "
+"hefyd yn cynnwys enwau sy'n ddi-gardiau, a'ch bod ond yn defnyddio'r rheini "
+"ar gyfer eich ffurfweddiad hymbilwyr, yna gallwch anwybyddu'r hysbysiad hwn "
+"yn ddiogel."
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:504
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
 msgstr ""
+"Mae o leiaf un tystysgrif y tu allan i'w chyfnod dilysrwydd (ddim yn ddilys "
+"eto, neu wedi ddarfod yn barod)!"
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:511
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -178,111 +222,143 @@ msgid ""
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
 msgstr ""
+"Mae o leiaf un tystysgrif ganolradd yn eich proffil CAT y tu allan i'w "
+"gyfnod dilysrwydd (ddim yn ddilys eto, neu wedi ddarfod yn barod), ond ni "
+"ddefnyddiwyd y tystysgrif hon ar gyfer dilysu gweinydd. Ystyriwch ei dynnu "
+"o'ch ffurfweddiad %s."
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:518
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
+"Nid oedd modd dilysu tystysgrif y gweinydd i'r AT gwraidd y gwnaethoch ei "
+"ffurfweddu yn eich proffil!"
 
-#: core/diag/AbstractTest.php:512
+#: core/diag/AbstractTest.php:522
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
+"Nid oedd y gadwyn tystysgrif fel y'i derbyniwyd yn EAP yn ddigon i ddilysu'r "
+"tystysgrif i'r CA gwraidd yn eich proffil. Ond fe'i dilyswyd gan "
+"ddefnyddio'r AT canolradd yn eich proffil. Dylech ystyried anfon y AT "
+"canolradd gofynnol y tu mewn i'r sgwrs EAP."
 
-#: core/diag/AbstractTest.php:518
+#: core/diag/AbstractTest.php:528
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr ""
+"Nid yw enw'r gweinydd EAP yn cyfateb i unrhyw un o'r enwau ffurfweddu yn "
+"eich proffil!"
 
-#: core/diag/AbstractTest.php:525
+#: core/diag/AbstractTest.php:535
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
+"Mae'r enw gweinydd EAP cyfluniedig yn cyfateb naill ai i'r CN neu "
+"subjectAltName:DNS y tystysgrif sy'n dod i mewn; yr arfer gorau ar hyn o "
+"bryd yw y dylai'r tystysgrif gynnwys yr enw yn y DDAU le."
 
-#: core/diag/AbstractTest.php:532
+#: core/diag/AbstractTest.php:542
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
 msgstr ""
+"Nid oedd o leiaf un tystysgrif yn cynnwys unrhyw estyniad BasicConstraints; "
+"sy'n ei gwneud yn aneglur a yw'n tystysgrif AT neu tystysgrif endid "
+"terfynol. O leiaf ni fydd Mac OS X 10.8 (Mountain Lion) yn dilysu'r "
+"tystysgrif hon at ddibenion EAP!"
 
-#: core/diag/AbstractTest.php:539
+#: core/diag/AbstractTest.php:549
 msgid "The server presented a certificate from an unknown authority."
-msgstr ""
+msgstr "Cyflwynodd y gweinydd tystysgrif gan awdurdod anhysbys."
 
-#: core/diag/AbstractTest.php:546
+#: core/diag/AbstractTest.php:556
 msgid "The server accepted the INVALID client certificate."
-msgstr ""
+msgstr "Derbyniodd y gweinydd tystysgrif cleient ANNILYS."
 
-#: core/diag/AbstractTest.php:553
+#: core/diag/AbstractTest.php:563
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr ""
+msgstr "Gwrthododd y gweinydd tystysgrif y cleient, er ei bod yn ddilys."
 
-#: core/diag/AbstractTest.php:560
+#: core/diag/AbstractTest.php:570
 msgid "The server rejected the client certificate as expected."
-msgstr ""
+msgstr "Gwrthododd y gweinydd tystysgrif y cleient yn ôl y disgwyl."
 
-#: core/diag/AbstractTest.php:567
+#: core/diag/AbstractTest.php:577
 msgid "The CRL of a certificate could not be found."
-msgstr ""
+msgstr "Ni fu modd dod o hyd i CRL tystysgrif."
 
-#: core/diag/AbstractTest.php:574
+#: core/diag/AbstractTest.php:584
 msgid "EAP method negotiation failed!"
-msgstr ""
+msgstr "Methodd negodi dull EAP!"
 
-#: core/diag/AbstractTest.php:581
+#: core/diag/AbstractTest.php:591
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
+"Mae'r gweinydd yn cynnig seiffrau Diffie-Hellman (DH) gyda grŵp DH yn llai "
+"na 1024 bit. Gwyddys bod Mac OS X 10.11 'El Capitan' yn gwrthod cysylltiadau "
+"TLS o dan yr amgylchiadau hyn!"
 
-#: core/diag/AbstractTest.php:588
+#: core/diag/AbstractTest.php:598
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"Mae'r tystysgrif yn cynnwys mwy nag un maes CommonName (CN). Dywedir bod hyn "
+"yn broblematig i lawer o ymgeiswyr."
 
-#: core/diag/AbstractTest.php:595
+#: core/diag/AbstractTest.php:605
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"Mae algorithm allwedd cyhoeddus y tystysgrif yn anhysbys i'r system. "
+"Cyflwynwch y tystysgrif fel sampl i'r datblygwyr."
 
-#: core/diag/AbstractTest.php:602
+#: core/diag/AbstractTest.php:612
 msgid "No certificate at all was sent by the server."
-msgstr ""
+msgstr "Ni anfonwyd tystysgrif o gwbl gan y gweinydd."
 
-#: core/diag/AbstractTest.php:609
+#: core/diag/AbstractTest.php:619
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr ""
+"Nid oedd yn bosibl pennu'r fersiwn TLS a ddefnyddiwyd yn y gyfnewidfa EAP."
 
-#: core/diag/AbstractTest.php:616
+#: core/diag/AbstractTest.php:626
 msgid ""
 "The server does not support the contemporary TLS versions TLSv1.2 or "
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
 "the server!"
 msgstr ""
+"Nid yw'r gweinydd yn cymorth y fersiynau TLS cyfoes TLSv1.2 neu TLSv1.3. "
+"Gall systemau gweithredu cleientiaid modern wrthod dilysu yn erbyn y "
+"gweinydd!"
 
-#: core/diag/AbstractTest.php:620
+#: core/diag/AbstractTest.php:630
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
 msgstr ""
+"Nid yw'r enw gweinydd disgwyliedig yn unol â chofnod SRV yn cyfateb i unrhyw "
+"enw gweinydd yn tystysgrif y gweinydd a gyrhaeddwyd!"
 
 #: core/diag/Logopath.php:120
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[Diagnosteg eduroam]"
 
 #: core/diag/Logopath.php:122
 msgid ""
@@ -291,22 +367,27 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Megis dechrau mae'r gwasanaeth hwn. Ymddiheurwn os mai rhybudd ffug yw hwn. "
+"Os felly, anfonwch adroddiad e-bost at cat-devel@lists.geant.org, gan anfon "
+"y neges gyfan ymlaen (gan gynnwys y 'AMHEUAETHAU' a data 'TYSTIOLAETH' ar y "
+"diwedd), ac esbonio pam mae hwn yn gam positif.)"
 
 #: core/diag/Logopath.php:124
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Yr eiddoch yn gywir,"
 
 #: core/diag/Logopath.php:126
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr ""
+msgstr "Ed U. Roam, algorithm diagnosteg eduroam"
 
 #: core/diag/Logopath.php:134
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[TROSEDD POLISI CENEDLAETHOL] CDU heb unrhyw gofnod yng cronfa ddata eduroam"
 
 #: core/diag/Logopath.php:135
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "Annwyl weinyddwr NRO,"
 
 #: core/diag/Logopath.php:137
 #, php-format
@@ -315,12 +396,17 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"gofynnodd defnyddiwr terfynol am ddiagnosteg ar gyfer parth %s. Penderfynodd "
+"gwiriadau cysylltedd amser real fod y parth yn bodoli, ond nid oeddem yn "
+"gallu dod o hyd i CDU gyda'r parth honno yng cronfa ddata eduroam."
 
 #: core/diag/Logopath.php:139
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"Drwy beidio â rhestru CDUau yng cronfa ddata eduroam, rydych yn torri polisi "
+"eduroam."
 
 #: core/diag/Logopath.php:141
 msgid ""
@@ -328,26 +414,32 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"Yn ogystal, mae hyn yn creu problemau gweithredol. Yn benodol, ni allwn "
+"gyfeirio defnyddwyr terfynol at eu CDU i gael diagnosis/cyfarwyddiadau "
+"pellach oherwydd nad oes unrhyw bwyntiau cyswllt ar gyfer y CDU hwnnw yn y "
+"cronfa ddata."
 
 #: core/diag/Logopath.php:143
 msgid ""
 "Please stop the policy violation ASAP by listing the IdP which is associated "
 "to this realm."
 msgstr ""
+"Stopiwch y toriad polisi cyn gynted â phosibl trwy restru'r CDU sy'n "
+"gysylltiedig â'r parth hon."
 
 #: core/diag/Logopath.php:151 core/diag/Logopath.php:164
 msgid ""
 "[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"
-msgstr ""
+msgstr "[PROBLEM DECHNEGOL] Gweinyddwr yn amau problem dechnegol gyda'ch CDU"
 
 #: core/diag/Logopath.php:152 core/diag/Logopath.php:165
 msgid "Dear IdP administrator,"
-msgstr ""
+msgstr "Annwyl weinyddwr CDU,"
 
 #: core/diag/Logopath.php:154 core/diag/Logopath.php:167
 #, php-format
 msgid "an organisation administrator requested diagnostics for realm %s. "
-msgstr ""
+msgstr "gofynnodd gweinyddwr sefydliad am ddiagnosteg ar gyfer parth %s."
 
 #: core/diag/Logopath.php:156
 msgid ""
@@ -355,6 +447,9 @@ msgid ""
 "working in acceptable parameters, but the administrator insisted to contact "
 "you with the supplemental information below."
 msgstr ""
+"Penderfynodd gwiriadau cysylltedd amser real ei bod yn ymddangos bod y parth "
+"yn gweithio o fewn paramedrau derbyniol, ond mynnodd y gweinyddwr gysylltu â "
+"chi gyda'r wybodaeth atodol isod."
 
 #: core/diag/Logopath.php:169
 msgid ""
@@ -362,230 +457,240 @@ msgid ""
 "operational problem at this point in time. Please see the supplemental "
 "information below."
 msgstr ""
+"Penderfynodd gwiriadau cysylltedd amser real fod gan y parth broblem "
+"weithredol ar hyn o bryd. Gweler y wybodaeth atodol isod."
 
 #: core/diag/Logopath.php:177
 msgid "Authentication/Attempt Timestamp of user session:"
-msgstr ""
+msgstr "Dilysu/Ymgais Stamp amser y sesiwn defnyddiwr:"
 
 #: core/diag/Logopath.php:180
 msgid "MAC address of end user in question:"
-msgstr ""
+msgstr "MAC cyfeiriad y defnyddiwr terfynol dan sylw:"
 
 #: core/diag/Logopath.php:183
 msgid "Additional Comments:"
-msgstr ""
+msgstr "Sylwadau Ychwanegol:"
 
-#: core/diag/RADIUSTests.php:1343
+#: core/diag/RADIUSTests.php:1345
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "Wedi'i gysylltu â %s."
 
-#: core/diag/RADIUSTests.php:1348 web/diag/radius_tests.php:233
+#: core/diag/RADIUSTests.php:1350 web/diag/radius_tests.php:240
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>Prawf yn llwyddiannus</strong>: cynhaliwyd sgwrs RADIUS "
+"deugyfeiriadol gyda nifer o deithiau crwn, a daeth i ben gyda Access-Reject "
+"yn ôl y bwriad."
 
-#: core/diag/RADIUSTests.php:1353
+#: core/diag/RADIUSTests.php:1355
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
+"Prawf yn rhannol lwyddiannus: cynhaliwyd sgwrs RADIUS deugyfeiriadol gyda "
+"nifer o deithiau crwn, a daeth i ben gyda Access-Reject fel y cynlluniwyd. "
+"Roedd rhai o briodweddau'r ymgais i cysylltiad yn is-optimaidd; mae'r rhestr "
+"isod."
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
 msgid "All tests passed."
-msgstr ""
+msgstr "Pob prawf wedi ei basio."
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
 msgid "There were some warnings."
-msgstr ""
+msgstr "Roedd rhai rhybuddion."
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
+#: core/diag/RADIUSTestsUI.php:90 web/diag/action_realmcheck.php:136
 msgid "There were some errors."
-msgstr ""
+msgstr "Roedd rhai gwallau."
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:91 web/diag/action_realmcheck.php:137
 msgid "There were some remarks."
-msgstr ""
+msgstr "Cafwyd rhai sylwadau."
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:100 web/diag/action_realmcheck.php:113
 msgid "PASS"
-msgstr ""
+msgstr "PASIO"
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:101 web/diag/action_realmcheck.php:114
 msgid "FAIL"
-msgstr ""
+msgstr "METHU"
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:159
 msgid "Subject:"
-msgstr ""
+msgstr "Pwnc:"
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:160
 msgid "Issuer:"
-msgstr ""
+msgstr "Cyhoeddwr:"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:161
 msgid "Valid from:"
-msgstr ""
+msgstr "Yn ddilys o:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:162
 msgid "Valid to:"
-msgstr ""
+msgstr "Yn ddilys i:"
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:163
 msgid "Serial number:"
-msgstr ""
+msgstr "Rhif Serial:"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:164
 msgid "SHA1 fingerprint:"
-msgstr ""
+msgstr "Olion bysedd SHA1:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
+#: core/diag/RADIUSTestsUI.php:110
+msgid "Public key length:"
+msgstr "Hyd yr allwedd gyhoeddus:"
+
+#: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:145
 msgid "Server certificate"
 msgstr "Tystysgrif gweinydd"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
-msgid "Subject"
-msgstr ""
+#: core/diag/RADIUSTestsUI.php:112
+msgid "Policies:"
+msgstr "Polisïau:"
 
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
-msgid "Issuer"
-msgstr ""
+#: core/diag/RADIUSTestsUI.php:113
+msgid "crlDistributionPoint:"
+msgstr "crlDistributionPoint:"
 
-#: core/diag/RADIUSTestsUI.php:111
-msgid "Policies"
-msgstr ""
+#: core/diag/RADIUSTestsUI.php:114
+msgid "authorityInfoAccess:"
+msgstr "authorityInfoAccess:"
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
-msgid "crlDistributionPoint"
-msgstr ""
+#: core/diag/RADIUSTestsUI.php:115
+msgid "SubjectAltName:"
+msgstr "SubjectAltName:"
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
-msgid "authorityInfoAccess"
-msgstr ""
-
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
-msgid "SubjectAltName"
-msgstr ""
-
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
-#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:229 web/diag/action_realmcheck.php:594
+#: web/diag/action_realmcheck.php:603 web/diag/show_realmcheck.php:134
 msgid "Overview"
-msgstr ""
+msgstr "Trosolwg"
 
-#: core/diag/RADIUSTestsUI.php:214
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:611
 msgid "DNS checks"
-msgstr ""
+msgstr "Gwiriadau DNS"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
+#: core/diag/RADIUSTestsUI.php:234 web/diag/action_realmcheck.php:629
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "Gwirio bodolaeth NAPTR:"
 
 #. return codes specific to NAPTR existence checks
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:584
+#: core/diag/RADIUSTestsUI.php:237 core/diag/RFC7585Tests.php:157
+#: web/diag/action_realmcheck.php:632
 msgid "This realm has no NAPTR records."
-msgstr ""
+msgstr "Nid oes gan y parth hon unrhyw cofnodion NAPTR."
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
+#: core/diag/RADIUSTestsUI.php:240 web/diag/action_realmcheck.php:635
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Mae gan y parth hon cofnodion NAPTR, ond nid oes yr un ohonynt yn ymwneud "
+"â'r consortiwm crwydro hwn."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
+#: core/diag/RADIUSTestsUI.php:243 web/diag/action_realmcheck.php:638
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
+"Mae gan y parth hon %d cofnodion NAPTR yn ymwneud â'r consortiwm crwydro hwn."
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
+#: core/diag/RADIUSTestsUI.php:248 web/diag/action_realmcheck.php:644
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-msgstr ""
+msgstr "Gwirio cydymffurfiad NAPTR (flag = S a regex = {empty}):"
 
-#: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
+#: core/diag/RADIUSTestsUI.php:254 core/diag/RADIUSTestsUI.php:267
+#: web/diag/action_realmcheck.php:651 web/diag/action_realmcheck.php:665
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "O leiaf un NAPTR gyda chynnwys annilys wedi'i ganfod!"
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
+#: core/diag/RADIUSTestsUI.php:261 web/diag/action_realmcheck.php:659
 msgid "Checking SRVs:"
-msgstr ""
+msgstr "Gwirio SRVs:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
+#: core/diag/RADIUSTestsUI.php:270 web/diag/action_realmcheck.php:668
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "Wedi darganfod %d enw gwesteiwr."
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:675
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "Gwirio cydraniad cyfeiriad IP:"
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
+#: core/diag/RADIUSTestsUI.php:282 web/diag/action_realmcheck.php:681
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr ""
+msgstr "Nid oedd modd datrys o leiaf un enw gwesteiwr!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
+#: core/diag/RADIUSTestsUI.php:285 web/diag/action_realmcheck.php:684
 #, php-format
 msgid "%d IP addresses resolved."
-msgstr ""
+msgstr "%d cyfeiriad IP wedi eu datrys."
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
-#: web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:291 web/diag/action_realmcheck.php:692
+#: web/diag/action_realmcheck.php:694
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "Parth yw <strong>%s</strong>"
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
+#: core/diag/RADIUSTestsUI.php:293 web/diag/action_realmcheck.php:692
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "heb unrhyw wallau DNS dod ar eu traws. Llongyfarchiadau!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
 msgid "but there were DNS errors! Check them!"
-msgstr ""
+msgstr "ond roedd gwallau DNS! Gwiriwch nhw!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Dylech ail-redeg y profion ar ôl trwsio'r gwallau; efallai y bydd mwy o "
+"wallau yn dod i'r amlwg bryd hynny. Rhestrir yr union achosion gwallau isod."
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
+#: core/diag/RADIUSTestsUI.php:304 web/diag/action_realmcheck.php:622
 msgid "Dynamic discovery test is not configured"
-msgstr ""
+msgstr "Nid yw prawf darganfod deinamig wedi'i ffurfweddu"
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
-#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:306 web/diag/action_realmcheck.php:595
+#: web/diag/action_realmcheck.php:760 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
-msgstr ""
+msgstr "Profion cysylltedd statig"
 
-#: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
-#: web/diag/action_realmcheck.php:429
+#: core/diag/RADIUSTestsUI.php:310 core/diag/RADIUSTestsUI.php:316
+#: web/diag/action_realmcheck.php:433 web/diag/action_realmcheck.php:438
+#: web/diag/action_realmcheck.php:443
 msgid "See the appropriate tab for details."
-msgstr ""
+msgstr "Gweler y tab priodol am fanylion."
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
-#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:313 web/diag/action_realmcheck.php:596
+#: web/diag/action_realmcheck.php:765 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
-msgstr ""
+msgstr "Profion cysylltedd deinamig"
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
+#: core/diag/RADIUSTestsUI.php:327 web/diag/action_realmcheck.php:785
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "Profion cysylltedd STATIG"
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
+#: core/diag/RADIUSTestsUI.php:329 web/diag/action_realmcheck.php:787
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -594,209 +699,241 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Mae'r gwiriad hwn yn anfon cais am y parth trwy amrywiol bwyntiau mynediad y "
+"seilwaith consortiwm crwydro. Bydd y cais yn cynnwys y briodwedd 'Operator-"
+"Name', a bydd yn fwy na 1500 Beit i ddal dwy broblem ffurfweddu gyffredin."
+"<br/>Gan nad oes gennym ni fanylion mewngofnodi mynediad defnyddwyr "
+"gwirioneddol ar gyfer y parth, ni allwn ddilysu'n llwyddiannus - felly'r "
+"canlyniad disgwyliedig yw cael Access-Reject ar ôl mynd trwy sgwrs EAP."
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
-#: web/diag/action_realmcheck.php:881
+#: core/diag/RADIUSTestsUI.php:335
 #, php-format
-msgid "Testing from: %s"
-msgstr ""
+msgid "Testing from: <strong>%s"
+msgstr "Profi rhag: <strong>%s"
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
+#: core/diag/RADIUSTestsUI.php:342 web/diag/action_realmcheck.php:166
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Wedi'i gysylltu â gweinydd amhenderfynedig"
 
-#: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
-#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
+#: core/diag/RADIUSTestsUI.php:342 core/diag/RADIUSTestsUI.php:517
+#: web/diag/action_realmcheck.php:279 web/diag/action_realmcheck.php:397
+#: web/diag/action_realmcheck.php:417 web/diag/action_realmcheck.php:478
 #, php-format
 msgid "elapsed time: %sms."
-msgstr ""
+msgstr "amser aeth heibio: %s ms."
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
-#: web/diag/action_realmcheck.php:454
+#: core/diag/RADIUSTestsUI.php:359 web/diag/action_realmcheck.php:408
+#: web/diag/action_realmcheck.php:468
 msgid "Extensions"
-msgstr ""
+msgstr "Estyniadau"
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
+#: core/diag/RADIUSTestsUI.php:367 web/diag/action_realmcheck.php:409
 msgid "show server certificate details"
-msgstr ""
+msgstr "dangos manylion tystysgrif gweinydd"
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
+#: core/diag/RADIUSTestsUI.php:381 web/diag/action_realmcheck.php:845
 msgid "Checking server handshake..."
-msgstr ""
+msgstr "Wrthi'n gwirio ysgwyd llaw'r gweinydd..."
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
+#: core/diag/RADIUSTestsUI.php:397 web/diag/action_realmcheck.php:858
+msgid "supported TLS protocols: "
+msgstr "brotocolau TLS â chymorth:"
+
+#: core/diag/RADIUSTestsUI.php:400 web/diag/action_realmcheck.php:861
+msgid "not supported: "
+msgstr "heb ei gefnogi:"
+
+#: core/diag/RADIUSTestsUI.php:442 web/diag/action_realmcheck.php:125
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr "mwy"
 
-#: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
+#: core/diag/RADIUSTestsUI.php:446 core/diag/RADIUSTestsUI.php:538
 msgid "Test failed"
-msgstr ""
+msgstr "Methodd y prawf"
 
-#: core/diag/RADIUSTestsUI.php:430
+#: core/diag/RADIUSTestsUI.php:473
 msgid "Client certificate"
-msgstr ""
+msgstr "Tystysgrif cleient"
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:484 web/diag/action_realmcheck.php:116
 msgid "expected result: "
-msgstr ""
+msgstr "canlyniad disgwyliedig:"
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:487 web/diag/action_realmcheck.php:276
+msgid "this test was skipped - no appropriate client certificate"
+msgstr "hepgorwyd y prawf hwn - dim tystysgrif cleient briodol"
+
+#: core/diag/RADIUSTestsUI.php:497 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate"
-msgstr ""
+msgstr "Derbyniodd y gweinydd y tystysgrif cleient hon"
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
+#: core/diag/RADIUSTestsUI.php:500 web/diag/action_realmcheck.php:122
 msgid "You should update your list of accredited CAs"
-msgstr ""
+msgstr "Dylech ddiweddaru eich rhestr o AT achrededig"
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
+#: core/diag/RADIUSTestsUI.php:502 web/diag/action_realmcheck.php:123
 msgid "Get it from here."
-msgstr ""
+msgstr "Ei gael oddi yma."
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
+#: core/diag/RADIUSTestsUI.php:504 web/diag/action_realmcheck.php:120
 msgid "Server did not accept this client certificate - reason"
-msgstr ""
+msgstr "Ni dderbyniodd y gweinydd y tystysgrif cleient hon - rheswm"
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:510 web/diag/action_realmcheck.php:118
 msgid "Server accepted this client certificate, but should not have"
-msgstr ""
+msgstr "Derbyniodd y gweinydd y tystysgrif cleient hon, ond ni ddylai fod"
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:513 web/diag/action_realmcheck.php:119
 msgid "Server did not accept this client certificate"
-msgstr ""
+msgstr "Ni dderbyniodd y gweinydd y tystysgrif cleient hon"
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:521 web/diag/action_realmcheck.php:121
 msgid "Rest of tests for this CA skipped"
-msgstr ""
+msgstr "Hepgor gweddill y profion ar gyfer y AT hwn"
 
-#: core/diag/RADIUSTestsUI.php:501
+#: core/diag/RADIUSTestsUI.php:550
 msgid "These tests were skipped because of previous errors."
-msgstr ""
+msgstr "Hepgorwyd y profion hyn oherwydd gwallau blaenorol."
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
+#: core/diag/RADIUSTestsUI.php:561 web/diag/action_realmcheck.php:831
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "Profion cysylltedd DEINAMIG"
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:570 web/diag/action_realmcheck.php:844
 msgid "Some errors were found during the tests, see below"
-msgstr ""
+msgstr "Canfuwyd rhai gwallau yn ystod y profion, gweler isod"
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:576 web/diag/action_realmcheck.php:844
 msgid "All tests passed, congratulations!"
-msgstr ""
+msgstr "Pob prawf wedi pasio, llongyfarchiadau!"
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
-#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:578 web/diag/action_realmcheck.php:127
+#: web/diag/action_realmcheck.php:845 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
-msgstr ""
+msgstr "Dangos gwybodaeth fanwl ar gyfer pob prawf"
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
-msgid "Checking if certificates from  CAs are accepted..."
-msgstr ""
+#: core/diag/RADIUSTestsUI.php:582
+msgid "Checking if certificates from CAs are accepted..."
+msgstr "Gwirio a yw tystysgrifau gan CAau yn cael eu derbyn..."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
+#: core/diag/RADIUSTestsUI.php:582 web/diag/action_realmcheck.php:896
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
-
-#: core/diag/RFC6614Tests.php:97
-msgid "eduPKI"
-msgstr ""
+"Bydd rhai tystysgrifau cleient yn cael eu profi i wirio a yw gweinyddwyr yn "
+"gwrthsefyll rhai problemau tystysgrif."
 
 #: core/diag/RFC6614Tests.php:98
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: core/diag/RFC6614Tests.php:99
 msgid "Nicolaus Copernicus University"
 msgstr "Prifysgol Nicolaus Copernicus"
 
-#: core/diag/RFC6614Tests.php:99
-msgid "accredited"
-msgstr ""
-
 #: core/diag/RFC6614Tests.php:100
-msgid "non-accredited"
-msgstr ""
+msgid "accredited"
+msgstr "achrededig"
 
 #: core/diag/RFC6614Tests.php:101
-msgid "correct certificate"
-msgstr ""
+msgid "non-accredited"
+msgstr "anachrededig"
 
 #: core/diag/RFC6614Tests.php:102
-msgid "certificate with wrong policy OID"
-msgstr ""
+msgid "correct certificate"
+msgstr "tystysgrif gywir"
 
 #: core/diag/RFC6614Tests.php:103
-msgid "expired certificate"
-msgstr ""
+msgid "certificate with wrong policy OID"
+msgstr "tystysgrif gyda pholisi OID anghywir"
 
 #: core/diag/RFC6614Tests.php:104
-msgid "revoked certificate"
-msgstr ""
+msgid "expired certificate"
+msgstr "tystysgrif wedi ddarfod"
 
 #: core/diag/RFC6614Tests.php:105
-msgid "pass"
-msgstr ""
+msgid "revoked certificate"
+msgstr "tystysgrif wedi'i dirymu"
 
 #: core/diag/RFC6614Tests.php:106
-msgid "fail"
-msgstr ""
+msgid "pass"
+msgstr "pasio"
 
 #: core/diag/RFC6614Tests.php:107
+msgid "fail"
+msgstr "methu"
+
+#: core/diag/RFC6614Tests.php:108
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr ""
+msgstr "AT achrededig eduroam (ar gyfer profion yn unig erbyn hyn)"
 
-#: core/diag/RFC6614Tests.php:354
+#: core/diag/RFC6614Tests.php:367
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "Heb sefydlu cysylltiad TLS: Cysylltiad wedi'i wrthod"
 
-#: core/diag/RFC6614Tests.php:356
+#: core/diag/RFC6614Tests.php:369
 msgid "certificate expired"
-msgstr ""
+msgstr "tystysgrif wedi ddarfod"
 
-#: core/diag/RFC6614Tests.php:358
+#: core/diag/RFC6614Tests.php:371
 msgid "certificate was revoked"
-msgstr ""
+msgstr "diddymwyd y tystysgrif"
 
-#: core/diag/RFC6614Tests.php:360
+#: core/diag/RFC6614Tests.php:374
 msgid "bad policy"
-msgstr ""
+msgstr "polisi gwael"
 
-#: core/diag/RFC6614Tests.php:362
+#: core/diag/RFC6614Tests.php:376
 msgid "unknown authority"
-msgstr ""
+msgstr "awdurdod anhysbys"
 
-#: core/diag/RFC6614Tests.php:365
-msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
+#: core/diag/RFC6614Tests.php:379
+msgid "unexpected eof while reading"
+msgstr "EOF annisgwyl wrth ddarllen"
+
+#: core/diag/RFC6614Tests.php:382
+msgid "unknown problem"
+msgstr "problem anhysbys"
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
 #.
-#: core/diag/RFC7585Tests.php:162
+#: core/diag/RFC7585Tests.php:163
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
+"Darganfuwyd cofnodion NAPTR, ond mae pob un ohonynt yn cyfeirio at "
+"wasanaethau nad ydynt yn gysylltiedig."
 
 #: core/diag/Sociopath.php:63
 msgid "There is nothing you can do to solve this problem yourself."
 msgstr ""
+"Nid oes unrhyw beth y gallwch ei wneud i ddatrys y broblem hon eich hun."
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"Byddwch yn amyneddgar a rhowch gynnig arall arni yn nes ymlaen. PEIDIWCH â "
+"newid ffurfweddiad eich dyfais."
 
 #: core/diag/Sociopath.php:65
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"Mae'r gweithredwyr seilwaith wedi cael gwybod yn awtomatig a byddant yn "
+"ymchwilio i'r mater cyn gynted â phosibl."
 
 #: core/diag/Sociopath.php:67
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
+"Mae'r system wedi nodi problemau posibl ynghylch ffurfweddiad eich dyfais "
+"leol."
 
 #: core/diag/Sociopath.php:75
 msgid ""
@@ -804,6 +941,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"Ni all y system ddod o hyd i unrhyw wybodaeth o gwbl am y Darparwr "
+"Hunaniaeth a ddisgrifiwyd gennych. Mae'n debyg nad yw hwn yn sefydliad sy'n "
+"cymryd rhan ac nid yw'r cyfrif y ceisioch ei ddefnyddio yn bodoli."
 
 #: core/diag/Sociopath.php:76
 msgid ""
@@ -814,6 +954,12 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"Mae'n debyg y bydd rhai materion yn ymwneud â'r rhan diwifr o'r rhwydwaith "
+"rydych chi'n ceisio cysylltu ag ef. Nid yw rhwydweithiau diwifr bob amser yn "
+"ymddwyn yn benderfynol ac yn gyson. Rhaid i bob defnyddwyr mewn lleoliad "
+"penodol rannu'r lled band sydd ar gael, a gall yr amgylchedd ffisegol "
+"(waliau concrit, gwrthrychau yn y ffordd, gwahaniaethau drychiad) gael "
+"effaith sylweddol ar eich profiad cysylltedd."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -825,12 +971,17 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Dylech ddefnyddio cynorthwywyr ffurfweddu priodol [MGW: gweld a yw'r parth "
+"yn bodoli yn CAT, yna dangos cyswllt i config] neu gysylltu â'ch Darparwr "
+"Hunaniaeth [MGW: dangos gwybodaeth gyswllt]."
 
 #: core/diag/Sociopath.php:88
 msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Ydych chi erioed wedi defnyddio’r rhwydwaith yn llwyddiannus, e.e. yn eich "
+"sefydliad cartref heb grwydro?"
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -840,12 +991,16 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
+"Os nad yw'ch dyfais erioed wedi gweithio gyda'r gosodiad hwn o'r blaen, yna "
+"mae'n debygol iawn bod ffurfweddiad eich dyfais yn anghywir. %s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"A oedd y ddyfais yn gweithio o'r blaen wrth grwydro, h.y. mewn llecynnau "
+"eraill i ffwrdd o'ch sefydliad cartref?"
 
 #. that's good, and somewhat encouraging
 #. that is almost a smoking gun
@@ -857,10 +1012,15 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at your home organisation, but can not be used when roaming. %s"
 msgstr ""
+"Os nad yw crwydro'n gyson yn gweithio, yna mae'n debygol iawn bod "
+"ffurfweddiad eich dyfais yn anghywir. Mae gwallau nodweddiadol sy'n achosi'r "
+"symptom hwn yn cynnwys: defnyddio enw defnyddiwr llwybro ('allanol') heb yr "
+"ôl-ddodiad @realm.tld - mae'r rheini o bosibl yn gweithio yn eich sefydliad "
+"cartref, ond ni ellir eu defnyddio wrth grwydro. %s"
 
 #: core/diag/Sociopath.php:98
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "A wnaethoch chi newid y ffurfweddiad ar eich dyfais yn ddiweddar?"
 
 #. that is almost a smoking gun
 #. encouraging
@@ -872,10 +1032,16 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"Dim ond unwaith y mae angen ffurfweddu cyfrifon, ac yna gellir eu defnyddio "
+"unrhyw le ar y blaned heb unrhyw newidiadau. Os gwnaethoch newid y "
+"ffurfweddiad yn ddiweddar, mae'n bosibl iawn mai'r newid hwnnw fydd ar fai. "
+"Ni ddylech byth newid ffurfweddiad eich rhwydwaith oni bai bod eich Darparwr "
+"Hunaniaeth yn rhoi cyfarwyddiadau penodol i chi; hyd yn oed yn achos "
+"materion mewngofnodi dros dro."
 
 #: core/diag/Sociopath.php:103
 msgid "Did you recently change your password?"
-msgstr ""
+msgstr "A wnaethoch chi newid eich cyfrinair yn ddiweddar?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -884,10 +1050,14 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Pan fyddwch chi'n newid eich cyfrinair, mae angen i chi hefyd gyflenwi'r "
+"cyfrinair newydd yng nghyfluniad y ddyfais."
 
 #: core/diag/Sociopath.php:108
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
+"Os ydych yn defnyddio mwy nag un ddyfais: a yw eich dyfeisiau eraill yn dal "
+"i weithio?"
 
 #. seems that all is okay with the account as such
 #. now that is suspicious indeed
@@ -898,12 +1068,18 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Pe bai pob dyfais yn stopio gweithio ar yr un pryd, efallai y bydd problem "
+"gyda'ch cyfrif fel y cyfryw. Efallai bod eich cyfrif wedi ddarfod, neu ichi "
+"gael eich gorfodi i newid y cyfrinair? Eich Darparwr Hunaniaeth yw'r ffordd "
+"orau i ateb y cwestiynau hyn [MGW: dangos y manylion cyswllt]"
 
 #: core/diag/Sociopath.php:113
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"A yw'r lle rydych yn ei orlawn iawn ar hyn o bryd, neu a yw llwyth gwaith "
+"rhwydwaith-ddwys yn mynd rhagddo?"
 
 #: core/diag/Sociopath.php:116
 msgid ""
@@ -912,10 +1088,15 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Mae'r rhwydwaith yn debygol o gael ei orlwytho yn y lleoliad hwn ac yn y man "
+"hwn. Efallai y bydd yn rhaid i chi aros tan yn ddiweddarach cyn i chi gael "
+"gwell cysylltedd. Os credwch y dylid atgyfnerthu'r rhwydwaith ar gyfer mwy o "
+"gapasiti yn y lle hwn, dylech roi gwybod i ddarparwr y man llecyn. [MGW: "
+"ychwanegu manylion cyswllt]"
 
 #: core/diag/Sociopath.php:118
 msgid "Does the connection get better when you move around?"
-msgstr ""
+msgstr "Ydy'r cysylltiad yn gwella pan fyddwch chi'n symud o gwmpas?"
 
 #: core/diag/Sociopath.php:121
 msgid ""
@@ -923,11 +1104,16 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Dylech symud i lleoliad gwahanol i sicrhau gwasanaeth a gwasanaeth "
+"rhwydwaith gwell. Os credwch fod yr union fan yr ydych ynddo yn haeddu gwell "
+"sylw, dylech roi gwybod i ddarparwr y llecyn. [MGW: ychwanegu manylion "
+"cyswllt]"
 
 #: core/diag/Sociopath.php:123
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
+"Ydych chi'n gweld gwallau yn nodi rhywbeth tebyg i 'Methu cael cyfeiriad IP'?"
 
 #. gotcha
 #. the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
@@ -937,133 +1123,148 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"Mae’r dystiolaeth sydd wrth law yn awgrymu y gallai fod problem seilwaith yn "
+"y darparwr llecyn penodol hwn. Nid oes unrhyw beth y gallwch ei wneud i "
+"ddatrys y broblem hon yn lleol. Byddwch yn amyneddgar a rhowch gynnig arall "
+"arni yn nes ymlaen."
 
 #: web/skins/modern/diag/diag.php:82
 msgid "Diagnostics site"
-msgstr ""
+msgstr "Safle Diagnosteg"
 
 #: web/skins/modern/diag/diag.php:85
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
+"Bydd y system diagnosteg yn gwneud ei gorau i nodi a datrys eich problemau!"
 
 #: web/skins/modern/diag/diag.php:85
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
-msgstr ""
+msgstr "Helpwch y system drwy ateb y cwestiynau mor fanwl gywir â phosibl."
 
 #: web/skins/modern/diag/diag.php:85
 msgid "Are you a"
-msgstr ""
+msgstr "Ydych chi a"
 
 #: web/skins/modern/diag/diag.php:86
 msgid "end-user"
-msgstr ""
+msgstr "defnyddiwr terfynol"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:151
 msgid "or"
-msgstr ""
+msgstr "neu"
 
 #: web/skins/modern/diag/diag.php:87
 msgid "eduroam administrator"
-msgstr ""
+msgstr "gweinyddwr eduroam"
 
 #: web/skins/modern/diag/diag.php:90
 msgid "Tools for End Users"
-msgstr ""
+msgstr "Offer ar gyfer Defnyddwyr Terfynol"
 
 #: web/skins/modern/diag/diag.php:93
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
+"Er mwyn datrys eich broblem rhaid cynnal diagnosteg amser real ar parth eich "
+"maes."
 
 #: web/skins/modern/diag/diag.php:97
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
+"Mae angen rhywfaint o wybodaeth ar y system am eich sefydliad cartref - "
+"cyhoeddwr eich cyfrif"
 
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<strong>realm.tld</strong>'):"
 msgstr ""
+"Beth yw rhan parth eich cyfrif defnyddiwr (y rhan y tu ôl i @ o 'your."
+"username@<strong>realm.tld</strong>'):"
 
 #: web/skins/modern/diag/diag.php:102
 msgid "alternatively"
-msgstr ""
+msgstr "fel arall"
 
 #: web/skins/modern/diag/diag.php:103
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "Gallwch ddewis eich sefydliad cartref o'r rhestr ganlynol"
 
 #: web/skins/modern/diag/diag.php:105
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "Cliciwch i ddewis eich gwlad/rhanbarth a'ch sefydliad"
 
 #: web/skins/modern/diag/diag.php:112
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Yn ddewisol, i wella profion, gallwch ddarparu gwybodaeth am eich lleoliad "
+"presennol"
 
 #: web/skins/modern/diag/diag.php:114
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
+msgstr "Cliciwch i ddewis lleoliad lle mae gennych broblem eduroam"
 
 #: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
 msgid "Testing realm"
-msgstr ""
+msgstr "Profi'r parth"
 
 #: web/skins/modern/diag/diag.php:122
 msgid "First stage completed."
-msgstr ""
+msgstr "Cam cyntaf wedi'i gwblhau."
 
 #: web/skins/modern/diag/diag.php:127
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
+msgstr "Er mwyn lleihau'r broblem, atebwch yr ychydig gwestiynau canlynol."
 
 #: web/skins/modern/diag/diag.php:132
 msgid "Run tests"
-msgstr ""
+msgstr "Rhedeg profion"
 
 #: web/skins/modern/diag/diag.php:137
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "Offer ar gyfer gweinyddwyr eduroam"
 
 #: web/skins/modern/diag/diag.php:147
 msgid "What is the nature of the problem?"
-msgstr ""
+msgstr "Beth yw natur y broblem?"
 
 #: web/skins/modern/diag/diag.php:149
 msgid "I suspect a technical problem at a particular IdP"
-msgstr ""
+msgstr "Rwy'n amau problem dechnegol mewn CDU penodol"
 
 #: web/skins/modern/diag/diag.php:151
 msgid "I want to report abuse of network resources by a roaming user"
 msgstr ""
+"Rwyf am adrodd am gamddefnydd o adnoddau rhwydwaith gan defnyddiwr crwydro"
 
 #: web/skins/modern/diag/diag.php:153
 msgid "I suspect a technical problem for one of my users at a particular SP"
-msgstr ""
+msgstr "Rwy'n amau ​​problem dechnegol i un o'm defnyddwyr mewn SP penodol"
 
 #: web/skins/modern/diag/diag.php:160
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Mae'r gwasanaeth hwn ar gyfer gweinyddwyr dilys yn unig."
 
 #: web/skins/modern/diag/diag.php:162
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "Mae angen mynediad gweinyddol eduroam®"
 
 #: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Nôl rhestr sefydliadau"
 
 #: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institution:"
-msgstr ""
+msgstr "Dewiswch sefydliad:"
 
 #: web/skins/modern/diag/diag.php:279
 msgid ""
@@ -1071,515 +1272,598 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Nid yw'r cronfa ddata yn cynnwys y wybodaeth sydd ei hangen i'ch helpu i "
+"ddewis meysydd ar parth y wlad hon. Mae'n rhaid i chi ddarparu'r parth y mae "
+"gennych ddiddordeb ynddo."
 
 #: web/skins/modern/diag/diag.php:288
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Methu chwilio yn y cronfa ddata. Mae'n rhaid i chi ddarparu'r parth y mae "
+"gennych ddiddordeb ynddo."
 
 #: web/skins/modern/diag/diag.php:304
 msgid "Check if this realm is registered"
-msgstr ""
+msgstr "Gwiriwch a yw'r parth hon wedi'i chofrestru"
 
 #: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
 msgid "Check this realm"
-msgstr ""
+msgstr "Gwiriwch y parth hon"
 
 #: web/skins/modern/diag/diag.php:355
 msgid "Other location"
-msgstr ""
+msgstr "Lleoliad arall"
 
 #: web/skins/modern/diag/diag.php:389
 msgid "Fetching realms list"
-msgstr ""
+msgstr "Nôl rhestr parthau"
 
-#: web/skins/modern/diag/diag.php:401
+#: web/skins/modern/diag/diag.php:402
 msgid "Check realm(s):"
-msgstr ""
+msgstr "Gwirio parth(au):"
 
-#: web/skins/modern/diag/diag.php:413
+#: web/skins/modern/diag/diag.php:414
 msgid "Realm:"
-msgstr ""
+msgstr "Parth:"
 
-#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:472 web/skins/modern/diag/diag.php:534
 msgid "Running realm tests"
-msgstr ""
+msgstr "Rhedeg profion parth"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:582
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "Canlyniadau diagnosteg ar gyfer parthau dethol"
 
-#: web/skins/modern/diag/diag.php:575
+#: web/skins/modern/diag/diag.php:583
 msgid "An unknown problem occurred"
-msgstr ""
+msgstr "Digwyddodd problem anhysbys"
 
-#: web/skins/modern/diag/diag.php:578
+#: web/skins/modern/diag/diag.php:586
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Mae'r prawf hwn yn cynnwys gwirio'r parth ganlynol"
 
-#: web/skins/modern/diag/diag.php:580
+#: web/skins/modern/diag/diag.php:588
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Mae'r prawf hwn yn cynnwys gwirio'r parthau ganlynol"
 
-#: web/skins/modern/diag/diag.php:590
+#: web/skins/modern/diag/diag.php:598
 msgid "You should report this to"
-msgstr ""
+msgstr "Dylech adrodd hyn i"
 
-#: web/skins/modern/diag/diag.php:658
+#: web/skins/modern/diag/diag.php:666
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "adroddiad eduroam gweinyddol ymostyngiad"
 
-#: web/skins/modern/diag/diag.php:661
+#: web/skins/modern/diag/diag.php:669
 msgid "SP contacting IdP due to technical problems or abuse"
-msgstr ""
+msgstr "SP yn cysylltu â CDU oherwydd problemau technegol neu gamdriniaeth"
 
-#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:671 web/skins/modern/diag/diag.php:695
 msgid "Reason"
-msgstr ""
+msgstr "Rheswm"
 
-#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
+#: web/skins/modern/diag/diag.php:672 web/skins/modern/diag/diag.php:699
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Stamp amser digwyddiadau"
 
-#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
+#: web/skins/modern/diag/diag.php:673 web/skins/modern/diag/diag.php:700
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
+#: web/skins/modern/diag/diag.php:674 web/skins/modern/diag/diag.php:701
 msgid "Additional description"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:667
-msgid "An email to contact the reporter"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:668
-msgid "Test result"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
-msgid "failure"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
-msgid "success"
-msgstr ""
+msgstr "Disgrifiad ychwanegol"
 
 #: web/skins/modern/diag/diag.php:675
-msgid "Test URL"
-msgstr ""
+msgid "An email to contact the reporter"
+msgstr "E-bost i gysylltu â'r gohebydd"
 
 #: web/skins/modern/diag/diag.php:676
+msgid "Test result"
+msgstr "Canlyniad prawf"
+
+#: web/skins/modern/diag/diag.php:678 web/diag/adminQuery.php:260
+msgid "failure"
+msgstr "methiant"
+
+#: web/skins/modern/diag/diag.php:680 web/diag/adminQuery.php:258
+msgid "success"
+msgstr "llwyddiant"
+
+#: web/skins/modern/diag/diag.php:683
+msgid "Test URL"
+msgstr "Prawf URL"
+
+#: web/skins/modern/diag/diag.php:684
 msgid "Email to IdP administrators "
-msgstr ""
+msgstr "E-bost at weinyddwyr CDU"
 
-#: web/skins/modern/diag/diag.php:678
+#: web/skins/modern/diag/diag.php:686
 msgid "send successfully"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:680
-msgid "not sent - failure while sending"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:685
-msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
+msgstr "anfon yn llwyddiannus"
 
 #: web/skins/modern/diag/diag.php:688
+msgid "not sent - failure while sending"
+msgstr "not sent - methiant wrth anfon"
+
+#: web/skins/modern/diag/diag.php:693
+msgid "IdP contacting SP due to technical problems or abuse"
+msgstr "CDU yn cysylltu â SP oherwydd problemau technegol neu gamdriniaeth"
+
+#: web/skins/modern/diag/diag.php:696
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "SP Operator-Name"
 
-#: web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:697
 msgid "User's outer ID"
-msgstr ""
+msgstr "ID allanol y defnyddiwr"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:698
 msgid "IdP email"
-msgstr ""
+msgstr "E-bost CDU"
 
-#: web/skins/modern/diag/diag.php:694
+#: web/skins/modern/diag/diag.php:702
 msgid "How to contact the user"
-msgstr ""
+msgstr "Sut i gysylltu â'r defnyddiwr"
 
-#: web/skins/modern/diag/diag.php:720
+#: web/skins/modern/diag/diag.php:733
 msgid "Wrong format of realm"
-msgstr ""
+msgstr "Fformat anghywir o parth"
 
-#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
+#: web/skins/modern/diag/diag.php:747 web/skins/modern/diag/diag.php:769
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Fformat anghywir o e-bost"
 
-#: web/skins/modern/diag/diag.php:743
+#: web/skins/modern/diag/diag.php:760
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "Mae MAC cyfeiriad yn anghyflawn"
 
-#: web/skins/modern/diag/diag.php:761
+#: web/skins/modern/diag/diag.php:778
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "Fformat anghywir o ID allanol"
 
-#: web/skins/modern/diag/diag.php:770
+#: web/skins/modern/diag/diag.php:787
 msgid "Wrong string given as OperatorName"
-msgstr ""
+msgstr "Llinyn anghywir wedi'i roi fel Operator-Name"
 
 #: web/diag/action_realmcheck.php:30 web/diag/show_realmcheck.php:37
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
-msgstr ""
+msgstr "Gwiriad bwyll am ddarganfyddiad deinamig o parthau"
 
 #: web/diag/action_realmcheck.php:72
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"Fe wnaethoch chi ofyn am wiriad parth, ond nid ydym yn gwybod beth yw'r "
+"parth ar gyfer y proffil hwn!"
 
 #: web/diag/action_realmcheck.php:81
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:84
-msgid "STATIC"
-msgstr ""
+msgstr "Ni roddir enw parth dilys, ni all weithredu unrhyw wiriadau!"
 
 #: web/diag/action_realmcheck.php:85
-msgid "DYNAMIC"
-msgstr ""
+msgid "STATIC"
+msgstr "STATIG"
 
-#: web/diag/action_realmcheck.php:119
+#: web/diag/action_realmcheck.php:86
+msgid "DYNAMIC"
+msgstr "DEINAMIG"
+
+#: web/diag/action_realmcheck.php:115
 msgid "Client certificate:"
-msgstr ""
+msgstr "Tystysgrif cleient:"
+
+#: web/diag/action_realmcheck.php:132
+msgid "Connection timeout"
+msgstr "Terfyn amser cysylltiad"
+
+#: web/diag/action_realmcheck.php:146
+msgid "Subject"
+msgstr "Pwnc"
+
+#: web/diag/action_realmcheck.php:147
+msgid "Issuer"
+msgstr "Cyhoeddwr"
+
+#: web/diag/action_realmcheck.php:148
+msgid "Valid to"
+msgstr "Yn ddilys i"
+
+#: web/diag/action_realmcheck.php:149
+msgid "SubjectAltName"
+msgstr "SubjectAltName"
+
+#: web/diag/action_realmcheck.php:150
+msgid "Certificate policies"
+msgstr "Polisïau tystysgrif"
 
 #: web/diag/action_realmcheck.php:151
-msgid "Certificate policies"
-msgstr ""
+msgid "crlDistributionPoint"
+msgstr "crlDistributionPoint"
+
+#: web/diag/action_realmcheck.php:152
+msgid "authorityInfoAccess"
+msgstr "authorityInfoAccess"
+
+#: web/diag/action_realmcheck.php:153 web/diag/action_realmcheck.php:165
+msgid "Public key length"
+msgstr "Hyd yr allwedd gyhoeddus"
 
 #: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
-msgstr ""
+msgstr "Cuddio gwybodaeth fanwl ar gyfer pob prawf"
 
-#: web/diag/action_realmcheck.php:217
+#: web/diag/action_realmcheck.php:219
 msgid "Some required input is missing!"
-msgstr ""
+msgstr "Mae rhywfaint o fewnbwn gofynnol ar goll!"
 
-#: web/diag/action_realmcheck.php:442
+#: web/diag/action_realmcheck.php:456
 msgid "Server certificate details:"
-msgstr ""
+msgstr "Manylion tystysgrif gweinydd:"
 
-#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:589 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Profi parth ar gyfer: %s"
 
-#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
-#: web/diag/action_realmcheck.php:780
+#: web/diag/action_realmcheck.php:597 web/diag/action_realmcheck.php:771
+#: web/diag/action_realmcheck.php:833
 msgid "OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Profion cysylltedd OpenRoaming"
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:598
 msgid "Live login tests"
-msgstr ""
+msgstr "Profion mewngofnodi byw"
 
-#: web/diag/action_realmcheck.php:563
-msgid "DNS checks"
-msgstr ""
-
-#: web/diag/action_realmcheck.php:569
+#: web/diag/action_realmcheck.php:617
 msgid "OpenRoaming DNS checks"
-msgstr ""
+msgstr "Gwiriadau DNS OpenRoaming"
 
-#: web/diag/action_realmcheck.php:576
+#: web/diag/action_realmcheck.php:624
 msgid "OpenRoaming connectivity test is not configured"
-msgstr ""
+msgstr "Nid yw prawf cysylltedd OpenRoaming wedi'i ffurfweddu"
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:648
 msgid "No issues found."
-msgstr ""
+msgstr "Ni chanfuwyd unrhyw faterion."
 
-#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:782 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
-msgstr ""
+msgstr "Ailadrodd profion cysylltedd statig"
 
-#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
-#: web/diag/action_realmcheck.php:818
+#: web/diag/action_realmcheck.php:791 web/diag/action_realmcheck.php:949
+#, php-format
+msgid "Testing from: %s"
+msgstr "Profi o: %s"
+
+#: web/diag/action_realmcheck.php:796 web/diag/action_realmcheck.php:869
+#: web/diag/action_realmcheck.php:886
 msgid "testing..."
-msgstr ""
+msgstr "profi..."
 
-#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:823 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
-msgstr ""
+msgstr "Ailadrodd profion cysylltedd deinamig"
 
-#: web/diag/action_realmcheck.php:770
+#: web/diag/action_realmcheck.php:823
 msgid "Repeat OpenRoaming connectivity tests"
-msgstr ""
+msgstr "Ailadrodd profion cysylltedd OpenRoaming"
 
-#: web/diag/action_realmcheck.php:821
+#: web/diag/action_realmcheck.php:889
 msgid "not implemented yet"
-msgstr ""
+msgstr "heb ei weithredu eto"
 
-#: web/diag/action_realmcheck.php:842
+#: web/diag/action_realmcheck.php:896
+msgid "Checking if certificates from  CAs are accepted..."
+msgstr "Gwirio a yw tystysgrifau gan AT yn cael eu derbyn..."
+
+#: web/diag/action_realmcheck.php:910
 msgid "Live login test"
-msgstr ""
+msgstr "Prawf mewngofnodi byw"
 
-#: web/diag/action_realmcheck.php:855
+#: web/diag/action_realmcheck.php:923
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"Os rhowch fanylion mewngofnodi defnyddiwr presennol yma, gallwch chi brofi'r "
+"dilysiad gwirioneddol o wahanol bwyntiau gwirio ledled y byd."
 
-#: web/diag/action_realmcheck.php:856
+#: web/diag/action_realmcheck.php:924
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
 "the login with these credentials and the given EAP type actually worked. If "
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
+"Bydd y prawf yn defnyddio'r holl fathau o EAP rydych chi wedi'u gosod yn "
+"eich gwybodaeth proffil i wirio a yw'r ATs ac enwau gweinyddwyr cywir yn "
+"cael eu defnyddio, ac wrth gwrs a oedd y mewngofnodi gyda'r manylion "
+"mewngofnodi mynediad defnyddwyr hyn a'r math EAP a roddwyd wedi gweithio "
+"mewn gwirionedd. Os ydych wedi gosod ID allanol dienw, bydd y prawf yn "
+"defnyddio hynny."
 
-#: web/diag/action_realmcheck.php:857
+#: web/diag/action_realmcheck.php:925
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"Sylwch: nid yw'r offeryn yn bwrpasol yn cynnig arbed y manylion mewngofnodi "
+"mynediad defnyddwyr hyn, ac ni fyddant byth yn cael eu cadw mewn unrhyw "
+"ffordd ar ochr y gweinydd. Defnyddiwch <strong>o gyfrifon prawf dros dro</"
+"strong> yn unig yma; cyfrifon prawf parhaol ddilys yn y gwyllt yn cael eu "
+"hystyried yn niweidiol!"
 
-#: web/diag/action_realmcheck.php:865
+#: web/diag/action_realmcheck.php:933
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "Mathau EAP sy'n seiliedig ar gyfrinair"
 
-#: web/diag/action_realmcheck.php:866
+#: web/diag/action_realmcheck.php:934
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "Enw defnyddiwr go iawn (mewnol):"
 
-#: web/diag/action_realmcheck.php:867
+#: web/diag/action_realmcheck.php:935
 msgid "Anonymous outer ID (optional):"
-msgstr ""
+msgstr "ID allanol dienw (dewisol):"
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:936
 msgid "Password:"
 msgstr "Cyfrinair:"
 
-#: web/diag/action_realmcheck.php:872
+#: web/diag/action_realmcheck.php:940
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "Mathau EAP seiliedig ar tystysgrif"
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:941
 msgid "Certificate file (.p12 or .pfx):"
-msgstr ""
+msgstr "Ffeil tystysgrif (.p12 neu .pfx):"
 
-#: web/diag/action_realmcheck.php:874
+#: web/diag/action_realmcheck.php:942
 msgid "Certificate password, if any:"
-msgstr ""
+msgstr "Cyfrinair tystysgrif, os o gwbl:"
 
-#: web/diag/action_realmcheck.php:875
+#: web/diag/action_realmcheck.php:943
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "Enw defnyddiwr, os yw'n wahanol i destun y tystysgrif:"
 
-#: web/diag/action_realmcheck.php:877
+#: web/diag/action_realmcheck.php:945
 msgid "Submit credentials"
-msgstr ""
+msgstr "Cyflwyno manylion mewngofnodi mynediad"
 
-#: web/diag/action_realmcheck.php:899
+#: web/diag/action_realmcheck.php:967
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "Dychwelyd i ardal gweinyddwr %s"
 
 #: web/diag/adminQuery.php:34
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Rwy'n amau ​​Problem Dechnegol gyda'r CDU"
 
 #: web/diag/adminQuery.php:35
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "Honnir bod defnyddiwr o'r CDU hwn wedi torri hawlfreintiau"
 
 #: web/diag/adminQuery.php:36
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
+"Mae defnyddiwr o'r CDU hwn wedi cynnal gweithrediadau rhwydwaith maleisus "
+"(spam, DDoS, ...)"
 
 #: web/diag/adminQuery.php:39
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"Mae'r defnyddiwr yn honni bod ganddo broblemau cysylltedd ond mae wedi'i "
+"ddilysu'n llwyddiannus"
 
 #: web/diag/adminQuery.php:40
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "Defnyddiwr yn honni nad yw porthladd agored gorfodol ar agor"
 
-#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:130
 msgid "Select your problem"
-msgstr ""
+msgstr "Dewiswch eich broblem"
 
 #: web/diag/adminQuery.php:78
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Beth yw parth y CDU dan sylw?"
 
-#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
+#: web/diag/adminQuery.php:88
+msgid "Do you prefer to use a specific outer identity for diagnostics test?"
+msgstr ""
+"A yw'n well gennych ddefnyddio hunaniaeth allanol benodol ar gyfer prawf "
+"diagnostig?"
+
+#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "Beth yw stamp amser dilysu'r sesiwn defnyddiwr dan sylw?"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:98 web/diag/adminQuery.php:166
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
-
-#: web/diag/adminQuery.php:98
-msgid "Additional comments"
-msgstr ""
+msgstr "Beth yw MAC cyfeiriad y sesiwn defnyddiwr dan sylw?"
 
 #: web/diag/adminQuery.php:102
+msgid "Additional comments"
+msgstr "Sylwadau ychwanegol"
+
+#: web/diag/adminQuery.php:106
 msgid "Please specify an email address on which the IdP can contact you"
-msgstr ""
+msgstr "Nodwch cyfeiriad e-bost y gall y CDU gysylltu â chi arno"
 
-#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
+#: web/diag/adminQuery.php:114 web/diag/adminQuery.php:182
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Nawr gallwch chi anfon eich ymholiad"
 
-#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
+#: web/diag/adminQuery.php:115 web/diag/adminQuery.php:183
 msgid "Send"
-msgstr ""
-
-#: web/diag/adminQuery.php:130
-msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Anfon"
 
 #: web/diag/adminQuery.php:134
-msgid "SP Operator-Name attribute"
-msgstr ""
+msgid "Identify the SP by one of following means"
+msgstr "Nodwch y SP trwy un o'r dulliau canlynol"
 
 #: web/diag/adminQuery.php:138
+msgid "SP Operator-Name attribute"
+msgstr "Priodoledd SP Operator-Name"
+
+#: web/diag/adminQuery.php:142
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Dewiswch y SP â llaw:"
 
-#: web/diag/adminQuery.php:141
+#: web/diag/adminQuery.php:145
 msgid "click to select country and organisation"
-msgstr ""
-
-#: web/diag/adminQuery.php:147
-msgid "at least describe the SP location"
-msgstr ""
+msgstr "cliciwch i ddewis gwlad a sefydliad"
 
 #: web/diag/adminQuery.php:151
-msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgid "at least describe the SP location"
+msgstr "o leiaf disgrifiwch lleoliad SP"
 
-#: web/diag/adminQuery.php:166
-msgid "Additional comments about the problem"
-msgstr ""
+#: web/diag/adminQuery.php:155
+msgid "What is the outer ID of the user session in question?"
+msgstr "Beth yw ID allanol y sesiwn defnyddiwr dan sylw?"
 
 #: web/diag/adminQuery.php:170
+msgid "Additional comments about the problem"
+msgstr "Sylwadau ychwanegol am y broblem"
+
+#: web/diag/adminQuery.php:174
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
+"A oes gennych unrhyw fanylion cyswllt y mae'r defnyddiwr yn dymuno i'r SP "
+"gysylltu â hwy?"
 
-#: web/diag/adminQuery.php:174
+#: web/diag/adminQuery.php:178
 msgid "Please specify an email address on which the SP can contact you"
-msgstr ""
-
-#: web/diag/adminQuery.php:248
-msgid "Suspected a technical problem with the IdP"
-msgstr ""
-
-#: web/diag/adminQuery.php:249
-msgid "We suspect a technical problem with the IdP handling the realm"
-msgstr ""
-
-#: web/diag/adminQuery.php:251
-msgid "The CAT diagnostic test was run for this realm during reporting.\n"
-msgstr ""
+msgstr "Nodwch cyfeiriad e-bost y gall SP gysylltu â chi arno"
 
 #: web/diag/adminQuery.php:252
+msgid "Suspected a technical problem with the IdP"
+msgstr "Amau problem dechnegol gyda'r CDU"
+
+#: web/diag/adminQuery.php:253
+msgid "We suspect a technical problem with the IdP handling the realm"
+msgstr "Rydym yn amau ​​problem dechnegol gyda'r CDU yn ymdrin â'r parth"
+
+#: web/diag/adminQuery.php:255
+msgid "The CAT diagnostic test was run for this realm during reporting.\n"
+msgstr "Cynhaliwyd y prawf diagnostig CAT ar gyfer y parth hwn wrth adrodd.\n"
+
+#: web/diag/adminQuery.php:256
 msgid "The overall result was "
-msgstr ""
-
-#: web/diag/adminQuery.php:258
-msgid "To see details go to "
-msgstr ""
-
-#: web/diag/adminQuery.php:260
-msgid "The reported problem details are as follows"
-msgstr ""
-
-#: web/diag/adminQuery.php:261
-msgid "timestamp"
-msgstr ""
+msgstr "Y canlyniad cyffredinol oedd"
 
 #: web/diag/adminQuery.php:262
-msgid "client MAC address"
-msgstr ""
+msgid "To see details go to "
+msgstr "I weld y manylion ewch i"
 
 #: web/diag/adminQuery.php:264
-msgid "additional comments"
-msgstr ""
+msgid "The reported problem details are as follows"
+msgstr "Mae manylion y broblem a adroddwyd fel a ganlyn"
+
+#: web/diag/adminQuery.php:265
+msgid "timestamp"
+msgstr "stamp amser"
 
 #: web/diag/adminQuery.php:266
-msgid "You can contact the incident reporter at"
-msgstr ""
+msgid "client MAC address"
+msgstr "MAC cyfeiriad cleient"
 
-#: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
+#: web/diag/adminQuery.php:268
+msgid "additional comments"
+msgstr "sylwadau ychwanegol"
+
+#: web/diag/adminQuery.php:270
+msgid "You can contact the incident reporter at"
+msgstr "Gallwch gysylltu â gohebydd y digwyddiad yn"
+
+#: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr ""
+"Roedd rhai o briodweddau'r ymgais i cysylltiad yn is-optimaidd; mae'r rhestr "
+"isod."
 
-#: web/diag/radius_tests.php:36
+#: web/diag/radius_tests.php:35
 msgid "Some configuration errors were observed; the list is below."
-msgstr ""
-
-#: web/diag/radius_tests.php:173
-msgid "<strong>Test successful.</strong>"
-msgstr ""
-
-#: web/diag/radius_tests.php:177
-msgid "<strong>Test partially successful</strong>: authentication succeeded."
-msgstr ""
+msgstr "Gwelwyd rhai gwallau cyfluniad; mae'r rhestr isod."
 
 #: web/diag/radius_tests.php:180
-msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr ""
+msgid "<strong>Test successful.</strong>"
+msgstr "<strong>Prawf yn llwyddiannus.</strong>"
 
-#: web/diag/radius_tests.php:185
+#: web/diag/radius_tests.php:184
+msgid "<strong>Test partially successful</strong>: authentication succeeded."
+msgstr "<strong>Prawf yn rhannol lwyddiannus</strong>: llwyddodd y dilysu."
+
+#: web/diag/radius_tests.php:187
+msgid "<strong>Test FAILED</strong>: authentication succeeded."
+msgstr "<strong>Prawf METHU</strong>: dilysu wedi llwyddo."
+
+#: web/diag/radius_tests.php:192
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
+"<strong>METHU y Prawf</strong>: gwrthodwyd y cais. Yr achos mwyaf tebygol yw "
+"eich bod wedi camsillafu'r Enw Defnyddiwr a/neu'r Cyfrinair."
 
-#: web/diag/radius_tests.php:190
+#: web/diag/radius_tests.php:197
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Ni ellir profi'r dull hwn"
 
-#: web/diag/radius_tests.php:194
+#: web/diag/radius_tests.php:201
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
+"<strong>METHU Prawf</strong>: gwrthodwyd y cais ar unwaith, heb sgwrs EAP. "
+"Naill ai rydych wedi camsillafu'r Enw Defnyddiwr neu mae rhywbeth difrifol "
+"o'i le ar eich gweinydd."
 
-#: web/diag/radius_tests.php:200 web/diag/radius_tests.php:242
+#: web/diag/radius_tests.php:207 web/diag/radius_tests.php:249
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
+"<strong>METHU Prawf</strong>: dim ateb gan y gweinydd RADIUS ar ôl %d "
+"eiliad. Naill ai mae'r gweinydd cyfrifol i lawr, neu mae'r llwybr wedi torri!"
 
-#: web/diag/radius_tests.php:205 web/diag/radius_tests.php:246
+#: web/diag/radius_tests.php:212 web/diag/radius_tests.php:253
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
+"<strong>Prawf METHU</strong>: cafwyd sgwrs RADIUS deugyfeiriadol, ond ni "
+"orffennodd ar ôl %d eiliad!"
 
-#: web/diag/radius_tests.php:210
+#: web/diag/radius_tests.php:217
 msgid "<strong>Test FAILED</strong>"
-msgstr ""
+msgstr "METHU Prawf"
 
-#: web/diag/radius_tests.php:231
+#: web/diag/radius_tests.php:238
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
+"<strong>Prawf yn rhannol lwyddiannus</strong>: cynhaliwyd sgwrs RADIUS "
+"deugyfeiriadol gyda nifer o deithiau crwn, a daeth i ben gyda Access-Reject "
+"fel y cynlluniwyd."
 
-#: web/diag/radius_tests.php:237
+#: web/diag/radius_tests.php:244
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1588,177 +1872,200 @@ msgid ""
 "profile settings to get past this hurdle). In all other cases, the server "
 "appears misconfigured or it is unreachable."
 msgstr ""
+"<strong>METHU Prawf</strong>: gwrthodwyd y cais ar unwaith, heb sgwrs EAP. "
+"Nid yw hyn o reidrwydd yn gamgymeriad: os yw'r gweinydd RADIUS yn gorfodi "
+"bod hunaniaethau allanol yn cyfateb i enw defnyddiwr sy'n bodoli eisoes, yna "
+"disgwylir y canlyniad hwn (Sylwer: gallech ffurfweddu hunaniaeth allanol "
+"ddilys yn eich gosodiadau proffil i fynd heibio'r rhwystr hwn). Ym mhob "
+"achos arall, mae'n ymddangos bod y gweinydd wedi'i gam-gyflunio neu nid oes "
+"modd ei gyrraedd."
 
-#: web/diag/radius_tests.php:250
+#: web/diag/radius_tests.php:257
 msgid "unhandled error"
-msgstr ""
+msgstr "gwall heb ei drin"
 
-#: web/diag/radius_tests.php:274
+#: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
+msgid "<strong>ERROR</strong>: connectivity problem!"
+msgstr "<strong>GWALL</strong>: problem cysylltedd!"
+
+#: web/diag/radius_tests.php:294
 #, php-format
 msgid "elapsed time: %d"
-msgstr ""
+msgstr "amser aeth heibio: %d"
 
-#: web/diag/radius_tests.php:276
+#: web/diag/radius_tests.php:296
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
+"<strong>GWALL</strong>: cyflwynodd y gweinydd tystysgrif gan awdurdod "
+"anhysbys!"
 
-#: web/diag/radius_tests.php:286
+#: web/diag/radius_tests.php:306
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
+"<strong>RHYBUDD</strong>: nid yw enw'r gweinydd fel y'i darganfuwyd yn y "
+"cofnod SRV yn cyfateb i unrhyw enw yn tystysgrif y gweinydd!"
 
 #: web/diag/show_realmcheck.php:130
 msgid "Tests timestamp: "
-msgstr ""
+msgstr "Stamp amser profion:"
 
 #: web/diag/show_realmcheck.php:145
 msgid "Repeat connectivity tests"
-msgstr ""
+msgstr "Ailadrodd profion cysylltedd"
 
-#: web/diag/show_realmcheck.php:170
+#: web/diag/show_realmcheck.php:174
 msgid "Token missing, no data can be presented"
-msgstr ""
+msgstr "Tocyn ar goll, ni ellir cyflwyno data"
 
-#: web/diag/show_realmcheck.php:172
+#: web/diag/show_realmcheck.php:176
 msgid ""
 "The token given in the request does not exists, no data can be presented"
-msgstr ""
+msgstr "Nid yw'r tocyn a roddir yn y cais yn bodoli, ni ellir cyflwyno data"
 
 #: web/skins/modern/diag/js/diag_js.php:33
 msgid "All connectivity tests passed"
-msgstr ""
+msgstr "Pob prawf cysylltedd wedi'i basio"
 
 #: web/skins/modern/diag/js/diag_js.php:34
 msgid "There were some warnings from connectivity tests"
-msgstr ""
+msgstr "Cafwyd rhai rhybuddion o brofion cysylltedd"
 
 #: web/skins/modern/diag/js/diag_js.php:35
 msgid "There were some remarks from connectivity tests"
-msgstr ""
+msgstr "Cafwyd rhai sylwadau o brofion cysylltedd"
 
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
-msgstr ""
-
-#: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
-msgstr ""
+msgstr "Roedd rhai gwallau o brofion cysylltedd"
 
 #: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
-msgstr ""
+msgstr "Dewiswch wlad neu ranbarth:"
 
 #: web/skins/modern/diag/js/diag_js.php:80
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Nôl rhestr gwlad/rhanbarth"
 
 #: web/skins/modern/diag/js/diag_js.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Ydw"
 
 #: web/skins/modern/diag/js/diag_js.php:142
 msgid "No"
-msgstr ""
+msgstr "Nac ydw"
 
 #: web/skins/modern/diag/js/diag_js.php:143
 msgid "I don't know"
-msgstr ""
+msgstr "Dydw i ddim yn gwybod"
 
 #: web/skins/modern/diag/js/diag_js.php:174
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "Canlyniadau profion diagnostig ar gyfer parth dethol"
 
 #: web/skins/modern/diag/js/diag_js.php:177
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "Y canlyniad ar gyfer parth a brofwyd:"
 
 #: web/skins/modern/diag/js/diag_js.php:179
 msgid "The system identified"
-msgstr ""
+msgstr "Nodwyd y system"
 
 #: web/skins/modern/diag/js/diag_js.php:181
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "meysydd a amheuir a allai achosi problem."
 
 #: web/skins/modern/diag/js/diag_js.php:182
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Wrth ymyl y disgrifiad o'r broblem rydym yn dangos tebygolrwydd "
+"damcaniaethol o'r digwyddiad hwn."
 
 #: web/skins/modern/diag/js/diag_js.php:189
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Mae ffurfweddiad eich dyfais wedi torri"
 
 #: web/skins/modern/diag/js/diag_js.php:192
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Mae gan y rhwydwaith Wi-Fi yn eich ardal broblemau ansawdd"
 
 #: web/skins/modern/diag/js/diag_js.php:195
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Mae amgylchedd y rhwydwaith o'ch cwmpas wedi torri"
 
 #: web/skins/modern/diag/js/diag_js.php:198
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "Gweinydd RADIUS eich darparwr gwasanaeth yw ffynhonnell y broblem"
 
 #: web/skins/modern/diag/js/diag_js.php:201
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"Nid yw'r gweinydd RADIUS yn eich sefydliad cartref yn gallu eich dilysu ar "
+"hyn o bryd"
 
 #: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"Nid yw'r gweinydd RADIUS cenedlaethol yn y wlad/rhanbarth rydych chi'n "
+"ymweld â hi yn gweithio'n gywir"
 
 #: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Mae'r cyswllt rhwng gweinydd RADIUS cenedlaethol y wlad/rhanbarth rydych "
+"chi'n ymweld â hi a'r gweinydd lefel uchaf wedi torri"
 
 #: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Mae'r cyswllt rhwng gweinydd RADIUS cenedlaethol eich gwlad/rhanbarth "
+"cartref a'r gweinydd lefel uchaf wedi torri"
 
 #: web/skins/modern/diag/js/diag_js.php:213
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Mae'r cyfathrebu â'r gweinydd lefel uchaf i lawr"
 
 #: web/skins/modern/diag/js/diag_js.php:216
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
+"Nid yw'r gweinydd RADIUS cenedlaethol yn eich mamwlad/rhanbarth yn "
+"gweithio'n iawn."
 
 #: web/skins/modern/diag/js/diag_js.php:219
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "Gweinydd RADIUS eich sefydliad cartref yw ffynhonnell y broblem"
 
 #: web/skins/modern/diag/js/diag_js.php:222
 msgid "This realm does not exist"
-msgstr ""
+msgstr "Nid yw'r parth hon yn bodoli"
 
 #: web/skins/modern/diag/js/diag_js.php:300
 msgid "Running connectivity tests for this realm"
-msgstr ""
+msgstr "Rhedeg profion cysylltedd ar gyfer y parth hon"
 
 #: web/skins/modern/diag/js/diag_js.php:301
 msgid "New tests results are available, click to see"
-msgstr ""
+msgstr "Mae canlyniadau profion newydd ar gael, cliciwch i weld"
 
 #: web/skins/modern/diag/js/diag_js.php:426
 #: web/skins/modern/diag/js/diag_js.php:434
 msgid "See details"
-msgstr ""
+msgstr "Gweler manylion"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
-msgstr ""
+msgstr "Os ydych am roi gwybod am eich problem, llenwch y meysydd isod."

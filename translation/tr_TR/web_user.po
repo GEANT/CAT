@@ -5,15 +5,16 @@
 # Translators:
 # catborise <muhammetalisag@gmail.com>, 2013,2015
 # Engur Pisirici <engur@bilkent.edu.tr>, 2017
+# Gokhan Eryol <gokhaneryol@gmail.com>, 2024
 # METU NCC IT Network & Systems Group <seniha.oztemiz@gmail.com>, 2015
 # M. Uğur YILMAZ <muy1970@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: M. Uğur YILMAZ <muy1970@gmail.com>, 2018\n"
+"Last-Translator: Gokhan Eryol <gokhaneryol@gmail.com>, 2024\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
 "Language: tr_TR\n"
@@ -179,7 +180,7 @@ msgstr "Geliştiricilerin eposta listesine katıl."
 #: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
-msgstr ""
+msgstr "Liste şurada mevcuttur:%s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
@@ -223,6 +224,8 @@ msgid ""
 "their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
+"Kurumunuzdaki %s yöneticileriyle iletişime geçin ve kurumlarını sisteme "
+"eklemelerini talep edin. İşleri halletmek en fazla bir saatlerini alacaktır."
 
 #: web/user/faq.inc.php:39 web/user/faq.php:35
 #, php-format
@@ -381,6 +384,13 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
+"%s, dünyadaki tüm %s kablosuz ağ erişim noktalarında, eğitim ve araştırma "
+"üyelerine  <i>ücretsiz</i> internet erişimi sağlayan küresel bir WiFi "
+"dolaşım konsorsiyumudur. Şimdiden, %d 'den fazla noktada, milyonlarca %s "
+"kullanıcısı ücretsiz internet erişiminden yararlanıyor! Daha fazla bilgi "
+"için <a href='http://www.eduroam.org'>%s ana sayfasını</a> veya <a "
+"href='http://monitor.eduroam.org/map_service_loc.php'>%s konum haritasını </"
+"a> ziyaret edebilirsiniz."
 
 #: web/user/faq.php:47
 #, php-format
@@ -440,6 +450,8 @@ msgstr "Kullanım Kuralları"
 #: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr ""
+"(hukuki nedenler gereği, Kullanım Şartları yalnızca İngilizce olarak "
+"sunulmaktadır.)"
 
 #: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:112
 #, php-format
@@ -498,7 +510,7 @@ msgstr ""
 "size bakıyor. Sizin yanlışınız mı? Bizim hatamız mı? Kimbilir! Belkide <a "
 "href='%s'>Başlangıç Sayfası</a> na dönmeniz gerekiyor."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Gizlilik Bildirimi"
@@ -517,6 +529,7 @@ msgstr ""
 "problemle karşılaşırsanız, lütfen <a href=\">link</a> linkini kullanın."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "%s den sevgili kullanıcı,"
@@ -535,6 +548,7 @@ msgstr ""
 "girerek çevrimiçi olmak!"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -547,19 +561,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "eduroam Kullanım Şartları ve Koşulları"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "eduroam Gizlilik Politikası"
 
 #: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "OpenRoaming Kullanım Koşulları"
 
 #: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "OpenRoaming Gizlilik Politikası"
 
 #: web/lib/user/TextTemplates.php:107
 #, php-format
@@ -567,9 +581,13 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Lütfen %shotspot'larına bağlandığınızda aşağıdaki <a href='%s'>Kullanım "
+"Koşulları</a> ve <a href='%s'>Gizlilik Bildirimi</a> 'nin geçerli olduğunu "
+"unutmayın."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "İndirilenlere geri dön"
 
@@ -581,6 +599,10 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"%snin birkaç milyon kullanıcısı arasına sizi sıcak bir şekilde karşılamaktan "
+"mutluluk duyuyoruz! Artık dünya genelinde binlerce üniversite, araştırma "
+"merkezi ve diğer pek çok yerde internet erişim kaynaklarından tamamen "
+"ücretsiz olarak yararlanabileceksiniz!"
 
 #: web/lib/user/TextTemplates.php:113
 #, php-format
@@ -607,6 +629,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s, dünya genelinde binlerce Wi-Fi hotspotuna ücretsiz erişim sağlar. <a "
+"href='%s'>Daha fazla bilgi</a>."
 
 #: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
@@ -622,7 +646,7 @@ msgstr "İndirmek için başka bir yükleyici seçin"
 
 #: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
-msgstr ""
+msgstr "İndirilecek bir kurulum dosyası seçin"
 
 #: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
@@ -635,7 +659,7 @@ msgstr "%s için yükleyiciyi indirin."
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "%s için yükleyiciyi indirin."
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -754,6 +778,7 @@ msgid "Terms of use"
 msgstr "Kullanım kuralları"
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -766,6 +791,7 @@ msgstr ""
 "kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -778,6 +804,7 @@ msgstr ""
 "sertifika') girerek çevrimiçi olmak!"
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
 msgstr "Kimlik doğrulanıyor"
 
@@ -916,9 +943,9 @@ msgstr "Hesap bilgisi bulunamadı"
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
-msgstr "Davetiyeniz, elimizdeki davetiyelerle eşleşmiyor."
+msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -993,7 +1020,7 @@ msgstr "geçersiz belirteç"
 
 #: web/skins/modern/accountstatus/accountstatus.php:275
 msgid "revoke"
-msgstr ""
+msgstr "İptal et"
 
 #: web/skins/modern/accountstatus/accountstatus.php:289
 msgid "The details are displayed below."
@@ -1103,23 +1130,27 @@ msgstr "Eksik e-posta adresi"
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Bu kayıt son olarak şurada güncellendi:"
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Eğer OpenRoaming'i de etkinleştiren bir kurulum dosyası indirmeyi "
+"düşünüyorsanız, OpenRoaming Kullanım Koşulları'nı kabul etmelisiniz."
 
 #: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"OpenRoaming desteği olan kurulum dosyalarını seçerseniz, rızanızı belirtmeyi "
+"unutmayın."
 
 #: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Bu kurulum dosyasında OpenRoaming desteği bulunmaktadır."
 
 #: web/skins/modern/user/js/cat_js.php:100
 #, php-format
@@ -1127,37 +1158,41 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"OpenRoaming'u kullanmak istiyorum ve <a href='%s' target='_blank'>%s</a> i "
+"okudum ve kabul ediyorum."
 
 #: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr " <a href='%s' target='_blank'>%s</a> i okudum ve kabul ediyorum."
 
 #: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr ""
+msgstr "Bu cihazda OpenRoaming desteklenmiyor."
 
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
+#, php-format
+msgid "%s only"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Organisation"
 msgstr "Kurum"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Select your organisation"
 msgstr "Kurumunuzu seçin"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Help, my organisation is not on the list"
 msgstr "Yardım, kurumum listede yok"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1168,63 +1203,63 @@ msgstr ""
 "Kurumunuz listede değilse, kurumunuzu %s veritabanına bilgilerini eklemek "
 "için, zorlayın."
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "HTML5 Geo-Location ile konum bilgimi daha doğru bir şekilde tespit et"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Show organisations in"
 msgstr "Şunun içindeki kurumları göster:"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "bütün ülkeler"
 
-#: web/skins/modern/user/js/cat_js.php:117
-msgid "or search for an organisation, for example University of Oslo"
-msgstr ""
-
 #: web/skins/modern/user/js/cat_js.php:118
+msgid "or search for an organisation, for example University of Oslo"
+msgstr "veya örneğin Oslo Üniversitesi gibi bir kurumu arayın"
+
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "bütün ülkeleri göster"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Results limited to"
 msgstr "Sonuçlar limitle"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "entries - show more"
 msgstr "girdiler - daha fazlasını göster"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Nearby"
 msgstr "Civarında"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Location timeout"
 msgstr "Konum zaman aşımı"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Could not get your position"
 msgstr "Pozisyon bilginiz elde edilemedi"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Your browser has denied access to your location"
 msgstr "Konum bilginize erişim tarayıcınız tarafından engellenmektedir"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Unknown location error"
 msgstr "Bilinmeyen konum hatası"
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "You are here:"
 msgstr "Buradasınız:"
 
-#: web/skins/modern/user/js/cat_js.php:127
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Getting your location..."
 msgstr "Konum bilginiz alınıyor..."
 
-#: web/skins/modern/user/js/cat_js.php:128
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
 msgstr "Yakınlardaki sağlayıcılar en üstte gösteriliyor"
 
@@ -1239,8 +1274,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr "10, 8, 7, Vista"
+msgid "11, 10, 8, 7, Vista"
+msgstr ""
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

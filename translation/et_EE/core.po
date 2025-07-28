@@ -4,15 +4,15 @@
 #
 # Translators:
 # Anne M <anne@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2018-2019,2022
+# Anne M <anne@eenet.ee>, 2018-2019,2022,2024-2025
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2022\n"
+"Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2022,2024-2025\n"
 "Language-Team: Estonian (Estonia) (http://app.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -20,6 +20,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/AbstractProfile.php:265
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+"Profiiliandmed ei sisalda domeeni, seetõttu ei saa DNS-kontrolle "
+"OpenRoamingu jaoks teha."
+
+#: core/AbstractProfile.php:299
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr "OpenRoamingu NAPTR kirje SRV tulemus ei ole ootuspärane."
+
+#: core/AbstractProfile.php:317
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+"DNS nimed SRV kirjetes ei lahendu tegelikeks hosti IP-deks. OpenRoaming ei "
+"hakka toimima."
+
+#: core/AbstractProfile.php:344
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+"OpenRoamingu tuvastatud lõpp-punktidega ühendumisel oli kõigil vigu. "
+"OpenRoaming arvatavasti ei hakka toimima."
+
+#: core/AbstractProfile.php:350
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+"OpenRoamingu tuvastatud lõpp-punktidega ühendumisel ei andnud ainult osa "
+"neist vigu."
+
+#: core/AbstractProfile.php:360
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+"Vähemalt üks DNS-vastus EI olnud turvatud DNSSECiga. OpenRoamingu APNid "
+"võivad keelduda lõpp-punktiga ühendumisest."
+
+#: core/AbstractProfile.php:367
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr "Esmane diagnostika OpenRoamingu DNS osas (sh DNSSEC) oli edukas."
 
 #: core/CAT.php:143
 msgid "Andorra"
@@ -90,230 +140,234 @@ msgid "Hungary"
 msgstr "Ungari"
 
 #: core/CAT.php:160
+msgid "Kosovo"
+msgstr "Kosovo"
+
+#: core/CAT.php:161
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: core/CAT.php:161
+#: core/CAT.php:162
 msgid "Latvia"
 msgstr "Läti"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Lithuania"
 msgstr "Leedu"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Macedonia"
 msgstr "Makedoonia"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Netherlands"
 msgstr "Holland"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "Norway"
 msgstr "Norra"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "Poland"
 msgstr "Poola"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Romania"
 msgstr "Rumeenia"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Slovenia"
 msgstr "Sloveenia"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Spain"
 msgstr "Hispaania"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Sweden"
 msgstr "Rootsi"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Slovakia"
 msgstr "Slovakkia"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Switzerland"
 msgstr "Šveits"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Turkey"
 msgstr "Türgi"
 
-#: core/CAT.php:176
+#: core/CAT.php:177 core/CAT.php:379
 msgid "United Kingdom"
 msgstr "Suurbritannia"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Australia"
 msgstr "Austraalia"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Israel"
 msgstr "Iisrael"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Japan"
 msgstr "Jaapan"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "New Zealand"
 msgstr "Uus-Meremaa"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "U.S.A."
 msgstr "Ameerika Ühendriigid"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Brazil"
 msgstr "Brasiilia"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Chile"
 msgstr "Tšiili"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Peru"
 msgstr "Peruu"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Venezuela"
 msgstr "Venetsueela"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Default"
 msgstr "Vaikimisi"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Armenia"
 msgstr "Armeenia"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Azerbaijan"
 msgstr "Aserbaidžaan"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Belarus"
 msgstr "Valgevene"
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Hong Kong"
 msgstr "Hongkong"
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Kenya"
 msgstr "Keenia"
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kyrgyzstan"
 msgstr "Kõrgõzstan"
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Korea"
 msgstr "Korea"
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Kazakhstan"
 msgstr "Kasahstan"
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Morocco"
 msgstr "Maroko"
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Moldova"
 msgstr "Moldaavia"
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Macau"
 msgstr "Macau"
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Russia"
 msgstr "Venemaa"
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Thailand"
 msgstr "Tai"
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "South Africa"
 msgstr "Lõuna-Aafrika"
 
-#: core/CAT.php:484 core/IdPlist.php:79
+#: core/CAT.php:485 core/IdPlist.php:83
 msgid "Unnamed Entity"
 msgstr "Riik määramata"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile deactivation succeeded"
 msgstr "Profiili desaktiveerimine õnnestus"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile activation/modification succeeded"
 msgstr "Profiili aktiveerimine/muutmine õnnestus"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile deactivation failed"
 msgstr "Profiili desaktiveerimine ebaõnnestus"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile activation/modification failed"
 msgstr "Profiili aktiveerimine/muutmine ebaõnnestus"
 
-#: core/DeploymentManaged.php:512
+#: core/DeploymentManaged.php:676
 msgid "on both RADIUS servers: primary and backup"
 msgstr "mõlemal RADIUSe serveril: primaarne ja varu"
 
-#: core/DeploymentManaged.php:515
+#: core/DeploymentManaged.php:679
 msgid "on primary RADIUS server"
 msgstr "primaarsel RADIUSe serveril"
 
-#: core/DeploymentManaged.php:517
+#: core/DeploymentManaged.php:681
 msgid "on backup RADIUS server"
 msgstr "RADIUSe varuserveril"
 
-#: core/DeploymentManaged.php:525
+#: core/DeploymentManaged.php:689
 msgid "RADIUS profile update problem fixed"
 msgstr "RADIUSe profiili uuendamise probleem on lahendatud"
 
-#: core/DeploymentManaged.php:527
+#: core/DeploymentManaged.php:691
 msgid "RADIUS profile update problem"
 msgstr "RADIUSe profiili uuendamise probleem"
 
@@ -333,17 +387,18 @@ msgstr ""
 "Vabandust, seda ei peaks juhtuma - täpsemat infot kahjuks ei ole saadaval"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:92
+#: core/Federation.php:111
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(lõpetatud) %s"
 
 #. / IdP and SP
-#: core/Federation.php:274 core/common/OutsideComm.php:281
+#: core/Federation.php:308 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr "%s ja %s"
 
+#. notify the fed admins...
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
 #. /                3. consortium name (e.g. eduroam);
@@ -351,52 +406,82 @@ msgstr "%s ja %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:291
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the %s was created in %s.\n"
+"    the invitation for the new %s %s in your %s federation %s has been used "
+"and the %s was created in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
-"Tere\n"
-"\n"
-"Uus kutse: %s %s Teie %si föderatsioonis %s on kasutatud; loodi %s(%s).\n"
-"\n"
-"Lugupidamisega\n"
+"Tere!\n"
+"Automaatteade: kutse  %s %s %s föderatsioonis %s on kasutatud ja  %s loodi "
+"%s-s.\n"
 "\n"
 "%s"
 
+#. notify the fed admins...
+#. / arguments are: 1. nomenclature for "institution"
+#. /                2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:349
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"    the eduGAIN self-registration was used to create a new %s\n"
+"           %s\n"
+"    in your %s federation %s in %s.\n"
+"\n"
+"    We thought you might want to know.\n"
+"\n"
+"    Best regards,\n"
+"\n"
+"    %s"
+msgstr ""
+"Tere\n"
+"    eduGAINi iseregistreerimist kasutati %s\n"
+"           %s\n"
+"    loomiseks föderatsioonis  %s  %s %s.\n"
+"    %s"
+
 #. / organisation
-#: core/Federation.php:308
+#: core/Federation.php:371 core/Federation.php:377
 #, php-format
 msgid "%s in your federation was created"
 msgstr " Sinu föderatsiooni loodi %s"
 
-#: core/IdP.php:397
+#: core/IdP.php:415
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the %s %s in your %s federation %s has been deleted from %s.\n"
+"    the %s %s in your %s federation %s has been deleted from %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
-"Automaatteade\n"
-"%s %s  %si föderatsioonist %s on %sist kustutatud.\n"
-"%s"
+"Tere\n"
+"\n"
+"   %s %s Teie %si föderatsioonis %s on kustutatud %s-st.\n"
+"\n"
+"  Lugupidamisega\n"
+"\n"
+"    %s"
 
-#: core/IdP.php:406
+#: core/IdP.php:424
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "Sinu föderatsioonist kustutati %s"
@@ -463,7 +548,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%si kutsete süsteem"
 
-#: core/User.php:166
+#: core/User.php:270
 msgid "Feedback"
 msgstr "Tagasiside"
 
@@ -498,122 +583,122 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:120
+#: core/common/Entity.php:123
 msgid "National Roaming Operator"
 msgstr "riigi rändlusteenuse vahendaja"
 
-#: core/common/Entity.php:121
+#: core/common/Entity.php:124
 msgid "identity provider"
 msgstr "identiteedipakkuja"
 
-#: core/common/Entity.php:122
+#: core/common/Entity.php:125
 msgid "organisation"
 msgstr "asutus"
 
-#: core/common/Entity.php:123
+#: core/common/Entity.php:126
 msgid "Identity Provider"
 msgstr "Identiteedipakkuja"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:127
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi leviala"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:128
 msgid "Hotspot"
 msgstr "leviala"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:129
 msgid "Service Provider"
 msgstr "Teenusepakkuja"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:130
 msgid "participant"
 msgstr "osaleja"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:131
 msgid "Organisation"
 msgstr "Asutus"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:132
 msgid "organization"
 msgstr "asutus"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:133
 msgid "entity"
 msgstr "üksus"
 
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
-"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr "%s%s%s\"%s\" saatis Sulle kutse, et koos hallata %s."
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
+msgstr "%s %s %s \"%s\" saatis Sulle kutse, et koos hallata%s."
 
-#: core/common/OutsideComm.php:292
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
 "organisation will be a %s."
 msgstr "%s %s kutsus Sind edaspidi haldama: %s  \"%s\" (%s). Asutus on  %s."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr "%s %s kutsus Sind haldama %s  \"%s\". See on  %s."
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:301
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Kutse kehtib saatmise hetkest alates 24 tundi ehk siis kuni %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:303
+#: core/common/OutsideComm.php:309
 msgid "Hello,"
 msgstr "Tere"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:311
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "käsitsi. Palun ärge vastake sellele kirjale; seda aadressi kasutatakse "
 "ainult saatmiseks."
 
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:317
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Lisateade %s administraatorilt:"
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s administrator"
 msgstr "%sadministraator"
 
-#: core/common/OutsideComm.php:322
+#: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "käsitsi. Sellele kirjale vastates saad ühenduse oma %s administraatoriga."
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:334
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "Selle %s administraatoriks saamiseks palun klõpsa järgmisele lingile: "
 
-#: core/common/OutsideComm.php:330
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr "Kui lingile klõpsamine ei õnnestu, ava %s administraatoriliides:"
 
-#: core/common/OutsideComm.php:332
+#: core/common/OutsideComm.php:338
 msgid "and enter the invitation token"
 msgstr "ja sisesta kutse kood"
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:340
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -621,12 +706,12 @@ msgstr ""
 "NB! Palun ära saada seda kirja kellelegi edasi enne, kui kood on aegunud. "
 "Muidu võivad kirja saajad seda koodi Su õigustes ise kasutada."
 
-#: core/common/OutsideComm.php:335
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Soovime edu %s kasutamisel. "
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:342
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -637,7 +722,7 @@ msgstr ""
 "\n"
 "%s Operations meeskond"
 
-#: core/common/OutsideComm.php:372
+#: core/common/OutsideComm.php:378
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: %s haldamise kutse"
@@ -646,26 +731,26 @@ msgstr "%s: %s haldamise kutse"
 msgid "Input validation error: "
 msgstr "Sisendi valideerimise viga:"
 
-#: web/lib/common/InputValidation.php:270
+#: web/lib/common/InputValidation.php:366
 msgid "Realm is empty!"
 msgstr "Domeeni osa on tühi!"
 
-#: web/lib/common/InputValidation.php:279
+#: web/lib/common/InputValidation.php:375
 msgid "Realm contains an @ sign!"
 msgstr "Domeenis sisaldub @-märk!"
 
-#: web/lib/common/InputValidation.php:280
+#: web/lib/common/InputValidation.php:376
 msgid "Realm begins with a . (dot)!"
 msgstr "Domeen algab . (punktiga)!"
 
-#: web/lib/common/InputValidation.php:281
+#: web/lib/common/InputValidation.php:377
 msgid "Realm ends with a . (dot)!"
 msgstr "Domeen lõpeb . (punktiga)!"
 
-#: web/lib/common/InputValidation.php:282
+#: web/lib/common/InputValidation.php:378
 msgid "Realm contains spaces!"
 msgstr "Domeen sisaldab tühikuid!"
 
-#: web/lib/common/InputValidation.php:295
+#: web/lib/common/InputValidation.php:391
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domeen peab sisaldama vähemalt ühte . (punkti)!"

@@ -4,15 +4,17 @@
 #
 # Translators:
 # Alin Bidirliu <alin.bidirliu@tuiasi.ro>, 2020
+# Gheorghita Butnaru <gbutnaru@tuiasi.ro>, 2025
 # Raul Opruta <raul.opruta@roedu.net>, 2020
+# Sonia Zabara, 2025
 # Valeriu Vraciu <valeriu@roedu.net>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Valeriu Vraciu <valeriu@roedu.net>, 2021\n"
+"Last-Translator: Gheorghita Butnaru <gbutnaru@tuiasi.ro>, 2025\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -522,7 +524,7 @@ msgstr ""
 "Se uită la tine. Greșeala ta? Eroarea ta? Cine știe! Poate ar trebuii să te "
 "duci înapoi la <a href='%s'> Pagina de Start</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Note private %s"
@@ -541,6 +543,7 @@ msgstr ""
 "descărcarea automată vă rog să folosiți direct acestă <a href=''>adresă</a>."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Stimate utilizator din %s, "
@@ -560,6 +563,7 @@ msgstr ""
 "sa fiți online!"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -572,19 +576,19 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "Termenii și condițiile eduroam"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "Politica de confidențialitate eduroam"
 
 #: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "Termenii și condițiile OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "Politica de confidențialitate OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:107
 #, php-format
@@ -592,9 +596,13 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Vă rugăm să rețineți că, atunci când vă conectați la hotspoturile %s, se "
+"aplică <a href='%s'>Termeni și condiții</a> și <a href='%s'>Nota de "
+"confidențialitate</a>."
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Înapoi la descărcări"
 
@@ -606,6 +614,10 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Am dori să vă urăm un călduros bun venit printre milioanele de utilizatori "
+"%s! De acum înainte, vei putea utiliza resursele de acces la internet în mii "
+"de universități, centre de cercetare și alte locuri din întreaga lume. Toate "
+"acestea complet gratuit!"
 
 #: web/lib/user/TextTemplates.php:113
 #, php-format
@@ -649,7 +661,7 @@ msgstr "Alegeți alt program de instalare pentru a descărca"
 
 #: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
-msgstr ""
+msgstr "Alegeți un kit de instalare pentru descărcare"
 
 #: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
@@ -662,7 +674,7 @@ msgstr "Descărcați programul dumneavoastră de instalare %s"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "Descărcați kitul de instalare pentru "
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -781,6 +793,7 @@ msgid "Terms of use"
 msgstr "Termeni de utilizare "
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -793,6 +806,7 @@ msgstr ""
 "complet gratuit!"
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -805,6 +819,7 @@ msgstr ""
 "utilizator si parola' sau 'certificatul personal') - și o sa fiți online!"
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
 msgstr "Autentifică "
 
@@ -819,7 +834,7 @@ msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to reuse download link"
-msgstr "Încercați să reutilizați link-ul de descărcare"
+msgstr "Încercați să reutilizați linkul de descărcare"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
@@ -952,11 +967,11 @@ msgstr "Informațiile despre cont nu au fost găsite"
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
-"Linkul de invitație pe care l-ați urmat nu mapează nicio invitație pe care o "
-"avem în fișier."
+"Linkul de invitație pe care l-ați urmat nu corespunde cu nicio invitație pe "
+"care o avem în sistem."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1153,16 +1168,20 @@ msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Dacă intenționați să descărcați un kit de instalare care activează și "
+"OpenRoaming, atunci trebuie să acceptați Termenii și condițiile OpenRoaming."
 
 #: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Dacă selectați programe de instalare cu suport OpenRoaming, rețineți să vă "
+"indicați acordul."
 
 #: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Kitul de instalare are suport OpenRoaming inclus."
 
 #: web/skins/modern/user/js/cat_js.php:100
 #, php-format
@@ -1170,37 +1189,41 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Doresc să folosesc OpenRoaming și am citit și accept <a href='%s' "
+"target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Am citit și accept <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr ""
+msgstr "OpenRoaming nu este suportat pe acest dispozitiv"
 
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
-msgstr ""
+#, php-format
+msgid "%s only"
+msgstr "doar %s"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr "%s și OpenRoaming"
+
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Organisation"
 msgstr "Organizația"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Select your organisation"
 msgstr "Selectați organizația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Help, my organisation is not on the list"
 msgstr "Ajutor, organizația mea nu se află pe listă"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1211,64 +1234,64 @@ msgstr ""
 "locali. Dacă organizația dvs. nu se află pe listă, atunci îndoiți-le să "
 "adauge informații în %sbaza de date."
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localizați-mă mai precis folosind locația-Geo HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Show organisations in"
 msgstr "Afișați organizații în"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "Toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "Sau căutați o organizație, de exemplu Universitatea din Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "Arătați toate țările"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Results limited to"
 msgstr "Rezultate limitate la"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "entries - show more"
 msgstr "Intrări - arată mai multe"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Nearby"
 msgstr "Din apropiere "
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Location timeout"
 msgstr "Întreruperea locației"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Could not get your position"
 msgstr "Nu s-a putut afla pozitia dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Your browser has denied access to your location"
 msgstr ""
 "Motorul dumneavoastră de căutare a respins accesul la locația dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Unknown location error"
 msgstr "Eroare de locație necunoscută"
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "You are here:"
 msgstr "Dumneavoastră sunteți aici:"
 
-#: web/skins/modern/user/js/cat_js.php:127
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Getting your location..."
 msgstr "Obținem adresa dumneavoastră"
 
-#: web/skins/modern/user/js/cat_js.php:128
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
 msgstr "Furnizori din apropiere afișați în partea de sus."
 
@@ -1283,8 +1306,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr "10, 8, 7, Vista"
+msgid "11, 10, 8, 7, Vista"
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"
