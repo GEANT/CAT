@@ -846,11 +846,11 @@ class DeploymentManaged extends AbstractDeployment
         foreach ($toPost as $key => $value) {
             $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
             // temporarly one server $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            if ($key == 2) {
+            /*if ($key == 2) {
                 $response['res[2]'] = 'OK'; 
-            } else {
-                $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
-            }
+            } else { */
+            $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            //}
         }
         if ($onlyone) {
             $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
