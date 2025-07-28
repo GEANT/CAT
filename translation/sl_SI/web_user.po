@@ -5,21 +5,26 @@
 # Translators:
 # alexm <alexm@arnes.si>, 2012
 # alexm <alexm@arnes.si>, 2012
+# alexm <alexm@arnes.si>, 2012
+# blazdivjak <blaz.divjak@gmail.com>, 2012-2013
 # blazdivjak <blaz.divjak@gmail.com>, 2012
 # Blaž Divjak <blaz.divjak@guest.arnes.si>, 2012
 # blazdivjak <blaz.divjak@gmail.com>, 2013
 # Janez Kadivec, 2022
+# Janez Kadivec, 2022
 # Kaja Kumer <kaja.kumer@arnes.si>, 2018
 # rokpapez <rok.papez@arnes.si>, 2015
+# rokpapez <rok.papez@arnes.si>, 2012,2015
 # rokpapez <rok.papez@arnes.si>, 2012
+# teja <teja.cetinski@gmail.com>, 2013
 # teja <teja.cetinski@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Janez Kadivec, 2022\n"
+"Last-Translator: teja <teja.cetinski@gmail.com>, 2013\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -518,7 +523,7 @@ msgstr ""
 "ki strmi v vas. Vaša napaka? Naša napaka? Kdo ve! Morda se morate vrniti na "
 "<a href='%s'>začetno stran</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Obvestilo o zasebnosti %s"
@@ -537,6 +542,7 @@ msgstr ""
 "uporabite to neposredno <a href=''>povezavo</a>."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Spoštovani uporabnik iz %s,"
@@ -555,6 +561,7 @@ msgstr ""
 "ali 'osebno potrdilo'), in že boste povezani."
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -593,6 +600,7 @@ msgstr ""
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Nazaj na prenose"
 
@@ -784,6 +792,7 @@ msgid "Terms of use"
 msgstr "Pogoji uporabe"
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -796,6 +805,7 @@ msgstr ""
 "brezplačno!"
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -808,6 +818,7 @@ msgstr ""
 "ali 'osebno potrdilo'), in že boste povezani."
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
 msgstr "Preverjanje pristnosti"
 
@@ -821,7 +832,7 @@ msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to reuse download link"
-msgstr "Poskus vnovične uporabe povezave za prenos"
+msgstr "Poskusite znova uporabiti povezavo za prenos"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
@@ -952,11 +963,9 @@ msgstr "Podatkov o računu ni bilo mogoče najti"
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
-"Povezava z vabilom, ki ste ji sledili, se ne ujema z nobenih evidentiranim "
-"vabilom."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1186,27 +1195,29 @@ msgstr ""
 msgid "OpenRoaming is not supported on this device"
 msgstr "OpenRoaming ni podprt v tej napravi"
 
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr "Samo eduroam"
-
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
-msgstr "eduroam in OpenRoaming"
+#, php-format
+msgid "%s only"
+msgstr "Samo %s"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr "%s in OpenRoaming"
+
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Organisation"
 msgstr "Organizacija"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Select your organisation"
 msgstr "Izberite svojo organizacijo"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Help, my organisation is not on the list"
 msgstr "Na pomoč! Moje organizacije ni na seznamu."
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1217,63 +1228,63 @@ msgstr ""
 "Če vaše organizacije ni na seznamu, jih spodbudite, da dodajo informacije v "
 "bazo podatkov %s."
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Poiščite me natančneje z uporabo geolokacije HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Show organisations in"
 msgstr "Prikaži organizacije v"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "vseh državah"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "ali poišči organizacijo, na primer Univerzo v Ljubljani"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "prikaži vse države"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Results limited to"
 msgstr "Rezultati so omejeni na"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "entries - show more"
 msgstr "vnosov – prikaži več"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Nearby"
 msgstr "V bližini"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Location timeout"
 msgstr "Časovna omejitev za lokacijo je potekla"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Could not get your position"
 msgstr "Vašega položaja nismo mogli pridobiti"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Your browser has denied access to your location"
 msgstr "Brskalnik je zavrnil dostop do vaše lokacije"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Unknown location error"
 msgstr "Neznana napaka pri pridobivanju lokacije"
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "You are here:"
 msgstr "Ste tukaj:"
 
-#: web/skins/modern/user/js/cat_js.php:127
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Getting your location..."
 msgstr "Pridobivanje vaše lokacije ..."
 
-#: web/skins/modern/user/js/cat_js.php:128
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
 msgstr "Ponudniki v vaši bližini so prikazane na vrhu."
 
@@ -1288,8 +1299,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr "10, 8, 7, Vista"
+msgid "11, 10, 8, 7, Vista"
+msgstr ""
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2021-2022
+# Daniele Albrizio <dalbrizio@gmail.com>, 2021-2025
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2021-2022\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2021-2025\n"
 "Language-Team: Italian (Italy) (http://app.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -520,7 +520,7 @@ msgstr ""
 "ti fissa. Sbaglio tuo? Errore nostro? Chi lo sa! Forse potresti tornare "
 "indietro alla <a href='%s'>Pagina iniziale</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Informativa Privacy %s"
@@ -536,9 +536,10 @@ msgid ""
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 "Il download inizierà a breve. In caso di problemi con il download "
-"automatico, si prega di usare questo <a href=''>link</a> diretto."
+"automatico, si prega di usare questo <a href=''>collegamento</a> diretto."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Gentile utente di %s,"
@@ -557,6 +558,7 @@ msgstr ""
 "utente e password\" o per il \"certificato personale\") - ed essere online!"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -594,6 +596,7 @@ msgstr ""
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Torna ai download"
 
@@ -643,7 +646,7 @@ msgstr "Selezionare il gruppo di utenti"
 
 #: web/lib/user/TextTemplates.php:119
 msgid "select another"
-msgstr "scegline un'altra"
+msgstr "scegli un altro"
 
 #: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
@@ -708,7 +711,7 @@ msgstr ""
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
-msgstr "Link personalizzato costruito per te"
+msgstr "Collegamento personalizzato costruito per te"
 
 #: web/lib/user/TextTemplates.php:132
 #, php-format
@@ -783,6 +786,7 @@ msgid "Terms of use"
 msgstr "Termini di utilizzo"
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -795,6 +799,7 @@ msgstr ""
 "tutto il mondo. Tutto questo completamente gratis!"
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -807,6 +812,7 @@ msgstr ""
 "utente e password\" o \"certificato personale\") - ed essere in linea!"
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
 msgstr "Autenticazione"
 
@@ -821,7 +827,7 @@ msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to reuse download link"
-msgstr "Tentativo di riutilizzare il link di download"
+msgstr "Tentativo di riutilizzare il collegamento di download"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
@@ -953,11 +959,11 @@ msgstr "Informazioni sull'account non trovate"
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
-"Il link di invito che hai seguito non corrisponde ad alcun invito che "
-"abbiamo in archivio."
+"Il link di invito che hai seguito non corrisponde ad alcun invito da noi "
+"registrato."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -980,7 +986,7 @@ msgid ""
 "organisation at:"
 msgstr ""
 "Nel caso si incontrassero problemi è possibile ottenere assistenza diretta "
-"dalla tua organizzazione:"
+"dalla propria organizzazione:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
 #: web/skins/modern/user/js/cat_js.php:86
@@ -1189,27 +1195,29 @@ msgstr "Ho letto ed accetto  <a href='%s' target='_blank'>%s</a>"
 msgid "OpenRoaming is not supported on this device"
 msgstr "OpenRoaming non è supportato per questo dispositivo"
 
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr "solo eduroam"
-
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
-msgstr "eduroam e OpenRoaming"
+#, php-format
+msgid "%s only"
+msgstr "solo %s"
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr "%s e OpenRoaming"
+
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Organisation"
 msgstr "Organizzazione"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Select your organisation"
 msgstr "Seleziona la tua organizzazione"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Help, my organisation is not on the list"
 msgstr "Aiuto, la mia organizzazione non è sulla lista"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1220,63 +1228,63 @@ msgstr ""
 "locali  %s. Se la tua organizzazione non è presente nella lista, contattali "
 "affinché le informazioni necessarie siano aggiunte nel database %s."
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localizzami più accuratamente usando la Geo-Localizzazione HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Show organisations in"
 msgstr "Visualizza le organizzazioni in"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "tutti i paesi"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "oppure cerca una organizzazione, ad esempio Università di Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "visualizza tutti i paesi"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Results limited to"
 msgstr "Risultati limitati a"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "entries - show more"
 msgstr "voci - visualizzane di più"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Nearby"
 msgstr "Vicinanze"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Location timeout"
 msgstr "Location timeout"
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Could not get your position"
 msgstr "Non è possibile ottenere la tua posizione"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Your browser has denied access to your location"
 msgstr "Il tuo browser ha vietato l'accesso ai dati della tua posizione"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Unknown location error"
 msgstr "Errore sconosciuto sulla posizione"
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "You are here:"
 msgstr "Sei qui:"
 
-#: web/skins/modern/user/js/cat_js.php:127
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Getting your location..."
 msgstr "Cerco la tua posizione...."
 
-#: web/skins/modern/user/js/cat_js.php:128
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
 msgstr "Enti elencati per vicinanza"
 
@@ -1291,8 +1299,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr "10, 8, 7, Vista"
+msgid "11, 10, 8, 7, Vista"
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

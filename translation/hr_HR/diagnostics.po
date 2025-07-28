@@ -6,16 +6,17 @@
 # Translators:
 # dsafar <dsafar@srce.hr>, 2018
 # eduroam_devel <stefan.winter@restena.lu>, 2022
-# Dubravko Penezic <dpenezic@gmail.com>, 2022
+# Dubravko Penezic <dpenezic@gmail.com>, 2024
+# Klara Minga, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2022\n"
+"Last-Translator: Klara Minga, 2025\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -25,29 +26,29 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: core/diag/AbstractTest.php:325
+#: core/diag/AbstractTest.php:335
 msgid "Completed"
 msgstr "Gotovo"
 
-#: core/diag/AbstractTest.php:332
+#: core/diag/AbstractTest.php:342
 msgid "Product is not configured to run this check."
 msgstr "Proizvod nije konfiguriran da izvrši ovu provjeru."
 
-#: core/diag/AbstractTest.php:338 core/diag/RADIUSTestsUI.php:247
-#: core/diag/RADIUSTestsUI.php:262 web/diag/action_realmcheck.php:614
-#: web/diag/action_realmcheck.php:630
+#: core/diag/AbstractTest.php:348 core/diag/RADIUSTestsUI.php:264
+#: core/diag/RADIUSTestsUI.php:279 web/diag/action_realmcheck.php:662
+#: web/diag/action_realmcheck.php:678
 msgid "This check was skipped."
 msgstr "Ova opcija je preskočena."
 
-#: core/diag/AbstractTest.php:345
+#: core/diag/AbstractTest.php:355
 msgid "There were errors during the test."
 msgstr "Došlo je do greške prilikom testa."
 
-#: core/diag/AbstractTest.php:353
+#: core/diag/AbstractTest.php:363
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Nema nikakvog odgovora od RADIUS poslužitelja."
 
-#: core/diag/AbstractTest.php:360
+#: core/diag/AbstractTest.php:370
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -55,34 +56,34 @@ msgstr ""
 "Postojala je obostrana komunikacija s RADIUS poslužiteljem, ali je prekinuta "
 "na pola puta."
 
-#: core/diag/AbstractTest.php:367
+#: core/diag/AbstractTest.php:377
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr "Radius poslužitelj je odmah odbio zahtjebv za autentikacijom"
 
-#: core/diag/AbstractTest.php:374
+#: core/diag/AbstractTest.php:384
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr ""
 "Radius poslužitelj je odbio zahtjev za autentikacijom nakon EAP komunikacije."
 
-#: core/diag/AbstractTest.php:381 core/diag/RADIUSTestsUI.php:480
-#: web/diag/action_realmcheck.php:134
+#: core/diag/AbstractTest.php:391 core/diag/RADIUSTestsUI.php:529
+#: web/diag/action_realmcheck.php:131
 msgid "Connection refused"
 msgstr "Konekcija odbijena"
 
-#: core/diag/AbstractTest.php:388
+#: core/diag/AbstractTest.php:398
 msgid "Not enough data provided to perform an authentication"
 msgstr "Nedovoljno podataka da bi se obavila autentikacija"
 
-#: core/diag/AbstractTest.php:395
+#: core/diag/AbstractTest.php:405
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr "Lozinka za certifikat ne odgovara onoj kojom je zaštićen certifikat"
 
-#: core/diag/AbstractTest.php:403
+#: core/diag/AbstractTest.php:413
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -91,15 +92,15 @@ msgstr ""
 "Niz certifikata sadrži root CA certifikat. Ovo ne koristi  samoj svrsi "
 "uporabe, te dodatno opterečuje komunikaciju."
 
-#: core/diag/AbstractTest.php:410
+#: core/diag/AbstractTest.php:420
 msgid "There is more than one server certificate in the chain."
 msgstr "Postoji više od jednog poslužiteljskog certifikata u nizu."
 
-#: core/diag/AbstractTest.php:417
+#: core/diag/AbstractTest.php:427
 msgid "There is no server certificate in the chain."
 msgstr "Ne postoji poslužiteljski certifikat u nizu."
 
-#: core/diag/AbstractTest.php:424
+#: core/diag/AbstractTest.php:434
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -108,7 +109,7 @@ msgstr ""
 "Barem jedan certifikat u lancu potpisan je s MD5 algoritmom Mnogi operativni "
 "sustavi, uključujući Apple iOS, neće uspješno validirati certifikat."
 
-#: core/diag/AbstractTest.php:431
+#: core/diag/AbstractTest.php:441
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -118,7 +119,7 @@ msgstr ""
 "operativni sustavi, uključujući Apple iOS, neće uspješno validirati "
 "certifikat."
 
-#: core/diag/AbstractTest.php:438
+#: core/diag/AbstractTest.php:448
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -127,7 +128,7 @@ msgstr ""
 "Barem jedan certifikat u nizu ima javni kljuc s manje od 2048 bitova. Večina "
 "današnjih operativnih sustava to smatraju nesigurnim."
 
-#: core/diag/AbstractTest.php:445
+#: core/diag/AbstractTest.php:455
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -137,7 +138,7 @@ msgstr ""
 "Authentication'. Večina  Microsoft operativnih sustava neće uspjeti "
 "validirati certifikat."
 
-#: core/diag/AbstractTest.php:452
+#: core/diag/AbstractTest.php:462
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -145,7 +146,7 @@ msgstr ""
 "Poslužiteljski certifikat ne uključuje CRL Distribution Point, što stvara "
 "probleme u kompatibilnosti sa Windows Phone 8."
 
-#: core/diag/AbstractTest.php:459
+#: core/diag/AbstractTest.php:469
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -156,7 +157,7 @@ msgstr ""
 "HTTPS URL. Neki operativni sustavi možda neće moći validirati ovaj "
 "certifikat. Provjera poslužiteljskog certifikata prema CRL neće biti moguća."
 
-#: core/diag/AbstractTest.php:466
+#: core/diag/AbstractTest.php:476
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -168,11 +169,11 @@ msgstr ""
 "mjesto gdje ne može pronaći DER-encoded CRL. Neki operativni sustavi "
 "provjeravaju certifikat uz CLR i provjera neće uspjeti. "
 
-#: core/diag/AbstractTest.php:473
+#: core/diag/AbstractTest.php:483
 msgid "The server certificate was revoked by the CA!"
 msgstr "Poslužiteljki certifikat je povučen od izdavatelja (CA)!"
 
-#: core/diag/AbstractTest.php:480
+#: core/diag/AbstractTest.php:490
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -184,7 +185,7 @@ msgstr ""
 "sadrži odgovarajuće ime računala, a Vi ih koristite samo za konfiguriranje "
 "uređaja, tada možete zanemariti ovu napomenu."
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:497
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -197,13 +198,13 @@ msgstr ""
 "bez wildcard-ova, i Vi samo takove koristiteza konfiguriranje Vaših uređaja, "
 "slobodno možete zanemariti ovu poruku."
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:504
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
 msgstr "Barem jednom certifikatu je istekao rok trajanja!"
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:511
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -216,13 +217,13 @@ msgstr ""
 "nije korišten za validaciju poslužitelja. Razmislite o uklanjanju istog iz "
 "%s konfiguracije."
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:518
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr "Poslužiteljski certifikat je nemoguće provjeriti s root CA iz profila!"
 
-#: core/diag/AbstractTest.php:512
+#: core/diag/AbstractTest.php:522
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -233,13 +234,13 @@ msgstr ""
 "root CA u Vašem profilu. Ipak je potvrđen posrednim CAs-a u Vašem profilu. "
 "Razmislite o slanju potrebnih posrednih CAs-a unutar EAP razgovora."
 
-#: core/diag/AbstractTest.php:518
+#: core/diag/AbstractTest.php:528
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr "EAP ime poslužitelja ne odgovara imenu iz konfiguracije!"
 
-#: core/diag/AbstractTest.php:525
+#: core/diag/AbstractTest.php:535
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -249,7 +250,7 @@ msgstr ""
 "subjectAltName:DNS poljima dolaznog certifikata; najbolja dosadašnja praksa "
 "je da certifikat sadrži ime na OBA mjesta."
 
-#: core/diag/AbstractTest.php:532
+#: core/diag/AbstractTest.php:542
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -260,31 +261,31 @@ msgstr ""
 "radi li se o CA certifikatu ili end-entity certifikatu. Mac OS X 10.8 "
 "(Mountain Lion) na ovaj način neće validirati certifikat za EAP svrhu."
 
-#: core/diag/AbstractTest.php:539
+#: core/diag/AbstractTest.php:549
 msgid "The server presented a certificate from an unknown authority."
 msgstr "Poslužitelj se predstavlja certifikatom nepoznatog izdavatelja."
 
-#: core/diag/AbstractTest.php:546
+#: core/diag/AbstractTest.php:556
 msgid "The server accepted the INVALID client certificate."
 msgstr "Poslužitelj je prihvatio POGREŠAN klijenstki certifikat"
 
-#: core/diag/AbstractTest.php:553
+#: core/diag/AbstractTest.php:563
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Poslužitelj je odbio klijenstki certifikat, iako je on ispravan."
 
-#: core/diag/AbstractTest.php:560
+#: core/diag/AbstractTest.php:570
 msgid "The server rejected the client certificate as expected."
 msgstr "Poslužitelj je odbio klijentski certifikat, kako je i očekivano."
 
-#: core/diag/AbstractTest.php:567
+#: core/diag/AbstractTest.php:577
 msgid "The CRL of a certificate could not be found."
 msgstr "CRL od certifikata nije pronađen."
 
-#: core/diag/AbstractTest.php:574
+#: core/diag/AbstractTest.php:584
 msgid "EAP method negotiation failed!"
 msgstr "EAP komunikacija nije uspijela"
 
-#: core/diag/AbstractTest.php:581
+#: core/diag/AbstractTest.php:591
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -294,7 +295,7 @@ msgstr ""
 "bit. Mac OS X 10.11 'El Capitan'  je poznat po tome da će odbiti TLS "
 "konekciju u tim uvijetima!"
 
-#: core/diag/AbstractTest.php:588
+#: core/diag/AbstractTest.php:598
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -302,7 +303,7 @@ msgstr ""
 "Certifikat sadrži Više od jednog polja CommonName (CN).Ovo može biti problem "
 "kod večine uređaja."
 
-#: core/diag/AbstractTest.php:595
+#: core/diag/AbstractTest.php:605
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
@@ -310,17 +311,17 @@ msgstr ""
 "Certifikat algoritma javnog ključa je nepoznat sistemu.Molimo Vas da "
 "pošaljete certifikat kao primjer developerima."
 
-#: core/diag/AbstractTest.php:602
+#: core/diag/AbstractTest.php:612
 msgid "No certificate at all was sent by the server."
 msgstr "Server ne koristi certifikat."
 
-#: core/diag/AbstractTest.php:609
+#: core/diag/AbstractTest.php:619
 msgid ""
 "It was not possible to determine the TLS version that was used in the EAP "
 "exchange."
 msgstr "Nije moguće TLS verziju koja je korištena kod EAP-a."
 
-#: core/diag/AbstractTest.php:616
+#: core/diag/AbstractTest.php:626
 msgid ""
 "The server does not support the contemporary TLS versions TLSv1.2 or "
 "TLSv1.3. Modern client operating systems may refuse to authenticate against "
@@ -329,7 +330,7 @@ msgstr ""
 "Poslužitelj ne podržava trenutnu TLS verziju TLSv1.2 ili TLSv1.3. Suvremeni "
 "klijentski operativni sustavi mogli bi odbiti autentikaciju!"
 
-#: core/diag/AbstractTest.php:620
+#: core/diag/AbstractTest.php:630
 msgid ""
 "The expected server name as per SRV record does not match any server name in "
 "the certificate of the server that was reached!"
@@ -454,12 +455,12 @@ msgstr "MAC adresa dotičnog krajnjeg korisnika:"
 msgid "Additional Comments:"
 msgstr "Dodatni komentari:"
 
-#: core/diag/RADIUSTests.php:1343
+#: core/diag/RADIUSTests.php:1345
 #, php-format
 msgid "Connected to %s."
 msgstr "Povezano s %s."
 
-#: core/diag/RADIUSTests.php:1348 web/diag/radius_tests.php:233
+#: core/diag/RADIUSTests.php:1350 web/diag/radius_tests.php:240
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -468,7 +469,7 @@ msgstr ""
 "<strong>Test uspio</strong>:  dvosmjerna komunikacija između RADIUS servera "
 "obavljena i dobiven očekivan odgovor kroz  Access-Reject."
 
-#: core/diag/RADIUSTests.php:1353
+#: core/diag/RADIUSTests.php:1355
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -480,93 +481,89 @@ msgstr ""
 "kako je i planirano. Dijelovi autentikacije nisu u potpunosti optimizirane, "
 "vidi slijedeće."
 
-#: core/diag/RADIUSTestsUI.php:86 web/diag/action_realmcheck.php:136
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
 msgid "All tests passed."
 msgstr "Sve provjere uspješno završene."
 
-#: core/diag/RADIUSTestsUI.php:87 web/diag/action_realmcheck.php:137
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
 msgid "There were some warnings."
 msgstr "Bilo je nekoliko upozorenja"
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
+#: core/diag/RADIUSTestsUI.php:90 web/diag/action_realmcheck.php:136
 msgid "There were some errors."
 msgstr "Bilo je nekoliko grešaka."
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:91 web/diag/action_realmcheck.php:137
 msgid "There were some remarks."
 msgstr "Bilo je nekoliko primjedbi."
 
-#: core/diag/RADIUSTestsUI.php:98 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:100 web/diag/action_realmcheck.php:113
 msgid "PASS"
 msgstr "U redu"
 
-#: core/diag/RADIUSTestsUI.php:99 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:101 web/diag/action_realmcheck.php:114
 msgid "FAIL"
 msgstr "Greška"
 
-#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:159
 msgid "Subject:"
 msgstr "Subject:"
 
-#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:160
 msgid "Issuer:"
 msgstr "Issuer:"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:161
 msgid "Valid from:"
 msgstr "Vrijedi od:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:162
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:162
 msgid "Valid to:"
 msgstr "Vrijedi do:"
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:163
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:163
 msgid "Serial number:"
 msgstr "Serijski broj:"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:164
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:164
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 otisak:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:147
+#: core/diag/RADIUSTestsUI.php:110
+msgid "Public key length:"
+msgstr "Duljina javnog ključa:"
+
+#: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:145
 msgid "Server certificate"
 msgstr "Certifikat poslužitelja"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:148
-msgid "Subject"
-msgstr "Subjekt"
+#: core/diag/RADIUSTestsUI.php:112
+msgid "Policies:"
+msgstr "Politike:"
 
-#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:149
-msgid "Issuer"
-msgstr "Izdavač"
+#: core/diag/RADIUSTestsUI.php:113
+msgid "crlDistributionPoint:"
+msgstr "crlDistributionPoint:"
 
-#: core/diag/RADIUSTestsUI.php:111
-msgid "Policies"
-msgstr "Politike"
+#: core/diag/RADIUSTestsUI.php:114
+msgid "authorityInfoAccess:"
+msgstr "authorityInfoAccess:"
 
-#: core/diag/RADIUSTestsUI.php:112 web/diag/action_realmcheck.php:152
-msgid "crlDistributionPoint"
-msgstr "crlDistributionPoint"
+#: core/diag/RADIUSTestsUI.php:115
+msgid "SubjectAltName:"
+msgstr "SubjectAltName:"
 
-#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:153
-msgid "authorityInfoAccess"
-msgstr "authorityInfoAccess"
-
-#: core/diag/RADIUSTestsUI.php:114 web/diag/action_realmcheck.php:150
-msgid "SubjectAltName"
-msgstr "Drugo ime subjekta"
-
-#: core/diag/RADIUSTestsUI.php:212 web/diag/action_realmcheck.php:546
-#: web/diag/action_realmcheck.php:555 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:229 web/diag/action_realmcheck.php:594
+#: web/diag/action_realmcheck.php:603 web/diag/show_realmcheck.php:134
 msgid "Overview"
 msgstr "Pregled"
 
-#: core/diag/RADIUSTestsUI.php:214
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:611
 msgid "DNS checks"
 msgstr "Provjera DNS-a"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:217 web/diag/action_realmcheck.php:581
+#: core/diag/RADIUSTestsUI.php:234 web/diag/action_realmcheck.php:629
 msgid "Checking NAPTR existence:"
 msgstr "Provjera postojanja NAPTR: "
 
@@ -574,12 +571,12 @@ msgstr "Provjera postojanja NAPTR: "
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RADIUSTestsUI.php:220 core/diag/RFC7585Tests.php:156
-#: web/diag/action_realmcheck.php:584
+#: core/diag/RADIUSTestsUI.php:237 core/diag/RFC7585Tests.php:157
+#: web/diag/action_realmcheck.php:632
 msgid "This realm has no NAPTR records."
 msgstr "Realm nema NAPTR zapis."
 
-#: core/diag/RADIUSTestsUI.php:223 web/diag/action_realmcheck.php:587
+#: core/diag/RADIUSTestsUI.php:240 web/diag/action_realmcheck.php:635
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -588,62 +585,62 @@ msgstr ""
 "konzorcijem."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:226 web/diag/action_realmcheck.php:590
+#: core/diag/RADIUSTestsUI.php:243 web/diag/action_realmcheck.php:638
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Ova domena sadrži %d NAPTR zapisa povezanih sa ovim roaming konzorcijem."
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:596
+#: core/diag/RADIUSTestsUI.php:248 web/diag/action_realmcheck.php:644
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Provjera NAPTR funkcionalnosti (opcija = S regex = {empty}):"
 
-#: core/diag/RADIUSTestsUI.php:237 core/diag/RADIUSTestsUI.php:250
-#: web/diag/action_realmcheck.php:603 web/diag/action_realmcheck.php:617
+#: core/diag/RADIUSTestsUI.php:254 core/diag/RADIUSTestsUI.php:267
+#: web/diag/action_realmcheck.php:651 web/diag/action_realmcheck.php:665
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Barem jedan NAPTR sadrži lošu vrijednost!"
 
-#: core/diag/RADIUSTestsUI.php:244 web/diag/action_realmcheck.php:611
+#: core/diag/RADIUSTestsUI.php:261 web/diag/action_realmcheck.php:659
 msgid "Checking SRVs:"
 msgstr "Provjera SRVs:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:253 web/diag/action_realmcheck.php:620
+#: core/diag/RADIUSTestsUI.php:270 web/diag/action_realmcheck.php:668
 #, php-format
 msgid "%d host names discovered."
 msgstr "pronađeno ime poslužitelja %d."
 
-#: core/diag/RADIUSTestsUI.php:259 web/diag/action_realmcheck.php:627
+#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:675
 msgid "Checking IP address resolution:"
 msgstr "Provjera IP adrese:"
 
-#: core/diag/RADIUSTestsUI.php:265 web/diag/action_realmcheck.php:633
+#: core/diag/RADIUSTestsUI.php:282 web/diag/action_realmcheck.php:681
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Barem jedan hostname nije moguće pronaći!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:268 web/diag/action_realmcheck.php:636
+#: core/diag/RADIUSTestsUI.php:285 web/diag/action_realmcheck.php:684
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP adresa je pronađeno."
 
-#: core/diag/RADIUSTestsUI.php:274 web/diag/action_realmcheck.php:644
-#: web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:291 web/diag/action_realmcheck.php:692
+#: web/diag/action_realmcheck.php:694
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realm je <strong>%s</strong> "
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:644
+#: core/diag/RADIUSTestsUI.php:293 web/diag/action_realmcheck.php:692
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "bez greške u DNS-u. Čestitamo!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
 msgid "but there were DNS errors! Check them!"
 msgstr "ali postoji greška u DNS-a! Provjerite!"
 
-#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:646
+#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -652,31 +649,31 @@ msgstr ""
 "postoji vjerojatnost u dodatne greške nakon ovog mjesta. Pronađene greške se "
 "nalaze dolje popisane."
 
-#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:574
+#: core/diag/RADIUSTestsUI.php:304 web/diag/action_realmcheck.php:622
 msgid "Dynamic discovery test is not configured"
 msgstr "Dynamic discovery test nije postavljen"
 
-#: core/diag/RADIUSTestsUI.php:289 web/diag/action_realmcheck.php:547
-#: web/diag/action_realmcheck.php:707 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:306 web/diag/action_realmcheck.php:595
+#: web/diag/action_realmcheck.php:760 web/diag/show_realmcheck.php:135
 msgid "Static connectivity tests"
 msgstr "Statična provjera povezanosti"
 
-#: core/diag/RADIUSTestsUI.php:293 core/diag/RADIUSTestsUI.php:299
-#: web/diag/action_realmcheck.php:419 web/diag/action_realmcheck.php:424
-#: web/diag/action_realmcheck.php:429
+#: core/diag/RADIUSTestsUI.php:310 core/diag/RADIUSTestsUI.php:316
+#: web/diag/action_realmcheck.php:433 web/diag/action_realmcheck.php:438
+#: web/diag/action_realmcheck.php:443
 msgid "See the appropriate tab for details."
 msgstr "Vidi odgovarajuću karticu za detalje"
 
-#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:548
-#: web/diag/action_realmcheck.php:712 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:313 web/diag/action_realmcheck.php:596
+#: web/diag/action_realmcheck.php:765 web/diag/show_realmcheck.php:139
 msgid "Dynamic connectivity tests"
 msgstr "Dinamička provjera povezanosti"
 
-#: core/diag/RADIUSTestsUI.php:310 web/diag/action_realmcheck.php:732
+#: core/diag/RADIUSTestsUI.php:327 web/diag/action_realmcheck.php:785
 msgid "STATIC connectivity tests"
 msgstr "testiranje povezanosti STATIC"
 
-#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:734
+#: core/diag/RADIUSTestsUI.php:329 web/diag/action_realmcheck.php:787
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -691,111 +688,120 @@ msgstr ""
 "nemamo stvarne vjerodajnice za domenu ne možemo se uspješno autenticirati - "
 "pa je očekivani ishod odbijanje nakon EPA-a."
 
-#: core/diag/RADIUSTestsUI.php:318 web/diag/action_realmcheck.php:738
-#: web/diag/action_realmcheck.php:881
+#: core/diag/RADIUSTestsUI.php:335
 #, php-format
-msgid "Testing from: %s"
-msgstr "Test za: %s"
+msgid "Testing from: <strong>%s"
+msgstr "Testiranje od: <strong>%s"
 
-#: core/diag/RADIUSTestsUI.php:324 web/diag/action_realmcheck.php:165
+#: core/diag/RADIUSTestsUI.php:342 web/diag/action_realmcheck.php:166
 msgid "Connected to undetermined server"
 msgstr "Spajanje na nepoznati server"
 
-#: core/diag/RADIUSTestsUI.php:324 core/diag/RADIUSTestsUI.php:470
-#: web/diag/action_realmcheck.php:272 web/diag/action_realmcheck.php:383
-#: web/diag/action_realmcheck.php:403 web/diag/action_realmcheck.php:464
+#: core/diag/RADIUSTestsUI.php:342 core/diag/RADIUSTestsUI.php:517
+#: web/diag/action_realmcheck.php:279 web/diag/action_realmcheck.php:397
+#: web/diag/action_realmcheck.php:417 web/diag/action_realmcheck.php:478
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "prošlo vrijeme: %sms."
 
-#: core/diag/RADIUSTestsUI.php:349 web/diag/action_realmcheck.php:394
-#: web/diag/action_realmcheck.php:454
+#: core/diag/RADIUSTestsUI.php:359 web/diag/action_realmcheck.php:408
+#: web/diag/action_realmcheck.php:468
 msgid "Extensions"
 msgstr "Dodatak"
 
-#: core/diag/RADIUSTestsUI.php:351 web/diag/action_realmcheck.php:395
+#: core/diag/RADIUSTestsUI.php:367 web/diag/action_realmcheck.php:409
 msgid "show server certificate details"
 msgstr "Prikaži detalje poslužiteljskog certifikata"
 
-#: core/diag/RADIUSTestsUI.php:362 web/diag/action_realmcheck.php:792
+#: core/diag/RADIUSTestsUI.php:381 web/diag/action_realmcheck.php:845
 msgid "Checking server handshake..."
 msgstr "Provjera komunikacije između servera..."
 
-#: core/diag/RADIUSTestsUI.php:403 web/diag/action_realmcheck.php:129
+#: core/diag/RADIUSTestsUI.php:397 web/diag/action_realmcheck.php:858
+msgid "supported TLS protocols: "
+msgstr "podržani TLS protokoli:"
+
+#: core/diag/RADIUSTestsUI.php:400 web/diag/action_realmcheck.php:861
+msgid "not supported: "
+msgstr "nije podržano:"
+
+#: core/diag/RADIUSTestsUI.php:442 web/diag/action_realmcheck.php:125
 #: web/diag/show_realmcheck.php:62
 msgid "more"
 msgstr "dalje"
 
-#: core/diag/RADIUSTestsUI.php:407 core/diag/RADIUSTestsUI.php:489
+#: core/diag/RADIUSTestsUI.php:446 core/diag/RADIUSTestsUI.php:538
 msgid "Test failed"
 msgstr "Test neuspješan"
 
-#: core/diag/RADIUSTestsUI.php:430
+#: core/diag/RADIUSTestsUI.php:473
 msgid "Client certificate"
 msgstr "Klijentski certifikat"
 
-#: core/diag/RADIUSTestsUI.php:441 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:484 web/diag/action_realmcheck.php:116
 msgid "expected result: "
 msgstr "očekivani rezultat:"
 
-#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:487 web/diag/action_realmcheck.php:276
+msgid "this test was skipped - no appropriate client certificate"
+msgstr "ovaj test je preskočen - nema prikladnog klijent certifikata"
+
+#: core/diag/RADIUSTestsUI.php:497 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate"
 msgstr "Poslužitelj je prihvatio klijentov certifikat"
 
-#: core/diag/RADIUSTestsUI.php:453 web/diag/action_realmcheck.php:126
+#: core/diag/RADIUSTestsUI.php:500 web/diag/action_realmcheck.php:122
 msgid "You should update your list of accredited CAs"
 msgstr ""
 "Trebali biste osvježiti listu akreditiranih certifikacijskih tijela, CAs"
 
-#: core/diag/RADIUSTestsUI.php:455 web/diag/action_realmcheck.php:127
+#: core/diag/RADIUSTestsUI.php:502 web/diag/action_realmcheck.php:123
 msgid "Get it from here."
 msgstr "Dohvati s ovog mjesta."
 
-#: core/diag/RADIUSTestsUI.php:457 web/diag/action_realmcheck.php:124
+#: core/diag/RADIUSTestsUI.php:504 web/diag/action_realmcheck.php:120
 msgid "Server did not accept this client certificate - reason"
 msgstr "Poslužitelj nije prihvatio klijentski certifikat - razlog"
 
-#: core/diag/RADIUSTestsUI.php:463 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:510 web/diag/action_realmcheck.php:118
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Poslužitelj je prihvatio klijentski certifikat, iako to nije smio"
 
-#: core/diag/RADIUSTestsUI.php:466 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:513 web/diag/action_realmcheck.php:119
 msgid "Server did not accept this client certificate"
 msgstr "Poslužitelj nije prihvatio klijentski certifikat"
 
-#: core/diag/RADIUSTestsUI.php:473 web/diag/action_realmcheck.php:125
+#: core/diag/RADIUSTestsUI.php:521 web/diag/action_realmcheck.php:121
 msgid "Rest of tests for this CA skipped"
 msgstr "Ostatak testova za ovo certifikacijsko tijelo je preskočen"
 
-#: core/diag/RADIUSTestsUI.php:501
+#: core/diag/RADIUSTestsUI.php:550
 msgid "These tests were skipped because of previous errors."
 msgstr "Ovi testovi preskočeni su zbog prošlih grešaka."
 
-#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:778
+#: core/diag/RADIUSTestsUI.php:561 web/diag/action_realmcheck.php:831
 msgid "DYNAMIC connectivity tests"
 msgstr "test povezanosti DYNAMIC"
 
-#: core/diag/RADIUSTestsUI.php:522 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:570 web/diag/action_realmcheck.php:844
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 "Pronađene su nepravilnosti tokom testiranja, pogledajte ispis u nastavku"
 
-#: core/diag/RADIUSTestsUI.php:528 web/diag/action_realmcheck.php:791
+#: core/diag/RADIUSTestsUI.php:576 web/diag/action_realmcheck.php:844
 msgid "All tests passed, congratulations!"
 msgstr "Sve provjere uspiješno prođene, čestitamo! "
 
-#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:131
-#: web/diag/action_realmcheck.php:792 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:578 web/diag/action_realmcheck.php:127
+#: web/diag/action_realmcheck.php:845 web/diag/show_realmcheck.php:60
 msgid "Show detailed information for all tests"
 msgstr "Prikaži detaljne informacije za sve testove"
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
-msgid "Checking if certificates from  CAs are accepted..."
-msgstr ""
-"Provjeravamo da li se certifikati izdani od certifikacijskog tijela smiju "
-"prihvatiti..."
+#: core/diag/RADIUSTestsUI.php:582
+msgid "Checking if certificates from CAs are accepted..."
+msgstr "Provjera prihvaćanja CA certifikata..."
 
-#: core/diag/RADIUSTestsUI.php:531 web/diag/action_realmcheck.php:828
+#: core/diag/RADIUSTestsUI.php:582 web/diag/action_realmcheck.php:896
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -803,80 +809,83 @@ msgstr ""
 "Nekoliko klijentskih certifikata bit će istestirano kako bi se utvrdili "
 "mogući problemi u radu poslužitelja sa klijentskim certfikatima."
 
-#: core/diag/RFC6614Tests.php:97
+#: core/diag/RFC6614Tests.php:98
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/diag/RFC6614Tests.php:98
+#: core/diag/RFC6614Tests.php:99
 msgid "Nicolaus Copernicus University"
 msgstr "Nicolaus Copernicus University"
 
-#: core/diag/RFC6614Tests.php:99
+#: core/diag/RFC6614Tests.php:100
 msgid "accredited"
 msgstr "akreditiran"
 
-#: core/diag/RFC6614Tests.php:100
+#: core/diag/RFC6614Tests.php:101
 msgid "non-accredited"
 msgstr "neakreditiran"
 
-#: core/diag/RFC6614Tests.php:101
+#: core/diag/RFC6614Tests.php:102
 msgid "correct certificate"
 msgstr "ispravan certifikat"
 
-#: core/diag/RFC6614Tests.php:102
+#: core/diag/RFC6614Tests.php:103
 msgid "certificate with wrong policy OID"
 msgstr "certifikat sa krivim OID-om politike korištenja"
 
-#: core/diag/RFC6614Tests.php:103
+#: core/diag/RFC6614Tests.php:104
 msgid "expired certificate"
 msgstr "istekao certifikat"
 
-#: core/diag/RFC6614Tests.php:104
+#: core/diag/RFC6614Tests.php:105
 msgid "revoked certificate"
 msgstr "povučen certifikat"
 
-#: core/diag/RFC6614Tests.php:105
+#: core/diag/RFC6614Tests.php:106
 msgid "pass"
 msgstr "prošao"
 
-#: core/diag/RFC6614Tests.php:106
+#: core/diag/RFC6614Tests.php:107
 msgid "fail"
 msgstr "nije prošao"
 
-#: core/diag/RFC6614Tests.php:107
+#: core/diag/RFC6614Tests.php:108
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr ""
 "eduroam akreditirano certifikacijsko tijelo, CA (trenutno samo za test)"
 
-#: core/diag/RFC6614Tests.php:354
+#: core/diag/RFC6614Tests.php:367
 msgid "No TLS connection established: Connection refused"
 msgstr "Nije ostvarena TLS veza: Veza odbijena"
 
-#: core/diag/RFC6614Tests.php:356
+#: core/diag/RFC6614Tests.php:369
 msgid "certificate expired"
 msgstr "certifikat je istekao"
 
-#: core/diag/RFC6614Tests.php:358
+#: core/diag/RFC6614Tests.php:371
 msgid "certificate was revoked"
 msgstr "certifikat je povučen"
 
-#: core/diag/RFC6614Tests.php:360
+#: core/diag/RFC6614Tests.php:374
 msgid "bad policy"
 msgstr "loša pravila"
 
-#: core/diag/RFC6614Tests.php:362
+#: core/diag/RFC6614Tests.php:376
 msgid "unknown authority"
 msgstr "nepoznati autoritet"
 
-#: core/diag/RFC6614Tests.php:365
-msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
-"nepoznat autoritet ili korištenje bez certifikata ili nepoznati problem"
+#: core/diag/RFC6614Tests.php:379
+msgid "unexpected eof while reading"
+msgstr "neočekivani eof kod čitanja"
+
+#: core/diag/RFC6614Tests.php:382
+msgid "unknown problem"
+msgstr "nepoznati problem"
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
 #.
-#: core/diag/RFC7585Tests.php:162
+#: core/diag/RFC7585Tests.php:163
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
 "NAPTR zapis je pronađen, ali sve reference pokazuju na nepostojeći servis."
@@ -953,7 +962,7 @@ msgstr ""
 msgid ""
 "Have you ever used the network successfully, e.g. at your home institution "
 "without roaming?"
-msgstr ""
+msgstr "Da li ste ikada uspijeli koristiti konekciju uspiješno ? "
 
 #. that's good, but it doesn't mean strikingly much
 #. that's bad, and points strongly to a config on this end
@@ -963,6 +972,8 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuration is wrong. %s"
 msgstr ""
+"Ako nikada nije radila konekcija uz postojeću konfiguraciju, vjerojatno je "
+"kriva konfiguracija. %s"
 
 #: core/diag/Sociopath.php:93
 msgid ""
@@ -1113,7 +1124,7 @@ msgstr "Jeste li Vi"
 msgid "end-user"
 msgstr "krajnji korisnik"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:147
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:151
 msgid "or"
 msgstr "ili"
 
@@ -1222,6 +1233,7 @@ msgid "Fetching institutions list"
 msgstr "Preuzimanje liste ustanova"
 
 #: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
+#: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institution:"
 msgstr "Izaberite ustanovu:"
 
@@ -1256,135 +1268,135 @@ msgstr "Druga lokacija"
 msgid "Fetching realms list"
 msgstr "Preuzimanje liste realm-ova"
 
-#: web/skins/modern/diag/diag.php:401
+#: web/skins/modern/diag/diag.php:402
 msgid "Check realm(s):"
 msgstr "Provjerite realm/ove"
 
-#: web/skins/modern/diag/diag.php:413
+#: web/skins/modern/diag/diag.php:414
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:465 web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:472 web/skins/modern/diag/diag.php:534
 msgid "Running realm tests"
 msgstr "Pokrenuti su testovi realm-ova"
 
-#: web/skins/modern/diag/diag.php:574
+#: web/skins/modern/diag/diag.php:582
 msgid "Diagnostics results for selected realms"
 msgstr "Rezultati testova za izabrane realm-ove"
 
-#: web/skins/modern/diag/diag.php:575
+#: web/skins/modern/diag/diag.php:583
 msgid "An unknown problem occurred"
-msgstr ""
+msgstr "Pojavila se nepoznata greška"
 
-#: web/skins/modern/diag/diag.php:578
+#: web/skins/modern/diag/diag.php:586
 msgid "This test includes checking of the following realm"
 msgstr "Ovaj test uključuje provjeru sljedećeg realm-a"
 
-#: web/skins/modern/diag/diag.php:580
+#: web/skins/modern/diag/diag.php:588
 msgid "This test includes checking of the following realms"
 msgstr "Ovaj test uključuje provjeru sljedećih realm-ova"
 
-#: web/skins/modern/diag/diag.php:590
+#: web/skins/modern/diag/diag.php:598
 msgid "You should report this to"
 msgstr "Ovo bi trebali prijaviti"
 
-#: web/skins/modern/diag/diag.php:658
+#: web/skins/modern/diag/diag.php:666
 msgid "eduroam admin report submission"
 msgstr "podnošenje izvješća administracije"
 
-#: web/skins/modern/diag/diag.php:661
+#: web/skins/modern/diag/diag.php:669
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 "Davatelj usluge kontaktira davatelja identiteta zbog tehničkih problema ili "
 "zloupotrebe"
 
-#: web/skins/modern/diag/diag.php:663 web/skins/modern/diag/diag.php:687
+#: web/skins/modern/diag/diag.php:671 web/skins/modern/diag/diag.php:695
 msgid "Reason"
 msgstr "Razlog"
 
-#: web/skins/modern/diag/diag.php:664 web/skins/modern/diag/diag.php:691
+#: web/skins/modern/diag/diag.php:672 web/skins/modern/diag/diag.php:699
 msgid "Event's timestamp"
 msgstr "Timestamp događaja"
 
-#: web/skins/modern/diag/diag.php:665 web/skins/modern/diag/diag.php:692
+#: web/skins/modern/diag/diag.php:673 web/skins/modern/diag/diag.php:700
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:666 web/skins/modern/diag/diag.php:693
+#: web/skins/modern/diag/diag.php:674 web/skins/modern/diag/diag.php:701
 msgid "Additional description"
 msgstr "Dodatni opis"
 
-#: web/skins/modern/diag/diag.php:667
+#: web/skins/modern/diag/diag.php:675
 msgid "An email to contact the reporter"
 msgstr "E-mail za kontaktiranje"
 
-#: web/skins/modern/diag/diag.php:668
+#: web/skins/modern/diag/diag.php:676
 msgid "Test result"
 msgstr "Rezultat testa"
 
-#: web/skins/modern/diag/diag.php:670 web/diag/adminQuery.php:256
+#: web/skins/modern/diag/diag.php:678 web/diag/adminQuery.php:260
 msgid "failure"
 msgstr "pogreška"
 
-#: web/skins/modern/diag/diag.php:672 web/diag/adminQuery.php:254
+#: web/skins/modern/diag/diag.php:680 web/diag/adminQuery.php:258
 msgid "success"
 msgstr "uspjeh"
 
-#: web/skins/modern/diag/diag.php:675
+#: web/skins/modern/diag/diag.php:683
 msgid "Test URL"
 msgstr "Testni URL"
 
-#: web/skins/modern/diag/diag.php:676
+#: web/skins/modern/diag/diag.php:684
 msgid "Email to IdP administrators "
 msgstr "Email administratoru davatelja identiteta"
 
-#: web/skins/modern/diag/diag.php:678
+#: web/skins/modern/diag/diag.php:686
 msgid "send successfully"
 msgstr "uspješno poslano"
 
-#: web/skins/modern/diag/diag.php:680
+#: web/skins/modern/diag/diag.php:688
 msgid "not sent - failure while sending"
 msgstr "nije poslano - pogreška kod slanja"
 
-#: web/skins/modern/diag/diag.php:685
+#: web/skins/modern/diag/diag.php:693
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 "Davatelj identiteta kontaktira davatelja usluge zbog tehničkih problema ili "
 "zloupotrebe"
 
-#: web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:696
 msgid "SP's Operator-Name"
 msgstr "SP naziv"
 
-#: web/skins/modern/diag/diag.php:689
+#: web/skins/modern/diag/diag.php:697
 msgid "User's outer ID"
 msgstr "Korisnički vanjski ID"
 
-#: web/skins/modern/diag/diag.php:690
+#: web/skins/modern/diag/diag.php:698
 msgid "IdP email"
 msgstr "Idp email"
 
-#: web/skins/modern/diag/diag.php:694
+#: web/skins/modern/diag/diag.php:702
 msgid "How to contact the user"
 msgstr "Način kontaktiranja korinika"
 
-#: web/skins/modern/diag/diag.php:720
+#: web/skins/modern/diag/diag.php:733
 msgid "Wrong format of realm"
 msgstr "Pogrešan format domene"
 
-#: web/skins/modern/diag/diag.php:730 web/skins/modern/diag/diag.php:752
+#: web/skins/modern/diag/diag.php:747 web/skins/modern/diag/diag.php:769
 msgid "Wrong format of email"
 msgstr "Pogrešan format e-mail adrese"
 
-#: web/skins/modern/diag/diag.php:743
+#: web/skins/modern/diag/diag.php:760
 msgid "MAC address is incomplete"
 msgstr "MAC adresa je nepotpuna"
 
-#: web/skins/modern/diag/diag.php:761
+#: web/skins/modern/diag/diag.php:778
 msgid "Wrong format of outer ID"
 msgstr "Pogrešan format vanjskog ID-a"
 
-#: web/skins/modern/diag/diag.php:770
+#: web/skins/modern/diag/diag.php:787
 msgid "Wrong string given as OperatorName"
 msgstr "Pogrešan unos polja OperatorName"
 
@@ -1404,90 +1416,129 @@ msgstr ""
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Nije predano valjano ime realm-a, nije moguće izvršiti provjeru!"
 
-#: web/diag/action_realmcheck.php:84
+#: web/diag/action_realmcheck.php:85
 msgid "STATIC"
 msgstr "STATIC"
 
-#: web/diag/action_realmcheck.php:85
+#: web/diag/action_realmcheck.php:86
 msgid "DYNAMIC"
 msgstr "DYNAMIC"
 
-#: web/diag/action_realmcheck.php:119
+#: web/diag/action_realmcheck.php:115
 msgid "Client certificate:"
 msgstr "Klijentski certifikat:"
 
-#: web/diag/action_realmcheck.php:151
+#: web/diag/action_realmcheck.php:132
+msgid "Connection timeout"
+msgstr "Povezivanje isteklo"
+
+#: web/diag/action_realmcheck.php:146
+msgid "Subject"
+msgstr "Subjekt"
+
+#: web/diag/action_realmcheck.php:147
+msgid "Issuer"
+msgstr "Izdavač"
+
+#: web/diag/action_realmcheck.php:148
+msgid "Valid to"
+msgstr "Vrijedi do"
+
+#: web/diag/action_realmcheck.php:149
+msgid "SubjectAltName"
+msgstr "Drugo ime subjekta"
+
+#: web/diag/action_realmcheck.php:150
 msgid "Certificate policies"
 msgstr "Politika certifikata"
+
+#: web/diag/action_realmcheck.php:151
+msgid "crlDistributionPoint"
+msgstr "crlDistributionPoint"
+
+#: web/diag/action_realmcheck.php:152
+msgid "authorityInfoAccess"
+msgstr "authorityInfoAccess"
+
+#: web/diag/action_realmcheck.php:153 web/diag/action_realmcheck.php:165
+msgid "Public key length"
+msgstr "Duljina javnog ključa"
 
 #: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
 msgstr "Sakrij detaljne informacije za sve testove"
 
-#: web/diag/action_realmcheck.php:217
+#: web/diag/action_realmcheck.php:219
 msgid "Some required input is missing!"
 msgstr "Neki djelovi ulaznih parametara nedostaju!"
 
-#: web/diag/action_realmcheck.php:442
+#: web/diag/action_realmcheck.php:456
 msgid "Server certificate details:"
 msgstr "Detalji poslužiteljskog certifikata:"
 
-#: web/diag/action_realmcheck.php:541 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:589 web/diag/show_realmcheck.php:126
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Provjera realma za: %s"
 
-#: web/diag/action_realmcheck.php:549 web/diag/action_realmcheck.php:718
-#: web/diag/action_realmcheck.php:780
+#: web/diag/action_realmcheck.php:597 web/diag/action_realmcheck.php:771
+#: web/diag/action_realmcheck.php:833
 msgid "OpenRoaming connectivity tests"
 msgstr "OpenRoaming test povezivanja"
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:598
 msgid "Live login tests"
 msgstr "Live login test"
 
-#: web/diag/action_realmcheck.php:563
-msgid "DNS checks"
-msgstr "Provjera DNS-a"
-
-#: web/diag/action_realmcheck.php:569
+#: web/diag/action_realmcheck.php:617
 msgid "OpenRoaming DNS checks"
 msgstr "OpenRoaming DNS provjera"
 
-#: web/diag/action_realmcheck.php:576
+#: web/diag/action_realmcheck.php:624
 msgid "OpenRoaming connectivity test is not configured"
 msgstr "Test povezivanja OpenRoaminga nije konfiguriran"
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:648
 msgid "No issues found."
 msgstr "NIsu pronađeni izazovi."
 
-#: web/diag/action_realmcheck.php:729 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:782 web/diag/show_realmcheck.php:151
 msgid "Repeat static connectivity tests"
 msgstr "Ponovi test statičke povezanosti"
 
-#: web/diag/action_realmcheck.php:743 web/diag/action_realmcheck.php:801
-#: web/diag/action_realmcheck.php:818
+#: web/diag/action_realmcheck.php:791 web/diag/action_realmcheck.php:949
+#, php-format
+msgid "Testing from: %s"
+msgstr "Test za: %s"
+
+#: web/diag/action_realmcheck.php:796 web/diag/action_realmcheck.php:869
+#: web/diag/action_realmcheck.php:886
 msgid "testing..."
 msgstr "testiranje..."
 
-#: web/diag/action_realmcheck.php:770 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:823 web/diag/show_realmcheck.php:162
 msgid "Repeat dynamic connectivity tests"
 msgstr "Ponovite dinamički test povezanosti"
 
-#: web/diag/action_realmcheck.php:770
+#: web/diag/action_realmcheck.php:823
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr "Ponovi OpenRoamin test povezivanja"
 
-#: web/diag/action_realmcheck.php:821
+#: web/diag/action_realmcheck.php:889
 msgid "not implemented yet"
 msgstr "još nije implementirano"
 
-#: web/diag/action_realmcheck.php:842
+#: web/diag/action_realmcheck.php:896
+msgid "Checking if certificates from  CAs are accepted..."
+msgstr ""
+"Provjeravamo da li se certifikati izdani od certifikacijskog tijela smiju "
+"prihvatiti..."
+
+#: web/diag/action_realmcheck.php:910
 msgid "Live login test"
 msgstr "Provjera u živo"
 
-#: web/diag/action_realmcheck.php:855
+#: web/diag/action_realmcheck.php:923
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1495,7 +1546,7 @@ msgstr ""
 "Ukoliko unesete postojeće vjerodajnice možete provjeriti autentikaciju na "
 "različitim točakama provjere diljem svijeta."
 
-#: web/diag/action_realmcheck.php:856
+#: web/diag/action_realmcheck.php:924
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1507,7 +1558,7 @@ msgstr ""
 "vjerodajnicama i odabranim EAP tipom zaista radi. Test je moguće obaviti i "
 "sa anonimnom vanjskom oznakom."
 
-#: web/diag/action_realmcheck.php:857
+#: web/diag/action_realmcheck.php:925
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1519,43 +1570,43 @@ msgstr ""
 "testne račune</b> jer trajno valjani testni računi mogu ugroziti sigurnost "
 "sustava!"
 
-#: web/diag/action_realmcheck.php:865
+#: web/diag/action_realmcheck.php:933
 msgid "Password-based EAP types"
 msgstr "EAP tip temeljem lozinke"
 
-#: web/diag/action_realmcheck.php:866
+#: web/diag/action_realmcheck.php:934
 msgid "Real (inner) username:"
 msgstr "Stvarna (unutarnja) korisnička oznaka:"
 
-#: web/diag/action_realmcheck.php:867
+#: web/diag/action_realmcheck.php:935
 msgid "Anonymous outer ID (optional):"
 msgstr "Depersonalizirana vanjska korisnička oznaka (opcionalno):"
 
-#: web/diag/action_realmcheck.php:868
+#: web/diag/action_realmcheck.php:936
 msgid "Password:"
 msgstr "Lozinka:"
 
-#: web/diag/action_realmcheck.php:872
+#: web/diag/action_realmcheck.php:940
 msgid "Certificate-based EAP types"
 msgstr "EAP tip temeljem certifikata"
 
-#: web/diag/action_realmcheck.php:873
+#: web/diag/action_realmcheck.php:941
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Datoteka s certifikatom (.p12 ili .pfx):"
 
-#: web/diag/action_realmcheck.php:874
+#: web/diag/action_realmcheck.php:942
 msgid "Certificate password, if any:"
 msgstr "Lozinka za certifikat, ako postoji:"
 
-#: web/diag/action_realmcheck.php:875
+#: web/diag/action_realmcheck.php:943
 msgid "Username, if different from certificate Subject:"
 msgstr "Korisnička oznaka, ako je razlčita od one u Subject polju certifikata:"
 
-#: web/diag/action_realmcheck.php:877
+#: web/diag/action_realmcheck.php:945
 msgid "Submit credentials"
 msgstr "Prijavi korisničke podatke"
 
-#: web/diag/action_realmcheck.php:899
+#: web/diag/action_realmcheck.php:967
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Povratak na %s administriranje"
@@ -1586,7 +1637,7 @@ msgstr "Korisnik tvrdi da ima probleme sa spajanjem a uspješno je autenticiran"
 msgid "User claims that mandatory open port is not open"
 msgstr "Korisnik tvrdi da port koji terba biti otvoren, nije otvoren"
 
-#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:126
+#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:130
 msgid "Select your problem"
 msgstr "Izaberite Vaš problem"
 
@@ -1594,61 +1645,65 @@ msgstr "Izaberite Vaš problem"
 msgid "What is the realm of the IdP in question?"
 msgstr "O kojoj domeni davatelja identiteta se radi?"
 
-#: web/diag/adminQuery.php:88 web/diag/adminQuery.php:155
+#: web/diag/adminQuery.php:88
+msgid "Do you prefer to use a specific outer identity for diagnostics test?"
+msgstr "Želite li koristiti određeni vanjski identitet za dijagnostički test?"
+
+#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Koji je timestamp autentikacije korisničke sesije u pitanju?"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:98 web/diag/adminQuery.php:166
 msgid "What is the MAC address of the user session in question?"
 msgstr "O kojoj se MAC adresi korisničke sesije radi?"
 
-#: web/diag/adminQuery.php:98
+#: web/diag/adminQuery.php:102
 msgid "Additional comments"
 msgstr "Dodatni komentari"
 
-#: web/diag/adminQuery.php:102
+#: web/diag/adminQuery.php:106
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Molimo unesite e-mail adresu na koju Vas davatelj identiteta može "
 "kontaktirati"
 
-#: web/diag/adminQuery.php:110 web/diag/adminQuery.php:178
+#: web/diag/adminQuery.php:114 web/diag/adminQuery.php:182
 msgid "Now you can send your query"
 msgstr "Sada možete poslati upit"
 
-#: web/diag/adminQuery.php:111 web/diag/adminQuery.php:179
+#: web/diag/adminQuery.php:115 web/diag/adminQuery.php:183
 msgid "Send"
 msgstr "Pošalji"
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:134
 msgid "Identify the SP by one of following means"
 msgstr "Odaberite pružatelja usluge na jedan od sljedećih načina"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:138
 msgid "SP Operator-Name attribute"
 msgstr "atribut SP Operator-name"
 
-#: web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:142
 msgid "Select the SP manually:"
 msgstr "Ručno izaberite pružatelja usluge"
 
-#: web/diag/adminQuery.php:141
+#: web/diag/adminQuery.php:145
 msgid "click to select country and organisation"
 msgstr "Kliknite za odabr zemlje i ustanove"
 
-#: web/diag/adminQuery.php:147
+#: web/diag/adminQuery.php:151
 msgid "at least describe the SP location"
 msgstr "Unesite barem lokaciju pružatelja usluge"
 
-#: web/diag/adminQuery.php:151
+#: web/diag/adminQuery.php:155
 msgid "What is the outer ID of the user session in question?"
 msgstr "Koji je vanjski ID korisnikove sesije u pitanju?"
 
-#: web/diag/adminQuery.php:166
+#: web/diag/adminQuery.php:170
 msgid "Additional comments about the problem"
 msgstr "Dodatni komentari vezani uz problem"
 
-#: web/diag/adminQuery.php:170
+#: web/diag/adminQuery.php:174
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1656,74 +1711,74 @@ msgstr ""
 "Imate li kontakt informacije kojima korisnik želi biti kontaktiran od "
 "davatelja usluge?"
 
-#: web/diag/adminQuery.php:174
+#: web/diag/adminQuery.php:178
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Molimo unestite e-mail adresu na koju Vas davatelj usluge može kontaktirati"
 
-#: web/diag/adminQuery.php:248
+#: web/diag/adminQuery.php:252
 msgid "Suspected a technical problem with the IdP"
 msgstr "Sumnjamo na tehnički problem s IdP-om"
 
-#: web/diag/adminQuery.php:249
+#: web/diag/adminQuery.php:253
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Sumnjamo na tehnički problem s IdP-om koji upravlja domenom"
 
-#: web/diag/adminQuery.php:251
+#: web/diag/adminQuery.php:255
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr "CAT diagnostic test za ovu domenu je izvršen tijekom izvještavanja.\n"
 
-#: web/diag/adminQuery.php:252
+#: web/diag/adminQuery.php:256
 msgid "The overall result was "
 msgstr "Ukupni rezultat je "
 
-#: web/diag/adminQuery.php:258
+#: web/diag/adminQuery.php:262
 msgid "To see details go to "
 msgstr "Da bi vidjeli detalje idite na "
 
-#: web/diag/adminQuery.php:260
+#: web/diag/adminQuery.php:264
 msgid "The reported problem details are as follows"
 msgstr "Detalji o prijavljenom problemu su"
 
-#: web/diag/adminQuery.php:261
+#: web/diag/adminQuery.php:265
 msgid "timestamp"
 msgstr "timestamp"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:266
 msgid "client MAC address"
 msgstr "MAC adresa klijenta"
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:268
 msgid "additional comments"
 msgstr "dodatni komentari"
 
-#: web/diag/adminQuery.php:266
+#: web/diag/adminQuery.php:270
 msgid "You can contact the incident reporter at"
 msgstr "Možete prijaviti incident na"
 
-#: web/diag/radius_tests.php:34 web/diag/radius_tests.php:35
+#: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr "Dijelovi autentikacije nisu u potpunosti optimizirane, vidi slijedeće."
 
-#: web/diag/radius_tests.php:36
+#: web/diag/radius_tests.php:35
 msgid "Some configuration errors were observed; the list is below."
 msgstr "Zamjećene su neke greške; popis slijedi."
 
-#: web/diag/radius_tests.php:173
+#: web/diag/radius_tests.php:180
 msgid "<strong>Test successful.</strong>"
 msgstr "<strong>USPJEŠAN test.</strong>"
 
-#: web/diag/radius_tests.php:177
+#: web/diag/radius_tests.php:184
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
-msgstr ""
+msgstr "<strong>Test partially successful</strong>: authentication succeeded."
 
-#: web/diag/radius_tests.php:180
+#: web/diag/radius_tests.php:187
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
-msgstr ""
+msgstr "<strong>Test FAILED</strong>: authentication succeeded."
 
-#: web/diag/radius_tests.php:185
+#: web/diag/radius_tests.php:192
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
@@ -1731,11 +1786,11 @@ msgstr ""
 "<strong>Test NEUSPJEŠAN</strong>: zahtjev je odbijen. Najvjerojatnije je "
 "pogrešno upisana korisnička oznaka ili lozinka."
 
-#: web/diag/radius_tests.php:190
+#: web/diag/radius_tests.php:197
 msgid "This method cannot be tested"
 msgstr "Ovu metodu je nemoguće provjeriti"
 
-#: web/diag/radius_tests.php:194
+#: web/diag/radius_tests.php:201
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
@@ -1745,7 +1800,7 @@ msgstr ""
 "komunikacije. Ili ste pogrešno unjeli korisničku oznako, ili postoji "
 "ozbiljna greška na vašen RADIUS poslužitelju."
 
-#: web/diag/radius_tests.php:200 web/diag/radius_tests.php:242
+#: web/diag/radius_tests.php:207 web/diag/radius_tests.php:249
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1754,7 +1809,7 @@ msgstr ""
 "<strong>Test NEUSPJEŠAN</strong>: nema odgovara s RADIUS poslužitelja nakon "
 "%d sekundi. Ili je poslužitelj ugašen ili postoji greška na ruti do njega!"
 
-#: web/diag/radius_tests.php:205 web/diag/radius_tests.php:246
+#: web/diag/radius_tests.php:212 web/diag/radius_tests.php:253
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1763,11 +1818,11 @@ msgstr ""
 "<strong>NEUSPJEŠAN test</strong>: dogodila se razmjena podataka između "
 "RADIUS poslužitelja, ali nije završila unutar %d sekundi!"
 
-#: web/diag/radius_tests.php:210
+#: web/diag/radius_tests.php:217
 msgid "<strong>Test FAILED</strong>"
 msgstr "<strong>Test NEUSPJEŠAN</strong>"
 
-#: web/diag/radius_tests.php:231
+#: web/diag/radius_tests.php:238
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1776,7 +1831,7 @@ msgstr ""
 "<strong>Test uspio</strong>: dvosmjerna komunikacija između RADIUS servera "
 "obavljena i dobiven očekivan odgovor kroz Access-Reject"
 
-#: web/diag/radius_tests.php:237
+#: web/diag/radius_tests.php:244
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1790,16 +1845,20 @@ msgstr ""
 "zahtjeva da korisnička oznaka u vanjskoj i unutrašnjo ljusci bude ista, onda "
 "je taj rezultat očekivan. "
 
-#: web/diag/radius_tests.php:250
+#: web/diag/radius_tests.php:257
 msgid "unhandled error"
 msgstr "neobrađena greška"
 
-#: web/diag/radius_tests.php:274
+#: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
+msgid "<strong>ERROR</strong>: connectivity problem!"
+msgstr "<strong>GREŠKA</strong>: problem kod spajanja!"
+
+#: web/diag/radius_tests.php:294
 #, php-format
 msgid "elapsed time: %d"
 msgstr "Proteklo vrijeme: %d"
 
-#: web/diag/radius_tests.php:276
+#: web/diag/radius_tests.php:296
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1807,7 +1866,7 @@ msgstr ""
 "<strong>Pogreška</strong>: server koristi certifikat koji je izdan on "
 "nepoznatog autoriteta!"
 
-#: web/diag/radius_tests.php:286
+#: web/diag/radius_tests.php:306
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
@@ -1823,11 +1882,11 @@ msgstr "Vrijeme testiranja:"
 msgid "Repeat connectivity tests"
 msgstr "Ponovi test povezivanja"
 
-#: web/diag/show_realmcheck.php:170
+#: web/diag/show_realmcheck.php:174
 msgid "Token missing, no data can be presented"
 msgstr "Nedostaje token, nema podataka za prikaz"
 
-#: web/diag/show_realmcheck.php:172
+#: web/diag/show_realmcheck.php:176
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr "Token poslan u zahtjevu ne postoji, nema podataka za prikaz"
@@ -1847,10 +1906,6 @@ msgstr "Postoje neke opaske za provjere povezanosti"
 #: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some errors from connectivity tests"
 msgstr "Postoje neke greške kod provjere povezanosti"
-
-#: web/skins/modern/diag/js/diag_js.php:46
-msgid "Select institiution:"
-msgstr "Izaberite ustanovu:"
 
 #: web/skins/modern/diag/js/diag_js.php:72
 msgid "Select country or region:"
@@ -1972,4 +2027,4 @@ msgstr "Vidi detalje"
 
 #: web/skins/modern/diag/js/diag_js.php:436
 msgid "If you want to report your problem, fill fields below."
-msgstr ""
+msgstr "Za prijavu greške, popunite polja koje slijede."

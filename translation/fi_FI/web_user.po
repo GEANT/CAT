@@ -8,15 +8,15 @@
 # Juha Hopia <juha.hopia@csc.fi>, 2012
 # Tomi Salmi, 2013-2018
 # tuukka, 2014
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020-2022
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018,2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, "
-"2018,2020-2022\n"
+"2018,2020-2023\n"
 "Language-Team: Finnish (Finland) (http://app.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -499,7 +499,7 @@ msgstr ""
 "tuijottaa sinua. Sinun virheesi? Meidän virheemme? Kukapa tietää! Ehkä sinun "
 "tulisi palata <a href='%s'>aloitussivulle</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s tietosuojaseloste"
@@ -518,6 +518,7 @@ msgstr ""
 "myös <a href=''>tätä linkkiä</a>."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Hyvä %s käyttäjä,"
@@ -536,6 +537,7 @@ msgstr ""
 "näin olet verkossa! "
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -572,6 +574,7 @@ msgstr ""
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Palaa lataussivulle."
 
@@ -760,6 +763,7 @@ msgid "Terms of use"
 msgstr "Käyttöehdot"
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -771,6 +775,7 @@ msgstr ""
 "organisaatioiden Internet-yhteyspalveluja ilmaiseksi kaikkialla maailmassa. "
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -783,6 +788,7 @@ msgstr ""
 "olet verkossa! "
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
 msgstr "Kirjaudutaan"
 
@@ -921,11 +927,9 @@ msgstr "Käyttäjätunnustietoa ei löytynyt"
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
-"Käyttämälläsi kutsulinkillä ei löytynyt liitosta mihinkään eduroam-"
-"organisaatioon."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1149,27 +1153,29 @@ msgstr "Olen lukenut ja hyväksyn <a href='%s' target='_blank'>%s</a>"
 msgid "OpenRoaming is not supported on this device"
 msgstr "OpenRoamingia ei ole tuettu tällä laitteella."
 
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr "vain eduroam"
-
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
-msgstr "eduroam ja OpenRoaming"
+#, php-format
+msgid "%s only"
+msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:110
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:111
 msgid "Organisation"
 msgstr "Organisaatio"
 
-#: web/skins/modern/user/js/cat_js.php:111
+#: web/skins/modern/user/js/cat_js.php:112
 msgid "Select your organisation"
 msgstr "Valitse organisaatiosi"
 
-#: web/skins/modern/user/js/cat_js.php:112
+#: web/skins/modern/user/js/cat_js.php:113
 msgid "Help, my organisation is not on the list"
 msgstr "Apua, organisaationi ei ole listalla"
 
-#: web/skins/modern/user/js/cat_js.php:113
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1180,63 +1186,63 @@ msgstr ""
 "organisaatiosi puuttuu listalta, olethan yhteydessä oman kotiorganisaatiosi "
 "tukeen ja ilmoita puutteesta %s-tietokannassa."
 
-#: web/skins/modern/user/js/cat_js.php:114
+#: web/skins/modern/user/js/cat_js.php:115
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Paikanna minut tarkemmin HTML5:n paikantamistoiminnon avulla."
 
-#: web/skins/modern/user/js/cat_js.php:115
+#: web/skins/modern/user/js/cat_js.php:116
 msgid "Show organisations in"
 msgstr "Näytä organisaatiot kohteessa"
 
-#: web/skins/modern/user/js/cat_js.php:116
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "kaikki maat"
 
-#: web/skins/modern/user/js/cat_js.php:117
+#: web/skins/modern/user/js/cat_js.php:118
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "tai etsi organisaatioita, esimerkiksi Helsingin yliopisto"
 
-#: web/skins/modern/user/js/cat_js.php:118
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "näytä kaikki maat"
 
-#: web/skins/modern/user/js/cat_js.php:119
+#: web/skins/modern/user/js/cat_js.php:120
 msgid "Results limited to"
 msgstr "Rajoita tulokset"
 
-#: web/skins/modern/user/js/cat_js.php:120
+#: web/skins/modern/user/js/cat_js.php:121
 msgid "entries - show more"
 msgstr "hakutulokset - näytä lisää"
 
-#: web/skins/modern/user/js/cat_js.php:121
+#: web/skins/modern/user/js/cat_js.php:122
 msgid "Nearby"
 msgstr "Lähistöllä"
 
-#: web/skins/modern/user/js/cat_js.php:122
+#: web/skins/modern/user/js/cat_js.php:123
 msgid "Location timeout"
 msgstr "Paikkatiedon etsiminen vei liian paljon aikaa."
 
-#: web/skins/modern/user/js/cat_js.php:123
+#: web/skins/modern/user/js/cat_js.php:124
 msgid "Could not get your position"
 msgstr "Paikkatietojasi ei saatu"
 
-#: web/skins/modern/user/js/cat_js.php:124
+#: web/skins/modern/user/js/cat_js.php:125
 msgid "Your browser has denied access to your location"
 msgstr "Selaimesi ei salli paikkatietojen lähettämistä"
 
-#: web/skins/modern/user/js/cat_js.php:125
+#: web/skins/modern/user/js/cat_js.php:126
 msgid "Unknown location error"
 msgstr "Tuntematon paikkatietovirhe"
 
-#: web/skins/modern/user/js/cat_js.php:126
+#: web/skins/modern/user/js/cat_js.php:127
 msgid "You are here:"
 msgstr "Olet täällä:"
 
-#: web/skins/modern/user/js/cat_js.php:127
+#: web/skins/modern/user/js/cat_js.php:128
 msgid "Getting your location..."
 msgstr "Paikkatietoasi selvitetään..."
 
-#: web/skins/modern/user/js/cat_js.php:128
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
 msgstr "Lähellä olevat palveluntarjoajat näytetään listan alussa."
 
@@ -1251,8 +1257,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr "10, 8, 7, Vista"
+msgid "11, 10, 8, 7, Vista"
+msgstr ""
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

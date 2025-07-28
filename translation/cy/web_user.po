@@ -5,13 +5,14 @@
 # Translators:
 # Huw Waters <huwwaters@gmail.com>, 2012
 # Huw Waters <huwwaters@gmail.com>, 2013,2015
+# Stefan Paetow, 2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Huw Waters <huwwaters@gmail.com>, 2013,2015\n"
+"Last-Translator: Stefan Paetow, 2023-2025\n"
 "Language-Team: Welsh (http://app.transifex.com/eduroam_devel/cat/language/"
 "cy/)\n"
 "Language: cy\n"
@@ -26,6 +27,8 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'>%s</span> mae wedi'i adeiladu fel llwyfan "
+"cydweithrediad."
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -38,6 +41,13 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
+"Mae gweinyddwyr lleol %s yn mewnbynnu eu manylion cyfluniad %s ac yn "
+"seiliedig arnynt, mae <span class='edu_cat'>%s</span> yn adeiladu gosodwyr "
+"addasedig ar gyfer nifer o lwyfannau poblogaidd. Ni fydd gosodwr a baratowyd "
+"ar gyfer un sefydliad yn gweithio i defnyddwyr un arall, felly os nad yw "
+"eich sefydliad ar y rhestr, ni allwch ddefnyddio'r system hon. Cysylltwch "
+"â'ch gweinyddwyr lleol a cheisiwch ddylanwadu arnyn nhw i ychwanegu eich "
+"ffurfweddiad %s i <span class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:45
 #, php-format
@@ -45,10 +55,12 @@ msgid ""
 "<span class='edu_cat'>%s</span> currently supports the following devices and "
 "EAP type combinations:"
 msgstr ""
+"<span class='edu_cat'>%s</span> ar hyn o bryd yn cefnogi'r dyfeisiau "
+"canlynol a chyfuniadau math EAP:"
 
 #: web/user/about_cat.inc.php:46
 msgid "Device Group"
-msgstr ""
+msgstr "Grŵp Dyfais"
 
 #: web/user/about_cat.inc.php:46
 msgid "Device"
@@ -63,6 +75,11 @@ msgid ""
 "for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
 "(the service itself)</li>"
 msgstr ""
+"<p>Mae <span class='edu_cat'>%s</span> yn hygyrch i'r cyhoedd. Er mwyn "
+"galluogi ei ddefnydd y tu ôl i byrth caeth (e.e. ar SSID 'setup' sydd ond yn "
+"caniatáu mynediad i CAT ar gyfer ffurfweddu dyfais), mae angen caniatáu'r "
+"enwau gwesteiwr canlynol ar gyfer porthladd TCP/443 yn y porth:</"
+"p><b><u>ANGEN</u></b><ul><li><b>%s</b> (y gwasanaeth ei hun)</li>"
 
 #: web/user/about_cat.inc.php:93
 #, php-format
@@ -73,9 +90,17 @@ msgid_plural ""
 "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
 "TCP/80</li>"
 msgstr[0] ""
+"<li><b>%s</b> (y Pwynt Dosbarthu CRL ar gyfer tystysgrif y wefan), hefyd "
+"TCP/80</li>"
 msgstr[1] ""
+"<li><b>%s</b> (y Pwyntiau Dosbarthu CRL ar gyfer tystysgrif y wefan), hefyd "
+"TCP/80</li>"
 msgstr[2] ""
+"<li><b>%s</b> (y Pwyntiau Dosbarthu CRL ar gyfer tystysgrif y wefan), hefyd "
+"TCP/80</li>"
 msgstr[3] ""
+"<li><b>%s</b> (y Pwyntiau Dosbarthu CRL ar gyfer tystysgrif y wefan), hefyd "
+"TCP/80</li>"
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -84,9 +109,17 @@ msgid ""
 msgid_plural ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
 msgstr[0] ""
+"<li><b>%s</b> (y tystysgrif Ymatebydd OCSP ar gyfer y wefan), hefyd TCP/80</"
+"li>"
 msgstr[1] ""
+"<li><b>%s</b> (y tystysgrif Ymatebydd OCSP ar gyfer y wefan), hefyd TCP/80</"
+"li>"
 msgstr[2] ""
+"<li><b>%s</b> (y tystysgrif Ymatebydd OCSP ar gyfer y wefan), hefyd TCP/80</"
+"li>"
 msgstr[3] ""
+"<li><b>%s</b> (y tystysgrif Ymatebydd OCSP ar gyfer y wefan), hefyd TCP/80</"
+"li>"
 
 #: web/user/about_cat.inc.php:98
 #, php-format
@@ -105,6 +138,19 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
 "li></ul>"
 msgstr ""
+"<li><b>android.l.google.com</b> (Mynediad Google Play ar gyfer Android App)</"
+"li><li><b>android.clients.google.com</b> (Mynediad Google Play ar gyfer "
+"Android App)</li><li><b>play.google.com</b> (Mynediad Google Play ar gyfer "
+"Android App)</li><li><b>ggpht.com</b> (Mynediad Google Play ar gyfer Android "
+"App)</li></ul><b><u>ARGYMHELLWYD</u></b> ar gyfer ymarferoldeb Google Play "
+"llawn (fel arall, bydd Play Store yn edrych wedi torri i defnyddwyr a/neu ni "
+"fydd rhai swyddogaethau nad ydynt yn hanfodol ar gael)<ul><li><b>photos-ugc."
+"l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax."
+"googleapis.com</b></li><li><b>play.google-apis.com</b></li><li><b>googleapis."
+"l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></"
+"li><li><b>www.google-analytics.com</b></li><li><b>wallet.google.com</b></"
+"li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></"
+"li><li><b>*.gvt1.com</li></ul>"
 
 #.
 #. * *****************************************************************************
@@ -127,7 +173,7 @@ msgstr ""
 #.
 #: web/user/devel.inc.php:22
 msgid "Access the sources"
-msgstr ""
+msgstr "Cael mynediad i'r ffynonellau"
 
 #: web/user/devel.inc.php:23
 #, php-format
@@ -135,32 +181,36 @@ msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
 msgstr ""
+"%s mae yn brosiect ffynhonnell agored. Os oes gennych ddiddordeb yn y "
+"manylion gweithredu, ewch i <a href='%s'>GitHub</a>. "
 
 #: web/user/devel.inc.php:24
 msgid "Join the developers mailing list."
-msgstr ""
+msgstr "Ymunwch â rhestr bostio'r datblygwyr"
 
 #: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
-msgstr ""
+msgstr "Mae'r rhestr ar gael yn %s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
-msgstr ""
+msgstr "Ychwanegu cyfieithiad"
 
 #: web/user/devel.inc.php:27
 msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
-msgstr ""
+msgstr "Os hoffech ychwanegu iaith newydd at CAT, cysylltwch â ni..."
 
 #: web/user/devel.inc.php:28
 msgid "Documentation"
-msgstr ""
+msgstr "Dogfennaeth"
 
 #: web/user/faq.inc.php:29 web/user/faq.php:25
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
+"Nid yw fy sefydliad wedi'i restru. Oni allaf ddefnyddio unrhyw un o'r rhai "
+"eraill yn unig?"
 
 #: web/user/faq.inc.php:30 web/user/faq.php:26
 msgid ""
@@ -170,10 +220,16 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
+"Nac ydw! Mae'r gosodwyr yn cynnwys gosodiadau diogelwch sy'n benodol i'r "
+"sefydliad. Os nad ydych yn dod o'r sefydliad hwnnw, bydd eich dyfais yn "
+"canfod eich bod ar fin anfon eich enw defnyddiwr a'ch manylion mewngofnodi "
+"mynediad adnabod i weinydd heb awdurdod a bydd yn atal y mewngofnodi. Mae "
+"defnyddio gosodwr o sefydliad gwahanol yn <i>warantedig i beidio â gweithio</"
+"i>!"
 
 #: web/user/faq.inc.php:34 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
-msgstr ""
+msgstr "Beth allaf ei wneud i restru fy sefydliad?"
 
 #: web/user/faq.inc.php:35 web/user/faq.php:31
 #, php-format
@@ -182,11 +238,14 @@ msgid ""
 "their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
+"Cysylltwch â gweinyddwyr %s o fewn eich sefydliad a gofyn iddynt ychwanegu "
+"eu sefydliad i'r system. Bydd yn cymryd o leiaf awr o'u hamser i gyflawni "
+"pethau."
 
 #: web/user/faq.inc.php:39 web/user/faq.php:35
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
-msgstr ""
+msgstr "Nid yw fy dyfais wedi'i restru! Ydy hynny'n golygu na allaf wneud %s?"
 
 #: web/user/faq.inc.php:40 web/user/faq.php:36
 #, php-format
@@ -196,6 +255,10 @@ msgid ""
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
 msgstr ""
+"Dim ond Systemau Gweithredu y gellir eu ffurfweddu'n awtomatig mewn rhyw "
+"ffordd y gall yr offeryn CAT cymorth. Mae modd defnyddio llawer o ddyfeisiau "
+"eraill gyda %s o hyd, ond rhaid eu ffurfweddu â llaw. Cysylltwch â'ch "
+"sefydliad i gael help i sefydlu dyfais o'r fath."
 
 #: web/user/faq.inc.php:43 web/user/faq.php:40
 #, php-format
@@ -203,6 +266,8 @@ msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
 msgstr ""
+"Gallaf gysylltu â %s yn syml drwy ddarparu enw defnyddiwr a chyfrinair, beth "
+"yw pwynt defnyddio gosodwr?"
 
 #: web/user/faq.inc.php:44 web/user/faq.php:41
 #, php-format
@@ -212,11 +277,16 @@ msgid ""
 "done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
 msgstr ""
+"Pan fyddwch chi'n cysylltu o ddyfais heb ei ffurfweddu mae eich diogelwch "
+"mewn perygl. Yr union bwynt rhag-gyflunio yw sefydlu diogelwch, pan wneir "
+"hyn, bydd eich dyfais yn cadarnhau yn gyntaf ei bod yn siarad â'r gweinydd "
+"dilysu cywir ac ni fydd byth yn anfon eich cyfrinair at un nad yw'n "
+"ymddiried ynddo."
 
 #: web/user/faq.inc.php:47 web/user/faq.php:52
 #, php-format
 msgid "Is it safe to use %s installers?"
-msgstr ""
+msgstr "Ydy hi'n ddiogel defnyddio gosodwyr %s?"
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
@@ -224,6 +294,8 @@ msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
 msgstr ""
+"Mae gosodwyr %s yn ffurfweddu gosodiadau diogelwch ar eich dyfais, felly "
+"dylech fod yn sicr eich bod yn defnyddio rhai dilys."
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
@@ -231,12 +303,17 @@ msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
 "message confirming this."
 msgstr ""
+"Dyma pam mae gosodwyr %s wedi eu harwyddo'n ddigidol gan %s. Gwyliwch am "
+"neges system yn cadarnhau hyn."
 
 #: web/user/faq.inc.php:51 web/user/faq.php:57
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
+"Mae Windows 'SmartScreen' neu 'Internet Explorer' yn dweud wrthyf nad yw'r "
+"ffeil yn cael ei lawrlwytho'n gyffredin ac o bosibl yn niweidiol. A ddylwn i "
+"fod yn bryderus?"
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 msgid ""
@@ -245,6 +322,11 @@ msgid ""
 "users to make Microsoft consider it popular (which would strangely enough "
 "make it be considered 'safe'). This message alone is not a security problem."
 msgstr ""
+"Yn wahanol i'r hyn y mae'r enw'n ei awgrymu, nid yw 'SmartScreen' yn smart "
+"iawn mewn gwirionedd. Mae'r rhybudd yn golygu nad yw'r ffeil wedi'i llwytho "
+"i lawr eto gan ddigon o defnyddwyr i wneud i Microsoft ei hystyried yn "
+"boblogaidd (a fyddai'n rhyfedd ddigon yn ei gwneud yn cael ei hystyried yn "
+"'ddiogel'). Nid yw'r neges hon yn unig yn broblem diogelwch."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
@@ -252,11 +334,14 @@ msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
 msgstr ""
+"Cyn belled â bod y ffeil yn cario llofnod dilys o %s, mae'r lawrlwythiad yn "
+"ddiogel."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:58
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
+"Gweler hefyd Cwestiynau Cyffredin Microsoft ynghylch SmartScreen yn %s."
 
 #: web/user/faq.inc.php:55 web/user/faq.php:72
 #, php-format
@@ -264,6 +349,8 @@ msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
 msgstr ""
+"Gallaf weld rhwydwaith %s ac mae fy dyfais wedi'i ffurfweddu ond nid yw'n "
+"cysylltu, beth all fod yr achos?"
 
 #: web/user/faq.inc.php:56 web/user/faq.php:62
 #, php-format
@@ -277,21 +364,29 @@ msgid ""
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
 msgstr ""
+"Gall fod nifer o resymau gwahanol. Mae'n bosibl nad yw'r rhwydwaith a welwch "
+"yn un gwirioneddol %s ac mae eich dyfais yn rhoi'r gorau i'r cysylltiad yn "
+"dawel; efallai bod rhywbeth o'i le ar ffurfweddiad y rhwydwaith; efallai bod "
+"eich cyfrif ddarfod; efallai y bydd problem cysylltiad â'ch gweinydd dilysu "
+"cartref; efallai eich bod wedi torri rheolau'r rhwydwaith yr ydych yn ei "
+"ddefnyddio ac wedi cael ei gwrthod mynediad o ganlyniad. Dylech gysylltu "
+"â'ch sefydliad a rhoi gwybod am y broblem, dylai'r gweinyddwyr allu olrhain "
+"eich cysylltiadau."
 
 #: web/user/faq.inc.php:60 web/user/faq.php:77
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
-msgstr ""
+msgstr "Mae gennyf gwestiwn am y wefan hon. Gyda phwy ddylwn i gysylltu?"
 
 #: web/user/faq.inc.php:61 web/user/faq.php:78
 #, php-format
 msgid "You should send a mail to %s."
-msgstr ""
+msgstr "Dylech anfon ebost at %s"
 
 #: web/user/faq.inc.php:72 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
-msgstr ""
+msgstr "Beth yw'r peth %s yma beth bynnag?"
 
 #: web/user/faq.inc.php:73
 #, php-format
@@ -303,6 +398,12 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
+"Mae %s yn gonsortiwm crwydro WiFi byd-eang sy'n rhoi mynediad <i>am ddim</i> "
+"i aelodau addysg ac ymchwil i'r rhyngrwyd ar holl llecynnau %s ar y blaned. "
+"Mae sawl miliwn o %s o defnyddwyr yn barod, yn mwynhau mynediad am ddim i'r "
+"rhyngrwyd ar fwy na %d o llecynnau! Ewch <a href='http://www.eduroam.org'>i "
+"hafan %s</a> neu <a href='http://monitor.eduroam.org/map_service_loc.php'>y "
+"map lleoliad %s</a> am fwy o fanylion."
 
 #: web/user/faq.php:47
 #, php-format
@@ -313,6 +414,11 @@ msgid ""
 "access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
 "org'>the %s homepage</a> for more details."
 msgstr ""
+"Mae %s yn gonsortiwm crwydro WiFi byd-eang sy'n rhoi mynediad <i>am ddim</i> "
+"i aelodau addysg ac ymchwil i'r rhyngrwyd ar holl llecynnau %s ar y blaned. "
+"Mae sawl miliwn o %s o defnyddwyr yn barod, yn mwynhau mynediad am ddim i'r "
+"rhyngrwyd ar fwy na 6,000 o llecynnau! Ewch <a href='http://www.eduroam."
+"org'>i hafan %s</a> am fwy o fanylion."
 
 #: web/user/faq.php:69
 #, php-format
@@ -326,6 +432,15 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
+"Gall fod nifer o resymau gwahanol. Mae'n bosibl nad yw'r rhwydwaith a welwch "
+"yn un gwirioneddol %s ac mae eich dyfais yn rhoi'r gorau i'r cysylltiad yn "
+"dawel; efallai bod rhywbeth o'i le ar ffurfweddiad y rhwydwaith; efallai bod "
+"eich cyfrif ddarfod; efallai y bydd problem cysylltiad â'ch gweinydd dilysu "
+"cartref; efallai eich bod wedi torri rheolau'r rhwydwaith yr ydych yn ei "
+"ddefnyddio ac wedi cael ei gwrthod mynediad o ganlyniad. I eithrio'r olaf, "
+"dylech ymweld â'r teclyn Diagnosteg %s <a href=''>yma</a> yn gyntaf, a all "
+"ddod o hyd i lawer o resymau dros fethiant. Mae hefyd yn caniatáu ichi "
+"gysylltu â'ch sefydliad a rhoi gwybod iddynt am y broblem."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -339,15 +454,15 @@ msgstr ""
 #.
 #: web/user/faq.php:95 web/skins/modern/user/cat_info.php:80
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Cwestiynau Cyffredin"
 
 #: web/user/tou.inc.php:23 web/user/tou.php:23
 msgid "Terms of Use"
-msgstr ""
+msgstr "Telerau Defnydd"
 
 #: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
-msgstr ""
+msgstr "(am resymau cyfreithiol, mae'r Telerau Defnyddio yn Saesneg yn unig)"
 
 #: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:112
 #, php-format
@@ -356,16 +471,16 @@ msgstr "Croeso i %s"
 
 #: web/4013.php:47 web/404.php:46
 msgid "View this page in"
-msgstr ""
+msgstr "Gweld y dudalen hon yn"
 
 #: web/4013.php:53 web/404.php:52 web/skins/modern/Menu.php:49
 #: web/skins/modern/Menu.php:144
 msgid "Start page"
-msgstr ""
+msgstr "Tudalen gychwyn"
 
 #: web/4013.php:57
 msgid "Maybe this is the CAT you are looking for..."
-msgstr ""
+msgstr "Efallai mai dyma'r CAT yr ydych yn chwilio amdano..."
 
 #: web/4013.php:58
 msgid ""
@@ -373,6 +488,9 @@ msgid ""
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
 msgstr ""
+"ond nid ydym am ei ddangos i chi. Mae angen i chi gael eich dilysu a'ch "
+"awdurdodi i weld y cynnwys hwn. Gan nad ydych chi, fe gawsoch chi'r dudalen "
+"gwall hon a elwir fel arfer yn"
 
 #: web/4013.php:60
 #, php-format
@@ -380,16 +498,20 @@ msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
 msgstr ""
+"Eich camgymeriad? Ein gwall? Pwy a wyr! Efallai y dylech fynd yn ôl i'r <a "
+"href='%s'>Dudalen Gychwyn</a>."
 
 #: web/404.php:56
 msgid "This is not the CAT you are looking for."
-msgstr ""
+msgstr "Nid dyma'r CAT yr ydych yn chwilio amdano."
 
 #: web/404.php:57
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
 msgstr ""
+"Beth bynnag roeddech chi'n disgwyl ei weld yn yr URL hwn - nid yw yma. Yr "
+"unig beth yma yw y rhif"
 
 #: web/404.php:59
 #, php-format
@@ -397,27 +519,33 @@ msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
+"yn syllu arnat ti. Eich camgymeriad? Ein gwall? Pwy a wyr! Efallai y dylech "
+"fynd yn ôl i'r <a href='%s'>Dudalen Gychwyn</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348
+#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s Hysbysiad Preifatrwydd"
 
 #: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid "Welcome aboard the %s user community!"
-msgstr ""
+msgstr "Croeso i gymuned defnyddiwr %s!"
 
 #: web/lib/user/TextTemplates.php:87
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
+"Bydd eich lawrlwythiad yn cychwyn yn fuan. Mewn achos o broblemau gyda'r "
+"llwytho i lawr yn awtomatig defnyddiwch y <a href=''>cyswllt</a> "
+"uniongyrchol hwn."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:30
+#: web/skins/msp/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
-msgstr ""
+msgstr "Annwyl defnyddiwr o %s,"
 
 #: web/lib/user/TextTemplates.php:89
 #, php-format
@@ -427,30 +555,38 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Nawr eich bod wedi llwytho i lawr a gosod cyflunydd cleient, y cyfan sydd "
+"angen i chi ei wneud yw dod o hyd i llecyn %s yn eich ardal a nodi eich "
+"manylion mewngofnodi defnyddiwr (dyma ein henw ffansi ar gyfer 'enw "
+"defnyddiwr a chyfrinair' neu 'tystysgrif bersonol') - a byddwch ar-lein!"
 
 #: web/lib/user/TextTemplates.php:90 web/skins/modern/div_user_welcome.php:38
+#: web/skins/msp/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
+"Os cewch unrhyw broblem wrth ddefnyddio'r gwasanaeth hwn, cysylltwch â desg "
+"gymorth %s bob amser. Byddant yn gwneud diagnosis o'r broblem ac yn eich "
+"helpu. Gallwch eu cyrraedd trwy'r dulliau a ddangosir uchod."
 
 #: web/lib/user/TextTemplates.php:94
 msgid "eduroam Terms and Conditions"
-msgstr ""
+msgstr "Telerau ac Amodau eduroam"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "eduroam Privacy Policy"
-msgstr ""
+msgstr "Polisi Preifatrwydd eduroam"
 
 #: web/lib/user/TextTemplates.php:100
 msgid "OpenRoaming Terms and Conditions"
-msgstr ""
+msgstr "Telerau ac Amodau OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:102
 msgid "OpenRoaming Privacy Policy"
-msgstr ""
+msgstr "Polisi Preifatrwydd OpenRoaming"
 
 #: web/lib/user/TextTemplates.php:107
 #, php-format
@@ -458,11 +594,14 @@ msgid ""
 "Please remember that when connecting to %s hotspots, the following <a "
 "href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply."
 msgstr ""
+"Cofiwch hynny wrth gysylltu â %s llecynnau, mae'r <a href='%s'>Telerau ac "
+"Amodau</a> a'r <a href='%s'>Hysbysiad Preifatrwydd</a> canlynol yn berthnasol"
 
 #. $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
 #: web/lib/user/TextTemplates.php:110 web/skins/modern/div_user_welcome.php:41
+#: web/skins/msp/div_user_welcome.php:41
 msgid "Back to downloads"
-msgstr ""
+msgstr "Yn ôl i lawrlwythiadau"
 
 #: web/lib/user/TextTemplates.php:111
 #, php-format
@@ -472,25 +611,29 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Hoffem eich croesawu'n gynnes ymhlith y miliynau lawer o defnyddwyr %s! O "
+"hyn ymlaen, byddwch yn gallu defnyddio adnoddau mynediad rhyngrwyd ar "
+"filoedd o brifysgolion, canolfannau ymchwil a lleoedd eraill ledled y byd. "
+"Hyn i gyd yn hollol rhad ac am ddim!"
 
 #: web/lib/user/TextTemplates.php:113
 #, php-format
 msgid "Connect your device to %s"
-msgstr ""
+msgstr "Cysylltwch eich dyfais i %s"
 
 #: web/lib/user/TextTemplates.php:114
 #, php-format
 msgid "%s installation made easy:"
-msgstr ""
+msgstr "Gosodiad %s wedi'i wneud yn hawdd:"
 
 #: web/lib/user/TextTemplates.php:115
 msgid "Custom built for your organisation"
-msgstr ""
+msgstr "Wedi'i adeiladu'n arbennig ar gyfer eich sefydliad"
 
 #: web/lib/user/TextTemplates.php:116
 #, php-format
 msgid "Click here to download your %s installer"
-msgstr ""
+msgstr "Cliciwch yma i lawrlwytho eich gosodwr %s"
 
 #: web/lib/user/TextTemplates.php:117
 #, php-format
@@ -498,18 +641,20 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"Mae %s yn darparu mynediad i filoedd o fannau problemus Wi-Fi o gwmpas y "
+"byd, yn rhad ac am ddim. <a href='%s'>Dysgu mwy</a>"
 
 #: web/lib/user/TextTemplates.php:118
 msgid "Select the user group"
-msgstr ""
+msgstr "Dewiswch y grŵp defnyddiwr"
 
 #: web/lib/user/TextTemplates.php:119
 msgid "select another"
-msgstr ""
+msgstr "dewis arall"
 
 #: web/lib/user/TextTemplates.php:120
 msgid "Choose another installer to download"
-msgstr ""
+msgstr "Dewiswch osodwr arall i'w lawrlwytho"
 
 #: web/lib/user/TextTemplates.php:121
 msgid "Choose an installer to download"
@@ -517,16 +662,16 @@ msgstr "Dewiswch osodwr i'w lawrlwytho"
 
 #: web/lib/user/TextTemplates.php:122
 msgid "All platforms"
-msgstr ""
+msgstr "Pob llwyfan"
 
 #: web/lib/user/TextTemplates.php:123
 #, php-format
 msgid "Download your %s installer"
-msgstr ""
+msgstr "Lawrlwythwch eich gosodwr %s"
 
 #: web/lib/user/TextTemplates.php:124
 msgid "Download your installer for"
-msgstr ""
+msgstr "Lawrlwythwch eich gosodwr ar gyfer"
 
 #: web/lib/user/TextTemplates.php:125
 msgid ""
@@ -534,6 +679,9 @@ msgid ""
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
 "window/tab."
 msgstr ""
+"Mae eich gweinyddwr lleol wedi pennu ailgyfeiriad i dudalen cymorth lleol."
+"<br>Pan gliciwch <b>Parhau</b> bydd y dudalen cymorth hon yn cael ei hagor "
+"mewn ffenestr/tab newydd."
 
 #: web/lib/user/TextTemplates.php:126
 #: web/skins/modern/accountstatus/accountstatus.php:229
@@ -544,7 +692,7 @@ msgstr "Parhau"
 #: web/lib/user/TextTemplates.php:127
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
-msgstr ""
+msgstr "Wedi'i lofnodi'n ddigidol gan y sefydliad sy'n cydlynu %s"
 
 #: web/lib/user/TextTemplates.php:128
 #, php-format
@@ -552,6 +700,8 @@ msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
 msgstr ""
+"Gallwch lawrlwytho eich gosodwr %s drwy cyswllt gwahoddiad personol a "
+"anfonwyd o'ch cymorth TG. Siaradwch â'r adran TG i gael y cyswllt hon."
 
 #: web/lib/user/TextTemplates.php:129
 #, php-format
@@ -559,19 +709,21 @@ msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
+"Mae'r wefan hon yn darparu gosodwyr %s ar gyfer llawer o sefydliadau, "
+"cliciwch yma i weld a yw eich un chi ar y rhestr."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
-msgstr ""
+msgstr "Wedi'i adeiladu'n arbennig ar eich cyfer chi"
 
 #: web/lib/user/TextTemplates.php:132
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr ""
+msgstr "Wedi'i lofnodi'n ddigidol gan y sefydliad sy'n cydlynu %s: %s"
 
 #: web/skins/modern/Menu.php:52
 msgid "About"
-msgstr ""
+msgstr "Ynghylch"
 
 #: web/skins/modern/Menu.php:53 web/skins/modern/Menu.php:54
 #: web/skins/modern/Menu.php:55
@@ -581,117 +733,141 @@ msgstr "Ynghylch %s"
 
 #: web/skins/modern/Menu.php:59
 msgid "Language"
-msgstr ""
+msgstr "Iaith"
 
 #: web/skins/modern/Menu.php:61 web/skins/modern/Menu.php:64
 #: web/skins/modern/user/cat_info.php:70
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: web/skins/modern/Menu.php:62
 msgid "My institution is not listed"
-msgstr ""
+msgstr "Nid yw fy sefydliad wedi'i restru"
 
 #: web/skins/modern/Menu.php:62 web/skins/modern/Menu.php:63
 #: web/skins/modern/Menu.php:65 web/skins/modern/Menu.php:66
 #: web/skins/modern/Menu.php:67
 msgid "FAQ"
-msgstr ""
+msgstr "Cwestiynau cyffredin"
 
 #: web/skins/modern/Menu.php:63
 msgid "My device is not listed"
-msgstr ""
+msgstr "Nid yw fy dyfais wedi'i restru"
 
 #: web/skins/modern/Menu.php:65
 msgid "What is eduroam"
-msgstr ""
+msgstr "Beth yw eduroam"
 
 #: web/skins/modern/Menu.php:67
 msgid "Contact"
-msgstr ""
+msgstr "Cyswllt"
 
 #: web/skins/modern/Menu.php:68
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnosteg"
 
 #: web/skins/modern/Menu.php:72
 msgid "Manage"
-msgstr ""
+msgstr "Rheoli"
 
 #: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin access"
-msgstr ""
+msgstr "%s mynediad gweinyddol"
 
 #: web/skins/modern/Menu.php:74
 #, php-format
 msgid "%s admin:<br>manage your IdP"
-msgstr ""
+msgstr "%s admin: <br> rheoli eich CDU"
 
 #: web/skins/modern/Menu.php:75 web/skins/modern/Menu.php:76
 msgid "Become a CAT developer"
-msgstr ""
+msgstr "Dewch yn ddatblygwr CAT"
 
 #: web/skins/modern/Menu.php:80
 msgid "Terms of use"
-msgstr ""
+msgstr "Telerau defnydd"
 
 #: web/skins/modern/div_user_welcome.php:33
+#: web/skins/msp/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"hoffem eich croesawu'n gynnes ymhlith y miliynau lawer o defnyddwyr "
+"eduroam®! O hyn ymlaen, byddwch yn gallu defnyddio adnoddau mynediad "
+"rhyngrwyd ar filoedd o brifysgolion, canolfannau ymchwil a lleoedd eraill "
+"ledled y byd. Hyn i gyd yn hollol rhad ac am ddim!"
 
 #: web/skins/modern/div_user_welcome.php:36
+#: web/skins/msp/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Nawr eich bod wedi lawrlwytho a gosod cyflunydd cleient, y cyfan sydd angen "
+"i chi ei wneud yw dod o hyd i llecyn eduroam® yn eich ardal chi a nodi eich "
+"manylion mewngofnodi defnyddiwr (dyma ein henw ffansi ar gyfer 'enw "
+"defnyddiwr a chyfrinair' neu 'tystysgrif bersonol') - a byddwch ar-lein!"
 
 #: web/skins/modern/index.php:87 web/skins/modern/test.php:80
+#: web/skins/msp/index.php:82
 msgid "Authenticating"
-msgstr ""
+msgstr "Dilyswch"
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
+"Fe wnaethoch chi geisio lawrlwytho gosodwr a oedd eisoes wedi'i lawrlwytho "
+"o'r blaen. Gofynnwch am tocyn newydd gan eich gweinyddwr yn lle hynny."
 
 #: web/skins/modern/accountstatus/accountstatus.php:82
 msgid "Attempt to reuse download link"
-msgstr ""
+msgstr "Ceisio ailddefnyddio dolen llwytho i lawr"
 
 #: web/skins/modern/accountstatus/accountstatus.php:93
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr ""
+"Rydych yn defnyddiwr newydd heb hanes o %s manylion mewngofnodi mynediad."
 
 #: web/skins/modern/accountstatus/accountstatus.php:99
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] ""
+"Mae gennych <strong>%d</strong> ar hyn o bryd manylyn mewngofnodi mynediad "
+"dilys %s."
 msgstr[1] ""
+"Mae gennych <strong>%d</strong> ar hyn o bryd manylion mewngofnodi mynediad "
+"dilys %s."
 msgstr[2] ""
+"Mae gennych <strong>%d</strong> ar hyn o bryd manylion mewngofnodi mynediad "
+"dilys %s."
 msgstr[3] ""
+"Mae gennych <strong>%d</strong> ar hyn o bryd manylion mewngofnodi mynediad "
+"dilys %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nid yw <strong>%d</strong> o'ch manylion yn ddilys mwyach."
+msgstr[1] "Nid yw <strong>%d</strong> o'ch manylion yn ddilys mwyach."
+msgstr[2] "Nid yw <strong>%d</strong> o'ch manylion yn ddilys mwyach."
 msgstr[3] ""
+"Nid yw <strong>%d</strong> o'ch manylion mewngofnodi mynediad yn ddilys "
+"mwyach."
 
 #: web/skins/modern/accountstatus/accountstatus.php:105
 msgid "I want to see the details."
-msgstr ""
+msgstr "Rwyf am weld y manylion"
 
 #. only show this extra info in the non-trivial case.
 #: web/skins/modern/accountstatus/accountstatus.php:114
@@ -700,6 +876,8 @@ msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
 msgstr ""
+"Mae eich tocyn gwahoddiad yn ddilys ar gyfer %d yn fwy o weithrediadau "
+"dyfais (mae %d eisoes wedi'u defnyddio)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:117
 msgid ""
@@ -709,6 +887,11 @@ msgid ""
 "modifications. You can come back to this page again; the invitation link has "
 "not been used up yet."
 msgstr ""
+"Yn anffodus, ni allwn bennu system weithredu eich dyfais. Os ydych wedi "
+"gwneud addasiadau i'ch dyfais sy'n ei hatal rhag cael ei hadnabod (e.e. "
+"gosodiadau 'Asiant Defnyddiwr' wedi'u teilwra), dad-wneud addasiadau o'r "
+"fath. Gallwch ddod yn ôl i'r dudalen hon eto; nid yw'r dolen gwahoddiad "
+"wedi'i defnyddio eto."
 
 #: web/skins/modern/accountstatus/accountstatus.php:124
 #, php-format
@@ -718,11 +901,15 @@ msgid ""
 "supported operating system later; the invitation link has not been used up "
 "yet."
 msgstr ""
+"Yn anffodus, nid yw'r system weithredu y mae eich dyfais yn ei defnyddio "
+"(%s) yn cael ei chynnal ar hyn o bryd ar gyfer cyfrifon defnyddwyr terfynol "
+"a gynhelir. Gallwch ymweld â'r dudalen hon gyda system weithredu a gefnogir "
+"yn ddiweddarach; nid yw'r cyswllt gwahoddiad wedi'i defnyddio eto."
 
 #: web/skins/modern/accountstatus/accountstatus.php:136
 #, php-format
 msgid "You can now download a personalised  %s installation program."
-msgstr ""
+msgstr "Gallwch nawr lawrlwytho rhaglen osod %s personol."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:138
@@ -732,6 +919,9 @@ msgid ""
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
+"Mae'r rhaglen osod yn <span class='emph'>hollol bersonol</span>, i'w "
+"ddefnyddio <span class='emph'>yn unig ar y ddyfais hon (%s)</span>, ac <span "
+"class='emph'>ni chaniateir rannu</span> wybodaeth hon ag unrhyw un."
 
 #: web/skins/modern/accountstatus/accountstatus.php:139
 #, php-format
@@ -740,6 +930,9 @@ msgid ""
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
 msgstr ""
+"Pan fydd y system yn canfod camddefnydd megis rhannu data mewngofnodi ag "
+"eraill, bydd yr holl hawliau mynediad i chi yn cael eu dirymu ac efallai y "
+"cewch eich sancsiynu gan eich gweinyddwr %s lleol."
 
 #: web/skins/modern/accountstatus/accountstatus.php:140
 msgid ""
@@ -747,16 +940,19 @@ msgid ""
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
 msgstr ""
+"Yn ystod y broses osod, gofynnir i chi am y PIN mewnforio canlynol. Dim ond "
+"unwaith y bydd hyn yn digwydd yn ystod y gosodiad. Nid oes rhaid i chi "
+"ysgrifennu'r PIN hwn."
 
 #: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Import PIN: %s"
-msgstr ""
+msgstr "Mewnforio PIN: %s"
 
 #: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid "Click here to download your %s installer!"
-msgstr ""
+msgstr "Cliciwch yma i lawrlwytho eich gosodwr %s!"
 
 #: web/skins/modern/accountstatus/accountstatus.php:155
 #, php-format
@@ -765,17 +961,23 @@ msgid ""
 "invitation was valid until %s. You cannot use this link any more. Please ask "
 "your administrator to issue you a new invitation link."
 msgstr ""
+"Yn anffodus, mae'r cyswllt gwahoddiad rydych chi newydd ei defnyddio yn rhy "
+"hen. Roedd y gwahoddiad i gofrestru %s yn ddilys tan %s. Ni allwch "
+"ddefnyddio'r cyswllt hon mwyach. Gofynnwch i'ch gweinyddwr roi cyswllt "
+"gwahoddiad newydd i chi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:162
 msgid "Account information not found"
-msgstr ""
+msgstr "Heb ganfod gwybodaeth cyfrif"
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
+"The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
+"Nid yw'r cyswllt gwahoddiad a ddilynwyd gennych yn mapio i unrhyw wahoddiad "
+"sydd gennym ar ffeil."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -785,6 +987,10 @@ msgid ""
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
+"Dylech ddefnyddio'r union cyswllt a gawsoch wrth gofrestru i ddod yma. Fel "
+"arall, os oes gennych chi ddilysrwydd %s yn barod, gallwch ymweld â'r "
+"dudalen hon a Derbyn y cwestiwn am fewngofnodi gyda tystysgrif cleient "
+"(dewiswch tystysgrif gydag enw yn gorffen gyda '…%s')."
 
 #: web/skins/modern/accountstatus/accountstatus.php:196
 #: web/skins/modern/user/js/cat_js.php:85
@@ -792,6 +998,8 @@ msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
+"Os cewch chi broblemau, yna gallwch gael cymorth uniongyrchol gan eich "
+"sefydliad yn:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:198
 #: web/skins/modern/user/js/cat_js.php:86
@@ -799,59 +1007,61 @@ msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr ""
+"Os cewch chi broblemau dylech ofyn i'r rhai a roddodd eich cyfrif i chi am "
+"help."
 
 #: web/skins/modern/accountstatus/accountstatus.php:214
 #, php-format
 msgid "Your personal %s account status page"
-msgstr ""
+msgstr "Tudalen statws cyfrif personol %s"
 
 #: web/skins/modern/accountstatus/accountstatus.php:250
 msgid "Current login tokens"
-msgstr ""
+msgstr "Tocynnau mewngofnodi cyfredol"
 
 #: web/skins/modern/accountstatus/accountstatus.php:251
 msgid "Previous login tokens"
-msgstr ""
+msgstr "Tocynnau mewngofnodi blaenorol"
 
 #: web/skins/modern/accountstatus/accountstatus.php:252
 msgid "Revoked login tokens"
-msgstr ""
+msgstr "Tocynnau mewngofnodi a ddirymwyd"
 
 #: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Serial Number"
-msgstr ""
+msgstr "Rhif Serial"
 
 #: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Pseudonym"
-msgstr ""
+msgstr "Ffugenw"
 
 #: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Device Type"
-msgstr ""
+msgstr "Math Dyfais"
 
 #: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Issue Date"
-msgstr ""
+msgstr "Dyddiad Rhoi"
 
 #: web/skins/modern/accountstatus/accountstatus.php:253
 msgid "Expiry Date"
-msgstr ""
+msgstr "Dyddiad Dod i ben"
 
 #: web/skins/modern/accountstatus/accountstatus.php:263
 msgid "invalid token"
-msgstr ""
+msgstr "tocyn annilys"
 
 #: web/skins/modern/accountstatus/accountstatus.php:275
 msgid "revoke"
-msgstr ""
+msgstr "dirymu"
 
 #: web/skins/modern/accountstatus/accountstatus.php:289
 msgid "The details are displayed below."
-msgstr ""
+msgstr "Dangosir y manylion isod."
 
 #: web/skins/modern/accountstatus/accountstatus.php:295
 msgid "Really revoke this access credential?"
-msgstr ""
+msgstr "Gwirioneddol dirymu'r manylion mewngofnodi mynediad dilys hwn?"
 
 #: web/skins/modern/user/cat_info.php:100
 #, php-format
@@ -859,14 +1069,16 @@ msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
 msgstr ""
+"Rhaid eich bod wedi derbyn gwahoddiad gan eich %s %s cyn gallu rheoli eich "
+"%s. Os yw hynny'n wir, parhewch a mewngofnodwch."
 
 #: web/skins/modern/user/cat_info.php:102
 msgid "Please authenticate yourself and login"
-msgstr ""
+msgstr "Dilyswch eich hun a mewngofnodi os gwelwch yn dda"
 
 #: web/skins/modern/user/cat_info.php:107
 msgid "Login"
-msgstr ""
+msgstr "Mewngofnodi"
 
 #: web/skins/modern/user/cat_info.php:108
 msgid ""
@@ -875,10 +1087,15 @@ msgid ""
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
 msgstr ""
+"A wnaethoch chi anghofio gyda pha Ddarparwr Hunaniaeth y gwnaethoch "
+"fewngofnodi i'r system? Gallwn geisio darganfod a ydych yn nodi'r cyfeiriad "
+"e-bost y cawsoch eich gwahodd i'r system ag ef yn y blwch isod. Efallai na "
+"fydd hyn yn gweithio os cawsoch eich gwahodd o wefan trydydd parti trwy'r "
+"AdminAPI."
 
 #: web/skins/modern/user/cat_info.php:109
 msgid "Get IdP Reminder"
-msgstr ""
+msgstr "Cael Nodyn Atgoffa CDU"
 
 #. print "idp = $idpId;\n";
 #: web/skins/modern/user/js/cat_js.php:48
@@ -887,31 +1104,35 @@ msgid ""
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
 msgstr ""
+"Mae hyn yn embaras. Methodd cynhyrchu eich gosodwr. Mae gweinyddwyr y system "
+"wedi cael gwybod. Byddwn yn ceisio gofalu am y broblem cyn gynted â phosibl."
 
 #: web/skins/modern/user/js/cat_js.php:80
 msgid "no matching data found"
-msgstr ""
+msgstr "dim data cyfatebol wedi'i ganfod"
 
 #: web/skins/modern/user/js/cat_js.php:81
 msgid "select"
-msgstr ""
+msgstr "dewis"
 
 #: web/skins/modern/user/js/cat_js.php:82
 msgid "WWW:"
-msgstr ""
+msgstr "WWW:"
 
 #: web/skins/modern/user/js/cat_js.php:83
 msgid "email:"
-msgstr "ebsot:"
+msgstr "e-bost:"
 
 #: web/skins/modern/user/js/cat_js.php:84
 msgid "tel:"
-msgstr ""
+msgstr "ffôn:"
 
 #: web/skins/modern/user/js/cat_js.php:87
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
+"Nid oes modd ffurfweddu'r ddyfais hon gyda'r gosodiadau a ddefnyddir yn eich "
+"sefydliad."
 
 #: web/skins/modern/user/js/cat_js.php:88
 msgid ""
@@ -919,6 +1140,9 @@ msgid ""
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
 msgstr ""
+"Mae gweinyddwr eich gwefan wedi nodi y dylai'r ddyfais hon gael ei "
+"ffurfweddu gydag adnoddau sydd wedi'u lleoli ar dudalen leol. Pan gliciwch "
+"<b>Parhau</b> bydd y dudalen hon yn cael ei hagor mewn ffenestr/tab newydd."
 
 #: web/skins/modern/user/js/cat_js.php:91
 msgid "Close"
@@ -926,39 +1150,42 @@ msgstr "Cau"
 
 #: web/skins/modern/user/js/cat_js.php:92
 msgid "No providers found for this email"
-msgstr ""
+msgstr "Ni chanfuwyd unrhyw ddarparwyr ar gyfer yr e-bost hwn"
 
 #: web/skins/modern/user/js/cat_js.php:93
 msgid "Your IdP is:"
-msgstr ""
+msgstr "Eich CDU yw:"
 
 #: web/skins/modern/user/js/cat_js.php:94
 msgid "Your IdP could be one of:"
-msgstr ""
+msgstr "Gallai eich CDU fod yn un o’r canlynol:"
 
 #: web/skins/modern/user/js/cat_js.php:95
 msgid "Missing email address"
-msgstr ""
+msgstr "Cyfeiriad e-bost ar goll"
 
 #: web/skins/modern/user/js/cat_js.php:96
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Diweddarwyd y cofnod hwn ddiwethaf yn:"
 
 #: web/skins/modern/user/js/cat_js.php:97
 msgid ""
 "If you intend to download an installer which also enables OpenRoaming then "
 "you must accept OpenRoaming Terms and Conditions."
 msgstr ""
+"Os ydych yn bwriadu lawrlwytho gosodwr sydd hefyd yn galluogi OpenRoaming "
+"yna rhaid i chi dderbyn Telerau ac Amodau OpenRoaming."
 
 #: web/skins/modern/user/js/cat_js.php:98
 msgid ""
 "If you select installers with OpenRoaming support, remember to indicate your "
 "consent."
 msgstr ""
+"Os dewiswch osodwyr sydd â cymorth OpenRoaming, cofiwch nodi eich caniatâd."
 
 #: web/skins/modern/user/js/cat_js.php:99
 msgid "The installer has built-in OpenRoaming support."
-msgstr ""
+msgstr "Mae gan y gosodwr cymorth OpenRoaming integredig."
 
 #: web/skins/modern/user/js/cat_js.php:100
 #, php-format
@@ -966,103 +1193,110 @@ msgid ""
 "I want to use OpenRoaming and have read and accept <a href='%s' "
 "target='_blank'>%s</a>"
 msgstr ""
+"Rwyf am ddefnyddio OpenRoaming ac rwyf wedi darllen a derbyn <a href='%s' "
+"target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:101
 #, php-format
 msgid "I have read and accept <a href='%s' target='_blank'>%s</a>"
-msgstr ""
+msgstr "Rwyf wedi darllen a derbyn <a href='%s' target='_blank'>%s</a>"
 
 #: web/skins/modern/user/js/cat_js.php:102
 msgid "OpenRoaming is not supported on this device"
-msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:105
-msgid "eduroam only"
-msgstr ""
+msgstr "Nid yw OpenRoaming yn cael ei gefnogi ar y ddyfais hon"
 
 #: web/skins/modern/user/js/cat_js.php:106
-msgid "eduroam and OpenRoaming"
-msgstr ""
+#, php-format
+msgid "%s only"
+msgstr "%s yn unig"
 
-#: web/skins/modern/user/js/cat_js.php:110
-msgid "Organisation"
-msgstr ""
+#: web/skins/modern/user/js/cat_js.php:107
+#, php-format
+msgid "%s and OpenRoaming"
+msgstr "%s ac OpenRoaming"
 
 #: web/skins/modern/user/js/cat_js.php:111
-msgid "Select your organisation"
-msgstr ""
+msgid "Organisation"
+msgstr "Sefydliad"
 
 #: web/skins/modern/user/js/cat_js.php:112
-msgid "Help, my organisation is not on the list"
-msgstr ""
+msgid "Select your organisation"
+msgstr "Dewiswch eich sefydliad"
 
 #: web/skins/modern/user/js/cat_js.php:113
+msgid "Help, my organisation is not on the list"
+msgstr "Help, nid yw fy sefydliad ar y rhestr"
+
+#: web/skins/modern/user/js/cat_js.php:114
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
 msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:114
-msgid "Locate me more accurately using HTML5 Geo-Location"
-msgstr ""
+"Mae'r system hon yn dibynnu ar wybodaeth a ddarparwyd gan weinyddwyr %s "
+"lleol. Os nad yw eich sefydliad ar y rhestr, yna nagwch nhw i ychwanegu "
+"gwybodaeth i cronfa ddata %s."
 
 #: web/skins/modern/user/js/cat_js.php:115
-msgid "Show organisations in"
-msgstr ""
+msgid "Locate me more accurately using HTML5 Geo-Location"
+msgstr "Dewch o hyd i mi yn fwy cywir gan ddefnyddio HTML5 Geo-Location"
 
 #: web/skins/modern/user/js/cat_js.php:116
+msgid "Show organisations in"
+msgstr "Dangos sefydliadau yn"
+
+#: web/skins/modern/user/js/cat_js.php:117
 msgid "all countries"
 msgstr "pob gwlad"
 
-#: web/skins/modern/user/js/cat_js.php:117
-msgid "or search for an organisation, for example University of Oslo"
-msgstr ""
-
 #: web/skins/modern/user/js/cat_js.php:118
+msgid "or search for an organisation, for example University of Oslo"
+msgstr "neu chwilio am sefydliad, er enghraifft Prifysgol Oslo"
+
+#: web/skins/modern/user/js/cat_js.php:119
 msgid "show all countries"
 msgstr "dangos pob gwlad"
 
-#: web/skins/modern/user/js/cat_js.php:119
-msgid "Results limited to"
-msgstr ""
-
 #: web/skins/modern/user/js/cat_js.php:120
-msgid "entries - show more"
-msgstr ""
+msgid "Results limited to"
+msgstr "Canlyniadau yn gyfyngedig i"
 
 #: web/skins/modern/user/js/cat_js.php:121
-msgid "Nearby"
-msgstr ""
+msgid "entries - show more"
+msgstr "cofnodion - dangos mwy"
 
 #: web/skins/modern/user/js/cat_js.php:122
-msgid "Location timeout"
-msgstr ""
+msgid "Nearby"
+msgstr "Gerllaw"
 
 #: web/skins/modern/user/js/cat_js.php:123
-msgid "Could not get your position"
-msgstr ""
+msgid "Location timeout"
+msgstr "Goramser lleoliad"
 
 #: web/skins/modern/user/js/cat_js.php:124
-msgid "Your browser has denied access to your location"
-msgstr ""
+msgid "Could not get your position"
+msgstr "Methu cael eich sefyllfa"
 
 #: web/skins/modern/user/js/cat_js.php:125
-msgid "Unknown location error"
-msgstr ""
+msgid "Your browser has denied access to your location"
+msgstr "Mae eich porwr wedi gwrthod mynediad i'ch lleoliad"
 
 #: web/skins/modern/user/js/cat_js.php:126
-msgid "You are here:"
-msgstr ""
+msgid "Unknown location error"
+msgstr "Gwall lleoliad anhysbys"
 
 #: web/skins/modern/user/js/cat_js.php:127
-msgid "Getting your location..."
-msgstr ""
+msgid "You are here:"
+msgstr "Rwyt ti yma:"
 
 #: web/skins/modern/user/js/cat_js.php:128
+msgid "Getting your location..."
+msgstr "Cael eich lleoliad..."
+
+#: web/skins/modern/user/js/cat_js.php:129
 msgid "Nearby providers shown on top."
-msgstr ""
+msgstr "Dangosir darparwyr cyfagos ar y brig."
 
 #. *
 #. The OS objects define individual frames
@@ -1075,8 +1309,8 @@ msgid "MS Windows"
 msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
-msgid "10, 8, 7, Vista"
-msgstr ""
+msgid "11, 10, 8, 7, Vista"
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"
@@ -1088,7 +1322,7 @@ msgstr "Android"
 
 #: web/skins/modern/user/js/roll.php:141
 msgid "4.3+"
-msgstr ""
+msgstr "4.3+"
 
 #: web/skins/modern/user/js/roll.php:142
 msgid "Apple iOS devices"
@@ -1096,7 +1330,7 @@ msgstr "Dyfeisiau Apple iOS"
 
 #: web/skins/modern/user/js/roll.php:142
 msgid "iPhone, iPad, iPod touch"
-msgstr ""
+msgstr "iPhone, iPad, iPod touch"
 
 #: web/skins/modern/user/js/roll.php:143
 msgid "Linux"
@@ -1104,8 +1338,8 @@ msgstr "Linux"
 
 #: web/skins/modern/user/js/roll.php:143
 msgid "all major distributions"
-msgstr ""
+msgstr "pob dosbarthiad mawr"
 
 #: web/skins/modern/user/js/roll.php:144
 msgid "Chrome OS"
-msgstr ""
+msgstr "Chrome OS"

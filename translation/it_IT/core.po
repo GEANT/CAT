@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022
+# Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022,2024-2025
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018-2019
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2022
@@ -12,9 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:14+0200\n"
+"POT-Creation-Date: 2025-07-28 10:24+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2018,2022\n"
+"Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, "
+"2018,2022,2024-2025\n"
 "Language-Team: Italian (Italy) (http://app.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -23,6 +24,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
+#: core/AbstractProfile.php:265
+msgid ""
+"The profile information does not include the realm, so no DNS checks for "
+"OpenRoaming can be executed."
+msgstr ""
+"Le informazioni del profilo non includono il realm, quindi non è possibile "
+"eseguire i controlli DNS per OpenRoaming."
+
+#: core/AbstractProfile.php:299
+msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
+msgstr "La destinazione SRV di un record NAPTR OpenRoaming è imprevista."
+
+#: core/AbstractProfile.php:317
+msgid ""
+"The DNS hostnames in the SRV records do not resolve to actual host IPs. "
+"OpenRoaming will not work."
+msgstr ""
+"I nomi host DNS nei record SRV non vengono risolti in indirizzi IP effettivi "
+"degli host. OpenRoaming non funzionerà."
+
+#: core/AbstractProfile.php:344
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, they all had "
+"errors. OpenRoaming will likely not work."
+msgstr ""
+"Si sono verificati degli errori durante le connessioni a tutti gli endpoint "
+"OpenRoaming scoperti. Molto probabilmente OpenRoaming non funzionerà."
+
+#: core/AbstractProfile.php:350
+msgid ""
+"When connecting to the discovered OpenRoaming endpoints, only a subset of "
+"endpoints had no errors."
+msgstr ""
+"Solo alcuni degli endpoint non hanno restituito errori durante le "
+"connessioni agli endpoint OpenRoaming scoperti."
+
+#: core/AbstractProfile.php:360
+msgid ""
+"At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
+"refuse to connect to the endpoint."
+msgstr ""
+"Almeno una risposta DNS NON è stata protetta utilizzando DNSSEC. Gli ANP "
+"OpenRoaming potrebbero rifiutarsi di connettersi all'endpoint."
+
+#: core/AbstractProfile.php:367
+msgid ""
+"Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
+"were successful."
+msgstr ""
+"La diagnostica iniziale relativa alla parte DNS di OpenRoaming (incluso "
+"DNSSEC) ha avuto esito positivo."
 
 #: core/CAT.php:143
 msgid "Andorra"
@@ -93,230 +146,234 @@ msgid "Hungary"
 msgstr "Ungheria"
 
 #: core/CAT.php:160
+msgid "Kosovo"
+msgstr "Kosovo"
+
+#: core/CAT.php:161
 msgid "Luxembourg"
 msgstr "Lussemburgo"
 
-#: core/CAT.php:161
+#: core/CAT.php:162
 msgid "Latvia"
 msgstr "Lettonia"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Lithuania"
 msgstr "Lituania"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Macedonia"
 msgstr "Macedonia"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Netherlands"
 msgstr "Paesi Bassi"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "Norway"
 msgstr "Norvegia"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "Poland"
 msgstr "Polonia"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Portugal"
 msgstr "Portogallo"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Romania"
 msgstr "Romania"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Slovenia"
 msgstr "Slovenia"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Spain"
 msgstr "Spagna"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Sweden"
 msgstr "Svezia"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Slovakia"
 msgstr "Slovacchia"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Switzerland"
 msgstr "Svizzera "
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Turkey"
 msgstr "Turchia"
 
-#: core/CAT.php:176
+#: core/CAT.php:177 core/CAT.php:379
 msgid "United Kingdom"
 msgstr "Regno Unito"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Australia"
 msgstr "Australia"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Canada"
 msgstr "Canada"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Israel"
 msgstr "Israele"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Japan"
 msgstr "Giappone"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "New Zealand"
 msgstr "Nuova Zelanda"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "U.S.A."
 msgstr "Stati Uniti d'America"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Brazil"
 msgstr "Brasile"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Chile"
 msgstr "Cile"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Peru"
 msgstr "Perù"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Default"
 msgstr "Default"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Armenia"
 msgstr "Armenia"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Azerbaijan"
 msgstr "Azerbaigian"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Belarus"
 msgstr "Bielorussia"
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Kenya"
 msgstr "Kenia"
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kyrgyzstan"
 msgstr "Kirghisia"
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Korea"
 msgstr "Corea"
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Kazakhstan"
 msgstr "Kazakistan"
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Morocco"
 msgstr "Marocco"
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Moldova"
 msgstr "Moldavia"
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Macau"
 msgstr "Macao"
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Russia"
 msgstr "Russia"
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Singapore"
 msgstr "Singapore"
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Thailand"
 msgstr "Tailandia"
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "South Africa"
 msgstr "Sud Africa"
 
-#: core/CAT.php:484 core/IdPlist.php:79
+#: core/CAT.php:485 core/IdPlist.php:83
 msgid "Unnamed Entity"
 msgstr "Entità senza nome"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile deactivation succeeded"
 msgstr "Disattivazione del profilo riuscita"
 
-#: core/DeploymentManaged.php:506
+#: core/DeploymentManaged.php:670
 msgid "Profile activation/modification succeeded"
 msgstr "Attivazione/Modifica del profilo effettuata"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile deactivation failed"
 msgstr "Disattivazione del profilo non riuscita"
 
-#: core/DeploymentManaged.php:508
+#: core/DeploymentManaged.php:672
 msgid "Profile activation/modification failed"
 msgstr "Attivazione/Modifica del profilo fallita"
 
-#: core/DeploymentManaged.php:512
+#: core/DeploymentManaged.php:676
 msgid "on both RADIUS servers: primary and backup"
 msgstr "su entrambe i RADIUS server: primario e secondario"
 
-#: core/DeploymentManaged.php:515
+#: core/DeploymentManaged.php:679
 msgid "on primary RADIUS server"
 msgstr "sul server RADIUS primario"
 
-#: core/DeploymentManaged.php:517
+#: core/DeploymentManaged.php:681
 msgid "on backup RADIUS server"
 msgstr "Sul server RADIUS di backup"
 
-#: core/DeploymentManaged.php:525
+#: core/DeploymentManaged.php:689
 msgid "RADIUS profile update problem fixed"
 msgstr "Problema con l'aggiornamento del profilo RADIUS risolto"
 
-#: core/DeploymentManaged.php:527
+#: core/DeploymentManaged.php:691
 msgid "RADIUS profile update problem"
 msgstr "Problema nell'aggiornamento del profilo Radius"
 
@@ -337,17 +394,18 @@ msgstr ""
 "disponibile"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:92
+#: core/Federation.php:111
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(dismesso) %s"
 
 #. / IdP and SP
-#: core/Federation.php:274 core/common/OutsideComm.php:281
+#: core/Federation.php:308 core/common/OutsideComm.php:287
 #, php-format
 msgid "%s and %s"
 msgstr "%s e %s"
 
+#. notify the fed admins...
 #. / arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
 #. /                2. IdP name;
 #. /                3. consortium name (e.g. eduroam);
@@ -355,61 +413,95 @@ msgstr "%s e %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:291
+#: core/Federation.php:323
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the %s was created in %s.\n"
+"    the invitation for the new %s %s in your %s federation %s has been used "
+"and the %s was created in %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
 "Salve,\n"
 "\n"
-"l'invito per il nuovo %s %s nella tua %s federazione %s è stato usato e il "
-"%s è stato creato in %s.\n"
+"    l'invito per il nuovo %s %s nella vostra federazione %s  %s è stato "
+"usato e %s è stato creato in %s.\n"
 "\n"
-"Ci faceva piacere informarti.\n"
+"    Pensiamo possa esserti utile saperlo..\n"
 "\n"
-"Cordiali saluti,\n"
+"    Cordiali saluti,\n"
 "\n"
-"%s"
+"    %s"
+
+#. notify the fed admins...
+#. / arguments are: 1. nomenclature for "institution"
+#. /                2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:349
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"    the eduGAIN self-registration was used to create a new %s\n"
+"           %s\n"
+"    in your %s federation %s in %s.\n"
+"\n"
+"    We thought you might want to know.\n"
+"\n"
+"    Best regards,\n"
+"\n"
+"    %s"
+msgstr ""
+"Salve,\n"
+"\n"
+"    la self-registration eduGAIN è stata usata per creare un nuovo %s\n"
+"           %s\n"
+"    nella vostra federazione %s %s in %s.\n"
+"\n"
+"    Pensiamo possa esserti utile saperlo.\n"
+"\n"
+"    Cordiali saluti,\n"
+"\n"
+"    %s"
 
 #. / organisation
-#: core/Federation.php:308
+#: core/Federation.php:371 core/Federation.php:377
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s è stato creato nella tua federazione"
 
-#: core/IdP.php:397
+#: core/IdP.php:415
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the %s %s in your %s federation %s has been deleted from %s.\n"
+"    the %s %s in your %s federation %s has been deleted from %s.\n"
 "\n"
-"We thought you might want to know.\n"
+"    We thought you might want to know.\n"
 "\n"
-"Best regards,\n"
+"    Best regards,\n"
 "\n"
-"%s"
+"    %s"
 msgstr ""
-"Salve,\n"
+"Ciao,\n"
 "\n"
-"%s %s nella tua %s federazione %s è stato cancellato da %s.\n"
+"    il %s %s nel tuo %s federazione %s è stato cancellato da %s.\n"
 "\n"
-"Pensiamo ne volessi essere informato.\n"
+"    Pensavamo potessi volerlo sapere.\n"
 "\n"
-"Cordiali saluti,\n"
+"    Cordiali saluti,\n"
 "\n"
-"%s"
+"    %s"
 
-#: core/IdP.php:406
+#: core/IdP.php:424
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s è stato cancellato nella tua federazione"
@@ -475,7 +567,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%s Sistema Inviti"
 
-#: core/User.php:166
+#: core/User.php:270
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -510,57 +602,57 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:120
+#: core/common/Entity.php:123
 msgid "National Roaming Operator"
 msgstr "Operatore di Roaming Nazionale"
 
-#: core/common/Entity.php:121
+#: core/common/Entity.php:124
 msgid "identity provider"
 msgstr "identity provider"
 
-#: core/common/Entity.php:122
+#: core/common/Entity.php:125
 msgid "organisation"
 msgstr "organizzazione"
 
-#: core/common/Entity.php:123
+#: core/common/Entity.php:126
 msgid "Identity Provider"
 msgstr "Identity Provider"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:127
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi Hotspot"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:128
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:129
 msgid "Service Provider"
 msgstr "Fornitore di Servizi"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:130
 msgid "participant"
 msgstr "partecipante"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:131
 msgid "Organisation"
 msgstr "Organizzazione"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:132
 msgid "organization"
 msgstr "organizzazione"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:133
 msgid "entity"
 msgstr "entità"
 
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
-"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr "un %s del %s %s \"%s\" ti ha invitato a gestire l'%s insieme a lui"
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
+msgstr "un %s di %s %s \"%s\" ti ha invitato a gestire %s insieme a loro."
 
-#: core/common/OutsideComm.php:292
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
@@ -569,39 +661,39 @@ msgstr ""
 "Un %s %s ti ha inviotato a gestire il futuro %s  \"%s\" (%s). L' "
 "organizazzione sarà un %s."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr "un %s %s  ti ha invitato a gestire il %s  \"%s\". Questo è un %s."
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:301
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Questo invito  è valido 24 ore da ora, es. fino a %s"
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:303
+#: core/common/OutsideComm.php:309
 msgid "Hello,"
 msgstr "Salve,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:311
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manualmente. Non rispondere a questa mail, è un indirizzo di sola spedizione."
 
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:317
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Messaggio aggiuntivo dal tuo amministratore di %s:"
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s administrator"
 msgstr "amministratore di %s"
 
-#: core/common/OutsideComm.php:322
+#: core/common/OutsideComm.php:328
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -609,14 +701,14 @@ msgstr ""
 "manualmente. Se rispondi a questa mail, raggiungerai gli amministratori del "
 "tuo %s"
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:334
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "Per diventare amministratore di questo %s, clicca sul seguente link:"
 
-#: core/common/OutsideComm.php:330
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -625,11 +717,11 @@ msgstr ""
 "Se il link non funziona, raggiungere la interfaccia di amministrazione di %s "
 "al seguente indirizzo "
 
-#: core/common/OutsideComm.php:332
+#: core/common/OutsideComm.php:338
 msgid "and enter the invitation token"
 msgstr "e inserire il seguente codice"
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:340
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -637,12 +729,12 @@ msgstr ""
 "Non inoltrare la mail prima che il token sia scaduto - o i destinatari "
 "potrebbero essere in grado di usare il token rilasciato a vostro nome."
 
-#: core/common/OutsideComm.php:335
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Vi auguriamo buon divertimento con %s"
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:342
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -653,7 +745,7 @@ msgstr ""
 "\n"
 "I tuoi amici da %s Operations"
 
-#: core/common/OutsideComm.php:372
+#: core/common/OutsideComm.php:378
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: sei stato invitato a gestire un %s"
@@ -662,26 +754,26 @@ msgstr "%s: sei stato invitato a gestire un %s"
 msgid "Input validation error: "
 msgstr "Errore di validazione dell'input:"
 
-#: web/lib/common/InputValidation.php:270
+#: web/lib/common/InputValidation.php:366
 msgid "Realm is empty!"
 msgstr "Il realm è vuoto!"
 
-#: web/lib/common/InputValidation.php:279
+#: web/lib/common/InputValidation.php:375
 msgid "Realm contains an @ sign!"
 msgstr "Il Realm contiene il segno @!"
 
-#: web/lib/common/InputValidation.php:280
+#: web/lib/common/InputValidation.php:376
 msgid "Realm begins with a . (dot)!"
 msgstr "Il Realm inizia con un . (punto)!"
 
-#: web/lib/common/InputValidation.php:281
+#: web/lib/common/InputValidation.php:377
 msgid "Realm ends with a . (dot)!"
 msgstr "Il Realm finisce con un . (punto)!"
 
-#: web/lib/common/InputValidation.php:282
+#: web/lib/common/InputValidation.php:378
 msgid "Realm contains spaces!"
 msgstr "Il Realm contiene spazi!"
 
-#: web/lib/common/InputValidation.php:295
+#: web/lib/common/InputValidation.php:391
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Il Realm non contiene almeno un . (punto)!"
