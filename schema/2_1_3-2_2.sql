@@ -24,20 +24,35 @@
  * Created: 20 Nov 2024
  */
 
-CREATE TABLE `edugain` (
+CREATE TABLE IF NOT EXISTS `edugain` (
 `country` varchar(16) DEFAULT NULL,
 `ROid` char(5) DEFAULT NULL,
 `reg_auth` varchar(255) DEFAULT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country` varchar(16) DEFAULT NULL,
+  `realm` varchar(255) DEFAULT NULL,
+  `operatorname` varchar(255) DEFAULT NULL,
+  `mac` varchar(17) DEFAULT NULL,
+  `cui` varchar(255) DEFAULT NULL,
+  `ap_id` varchar(1024) DEFAULT NULL,
+  `result` varchar(4) DEFAULT NULL,
+  `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `operatorname` (`operatorname`),
+  KEY `activity_time` (`activity_time`),
+  KEY `result` (`result`),
+  KEY `mac` (`mac`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `activity` ADD COLUMN (
   `prot` varchar(64) DEFAULT NULL,
   `owner` varchar(20) DEFAULT NULL,
   `outer_user` varchar(128) DEFAULT NULL);
 
-ALTER TABLE `activity` ADD KEY (
-  `outer_user` (`outer_user`),
-  `owner` (`owner`));
+ALTER TABLE `activity` ADD KEY `outer_user` (`outer_user`), ADD KEY `owner` (`owner`);
 
 ALTER TABLE `deployment` ADD COLUMN (`radsec_priv` blob DEFAULT NULL,
   `radsec_cert` blob DEFAULT NULL,
@@ -47,6 +62,9 @@ ALTER TABLE `deployment` ADD COLUMN (`radsec_priv` blob DEFAULT NULL,
 ALTER TABLE `deployment` CHANGE COLUMN radius_instance_1 radius_instance_1 varchar(64);
 ALTER TABLE `deployment` CHANGE COLUMN radius_instance_2 radius_instance_2 varchar(64);
 ALTER TABLE `deployment` CHANGE COLUMN secret secret varchar(64);
+ALTER TABLE `managed_sp_servers` ADD COLUMN (`server_token` varchar(64) DEFAULT NULL,
+  `server_secret` varchar(64) DEFAULT NULL,
+  `server_iv` varchar(64) DEFAULT NULL);
 
 INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-synced', 'allow admins listed in eduroam DB to become admins for synced CAT institutions', 'boolean', NULL);
 INSERT INTO `profile_option_dict` VALUES ('fed:autoregister-new-inst', 'allow admins listed in eduroam DB to create new institutions', 'boolean', NULL);
@@ -56,7 +74,3 @@ INSERT INTO `profile_option_dict` (name, description, type, flag) VALUES('genera
 INSERT INTO `profile_option_dict` (name, description,type,flag) values ('managedsp:guest_vlan','VLAN tag to add for guest users','integer',NULL);
 DELETE FROM `profile_option_dict` WHERE name = 'fed:desired_skin';
 DELETE FROM `profile_option_dict` WHERE name = 'fed:css_file';
-
-ALTER TABLE `managed_sp_servers` ADD COLUMN (`server_token` varchar(64) DEFAULT NULL,
-  `server_secret` varchar(64) DEFAULT NULL,
-  `server_iv` varchar(64) DEFAULT NULL);

@@ -1,0 +1,39 @@
+DROP TABLE IF EXISTS `view_active_institution`;
+CREATE TABLE `view_active_institution` (
+  `id_institution` bigint unsigned DEFAULT NULL,
+  `ROid` varchar(7) DEFAULT NULL,
+  `inst_realm` char(255) DEFAULT NULL,
+  `country` char(5) DEFAULT NULL,
+  `name` varchar(512) DEFAULT NULL,
+  `contact` blob,
+  `type` enum('3','2','1') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `view_admin`;
+CREATE TABLE `view_admin` (
+  `id` int unsigned DEFAULT NULL,
+  `eptid` char(255) DEFAULT NULL,
+  `email` char(255) DEFAULT NULL,
+  `common_name` char(255) DEFAULT NULL,
+  `id_role` int DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `id_obj` int DEFAULT NULL,
+  `realm` char(255) DEFAULT NULL,
+  KEY `eptid` (`eptid`),
+  KEY `role` (`role`),
+  KEY `realm` (`realm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `view_institution_admins`;
+CREATE TABLE `view_institution_admins` (
+  `name` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `phone` varchar(128) DEFAULT NULL,
+  `inst_realm` varchar(128) DEFAULT NULL,
+  `id_institution` bigint unsigned DEFAULT NULL,
+  `ROid` char(5) DEFAULT NULL,
+  KEY `inst_realm` (`inst_realm`),
+  KEY `id_institution` (`id_institution`),
+  KEY `ROid` (`ROid`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

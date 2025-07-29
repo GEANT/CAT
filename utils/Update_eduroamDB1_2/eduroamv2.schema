@@ -1,0 +1,48 @@
+DROP TABLE IF EXISTS `view_active_institution`;
+CREATE TABLE `view_active_institution` (
+  `ROid` char(5) DEFAULT NULL,
+  `instid` char(50) DEFAULT NULL,
+  `inst_realm` varchar(341) DEFAULT NULL,
+  `country` char(5) DEFAULT NULL,
+  `name` varchar(512) DEFAULT NULL,
+  `contact` longblob,
+  `type` tinyint DEFAULT '1',
+  `last_change` timestamp NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `view_institution_admins`;
+CREATE TABLE `view_institution_admins` (
+  `name` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `phone` varchar(128) DEFAULT NULL,
+  `inst_realm` varchar(128) DEFAULT NULL,
+  `instid` char(50) DEFAULT NULL,
+  `ROid` char(5) DEFAULT NULL,
+  KEY `inst_realm` (`inst_realm`),
+  KEY `instid` (`instid`),
+  KEY `ROid` (`ROid`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `view_tls_inst`;
+CREATE TABLE `view_tls_inst` (
+  `ROid` char(5) DEFAULT NULL,
+  `country` char(5) DEFAULT NULL,
+  `instid` char(50) DEFAULT NULL,
+  `stage` tinyint DEFAULT NULL,
+  `type` tinyint DEFAULT NULL,
+  `inst_name` varchar(2048) DEFAULT NULL,
+  `servers` text,
+  `contacts` text,
+  `ts` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `view_tls_ro`;
+CREATE TABLE `view_tls_ro` (
+  `ROid` char(5) DEFAULT NULL,
+  `country` char(5) DEFAULT NULL,
+  `stage` tinyint DEFAULT NULL,
+  `servers` text,
+  `contacts` text,
+  `ts` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
