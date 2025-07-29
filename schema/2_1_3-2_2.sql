@@ -56,3 +56,7 @@ INSERT INTO `profile_option_dict` (name, description, type, flag) VALUES('genera
 INSERT INTO `profile_option_dict` (name, description,type,flag) values ('managedsp:guest_vlan','VLAN tag to add for guest users','integer',NULL);
 DELETE FROM `profile_option_dict` WHERE name = 'fed:desired_skin';
 DELETE FROM `profile_option_dict` WHERE name = 'fed:css_file';
+
+ALTER TABLE `managed_sp_servers` ADD COLUMN (`server_token` varchar(64) DEFAULT NULL,
+  `server_secret` varchar(64) DEFAULT NULL,
+  `server_iv` varchar(64) DEFAULT NULL);

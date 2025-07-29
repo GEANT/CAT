@@ -175,6 +175,9 @@ CREATE TABLE `managed_sp_servers` (
   `location_lat` double NOT NULL,
   `consortium` varchar(64) NOT NULL DEFAULT 'eduroam',
   `pool` varchar(16) NOT NULL DEFAULT 'DEFAULT',
+  `server_token` varchar(64) DEFAULT NULL,
+  `server_secret` varchar(64) DEFAULT NULL,
+  `server_iv` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
