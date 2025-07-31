@@ -28,6 +28,7 @@ Contributors:
     ikreb7 https://github.com/ikreb7
     Dimitri Papadopoulos Orfanos https://github.com/DimitriPapadopoulos
     sdasda7777 https://github.com/sdasda7777
+    Matt Jolly http://gitlab.com/Matt.Jolly
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
@@ -70,6 +71,8 @@ parser.add_argument('--pfxfile', action='store', dest='pfx_file',
                     help='set path to user certificate file')
 parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
                     help='generate wpa_supplicant config file without configuring the system')
+parser.add_argument("--iwd_conf", action='store_true', dest='iwd_conf',
+                    help='generate iwd config file without configuring the system')
 parser.add_argument("--gui", action='store', dest='gui',
                     help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
@@ -89,6 +92,16 @@ def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
+def join_with_separator(list: List, separator: str) -> str:
+    """
+    Join a list of strings with a separator; if only one element
+    return that element unchanged.
+    """
+    if len(list) > 1:
+        return separator.join(list)
+    if list:
+        return list[0]
+    return ""
 
 debug(sys.version_info.major)
 
@@ -182,6 +195,7 @@ def run_installer() -> None:
     pfx_file = ''
     gui = ''
     wpa_conf = False
+    iwd_conf = False
 
     if ARGS.username:
         username = ARGS.username
@@ -193,6 +207,8 @@ def run_installer() -> None:
         pfx_file = ARGS.pfx_file
     if ARGS.wpa_conf:
         wpa_conf = ARGS.wpa_conf
+    if ARGS.iwd_conf:
+        iwd_conf = ARGS.iwd_conf
     if ARGS.gui:
         gui = ARGS.gui
     debug(get_system())
@@ -202,13 +218,15 @@ def run_installer() -> None:
 
     if wpa_conf:
         NM_AVAILABLE = False
+    if iwd_conf:
+        NM_AVAILABLE = False
 
     # test dbus connection
     if NM_AVAILABLE:
         config_tool = CatNMConfigTool()
         if config_tool.connect_to_nm() is None:
             NM_AVAILABLE = False
-    if not NM_AVAILABLE and not wpa_conf:
+    if not NM_AVAILABLE and not wpa_conf and not iwd_conf:
         # no dbus so ask if the user will want wpa_supplicant config
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
@@ -216,6 +234,10 @@ def run_installer() -> None:
     installer_data.save_ca()
     if NM_AVAILABLE:
         config_tool.add_connections(installer_data)
+    elif iwd_conf:
+        iwd_config = IwdConfiguration()
+        for ssid in Config.ssids:
+            iwd_config.generate_iwd_config(ssid, installer_data)
     else:
         wpa_config = WpaConf()
         wpa_config.create_wpa_conf(Config.ssids, installer_data)
@@ -235,6 +257,7 @@ class Messages:
     incorrect_password = "incorrect password"
     repeat_password = "repeat your password"
     passwords_differ = "passwords do not match"
+    empty_filed = "one of the fieds was empty"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
                      "overwritten."
@@ -584,7 +607,11 @@ class InstallerData:
                         self.confirm_exit()
 
                 if self.graphics in ('zenity', 'yad'):
-                    self.username, password, password1 = output.split(output_fields_separator)
+                    fields = output.split(output_fields_separator)
+                    if len(fields) != 3:
+                        self.alert(Messages.empty_filed)
+                        continue
+                    self.username, password, password1 = fields
 
             if not self.__validate_user_name():
                 continue
@@ -936,20 +963,62 @@ class WpaConf:
                 net = self.__prepare_network_block(ssid, user_data)
                 conf.write(net)
 
-
 class IwdConfiguration:
     """ support the iNet wireless daemon by Intel """
     def __init__(self):
         self.config = ""
 
-    def write_config(self) -> None:
-        for ssid in Config.ssids:
-            with open(f'/var/lib/iwd/{ssid}.8021x', 'w') as config_file:
+    def write_config(self, ssid: str) -> None:
+        """
+        Write out an iWD config for a given SSID;
+        if permissions are insufficient (e.g. wayland),
+        use pkexec to elevate a shell and echo the config into the file.
+        """
+
+        file_path = f'{ssid}.8021x'
+        try:
+            with open(file_path, 'w') as config_file:
+                debug("writing: "+file_path)
                 config_file.write(self.config)
+        except PermissionError:
+            command = f'echo "{self.config}" > {file_path}'
+            subprocess.run(['pkexec', 'bash', '-c', command], check=True)
+
+    def set_domain_mask() -> str:
+        """
+        Set the domain mask for the IWD config.
+        This is a list of DNS servers that the client will accept
+        """
+        # The domain mask is a list of DNS servers that the client will accept
+        # It is a comma-separated list of DNS servers (without the DNS: prefix)
+        domainMask = []
+
+        # We need to strip the DNS: prefix
+        for server in Config.servers:
+            if server.startswith('DNS:'):
+                domainMask.append(server[4:])
+            else:
+                domainMask.append(server)
+
+        return join_with_separator(domainMask, ':')
+
+    def generate_iwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """Generate an appropriate IWD 8021x config for a given EAP method"""
+        #TODO: It would probably be best to generate these configs from scratch but the logic is a little harder
+        #      This would add flexibility when dealing with inner and outer config types.
+        if Config.eap_outer == 'PWD':
+            self._create_eap_pwd_config(ssid, user_data)
+        elif Config.eap_outer == 'PEAP':
+            self._create_eap_peap_config(ssid, user_data)
+        elif Config.eap_outer == 'TTLS':
+            self._create_ttls_pap_config(ssid, user_data)
+        else:
+            raise ValueError('Invalid connection type')
+        self.write_config(ssid)
 
     def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
-        self.conf = f"""
+        self.config = f"""
         [Security]
         EAP-Method=PWD
         EAP-Identity={user_data.username}
@@ -961,36 +1030,41 @@ class IwdConfiguration:
 
     def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
-        self.conf = f"""
-        [Security]
-        EAP-Method=PEAP
-        EAP-Identity={Config.anonymous_identity}
-        EAP-PEAP-CACert={Config.CA}
-        EAP-PEAP-ServerDomainMask={Config.servers}
-        EAP-PEAP-Phase2-Method=MSCHAPV2
-        EAP-PEAP-Phase2-Identity={user_data.username}@{Config.user_realm}
-        EAP-PEAP-Phase2-Password={user_data.password}
+        self.config = f"""
+[Security]
+EAP-Method=PEAP
+EAP-Identity={Config.anonymous_identity}
+EAP-PEAP-CACert=embed:eduroam_ca_cert
+EAP-PEAP-ServerDomainMask={IwdConfiguration.set_domain_mask()}
+EAP-PEAP-Phase2-Method=MSCHAPV2
+EAP-PEAP-Phase2-Identity={user_data.username}
+EAP-PEAP-Phase2-Password={user_data.password}
 
-        [Settings]
-        AutoConnect=true
-        """
+[Settings]
+AutoConnect=true
+
+[@pem@eduroam_ca_cert]
+{Config.CA}
+"""
 
     def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
-        self.conf = f"""
-        [Security]
-        EAP-Method=TTLS
-        EAP-Identity={Config.anonymous_identity}
-        EAP-TTLS-CACert={Config.CA}
-        EAP-TTLS-ServerDomainMask={Config.servers}
-        EAP-TTLS-Phase2-Method=Tunneled-PAP
-        EAP-TTLS-Phase2-Identity={user_data.username}@{Config.user_realm}
-        EAP-TTLS-Phase2-Password={user_data.password}
+        self.config = f"""
+[Security]
+EAP-Method=TTLS
+EAP-Identity={Config.anonymous_identity}
+EAP-TTLS-CACert=embed:eduroam_ca_cert
+EAP-TTLS-ServerDomainMask={IwdConfiguration.set_domain_mask()}
+EAP-TTLS-Phase2-Method=Tunneled-PAP
+EAP-TTLS-Phase2-Identity={user_data.username}
+EAP-TTLS-Phase2-Password={user_data.password}
 
-        [Settings]
-        AutoConnect=true
-        """
+[Settings]
+AutoConnect=true
 
+[@pem@eduroam_ca_cert]
+{Config.CA}
+"""
 
 class CatNMConfigTool:
     """
