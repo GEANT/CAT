@@ -132,7 +132,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'incorrect_password' => _("incorrect password"),
         'repeat_password' => _("repeat your password"),
         'passwords_differ'=> _("passwords do not match"),
-        'empty_filed' => _("one of the fieds was empty"),
+        'empty_field' => _("one of the fields was empty"),
         'installation_finished' => _("Installation successful"),
         'cat_dir_exisits' => _("Directory {} exists; some of its files may be overwritten."),
         'cont' => _("Continue?"),
