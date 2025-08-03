@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-31 11:10+0200\n"
+"POT-Creation-Date: 2025-08-03 15:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -517,7 +517,7 @@ msgid "passwords do not match"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:135
-msgid "one of the fieds was empty"
+msgid "one of the fields was empty"
 msgstr ""
 
 #: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
