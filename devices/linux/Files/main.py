@@ -257,7 +257,7 @@ class Messages:
     incorrect_password = "incorrect password"
     repeat_password = "repeat your password"
     passwords_differ = "passwords do not match"
-    empty_filed = "one of the fieds was empty"
+    empty_field = "one of the fields was empty"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
                      "overwritten."
@@ -609,7 +609,7 @@ class InstallerData:
                 if self.graphics in ('zenity', 'yad'):
                     fields = output.split(output_fields_separator)
                     if len(fields) != 3:
-                        self.alert(Messages.empty_filed)
+                        self.alert(Messages.empty_field)
                         continue
                     self.username, password, password1 = fields
 

@@ -1,18 +1,18 @@
 <?php
 /*
  * *****************************************************************************
- * Contributions to this work were made on behalf of the GÉANT project, a 
- * project that has received funding from the European Union’s Framework 
+ * Contributions to this work were made on behalf of the GÉANT project, a
+ * project that has received funding from the European Union’s Framework
  * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
- * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * Horizon 2020 research and innovation programme under Grant Agreements No.
  * 691567 (GN4-1) and No. 731122 (GN4-2).
  * On behalf of the aforementioned projects, GEANT Association is the sole owner
  * of the copyright in all material which was developed by a member of the GÉANT
- * project. GÉANT Vereniging (Association) is registered with the Chamber of 
- * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
  * UK as a branch of GÉANT Vereniging.
- * 
- * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ *
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
  * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
  * License: see the web/copyright.inc.php file in the file structure or
@@ -52,7 +52,7 @@ class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * create the actual installer script
-     * 
+     *
      * @return string filename of the generated installer
      * @throws Exception
      *
@@ -73,11 +73,11 @@ class DeviceLinux extends \core\DeviceConfig {
         fclose($installer);
         return($installerPath);
     }
-    
+
     /**
      * produces the HTML text to be displayed when clicking on the "help" button
      * besides the download button.
-     * 
+     *
      * @return string
      */
     public function writeDeviceInfo() {
@@ -100,10 +100,10 @@ class DeviceLinux extends \core\DeviceConfig {
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
-    
+
     /**
      * writes a line of Python code into the installer script
-     * 
+     *
      * @param resource $file   the file handle
      * @param string   $prefix prefix to write
      * @param string   $name   config item to write
@@ -114,10 +114,10 @@ class DeviceLinux extends \core\DeviceConfig {
         $out = $prefix.$name.' = "'.$text;
         fwrite($file, wordwrap($out, 70, " \" \\\n    \"")."\n");
     }
-    
+
     /**
      * localises the user messages and writes them into the file
-     * 
+     *
      * @param resource $file the file resource of the installer script
      * @return void
      */
@@ -132,7 +132,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'incorrect_password' => _("incorrect password"),
         'repeat_password' => _("repeat your password"),
         'passwords_differ'=> _("passwords do not match"),
-        'empty_filed' => _("one of the fieds was empty"),
+        'empty_field' => _("one of the fields was empty"),
         'installation_finished' => _("Installation successful"),
         'cat_dir_exisits' => _("Directory {} exists; some of its files may be overwritten."),
         'cont' => _("Continue?"),
@@ -162,7 +162,7 @@ class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * writes configuration variables into the installer script
-     * 
+     *
      * @param resource $file the file handle
      * @return void
      */
@@ -184,13 +184,13 @@ class DeviceLinux extends \core\DeviceConfig {
             'init_confirmation' => $this->mkProfileConfirmation(),
 //            'sb_user_file' => $this->mkSbUserFile(),
         ];
-        
+
         $configRaw = [
             'ssids' => $this->mkSsidList(),
             'del_ssids' => $this->mkDelSsidList(),
             'servers' => $this->mkSubjectAltNameList(),
         ];
-            
+
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
             $configRaw['use_other_tls_id'] = "True";
         }
@@ -205,29 +205,29 @@ class DeviceLinux extends \core\DeviceConfig {
         if (!empty($this->attributes['internal:realm'][0])) {
            $config['user_realm'] = $this->attributes['internal:realm'][0];
         }
-        
+
         if(!empty($this->attributes['internal:hint_userinput_suffix'][0]) && $this->attributes['internal:hint_userinput_suffix'][0] == 1) {
             $configRaw['hint_user_input'] = "True";
         }
-        
+
         if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
             $configRaw['verify_user_realm_input'] = "True";
         }
-        
+
         foreach ($config as $name => $value) {
             $this->writeConfigLine($file, 'Config.', $name, $value.'"');
         }
-        
+
         foreach ($configRaw as $name => $value) {
             fwrite($file, 'Config.'.$name.' = '.$value."\n");
         }
-        
+
         if ($tou === '') {
             fwrite($file, 'Config.tou = ""'."\n");
         } else {
             fwrite($file, 'Config.tou = """'.$tou.'"""'."\n");
         }
-        
+
         fwrite($file, 'Config.CA = """'.$this->mkCAfile().'"""'."\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
@@ -237,11 +237,11 @@ class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * coerces the list of EAP server names into a single string
-     * 
+     *
      * @return string
      */
     private function glueServerNames() {
-        $serverList = $this->attributes['eap:server_name'];        
+        $serverList = $this->attributes['eap:server_name'];
         if (!$serverList) {
             return '';
         }
@@ -257,18 +257,18 @@ class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * generates the list of support contacts
-     * 
+     *
      * @return array
      */
     private function mkSupportContacts() {
         $url = (!empty($this->attributes['support:url'][0])) ? $this->attributes['support:url'][0] : $this->support_url_substitute;
         $email = (!empty($this->attributes['support:email'][0])) ? $this->attributes['support:email'][0] : $this->support_email_substitute;
         return ['url'=>$url, 'email'=>$email];
-    }   
-    
+    }
+
     /**
      * generates the list of subjectAltNames to configure
-     * 
+     *
      * @return string
      */
     private function mkSubjectAltNameList() {
@@ -288,7 +288,7 @@ class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * generates the list of SSIDs to configure
-     * 
+     *
      * @return string
      */
     private function mkSsidList() {
@@ -301,10 +301,10 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         return "['".implode("', '", $outArray)."']";
     }
-    
+
     /**
      * generates the list of SSIDs to delete from the system
-     * 
+     *
      * @return string
      */
     private function mkDelSsidList() {
@@ -317,10 +317,10 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         return '['.implode(', ', $outArray).']';
     }
-    
+
     /**
      * creates a blob containing all CA certificates
-     * 
+     *
      * @return string
      */
     private function mkCAfile(){
@@ -331,10 +331,10 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         return $out;
     }
-    
+
     /**
      * generates the welcome text
-     * 
+     *
      * @return string
      */
     private function mkIntro() {
@@ -344,10 +344,10 @@ class DeviceLinux extends \core\DeviceConfig {
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
-    
+
     /**
      * generates text for the user consent dialog box, if any
-     * 
+     *
      * @return string
      */
     private function mkUserConsent() {
@@ -359,10 +359,10 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         return $out;
     }
-    
+
     /**
      * generates the warning that the account will only work for inst members
-     * 
+     *
      * @return string
      */
     private function mkProfileConfirmation() {
@@ -375,11 +375,11 @@ class DeviceLinux extends \core\DeviceConfig {
         \core\common\Entity::outOfThePotatoes();
         return $out;
     }
-    
+
 
     /**
      * generates the client certificate data for Silberbullet installers
-     * 
+     *
      * @return string
      */
     private function mkSbUserFile() {
@@ -388,5 +388,5 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         return "";
     }
-    
+
 }
