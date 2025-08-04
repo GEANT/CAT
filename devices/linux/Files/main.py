@@ -1030,10 +1030,14 @@ class IwdConfiguration:
 
     def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
+        if Config.anonymous_identity != '':
+            outer_identity = Config.anonymous_identity
+        else:
+            outer_identity = user_data.username
         self.config = f"""
 [Security]
 EAP-Method=PEAP
-EAP-Identity={Config.anonymous_identity}
+EAP-Identity={outer_identity}
 EAP-PEAP-CACert=embed:eduroam_ca_cert
 EAP-PEAP-ServerDomainMask={IwdConfiguration.set_domain_mask()}
 EAP-PEAP-Phase2-Method=MSCHAPV2
@@ -1049,10 +1053,14 @@ AutoConnect=true
 
     def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
+        if Config.anonymous_identity != '':
+            outer_identity = Config.anonymous_identity
+        else:
+            outer_identity = user_data.username
         self.config = f"""
 [Security]
 EAP-Method=TTLS
-EAP-Identity={Config.anonymous_identity}
+EAP-Identity={outer_identity}
 EAP-TTLS-CACert=embed:eduroam_ca_cert
 EAP-TTLS-ServerDomainMask={IwdConfiguration.set_domain_mask()}
 EAP-TTLS-Phase2-Method=Tunneled-PAP
