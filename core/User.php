@@ -352,7 +352,7 @@ class User extends EntityWithDBProperties
                         $matchedProviders[] = $idp;
                         $name = $idp;
                         if ($skipCurl == 0) {
-                            $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
+                            $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&opt=2&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
                             if ($ch === false) {
                                 $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
