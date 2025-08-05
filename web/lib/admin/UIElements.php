@@ -151,7 +151,7 @@ class UIElements extends \core\common\Entity {
             "fed:openroaming" => [
                 'display' => sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant),
                 'help' => _("Allow IdP to set OpenRoaming support for its users.")],
-            "fed:openroaming_customtarget" => ['display' => _("OpenRoaming: Custom NAPTR Target"), 'help' => ""],
+            "fed:openroaming_customtarget" => ['display' => _("OpenRoaming: Custom NAPTR Target"), 'help' => "If you want your IdPs to use your own OpenRoaming → eduroam proxy then you can configure the hostname here; the realm check feature for IdPs will then warn them if the OpenRoaming destination server is not yours. This attribute does not need to be set, and the realm checks default to checking for the OpenRoaming → eduroam proxy operated by eduroam OT."],
             "fed:autoregister-synced" => [
                 'display' => _("Self registration from eduroam DB: add listed admins to CAT institutions"),
                 'help' => sprintf(_("With this option turned on if a CAT institution is synced to the eduroam DB it is possible to have automatic enlisting of CAT institution admins under some conditions described <a href='%s'>here</a>."), "https://wiki.eduroam.org/")],
