@@ -160,6 +160,10 @@ class PageDecoration extends \core\common\Entity {
      */
     public function productheader($area) {
         \core\common\Entity::intoThePotatoes();
+        if (\config\Master::SERVICE_BREAK['on']) {
+    print "<h1>".\config\Master::SERVICE_BREAK['message']."</h1>";
+    exit;
+}
         $language = $this->languageInstance->getLang();
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
         // highlighting to work

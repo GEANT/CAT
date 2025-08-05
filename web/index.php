@@ -34,5 +34,10 @@ error_reporting(E_ALL | E_STRICT);
 $Gui->loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 $Gui->defaultPagePrelude();
 
+if (\config\Master::SERVICE_BREAK['on']) {
+    print "<h1>".\config\Master::SERVICE_BREAK['message']."</h1>";
+    exit;
+}
+
 // and now, serve actual data
 require "skins/".$Gui->skinObject->skin."/index.php";
