@@ -73,7 +73,11 @@ $blacklisted = FALSE;
 $loggerInstance = new \core\common\Logging();
 
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
-    $wizardStyle = FALSE;
+    if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
+        $wizardStyle = TRUE;
+    } else {
+        $wizardStyle = FALSE;
+    }
     $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page is only for editing RADIUS profiles!");
