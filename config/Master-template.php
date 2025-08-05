@@ -331,4 +331,9 @@ class Master
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
         ];
+        
+        const SERVICE_BREAK = [
+            'on' => false,
+            'message' => 'Temporary service break, sorry ...'
+        ];
 }
