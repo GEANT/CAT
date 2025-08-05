@@ -52,8 +52,8 @@ class CAT extends \core\common\Entity
      * is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below
      */
     public const VERSION_MAJOR = 2;
-    public const VERSION_MINOR = 1;
-    public const VERSION_PATCH = 3;
+    public const VERSION_MINOR = 2;
+    public const VERSION_PATCH = 0;
     public const VERSION_EXTRA = "";
     private const RELEASE_VERSION = FALSE;
     private const USER_API_VERSION = 2;
@@ -165,7 +165,7 @@ class CAT extends \core\common\Entity
             'RS' => ['name'=>_("Serbia")],
             'NL' => ['name'=>_("Netherlands")],
             'NO' => ['name'=>_("Norway")],
-            'PL' => ['name'=>_("Poland"), 'code'=>'PS'],
+            'PL' => ['name'=>_("Poland")],
             'PT' => ['name'=>_("Portugal")],
             'RO' => ['name'=>_("Romania")],
             'SI' => ['name'=>_("Slovenia")],
@@ -174,7 +174,7 @@ class CAT extends \core\common\Entity
             'SK' => ['name'=>_("Slovakia")],
             'CH' => ['name'=>_("Switzerland")],
             'TR' => ['name'=>_("Turkey")],
-            'UK' => ['name'=>_("United Kingdom")],
+            'UK' => ['name'=>_("United Kingdom"), 'code'=>'GB'],
             'TEST' => ['name'=>'TEST Country'],
             'AU' => ['name'=>_("Australia")],
             'CA' => ['name'=>_("Canada")],
