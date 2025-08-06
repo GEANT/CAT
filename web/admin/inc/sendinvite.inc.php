@@ -176,7 +176,11 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
-        $participant_type = $extinfo['type'];
+        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+            $participant_type = \core\IdP::TYPE_SP;
+        } else {
+            $participant_type = $extinfo['type'];
+        }
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic

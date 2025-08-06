@@ -321,10 +321,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             ?>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
+            <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
             <th scope='col'><?php echo _("Status") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
             <?php
+            }
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (\config\Master::DB['enforce-external-sync']) {
@@ -343,9 +345,11 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tbody class='fedlist'>";
             echo "<tr><td colspan='1'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
-            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
-            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
-            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
+            if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
+            }
             echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
             echo "</tr>";
             // extract only pending invitations for *this* fed
@@ -469,10 +473,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                        . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" )
                        . "</td>";
                 // deployment status; need to dive into profiles for this
-                // show happy eyeballs if at least one profile is configured/showtime                    
-                echo  "<td>$profileIcon</td>";
-                echo "<td style='text-align: center'>$orIcon</td>";
-                echo "<td>$certIcon</td>";
+                // show happy eyeballs if at least one profile is configured/showtime     
+                if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+                    echo  "<td>$profileIcon</td>";
+                    echo "<td style='text-align: center'>$orIcon</td>";
+                    echo "<td>$certIcon</td>";
+                }
                 
                 // external DB sync, if configured as being necessary
                 if (\config\Master::DB['enforce-external-sync']) {

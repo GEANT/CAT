@@ -290,8 +290,10 @@ class UIElements extends \core\common\Entity {
             </tr>" . $this->infoblock($idpoptions, "general", "IdP") . "
         </table>
     </div>";
-
-        $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
+        $blocks = [["support", _("Global Helpdesk Details")]];        
+        if ($myInst->type != "SP") {
+            $blocks [] = ["media", _("Media Properties")];
+        }
         foreach ($blocks as $block) {
             $retval .= "<div class='infobox'>
             <h2>" . $block[1] . "</h2>

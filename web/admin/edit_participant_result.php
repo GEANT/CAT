@@ -124,23 +124,25 @@ switch ($_POST['submitbutton']) {
             $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
         }
 
-        echo "<table>";
         $uiElements = new web\lib\admin\UIElements();
-        if (count($ssids) > 0) {
-            $printedlist = "";
-            foreach ($ssids as $names) {
-                $printedlist = $printedlist . "$names ";
+        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+            echo "<table>";
+            if (count($ssids) > 0) {
+                $printedlist = "";
+                foreach ($ssids as $names) {
+                    $printedlist = $printedlist . "$names ";
+                }
+                echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
             }
-            echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+            $wired_support = $myInstReinstantiated->getAttributes("media:wired");
+            if (count($wired_support) > 0) {
+                echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+            }
+            if (count($ssids) == 0 && count($wired_support) == 0) {
+                echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+            }
+            echo "</table>";
         }
-        $wired_support = $myInstReinstantiated->getAttributes("media:wired");
-        if (count($wired_support) > 0) {
-            echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
-        }
-        if (count($ssids) == 0 && count($wired_support) == 0) {
-            echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
-        }
-        echo "</table>";
 
         foreach ($myInstReinstantiated->listProfiles() as $index => $profile) {
             $profile->prepShowtime();

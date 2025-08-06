@@ -309,6 +309,9 @@ class UserManagement extends \core\common\Entity
                 $extinfo = $cat->getExternalDBEntityDetails($externalId, $ROid);
                 $extCountry = $extinfo['country'];
                 $extType = $extinfo['type'];
+                if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+                    $extType = \core\IdP::TYPE_SP;
+                }
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?, ?)", "sssssss", $extType, $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
                 $tokenList[$token] = $oneDest;
             } else if (func_num_args() == 6) { // string name, and country set - whole new IdP
