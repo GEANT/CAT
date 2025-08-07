@@ -182,6 +182,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 ?>
             </table>
         </div>
+        <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
         <div class='infobox'>
             <h2>
                 <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
@@ -216,6 +217,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             </table>
             <button style="position:absolute; bottom:9px;" class="stat-button"><?php echo _("Show downloads") ?></button>
         </div>
+        <?php } ?>
         <br>
             <?php        
     if ($editMode === 'fullaccess') {
