@@ -406,7 +406,7 @@ $wizard->setMessages();
                     <ol id="sortable2" class="eapmethods">
                         <?php
                         foreach ($methods as $a) {
-                            if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+                            if ($a->getArrayRep() == \core\common\EAP::EAPTYPE_SILVERBULLET) {
                                 continue;
                             }
                             $display = $a->getPrintableRep();
