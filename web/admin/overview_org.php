@@ -93,7 +93,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         // readiness - but want to display it before!
         $has_overrides = FALSE;
         foreach ($attribs as $attrib) {
-            if ($attrib['level'] == \core\Options::LEVEL_PROFILE && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
+            if ($attrib['level'] == \core\Options::LEVEL_PROFILE && !preg_match("/^(internal:|profile:name|profile:description|profile:production|eap:)/", $attrib['name'])) {
                 $has_overrides = TRUE;
             }
         }
