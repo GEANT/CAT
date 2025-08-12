@@ -1,3 +1,24 @@
+Changes in 2.2
+=====================
+- [FEATURE  #1]  removed dependency on eduroam DB v1 and rebuild the eduroam DB synchronisation
+- [FEATURE  #1]  added institution acronyms and alternative names to DiscoJuice keywords
+- [FEATURE  #2]  added possibility of self registration of institution admins
+                 (based on eduroam DB or SAML attributes)
+- [FEATURE  #3]  added possibility of creation of new CAT institutions by eduroam DB institution admins
+- [FEATURE  #4]  polishing the admin GUI
+- [FEATURE  #5]  added visible installer download links in the admin GUI
+- [FEATURE  #6]  multiple extensions in the area if eduPKI certificate management
+- [FEATURE  #7]  multiple additions to Linux python installer
+- [FEATURE  #8]  added support for RADIUS over TLS (both cert based and PSK based) in Managed SP
+- [FEATURE  #9]  added Managed SP logs download as CSV files
+- [FEATURE #10]  added RADIUS debug logs download for Managed SP
+- [FEATURE #11]  added support for guest VLAN setting in Managed SP
+- [FEATURE #12]  Managed SP RADIUS server deployment on docker
+- [BUGFIX   #1]  fixed the bug in Windows 8+ installers of dollar sign not working in PFX passwords
+- [BUGFIX   #2]  The profile options override icon was appearing on evey production profile
+- [BUGFIX   #3]  Silverbullet should not be shown as an EAP method to choosr from
+
+
 Changes in 2.1.3
 =====================
 - [FEATURE #1]  multiple additions to the linux installer: 
@@ -282,7 +303,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 - [FEATURE #13] TLS support in Windows has been reworked, now it always requires personal cert
                 installation then then sets this cert as user credentials, no more problems with
                 multiple user certificates
-- [FEATURE #14] PEAP credentials setting has been changed to use the new WLANSetEAPUserData utility
+- [FEATURE #14] PEAP credenials setting has been changed to use the new WLANSetEAPUserData utility
 - [FEATURE #15] allow separate deployments of the diagnostics vs. config assistant
                 functionality (split config into three parts)
 - [FEATURE #16] allow to configure a separate database user for end-user
