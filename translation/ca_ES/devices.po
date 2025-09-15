@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2024
+# eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2025
 # eduki <ecercos@xtec.cat>, 2012
 # Joan Montané, 2019
 # José Manuel Macías, 2015
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2024\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2025\n"
 "Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -597,57 +597,61 @@ msgstr "repetiu la contrasenya"
 msgid "passwords do not match"
 msgstr "les contrasenyes no coincideixen"
 
-#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135
+msgid "one of the fields was empty"
+msgstr "un dels camps era buit"
+
+#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr "Instal·lació amb èxit."
 
-#: devices/linux/DeviceLinux.php:136
+#: devices/linux/DeviceLinux.php:137
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr "La carpeta {} existeix; alguns dels seus fitxers es sobreescriuran."
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr "Continuar?"
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr "Aquesta versió del NetworkManager no està suportada"
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "No s'ha trobat l'arxiu de certificat, sembla un error de CAT"
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr "Versió desconeguda"
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr "Problema de connexió amb DBus, proveu-ho amb sudo"
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr "S"
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr "N"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/DeviceLinux.php:145
 msgid "OK"
 msgstr "OK"
 
-#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinux.php:148
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr "arxiu del certificat personal (p12 o pfx)"
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr "Tots els fitxers"
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/DeviceLinux.php:149
 msgid ""
 "DBus module not found - please install dbus-python! NetworkManager "
 "configuration failed, but we may generate a wpa_supplicant configuration "
@@ -659,11 +663,11 @@ msgstr ""
 "configuració de wpa_supplicant. Tingueu present que la contrasenya de "
 "connexió es desa en text clar en aquest arxiu."
 
-#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr "Escriu el fitxer"
 
-#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
 #: devices/ms/Files/common.inc:1440
 msgid ""
@@ -673,7 +677,7 @@ msgstr ""
 "Error: El vostre identificador ha de ser en el format 'xxx@IDinstitució', "
 "per exemple 'joanpere@exemple.cat'!"
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -681,7 +685,7 @@ msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@{}'. Introduïu-lo "
 "en el format correcte."
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/DeviceLinux.php:153
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -689,29 +693,29 @@ msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@IDinstitució' i "
 "finalitzar amb '{}'. Introduïu-lo en el format correcte."
 
-#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:154 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr "arxiu de certificat personal no trobat"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/DeviceLinux.php:155
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr "La carpeta {} existeix; alguns dels seus fitxers es sobreescriuran"
 
-#: devices/linux/DeviceLinux.php:341
+#: devices/linux/DeviceLinux.php:342
 msgid "This installer has been prepared for {0}"
 msgstr "Aquest instal·lador ha estat preparat per {0}"
 
-#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr "Més informació i comentaris:"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr "Instal·lador creat amb programari del projecte GEANT"
 
-#: devices/linux/DeviceLinux.php:370
+#: devices/linux/DeviceLinux.php:371
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -719,7 +723,7 @@ msgstr ""
 "Aquest instal·lador només funcionarà correctament si sou membre de {0} i del "
 "grup: {1}"
 
-#: devices/linux/DeviceLinux.php:372
+#: devices/linux/DeviceLinux.php:373
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
 "Aquest instal·lador només funcionarà correctament si sou membre de {0}."

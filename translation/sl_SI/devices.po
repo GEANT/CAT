@@ -15,6 +15,7 @@
 # rokpapez <rok.papez@arnes.si>, 2015
 # rokpapez <rok.papez@arnes.si>, 2012,2015
 # rokpapez <rok.papez@arnes.si>, 2012
+# Slađana <alkemist@alkemist.si>, 2025
 # teja <teja.cetinski@gmail.com>, 2013
 # teja <teja.cetinski@gmail.com>, 2013
 # Tina Trlep <tina.trlep@arnes.si>, 2018
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Tina Trlep <tina.trlep@arnes.si>, 2018\n"
+"Last-Translator: Slađana <alkemist@alkemist.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -608,71 +609,79 @@ msgstr "ponovite geslo"
 msgid "passwords do not match"
 msgstr "gesli se ne ujemata"
 
-#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135
+msgid "one of the fields was empty"
+msgstr "eno od polj je bilo prazno"
+
+#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr "Namestitev je uspela"
 
-#: devices/linux/DeviceLinux.php:136
+#: devices/linux/DeviceLinux.php:137
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr "Imenik {} že obstaja; nekatere datoteke bodo morda prepisane."
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr "Želite nadaljevati?"
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr "Ta različica programa NetworkManager ni podprta"
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr ""
 "Datoteke potrdila ni bilo mogoče najti. Videti je, da je prišlo do napake "
 "CAT."
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr "Neznana različica"
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr "Težava pri povezovanju z DBus. Morda bo pomagal ukaz sudo."
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr "D"
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr "N"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/DeviceLinux.php:145
 msgid "OK"
 msgstr "V redu"
 
-#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinux.php:148
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr "datoteka osebnega potrdila (p12 ali pfx)"
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr "Vse datoteke"
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/DeviceLinux.php:149
 msgid ""
 "DBus module not found - please install dbus-python! NetworkManager "
 "configuration failed, but we may generate a wpa_supplicant configuration "
 "file if you wish. Be warned that your connection password will be saved in "
 "this file as clear text."
 msgstr ""
+"Modul DBus ni bil najden – namestite dbus-python! Konfiguracija "
+"NetworkManagerja ni uspela, vendar lahko po želji ustvarimo konfiguracijsko "
+"datoteko wpa_supplicant. Upoštevajte, da bo vaše geslo za povezavo shranjeno "
+"v tej datoteki kot navadno besedilo."
 
-#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr "Pisanje datoteke"
 
-#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
 #: devices/ms/Files/common.inc:1440
 msgid ""
@@ -682,7 +691,7 @@ msgstr ""
 "Napaka: uporabniško ime mora biti v obliki 'xxx@institutionID', npr. "
 "'john@example.net'."
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -690,7 +699,7 @@ msgstr ""
 "Napaka: uporabniško ime mora biti v obliki 'xxx@{}'. Vnesite ga v pravilni "
 "obliki."
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/DeviceLinux.php:153
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -698,30 +707,30 @@ msgstr ""
 "Napaka: uporabniško ime mora biti v obliki 'xxx@institutionID' s pripono "
 "'{}'. Vnesite ga v pravilni obliki."
 
-#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:154 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr "datoteke osebnega potrdila ni bilo mogoče najti"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/DeviceLinux.php:155
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr "Imenik {} že obstaja; nekatere datoteke v njem bodo morda prepisane"
 
-#: devices/linux/DeviceLinux.php:341
+#: devices/linux/DeviceLinux.php:342
 msgid "This installer has been prepared for {0}"
 msgstr "Namestitveni program je pripravljen za {0}"
 
-#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr "Več informacij in komentarjev:"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr ""
 "Namestitveni program je bil ustvarjen s programsko opremo iz projekta GEANT."
 
-#: devices/linux/DeviceLinux.php:370
+#: devices/linux/DeviceLinux.php:371
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -729,7 +738,7 @@ msgstr ""
 "Namestitveni program bo deloval pravilno samo, če ste član {0} in "
 "uporabniške skupine: {1}."
 
-#: devices/linux/DeviceLinux.php:372
+#: devices/linux/DeviceLinux.php:373
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Namestitveni program bo deloval pravilno samo, če ste član {0}."
 

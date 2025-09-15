@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2020-2025\n"
 "Language-Team: Italian (Italy) (http://app.transifex.com/eduroam_devel/cat/"
@@ -608,58 +608,62 @@ msgstr "ripeti la tua password"
 msgid "passwords do not match"
 msgstr "le password non sono uguali"
 
-#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135
+msgid "one of the fields was empty"
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr "Installazione eseguita con successo"
 
-#: devices/linux/DeviceLinux.php:136
+#: devices/linux/DeviceLinux.php:137
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr ""
 "La cartella {} esiste; alcuni dei suoi file potrebbero essere sovrascritti."
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr "Continuare?"
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr "Questa versione di NetworkManager non è supportata"
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "File del certificato non trovato, sembra un errore di CAT"
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr "Versione sconosciuta"
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr "Problema di connessione DBus, un sudo potrebbe aiutare"
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr "S"
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr "N"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/DeviceLinux.php:145
 msgid "OK"
 msgstr "OK"
 
-#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinux.php:148
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr "file del certificato personale (p12 or pfx)"
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr "Tutti i files"
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/DeviceLinux.php:149
 msgid ""
 "DBus module not found - please install dbus-python! NetworkManager "
 "configuration failed, but we may generate a wpa_supplicant configuration "
@@ -671,11 +675,11 @@ msgstr ""
 "wpa_supplicant se lo desideri. Tieni presente che la password di connessione "
 "verrà salvata in questo file come testo in chiaro, non criptata."
 
-#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr "Scrivi il file"
 
-#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
 #: devices/ms/Files/common.inc:1440
 msgid ""
@@ -685,7 +689,7 @@ msgstr ""
 "Errore: il tuo nome utente deve essere nella forma 'xxx@IDorganizzazione' e."
 "g. 'john@example.net'!"
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -693,7 +697,7 @@ msgstr ""
 "Errore: il tuo nome utente deve essere nel formato 'xxx@{}'. Inserisci il "
 "nome utente nel formato corretto."
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/DeviceLinux.php:153
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -701,30 +705,30 @@ msgstr ""
 "Errore: il tuo nome utente deve essere nel formato 'xxx@IDorganizzazione' e "
 "terminare con '{}'. Inserisci il nome utente nel formato corretto."
 
-#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:154 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr "file del certificato personale non trovato"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/DeviceLinux.php:155
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr ""
 "La cartella {} esiste; alcuni dei suoi file potrebbero essere sovrascritti "
 
-#: devices/linux/DeviceLinux.php:341
+#: devices/linux/DeviceLinux.php:342
 msgid "This installer has been prepared for {0}"
 msgstr "Il programma di installazione è stato preparato per {0}"
 
-#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr "Maggiori informazioni e commenti:"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr "Programma di installazione creato con software del progetto GEANT"
 
-#: devices/linux/DeviceLinux.php:370
+#: devices/linux/DeviceLinux.php:371
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -732,7 +736,7 @@ msgstr ""
 "Questo programma di installazione funzionerà correttamente solo se sei "
 "membro di {0} e del gruppo di utenti: {1}."
 
-#: devices/linux/DeviceLinux.php:372
+#: devices/linux/DeviceLinux.php:373
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
 "Questo programma di installazione funzionerà correttamente solo se sei "

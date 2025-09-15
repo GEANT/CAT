@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Raiya Al Rashdi <raiya@omren.om>, 2020-2024\n"
 "Language-Team: Arabic (http://app.transifex.com/eduroam_devel/cat/language/"
@@ -584,57 +584,61 @@ msgstr "أعد كلمة المرور "
 msgid "passwords do not match"
 msgstr "كلمات المرور غير متطابقة"
 
-#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135
+msgid "one of the fields was empty"
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr "نجاح التثبيت"
 
-#: devices/linux/DeviceLinux.php:136
+#: devices/linux/DeviceLinux.php:137
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr "الحافظة {} موجودة، بعض ملفاتها قد تكون معدلة."
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr "متابعة؟"
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr "هذا الإصدار من NetworkManager غير معتمد"
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "الشهادة الأمنية غير نتوفرة، خطأ "
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr "إصدار غير معرف"
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr "مشكلة في ربط DBus، قد تساعدك sudo"
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr "نعم "
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr "لا"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/DeviceLinux.php:145
 msgid "OK"
 msgstr "موافق"
 
-#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinux.php:148
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr "ملف الشهادة اأمنية الشخصية (p12 or pfx)"
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr "جميع الملفات"
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/DeviceLinux.php:149
 msgid ""
 "DBus module not found - please install dbus-python! NetworkManager "
 "configuration failed, but we may generate a wpa_supplicant configuration "
@@ -642,11 +646,11 @@ msgid ""
 "this file as clear text."
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr "اكتب الملف"
 
-#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
 #: devices/ms/Files/common.inc:1440
 msgid ""
@@ -656,7 +660,7 @@ msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم بصيغة 'xxx@institutionID' على سبيل المثال "
 "'john@example.net'!"
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -664,7 +668,7 @@ msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم بصيغة '{}@xxx'. الرجاء إدخال اسم المستخدم "
 "بالصيغة الصحيحة."
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/DeviceLinux.php:153
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -672,29 +676,29 @@ msgstr ""
 "خطأ: يجب أن يكون اسم المستخدم بصيغة 'xxx@institutionID' وينتهي بـ '{}'. "
 "الرجاء إدخال اسم المستخدم بالصيغة الصحيحة."
 
-#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:154 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr "ملف الشهادة الأمنية الشخصية غير متوفرة"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/DeviceLinux.php:155
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:341
+#: devices/linux/DeviceLinux.php:342
 msgid "This installer has been prepared for {0}"
 msgstr "تم تهيئة هذا المثبت ل {0}"
 
-#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr "المزيد من المعلومات والملاحظات:"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr "تم إنشاء المثبت ببرنامج من مشروع GEANT."
 
-#: devices/linux/DeviceLinux.php:370
+#: devices/linux/DeviceLinux.php:371
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -702,7 +706,7 @@ msgstr ""
 " هذا المثبت سيعمل بشكل صحيح فقط إذا كنت عضوًا في {0} وضمن مجموعة المستخدمين: "
 "{1}."
 
-#: devices/linux/DeviceLinux.php:372
+#: devices/linux/DeviceLinux.php:373
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr " هذا المثبت سيعمل بشكل صحيح فقط إذا كنت عضوًا في {0} ."
 

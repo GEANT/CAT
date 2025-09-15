@@ -4,15 +4,15 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2019
-# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2024
+# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
-"2014-2020,2022-2024\n"
+"2014-2020,2022-2025\n"
 "Language-Team: Bulgarian (Bulgaria) (http://app.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -596,58 +596,62 @@ msgstr "повторете Вашата парола"
 msgid "passwords do not match"
 msgstr "паролите не съвпадат"
 
-#: devices/linux/DeviceLinux.php:135 devices/linux/DeviceLinuxSh.php:136
+#: devices/linux/DeviceLinux.php:135
+msgid "one of the fields was empty"
+msgstr "едно от полетата беше празно"
+
+#: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
 msgstr "Инсталацията е успешна"
 
-#: devices/linux/DeviceLinux.php:136
+#: devices/linux/DeviceLinux.php:137
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr ""
 "Директория {} съществува; някои от нейните файлове може да бъдат презаписани."
 
-#: devices/linux/DeviceLinux.php:137 devices/linux/DeviceLinuxSh.php:138
+#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:138
 msgid "Continue?"
 msgstr "Да продължи ли?"
 
-#: devices/linux/DeviceLinux.php:138 devices/linux/DeviceLinuxSh.php:139
+#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:139
 msgid "This NetworkManager version is not supported"
 msgstr "Тази версия на Network Manager не се поддържа"
 
-#: devices/linux/DeviceLinux.php:139 devices/linux/DeviceLinuxSh.php:140
+#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:140
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "Файловият сертификат не е намерен, прилича на CAT грешка"
 
-#: devices/linux/DeviceLinux.php:140 devices/linux/DeviceLinuxSh.php:141
+#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:141
 msgid "Unknown version"
 msgstr "Неизвестна версия"
 
-#: devices/linux/DeviceLinux.php:141 devices/linux/DeviceLinuxSh.php:142
+#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:142
 msgid "DBus connection problem, a sudo might help"
 msgstr "Проблем на DBus със свързването, sudo може да помогне"
 
-#: devices/linux/DeviceLinux.php:142 devices/linux/DeviceLinuxSh.php:143
+#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:143
 msgid "Y"
 msgstr "Да"
 
-#: devices/linux/DeviceLinux.php:143 devices/linux/DeviceLinuxSh.php:144
+#: devices/linux/DeviceLinux.php:144 devices/linux/DeviceLinuxSh.php:144
 msgid "N"
 msgstr "Не"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/DeviceLinux.php:145
 msgid "OK"
 msgstr "ОК"
 
-#: devices/linux/DeviceLinux.php:145 devices/linux/DeviceLinux.php:147
+#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinux.php:148
 #: devices/linux/DeviceLinuxSh.php:145 devices/linux/DeviceLinuxSh.php:147
 msgid "personal certificate file (p12 or pfx)"
 msgstr "файл (p12 или pfx) на персонален сертификат"
 
-#: devices/linux/DeviceLinux.php:146 devices/linux/DeviceLinuxSh.php:146
+#: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
 #: devices/ms/Files/common.inc:1222
 msgid "All files"
 msgstr "Всички файлове"
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/DeviceLinux.php:149
 msgid ""
 "DBus module not found - please install dbus-python! NetworkManager "
 "configuration failed, but we may generate a wpa_supplicant configuration "
@@ -659,11 +663,11 @@ msgstr ""
 "конфигурационен файл wpa_supplicant. Имайте предвид, че вашата парола за "
 "връзка ще бъде запазена в този файл като чист текст."
 
-#: devices/linux/DeviceLinux.php:149 devices/linux/DeviceLinuxSh.php:149
+#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
 msgstr "Запишете файла"
 
-#: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:150
+#: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
 #: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
 #: devices/ms/Files/common.inc:1440
 msgid ""
@@ -673,7 +677,7 @@ msgstr ""
 "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' "
 "например 'john@example.net'!"
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/DeviceLinux.php:152
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -681,7 +685,7 @@ msgstr ""
 "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@{}'. Моля "
 "въведете потребителското име в коректния формат."
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/DeviceLinux.php:153
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -689,30 +693,30 @@ msgstr ""
 "Грешка: Вашето потребителско има трябва да бъде във вида 'xxx@institutionID' "
 "и да завършва с '{}'. Моля въведете потребителското име в коректния формат."
 
-#: devices/linux/DeviceLinux.php:153 devices/linux/DeviceLinuxSh.php:153
+#: devices/linux/DeviceLinux.php:154 devices/linux/DeviceLinuxSh.php:153
 msgid "personal certificate file not found"
 msgstr "не е намерен персонален сертификат"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/DeviceLinux.php:155
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr ""
 "Директория {} съществува; някои от нейните файлове може да бъдат презаписани."
 
-#: devices/linux/DeviceLinux.php:341
+#: devices/linux/DeviceLinux.php:342
 msgid "This installer has been prepared for {0}"
 msgstr "Този инсталатор е подготвен за {0}"
 
-#: devices/linux/DeviceLinux.php:341 devices/linux/DeviceLinuxSh.php:344
+#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
 #: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
 msgid "More information and comments:"
 msgstr "Още информация и бележки:"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:345
+#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
 #: devices/ms/Files/common.inc:551
 msgid "Installer created with software from the GEANT project."
 msgstr "Инсталаторът е създаден със софтуер от проекта GEANT."
 
-#: devices/linux/DeviceLinux.php:370
+#: devices/linux/DeviceLinux.php:371
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -720,7 +724,7 @@ msgstr ""
 "Този инсталатор ще работи правилно само ако сте член на {0} и потребителска "
 "група: {1}."
 
-#: devices/linux/DeviceLinux.php:372
+#: devices/linux/DeviceLinux.php:373
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Този инсталатор ще работи правилно само ако сте член на {0}."
 

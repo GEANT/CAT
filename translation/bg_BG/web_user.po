@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2024
+# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
-"2014-2020,2022-2024\n"
+"2014-2020,2022-2025\n"
 "Language-Team: Bulgarian (Bulgaria) (http://app.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -957,6 +957,8 @@ msgid ""
 "The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
+"Поканващият линк, който сте последвали, не съвпада с нито една покана, която "
+"имаме във файл."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1289,7 +1291,7 @@ msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
 msgid "11, 10, 8, 7, Vista"
-msgstr ""
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

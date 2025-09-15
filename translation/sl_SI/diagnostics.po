@@ -9,15 +9,16 @@
 # Janez Kadivec, 2022
 # Kaja Kumer <kaja.kumer@arnes.si>, 2022
 # amidas, 2024
+# Slađana <alkemist@alkemist.si>, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: amidas, 2024\n"
+"Last-Translator: Slađana <alkemist@alkemist.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -550,7 +551,7 @@ msgstr "Prstni odtis SHA1:"
 
 #: core/diag/RADIUSTestsUI.php:110
 msgid "Public key length:"
-msgstr ""
+msgstr "Dolžina javnega ključa:"
 
 #: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:145
 msgid "Server certificate"
@@ -558,19 +559,19 @@ msgstr "Potrdilo strežnika"
 
 #: core/diag/RADIUSTestsUI.php:112
 msgid "Policies:"
-msgstr ""
+msgstr "Pravilniki:"
 
 #: core/diag/RADIUSTestsUI.php:113
 msgid "crlDistributionPoint:"
-msgstr ""
+msgstr "crlDistributionPoint:"
 
 #: core/diag/RADIUSTestsUI.php:114
 msgid "authorityInfoAccess:"
-msgstr ""
+msgstr "authorityInfoAccess:"
 
 #: core/diag/RADIUSTestsUI.php:115
 msgid "SubjectAltName:"
-msgstr ""
+msgstr "SubjectAltName:"
 
 #: core/diag/RADIUSTestsUI.php:229 web/diag/action_realmcheck.php:594
 #: web/diag/action_realmcheck.php:603 web/diag/show_realmcheck.php:134
@@ -710,7 +711,7 @@ msgstr ""
 #: core/diag/RADIUSTestsUI.php:335
 #, php-format
 msgid "Testing from: <strong>%s"
-msgstr ""
+msgstr "Preskušanje iz: <strong>%s"
 
 #: core/diag/RADIUSTestsUI.php:342 web/diag/action_realmcheck.php:166
 msgid "Connected to undetermined server"
@@ -738,11 +739,11 @@ msgstr "Preverjanje rokovanja strežnika …"
 
 #: core/diag/RADIUSTestsUI.php:397 web/diag/action_realmcheck.php:858
 msgid "supported TLS protocols: "
-msgstr ""
+msgstr "podprti TLS protokoli:"
 
 #: core/diag/RADIUSTestsUI.php:400 web/diag/action_realmcheck.php:861
 msgid "not supported: "
-msgstr ""
+msgstr "nepodprti:"
 
 #: core/diag/RADIUSTestsUI.php:442 web/diag/action_realmcheck.php:125
 #: web/diag/show_realmcheck.php:62
@@ -763,7 +764,7 @@ msgstr "pričakovan rezultat:"
 
 #: core/diag/RADIUSTestsUI.php:487 web/diag/action_realmcheck.php:276
 msgid "this test was skipped - no appropriate client certificate"
-msgstr ""
+msgstr "ta test je bil preskočen – ni ustreznega odjemalskega potrdila"
 
 #: core/diag/RADIUSTestsUI.php:497 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate"
@@ -816,7 +817,7 @@ msgstr "Prikaži podrobnosti za vse preskuse"
 
 #: core/diag/RADIUSTestsUI.php:582
 msgid "Checking if certificates from CAs are accepted..."
-msgstr ""
+msgstr "Preverjanje, ali so potrdila overiteljev potrdil sprejeta …"
 
 #: core/diag/RADIUSTestsUI.php:582 web/diag/action_realmcheck.php:896
 msgid ""
@@ -892,11 +893,11 @@ msgstr "neznan overitelj"
 
 #: core/diag/RFC6614Tests.php:379
 msgid "unexpected eof while reading"
-msgstr ""
+msgstr "nepričakovan konec datoteke med branjem"
 
 #: core/diag/RFC6614Tests.php:382
 msgid "unknown problem"
-msgstr ""
+msgstr "neznana težava"
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
@@ -1453,7 +1454,7 @@ msgstr "Potrdilo odjemalca:"
 
 #: web/diag/action_realmcheck.php:132
 msgid "Connection timeout"
-msgstr ""
+msgstr "Časovna omejitev povezave"
 
 #: web/diag/action_realmcheck.php:146
 msgid "Subject"
@@ -1465,7 +1466,7 @@ msgstr "Izdajatelj"
 
 #: web/diag/action_realmcheck.php:148
 msgid "Valid to"
-msgstr ""
+msgstr "Veljavno do"
 
 #: web/diag/action_realmcheck.php:149
 msgid "SubjectAltName"
@@ -1485,7 +1486,7 @@ msgstr "authorityInfoAccess"
 
 #: web/diag/action_realmcheck.php:153 web/diag/action_realmcheck.php:165
 msgid "Public key length"
-msgstr ""
+msgstr "Dolžina javnega ključa"
 
 #: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
@@ -1671,7 +1672,7 @@ msgstr "Katero je področje zadevnega ponudnika identitete?"
 
 #: web/diag/adminQuery.php:88
 msgid "Do you prefer to use a specific outer identity for diagnostics test?"
-msgstr ""
+msgstr "Ali želite uporabiti posebno zunanjo identiteto za diagnostični test?"
 
 #: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
 msgid "What is the authentication timestamp of the user session in question?"
@@ -1883,7 +1884,7 @@ msgstr "nerešena napaka"
 
 #: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
 msgid "<strong>ERROR</strong>: connectivity problem!"
-msgstr ""
+msgstr "<strong>NAPAKA</strong>: težave s povezljivostjo!"
 
 #: web/diag/radius_tests.php:294
 #, php-format

@@ -15,13 +15,14 @@
 # rokpapez <rok.papez@arnes.si>, 2015
 # rokpapez <rok.papez@arnes.si>, 2012,2015
 # rokpapez <rok.papez@arnes.si>, 2012
+# Slađana <alkemist@alkemist.si>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 10:24+0200\n"
+"POT-Creation-Date: 2025-09-15 11:44+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: rokpapez <rok.papez@arnes.si>, 2012,2015\n"
+"Last-Translator: Slađana <alkemist@alkemist.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -153,7 +154,7 @@ msgstr "Madžarska"
 
 #: core/CAT.php:160
 msgid "Kosovo"
-msgstr ""
+msgstr "Kosovo"
 
 #: core/CAT.php:161
 msgid "Luxembourg"
@@ -432,6 +433,16 @@ msgid ""
 "\n"
 "    %s"
 msgstr ""
+"Pozdravljeni,\n"
+"\n"
+"vabilo za novega %s %s v vaši %s federaciji %s je uporabljeno in %s je bil "
+"ustvarjen v %s.\n"
+"\n"
+"Informacijo vam sporočamo v vednost.\n"
+"\n"
+"Lep pozdrav,\n"
+"\n"
+"%s"
 
 #. notify the fed admins...
 #. / arguments are: 1. nomenclature for "institution"
@@ -455,6 +466,17 @@ msgid ""
 "\n"
 "    %s"
 msgstr ""
+"Pozdravljeni,\n"
+"\n"
+"    s samodejno registracijo eduGAIN je bil ustvarjen nov%s\n"
+"           %s\n"
+"    v vaši %sfederaciji%s v %s.\n"
+"\n"
+"    Informacijo vam sporočamo v vednost.\n"
+"\n"
+"    Lep pozdrav,\n"
+"\n"
+"    %s"
 
 #. / organisation
 #: core/Federation.php:371 core/Federation.php:377
