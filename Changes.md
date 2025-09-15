@@ -14,6 +14,7 @@ Changes in 2.2
 - [FEATURE #10]  added RADIUS debug logs download for Managed SP
 - [FEATURE #11]  added support for guest VLAN setting in Managed SP
 - [FEATURE #12]  Managed SP RADIUS server deployment on docker
+- [FEATURE #13]  detailed error messages for admin API
 - [BUGFIX   #1]  fixed the bug in Windows 8+ installers of dollar sign not working in PFX passwords
 - [BUGFIX   #2]  The profile options override icon was appearing on evey production profile
 - [BUGFIX   #3]  Silverbullet should not be shown as an EAP method to choosr from

@@ -494,6 +494,7 @@ class API {
         if (!isset($inputJson['PARAMETERS'])) {
             return [];
         }
+        \core\common\Logging::debug_s(4, $inputJson['PARAMETERS'], "JSON:\n","\n");
         foreach ($inputJson['PARAMETERS'] as $number => $oneIncomingParam) {
             // index has to be an integer
             if (!is_int($number)) {
@@ -503,21 +504,31 @@ class API {
             if (!array_key_exists("VALUE", $oneIncomingParam)) {
                 continue;
             }
+            if (!in_array($oneIncomingParam['NAME'], $allPossibleAttribs)) {
+                continue;
+            }
             if (preg_match("/^ATTRIB-/", $oneIncomingParam['NAME'])) {// sanitise the AUX attr 
                 switch ($oneIncomingParam['NAME']) {
                     case API::AUXATTRIB_CAT_INST_ID:
                         try {
                             $inst = $this->validator->existingIdP($oneIncomingParam['VALUE']);
                         } catch (Exception $e) {
+                            // invalid IdP number
+                            \core\common\Logging::debug_s(4, $oneIncomingParam['VALUE'], "No such IdP: ", "\n");
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"No such IdP"]);
                             continue 2;
                         }
                         if (strtoupper($inst->federation) != strtoupper($fedObject->tld)) {
-                            // IdP in different fed, scrub it.
+                            // IdP in different fed, scrub it
+                            \core\common\Logging::debug_s(4, $oneIncomingParam['VALUE'], "IdP not in your fed: ", "\n");
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"IdP not in your federation"]);
                             continue 2;
                         }
                         break;
                     case API::AUXATTRIB_TARGETMAIL:
                         if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
+                            // invalid mail format
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"Invalid mail format"]);
                             continue 2;
                         }
                         break;
@@ -533,18 +544,20 @@ class API {
                 }   
             } elseif (preg_match("/^FLAG-/", $oneIncomingParam['NAME'])) {
                 if ($oneIncomingParam['VALUE'] != "TRUE" && $oneIncomingParam['VALUE'] != "FALSE" ) {
+                    // incorrect FLAG value
+                    $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"Incorrect FLAG value"]);
                     continue;
                 }
             } else {
             // is this multi-lingual, and not an AUX attrib? Then check for presence of LANG and CONTENT before considering to add                
                 $optionProperties = $optionInstance->optionType($oneIncomingParam['NAME']);
                 if ($optionProperties["flag"] == "ML" && !array_key_exists("LANG", $oneIncomingParam)) {
+                    // LANG parameter missing
+                    $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"LANG parameter missing"]);
                     continue;
                 }
             }
-            if (in_array($oneIncomingParam['NAME'], $allPossibleAttribs)) {
-                $parameters[$number] = $oneIncomingParam;
-            }
+            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>true, 'VERIFY_DESC'=>""]);
         }
         return $parameters;
     }

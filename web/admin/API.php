@@ -82,6 +82,13 @@ foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequi
         exit(1);
     }
 }
+foreach ($scrubbedParameters as $oneParam) {
+    if ($oneParam['VERFY_RESULT'] === false) {
+        $adminApi->returnError(web\lib\admin\API::ERROR_MISSING_PARAMETER, $oneParam['VERIFY_DESC']);
+        exit(1);
+    }
+}
+
 
 switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_NEWINST:
