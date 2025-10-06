@@ -61,9 +61,19 @@ class Authentication extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML\Auth\Simple(\config\Master::AUTHENTICATION['ssp-authsource']);
+        if (!$authSimple->isAuthenticated()) {
+            $_SESSION['saveLog'] = true;
+        }
+        
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
-        \core\common\Logging::debug_s(3, $admininfo, "SAML ATTR:\n", "\n");
+        \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR:\n", "\n");
+        if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
+            $saveLog = true;
+        } else {
+            $saveLog = false;
+        }
+        unset($_SESSION['saveLog']);
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $session->cleanup();
         if (!isset($admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0])) {
@@ -72,7 +82,10 @@ class Authentication extends \core\common\Entity {
             throw new Exception($failtext);
         }
         $user = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0];
-
+        if ($saveLog) {
+            $loggerInstance->debug(4, "Writing log\n");
+            $this->logLoginTime($user);
+        }
         $_SESSION['user'] = $user;
         $_SESSION['name'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-name']][0] ?? _("Unnamed User");
         $_SESSION['auth_email'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-email']][0] ?? _("");
@@ -138,6 +151,15 @@ class Authentication extends \core\common\Entity {
             'ReturnStateParam' => 'LogoutState',
             'ReturnStateStage' => 'MyLogoutState',
         ]);
+    }
+    
+    private function logLoginTime($user) {
+        $handle = \core\DBConnection::handle("INST");
+        if (!$handle instanceof \core\DBConnection) {
+            $frontendHandle = $handle;
+        }
+        $truncatedUser = substr($user,0,999);      
+        $handle->exec("INSERT INTO admin_logins (user_id, last_login) VALUES ('$truncatedUser', NOW()) ON DUPLICATE KEY UPDATE last_login=NOW()");
     }
 
 }

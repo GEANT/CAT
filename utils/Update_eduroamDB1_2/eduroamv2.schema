@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS `view_active_SP_location_eduroamdb`;
+CREATE TABLE `view_active_SP_location_eduroamdb` (
+  `country` char(3) DEFAULT NULL,
+  `country_eng` char(128) DEFAULT NULL,
+  `institutionid` bigint DEFAULT NULL,
+  `inst_name` varchar(2048) DEFAULT NULL,
+  `sp_location` blob,
+  `sp_location_contact` varchar(2048) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 DROP TABLE IF EXISTS `view_active_institution`;
 CREATE TABLE `view_active_institution` (
   `ROid` char(5) DEFAULT NULL,

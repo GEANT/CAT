@@ -26,7 +26,6 @@ $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 $catInstance = new \core\CAT();
-$loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new \web\lib\admin\UIElements();
 $languageInstance = new \core\common\Language();
@@ -55,6 +54,9 @@ const OPERATION_MODE_INVALID = 0;
 const OPERATION_MODE_EDIT = 1;
 const OPERATION_MODE_NEWFROMDB = 2;
 const OPERATION_MODE_NEWUNLINKED = 3;
+const OPERATION_MODE_SELF_ADMIN_ADD = 4;
+const OPERATION_MODE_SELF_NEWFROMDB = 5;
+
 
 $operationMode = OPERATION_MODE_INVALID;
 
@@ -62,7 +64,12 @@ $operationMode = OPERATION_MODE_INVALID;
 
 // what did we actually get?
 if (isset($_GET['inst_id'])) {
-    $operationMode = OPERATION_MODE_EDIT;
+    if (isset($_POST['self_registration'])) {
+        \core\common\Logging::debug_s(4, "Self registration received\n");
+        $operationMode = OPERATION_MODE_SELF_ADMIN_ADD;
+        } else {
+        $operationMode = OPERATION_MODE_EDIT;
+    }
 }
 
 if (isset($_POST['creation'])) {
@@ -94,9 +101,14 @@ if ($filteredCreation == "new" && $filteredName !== NULL && $filteredCountry !==
 }
 
 if ($filteredCreation == "existing" && $filteredExternals !== NULL && $filteredExternals != "FREETEXT") {
-    $operationMode = OPERATION_MODE_NEWFROMDB;
+    if (isset($_POST['self_registration'])) {
+        \core\common\Logging::debug_s(4, "Self registration received\n");
+        $operationMode = OPERATION_MODE_SELF_NEWFROMDB;
+        } else {
+        $operationMode = OPERATION_MODE_NEWFROMDB;
+    }
 }
-
+$redirectDestination = '';
 switch ($operationMode) {
     case OPERATION_MODE_EDIT:
         $idp = $validator->existingIdP($_GET['inst_id']);
@@ -116,12 +128,24 @@ switch ($operationMode) {
             echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
             exit(1);
         }
-
         $prettyprintname = $idp->name;
         $newtokens = $mgmt->createTokens($fedadmin, $validAddresses, $idp);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
+        \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
         $introtext = "CO-ADMIN";
         $participant_type = $idp->type;
+        break;
+    case OPERATION_MODE_SELF_ADMIN_ADD:
+        $idp = $validator->existingIdP($_GET['inst_id']);
+        $allowedIdPs = $_SESSION['resyncedIdPs'];
+        if (!in_array($idp->identifier, $allowedIdPs)) {
+            throw new Exception("sendinvite: requested IdP token for and IdP identifier which is not within the allowed list for this user");
+        }
+        $validAddresses = [$_SESSION['auth_email']];
+        $prettyprintname = $idp->name;
+        $newtokens = $mgmt->createTokens("FED", $validAddresses, $idp);
+        \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP (self)" . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
+        $participant_type = $idp->type;
+        $introtext = "SELF-ADMIN";
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirectDestination = "../overview_federation.php?";
@@ -143,8 +167,58 @@ switch ($operationMode) {
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
         $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $newinstname, 0, $newcountry, $participant_type);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $validAddresses));
+        \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $validAddresses));
         break;
+    case OPERATION_MODE_SELF_NEWFROMDB:
+        $validAddresses = [$_SESSION['auth_email']];
+        if (!isset($_SESSION['newIdPs']) || count($_SESSION['newIdPs']) !== 1) {
+            throw new Exception("Tried eduroam DB based creation without ext identifiers");
+        }
+        $newIdPs = $_SESSION['newIdPs'];
+        $externals = $validator->string($_POST['externals']);
+        [$fedId, $newexternalid] = explode('-', $externals, 2);
+        $found = [];
+        foreach ($newIdPs as $allowed) {
+            \core\common\Logging::debug_s(4, $allowed, "Allowed:\n", "\n");
+            if (strtoupper($allowed[2]) === $fedId && $allowed[0] ===  $newexternalid) {
+                $found = $allowed;
+            }
+        }
+        if ($found == []) {
+            throw new Exception("sendinvite: requested IdP token for and IdP identifier which is not within the allowed list for this user");
+        }
+        $federation = $validator->existingFederation($fedId);
+        $newInstFlag = $federation->getAttributes('fed:autoregister-new-inst');
+        if ($newInstFlag === []) {
+            throw new Exception("sendinvite: You tried to register an IdP in self-service, but this federation does not allow self-service!");
+        }
+        $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid, strtoupper($fedId).'01');
+        // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
+        $prettyprintname = "";
+        foreach ($extinfo['names'] as $lang => $name) {
+            if ($lang == $languageInstance->getLang()) {
+                $prettyprintname = $name;
+            }
+        }
+        if ($prettyprintname == "" && isset($extinfo['names']['en'])) {
+            $prettyprintname = $extinfo['names']['en'];
+        }
+        if ($prettyprintname == "") {
+            foreach ($extinfo['names'] as $name) {
+                $prettyprintname = $name;
+            }
+        }
+        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+            $participant_type = \core\IdP::TYPE_SP;
+        } else {
+            $participant_type = $extinfo['type'];
+        }
+        // fill the rest of the text
+        $introtext = "EXISTING-FED";
+        // do the token creation magic
+        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid, $fedId);
+        \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP FUTURE (self) - Token created for " . implode(",", $validAddresses));        
+        break; 
     case OPERATION_MODE_NEWFROMDB:
         $redirectDestination = "../overview_federation.php?";
         if (count($validAddresses) == 0) {
@@ -185,7 +259,7 @@ switch ($operationMode) {
         $introtext = "EXISTING-FED";
         // do the token creation magic
         $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid, $fedId);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
+        \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
         break;
     default: // includes OPERATION_MODE_INVALID
         // second param is TRUE, so the variable *will* contain a string
@@ -217,8 +291,15 @@ foreach ($newtokens as $onetoken => $oneDest) {
 }
 
 if (count($status) == 0) {
-    header("Location: $redirectDestination" . "invitation=FAILURE");
-    exit;
+    switch ($operationMode) {
+        case OPERATION_MODE_SELF_ADMIN_ADD:
+        case OPERATION_MODE_SELF_NEWFROMDB:
+            print("FAILURE");
+            break;
+        default:
+            header("Location: $redirectDestination" . "invitation=FAILURE");
+            exit;
+    }
 }
 $finalDestParams = "invitation=SUCCESS";
 if (count($status) < count($totalSegments)) { // only a subset of mails was sent, update status
@@ -233,4 +314,14 @@ if ($allEncrypted === TRUE) {
     $finalDestParams .= "&transportsecurity=PARTIAL";
 }
 
-header("Location: $redirectDestination" . $finalDestParams);
+switch ($operationMode) {
+    case OPERATION_MODE_SELF_ADMIN_ADD:
+    case OPERATION_MODE_SELF_NEWFROMDB:
+        print("SUCCESS");
+        break;
+    default:
+        header("Location: $redirectDestination" . $finalDestParams);
+}
+
+
+

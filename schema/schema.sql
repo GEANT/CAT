@@ -398,9 +398,14 @@ CREATE TABLE `activity` (
   KEY `mac` (`mac`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
 CREATE TABLE `edugain` (
 `country` varchar(16) DEFAULT NULL,
 `ROid` char(5) DEFAULT NULL,
 `reg_auth` varchar(255) DEFAULT NULL
 ) ENGINE = InnoDB CHARSET=utf8;
+
+CREATE TABLE `admin_logins` (
+  `user_id` varchar(1000) NOT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

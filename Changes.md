@@ -1,4 +1,12 @@
-Changes in 2.2
+Changes in 2.2.1
+=====================
+- [FEATURE  #1]  - added logging of last administrator authentication to help eliminating "dead" accounts
+- [FEATURE  #2]  - add display of "last seen" in institution administrators list
+- [MODIFICATION #1] - Modify the approach to showing CAT version numbers
+- [MODIFICATION #2] - Modify approach to self-registration based on eduroamBD to elliminate
+                      a remote possibility of a impersonification attack
+
+Changes in 2.2.0
 =====================
 - [FEATURE  #1]  removed dependency on eduroam DB v1 and rebuild the eduroam DB synchronisation
 - [FEATURE  #1]  added institution acronyms and alternative names to DiscoJuice keywords
@@ -16,8 +24,8 @@ Changes in 2.2
 - [FEATURE #12]  Managed SP RADIUS server deployment on docker
 - [FEATURE #13]  detailed error messages for admin API
 - [BUGFIX   #1]  fixed the bug in Windows 8+ installers of dollar sign not working in PFX passwords
-- [BUGFIX   #2]  The profile options override icon was appearing on evey production profile
-- [BUGFIX   #3]  Silverbullet should not be shown as an EAP method to choosr from
+- [BUGFIX   #2]  The profile options override icon was appearing on every production profile
+- [BUGFIX   #3]  Silverbullet should not be shown as an EAP method to choose from
 
 
 Changes in 2.1.3

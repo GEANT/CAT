@@ -53,6 +53,34 @@ $end = $langInstance->rtl ? "left" : "right";
                 location.reload();
             });
         });
+        
+        
+        $("button.self-service").on("click", function(event) {
+            event.preventDefault();
+            $("#spin").show();
+            var form = $(this).parent();
+            var url = form.attr('action');
+            var info_span = form.find(".token_confirm");            
+            $.ajax({
+              type: "POST",
+              url: url,
+              myForm: form,
+              data: form.serialize(),
+              success: function(data) {
+                            var info_span = this.myForm.find("span.token_confirm");
+                            var send_button = this.myForm.find("button.self-service");
+                            $("#spin").hide();
+                            if (data == "SUCCESS") {
+                            info_span.show();
+                            send_button.hide();
+                            } else {
+                                alert("<?php _("Somethng went wrong with institution creation. Please contact your federation administrator.") ?>")
+                            }
+                        },
+              dataType: "html"
+            });
+        });
+        
     });
 </script>
 <style>
@@ -96,6 +124,8 @@ $end = $langInstance->rtl ? "left" : "right";
         </table>
     </div>
     <div>
+<img alt='Loading ...' src='../resources/images/icons/loading51.gif' id='spin' class='TMW' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
+
         <?php
         if (\config\Master::DB['USER']['readonly'] === FALSE) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
@@ -110,7 +140,7 @@ $end = $langInstance->rtl ? "left" : "right";
         ?>
     </div>
     <?php
-    $instMgmt->listInstitutionsByAdmin(true);
+    $instMgmt->listInstitutionsByAdmin();
     \core\common\Logging::debug_s(4, $instMgmt->currentInstitutions, "Current Inst:\n", "\n");
     $hasInst = $instMgmt->currentInstitutions['existing'];
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
@@ -265,26 +295,49 @@ $end = $langInstance->rtl ? "left" : "right";
                 $newInst = $instMgmt->currentInstitutions['new'];
                 $entitlementCatInst = $instMgmt->currentInstitutions['entitlement'];
                 if (count($resyncedInst) > 0) {
-                    print "<h3>"._("We have automatically added you to the following organisations:")."</h3>";
-                    $helpText = _("We have added the organisations to your profile since your mail is listed as their administrator in the eduroam database.
+                    $helpText = _("You can add organisations to your profile since your mail is listed as their administrator in the eduroam database.
                             There may be several reasons why you are seeing this, for instance:
                             <ul>
                             <li>your mail has been added as the admin to institutions that you did not manage before
                             <li>you have logged in via an account in a different IdP but the returned email address is the same as before
                             <li>your IdP has been modified and it has a different entityId now
                             <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargetedId attribute but now it is only sending pairwise-id
-                            </ul>");
+                            </ul>
+                            If you accept then invitation tokens will be automatically sent to your email address.");
                     print $wizard->displayHelpText($helpText);
+                    
+                    echo "<h3>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:")."</h3>";                        
 
+                    echo "<table class='inst-selection'>";
                     foreach ($resyncedInst as $id) {
-                        print $instlist[$id]['name']."<br>";
+                            echo "<tr><td>";
+                            $idp = new \core\IdP($id);
+                            $names = $idp->getAttributes('general:instname');
+                            $i =0;
+                            foreach ($names as $onename) {
+                                if ($i > 0) {
+                                    echo "; ";
+                                }
+                                $i++;
+                                echo "[".$onename['lang']."] ".$onename['value'];
+                            }
+?>
+                </td><td><div>
+                <form action='inc/sendinvite.inc.php?inst_id=<?php echo $id; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                    <input type="hidden" name="mailaddr" value="<?php echo $_SESSION['auth_email'];?>"/>
+                    <input type="hidden" name="self_registration"/>
+                    <button type='submit' name='submitbutton' class='self-service' id='submintbutton_<?php echo $id; ?>' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo \web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send token"); ?></button><span style='display: none; font-weight: bold' class='token_confirm' id='token_confirm_<?php echo $id; ?>'><?php echo _("Token sent")?></span>
+                </form>    
+                </div></td></tr>
+ <?php                           
                     }
+                    echo "</table>";  
                 }
                 if (count($newInst) > 0) {
-                    echo "<p>"._("The eduroam database says you are an administrator of these following institutions, but there seem to be no matching institutions in CAT.")."<br>";
+                    echo "<h3>"._("The eduroam database says you are an administrator of these following institutions, but there seem to be no matching institutions in CAT.")."</h3>";
                     echo "<table class='inst-selection'>";
                     foreach ($newInst as $inst) {
-                        echo "<tr><th>";
+                        echo "<tr><td>";
                         $i =0;
                         foreach ($inst[1] as $lang => $name) {
                             if ($i > 0) {
@@ -293,15 +346,18 @@ $end = $langInstance->rtl ? "left" : "right";
                             $i++;
                             echo "[$lang] $name";
                         }
-                        echo "</th><td><div>";
-                        echo "<form action='action_enrollment.php' method='get'>";
-                        echo "<input type='hidden' id='token' name='token' value='EDUGAIN-SELF-REGISTER'/>";
-                        $extid = strtoupper($inst[2]).'01-'.$inst[0];
-                        echo "<input type='hidden' name='extid' value='$extid'>";
-                        echo "<button type='submit' accept-charset='UTF-8' onclick='javascript:window.confirm(\""._("Proceed with creating the CAT IdP?")."\")'>" ._("create CAT profile for this institution")."</button><br>";
-                        echo "</form>";
-                        echo "</div></td></tr>";
-                    }
+                        ?>
+                </td><td><div>
+                <form action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
+                    <input type="hidden" name="mailaddr" value="<?php echo $_SESSION['auth_email'];?>"/>
+                    <input type="hidden" name="creation" value="existing"/>
+                    <input type="hidden" name="self_registration"/>
+                    <input type="hidden" name="country" value="<?php echo $inst[2]; ?>"/>
+                    <input type="hidden" name="externals" value="<?php echo "$inst[2]-$inst[0]"; ?>"/>
+                <button type='submit' name='submitbutton' class='self-service' id='submintbutton_<?php echo $id; ?>' value='<?php echo \web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send token"); ?></button><span style='display: none; font-weight: bold' class='token_confirm' id='token_confirm_<?php echo $id; ?>'><?php echo _("Token sent")?></span>
+                </form>
+                </div></td></tr>   
+                   <?php }
                     echo "</table>";
                 }
                 if (count($entitlementCatInst) > 0) {

@@ -285,7 +285,7 @@ class UserManagement extends \core\common\Entity
      * administrator of an existing institution, or for a new institution. In the latter case, the institution only actually gets 
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
-     * @param boolean $isByFedadmin   is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
+     * @param boolean $isByFedadmin   is the invitation token created from a federation admin (TRUE) or from an existing inst admin (FALSE)
      * @param array   $for            identifiers (typically email addresses) for which the invitation is created
      * @param mixed   $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string  $externalId     if the IdP to be created is related to an external DB entity, this parameter contains that ID
@@ -381,10 +381,9 @@ class UserManagement extends \core\common\Entity
      * If the federation autoregister-new-inst flag is set and there are exeternal institututions which could be
      * candidated for creating them in CAT - add the identifiers of these institutuins to this->currentInstitutions[new']
      * 
-     * @param boolean $applyAutoSync controls if automatic additions if the user to the admins should be performed
      * @return array array of institution IDs
      */ 
-    public function listInstitutionsByAdmin($applyAutoSync = false)
+    public function listInstitutionsByAdmin()
     {
         $edugain = $_SESSION['eduGAIN'];
         // get the list of local identifers of institutions managed by this user
@@ -426,7 +425,7 @@ class UserManagement extends \core\common\Entity
         // that the federation allows autoregistration
         foreach ($extInstList as $country => $extInstCountryList) {
             $fed = new Federation($country);
-            $this->doExternalDBAutoregister($extInstCountryList, $fed, $applyAutoSync);
+            $this->doExternalDBAutoregister($extInstCountryList, $fed);
             $this->doExternalDBAutoregisterNew($extInstCountryList, $fed);
         }
         // now we run tests for adding admins based on pairwise-id and entitlement
@@ -441,6 +440,8 @@ class UserManagement extends \core\common\Entity
             $this->doEntitlementAutoregister($instList, $fed);
         }
         $_SESSION['entitledIdPs'] = array_column($this->currentInstitutions['entitlement'], 0);
+        $_SESSION['resyncedIdPs'] = $this->currentInstitutions['resynced'];
+        $_SESSION['newIdPs'] = $this->currentInstitutions['new'];
         common\Logging::debug_s(4, $this->currentInstitutions, "currentInstitutions\n", "\n");
         return $this->currentInstitutions;
     }
@@ -452,9 +453,8 @@ class UserManagement extends \core\common\Entity
      * 
      * @param array $extInstCountryList - list of eduroam DB candidate institutions
      * @param object $fed - the Federation object
-     * @param boolean $applyAutoSync - do we write updated to the databaes?
      */
-    private function doExternalDBAutoregister($extInstCountryList, $fed, $applyAutoSync = false) {
+    private function doExternalDBAutoregister($extInstCountryList, $fed) {
         $userId = $_SESSION['user'];
         $email = $_SESSION['auth_email'];
         $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
@@ -470,12 +470,6 @@ class UserManagement extends \core\common\Entity
             // is institution synced, if so we add this admin if the federation allows
             common\Logging::debug_s(4, "It is synced\n");
             $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
-            if ($applyAutoSync) {
-                common\Logging::debug_s(4, "Adding admin to ".$extInst['inst_id']."\n");
-                $this->currentInstitutions['existing'][] = $extInst['inst_id'];
-                $query = "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES (?, ?, 'FED', ?)";
-                $this->databaseHandle->exec($query, 'sis', $userId, $extInst['inst_id'], $email);
-            }
         }
     }
     
@@ -497,7 +491,7 @@ class UserManagement extends \core\common\Entity
             if ($extInst['inst_id'] != null) { // there alreay exeists a CAT institution synced to this one
                 continue;
             }
-            $country = $fed->tld;
+            $country = strtoupper($fed->tld);
             // now run checks against creating dupplicates in CAT DB
             $disectedNames = ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
             $names = $disectedNames['joint'];
@@ -515,7 +509,6 @@ class UserManagement extends \core\common\Entity
      * based on data from eduGAIN login
      * The method verifies that the federation allows this type of auto-registration
      * 
-     * @param boolean $applyAutoSync - do we write updated to the databaes?
      * @param object $fed - the Federation object
      */
     private function doEntitlementAutoregister($instList, $fed) {
@@ -523,7 +516,7 @@ class UserManagement extends \core\common\Entity
         if ($useEntitlementFlag == []) {
             return;
         }
-        $country = $fed->tld;
+        $country = strtoupper($fed->tld);
         foreach ($instList as $instId) {
             if (!in_array($instId, $this->currentInstitutions['existing'])) {
                 $this->currentInstitutions['entitlement'][] = [$instId, $country];
@@ -665,6 +658,8 @@ class UserManagement extends \core\common\Entity
      */
     private function checkForSimilarInstitutions($namesToTest, $realmsToTest) {
         //generate a list of all existing realms
+        \core\common\Logging::debug_s(4, $namesToTest, "Testing names:\n", "\n");
+        \core\common\Logging::debug_s(4, $realmsToTest, "Testing realms:\n", "\n");
         $realmsList = [];
         $query = 'SELECT DISTINCT realm FROM profile';
         $realmsResult = $this->databaseHandle->exec($query);
@@ -673,6 +668,7 @@ class UserManagement extends \core\common\Entity
         }
         // now test realms
         $results = array_intersect($realmsToTest, $realmsList);
+        \core\common\Logging::debug_s(4, $results, "Realms compare result\n", "\n");
         if (count($results) !== 0) {
             return 1;
         }
@@ -687,9 +683,26 @@ class UserManagement extends \core\common\Entity
 
         // now test names
         $results = array_intersect($namesToTest, $namesList);
+        \core\common\Logging::debug_s(4, $results, "Realms compare result\n", "\n");        
         if (count($results) !== 0) {
             return 1;
         }
         return 0;
+    }
+    
+    /**
+     * read the last login date of given user identifier
+     * 
+     * @param string $user
+     * @return string NULL - the date last seen or NULL if not recorded yet
+     */
+    public function getAdminLastAuth($user) {
+        $truncatedUser = substr($user,0,999);
+        $result = $this->databaseHandle->exec("SELECT DATE(last_login) FROM admin_logins WHERE user_id='$truncatedUser'");
+        if ($result->num_rows == 1) {
+            $date = $result ->fetch_row()[0];
+            return $date;
+        }
+        return NULL;
     }
 }

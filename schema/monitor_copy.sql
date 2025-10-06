@@ -32,45 +32,63 @@ CREATE TABLE `view_active_SP_location_eduroamdb` (
   `sp_location_contact` varchar(2048) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `view_active_idp_institution`;
-CREATE TABLE `view_active_idp_institution` (
-  `id_institution` bigint unsigned DEFAULT NULL,
-  `inst_realm` varchar(256) DEFAULT NULL,
-  `country` varchar(128) DEFAULT NULL,
-  `name` varchar(512) DEFAULT NULL,
-  `contact` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
 DROP TABLE IF EXISTS `view_active_institution`;
 CREATE TABLE `view_active_institution` (
-  `id_institution` bigint unsigned DEFAULT NULL,
-  `ROid` varchar(7) DEFAULT NULL,
-  `inst_realm` char(255) DEFAULT NULL,
+  `ROid` char(5) DEFAULT NULL,
+  `instid` char(50) DEFAULT NULL,
+  `inst_realm` varchar(341) DEFAULT NULL,
   `country` char(5) DEFAULT NULL,
   `name` varchar(512) DEFAULT NULL,
-  `contact` blob,
-  `type` enum('3','2','1') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `contact` longblob,
+  `type` tinyint DEFAULT '1',
+  `last_change` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `inst_realm_sorted` varchar(341) DEFAULT NULL,
+  `cat_sync_id` int DEFAULT NULL,
+  `instid1` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `view_admin`;
 CREATE TABLE `view_admin` (
   `id` int unsigned DEFAULT NULL,
-  `eptid` char(255) DEFAULT NULL,
-  `email` char(255) DEFAULT NULL,
-  `common_name` char(255) DEFAULT NULL,
+  `eptid` char(255) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `email` char(255) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `common_name` char(255) CHARACTER SET utf8mb3 DEFAULT NULL,
   `id_role` int DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
+  `role` varchar(255) CHARACTER SET utf8mb3 DEFAULT NULL,
   `id_obj` int DEFAULT NULL,
-  `realm` char(255) DEFAULT NULL,
-  KEY `eptid` (`eptid`),
-  KEY `role` (`role`),
-  KEY `realm` (`realm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `realm` char(255) CHARACTER SET utf8mb3 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS `view_country_eduroamdb`;
-CREATE TABLE `view_country_eduroamdb` (
-  `country` char(3) DEFAULT NULL,
-  `country_eng` char(128) DEFAULT NULL,
-  `map_group` enum('APAN','SOAM','NOAM','Africa','Europe') DEFAULT 'Europe'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+DROP TABLE IF EXISTS `view_institution_admins`;
+CREATE TABLE `view_institution_admins` (
+  `name` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `phone` varchar(128) DEFAULT NULL,
+  `inst_realm` varchar(128) DEFAULT NULL,
+  `instid` char(50) DEFAULT NULL,
+  `ROid` char(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `view_tls_inst`;
+CREATE TABLE `view_tls_inst` (
+  `ROid` char(5) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `country` char(5) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `instid` char(50) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `stage` tinyint DEFAULT NULL,
+  `type` tinyint DEFAULT NULL,
+  `inst_name` varchar(2048) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `servers` text CHARACTER SET utf8mb3,
+  `contacts` text CHARACTER SET utf8mb3,
+  `ts` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `view_tls_ro`;
+CREATE TABLE `view_tls_ro` (
+  `ROid` char(5) DEFAULT NULL,
+  `country` char(5) DEFAULT NULL,
+  `stage` tinyint DEFAULT NULL,
+  `servers` text,
+  `contacts` text,
+  `ts` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

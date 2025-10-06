@@ -111,10 +111,16 @@ function createMsgbox(type, onclick) {
 }
 
 
-function removeMsgbox() {
+function removeMsgbox(id=0) {
     var body = document.getElementsByTagName("body")[0];
     body.removeChild(document.getElementById("overlay"));
     body.removeChild(document.getElementById("msgbox"));
+    document.getElementById('spin').style.display = "none";
+    if (id > 0) {
+        document.getElementById("submintbutton_"+id).style.display = "none";
+        document.getElementById("token_confirm_"+id).style.display = "block";
+    }
+    
 }
 
 function removeQRbox() {

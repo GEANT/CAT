@@ -53,7 +53,7 @@ class CAT extends \core\common\Entity
      */
     public const VERSION_MAJOR = 2;
     public const VERSION_MINOR = 2;
-    public const VERSION_PATCH = 0;
+    public const VERSION_PATCH = 1;
     public const VERSION_EXTRA = "";
     private const RELEASE_VERSION = TRUE;
     private const USER_API_VERSION = 2;
@@ -116,11 +116,12 @@ class CAT extends \core\common\Entity
             $minor = CAT::VERSION_MINOR;
             $patch = CAT::VERSION_PATCH;
             $extra = CAT::VERSION_EXTRA;
-            $temp_version = "CAT-$major.$minor";
-            $branch = "release_$major" . "_$minor";
-            if (CAT::VERSION_PATCH != 0) {
-                $temp_version .= ".$patch";
-            }
+            $temp_version = "CAT-$major.$minor.$patch";
+//            $branch = "release_$major" . "_$minor";
+            $branch = "v$major.$minor.$patch";
+//            if (CAT::VERSION_PATCH != 0) {
+//                $temp_version .= ".$patch";
+//            }
             if (CAT::VERSION_EXTRA != "") {
                 $temp_version .= "-$extra";
             }

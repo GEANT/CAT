@@ -52,11 +52,14 @@ $mgmt = new \core\UserManagement();
 // either the operation is done by federation operator himself
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // or an admin of the IdP with federation admin blessings
-$is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 
-if (in_array($my_inst->identifier, $_SESSION['entitledIdPs'])) {
+if (isset($_SESSION['entitledIdPs']) && in_array($my_inst->identifier, $_SESSION['entitledIdPs'])) {
     $is_admin_with_blessing = true;
 }
+
+if (isset($_SESSION['resyncedIdPs']) && in_array($my_inst->identifier, $_SESSION['resyncedIdPs'])) {
+    $is_admin_with_blessing = true;
+}   
 
 // if none of the two, send the user away
 if (!$isFedAdmin && !$is_admin_with_blessing) {
@@ -161,6 +164,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo $uiElements->boxRemark(sprintf(_("You are an administrator who was directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclatureFed), _("Directly Appointed Administrator"));
     echo "</table></div>";
+
 }
 ?>
 <table>
@@ -174,6 +178,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
     foreach ($owners as $oneowner) {
         $ownerinfo = new \core\User($oneowner['ID']);
         $ownername = $ownerinfo->getAttributes("user:realname");
+        $lastAuth = $mgmt->getAdminLastAuth($ownerinfo->userName);
         if (count($ownername) > 0) {
             $prettyprint = $ownername[0]['value'];
         } else {
@@ -189,7 +194,12 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
             <td>
                 <strong><?php echo $prettyprint ?></strong>
                 <br/>
-                <?php echo $invite; ?>
+                <?php echo $invite; 
+                if ($lastAuth != null) {
+                    echo "<br/>"._("Last seen: ").$lastAuth."</br>";
+                }
+                
+                ?>
             </td>
             <td>
                 <form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier ?>' method='post' <?php echo ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ); ?> accept-charset='UTF-8'>
@@ -225,11 +235,13 @@ if (count($pending_invites) > 0) {
 }
 ?>
 <br/>
+<?php if (!isset($_GET['self_add']) || $_GET["self_add"] !== 'true') { ?>
 <img alt='Loading ...' src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
+<?php } ?>
 <?php
 if ($isFedAdmin) {
     $is_admin_himself = FALSE;
@@ -248,5 +260,5 @@ if ($isFedAdmin) {
 ?>
 <hr/>
 <form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox(<?php echo $my_inst->identifier; ?>); return false;'><?php echo _("Close"); ?></button>
 </form>
