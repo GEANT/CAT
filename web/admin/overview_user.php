@@ -74,7 +74,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             info_span.show();
                             send_button.hide();
                             } else {
-                                alert("<?php _("Somethng went wrong with institution creation. Please contact your federation administrator.") ?>")
+                                alert("<?php _("Something went wrong with institution creation. Please contact your federation administrator.") ?>")
                             }
                         },
               dataType: "html"
