@@ -241,7 +241,7 @@ class DeviceChromebook extends \core\DeviceConfig
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            $this->loggerInstance->debug(3, $ca['pem']);
+            $this->loggerInstance->debug(4, $ca['pem']);
             $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
             if ($caSanitized1 === FALSE) {
                 throw new Exception("Error cropping PEM data at its BEGIN marker.");
@@ -250,7 +250,7 @@ class DeviceChromebook extends \core\DeviceConfig
             // remove \n
             $caSanitized = str_replace("\n", "", $caSanitized1);
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Remove" => false, "Type" => "Authority", "X509" => $caSanitized];
-            $this->loggerInstance->debug(3, $caSanitized . "\n");
+            $this->loggerInstance->debug(4, $caSanitized . "\n");
         }
         // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {

@@ -144,11 +144,11 @@ class Sociopath extends AbstractTest
         $questionDetails = $this->qaArray[$questionNumber];
         if ($answer === TRUE) {
             $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR_YES"];
-            $this->loggerInstance->debug(3, "Adjusting " . $questionDetails['AREA'] . " by " . $questionDetails["FACTOR_YES"] . "\n");
+            $this->loggerInstance->debug(4, "Adjusting " . $questionDetails['AREA'] . " by " . $questionDetails["FACTOR_YES"] . "\n");
             $factor = $questionDetails["FACTOR_YES"];
         } elseif ($answer === FALSE) {
             $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR_NO"];
-            $this->loggerInstance->debug(3, "Adjusting " . $questionDetails['AREA'] . " by " . $questionDetails["FACTOR_NO"] . "\n");
+            $this->loggerInstance->debug(4, "Adjusting " . $questionDetails['AREA'] . " by " . $questionDetails["FACTOR_NO"] . "\n");
             $factor = $questionDetails["FACTOR_NO"];
         } else {
             $factor = 1;
@@ -162,8 +162,8 @@ class Sociopath extends AbstractTest
         $this->additionalFindings["QUESTIONSASKED"] = $this->previousQuestions;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
-        $this->loggerInstance->debug(3, $_SESSION['SUSPECTS']);
-        $this->loggerInstance->debug(3, $_SESSION['EVIDENCE']);
+        $this->loggerInstance->debug(4, $_SESSION['SUSPECTS']);
+        $this->loggerInstance->debug(4, $_SESSION['EVIDENCE']);
     }
 
     /**
