@@ -727,15 +727,18 @@ class Federation extends EntityWithDBProperties
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
-/**
- * TMW
- */    
+    
+    /**
+     * Loads existing admins in all institutions of a given federation and check if some have been
+     * inactive for a time longet that allowed threshold. Marks institutions as 0 - all good
+     * or 1 - inactive admin(s) found
+     * Sets the results in $this->adminLogins array
+     */    
     public function loadAdminsLogins() {
-        $returnarray = [];
         $inactivityOverride = $this->getAttributes('fed:max-inactivity');
         $hideWarningsFlag = $this->getAttributes('fed:hide-admin-warnings');
         if ($hideWarningsFlag !== []) {
-            $active = 1;
+            $active = -1;
         } else {
             if ($inactivityOverride == []) {
                 $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'];

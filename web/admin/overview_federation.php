@@ -109,7 +109,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     <?php
     foreach ($cat->printCountryList(1) as $country => $name) {
         $selected = '';
-        if ($country == strtoupper($fed_id) ) {
+        if ($country == strtoupper($fed_id)) {
             $selected = 'selected';
         }
     echo "<option value='$country' $selected>$name</option>\n";
@@ -182,7 +182,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 ?>
             </table>
         </div>
-        <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
+        <?php if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
         <div class='infobox'>
             <h2>
                 <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
@@ -328,7 +328,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             ?>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
-            <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
+            <?php if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
             <th scope='col'><?php echo _("Status") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
@@ -351,14 +351,14 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         <?php
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tbody class='fedlist'>";
-            echo "<tr><td colspan='1'><strong>". _("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
-            if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+            echo "<tr><td colspan='1'><strong>"._("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
+            if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
             }
             echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
-            if($hideWarnings) {
+            if ($hideWarnings) {
                 $adminCheckbox = '&nbsp;';
             } else {
                 $adminCheckbox = "<input type='checkbox' name='adminproblem' id='adminproblem_ck_".$fedId."'>";
@@ -467,7 +467,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     
                 $adminClass = 'adminok';
                 $adminIcon = '<span style="padding-left:20px"></span>';
-                if(!$hideWarnings) {
+                if (!$hideWarnings) {
                     if (!isset($thefed->adminLogins[$index])) {
                         $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_MISSING'));
                         $adminClass = 'adminproblem';
@@ -495,18 +495,18 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                          <input type='hidden' name='inst' value='" 
                        . $index."'>"
                        . "<span style='display:none' class='inst_name'>".$my_idp."</span>"
-                       . "<span>". $idp_instance->name."</span>"
+                       . "<span>".$idp_instance->name."</span>"
                        . " (<a href='overview_org.php?inst_id="
                        . $idp_instance->identifier."'>" 
                        . (in_array($index, $userIdps) ? _("manage") : _("view"))
                        . "</a>)"
-                       . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) 
+                       . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>") 
                        . implode("</li><li>", $listOfSilverbulletRealms) 
-                       . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" )
+                       . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>")
                        . "</td>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime     
-                if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+                if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
                     echo  "<td>$profileIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";
@@ -528,7 +528,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 if ($readonly === FALSE) {
                     echo "<div style='white-space: nowrap;'>
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=".$index."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                      <button type='submit' style='vertical-align:middle'>" .$adminIcon."&nbsp;&nbsp;" .
+                                      <button type='submit' style='vertical-align:middle'>" .$adminIcon."&nbsp;&nbsp;".
                     _("Add/Remove Administrators")."
                                       </button>
                                   </form>
