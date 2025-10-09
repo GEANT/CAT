@@ -318,7 +318,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
         </tr>
         <?php
         $userIdps = $user->listOwnerships();
-        foreach ($fedArray as $fedId => $thefed) { 
+        foreach ($fedArray as $fedId => $thefed) {
+            $hideWarningsFlag = $thefed->getAttributes('fed:hide-admin-warnings');
+            $hideWarnings = false;
+            if ($hideWarningsFlag !== []) {
+                $hideWarnings = true;
+            }
             echo "<tr><td colspan='9'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";            
             ?>
         <tr>
@@ -352,7 +357,13 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
             }
-            echo "<td colspan='6' style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
+            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
+            if($hideWarnings) {
+                $adminCheckbox = '&nbsp;';
+            } else {
+                $adminCheckbox = "<input type='checkbox' name='adminproblem' id='adminproblem_ck_".$fedId."'>";
+            }
+            echo "<td colspan='5' style='border-bottom-style: dotted;border-bottom-width: 1px;'>$adminCheckbox</td>";
             echo "</tr>";
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -364,6 +375,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             }
             $idps = $thefed->listIdentityProviders(0);
             $certStatus = $thefed->getIdentityProvidersCertStatus();
+            $thefed->loadAdminsLogins();
             $my_idps = [];
             foreach ($idps as $index => $idp) {
                 $my_idps[$idp['entityID']] = mb_strtolower($idp['title']).'==='.$idp['realms'];
@@ -371,7 +383,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             asort($my_idps);
 
             foreach ($my_idps as $index => $my_idp) {
-                $idp_instance = $idps[$index]['instance'];
+                $idp_instance = $idps[$index]['instance'];                
                 // get max profile status
                 $profileClass = '';
                 $maxProfileStatus = $idp_instance->maxProfileStatus();
@@ -446,9 +458,27 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                         $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
                         $orIcon = $uiElements->catIcon($iconData);                    
                 }
+                
+                if ($certStatus[$index] > 0) {
+                    $certClass = 'certproblem';
+                } else {
+                    $certClass = 'certok';
+                }
+                    
+                $adminClass = 'adminok';
+                $adminIcon = '<span style="padding-left:20px"></span>';
+                if(!$hideWarnings) {
+                    if (!isset($thefed->adminLogins[$index])) {
+                        $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_MISSING'));
+                        $adminClass = 'adminproblem';
+                    } elseif ($thefed->adminLogins[$index] == 1) {
+                        $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_INACTIVE'));
+                        $adminClass = 'adminproblem';
+                    }
+                }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
@@ -498,7 +528,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 if ($readonly === FALSE) {
                     echo "<div style='white-space: nowrap;'>
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=".$index."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                      <button type='submit'>" .
+                                      <button type='submit' style='vertical-align:middle'>" .$adminIcon."&nbsp;&nbsp;" .
                     _("Add/Remove Administrators")."
                                       </button>
                                   </form>

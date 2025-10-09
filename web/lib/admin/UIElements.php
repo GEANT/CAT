@@ -166,6 +166,14 @@ class UIElements extends \core\common\Entity {
                 'display' => _("Custom entitlement value for self-registration"),
                 'help' => _("If you want to use the SAML eduPersonEntitlement based self-registration you may define a value that will be used in your federation for institutions admins. When this is not set the default value geant:eduroam:inst:admin will be used. This option makes sense only if you have 'Self registration based on entitlement' set")
             ],
+            "fed:max-inactivity" => [
+                'display' => _("Custom number of days of allowed admin inactivity"),
+                'help' => sprintf(_("You can override the default value of %d days after which an inactivity warning will be displayed on the NRO admin page."), \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days']),
+            ],
+            "fed:hide-admin-warnings" => [
+                'display' => _("Do not show any warnings about missing/inactive admins"),
+                'help' => _("You can block any warnings on missing/inactive admins. The default is to show them.")
+            ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
             "managedsp:guest_vlan" => ['display' => _("VLAN for guests"), 'help' => ""],
@@ -729,6 +737,9 @@ class UIElements extends \core\common\Entity {
             'IDP_LINKED' => ['img' => 'Tabler/database-green.svg', 'text' => _("Linked")],
             'IDP_NOT_LINKED' => ['img' => 'Tabler/database-off-red.svg', 'text' => _("NOT linked")],
             'CERTS_NOT_SHOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Not showing cert info if no profiles are visible")],
+            'ADMINS_INACTIVE' => ['img' => 'Tabler/alert-square-rounded-filled-red-small.svg', 'text' => _("Some of the admins have not been seen for a long time")],
+            'ADMINS_OK' => ['img' => 'Tabler/check-green-small.svg', 'text' => _("All admins are active")],
+            'ADMINS_MISSING' => ['img' => 'Tabler/alert-square-rounded-filled-yellow-small.svg', 'text' => _("No admins registered")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);

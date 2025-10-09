@@ -69,7 +69,14 @@ class Federation extends EntityWithDBProperties
      * @var string
      */
     public $tld;
+    
+    /**
+     * 
+     * @var array
+     */
 
+    public $adminLogins = [];
+    
     private $idpArray = [];
     /**
      * retrieve the statistics from the database in an internal array representation
@@ -719,5 +726,51 @@ class Federation extends EntityWithDBProperties
         }
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
+    }
+/**
+ * TMW
+ */    
+    public function loadAdminsLogins() {
+        $returnarray = [];
+        $inactivityOverride = $this->getAttributes('fed:max-inactivity');
+        $hideWarningsFlag = $this->getAttributes('fed:hide-admin-warnings');
+        if ($hideWarningsFlag !== []) {
+            $active = 1;
+        } else {
+            if ($inactivityOverride == []) {
+                $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'];
+            } else {
+                $inactivityTimestamp = time() - $inactivityOverride[0]['value']*24*3600;
+            }
+            // $active shows the time difference between the moment when a login thime would be considered as inactive
+            // and the start of the recording system. If this is negative then we we cannot tell that someone who
+            // was not recorded was not actually active within the allowed period
+            $active = $inactivityTimestamp - strtotime(\config\ConfAssistant::ADMIN_LOGINS['startday']);
+        }
+        $query = "SELECT admin_logins.user_id AS user_id, ownership.institution_id as inst_id, admin_logins.last_login as last_login FROM admin_logins join ownership on admin_logins.user_id=ownership.user_id join institution on ownership.institution_id=institution.inst_id where country=?";
+        $handle = DBConnection::handle("INST"); // we need something from the USER database for a change
+        $upperFed = strtoupper($this->tld);
+        // SELECT -> resource, not boolean
+        $admins = $handle->exec($query, "s", $upperFed);
+        while ($adminLoginQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $admins)) {
+            $idp = $adminLoginQuery->inst_id;
+            if ($active < 0) { // we are still in the silent period for this fed
+                $this->adminLogins[$idp] = 0;
+                continue;
+            }
+            if (isset($this->adminLogins[$idp]) && $this->adminLogins[$idp] == 1) {
+                continue;
+            }
+            if ($adminLoginQuery->last_login == NULL) {
+                $this->adminLogins[$idp] = 1;
+                continue;
+            }
+            if (strtotime($adminLoginQuery->last_login) <  $inactivityTimestamp) {
+                $this->adminLogins[$idp] = 1;
+                continue;
+            }
+            $this->adminLogins[$idp] = 0;            
+        }
+        \core\common\Logging::debug_s(4, $this->adminLogins, "LOGINS:\n", "\n");
     }
 }

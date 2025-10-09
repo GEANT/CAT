@@ -25,6 +25,7 @@ function row_filter(tbody) {
     var broken_cert = tbody.find('[id^="brokencert_ck_"]').is(':checked');
     var or_warn = tbody.find('[id^="or_ck_"]').is(':checked');
     var profile_warn = tbody.find('[id^="profile_ck_"]').is(':checked');
+    var adminproblem = tbody.find('[id^="adminproblem_ck_"]').is(':checked');
     var input = tbody.find('[id^="qsearch_"]').val().toLowerCase();
     var tr_visible;
     var inp_found;
@@ -38,7 +39,10 @@ function row_filter(tbody) {
         }
         if (tr_visible && or_warn && $(this).hasClass('orok')) {
             tr_visible = false;
-        }        
+        }      
+        if (tr_visible && adminproblem && $(this).hasClass('adminok')) {
+            tr_visible = false;
+        } 
         if (tr_visible && profile_warn && $(this).hasClass('profileok')) {
             tr_visible = false;
         }         
