@@ -1013,7 +1013,8 @@ class IwdConfiguration:
         elif Config.eap_outer == 'TTLS':
             self._create_ttls_pap_config(ssid, user_data)
         else:
-            raise ValueError('Invalid connection type')
+            msg = 'Invalid_connection_type'
+            raise ValueError(msg)
         self.write_config(ssid)
 
     def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
