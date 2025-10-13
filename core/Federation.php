@@ -741,9 +741,9 @@ class Federation extends EntityWithDBProperties
             $active = -1;
         } else {
             if ($inactivityOverride == []) {
-                $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days']*24*3600;
+                $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'] * 24 * 3600;
             } else {
-                $inactivityTimestamp = time() - $inactivityOverride[0]['value']*24*3600;
+                $inactivityTimestamp = time() - $inactivityOverride[0]['value'] * 24 * 3600;
             }
             // $active shows the time difference between the moment when a login thime would be considered as inactive
             // and the start of the recording system. If this is negative then we we cannot tell that someone who
@@ -768,7 +768,7 @@ class Federation extends EntityWithDBProperties
                 $this->adminLogins[$idp] = 1;
                 continue;
             }
-            if (strtotime($adminLoginQuery->last_login) <  $inactivityTimestamp) {
+            if (strtotime($adminLoginQuery->last_login) < $inactivityTimestamp) {
                 $this->adminLogins[$idp] = 1;
                 continue;
             }

@@ -90,7 +90,7 @@ class ConfAssistant
                     ], 
                 'condition' => TRUE],
             'OpenRoaming® (%REALM%)' => [
-                'ssid' => [],     /* OpenRoaming has left SSIDs behind */
+                'ssid' => [], /* OpenRoaming has left SSIDs behind */
                 'oi' => [
                     '5A03BA0000', /* OpenRoaming/AllIdentities/SettlementFree/NoPersonalData/BaselineQoS */
                     '5A03BA0800', /* OpenRoaming/EduIdentities/SettlementFree/NoPersonalData/BaselineQoS */
@@ -165,7 +165,7 @@ class ConfAssistant
         'makensis' => 'makensis',
         'zip' => 'zip',
         'trust-store-mozilla' => '/etc/ssl/certs/ca-certificates.crt',
-        'trust-store-custom' => __DIR__ . "/known-roots.pem",
+        'trust-store-custom' => __DIR__."/known-roots.pem",
     ];
 
     /**
@@ -203,13 +203,13 @@ class ConfAssistant
             'db' => 'radacct',
             'user' => 'someuser',
             'pass' => 'somepass',
-            'readonly' => TRUE,],
+            'readonly' => TRUE, ],
         'RADIUS_2' => [
             'host' => 'auth-2.hosted.eduroam.org',
             'db' => 'radacct',
             'user' => 'someuser',
             'pass' => 'somepass',
-            'readonly' => TRUE,],
+            'readonly' => TRUE, ],
     ];
 
     /**
