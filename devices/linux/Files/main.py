@@ -92,15 +92,15 @@ def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
-def join_with_separator(list: List, separator: str) -> str:
+def join_with_separator(inplist: List, separator: str) -> str:
     """
     Join a list of strings with a separator; if only one element
     return that element unchanged.
     """
-    if len(list) > 1:
-        return separator.join(list)
-    if list:
-        return list[0]
+    if len(inplist) > 1:
+        return separator.join(inplist)
+    if inplist:
+        return inplist[0]
     return ""
 
 debug(sys.version_info.major)
