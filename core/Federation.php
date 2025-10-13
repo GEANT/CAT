@@ -741,7 +741,7 @@ class Federation extends EntityWithDBProperties
             $active = -1;
         } else {
             if ($inactivityOverride == []) {
-                $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'];
+                $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days']*24*3600;
             } else {
                 $inactivityTimestamp = time() - $inactivityOverride[0]['value']*24*3600;
             }

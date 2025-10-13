@@ -114,6 +114,7 @@ class ConfAssistant
         'nomenclature_idp' => 'Identity Provider',
         'nomenclature_hotspot' => 'Service Provider',
         'nomenclature_participant' => 'Organisation',
+        'entitlement' => 'urn:geant:eduroam:inst:admin',
     ];
 
     /** eduPKI options:
@@ -163,7 +164,7 @@ class ConfAssistant
     const PATHS = [
         'makensis' => 'makensis',
         'zip' => 'zip',
-        'trust-store-mozilla' => '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem',
+        'trust-store-mozilla' => '/etc/ssl/certs/ca-certificates.crt',
         'trust-store-custom' => __DIR__ . "/known-roots.pem",
     ];
 
@@ -237,6 +238,18 @@ class ConfAssistant
     const CERT_WARNINGS = [
         'expiry_warning' => 5184000, // 60 days
         'expiry_critical' => 0, //
+    ];
+    
+    /**
+     * 'startday' sets the date from which you started recording admins logins
+     * 'allowed_inactivity_days' the number of allowed inactivity days - above that the warning will
+     *     be shown on the NRO page; be aware that admins who were not active AFTER the date you
+     *     started recording the logins will be shown as inactive, so to be completely OK
+     *     there should be a synchronisation between the moment you start the system, startday and allowed_inactivity_days
+     */
+    const ADMIN_LOGINS = [
+        'startday' => '2030-01-01', // change this to your date 
+        'allowed_inactivity_days' =>  365,
     ];
 
 }
