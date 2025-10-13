@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 10:37+0200\n"
+"POT-Creation-Date: 2025-10-13 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,7 +462,7 @@ msgid "Property Value"
 msgstr ""
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr ""
 
@@ -607,7 +607,7 @@ msgstr ""
 msgid "General Information"
 msgstr ""
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr ""
 
@@ -1448,12 +1448,12 @@ msgid ""
 "%s in the eduroam DB."
 msgstr ""
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1641,69 +1641,69 @@ msgstr ""
 msgid "Participant Details"
 msgstr ""
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:184
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr ""
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr ""
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr ""
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr ""
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:501
 msgid "manage"
 msgstr ""
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:501
 msgid "view"
 msgstr ""
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:520
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:252
+#: web/admin/overview_federation.php:532 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:545
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:562
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:232
+#: web/admin/overview_federation.php:563 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr ""
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:585
 #, php-format
 msgid "Register a new %s!"
 msgstr ""
@@ -1820,8 +1820,8 @@ msgstr ""
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr ""
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr ""
 
@@ -2182,7 +2182,7 @@ msgid ""
 "not set, be aware that realm setting is not used until a VLAN tag is added"
 msgstr ""
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr ""
 
@@ -3124,7 +3124,7 @@ msgstr ""
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr ""
 
@@ -3136,11 +3136,11 @@ msgstr ""
 msgid "file content"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr ""
 
@@ -3516,142 +3516,175 @@ msgid ""
 "on entitlement' set"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:171
-msgid "VLAN for guests"
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:172
-msgid "VLAN for own users"
+#: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
 msgstr ""
 
 #: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:179
+msgid "VLAN for guests"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:180
+msgid "VLAN for own users"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr ""
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr ""
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
 msgstr ""
 
 #: web/lib/admin/Wizard.php:92
