@@ -84,7 +84,6 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * $langScope can be 'global' when all lang and all lang-specific information
      * is dumped or 'single' when only the selected lang (and defaults) are passed
-     * NOTICE: 'global' is not yet supported
      * 
      * @var string
      */
@@ -376,14 +375,65 @@ abstract class DeviceXML extends \core\DeviceConfig
     {
         $attr = $this->attributes;
         if (isset($attr['general:logo_file'][0])) {
-            $logoString = base64_encode($attr['general:logo_file'][0]);
-            $logoMime = 'image/'.$attr['internal:logo_file'][0]['mime'];
+            $rawLogoBlob = $attr['general:logo_file'][0];
+            $logoMime= $attr['internal:logo_file'][0]['mime'];
+            [$scaledBlob, $scaledMime] = $this->scaleLogo($rawLogoBlob, $logoMime);
+            $logoString = base64_encode($scaledBlob);
             $providerlogo = new \core\DeviceXMLmain();
-            $providerlogo->setAttributes(['mime' => $logoMime, 'encoding' => 'base64']);
+            $providerlogo->setAttributes(['mime' => 'image/'.$scaledMime, 'encoding' => 'base64']);
             $providerlogo->setValue($logoString);
             return $providerlogo;
         }
         return NULL;
+    }
+    
+    /**
+     * Scales a logo to the desired byte imag size if necessary.
+     * If the image size is below tha alowed maximum, nothing is done;
+     * if the image is larger than we run a series of scaling iterations to sizes
+     * specified in $maxPixelSize and the moment we manage to end up below the $maxByte
+     * we returm the scaled blob - we always use png as the output format since it seems
+     * to behave best in scaling.
+     * 
+     * @param string $blob the image data
+     * @param string $mime the mime type of the original image
+     * @return array the scaled blob, the resulting mime type
+     */
+    private function scaleLogo($blob, $mime)
+    {
+        $maxByte = 1024*50;
+        $maxPixelSize = [400,300,200,100];
+        // start with the actual file size
+        $logoSize = strlen($blob);
+        \core\common\Logging::debug_s(4, $logoSize, "Logo file size: ", "\n");
+        if ($logoSize <= $maxByte) {
+            return [$blob, $mime];
+        }
+        // resize logo if necessary
+        if (class_exists('\\Gmagick')) { 
+            $imageObject = new \Gmagick(); 
+        } else {
+            $imageObject = new \Imagick();
+        }
+        $imageObject->readImageBlob($blob);       
+        $imageSize = $imageObject->getImageGeometry();
+        \core\common\Logging::debug_s(4, $imageSize, "Input logo pixel size: ","\n");        
+        foreach ($maxPixelSize as $size) {
+            $tmpImage = $imageObject;
+            $tmpImage->setImageFormat('PNG');
+            \core\common\Logging::debug_s(4, $size, "Reducing size to: ", "\n");
+            if ($imageSize['width'] > $imageSize['height']) {
+                $tmpImage->thumbnailImage($size, 0);
+            } else {
+                $tmpImage->thumbnailImage(0, $size);
+            }
+            $outBlob = $tmpImage->getImageBlob();
+            if (strlen($outBlob) <= $maxByte) {
+                break;
+            }
+        }
+        \core\common\Logging::debug_s(4, strlen($outBlob), "Scaled size: ", "\n");
+        return [$outBlob, 'png'];
     }
 
     /**
@@ -532,6 +582,12 @@ abstract class DeviceXML extends \core\DeviceConfig
         $cAlist = [];
         $attrCaList = $attr['internal:CAs'][0];
         foreach ($attrCaList as $ca) {
+            /* possibly we will want to stop sending server certificates in the future
+            if ($ca['full_details']['type'] == 'server') {
+                continue;
+            }
+             * 
+             */
             $caObject = new \core\DeviceXMLmain();
             $caObject->setValue(base64_encode($ca['der']));
             $caObject->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
