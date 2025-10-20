@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 10:16+0200\n"
+"POT-Creation-Date: 2025-10-20 10:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -372,13 +372,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:111
+#: core/Federation.php:118
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:308 core/common/OutsideComm.php:288
+#: core/Federation.php:315 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -391,7 +391,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:323
+#: core/Federation.php:330
 #, php-format
 msgid ""
 "Hi,\n"
@@ -413,7 +413,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:349
+#: core/Federation.php:356
 #, php-format
 msgid ""
 "Hi,\n"
@@ -430,7 +430,7 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:371 core/Federation.php:377
+#: core/Federation.php:378 core/Federation.php:384
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
