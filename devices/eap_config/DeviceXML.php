@@ -410,11 +410,14 @@ abstract class DeviceXML extends \core\DeviceConfig
             return [$blob, $mime];
         }
         // resize logo if necessary
+        /* Gmagic implementation would require method naming changes
         if (class_exists('\\Gmagick')) { 
             $imageObject = new \Gmagick(); 
         } else {
+         * 
+         */
             $imageObject = new \Imagick();
-        }
+//        }
         $imageObject->readImageBlob($blob);       
         $imageSize = $imageObject->getImageGeometry();
         \core\common\Logging::debug_s(4, $imageSize, "Input logo pixel size: ","\n");        
