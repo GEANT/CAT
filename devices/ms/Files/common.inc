@@ -1497,7 +1497,27 @@ Function GetPasswordBasedCredentials
         ${NSD_CreateLabel} 10 66u 60u 22u "<?php WindowsCommon::echoNsis(_("Repeat password:"))?>"
         ${NSD_CreatePassword} 67u 65u 80u 12u "$PASS2"
         Pop $PASS2_F
+        
+		; Adapted from https://nsis.sourceforge.io/NsDialogs_FAQ#How_to_hide.2Fshow_passwords_in_a_Text_Password_control
+
+		${NSD_CreateCheckbox} 10 69u 60u 22u "Show password"
+		Pop $hwnd
+		${NSD_OnClick} $hwnd ShowPassword
+
         nsDialogs::Show
+FunctionEnd
+
+; Show the password
+Function ShowPassword
+	Pop $hwnd
+	${NSD_GetState} $hwnd $0
+	ShowWindow $PASS1 ${SW_HIDE}
+	${If} $0 == 1
+		SendMessage $PASS1 ${EM_SETPASSWORDCHAR} 0 0
+	${Else}
+		SendMessage $PASS1 ${EM_SETPASSWORDCHAR} 42 0
+	${EndIf}
+	ShowWindow $PASS1 ${SW_SHOW}
 FunctionEnd
 
 ; Handle user input
