@@ -469,8 +469,10 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 $adminIcon = '<span style="padding-left:20px"></span>';
                 if (!$hideWarnings) {
                     if (!isset($thefed->adminLogins[$index])) {
-                        $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_MISSING'));
-                        $adminClass = 'adminproblem';
+                        if ($status != \core\IdP::PROFILES_REDIRECTED) {
+                            $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_MISSING'));
+                            $adminClass = 'adminproblem';
+                        }
                     } elseif ($thefed->adminLogins[$index] == 1) {
                         $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_INACTIVE'));
                         $adminClass = 'adminproblem';
