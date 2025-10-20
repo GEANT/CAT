@@ -2,10 +2,18 @@ Changes in 2.2.1
 =====================
 - [FEATURE  #1]  - added logging of last administrator authentication to help eliminating "dead" accounts
 - [FEATURE  #2]  - add display of "last seen" in institution administrators list
-- [FEATURE  #3]  - add logo scaling to eap-config generator
+- [FEATURE  #3]  - add warning icons for inactive/missing institution admins to the NRO management
+- [FEATURE  #4]  - add a federation-level option to block inactive/missing warnings
+- [FEATURE  #5]  - add a federation-level option to customise the length of allowed inactivity period (the default is 365 days)
+- [FEATURE  #6]  - add logo scaling to eap-config generator to reduce the size of eap-config profiles
 - [MODIFICATION #1] - Modify the approach to showing CAT version numbers
 - [MODIFICATION #2] - Modify approach to self-registration based on eduroamBD to eliminate
                       a remote possibility of a impersonification attack
+
+NOTE: Since the logging of admins inactivity will start the moment the new release is installed, the inactivity
+warning will not be displayed until the specified allowed inactivity counted from the installation moment will pass.
+This will obiously delay the detection of admins who have already been inactive for a long time.
+
 
 Changes in 2.2.0
 =====================
