@@ -2,8 +2,9 @@ Changes in 2.2.1
 =====================
 - [FEATURE  #1]  - added logging of last administrator authentication to help eliminating "dead" accounts
 - [FEATURE  #2]  - add display of "last seen" in institution administrators list
+- [FEATURE  #3]  - add logo scaling to eap-config generator
 - [MODIFICATION #1] - Modify the approach to showing CAT version numbers
-- [MODIFICATION #2] - Modify approach to self-registration based on eduroamBD to elliminate
+- [MODIFICATION #2] - Modify approach to self-registration based on eduroamBD to eliminate
                       a remote possibility of a impersonification attack
 
 Changes in 2.2.0
