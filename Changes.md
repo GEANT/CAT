@@ -12,7 +12,7 @@ Changes in 2.2.1
 
 NOTE: Since the logging of admins inactivity will start the moment the new release is installed, the inactivity
 warning will not be displayed until the specified allowed inactivity counted from the installation moment will pass.
-This will obiously delay the detection of admins who have already been inactive for a long time.
+This will obviously delay the detection of admins who have already been inactive for a long time.
 
 
 Changes in 2.2.0
