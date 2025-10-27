@@ -750,7 +750,7 @@ class Federation extends EntityWithDBProperties
             // was not recorded was not actually active within the allowed period
             $active = $inactivityTimestamp - strtotime(\config\ConfAssistant::ADMIN_LOGINS['startday']);
         }
-        $query = "SELECT admin_logins.user_id AS user_id, ownership.institution_id as inst_id, admin_logins.last_login as last_login FROM admin_logins join ownership on admin_logins.user_id=ownership.user_id join institution on ownership.institution_id=institution.inst_id where country=?";
+        $query = "SELECT admin_logins.user_id AS user_id, ownership.institution_id as inst_id, admin_logins.last_login as last_login FROM admin_logins right join ownership on admin_logins.user_id=ownership.user_id join institution on ownership.institution_id=institution.inst_id where country=?";
         $handle = DBConnection::handle("INST"); // we need something from the USER database for a change
         $upperFed = strtoupper($this->tld);
         // SELECT -> resource, not boolean
