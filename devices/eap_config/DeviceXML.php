@@ -378,6 +378,9 @@ abstract class DeviceXML extends \core\DeviceConfig
             $rawLogoBlob = $attr['general:logo_file'][0];
             $logoMime= $attr['internal:logo_file'][0]['mime'];
             [$scaledBlob, $scaledMime] = $this->scaleLogo($rawLogoBlob, $logoMime);
+            if ($scaledMime == 'none') {
+                return NULL;
+            }
             $logoString = base64_encode($scaledBlob);
             $providerlogo = new \core\DeviceXMLmain();
             $providerlogo->setAttributes(['mime' => 'image/'.$scaledMime, 'encoding' => 'base64']);
@@ -418,7 +421,11 @@ abstract class DeviceXML extends \core\DeviceConfig
          */
             $imageObject = new \Imagick();
 //        }
-        $imageObject->readImageBlob($blob);       
+        try {
+            $imageObject->readImageBlob($blob);
+        } catch (Exception $e) {
+            return ['', 'none'];
+        }
         $imageSize = $imageObject->getImageGeometry();
         \core\common\Logging::debug_s(4, $imageSize, "Input logo pixel size: ","\n");        
         foreach ($maxPixelSize as $size) {

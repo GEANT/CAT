@@ -253,10 +253,18 @@ abstract class WindowsCommon extends \core\DeviceConfig
      */
     private function scaleLogo($imagePath, $maxSize)
     {
-        if (class_exists('\\Gmagick')) { 
-            $imageObject = new \Gmagick($imagePath); 
+        if (class_exists('\\Gmagick')) {
+            try {
+                $imageObject = new \Gmagick($imagePath); 
+            } catch (Exception $e) {
+                return NULL;
+            }
         } else {
-            $imageObject = new \Imagick($imagePath);
+            try {
+                $imageObject = new \Imagick($imagePath);
+            } catch (Exception $e) {
+                return NULL;
+            }
         }
         $imageSize = $imageObject->getImageGeometry();
         $imageMax = max($imageSize);
@@ -311,10 +319,16 @@ abstract class WindowsCommon extends \core\DeviceConfig
             $fedLogo = NULL;
         }
         if ($fedLogo != NULL) {
-            $logosToPlace[] = $this->scaleLogo(getcwd()."/".$fedLogo[0]['name'], $maxSize);
+            $scaledLogo = $this->scaleLogo(getcwd()."/".$fedLogo[0]['name'], $maxSize);
+            if ($scaledLogo != NULL) {
+            $logosToPlace[] = $scaledLogo;
+            }
         }
         if ($logos != NULL) {
-            $logosToPlace[] = $this->scaleLogo(getcwd()."/".$logos[0]['name'], $maxSize);
+            $scaledLogo = $this->scaleLogo(getcwd()."/".$logos[0]['name'], $maxSize);
+            if ($scaledLogo != NULL) {
+            $logosToPlace[] = $scaledLogo;
+            }            
         }
 
         $logoCount = count($logosToPlace);
