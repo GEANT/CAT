@@ -9,6 +9,7 @@ Changes in 2.2.1
 - [MODIFICATION #1] - Modify the approach to showing CAT version numbers
 - [MODIFICATION #2] - Modify approach to self-registration based on eduroamBD to eliminate
                       a remote possibility of a impersonification attack
+- [BUGFIX   #1]  - fixed the problem of Windows installer generation when the profile contained an unsupported logo type
 
 NOTE: Since the logging of admins inactivity will start the moment the new release is installed, the inactivity
 warning will not be displayed until the specified allowed inactivity counted from the installation moment will pass.
