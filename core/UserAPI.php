@@ -117,7 +117,7 @@ class UserAPI extends CAT
             }
             $auth->authenticate();
             $userObject = new User($_SESSION['user']);
-            if (!$userObject->isIdPOwner($profile->institution)) {
+            if (!$userObject->isIdPOwner($profile->institution) && !$userObject->isSuperadmin() && !$userObject->isSupport()) {
                 $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
                 header("HTTP/1.0 403 Not Authorized");
                 return FALSE;
