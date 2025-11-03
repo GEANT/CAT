@@ -190,7 +190,7 @@ class Options
         if (isset($this->typeDb[$optionname])) {
             return $this->typeDb[$optionname];
         }
-        throw new Exception("Metadata about an option was requested, but the option name does not exist in the system: " . htmlentities($optionname));
+        return false;
     }
 
     /**

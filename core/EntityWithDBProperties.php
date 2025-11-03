@@ -268,6 +268,9 @@ abstract class EntityWithDBProperties extends \core\common\Entity
         // with SELECTs, we always operate on a resource, not a boolean
         while ($attributeQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $attributeDbExec)) {
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
+            if ($optinfo == false) {
+                continue;
+            }
             $flag = $optinfo['flag'];
             $decoded = $attributeQuery->option_value;
             // file attributes always get base64-decoded.
