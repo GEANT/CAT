@@ -123,7 +123,7 @@ class Options
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         // SELECT -> resource, not boolean
         while ($optionDataQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $options)) {
-            $optionValue = $uiElements->displayName($this->typeDb[$optionDataQuery->name], true);
+            $optionValue = $uiElements->displayName($optionDataQuery->name, true);
             if ($optionValue != false) {
                 $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
             }
