@@ -32,5 +32,5 @@ CREATE TABLE IF NOT EXISTS `admin_logins` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-INSERT INTO `profile_option_dict` VALUES ('fed:max-inactivity', 'custom number of days of allowed admin inactivity', 'integer', NULL);
-INSERT INTO `profile_option_dict` VALUES ('fed:hide-admin-warnings', 'do not show any warnings about missing/inactive admins', 'boolean', NULL);
+INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:max-inactivity', 'custom number of days of allowed admin inactivity', 'integer', NULL);
+INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:hide-admin-warnings', 'do not show any warnings about missing/inactive admins', 'boolean', NULL);

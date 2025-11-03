@@ -117,12 +117,16 @@ class Options
     {
         $this->typeDb = [];
         $this->loggerInstance = new \core\common\Logging();
+        $uiElements = new \web\lib\admin\UIElements();
         $this->loggerInstance->debug(4, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         // SELECT -> resource, not boolean
         while ($optionDataQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $options)) {
-            $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
+            $optionValue = $uiElements->displayName($this->typeDb[$optionDataQuery->name], true);
+            if ($optionValue != false) {
+                $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
+            }
         }
         $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
