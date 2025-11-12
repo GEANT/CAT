@@ -52,9 +52,10 @@ $mgmt = new \core\UserManagement();
 // either the operation is done by federation operator himself
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // or an admin of the IdP with federation admin blessings
+$is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 
 if (isset($_SESSION['entitledIdPs']) && in_array($my_inst->identifier, $_SESSION['entitledIdPs'])) {
-    $is_admin_with_blessing = true;
+        $is_admin_with_blessing = true;
 }
 
 if (isset($_SESSION['resyncedIdPs']) && in_array($my_inst->identifier, $_SESSION['resyncedIdPs'])) {

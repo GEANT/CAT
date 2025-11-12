@@ -1,3 +1,7 @@
+Changes in 2.2.1.1-alpha
+- [BUGFIX   #1] - fixed the problem with Add/Remove adminstrotors for institution admins
+- [BUGFIX   #2] - introduce better type-safety for admin API (reported by: Nahit (Github: https://github.com/Dogru-Isim))
+
 Changes in 2.2.1
 =====================
 - [FEATURE  #1]  - added logging of last administrator authentication to help eliminating "dead" accounts
