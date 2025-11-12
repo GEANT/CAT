@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2024
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2025
 # Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2024\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2025\n"
 "Language-Team: French (France) (http://app.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -990,6 +990,8 @@ msgid ""
 "The invitation link you followed does not map to any invitation we have on "
 "file."
 msgstr ""
+"Le lien d'invitation que vous avez suivi ne correspond à aucune invitation "
+"enregistrée dans nos fichiers."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1327,7 +1329,7 @@ msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
 msgid "11, 10, 8, 7, Vista"
-msgstr ""
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

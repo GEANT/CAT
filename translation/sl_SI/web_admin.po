@@ -20,12 +20,12 @@
 # teja <teja.cetinski@gmail.com>, 2013
 # teja <teja.cetinski@gmail.com>, 2013
 # Tina Trlep <tina.trlep@arnes.si>, 2018
-#: web/lib/admin/Authentication.php:78
+#: web/lib/admin/Authentication.php:91
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Slađana <alkemist@alkemist.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (http://app.transifex.com/eduroam_devel/"
@@ -485,26 +485,26 @@ msgstr "Lastnosti %s"
 #: web/admin/edit_federation.php:86 web/admin/edit_hotspot.php:248
 #: web/admin/edit_participant.php:103 web/admin/edit_silverbullet.php:346
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:71
-#: web/admin/overview_federation.php:151 web/admin/overview_user.php:80
+#: web/admin/overview_federation.php:151 web/admin/overview_user.php:108
 msgid "Property Type"
 msgstr "Vrsta lastnosti"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:249
 #: web/admin/edit_participant.php:104 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:72 web/admin/overview_federation.php:152
-#: web/admin/overview_user.php:81
+#: web/admin/overview_user.php:109
 msgid "Language if applicable"
 msgstr "Jezik, če je ustrezno"
 
 #: web/admin/edit_federation.php:88 web/admin/edit_hotspot.php:250
 #: web/admin/edit_participant.php:105 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:73
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:82
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:110
 msgid "Property Value"
 msgstr "Vrednost lastnosti"
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr "Država:"
 
@@ -657,7 +657,7 @@ msgstr ""
 msgid "General Information"
 msgstr "Splošne informacije"
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr "Lastnosti medijev"
 
@@ -1270,7 +1270,7 @@ msgstr "Upravljanje uporabnikov %s"
 
 #. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:169
+#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:173
 msgid "User"
 msgstr "Uporabnik"
 
@@ -1283,7 +1283,7 @@ msgid "User/Token Expiry"
 msgstr "Potek uporabnika/žetona"
 
 #: web/admin/edit_silverbullet.php:399 web/admin/edit_silverbullet.php:406
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:174
 msgid "Actions"
 msgstr "Dejanja"
 
@@ -1597,13 +1597,13 @@ msgstr ""
 "Potrdil ni mogoče zahtevati, ker v zbirki podatkov eduroam ni podatkov o "
 "strežniku za %s."
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 "Vsaj en profil je popolnoma konfiguriran in viden v uporabniškem vmesniku"
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1629,15 +1629,15 @@ msgstr "Skrij prenose"
 msgid "%s Overview"
 msgstr "Pregled %s"
 
-#: web/admin/overview_federation.php:67 web/admin/overview_user.php:74
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:102
 msgid "Your Personal Information"
 msgstr "Vaši osebni podatki"
 
-#: web/admin/overview_federation.php:78 web/admin/overview_user.php:88
+#: web/admin/overview_federation.php:78 web/admin/overview_user.php:116
 msgid "Unique Identifier"
 msgstr "Edinstveni identifikator"
 
-#: web/admin/overview_federation.php:83 web/admin/overview_user.php:93
+#: web/admin/overview_federation.php:83 web/admin/overview_user.php:121
 msgid "click to display"
 msgstr "kliknite za prikaz"
 
@@ -1697,7 +1697,7 @@ msgstr "Skrbnik"
 msgid "RADIUS/TLS Certificate management"
 msgstr "Upravljanje potrdil RADIUS/TLS"
 
-#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:115
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Sporočilo je bilo poslano preko šifrirane povezave"
@@ -1705,7 +1705,7 @@ msgstr[1] "Sporočila so bila poslana preko šifrirane povezave"
 msgstr[2] "Sporočila so bila poslana preko šifrirane povezave."
 msgstr[3] "Sporočila so bila poslana z varnim prenosom (šifriranjem)."
 
-#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:118
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Sporočilo je bilo poslano preko šifrirane povezave"
@@ -1713,7 +1713,7 @@ msgstr[1] "Sporočila so bila poslana preko šifrirane povezave"
 msgstr[2] "Sporočila so bila poslana preko šifrirane povezave"
 msgstr[3] "Sporočila so bila poslana kot čisto besedilo (brez šifriranja)."
 
-#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:118
+#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:121
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
@@ -1721,7 +1721,7 @@ msgstr ""
 "Podnabor elektronskih sporočil je bil poslan s šifrirano povezavo, ostala pa "
 "kot čisto besedilo."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "E-pošta s povabilom je bila uspešno odposlana."
@@ -1729,19 +1729,19 @@ msgstr[1] "E-pošta s povabili je bila uspešno odposlana."
 msgstr[2] "E-pošta s povabili je bila uspešno odposlana."
 msgstr[3] "Vsa e-poštna vabila so bila uspešno poslana."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "Sent successfully."
 msgstr "Uspešno poslano"
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "No invitation email could be sent!"
 msgstr "Elektronska vabila niso bila poslana."
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "Sending failure!"
 msgstr "Napaka pri pošiljanju."
 
-#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:135
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
@@ -1754,7 +1754,7 @@ msgstr[2] ""
 msgstr[3] ""
 "Uspešno poslana sporočila so bila poslana z varnim prenosom (šifriranjem)."
 
-#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:138
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] ""
@@ -1770,7 +1770,7 @@ msgstr[3] ""
 "Uspešno poslana sporočila so bila poslana kot čisto besedilo (brez "
 "šifriranja)."
 
-#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:141
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1778,7 +1778,7 @@ msgstr ""
 "Podnabor uspešno poslanih elektronskih sporočil je bil poslan s šifrirano "
 "povezavo, ostala pa kot čisto besedilo."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1786,19 +1786,19 @@ msgid ""
 msgstr ""
 "Nekatera e-poštna vabila so bila uspešno poslana (skupaj %s), druga pa ne."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 msgid "Partial success."
 msgstr "Delno uspešno."
 
-#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:149
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "Elektronski naslov je napačen. Vabilo ni bilo poslano."
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Napaka: neznana koda vabila."
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Unknown result!"
 msgstr "Nepoznan rezultat."
 
@@ -1808,7 +1808,7 @@ msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
 "Diagnosticirajte dosegljivost in parametre povezave za kateri koli %s %s"
 
-#: web/admin/overview_federation.php:304 web/admin/overview_user.php:256
+#: web/admin/overview_federation.php:304 web/admin/overview_user.php:286
 msgid "Go!"
 msgstr "Naprej."
 
@@ -1821,69 +1821,69 @@ msgstr "Potrebujete pomoč? Pomagajte si s <a href='%s'>priročnikom za %s</a>"
 msgid "Participant Details"
 msgstr "Podrobnosti udeleženca"
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Naslednji %s so v %s%s:"
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr "Ime %s"
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr "Stanje"
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr "Potrdilo"
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr "Stanje povezave zbirke podatkov %s"
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr "Upravljanje skrbnikov"
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr "Hitro iskanje:"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr "upravljanje"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr "ogled"
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr "Upravljanje povezave baze podatkov"
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:222
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr "Dodaj/odstrani skrbnike"
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Čakajoča vabila v %s:"
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr "Prekliči vabilo"
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:222
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr "(poteče %s)"
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr "Registriraj novega %s."
@@ -2002,8 +2002,8 @@ msgstr "Profil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Vrste EAP</strong> (v prednostnem vrstnem redu):"
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr "V redu"
 
@@ -2384,7 +2384,7 @@ msgstr ""
 "ni nastavljena – upoštevajte, da se nastavitev domene ne uporablja, dokler "
 "ni dodana oznaka VLAN"
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr "Področje, o katerem razmislite za lastne uporabnike"
 
@@ -2627,30 +2627,36 @@ msgstr "Za vaš %s še ni znanih uvedb."
 msgid "%s: User Management"
 msgstr "%s: Upravljanje uporabnikov"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:77
+msgid ""
+"Something went wrong with institution creation. Please contact your "
+"federation administrator."
+msgstr ""
+
+#: web/admin/overview_user.php:98
 msgid "User Overview"
 msgstr "Pregled uporabnikov"
 
-#: web/admin/overview_user.php:101
+#: web/admin/overview_user.php:131
 msgid "Edit User Details"
 msgstr "Uredi podrobnosti uporabnika"
 
-#: web/admin/overview_user.php:105
+#: web/admin/overview_user.php:135
 #, php-format
 msgid "Click here for %s management tasks"
 msgstr "Kliknite tukaj za naloge upravljanja %s"
 
-#: web/admin/overview_user.php:108
+#: web/admin/overview_user.php:138
 msgid "Click here to access the superadmin page"
 msgstr "Kliknite tukaj za dostop do strani nadskrbnika"
 
-#: web/admin/overview_user.php:121
+#: web/admin/overview_user.php:151
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr "(Potrebujete pomoč? Glejte <a href='%s'>priročnik za skrbnike %s</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:160
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
@@ -2659,31 +2665,31 @@ msgstr[1] "Upravljate naslednje <span style='display:none'>%d</span>%s :"
 msgstr[2] "Upravljate naslednje <strong>%d</strong> %s:"
 msgstr[3] "Upravljate naslednje <strong>%d</strong>%s:"
 
-#: web/admin/overview_user.php:152
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "%s Management Overview"
 msgstr "Pregled upravljanja %s"
 
-#: web/admin/overview_user.php:155
+#: web/admin/overview_user.php:185
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Drugi skrbniki za ta %s"
 
-#: web/admin/overview_user.php:158
+#: web/admin/overview_user.php:188
 msgid "Management"
 msgstr "Upravljanje"
 
-#: web/admin/overview_user.php:165
+#: web/admin/overview_user.php:195
 msgid "Danger Zone"
 msgstr "Nevarno območje"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:177
+#: web/admin/overview_user.php:207
 #, php-format
 msgid "%s %s: %s list"
 msgstr "Seznam %s%s: %s"
 
-#: web/admin/overview_user.php:215
+#: web/admin/overview_user.php:245
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
@@ -2692,7 +2698,7 @@ msgstr[1] "You and %d other users"
 msgstr[2] "You and %d other users"
 msgstr[3] "Vi in še toliko drugih uporabnikov: %d"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -2701,17 +2707,17 @@ msgstr ""
 "Ko izbrišete %s, ga ne morete ponovno ustvariti sami. Potrebujete nov žeton "
 "vabila, ki vam ga bo poslal skrbnik za %s."
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "Ali ste prepričani, da želite izbrisati svoj %s%s?"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Izbriši %s"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -2721,37 +2727,33 @@ msgstr ""
 "S tem dejanjem boste izbrisali vse lastnosti %s in vzpostavili konfiguracijo "
 "od začetka. Ali res želite ponastaviti vse nastavitve za %s%s?"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Ponastavi vse nastavitve %s"
 
-#: web/admin/overview_user.php:244
+#: web/admin/overview_user.php:274
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Ne upravljate nobenega %s."
 
-#: web/admin/overview_user.php:249
+#: web/admin/overview_user.php:279
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr "Svojega skrbnika za %s prosite, da vas povabi kot skrbnika za %s."
 
-#: web/admin/overview_user.php:253
+#: web/admin/overview_user.php:283
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
 "Ali ste prejeli žeton vabila za upravljanje %s? Prilepite ga na to mesto:"
 
-#: web/admin/overview_user.php:268
-msgid "We have automatically added you to the following organisations:"
-msgstr "Samodejno smo vas dodali v naslednje organizacije:"
-
-#: web/admin/overview_user.php:269
+#: web/admin/overview_user.php:298
 msgid ""
-"We have added the organisations to your profile since your mail is listed as "
-"their administrator in the eduroam database.\n"
+"You can add organisations to your profile since your mail is listed as their "
+"administrator in the eduroam database.\n"
 "                            There may be several reasons why you are seeing "
 "this, for instance:\n"
 "                            <ul>\n"
@@ -2764,24 +2766,26 @@ msgid ""
 "                            <li>your IdP has changed it's behaviour, for "
 "instance it was previously sending the eduPersonTargetedId attribute but now "
 "it is only sending pairwise-id\n"
-"                            </ul>"
+"                            </ul>\n"
+"                            If you accept then invitation tokens will be "
+"automatically sent to your email address."
 msgstr ""
-"Organizacije smo dodali v vaš profil, saj je vaš e-naslov naveden kot njihov "
-"skrbnik v bazi podatkov eduroam..\n"
-"                            Za to lahko obstaja več razlogov, na primer:\n"
-"                            <ul>\n"
-"                            <li>vaš e-poštni naslov je bil dodan kot skrbnik "
-"institucij, ki jih prej niste upravljali\n"
-"                            <li>prijavili ste se prek računa v drugem IdP, "
-"vendar je vrnjeni e-poštni naslov enak kot prej\n"
-"                            <li>vaš IdP je bil spremenjen in ima zdaj "
-"drugačen entityId\n"
-"                            <li>vaš IdP je spremenil svoje delovanje, na "
-"primer prej je pošiljal atribut eduPersonTargetedId, zdaj pa pošilja samo "
-"pairwise-id\n"
-"                            </ul>"
 
-#: web/admin/overview_user.php:284
+#: web/admin/overview_user.php:309
+msgid ""
+"According to the information obtained from your login attributes, you are "
+"entitled to be the administrator of the following CAT institutions:"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Send token"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Token sent"
+msgstr ""
+
+#: web/admin/overview_user.php:337
 msgid ""
 "The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
@@ -2789,15 +2793,7 @@ msgstr ""
 "Podatkovna baza eduroam navaja, da ste skrbnik naslednjih institucij, vendar "
 "v sistemu CAT ni ustreznih institucij."
 
-#: web/admin/overview_user.php:301
-msgid "Proceed with creating the CAT IdP?"
-msgstr "Ali želite nadaljevati z ustvarjanjem IdP v CAT?"
-
-#: web/admin/overview_user.php:301
-msgid "create CAT profile for this institution"
-msgstr "ustvari profil CAT za to institucijo"
-
-#: web/admin/overview_user.php:309
+#: web/admin/overview_user.php:365
 msgid ""
 "According to the information obtained from your login attributes, you are "
 "entitled to be the administrator of the following CAT institutions:<p>"
@@ -2805,11 +2801,11 @@ msgstr ""
 "Glede na podatke iz vaših prijavnih atributov ste pooblaščeni za skrbnika "
 "naslednjih institucij v CAT:<p>"
 
-#: web/admin/overview_user.php:324
+#: web/admin/overview_user.php:380
 msgid "take control"
 msgstr "prevzemi nadzor"
 
-#: web/admin/overview_user.php:337
+#: web/admin/overview_user.php:393
 #, php-format
 msgid "New %s Registration"
 msgstr "Nova registracija %s"
@@ -2875,7 +2871,7 @@ msgstr ""
 msgid "Invitation Token QR Code"
 msgstr "QR koda žetona vabila"
 
-#: web/admin/inc/manageAdmins.inc.php:63
+#: web/admin/inc/manageAdmins.inc.php:66
 #, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
@@ -2884,12 +2880,12 @@ msgstr ""
 "Nimate potrebnih privilegijev za spreminjanje skrbnikov tega %s. Pravzaprav "
 "sploh ne bi smeli priti tako daleč."
 
-#: web/admin/inc/manageAdmins.inc.php:97
+#: web/admin/inc/manageAdmins.inc.php:100
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Skrbniki za ponudnika identitete '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2898,12 +2894,12 @@ msgstr ""
 "Ste skrbnik za %s. Povabite lahko nove skrbnike, ki lahko samostojno "
 "določijo nove skrbnike."
 
-#: web/admin/inc/manageAdmins.inc.php:156 web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageAdmins.inc.php:159 web/lib/admin/UIElements.php:124
 #, php-format
 msgid "%s Administrator"
 msgstr "Skrbnik za %s"
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2913,45 +2909,49 @@ msgstr ""
 "Ste skrbnik, ki ga je neposredno imenoval skrbnik za %s. Dodate lahko nove "
 "skrbnike, vendar ti ne morejo dodajati novih skrbnikov."
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 msgid "Directly Appointed Administrator"
 msgstr "Neposredno imenovan skrbnik"
 
-#: web/admin/inc/manageAdmins.inc.php:180
+#: web/admin/inc/manageAdmins.inc.php:185
 msgid "User without name"
 msgstr "Uporabnik brez imena"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:188
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(izvirno povabljen kot %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:185
+#: web/admin/inc/manageAdmins.inc.php:190
 msgid "(self-appointed)"
 msgstr "(lastnoročno imenovan)"
 
-#: web/admin/inc/manageAdmins.inc.php:197
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Last seen: "
+msgstr ""
+
+#: web/admin/inc/manageAdmins.inc.php:207
 msgid "Delete Administrator"
 msgstr "Izbriši skrbnika"
 
-#: web/admin/inc/manageAdmins.inc.php:219
+#: web/admin/inc/manageAdmins.inc.php:229
 msgid "Pending invitations for this IdP"
 msgstr "Čakajoča vabila za tega ponudnika identitete"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Novi elektronski naslovi skrbnikov (razmejeni z vejico):"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "Invite new administrator"
 msgstr "Povabi novega skrbnika"
 
-#: web/admin/inc/manageAdmins.inc.php:244
+#: web/admin/inc/manageAdmins.inc.php:256
 #, php-format
 msgid "Take control of this %s"
 msgstr "Prevzemite nadzor nad tem %s"
 
-#: web/admin/inc/manageAdmins.inc.php:251
+#: web/admin/inc/manageAdmins.inc.php:263
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:150
 msgid "Close"
@@ -2995,7 +2995,7 @@ msgstr "Informacije v <strong>bazi podatkov %s</strong>"
 msgid "%s Name (%s)"
 msgstr "Ime %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:77
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr "Neimenovan uporabnik"
 
@@ -3199,7 +3199,7 @@ msgstr "Veljavno uporabniško ime in področje RADIUS:"
 msgid "Detect root CA"
 msgstr "Odkrij korenskega overitelja potrdil"
 
-#: web/admin/inc/sendinvite.inc.php:116
+#: web/admin/inc/sendinvite.inc.php:128
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -3420,7 +3420,7 @@ msgstr "Preberite navodila v wikiju."
 msgid "select language"
 msgstr "izberite jezik"
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr "privzeti/drugi jeziki"
 
@@ -3432,11 +3432,11 @@ msgstr "(privzeti/drugi jezik(i))"
 msgid "file content"
 msgstr "vsebina datoteke"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr "vklopljeno"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr "izklopljeno"
 
@@ -3840,61 +3840,82 @@ msgstr ""
 "privzeta vrednost geant:eduroam:inst:admin. Ta možnost je smiselna samo, če "
 "imate omogočeno 'Samopostrežno registracijo na podlagi pooblastil'."
 
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
+msgstr ""
+
 #: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:179
 msgid "VLAN for guests"
 msgstr "VLAN za goste"
 
-#: web/lib/admin/UIElements.php:172
+#: web/lib/admin/UIElements.php:180
 msgid "VLAN for own users"
 msgstr "VLAN za lastne uporabnike"
 
-#: web/lib/admin/UIElements.php:174
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr "Atribut Operator-Name po meri"
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr "Splošne nastavitve za %s"
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr "Splošne podrobnosti službe za pomoč uporabnikom"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Pri pridobivanju potrdila iz baze podatkov je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr "Pri obdelavi potrdila je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr "Korenski overitelj potrdil."
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr "Vmesni overitelj potrdil"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "To je potrdilo <strong>STREŽNIKA</strong>."
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr "več informacij"
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr "Potrdilo je poteklo."
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr "Potrdilo bo kmalu poteklo."
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
@@ -3902,83 +3923,95 @@ msgstr ""
 "Neustrezno korensko potrdilo, manjka zahtevana ključna razširitev overitelja "
 "potrdil, ne bo zanesljivo nameščeno."
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr "Predogled datoteke logotipa"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Pri pridobivanju datoteke iz baze podatkov je prišlo do napake."
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr "Datoteka obstaja"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr "Predogled"
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr "Opomba"
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr "Opozorilo!"
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr "Napaka!"
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr "Vsa potrdila so veljavna dovolj dolgo"
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr "Vsaj eno potrdilo bo kmalu poteklo"
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr "Vsaj eno potrdilo je že poteklo ali pa bo kmalu poteklo"
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr "Videti je, da je funkcija OpenRoaming konfigurirana pravilno"
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr "Konfiguracija funkcije OpenRoaming ima nekaj manjših težav"
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr "Konfiguracija funkcije OpenRoaming ima nekaj težav srednje stopnje"
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr "Konfiguracija funkcije OpenRoaming ima nekaj kritičnih težav"
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr "Ni konfiguriranih profilov"
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr "Vsi aktivni profili so preusmerjeni"
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr "Povezana"
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr "Nepovezana"
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
 msgstr "Brez prikaza podatkov o potrdilih, če noben profil ni viden"
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
+msgstr ""
 
 #: web/lib/admin/Wizard.php:92
 msgid "Click to open the help window"

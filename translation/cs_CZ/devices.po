@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, "
 "2013,2015-2019,2022-2023\n"
@@ -474,7 +474,7 @@ msgstr ""
 "a>. Potom použijte tlačítko \"Importovat soubor ONC '. Import je bez "
 "upozornění; nové definice sítě budou přidány do preferovaných sítí."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -483,7 +483,7 @@ msgstr ""
 "Tohle je všeobecná konfigurace ve formátu XML  IETF <a href='%s'>EAP "
 "Metadata -00</a>."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Přečetl jsem si a souhlasím s podmínkami použití OpenRoaming na %s."
@@ -834,7 +834,7 @@ msgstr ""
 "vaší podpory, jak na to. Soubor s certifikátem je obvykle chráněný heslem, "
 "mějte jej prosím při instalaci k dispozici."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instalační program %s pro organizaci %s"

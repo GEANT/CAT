@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2024
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2025
 # Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2018-2019
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
-"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2024\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2019-2025\n"
 "Language-Team: French (France) (http://app.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -498,7 +498,7 @@ msgstr ""
 "fichier ONC\". L'importation est silencieuse ; les nouvelles définitions de "
 "réseau seront ajoutées aux réseaux préférés."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -507,7 +507,7 @@ msgstr ""
 "Ceci est un fichier de configuration au format XML  <a href='%s'>EAP "
 "Metadata -00</a> de l'IETF."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr ""
@@ -615,7 +615,7 @@ msgstr "les mots de passe ne correspondent pas"
 
 #: devices/linux/DeviceLinux.php:135
 msgid "one of the fields was empty"
-msgstr ""
+msgstr "l'un des champs était vide"
 
 #: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
@@ -675,6 +675,10 @@ msgid ""
 "file if you wish. Be warned that your connection password will be saved in "
 "this file as clear text."
 msgstr ""
+"Module DBus introuvable - veuillez installer dbus-python ! La configuration "
+"de NetworkManager a échoué, mais nous pouvons générer un fichier de "
+"configuration wpa_supplicant si vous le souhaitez. Attention, votre mot de "
+"passe de connexion sera enregistré dans ce fichier en texte clair."
 
 #: devices/linux/DeviceLinux.php:150 devices/linux/DeviceLinuxSh.php:149
 msgid "Write the file"
@@ -872,7 +876,7 @@ msgstr ""
 "passe. Vous devrez donc avoir auprès de vous le fichier et le mot de passe "
 "pendant le processus d'installation."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s installateur pour %s"

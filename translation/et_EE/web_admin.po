@@ -6,12 +6,12 @@
 # Anne M <anne@eenet.ee>, 2018
 # Anne M <anne@eenet.ee>, 2018-2019,2021-2025
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2023
-#: web/lib/admin/Authentication.php:78
+#: web/lib/admin/Authentication.php:91
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2021-2025\n"
 "Language-Team: Estonian (Estonia) (http://app.transifex.com/eduroam_devel/"
@@ -471,26 +471,26 @@ msgstr "%s Atribuudid"
 #: web/admin/edit_federation.php:86 web/admin/edit_hotspot.php:248
 #: web/admin/edit_participant.php:103 web/admin/edit_silverbullet.php:346
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:71
-#: web/admin/overview_federation.php:151 web/admin/overview_user.php:80
+#: web/admin/overview_federation.php:151 web/admin/overview_user.php:108
 msgid "Property Type"
 msgstr "Atribuudi tüüp"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:249
 #: web/admin/edit_participant.php:104 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:72 web/admin/overview_federation.php:152
-#: web/admin/overview_user.php:81
+#: web/admin/overview_user.php:109
 msgid "Language if applicable"
 msgstr "Keel (kui rakendub)"
 
 #: web/admin/edit_federation.php:88 web/admin/edit_hotspot.php:250
 #: web/admin/edit_participant.php:105 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:73
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:82
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:110
 msgid "Property Value"
 msgstr "Atribuudi väärtus"
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr "Riik:"
 
@@ -640,7 +640,7 @@ msgstr ""
 msgid "General Information"
 msgstr "Üldteave"
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr "Meedia atribuudid"
 
@@ -1233,7 +1233,7 @@ msgstr "Halda kasutajaid (%s)"
 
 #. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:169
+#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:173
 msgid "User"
 msgstr "Kasutaja"
 
@@ -1246,7 +1246,7 @@ msgid "User/Token Expiry"
 msgstr "Kasutaja/Koodi aegumine"
 
 #: web/admin/edit_silverbullet.php:399 web/admin/edit_silverbullet.php:406
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:174
 msgid "Actions"
 msgstr "Tegevused"
 
@@ -1552,13 +1552,13 @@ msgstr ""
 "Sa ei saa sertifikaate taotleda: %s - eduroami andmebaas ei sisalda selle "
 "kohta serveriinfot."
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 "Vähemalt üks profiil on täielikult seadistatud ja kasutajaliideses nähtav"
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1584,15 +1584,15 @@ msgstr "Peida allalaadimised"
 msgid "%s Overview"
 msgstr "%s ülevaade"
 
-#: web/admin/overview_federation.php:67 web/admin/overview_user.php:74
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:102
 msgid "Your Personal Information"
 msgstr "Sinu isiklikud andmed"
 
-#: web/admin/overview_federation.php:78 web/admin/overview_user.php:88
+#: web/admin/overview_federation.php:78 web/admin/overview_user.php:116
 msgid "Unique Identifier"
 msgstr "Unikaalne identifikaator"
 
-#: web/admin/overview_federation.php:83 web/admin/overview_user.php:93
+#: web/admin/overview_federation.php:83 web/admin/overview_user.php:121
 msgid "click to display"
 msgstr "klõpsa nägemiseks"
 
@@ -1652,62 +1652,62 @@ msgstr "Admin"
 msgid "RADIUS/TLS Certificate management"
 msgstr "RADIUS/TLS sertifikaadihaldus"
 
-#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:115
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "See saadeti turvaliselt (krüpteeritult)."
 msgstr[1] "Need saadeti turvaliselt (krüpteeritult)."
 
-#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:118
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "See saadeti avatekstina (krüpteerimata)."
 msgstr[1] "Need saadeti avatekstina (krüpteerimata)."
 
-#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:118
+#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:121
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
 msgstr "Osa kirju saadeti turvaliselt (krüpteeritult), ülejäänud avatekstina."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Kutse saadeti välja."
 msgstr[1] "Kutsed saadeti välja."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "Sent successfully."
 msgstr "Saadetud."
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "No invitation email could be sent!"
 msgstr "Kutseid ei saanud saata!"
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "Sending failure!"
 msgstr "Viga saatmisel!"
 
-#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:135
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] "See, mille saatmine õnnestus, saadeti turvaliselt (krüpteeritult)."
 msgstr[1] "Need, mille saatmine õnnestus, saadeti turvaliselt (krüpteeritult)."
 
-#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:138
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "See, mille saatmine õnnestus, saadeti avatekstina (krüpteerimata)."
 msgstr[1] "Need, mille saatmine õnnestus, saadeti avatekstina (krüpteerimata)."
 
-#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:141
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
 msgstr "Osa kirju saadeti turvaliselt (krüpteeritult), ülejäänud avatekstina."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1715,19 +1715,19 @@ msgid ""
 msgstr ""
 "Osade kutsete saatmine õnnestus (kokku %s), ülejäänute puhul tekkis viga."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 msgid "Partial success."
 msgstr "Saatmine õnnestus osaliselt."
 
-#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:149
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "Kutse e-postiaadress oli vigane. Kutset ei saadetud!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Viga: kutsel on tundmatu tulemuskood!?!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Unknown result!"
 msgstr "Tundmatu tulemus!"
 
@@ -1736,7 +1736,7 @@ msgstr "Tundmatu tulemus!"
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Diagnoosi kättesaadavust ning ühendusparameetreid: %s %s"
 
-#: web/admin/overview_federation.php:304 web/admin/overview_user.php:256
+#: web/admin/overview_federation.php:304 web/admin/overview_user.php:286
 msgid "Go!"
 msgstr "Jätka!"
 
@@ -1749,69 +1749,69 @@ msgstr "Vajad abi! Kasuta <a href='%s'>%s juhendit</a>"
 msgid "Participant Details"
 msgstr "Osaleja üksikasjad"
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Järgnevad %s on sinu %s %s:"
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr "%s nimi"
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr "Olek"
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr "Cert"
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr "%s Andmebaasilingi olek"
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr "Administraatori haldamine"
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr "Kiirotsing:"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr "halda"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr "vaata"
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr "Halda andmebaasilinki"
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:222
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr "Lisa/Eemalda administraatoreid"
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Ootel kutseid %s-s:"
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr "Tühista kutse"
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:222
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr "(aegub %s)"
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr "Registreeri uus %s!"
@@ -1930,8 +1930,8 @@ msgstr "Profiil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tüübid</strong> (eelistamise järjekorras):"
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr "OK"
 
@@ -2315,7 +2315,7 @@ msgstr ""
 "ei ole seadistatud; arvesta, et domeeni seadistust ei kasutata kuni VLAN on "
 "lisatud"
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr "Domeen, mille kasutajad on omad"
 
@@ -2556,68 +2556,74 @@ msgstr "%s jaoks ei ole veel profiile olemas."
 msgid "%s: User Management"
 msgstr "%s: Kasutajate haldamine"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:77
+msgid ""
+"Something went wrong with institution creation. Please contact your "
+"federation administrator."
+msgstr ""
+
+#: web/admin/overview_user.php:98
 msgid "User Overview"
 msgstr "Kasutajate ülevaade"
 
-#: web/admin/overview_user.php:101
+#: web/admin/overview_user.php:131
 msgid "Edit User Details"
 msgstr "Muuda kasutaja andmeid"
 
-#: web/admin/overview_user.php:105
+#: web/admin/overview_user.php:135
 #, php-format
 msgid "Click here for %s management tasks"
 msgstr "Klõpsa siia %s haldamiseks"
 
-#: web/admin/overview_user.php:108
+#: web/admin/overview_user.php:138
 msgid "Click here to access the superadmin page"
 msgstr "Superadmini lehele pääsemiseks klõpsa siia"
 
-#: web/admin/overview_user.php:121
+#: web/admin/overview_user.php:151
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr "(Vajad abi? Kasuta <a href='%s'>%s administraatori juhendit</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:160
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Sa haldad <span style='display:none'>%d </span>%st:"
 msgstr[1] "Sa haldad <strong>%d</strong> %st:"
 
-#: web/admin/overview_user.php:152
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "%s Management Overview"
 msgstr "%s - haldamise ülevaade"
 
-#: web/admin/overview_user.php:155
+#: web/admin/overview_user.php:185
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Teised %s administraatorid"
 
-#: web/admin/overview_user.php:158
+#: web/admin/overview_user.php:188
 msgid "Management"
 msgstr "Haldamine"
 
-#: web/admin/overview_user.php:165
+#: web/admin/overview_user.php:195
 msgid "Danger Zone"
 msgstr "Ohutsoon"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:177
+#: web/admin/overview_user.php:207
 #, php-format
 msgid "%s %s: %s list"
 msgstr "%s %s: %s nimekiri"
 
-#: web/admin/overview_user.php:215
+#: web/admin/overview_user.php:245
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
 msgstr[0] "Sina ja veel %d kasutaja"
 msgstr[1] "Sina ja veel %d kasutajat"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -2626,17 +2632,17 @@ msgstr ""
 "Pärast %s kustutamist ei saa Sa seda ise taasluua, vaid vajad esmalt uut "
 "kutse koodi %s administraatorilt."
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "%s %s - kas Sa soovid selle tõesti kustutada?"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Kustuta %s"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -2646,17 +2652,17 @@ msgstr ""
 "Toiming kustutab kõik %s väärtused ja alustab seadistamist nullist. Kas Sa "
 "soovid tõesti kõiki seadistusi (%s%s) lähtestada?"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Lähtesta kõik %s seadistused"
 
-#: web/admin/overview_user.php:244
+#: web/admin/overview_user.php:274
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Ükski %s ei ole Sinu halduses."
 
-#: web/admin/overview_user.php:249
+#: web/admin/overview_user.php:279
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2664,20 +2670,16 @@ msgstr ""
 "Palun lase oma %s administraatoril saata kutse %s administraatoriks "
 "saamiseks."
 
-#: web/admin/overview_user.php:253
+#: web/admin/overview_user.php:283
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr "Kas Sa said %s haldamiseks kutse koodi? Palun sisesta see siia: "
 
-#: web/admin/overview_user.php:268
-msgid "We have automatically added you to the following organisations:"
-msgstr "Liitsime Su automaatselt järgmiste asutustega:"
-
-#: web/admin/overview_user.php:269
+#: web/admin/overview_user.php:298
 msgid ""
-"We have added the organisations to your profile since your mail is listed as "
-"their administrator in the eduroam database.\n"
+"You can add organisations to your profile since your mail is listed as their "
+"administrator in the eduroam database.\n"
 "                            There may be several reasons why you are seeing "
 "this, for instance:\n"
 "                            <ul>\n"
@@ -2690,24 +2692,26 @@ msgid ""
 "                            <li>your IdP has changed it's behaviour, for "
 "instance it was previously sending the eduPersonTargetedId attribute but now "
 "it is only sending pairwise-id\n"
-"                            </ul>"
+"                            </ul>\n"
+"                            If you accept then invitation tokens will be "
+"automatically sent to your email address."
 msgstr ""
-"Liitsime Su profiilile asutused, kuna Su e-postiaadress on eduroami "
-"andmebaasis kirjas nende administraatorina.\n"
-"                            Võib olla mitmeid põhjusi, miks seda näed. "
-"Näiteks:\n"
-"                            <ul>\n"
-"                            <li>Su e-postiaadress on lisatud "
-"administraatoriks asutustele, mida Sa varem ei hallanud\n"
-"                            <li>logisid sisse teise IdP all oleva kontoga, "
-"aga e-postiaadress on varasemaga sama\n"
-"                            <li>Su IdP-l on uus entityId\n"
-"                            <li>Su IdP toimimine on muutunud, näiteks saatis "
-"see varem ainult eduPersonTargetedId atribuuti, kuid praegu saadab vaid "
-"pairwise-id\n"
-"                            </ul>"
 
-#: web/admin/overview_user.php:284
+#: web/admin/overview_user.php:309
+msgid ""
+"According to the information obtained from your login attributes, you are "
+"entitled to be the administrator of the following CAT institutions:"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Send token"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Token sent"
+msgstr ""
+
+#: web/admin/overview_user.php:337
 msgid ""
 "The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
@@ -2715,15 +2719,7 @@ msgstr ""
 "eduroami andmebaasi kohaselt oled järgmiste asutuste administraator, kuid "
 "CATis ei paista olevat vastavat asutust."
 
-#: web/admin/overview_user.php:301
-msgid "Proceed with creating the CAT IdP?"
-msgstr "Kas jätkata CAT IdP loomist?"
-
-#: web/admin/overview_user.php:301
-msgid "create CAT profile for this institution"
-msgstr "Loo selle asutuse CAT profiil"
-
-#: web/admin/overview_user.php:309
+#: web/admin/overview_user.php:365
 msgid ""
 "According to the information obtained from your login attributes, you are "
 "entitled to be the administrator of the following CAT institutions:<p>"
@@ -2731,11 +2727,11 @@ msgstr ""
 "Su logimisandmete kohaselt omad administraatoriõigusi järgmiste CAT asutuste "
 "jaoks: <p>"
 
-#: web/admin/overview_user.php:324
+#: web/admin/overview_user.php:380
 msgid "take control"
 msgstr "kontrolli haarama"
 
-#: web/admin/overview_user.php:337
+#: web/admin/overview_user.php:393
 #, php-format
 msgid "New %s Registration"
 msgstr "Uue %s registreerimine"
@@ -2801,7 +2797,7 @@ msgstr ""
 msgid "Invitation Token QR Code"
 msgstr "Kutse koodi QR-kood"
 
-#: web/admin/inc/manageAdmins.inc.php:63
+#: web/admin/inc/manageAdmins.inc.php:66
 #, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
@@ -2810,12 +2806,12 @@ msgstr ""
 "Sul ei ole vajalikku õigusi, et muuta selle %s administraatoreid. "
 "Õigupoolest ei oleks Sa pidanud siia jõudmagi."
 
-#: web/admin/inc/manageAdmins.inc.php:97
+#: web/admin/inc/manageAdmins.inc.php:100
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "'%s' IdP administraatorid"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2824,12 +2820,12 @@ msgstr ""
 "Sa oled %s administraator. Sa saad juurde kutsuda uusi administraatoreid, "
 "kes saavad omakorda ise uusi administraatoreid määrata."
 
-#: web/admin/inc/manageAdmins.inc.php:156 web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageAdmins.inc.php:159 web/lib/admin/UIElements.php:124
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Administraator"
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2839,45 +2835,49 @@ msgstr ""
 "Sa oled administraator, kelle määras %s administraator. Sa saad määrata uusi "
 "administraatoreid, kes ise ei saa enam uusi administraatoreid määrata."
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 msgid "Directly Appointed Administrator"
 msgstr "Otseselt määratud administraator"
 
-#: web/admin/inc/manageAdmins.inc.php:180
+#: web/admin/inc/manageAdmins.inc.php:185
 msgid "User without name"
 msgstr "Nimetu kasutaja"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:188
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(algselt kutsutud kui %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:185
+#: web/admin/inc/manageAdmins.inc.php:190
 msgid "(self-appointed)"
 msgstr "(ise määratud)"
 
-#: web/admin/inc/manageAdmins.inc.php:197
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Last seen: "
+msgstr ""
+
+#: web/admin/inc/manageAdmins.inc.php:207
 msgid "Delete Administrator"
 msgstr "Kustuta Administraator"
 
-#: web/admin/inc/manageAdmins.inc.php:219
+#: web/admin/inc/manageAdmins.inc.php:229
 msgid "Pending invitations for this IdP"
 msgstr "Selle IdP ootelolevad kutsed"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Uu(t)e administraatori(te) e-posti aadress(id, komaga eraldatud):"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "Invite new administrator"
 msgstr "Kutsu uus administraator"
 
-#: web/admin/inc/manageAdmins.inc.php:244
+#: web/admin/inc/manageAdmins.inc.php:256
 #, php-format
 msgid "Take control of this %s"
 msgstr "Võta üle selle %s haldamine"
 
-#: web/admin/inc/manageAdmins.inc.php:251
+#: web/admin/inc/manageAdmins.inc.php:263
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:150
 msgid "Close"
@@ -2919,7 +2919,7 @@ msgstr "Teave <strong>%s andmebaasis</strong>"
 msgid "%s Name (%s)"
 msgstr "%s nimi (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:77
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr "Määramata kasutaja"
 
@@ -3124,7 +3124,7 @@ msgstr "Kehtivad RADIUSe kasutajanimi ja domeen:"
 msgid "Detect root CA"
 msgstr "Juursertifikaadi tuvastamine"
 
-#: web/admin/inc/sendinvite.inc.php:116
+#: web/admin/inc/sendinvite.inc.php:128
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -3342,7 +3342,7 @@ msgstr "Loe juhendeid vikis."
 msgid "select language"
 msgstr "vali keel"
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr "vaikimisi/muud keeled"
 
@@ -3354,11 +3354,11 @@ msgstr "(vaikimisi/muud keeled)"
 msgid "file content"
 msgstr "faili sisu"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr "aktiivne"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr "mitteaktiivne"
 
@@ -3758,61 +3758,82 @@ msgstr ""
 "vaikimisiväärtust: geant:eduroam:inst:admin. Sel valikul on mõtet ainult "
 "juhul, kui on seadistatud 'Iseregistreerimine vastavalt õigustele'"
 
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
+msgstr ""
+
 #: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:179
 msgid "VLAN for guests"
 msgstr "Külaliste VLAN"
 
-#: web/lib/admin/UIElements.php:172
+#: web/lib/admin/UIElements.php:180
 msgid "VLAN for own users"
 msgstr "Oma kasutajate VLAN"
 
-#: web/lib/admin/UIElements.php:174
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr "Kohandatud operaatorinime atribuut"
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr "%s üldandmed"
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr "Ülemaailmse kasutajatoe andmed"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Viga sertifikaadi võtmisel andmebaasist!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr "Viga sertifikaadi töötlemisel!"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr "Juursertifikaat"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr "Vahesertifikaat"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "See on <strong>SERVERI</strong> sertifikaat!"
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr "lisateave"
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr "Sertifikaat on aegunud!"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr "Sertifikaat aegub peagi!"
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
@@ -3820,83 +3841,95 @@ msgstr ""
 "Mittesobiv juursertifikatt, nõutud kriitiline CA laiend on puudub, "
 "usaldatavat paigaldamist ei toimu!"
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr "Logo faili eelvaade"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Viga faili võtmisel andmebaasist!"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr "Fail on olemas"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr "Eelvaade"
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr "Märkus"
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr "Hoiatus!"
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr "Viga!"
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr "Kõik sertifikaadid on piisavalt kaua kehtivad"
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr "Vähemalt üks sertifikaat aegub peagi"
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr "Vähemalt üks sertifikaat on kas aegunud või aegub peagi"
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr "OpenRoaming on õigesti seadistatud"
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr "On mõned väiksemad OpenRoamingu seadistamisprobleemid"
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr "On mõned keskmised OpenRoamingu seadistamisprobleemid"
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr "On mõned kriitilised OpenRoamingu seadistamisprobleemid"
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr "Profiile ei ole seadistatud"
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr "Kõik aktiivsed profiilid on ümber suunatud"
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr "Lingitud"
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr "EI ole lingitud"
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
 msgstr "Sertifikaaditeavet ei näidata, kui profiile pole näha"
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
+msgstr ""
 
 #: web/lib/admin/Wizard.php:92
 msgid "Click to open the help window"

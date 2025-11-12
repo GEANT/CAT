@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2020-2025\n"
 "Language-Team: Italian (Italy) (http://app.transifex.com/eduroam_devel/cat/"
@@ -493,7 +493,7 @@ msgstr ""
 "silenziosa; le nuove definizioni di rete verranno aggiunte alle reti "
 "preferite."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -502,7 +502,7 @@ msgstr ""
 "Questo è un file di configurazione generico in formato IETF XML <a "
 "href='%s'>EAP Metadata -00</a> ."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr ""
@@ -865,7 +865,7 @@ msgstr ""
 "certificato. Tali file di certificato sono protetti da password. Durante il "
 "processo di installazione saranno richiesti sia la password che il file p12. "
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s programma di installazione per %s"

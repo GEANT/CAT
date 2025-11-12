@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Stefan Paetow, 2023-2025\n"
 "Language-Team: Welsh (http://app.transifex.com/eduroam_devel/cat/language/"
@@ -483,7 +483,7 @@ msgstr ""
 "ONC file'. Mae'r mewnforio yn dawel; bydd y diffiniadau rhwydwaith newydd yn "
 "cael eu hychwanegu at y rhwydweithiau a ffefrir."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -492,7 +492,7 @@ msgstr ""
 "Mae hon yn ffeil ffurfweddu generig yn y fformat IETF <a href='%s'>EAP "
 "Metadata -00</a> XML."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Rwyf wedi darllen ac yn cytuno i Telerau Defnyddio OpenRoaming yn %s."
@@ -597,7 +597,7 @@ msgstr "nid yw cyfrineiriau yn cyfateb"
 
 #: devices/linux/DeviceLinux.php:135
 msgid "one of the fields was empty"
-msgstr ""
+msgstr "roedd un o'r meysydd testun yn wag"
 
 #: devices/linux/DeviceLinux.php:136 devices/linux/DeviceLinuxSh.php:136
 msgid "Installation successful"
@@ -853,7 +853,7 @@ msgstr ""
 "hon. Mae ffeiliau tystysgrif o'r fath wedi'u diogelu gan gyfrinair. Dylai "
 "fod gennych y ffeil a'r cyfrinair ar gael yn ystod y broses osod."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "Gosodwr %s ar gyfer %s"

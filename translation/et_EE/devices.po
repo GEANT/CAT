@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2021-2024\n"
 "Language-Team: Estonian (Estonia) (http://app.transifex.com/eduroam_devel/"
@@ -472,7 +472,7 @@ msgstr ""
 "kasuta nuppu 'Import ONC file' (Impordi ONC fail). Import tehakse taustal ja "
 "uus võrk lisatakse eelistatud võrkudele."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -481,7 +481,7 @@ msgstr ""
 "See on üldine seadistusfail IETF <a href='%s'>EAP Metadata -00</a> XML "
 "formaadis."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Olen lugenud ja nõustun OpenRoamingu Kasutustingimustega %s."
@@ -827,7 +827,7 @@ msgstr ""
 "Sertifikaadifailid on parooliga kaitstud. Nii sertifikaat kui ka parool "
 "peavad Sul paigalduse ajal käepärast olema."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s on paigaldusprogramm %s jaoks"

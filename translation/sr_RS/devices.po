@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>, 2018\n"
 "Language-Team: Serbian (Serbia) (http://app.transifex.com/eduroam_devel/cat/"
@@ -440,7 +440,7 @@ msgid ""
 "network definitions will be added to the preferred networks."
 msgstr ""
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -449,7 +449,7 @@ msgstr ""
 "Ovo je generički konfiguracioni fajl u IETF <a href='%s'>EAP Metadata -00</"
 "a> XML formatu."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr ""
@@ -780,7 +780,7 @@ msgstr ""
 "zaštićeni lozinkom. Tokom procesa instalacije morate imati i taj fajl i "
 "odgovarajuću lozinku."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s program za instalaciju za %s"

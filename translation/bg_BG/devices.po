@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
 "2014-2020,2022-2025\n"
@@ -484,7 +484,7 @@ msgstr ""
 "натиснете бутона 'Import ONC file'. Импортирането е невидимо; новите мрежови "
 "дефиниции ще бъдат добавени към предпочитаните мрежи."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -493,7 +493,7 @@ msgstr ""
 "Това е стандартен конфигурационен файл в IETF <a href='%s'>EAP Metadata -00</"
 "a> XML формат."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Прочетох и се съгласявам с Условията за ползване на OpenRoaming в %s."
@@ -846,7 +846,7 @@ msgstr ""
 "Такива файлови сертификати са защитени с парола. Вие трябва да имате "
 "едновременно и файла и паролата по време на инсталационния процес."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s инсталатор за %s"

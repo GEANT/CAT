@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@sikt.no>, 2024\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://app.transifex.com/"
@@ -475,7 +475,7 @@ msgstr ""
 "Trykk på knappen 'Importer ONC-fil'. Importen gir ikke signaler; de nye "
 "nettverksdefinisjonene blir lagt til prefererte nettverk."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -484,7 +484,7 @@ msgstr ""
 "Dette er en generisk konfigurasjonsfil i IETF <a href='%s'>EAP Metadata -00</"
 "a> XML format."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Jeg har lest og godtar OpenRoaming brukervilkår hos %s."
@@ -831,7 +831,7 @@ msgstr ""
 "Slike sertifikatfiler er passord beskyttet. Du må ha både filen og passordet "
 "tilgjengelig under installasjonsprosessen."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s installasjonsprogram for %s"

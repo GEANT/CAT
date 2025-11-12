@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018,2022-2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/eduroam_devel/"
@@ -492,7 +492,7 @@ msgstr ""
 "A seguir, use o botão 'Importar ficheiro ONC'. A importação é silenciosa; as "
 "novas definições de rede serão adicionadas às redes preferenciais."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -501,7 +501,7 @@ msgstr ""
 "Este é um ficheiro de configuração genérico no formato XML do IETF <a "
 "href='%s'>EAP Metadata -00</a>."
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "Li e concordo com os Termos de Utilização do OpenRoaming em %s."
@@ -853,7 +853,7 @@ msgstr ""
 "ficheiros de certificado são protegidos por palavra passe. Deve ter o "
 "ficheiro e a palavra passe disponíveis durante o processo de instalação."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s instalador para %s"

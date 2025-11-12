@@ -13,16 +13,16 @@
 # dominique.launay <dominique.launay@renater.fr>, 2022
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2022
 # Joël Kwan <joel.kwan@univ-reunion.fr>, 2022
-# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2023
+# Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2023\n"
+"Last-Translator: Arnaud LAURIOU <arnaud.lauriou@renater.fr>, 2025\n"
 "Language-Team: French (France) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -584,7 +584,7 @@ msgstr "Empreinte SHA1 : "
 
 #: core/diag/RADIUSTestsUI.php:110
 msgid "Public key length:"
-msgstr ""
+msgstr "Longueur de la clé publique :"
 
 #: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:145
 msgid "Server certificate"
@@ -592,19 +592,19 @@ msgstr "Certificat server"
 
 #: core/diag/RADIUSTestsUI.php:112
 msgid "Policies:"
-msgstr ""
+msgstr "Politiques :"
 
 #: core/diag/RADIUSTestsUI.php:113
 msgid "crlDistributionPoint:"
-msgstr ""
+msgstr " crlDistributionPoint :"
 
 #: core/diag/RADIUSTestsUI.php:114
 msgid "authorityInfoAccess:"
-msgstr ""
+msgstr "authorityInfoAccess :"
 
 #: core/diag/RADIUSTestsUI.php:115
 msgid "SubjectAltName:"
-msgstr ""
+msgstr "Noms alternatifs :"
 
 #: core/diag/RADIUSTestsUI.php:229 web/diag/action_realmcheck.php:594
 #: web/diag/action_realmcheck.php:603 web/diag/show_realmcheck.php:134
@@ -747,7 +747,7 @@ msgstr ""
 #: core/diag/RADIUSTestsUI.php:335
 #, php-format
 msgid "Testing from: <strong>%s"
-msgstr ""
+msgstr "Test à partir de : <strong>%s"
 
 #: core/diag/RADIUSTestsUI.php:342 web/diag/action_realmcheck.php:166
 msgid "Connected to undetermined server"
@@ -775,11 +775,11 @@ msgstr "Vérification du handshake serveur.."
 
 #: core/diag/RADIUSTestsUI.php:397 web/diag/action_realmcheck.php:858
 msgid "supported TLS protocols: "
-msgstr ""
+msgstr "protocoles TLS pris en charge : "
 
 #: core/diag/RADIUSTestsUI.php:400 web/diag/action_realmcheck.php:861
 msgid "not supported: "
-msgstr ""
+msgstr "non pris en charge : "
 
 #: core/diag/RADIUSTestsUI.php:442 web/diag/action_realmcheck.php:125
 #: web/diag/show_realmcheck.php:62
@@ -800,7 +800,7 @@ msgstr "résultat attendu : "
 
 #: core/diag/RADIUSTestsUI.php:487 web/diag/action_realmcheck.php:276
 msgid "this test was skipped - no appropriate client certificate"
-msgstr ""
+msgstr "ce test a été ignoré - aucun certificat client approprié"
 
 #: core/diag/RADIUSTestsUI.php:497 web/diag/action_realmcheck.php:117
 msgid "Server accepted this client certificate"
@@ -853,7 +853,7 @@ msgstr "Montrer le détail de tous les tests."
 
 #: core/diag/RADIUSTestsUI.php:582
 msgid "Checking if certificates from CAs are accepted..."
-msgstr ""
+msgstr "Vérification que les certificats des ACs sont acceptés..."
 
 #: core/diag/RADIUSTestsUI.php:582 web/diag/action_realmcheck.php:896
 msgid ""
@@ -929,11 +929,11 @@ msgstr "autorité inconnue"
 
 #: core/diag/RFC6614Tests.php:379
 msgid "unexpected eof while reading"
-msgstr ""
+msgstr "fin de fichier inattendue lors de la lecture"
 
 #: core/diag/RFC6614Tests.php:382
 msgid "unknown problem"
-msgstr ""
+msgstr "problème inconnu"
 
 #. *
 #. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
@@ -1528,7 +1528,7 @@ msgstr "Certificat client :"
 
 #: web/diag/action_realmcheck.php:132
 msgid "Connection timeout"
-msgstr ""
+msgstr "Dépassement du délai de connexion"
 
 #: web/diag/action_realmcheck.php:146
 msgid "Subject"
@@ -1540,7 +1540,7 @@ msgstr "Émetteur"
 
 #: web/diag/action_realmcheck.php:148
 msgid "Valid to"
-msgstr ""
+msgstr "Valable jusqu'au"
 
 #: web/diag/action_realmcheck.php:149
 msgid "SubjectAltName"
@@ -1560,7 +1560,7 @@ msgstr "authorityInfoAccess"
 
 #: web/diag/action_realmcheck.php:153 web/diag/action_realmcheck.php:165
 msgid "Public key length"
-msgstr ""
+msgstr "Longueur de la clé publique"
 
 #: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
 msgid "Hide detailed information for all tests"
@@ -1751,6 +1751,8 @@ msgstr "Quel est le domaine du fournisseur d'identité dont il s'agit ?"
 #: web/diag/adminQuery.php:88
 msgid "Do you prefer to use a specific outer identity for diagnostics test?"
 msgstr ""
+"Préférez-vous utiliser une identité externe spécifique pour les tests de "
+"diagnostic ?"
 
 #: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
 msgid "What is the authentication timestamp of the user session in question?"
@@ -1971,7 +1973,7 @@ msgstr "Erreur non traitée"
 
 #: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
 msgid "<strong>ERROR</strong>: connectivity problem!"
-msgstr ""
+msgstr "<strong>ERREUR</strong>: problème de connectivité !"
 
 #: web/diag/radius_tests.php:294
 #, php-format

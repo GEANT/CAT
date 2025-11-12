@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2013,2015-2019,2021-2025\n"
 "Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -485,7 +485,7 @@ msgstr ""
 "utilitzeu el botó 'Importar fitxer ONC'. La importació no genera avisos; les "
 "noves definicions s'afegiran a les xarxes preferides."
 
-#: devices/eap_config/DeviceXML.php:129
+#: devices/eap_config/DeviceXML.php:128
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -494,7 +494,7 @@ msgstr ""
 "Aquest és un fitxer de configuració genèric en el format XML <a "
 "href='%s'>EAP Metadata -00</a> de l'IETF"
 
-#: devices/eap_config/DeviceXML.php:151
+#: devices/eap_config/DeviceXML.php:150
 #, php-format
 msgid "I have read and agree to OpenRoaming Terms of Use at %s."
 msgstr "He llegit i accepto la Política d'ús d'OpenRoaming a %s"
@@ -845,7 +845,7 @@ msgstr ""
 "protegits per contrasenya. Necessitareu l'arxiu i la contrasenya durant la "
 "instal·lació."
 
-#: devices/ms/WindowsCommon.php:410 devices/ms/WindowsCommon.php:411
+#: devices/ms/WindowsCommon.php:424 devices/ms/WindowsCommon.php:425
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instal·lador %s per a %s"

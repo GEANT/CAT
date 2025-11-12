@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-20 10:36+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1673,37 +1673,37 @@ msgstr ""
 msgid "Quick search:"
 msgstr ""
 
-#: web/admin/overview_federation.php:501
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr ""
 
-#: web/admin/overview_federation.php:501
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr ""
 
-#: web/admin/overview_federation.php:520
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:532 web/admin/overview_user.php:252
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:545
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:562
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:563 web/admin/inc/manageAdmins.inc.php:232
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr ""
 
-#: web/admin/overview_federation.php:585
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr ""

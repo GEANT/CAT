@@ -8,12 +8,12 @@
 # David Moreno, 2022
 # José Manuel Macías, 2012-2013,2015
 # José Manuel Macías, 2019,2023
-#: web/lib/admin/Authentication.php:78
+#: web/lib/admin/Authentication.php:91
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Alberto Martínez Setién, 2018-2020,2022-2025\n"
 "Language-Team: Spanish (Spain) (http://app.transifex.com/eduroam_devel/cat/"
@@ -481,26 +481,26 @@ msgstr "Propiedades de %s"
 #: web/admin/edit_federation.php:86 web/admin/edit_hotspot.php:248
 #: web/admin/edit_participant.php:103 web/admin/edit_silverbullet.php:346
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:71
-#: web/admin/overview_federation.php:151 web/admin/overview_user.php:80
+#: web/admin/overview_federation.php:151 web/admin/overview_user.php:108
 msgid "Property Type"
 msgstr "Tipo de Propiedad"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:249
 #: web/admin/edit_participant.php:104 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:72 web/admin/overview_federation.php:152
-#: web/admin/overview_user.php:81
+#: web/admin/overview_user.php:109
 msgid "Language if applicable"
 msgstr "Idioma, si es aplicable"
 
 #: web/admin/edit_federation.php:88 web/admin/edit_hotspot.php:250
 #: web/admin/edit_participant.php:105 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:73
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:82
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:110
 msgid "Property Value"
 msgstr "Valor de la Propiedad"
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr "País:"
 
@@ -654,7 +654,7 @@ msgstr ""
 msgid "General Information"
 msgstr "Información general"
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr "Propiedades del medio"
 
@@ -1273,7 +1273,7 @@ msgstr "Administrar usuarios de %s"
 
 #. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:169
+#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:173
 msgid "User"
 msgstr "Usuario"
 
@@ -1286,7 +1286,7 @@ msgid "User/Token Expiry"
 msgstr "Caducidad del usuario/token"
 
 #: web/admin/edit_silverbullet.php:399 web/admin/edit_silverbullet.php:406
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:174
 msgid "Actions"
 msgstr "Acciones"
 
@@ -1600,14 +1600,14 @@ msgstr ""
 "No puedes pedir certificados porque no hay información del servidor para %s "
 "en la base de datos de eduroam."
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 "Hay al menos un perfil completamente configurado y visible en la interfaz de "
 "usuario"
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1634,15 +1634,15 @@ msgstr "Ocultar descargas"
 msgid "%s Overview"
 msgstr "Vista general de %s"
 
-#: web/admin/overview_federation.php:67 web/admin/overview_user.php:74
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:102
 msgid "Your Personal Information"
 msgstr "Tu información personal"
 
-#: web/admin/overview_federation.php:78 web/admin/overview_user.php:88
+#: web/admin/overview_federation.php:78 web/admin/overview_user.php:116
 msgid "Unique Identifier"
 msgstr "Identificador único"
 
-#: web/admin/overview_federation.php:83 web/admin/overview_user.php:93
+#: web/admin/overview_federation.php:83 web/admin/overview_user.php:121
 msgid "click to display"
 msgstr "click para mostrar"
 
@@ -1702,21 +1702,21 @@ msgstr "Administrador"
 msgid "RADIUS/TLS Certificate management"
 msgstr "Gestión de certificados RADIUS/TLS"
 
-#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:115
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Se envió a través de un medio seguro (cifrado)."
 msgstr[1] "Se enviaron a través de un medio seguro (cifrado)."
 msgstr[2] "Se enviaron a través de un medio seguro (cifrado)."
 
-#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:118
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Se envió como texto en claro (sin cifrado)."
 msgstr[1] "Se enviaron como texto en claro (sin cifrado)."
 msgstr[2] "Se enviaron como texto en claro (sin cifrado)."
 
-#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:118
+#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:121
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
@@ -1724,26 +1724,26 @@ msgstr ""
 "Algunos de los correos se enviaron a través de un medio cifrado, el resto en "
 "texto en claro."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "La invitación se envió con éxito."
 msgstr[1] "Todas las invitaciones se enviaron con éxito."
 msgstr[2] "Todas las invitaciones se enviaron con éxito."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "Sent successfully."
 msgstr "Enviado con éxito."
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "No invitation email could be sent!"
 msgstr "Ningún correo de invitación pudo ser enviado"
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "Sending failure!"
 msgstr "Error en el envío"
 
-#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:135
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
@@ -1753,14 +1753,14 @@ msgstr[1] ""
 msgstr[2] ""
 "Los enviados con éxito fueron a través de un medio seguro (cifrado)."
 
-#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:138
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "El enviado con éxito fue en texto en claro (sin cifrado)."
 msgstr[1] "Los enviados con éxito fueron en texto en claro (sin cifrado)."
 msgstr[2] "Los enviados con éxito fueron en texto en claro (sin cifrado)."
 
-#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:141
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1768,7 +1768,7 @@ msgstr ""
 "Algunos de los correos enviados con éxito fueron a través de un medio "
 "cifrado, el resto en texto en claro."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1777,21 +1777,21 @@ msgstr ""
 "Algunas de las invitaciones se enviaron con éxito (un total de %s), y las "
 "demás fallaron."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 msgid "Partial success."
 msgstr "Éxito parcial."
 
-#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:149
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 "La dirección de correo electrónico estaba mal formada. ¡No se ha enviado la "
 "invitación!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Error: ¡¿¡Código de resultado desconocido en la invitación!?!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Unknown result!"
 msgstr "¡Resultado desconocido!"
 
@@ -1801,7 +1801,7 @@ msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr ""
 "Diagnóstico de la accesibilidad y parámetros de conexión para cualquier %s%s"
 
-#: web/admin/overview_federation.php:304 web/admin/overview_user.php:256
+#: web/admin/overview_federation.php:304 web/admin/overview_user.php:286
 msgid "Go!"
 msgstr "¡Adelante!"
 
@@ -1814,69 +1814,69 @@ msgstr "¿Necesitas ayuda? Dirígete al <a href='%s'>Manual de %s</a>"
 msgid "Participant Details"
 msgstr "Detalles de los Participantes"
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Las siguientes %s están en tu %s %s:"
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr "Nombre de %s"
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr "Estado"
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr "Certificado"
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr "Estado del enlace con la base de datos de %s"
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr "Gestión de administradores"
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr "Búsqueda rápida:"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr "administrar"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr "ver"
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr "Administrar el vínculo con la base de datos"
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:222
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr "Añadir/Eliminar administradores"
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Invitaciones pendientes en la %s:"
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr "Revocar invitación"
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:222
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr "(caduca %s)"
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr "Registra una nueva %s"
@@ -1995,8 +1995,8 @@ msgstr "Perfil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipos EAP</strong> (en orden de preferencia):"
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr "OK"
 
@@ -2386,7 +2386,7 @@ msgstr ""
 "sin configurar; ten en cuenta que la configuración de dominio no se usará "
 "hasta que la etiqueta de VLAN sea añadida"
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr "Realm para considerarse como usuarios propios"
 
@@ -2635,24 +2635,32 @@ msgstr "No existe ningún despliegue conocido para su %s."
 msgid "%s: User Management"
 msgstr "%s: Administración de usuarios"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:77
+msgid ""
+"Something went wrong with institution creation. Please contact your "
+"federation administrator."
+msgstr ""
+"Ha fallado la creación de la institución. Por favor, contacta con el "
+"administrador de tu federación."
+
+#: web/admin/overview_user.php:98
 msgid "User Overview"
 msgstr "Vista general del usuario"
 
-#: web/admin/overview_user.php:101
+#: web/admin/overview_user.php:131
 msgid "Edit User Details"
 msgstr "Editar los detalles de usuario"
 
-#: web/admin/overview_user.php:105
+#: web/admin/overview_user.php:135
 #, php-format
 msgid "Click here for %s management tasks"
 msgstr "Haz clic aquí acceder a las tareas de administración de %s"
 
-#: web/admin/overview_user.php:108
+#: web/admin/overview_user.php:138
 msgid "Click here to access the superadmin page"
 msgstr "Haz click aquí para acceder a la página de superadministrador"
 
-#: web/admin/overview_user.php:121
+#: web/admin/overview_user.php:151
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
@@ -2660,7 +2668,7 @@ msgstr ""
 "a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:160
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
@@ -2669,31 +2677,31 @@ msgstr[0] ""
 msgstr[1] "Estás administrando los siguientes <strong>%d</strong> %ss:"
 msgstr[2] "Estás administrando las siguientes <strong>%d</strong> %ss:"
 
-#: web/admin/overview_user.php:152
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "%s Management Overview"
 msgstr "%s Gestión general"
 
-#: web/admin/overview_user.php:155
+#: web/admin/overview_user.php:185
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Otros administradores de este %s"
 
-#: web/admin/overview_user.php:158
+#: web/admin/overview_user.php:188
 msgid "Management"
 msgstr "Gestión"
 
-#: web/admin/overview_user.php:165
+#: web/admin/overview_user.php:195
 msgid "Danger Zone"
 msgstr "Zona de peligro"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:177
+#: web/admin/overview_user.php:207
 #, php-format
 msgid "%s %s: %s list"
 msgstr "%s %s: lista de %s"
 
-#: web/admin/overview_user.php:215
+#: web/admin/overview_user.php:245
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
@@ -2701,7 +2709,7 @@ msgstr[0] "Usted y %d otro usuario"
 msgstr[1] "Ustedes y %dotros usuarios"
 msgstr[2] "Ustedes y %dotros usuarios"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -2710,17 +2718,17 @@ msgstr ""
 "Tras eliminar al %s no podrás recrearlo tú mismo. Necesitas un nuevo token "
 "de invitación de parte del administrador de %s."
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "¿Deseas borrar de verdad tu %s %s?"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Borrar %s"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -2730,17 +2738,17 @@ msgstr ""
 "Esta acción eliminará todas las propiedades de la %s y la dejará sin "
 "configuración. ¿De verdad quieres restablecer la configuración de la %s %s?"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Restablecer toda la configuración de %s"
 
-#: web/admin/overview_user.php:244
+#: web/admin/overview_user.php:274
 #, php-format
 msgid "You are not managing any %s."
 msgstr "No estás administrando ninguna %s."
 
-#: web/admin/overview_user.php:249
+#: web/admin/overview_user.php:279
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2748,7 +2756,7 @@ msgstr ""
 "Por favor pide al administrador de tu %s que te invite a ser un "
 "administrador de %s."
 
-#: web/admin/overview_user.php:253
+#: web/admin/overview_user.php:283
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
@@ -2756,14 +2764,10 @@ msgstr ""
 "¿Recibiste un token de invitación para administrar una %s? Por favor, "
 "introdúcelo aquí:"
 
-#: web/admin/overview_user.php:268
-msgid "We have automatically added you to the following organisations:"
-msgstr "Has sido añadido automáticamente a las siguientes organizaciones:"
-
-#: web/admin/overview_user.php:269
+#: web/admin/overview_user.php:298
 msgid ""
-"We have added the organisations to your profile since your mail is listed as "
-"their administrator in the eduroam database.\n"
+"You can add organisations to your profile since your mail is listed as their "
+"administrator in the eduroam database.\n"
 "                            There may be several reasons why you are seeing "
 "this, for instance:\n"
 "                            <ul>\n"
@@ -2776,10 +2780,12 @@ msgid ""
 "                            <li>your IdP has changed it's behaviour, for "
 "instance it was previously sending the eduPersonTargetedId attribute but now "
 "it is only sending pairwise-id\n"
-"                            </ul>"
+"                            </ul>\n"
+"                            If you accept then invitation tokens will be "
+"automatically sent to your email address."
 msgstr ""
-"Hemos añadido las organizaciones a tu perfil porque tu dirección de email "
-"figura como administrador en la base de datos de eduroam.\n"
+"Puedes añadir organizaciones a tu perfil porque tu dirección de email figura "
+"como su administrador en la base de datos de eduroam.\n"
 "                            Puede haber varias razones por las cuales estás "
 "viendo esto. Por ejemplo:\n"
 "                            <ul>\n"
@@ -2790,11 +2796,29 @@ msgstr ""
 "                            <li>tu IdP ha sido modificado y tiene ahora un "
 "entityId distinto ahora\n"
 "                            <li>tu IdP ha cambiado su comportamiento, por "
-"ejemplo, antes enviaba el atributo eduPersonTargettedId pero ahora sólo "
-"envía pairwise-id\n"
-"                            </ul>"
+"ejemplo, antes enviaba el atributo eduPersonTargetedId pero ahora sólo envía "
+"pairwise-id\n"
+"                            </ul>\n"
+"                             Si aceptas se enviarán automáticamente los "
+"tokens de invitación a tu dirección de correo."
 
-#: web/admin/overview_user.php:284
+#: web/admin/overview_user.php:309
+msgid ""
+"According to the information obtained from your login attributes, you are "
+"entitled to be the administrator of the following CAT institutions:"
+msgstr ""
+"De acuerdo con la información obtenida de tus atributos de inicio de sesión, "
+"tienes derecho a ser el administrador de las siguientes instituciones en CAT:"
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Send token"
+msgstr "Enviar token"
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Token sent"
+msgstr "Token enviado"
+
+#: web/admin/overview_user.php:337
 msgid ""
 "The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
@@ -2802,15 +2826,7 @@ msgstr ""
 "Según la base de datos de eduroam eres un administrador de las instituciones "
 "listadas a continuación, pero parece que no existen coincidencias en CAT."
 
-#: web/admin/overview_user.php:301
-msgid "Proceed with creating the CAT IdP?"
-msgstr "¿Continuar con la creación del IdP para CAT?"
-
-#: web/admin/overview_user.php:301
-msgid "create CAT profile for this institution"
-msgstr "crear perfil para CAT de esta institución"
-
-#: web/admin/overview_user.php:309
+#: web/admin/overview_user.php:365
 msgid ""
 "According to the information obtained from your login attributes, you are "
 "entitled to be the administrator of the following CAT institutions:<p>"
@@ -2819,11 +2835,11 @@ msgstr ""
 "tienes derecho a ser el administrador de las siguientes instituciones en "
 "CAT: <p>"
 
-#: web/admin/overview_user.php:324
+#: web/admin/overview_user.php:380
 msgid "take control"
 msgstr "tomar el control"
 
-#: web/admin/overview_user.php:337
+#: web/admin/overview_user.php:393
 #, php-format
 msgid "New %s Registration"
 msgstr "Nuevo registro de %s"
@@ -2890,7 +2906,7 @@ msgstr ""
 msgid "Invitation Token QR Code"
 msgstr "Código QR del token de la invitación"
 
-#: web/admin/inc/manageAdmins.inc.php:63
+#: web/admin/inc/manageAdmins.inc.php:66
 #, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
@@ -2899,12 +2915,12 @@ msgstr ""
 "No tienes los privilegios necesarios para alterar los administradores de "
 "esta %s. De hecho, ¡no deberías haber podido llegar tan lejos!"
 
-#: web/admin/inc/manageAdmins.inc.php:97
+#: web/admin/inc/manageAdmins.inc.php:100
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Administradores para el IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2913,12 +2929,12 @@ msgstr ""
 "Eres el administrador de %s. Puedes invitar a nuevos administradores, "
 "quienes por su parte podrán invitar a nuevos administradores."
 
-#: web/admin/inc/manageAdmins.inc.php:156 web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageAdmins.inc.php:159 web/lib/admin/UIElements.php:124
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrador de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2929,46 +2945,50 @@ msgstr ""
 "%s. Puedes añadir si quieres a más administradores, pero éstos no podrán a "
 "su vez añadir a otros administradores."
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 msgid "Directly Appointed Administrator"
 msgstr "Administrador invitado directamente"
 
-#: web/admin/inc/manageAdmins.inc.php:180
+#: web/admin/inc/manageAdmins.inc.php:185
 msgid "User without name"
 msgstr "Usuario sin nombre"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:188
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(originalmente invitado como %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:185
+#: web/admin/inc/manageAdmins.inc.php:190
 msgid "(self-appointed)"
 msgstr "(auto-invitado)"
 
-#: web/admin/inc/manageAdmins.inc.php:197
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Last seen: "
+msgstr "Visto por última vez:"
+
+#: web/admin/inc/manageAdmins.inc.php:207
 msgid "Delete Administrator"
 msgstr "Borrar administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:219
+#: web/admin/inc/manageAdmins.inc.php:229
 msgid "Pending invitations for this IdP"
 msgstr "Invitaciones pendientes para este IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
 "Nueva(s) dirección(es) de email del administrador, separadas por comas:"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "Invite new administrator"
 msgstr "Invitar un nuevo administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:244
+#: web/admin/inc/manageAdmins.inc.php:256
 #, php-format
 msgid "Take control of this %s"
 msgstr "Toma el control de esta %s"
 
-#: web/admin/inc/manageAdmins.inc.php:251
+#: web/admin/inc/manageAdmins.inc.php:263
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:150
 msgid "Close"
@@ -3012,7 +3032,7 @@ msgstr "La información en <strong>base de datos %s</strong>"
 msgid "%s Name (%s)"
 msgstr "Nombre de %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:77
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr "Usuario sin nombre"
 
@@ -3221,7 +3241,7 @@ msgstr "Nombre de usuario y realm válidos para RADIUS:"
 msgid "Detect root CA"
 msgstr "Detectar certificado raíz"
 
-#: web/admin/inc/sendinvite.inc.php:116
+#: web/admin/inc/sendinvite.inc.php:128
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -3444,7 +3464,7 @@ msgstr "Lee las instrucciones en la wiki."
 msgid "select language"
 msgstr "selecciona idioma"
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr "por defecto/otros idiomas"
 
@@ -3456,11 +3476,11 @@ msgstr "(por defecto/otros idiomas)"
 msgid "file content"
 msgstr "contenido del fichero"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr "activado"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr "desactivado"
 
@@ -3870,61 +3890,86 @@ msgstr ""
 "Esta opción tiene sentido sólo si está activo \"Autorregistro basado en "
 "derecho\"."
 
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
+msgstr "Número personalizado de días de inactividad del administrador"
+
 #: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
+msgstr ""
+"Puedes sobrescribir el valor por defecto de %d días tras los cuales se "
+"muestra un aviso de inactividad en la página de administración del NRO."
+
+#: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr "No mostrar ningún aviso sobre administradores faltantes o inactivos"
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+"Puedes bloquear cualquier aviso sobre administradores faltantes o inactivos. "
+"Se muestran por defecto."
+
+#: web/lib/admin/UIElements.php:179
 msgid "VLAN for guests"
 msgstr "VLAN para invitados"
 
-#: web/lib/admin/UIElements.php:172
+#: web/lib/admin/UIElements.php:180
 msgid "VLAN for own users"
 msgstr "VLAN para nuestros usuarios"
 
-#: web/lib/admin/UIElements.php:174
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr "Atributo Operator-Name personalizado"
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr "Detalles generales de %s"
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr "Opciones globales de Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Hubo un error al obtener el certificado desde la base de datos."
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr "¡Hubo un error procesando el certificado!"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr "Certificado raíz"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr "Certificado intermedio"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "¡Este es un certificado de <strong>SERVIDOR</strong>!"
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr "más información"
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr "Certificado caducado"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr "Certificado próximo a caducar"
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
@@ -3932,83 +3977,95 @@ msgstr ""
 "Certificado raíz impropio. Faltan extensiones de CA críticas, así que no es "
 "buena idea instalarlo."
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr "Vista previa del fichero de logotipo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Hubo un error al obtener el archivo desde la base de datos."
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr "El fichero existe"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr "Vista previa"
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr "Observación"
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr "¡Error!"
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr "Todos los certificados son válidos un tiempo suficiente"
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr "Al menos un certificado está cerca de caducar"
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr "Al menos un certificado ha caducado o está cerca de caducar"
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr "OpenRoaming parece estar configurado correctamente"
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr "Hay algunos problemas menores con la configuración de OpenRoaming"
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr "Hay algunos problemas con la configuración de OpenRoaming"
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr "Hay algunos problemas graves con la configuración de OpenRoaming"
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr "No hay perfiles configurados"
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr "Todos los perfiles activos redirigidos"
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr "Vinculada"
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr "NO vinculada"
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
 msgstr "No se muestra información del certificado si no hay perfiles visibles"
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr "Algunos de los administradores llevan inactivos mucho tiempo"
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr "Todos los administradores están activos"
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
+msgstr "No se han registrado administradores"
 
 #: web/lib/admin/Wizard.php:92
 msgid "Click to open the help window"

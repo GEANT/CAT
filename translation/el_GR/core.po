@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022,2024\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
@@ -76,267 +76,267 @@ msgstr ""
 "ΟΙ αρχικοί έλεγχοι αναφορικά με το DNS κομμάτι του OpenRoaming "
 "(συμπεριλαμβανομένου των DNSSEC) ήταν επιτυχής."
 
-#: core/CAT.php:143
+#: core/CAT.php:144
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: core/CAT.php:144
+#: core/CAT.php:145
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: core/CAT.php:148
+#: core/CAT.php:149
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: core/CAT.php:149
+#: core/CAT.php:150
 msgid "Denmark"
 msgstr "Δανία"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Finland"
 msgstr "Φινλανδία"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "France"
 msgstr "Γαλλία"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Croatia"
 msgstr "Κροατία"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: core/CAT.php:158
+#: core/CAT.php:159
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: core/CAT.php:159
+#: core/CAT.php:160
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "Kosovo"
 msgstr "Κόσοβο"
 
-#: core/CAT.php:161
+#: core/CAT.php:162
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Macedonia"
 msgstr "Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Slovakia"
 msgstr "Σλοβακία"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: core/CAT.php:177 core/CAT.php:379
+#: core/CAT.php:178 core/CAT.php:380
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "U.S.A."
 msgstr "Η.Π.Α."
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Chile"
 msgstr "Χιλή"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Peru"
 msgstr "Περού"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: core/CAT.php:192
+#: core/CAT.php:193
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: core/CAT.php:193
+#: core/CAT.php:194
 msgid "Ecuador"
 msgstr "Ισημερινός"
 
-#: core/CAT.php:194
+#: core/CAT.php:195
 msgid "Hong Kong"
 msgstr "Χονγκ Κονγκ"
 
-#: core/CAT.php:195
+#: core/CAT.php:196
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: core/CAT.php:196
+#: core/CAT.php:197
 msgid "Kyrgyzstan"
 msgstr "Κιργιζία"
 
-#: core/CAT.php:197
+#: core/CAT.php:198
 msgid "Korea"
 msgstr "Κορέα"
 
-#: core/CAT.php:198
+#: core/CAT.php:199
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: core/CAT.php:199
+#: core/CAT.php:200
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: core/CAT.php:200
+#: core/CAT.php:201
 msgid "Moldova"
 msgstr "Μολδαβία"
 
-#: core/CAT.php:201
+#: core/CAT.php:202
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: core/CAT.php:202
+#: core/CAT.php:203
 msgid "Macau"
 msgstr "Μακάου"
 
-#: core/CAT.php:203
+#: core/CAT.php:204
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: core/CAT.php:204
+#: core/CAT.php:205
 msgid "Russia"
 msgstr "Ρωσία"
 
-#: core/CAT.php:205
+#: core/CAT.php:206
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: core/CAT.php:206
+#: core/CAT.php:207
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: core/CAT.php:207
+#: core/CAT.php:208
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: core/CAT.php:208
+#: core/CAT.php:209
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: core/CAT.php:485 core/IdPlist.php:83
+#: core/CAT.php:486 core/IdPlist.php:83
 msgid "Unnamed Entity"
 msgstr "Ανώνυμη Οντότητα"
 
@@ -393,13 +393,13 @@ msgstr ""
 "πληροφορίες"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:111
+#: core/Federation.php:118
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(καταργημένος) %s"
 
 #. / IdP and SP
-#: core/Federation.php:308 core/common/OutsideComm.php:287
+#: core/Federation.php:315 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr "%s και %s"
@@ -412,7 +412,7 @@ msgstr "%s και %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:323
+#: core/Federation.php:330
 #, php-format
 msgid ""
 "Hi,\n"
@@ -434,7 +434,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:349
+#: core/Federation.php:356
 #, php-format
 msgid ""
 "Hi,\n"
@@ -451,7 +451,7 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:371 core/Federation.php:377
+#: core/Federation.php:378 core/Federation.php:384
 #, php-format
 msgid "%s in your federation was created"
 msgstr "Δημιουργήθηκε ένας %s στην ομοσπονδία σας"
@@ -625,14 +625,14 @@ msgstr "οργανισμός"
 msgid "entity"
 msgstr "οντότητα"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:298
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with them."
 msgstr ""
 "ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
-#: core/common/OutsideComm.php:298
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
@@ -641,7 +641,7 @@ msgstr ""
 "ένα %s %s σας προσκάλεσε να διαχειριστείτε το μελλοντικά %s  \"%s\" (%s). Ο "
 "οργανισμός θα είναι ένα%s."
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:300
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr ""
@@ -649,33 +649,41 @@ msgstr ""
 
 #: core/common/OutsideComm.php:301
 #, php-format
+msgid ""
+"You have succesfully invited yourself to manage %s %s.\n"
+" If this mail is not the result of an action taken by you then please report "
+"this to your %s %s administrator.\n"
+msgstr ""
+
+#: core/common/OutsideComm.php:303
+#, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:309
+#: core/common/OutsideComm.php:311
 msgid "Hello,"
 msgstr "Χαίρετε,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:311
+#: core/common/OutsideComm.php:313
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
 "διεύθυνση αποστολής."
 
-#: core/common/OutsideComm.php:317
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Επιπρόσθετο μήνυμα από τον  διαχειριστή του %s σας:"
 
-#: core/common/OutsideComm.php:325
+#: core/common/OutsideComm.php:327
 #, php-format
 msgid "%s administrator"
 msgstr "%s διαχειριστής"
 
-#: core/common/OutsideComm.php:328
+#: core/common/OutsideComm.php:330
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -683,7 +691,7 @@ msgstr ""
 "χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
 "διαχειριστές του %s σας."
 
-#: core/common/OutsideComm.php:334
+#: core/common/OutsideComm.php:336
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -692,7 +700,7 @@ msgstr ""
 "Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
 "στον ακόλουθο σύνδεσμο:"
 
-#: core/common/OutsideComm.php:336
+#: core/common/OutsideComm.php:338
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -701,11 +709,11 @@ msgstr ""
 "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
 "Διαχείρισης %s στο"
 
-#: core/common/OutsideComm.php:338
+#: core/common/OutsideComm.php:340
 msgid "and enter the invitation token"
 msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: core/common/OutsideComm.php:340
+#: core/common/OutsideComm.php:342
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -713,12 +721,12 @@ msgstr ""
 "Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
 "θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
-#: core/common/OutsideComm.php:341
+#: core/common/OutsideComm.php:343
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: core/common/OutsideComm.php:342
+#: core/common/OutsideComm.php:344
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -729,7 +737,7 @@ msgstr ""
 "\n"
 "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
-#: core/common/OutsideComm.php:378
+#: core/common/OutsideComm.php:380
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: έχετε λάβει πρόσκληση για την διαχείριση του %s"

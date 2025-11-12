@@ -4,12 +4,12 @@
 #
 # Translators:
 # Iryna Rykhalska <irina@uran.ua>, 2021-2022,2024-2025
-#: web/lib/admin/Authentication.php:78
+#: web/lib/admin/Authentication.php:91
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: Iryna Rykhalska <irina@uran.ua>, 2021-2022,2024-2025\n"
 "Language-Team: Ukrainian (Ukraine) (http://app.transifex.com/eduroam_devel/"
@@ -471,26 +471,26 @@ msgstr "%s Параметри"
 #: web/admin/edit_federation.php:86 web/admin/edit_hotspot.php:248
 #: web/admin/edit_participant.php:103 web/admin/edit_silverbullet.php:346
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:71
-#: web/admin/overview_federation.php:151 web/admin/overview_user.php:80
+#: web/admin/overview_federation.php:151 web/admin/overview_user.php:108
 msgid "Property Type"
 msgstr "Тип параметра"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:249
 #: web/admin/edit_participant.php:104 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:72 web/admin/overview_federation.php:152
-#: web/admin/overview_user.php:81
+#: web/admin/overview_user.php:109
 msgid "Language if applicable"
 msgstr "Мова, якщо вказана"
 
 #: web/admin/edit_federation.php:88 web/admin/edit_hotspot.php:250
 #: web/admin/edit_participant.php:105 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:73
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:82
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:110
 msgid "Property Value"
 msgstr "Значення параметра"
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr "Країна:"
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "General Information"
 msgstr "Загальна інформація"
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr "Властивості мультимедіа"
 
@@ -1252,7 +1252,7 @@ msgstr "Управління %s користувачами"
 
 #. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:169
+#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:173
 msgid "User"
 msgstr "Користувач"
 
@@ -1265,7 +1265,7 @@ msgid "User/Token Expiry"
 msgstr "Термін дії Користувача/Маркера"
 
 #: web/admin/edit_silverbullet.php:399 web/admin/edit_silverbullet.php:406
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:174
 msgid "Actions"
 msgstr "Дії"
 
@@ -1578,14 +1578,14 @@ msgstr ""
 "Запит сертифікатів неможливий, оскільки в базі даних eduroam відсутня "
 "інформація про сервер%s."
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 "Принаймні один профіль повністю налаштований і видимий в інтерфейсі "
 "користувача"
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1612,15 +1612,15 @@ msgstr "Приховати завантаження"
 msgid "%s Overview"
 msgstr "%s Огляд"
 
-#: web/admin/overview_federation.php:67 web/admin/overview_user.php:74
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:102
 msgid "Your Personal Information"
 msgstr "Ваша персональна інформація"
 
-#: web/admin/overview_federation.php:78 web/admin/overview_user.php:88
+#: web/admin/overview_federation.php:78 web/admin/overview_user.php:116
 msgid "Unique Identifier"
 msgstr "Унікальний ідентифікатор"
 
-#: web/admin/overview_federation.php:83 web/admin/overview_user.php:93
+#: web/admin/overview_federation.php:83 web/admin/overview_user.php:121
 msgid "click to display"
 msgstr "натисніть, щоб відобразити"
 
@@ -1680,7 +1680,7 @@ msgstr "Адміністратор"
 msgid "RADIUS/TLS Certificate management"
 msgstr "Керування сертифікатами RADIUS/TLS"
 
-#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:115
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "Вони були надіслані з транспортною безпекою (шифруванням)."
@@ -1689,7 +1689,7 @@ msgstr[2] "Вони були надіслані з транспортною бе
 msgstr[3] ""
 "Листи були передані у зашифрованому вигляді (шифрування при транспортуванні)."
 
-#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:118
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "Вони були надіслані чистим текстом (без шифрування)."
@@ -1697,7 +1697,7 @@ msgstr[1] "Вони були надіслані чистим текстом (б�
 msgstr[2] "Вони були надіслані чистим текстом (без шифрування)."
 msgstr[3] "Вони були передані у відкритому вигляді (без шифрування)."
 
-#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:118
+#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:121
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
@@ -1705,7 +1705,7 @@ msgstr ""
 "Частина листів була надіслана з транспортним шифруванням, решта  у "
 "відкритому вигляді."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "Усі електронні листи із запрошеннями були успішно відправлені."
@@ -1713,19 +1713,19 @@ msgstr[1] "Усі електронні листи із запрошеннями 
 msgstr[2] "Усі електронні листи із запрошеннями були успішно відправлені."
 msgstr[3] "Усі електронні листи із запрошеннями були надіслані успішно."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "Sent successfully."
 msgstr "Надіслано успішно."
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "No invitation email could be sent!"
 msgstr "Жодного запрошення не вдалося надіслати!"
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "Sending failure!"
 msgstr "Помилка надсилання!"
 
-#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:135
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
@@ -1734,7 +1734,7 @@ msgstr[1] "Успішні листи були надіслані з трансп
 msgstr[2] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
 msgstr[3] "Успішні листи були надіслані з транспортною безпекою (шифруванням)."
 
-#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:138
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "Успішні листи надіслані чистим текстом (без шифрування)."
@@ -1742,7 +1742,7 @@ msgstr[1] "Успішні листи надіслані чистим текст�
 msgstr[2] "Успішні листи надіслані чистим текстом (без шифрування)."
 msgstr[3] "Успішні листи надіслані у відкритому вигляді (без шифрування)."
 
-#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:141
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1750,7 +1750,7 @@ msgstr ""
 "Частина успішно надісланих листів була передана з транспортним шифруванням, "
 "решта — без шифрування."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1759,21 +1759,21 @@ msgstr ""
 "Деякі електронні листи із запрошеннями були відправлені успішно (%sзагалом), "
 "інші не вдалося."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 msgid "Partial success."
 msgstr "Частково успішно."
 
-#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:149
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 "Адресу електронної пошти запрошення вказано некоректно — запрошення не "
 "надіслано!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Помилка: невідомий код результату запрошення!?!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Unknown result!"
 msgstr "Невідомий результат!"
 
@@ -1782,7 +1782,7 @@ msgstr "Невідомий результат!"
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Перевірте доступність і параметри з’єднання для будь-якого %s %s"
 
-#: web/admin/overview_federation.php:304 web/admin/overview_user.php:256
+#: web/admin/overview_federation.php:304 web/admin/overview_user.php:286
 msgid "Go!"
 msgstr "Далі!"
 
@@ -1795,69 +1795,69 @@ msgstr "Потрібна допомога? Перегляньте <a href='%s'>%
 msgid "Participant Details"
 msgstr "Інформація про учасника"
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Наступні %sмістяться у вашому %s %s:"
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr "%s Ім'я"
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr "Статус"
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr "Сертифікат"
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr " %sСтатус зв'язку з базою даних"
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr "Управління адміністратором"
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr "Швидкий пошук:"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr "керувати"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr "переглянути"
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr "Керування посиланням на базу даних"
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:222
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr "Додавання/видалення адміністраторів"
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Запрошення, що очікують підтвердження %s:"
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr "Відкликати запрошення"
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:222
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr "(закінчується %s)"
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr "Зареєструвати новий %s!"
@@ -1976,8 +1976,8 @@ msgstr "Профіль: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Типи EAP</strong> (у порядку пріорітету):"
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr "OK"
 
@@ -2364,7 +2364,7 @@ msgstr ""
 "не встановлено, майте на увазі, що налаштування домену не використовується, "
 "доки не буде додано VLAN-мітку"
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr "Домен, що вважатиметься власним для користувачів"
 
@@ -2603,24 +2603,30 @@ msgstr "Для вашого %s ще не створено жодного роз�
 msgid "%s: User Management"
 msgstr "%s: Управління користувачами"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:77
+msgid ""
+"Something went wrong with institution creation. Please contact your "
+"federation administrator."
+msgstr ""
+
+#: web/admin/overview_user.php:98
 msgid "User Overview"
 msgstr "Огляд користувача"
 
-#: web/admin/overview_user.php:101
+#: web/admin/overview_user.php:131
 msgid "Edit User Details"
 msgstr "Редагувати дані користувача"
 
-#: web/admin/overview_user.php:105
+#: web/admin/overview_user.php:135
 #, php-format
 msgid "Click here for %s management tasks"
 msgstr "Натисніть тут, щоб перейти до завдань управління %s"
 
-#: web/admin/overview_user.php:108
+#: web/admin/overview_user.php:138
 msgid "Click here to access the superadmin page"
 msgstr "Натисніть тут для переходу на сторінку супер адміністратора"
 
-#: web/admin/overview_user.php:121
+#: web/admin/overview_user.php:151
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
@@ -2628,7 +2634,7 @@ msgstr ""
 "a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:160
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
@@ -2637,31 +2643,31 @@ msgstr[1] "Ви керуєте наступним <span style='display:none'>%d<
 msgstr[2] "Ви керуєте наступним <span style='display:none'>%d</span>%s:"
 msgstr[3] "Ви керуєте наступним:<strong>%d</strong>%s:"
 
-#: web/admin/overview_user.php:152
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "%s Management Overview"
 msgstr "%s Огляд управління"
 
-#: web/admin/overview_user.php:155
+#: web/admin/overview_user.php:185
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Інші адміністратори цього %s"
 
-#: web/admin/overview_user.php:158
+#: web/admin/overview_user.php:188
 msgid "Management"
 msgstr "Управління"
 
-#: web/admin/overview_user.php:165
+#: web/admin/overview_user.php:195
 msgid "Danger Zone"
 msgstr "Небезпечна Зона"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:177
+#: web/admin/overview_user.php:207
 #, php-format
 msgid "%s %s: %s list"
 msgstr "%s%s:%s список"
 
-#: web/admin/overview_user.php:215
+#: web/admin/overview_user.php:245
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
@@ -2670,7 +2676,7 @@ msgstr[1] "Ви та %d інші користувачі"
 msgstr[2] "Ви та %d інші користувачі"
 msgstr[3] "Ви та %d інші користувачі"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -2679,17 +2685,17 @@ msgstr ""
 "Після видалення %s, ви не зможете створити його заново самостійно - для "
 "цього потрібно отримати новий маркер запрошення від %s адміністратора!"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "Ви справді хочете видалити свій%s%s?"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Видалити %s"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -2699,17 +2705,17 @@ msgstr ""
 "Ця дія призведе до видалення всіх властивостей %s та запуску конфігурації з "
 "нуля. Ви дійсно хочете скинути всі налаштування %s%s?"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Скинути всі %s налаштування"
 
-#: web/admin/overview_user.php:244
+#: web/admin/overview_user.php:274
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Ви не керуєте жодним %s."
 
-#: web/admin/overview_user.php:249
+#: web/admin/overview_user.php:279
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2717,21 +2723,17 @@ msgstr ""
 "Будь ласка, зверніться до свого %s адміністратора, щоб отримати запрошення "
 "на роль %s адміністратора."
 
-#: web/admin/overview_user.php:253
+#: web/admin/overview_user.php:283
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
 "Маєте токен-запрошення для керування  %s? Будь ласка, вставте його тут:"
 
-#: web/admin/overview_user.php:268
-msgid "We have automatically added you to the following organisations:"
-msgstr "Ми автоматично додали вас до наступних організацій."
-
-#: web/admin/overview_user.php:269
+#: web/admin/overview_user.php:298
 msgid ""
-"We have added the organisations to your profile since your mail is listed as "
-"their administrator in the eduroam database.\n"
+"You can add organisations to your profile since your mail is listed as their "
+"administrator in the eduroam database.\n"
 "                            There may be several reasons why you are seeing "
 "this, for instance:\n"
 "                            <ul>\n"
@@ -2744,26 +2746,26 @@ msgid ""
 "                            <li>your IdP has changed it's behaviour, for "
 "instance it was previously sending the eduPersonTargetedId attribute but now "
 "it is only sending pairwise-id\n"
-"                            </ul>"
+"                            </ul>\n"
+"                            If you accept then invitation tokens will be "
+"automatically sent to your email address."
 msgstr ""
-"Ми додали організації до вашого профілю, оскільки ваша електронна адреса "
-"зазначена як адміністративна в базі даних eduroam.\n"
-"                            Є декілька причин, чому ви бачите це "
-"повідомлення, наприклад:\n"
-"                            <ul>\n"
-"                            <li>Вашу електронну адресу додано як "
-"адміністратора до установ, якими ви раніше не керували\n"
-"                            <li>Ви увійшли через обліковий запис іншого "
-"постачальника ідентифікації IdP, але повернута електронна адреса збігається "
-"з попередньою\n"
-"                            <li>Ваш IdP було змінено, і тепер він має інший "
-"entityId\n"
-"                            <li>Ваш IdP змінив свою поведінку — наприклад, "
-"раніше надсилав атрибут eduPersonTargetedId, а тепер надсилає лише pairwise-"
-"id\n"
-"                            </ul>"
 
-#: web/admin/overview_user.php:284
+#: web/admin/overview_user.php:309
+msgid ""
+"According to the information obtained from your login attributes, you are "
+"entitled to be the administrator of the following CAT institutions:"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Send token"
+msgstr ""
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Token sent"
+msgstr ""
+
+#: web/admin/overview_user.php:337
 msgid ""
 "The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
@@ -2771,15 +2773,7 @@ msgstr ""
 "У базі eduroam ви позначені як адміністратор установ, однак у CAT таких "
 "установ не знайдено."
 
-#: web/admin/overview_user.php:301
-msgid "Proceed with creating the CAT IdP?"
-msgstr "Приступити до створення CAT IdP?"
-
-#: web/admin/overview_user.php:301
-msgid "create CAT profile for this institution"
-msgstr "створити профіль CAT для цієї установи"
-
-#: web/admin/overview_user.php:309
+#: web/admin/overview_user.php:365
 msgid ""
 "According to the information obtained from your login attributes, you are "
 "entitled to be the administrator of the following CAT institutions:<p>"
@@ -2787,11 +2781,11 @@ msgstr ""
 "На основі даних аутентифікації ви маєте право адмініструвати такі установи "
 "CAT:<p>"
 
-#: web/admin/overview_user.php:324
+#: web/admin/overview_user.php:380
 msgid "take control"
 msgstr "Взяти керування на себе"
 
-#: web/admin/overview_user.php:337
+#: web/admin/overview_user.php:393
 #, php-format
 msgid "New %s Registration"
 msgstr "Нова %s реєстрація"
@@ -2859,7 +2853,7 @@ msgstr ""
 msgid "Invitation Token QR Code"
 msgstr "QR-код запрошення"
 
-#: web/admin/inc/manageAdmins.inc.php:63
+#: web/admin/inc/manageAdmins.inc.php:66
 #, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
@@ -2868,12 +2862,12 @@ msgstr ""
 "У вас немає необхідних привілеїв для зміни адміністраторів цього %s. "
 "Насправді, вам не слід було заходити так далеко!"
 
-#: web/admin/inc/manageAdmins.inc.php:97
+#: web/admin/inc/manageAdmins.inc.php:100
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Адміністратори IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2882,12 +2876,12 @@ msgstr ""
 "Ви %sадміністратор. Ви можете запросити нових адміністраторів, які, у свою "
 "чергу, можуть призначити подальших адміністраторів самостійно."
 
-#: web/admin/inc/manageAdmins.inc.php:156 web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageAdmins.inc.php:159 web/lib/admin/UIElements.php:124
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Адміністратор"
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2898,45 +2892,49 @@ msgstr ""
 "призначити подальших адміністраторів, але вони, у свою чергу, не можуть "
 "призначити більше адміністраторів."
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 msgid "Directly Appointed Administrator"
 msgstr "Безпосередньо призначений адміністратором"
 
-#: web/admin/inc/manageAdmins.inc.php:180
+#: web/admin/inc/manageAdmins.inc.php:185
 msgid "User without name"
 msgstr "Користувач без імені"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:188
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(спочатку запрошено як %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:185
+#: web/admin/inc/manageAdmins.inc.php:190
 msgid "(self-appointed)"
 msgstr "(призначив сам себе)"
 
-#: web/admin/inc/manageAdmins.inc.php:197
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Last seen: "
+msgstr ""
+
+#: web/admin/inc/manageAdmins.inc.php:207
 msgid "Delete Administrator"
 msgstr "Видалити адміністратора"
 
-#: web/admin/inc/manageAdmins.inc.php:219
+#: web/admin/inc/manageAdmins.inc.php:229
 msgid "Pending invitations for this IdP"
 msgstr "Запрошення для цього IdP, що очікують на розгляд"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Електронна адреса (адреси) нового адміністратора (розділені комами):"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "Invite new administrator"
 msgstr "Запросити нового адміністратора"
 
-#: web/admin/inc/manageAdmins.inc.php:244
+#: web/admin/inc/manageAdmins.inc.php:256
 #, php-format
 msgid "Take control of this %s"
 msgstr "Візьміть контроль над %s"
 
-#: web/admin/inc/manageAdmins.inc.php:251
+#: web/admin/inc/manageAdmins.inc.php:263
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:150
 msgid "Close"
@@ -2978,7 +2976,7 @@ msgstr "Інформація в <strong>%sбазі даних</strong>"
 msgid "%s Name (%s)"
 msgstr "%s Ім'я (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:77
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr "Безіменний користувач"
 
@@ -3184,7 +3182,7 @@ msgstr "Дійсне ім’я користувача та домен RADIUS:"
 msgid "Detect root CA"
 msgstr "Виявити кореневий CA"
 
-#: web/admin/inc/sendinvite.inc.php:116
+#: web/admin/inc/sendinvite.inc.php:128
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -3405,7 +3403,7 @@ msgstr "Ознайомтесь з інструкціями у вікі."
 msgid "select language"
 msgstr "Виберіть мову"
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr "Мова за замовчуванням/інші мови"
 
@@ -3417,11 +3415,11 @@ msgstr "(мова за замовчуванням/інші мови)"
 msgid "file content"
 msgstr "вміст файлу"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr "увімкнути"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr "вимкнути"
 
@@ -3829,61 +3827,82 @@ msgstr ""
 "використано типове — geant:eduroam:inst:admin. Ця опція має сенс лише за "
 "умови, що увімкнено 'Самореєстрацію на основі прав доступу\"."
 
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
+msgstr ""
+
 #: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+
+#: web/lib/admin/UIElements.php:179
 msgid "VLAN for guests"
 msgstr "VLAN для гостей"
 
-#: web/lib/admin/UIElements.php:172
+#: web/lib/admin/UIElements.php:180
 msgid "VLAN for own users"
 msgstr "VLAN для власних користувачів"
 
-#: web/lib/admin/UIElements.php:174
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr "Атрибут імені оператора, визначений користувачем"
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr "Загальні %s відомості"
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr "Інформація про глобальну службу підтримки"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Під час отримання сертифіката з бази даних сталася помилка!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr "Під час обробки сертифіката сталася помилка!"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr "Корневий центр сертифікації CA"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr "Проміжний центр сертифікації CA"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Це сертифікат <strong>СЕРВЕРА</strong>!"
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr "детальніше"
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr "Термін дії сертифіката закінчився!"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr "Термін дії сертифіката закінчується!"
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
@@ -3891,84 +3910,96 @@ msgstr ""
 "Неправильний кореневий сертифікат, відсутнє необхідне критичне розширення "
 "ЦС, тому його неможливо надійно встановити!"
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr "Попередній перегляд файлу логотипу"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Під час отримання файлу з бази даних сталася помилка!"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr "Файл існує"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr "Попередній перегляд"
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr "Примітка"
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr "Увага!"
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr "Помилка!"
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr "Усі сертифікати мають достатній термін дії"
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr "Термін дії принаймні одного сертифіката закінчується"
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr ""
 "Термін дії принаймні одного сертифіката закінчився або дуже скоро закінчиться"
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr "OpenRoaming налаштовано належним чином"
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr "Існують деякі незначні проблеми з налаштуванням OpenRoaming"
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr "Існують деякі проблеми середнього рівня з налаштуванням OpenRoaming"
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr "Є кілька критичних проблем з налаштуванням OpenRoaming"
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr "Немає налаштованих профілів"
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr "Всі активні профілі перенаправлені"
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr "Пов’язані"
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr "Не пов'язані"
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
 msgstr "Не показувати інформацію про сертифікат, якщо не видно жодного профілю"
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
+msgstr ""
 
 #: web/lib/admin/Wizard.php:92
 msgid "Click to open the help window"

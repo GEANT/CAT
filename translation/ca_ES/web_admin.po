@@ -6,12 +6,12 @@
 # eduki <ecercos@xtec.cat>, 2013,2015-2016,2018-2019,2021-2025
 # eduki <ecercos@xtec.cat>, 2012
 # Joan Montané, 2019
-#: web/lib/admin/Authentication.php:78
+#: web/lib/admin/Authentication.php:91
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 11:44+0200\n"
+"POT-Creation-Date: 2025-11-04 12:24+0100\n"
 "PO-Revision-Date: 2011-10-27 10:29+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, "
 "2013,2015-2016,2018-2019,2021-2025\n"
@@ -475,26 +475,26 @@ msgstr "Propietats de %s"
 #: web/admin/edit_federation.php:86 web/admin/edit_hotspot.php:248
 #: web/admin/edit_participant.php:103 web/admin/edit_silverbullet.php:346
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:71
-#: web/admin/overview_federation.php:151 web/admin/overview_user.php:80
+#: web/admin/overview_federation.php:151 web/admin/overview_user.php:108
 msgid "Property Type"
 msgstr "Tipus de propietat"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:249
 #: web/admin/edit_participant.php:104 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:72 web/admin/overview_federation.php:152
-#: web/admin/overview_user.php:81
+#: web/admin/overview_user.php:109
 msgid "Language if applicable"
 msgstr "Llengua si correspon"
 
 #: web/admin/edit_federation.php:88 web/admin/edit_hotspot.php:250
 #: web/admin/edit_participant.php:105 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:73
-#: web/admin/overview_federation.php:153 web/admin/overview_user.php:82
+#: web/admin/overview_federation.php:153 web/admin/overview_user.php:110
 msgid "Property Value"
 msgstr "Valor de la propietat"
 
 #: web/admin/edit_federation.php:91 web/admin/edit_participant.php:109
-#: web/lib/admin/UIElements.php:280
+#: web/lib/admin/UIElements.php:288
 msgid "Country:"
 msgstr "País:"
 
@@ -647,7 +647,7 @@ msgstr ""
 msgid "General Information"
 msgstr "Informació General"
 
-#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:295
+#: web/admin/edit_participant.php:142 web/lib/admin/UIElements.php:303
 msgid "Media Properties"
 msgstr "Propietats del mitjà"
 
@@ -1256,7 +1256,7 @@ msgstr "Gestiona %s usuaris"
 
 #. / this should not be translated as "Username"
 #: web/admin/edit_silverbullet.php:396 web/admin/edit_silverbullet.php:403
-#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:169
+#: web/admin/overview_federation.php:212 web/admin/inc/manageAdmins.inc.php:173
 msgid "User"
 msgstr "Usuari/a"
 
@@ -1269,7 +1269,7 @@ msgid "User/Token Expiry"
 msgstr "Usuari/codi expirat"
 
 #: web/admin/edit_silverbullet.php:399 web/admin/edit_silverbullet.php:406
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:174
 msgid "Actions"
 msgstr "Accions"
 
@@ -1575,14 +1575,14 @@ msgstr ""
 "No podeu sol.licitar certificats perquè no hi ha informació de servidor per "
 "a %s a la base de dades eduroam"
 
-#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:725
+#: web/admin/overview_federation.php:40 web/lib/admin/UIElements.php:733
 msgid ""
 "At least one profile is fully configured and visible in the user interface"
 msgstr ""
 "Al menys un perfil està completament configurat i és visible  a la "
 "interfície d'usuari"
 
-#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:726
+#: web/admin/overview_federation.php:41 web/lib/admin/UIElements.php:734
 msgid ""
 "At least one profile is fully configured but none are set as production-"
 "ready therefore the institution is not visible in the user interface"
@@ -1609,15 +1609,15 @@ msgstr "Amaga les descàrregues"
 msgid "%s Overview"
 msgstr "Resum de %s"
 
-#: web/admin/overview_federation.php:67 web/admin/overview_user.php:74
+#: web/admin/overview_federation.php:67 web/admin/overview_user.php:102
 msgid "Your Personal Information"
 msgstr "Informació Personal"
 
-#: web/admin/overview_federation.php:78 web/admin/overview_user.php:88
+#: web/admin/overview_federation.php:78 web/admin/overview_user.php:116
 msgid "Unique Identifier"
 msgstr "Identificador Únic"
 
-#: web/admin/overview_federation.php:83 web/admin/overview_user.php:93
+#: web/admin/overview_federation.php:83 web/admin/overview_user.php:121
 msgid "click to display"
 msgstr "cliqueu per mostrar"
 
@@ -1677,19 +1677,19 @@ msgstr "Administrador"
 msgid "RADIUS/TLS Certificate management"
 msgstr "Gestió de certificats RADIUS/TLS "
 
-#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/overview_federation.php:250 web/admin/inc/manageAdmins.inc.php:115
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] "S'ha enviat amb encriptació en el transport."
 msgstr[1] "S'han enviat amb encriptació en el transport."
 
-#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:115
+#: web/admin/overview_federation.php:253 web/admin/inc/manageAdmins.inc.php:118
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] "S'ha enviat en text pla (sense encriptar)."
 msgstr[1] "S'han enviat en text pla (sense encriptar)."
 
-#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:118
+#: web/admin/overview_federation.php:256 web/admin/inc/manageAdmins.inc.php:121
 msgid ""
 "A subset of the mails were sent with transport encryption, the rest in clear "
 "text."
@@ -1697,38 +1697,38 @@ msgstr ""
 "Un subconjunt dels correus s'han enviat amb transport encriptat, la resta en "
 "text pla."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] "El correu d'invitació s'ha enviat amb èxit."
 msgstr[1] "Tots els correus d'invitació s'han enviat amb èxit."
 
-#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:123
+#: web/admin/overview_federation.php:261 web/admin/inc/manageAdmins.inc.php:126
 msgid "Sent successfully."
 msgstr "S'ha enviat correctament."
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "No invitation email could be sent!"
 msgstr "No s'ha pogut enviar cap correu d'invitació!"
 
-#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:126
+#: web/admin/overview_federation.php:264 web/admin/inc/manageAdmins.inc.php:129
 msgid "Sending failure!"
 msgstr "Error d'enviament!"
 
-#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:132
+#: web/admin/overview_federation.php:270 web/admin/inc/manageAdmins.inc.php:135
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] "El que s'ha enviat amb èxit s'ha fet amb transport encriptat."
 msgstr[1] "El que s'ha enviat amb èxit s'ha fet amb transport encriptat."
 
-#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/overview_federation.php:273 web/admin/inc/manageAdmins.inc.php:138
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] "El que s'ha enviat amb èxit s'ha fet amb text pla."
 msgstr[1] "El que s'ha enviat amb èxit s'ha fet amb text pla."
 
-#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/overview_federation.php:276 web/admin/inc/manageAdmins.inc.php:141
 msgid ""
 "A subset of the successfully sent mails were sent with transport encryption, "
 "the rest in clear text."
@@ -1736,7 +1736,7 @@ msgstr ""
 "Un subconjunt dels correus enviats correctament s'han enviat amb transport "
 "encriptat, la resta en text pla."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
@@ -1745,19 +1745,19 @@ msgstr ""
 "Alguns correus d'invitació s'han enviat correctament ( %s en total), els "
 "altres han fallat."
 
-#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:143
+#: web/admin/overview_federation.php:281 web/admin/inc/manageAdmins.inc.php:146
 msgid "Partial success."
 msgstr "Èxit parcial."
 
-#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:146
+#: web/admin/overview_federation.php:284 web/admin/inc/manageAdmins.inc.php:149
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "L'adreça de la invitació estava mal formatada, no s'ha enviat res!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Error: resultat del codi d'invitació desconegut!?!"
 
-#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/overview_federation.php:287 web/admin/inc/manageAdmins.inc.php:152
 msgid "Unknown result!"
 msgstr "Resultat desconegut!"
 
@@ -1766,7 +1766,7 @@ msgstr "Resultat desconegut!"
 msgid "Diagnose reachability and connection parameters of any %s %s"
 msgstr "Diagnosi de connectivitat i paràmetres de qualsevol %s%s"
 
-#: web/admin/overview_federation.php:304 web/admin/overview_user.php:256
+#: web/admin/overview_federation.php:304 web/admin/overview_user.php:286
 msgid "Go!"
 msgstr "Vés-hi!"
 
@@ -1779,69 +1779,69 @@ msgstr "Necessiteu ajuda? Consulteu el <a href='%s'>manual de %s</a>"
 msgid "Participant Details"
 msgstr "Detalls del participant"
 
-#: web/admin/overview_federation.php:322
+#: web/admin/overview_federation.php:327
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Els següents %s es troben al vostre %s %s:"
 
-#: web/admin/overview_federation.php:325 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:330 web/admin/overview_user.php:184
 #: web/admin/inc/manageDBLink.inc.php:162 web/lib/admin/UIElements.php:139
 #, php-format
 msgid "%s Name"
 msgstr "Nom %s"
 
-#: web/admin/overview_federation.php:327
+#: web/admin/overview_federation.php:332
 msgid "Status"
 msgstr "Estat"
 
-#: web/admin/overview_federation.php:329
+#: web/admin/overview_federation.php:334
 msgid "Cert"
 msgstr "Certificat"
 
-#: web/admin/overview_federation.php:335
+#: web/admin/overview_federation.php:340
 #, php-format
 msgid "%s Database Link Status"
 msgstr "%s Estat de l'enllaç de la Base de Dades"
 
-#: web/admin/overview_federation.php:341
+#: web/admin/overview_federation.php:346
 msgid "Administrator Management"
 msgstr "Gestió d'administrador"
 
-#: web/admin/overview_federation.php:349
+#: web/admin/overview_federation.php:354
 msgid "Quick search:"
 msgstr "Cerca ràpida:"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "manage"
 msgstr "administra"
 
-#: web/admin/overview_federation.php:471
+#: web/admin/overview_federation.php:503
 msgid "view"
 msgstr "veure"
 
-#: web/admin/overview_federation.php:490
+#: web/admin/overview_federation.php:522
 msgid "Manage DB Link"
 msgstr "Gestió de l'enllaç a DB"
 
-#: web/admin/overview_federation.php:502 web/admin/overview_user.php:222
+#: web/admin/overview_federation.php:534 web/admin/overview_user.php:252
 msgid "Add/Remove Administrators"
 msgstr "Afegir/esborrar administradors"
 
-#: web/admin/overview_federation.php:515
+#: web/admin/overview_federation.php:547
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Invitacions pendents a %s:"
 
-#: web/admin/overview_federation.php:532
+#: web/admin/overview_federation.php:564
 msgid "Revoke Invitation"
 msgstr "Revocar invitació"
 
-#: web/admin/overview_federation.php:533 web/admin/inc/manageAdmins.inc.php:222
+#: web/admin/overview_federation.php:565 web/admin/inc/manageAdmins.inc.php:232
 #, php-format
 msgid "(expires %s)"
 msgstr "(expira %s)"
 
-#: web/admin/overview_federation.php:555
+#: web/admin/overview_federation.php:587
 #, php-format
 msgid "Register a new %s!"
 msgstr "Registreu un nou %s!"
@@ -1960,8 +1960,8 @@ msgstr "Perfil: %s"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipus EAP</strong> (en ordre de preferència):"
 
-#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:482
-#: web/lib/admin/UIElements.php:486
+#: web/admin/overview_org.php:107 web/lib/admin/UIElements.php:490
+#: web/lib/admin/UIElements.php:494
 msgid "OK"
 msgstr "OK"
 
@@ -2348,7 +2348,7 @@ msgstr ""
 "no configurat, tingueu en compte que la configuració del domini no es fa "
 "servir fins que s'afegeix l'etiqueta de VLAN"
 
-#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:173
+#: web/admin/overview_sp.php:433 web/lib/admin/UIElements.php:181
 msgid "Realm to be considered own users"
 msgstr "Domini per a usuaris propis"
 
@@ -2589,69 +2589,77 @@ msgstr "Encara no hi ha desplegaments coneguts per %s."
 msgid "%s: User Management"
 msgstr "%s: Gestió d'usuaris"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:77
+msgid ""
+"Something went wrong with institution creation. Please contact your "
+"federation administrator."
+msgstr ""
+"Alguna cosa ha fallat en la creació de la institució. Sis plau contacteu amb "
+"el vostre administrador de la federació."
+
+#: web/admin/overview_user.php:98
 msgid "User Overview"
 msgstr "Visió general de l'usuari"
 
-#: web/admin/overview_user.php:101
+#: web/admin/overview_user.php:131
 msgid "Edit User Details"
 msgstr "Editeu els detalls d'usuari"
 
-#: web/admin/overview_user.php:105
+#: web/admin/overview_user.php:135
 #, php-format
 msgid "Click here for %s management tasks"
 msgstr "Cliqueu aquí per tasques d'administració de %s"
 
-#: web/admin/overview_user.php:108
+#: web/admin/overview_user.php:138
 msgid "Click here to access the superadmin page"
 msgstr "Cliqueu aquí per accedir a la pàgina de superadministrador"
 
-#: web/admin/overview_user.php:121
+#: web/admin/overview_user.php:151
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
 "(Us cal ajut? Consulteu el <a href='%s'> manual de l'administrador de%s</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:160
 #, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Esteu gestionant el <strong>%d</strong> %s següent :"
 msgstr[1] "Esteu gestionant les <strong>%d</strong> %s següents :"
 
-#: web/admin/overview_user.php:152
+#: web/admin/overview_user.php:182
 #, php-format
 msgid "%s Management Overview"
 msgstr "%s Visió general d'Administració"
 
-#: web/admin/overview_user.php:155
+#: web/admin/overview_user.php:185
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Altres administradors de %s"
 
-#: web/admin/overview_user.php:158
+#: web/admin/overview_user.php:188
 msgid "Management"
 msgstr "Administració"
 
-#: web/admin/overview_user.php:165
+#: web/admin/overview_user.php:195
 msgid "Danger Zone"
 msgstr "Zona perillosa"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:177
+#: web/admin/overview_user.php:207
 #, php-format
 msgid "%s %s: %s list"
 msgstr "%s %s: llista %s"
 
-#: web/admin/overview_user.php:215
+#: web/admin/overview_user.php:245
 #, php-format
 msgid "You and %d other user"
 msgid_plural "You and %d other users"
 msgstr[0] "Tu i %d altre usuari"
 msgstr[1] "Tu i %d altres usuaris"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -2660,17 +2668,17 @@ msgstr ""
 "Després d'esborrar %s, no podreu regenerar-vos - caldrà que rebeu una nova "
 "invitació de l'administració de %s!"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "Segur que voleu esborrar el vostre %s %s?"
 
-#: web/admin/overview_user.php:229
+#: web/admin/overview_user.php:259
 #, php-format
 msgid "Delete %s"
 msgstr "Esborrar %s"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -2680,17 +2688,17 @@ msgstr ""
 "Aquesta acció esborrarà totes les propietats de %s i haureu de començar de "
 "bell nou. Realment voleu esborrar tots els ajustos de %s %s?"
 
-#: web/admin/overview_user.php:232
+#: web/admin/overview_user.php:262
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Reiniciar els ajustos de %s"
 
-#: web/admin/overview_user.php:244
+#: web/admin/overview_user.php:274
 #, php-format
 msgid "You are not managing any %s."
 msgstr "No esteu gestionant cap %s."
 
-#: web/admin/overview_user.php:249
+#: web/admin/overview_user.php:279
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -2698,20 +2706,16 @@ msgstr ""
 "Demaneu una invitació al vostre administrador de %s per a convertir-vos en "
 "administrador de %s."
 
-#: web/admin/overview_user.php:253
+#: web/admin/overview_user.php:283
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr "Vau rebre una invitació per a gestionar %s? Copieu el codi aquí:"
 
-#: web/admin/overview_user.php:268
-msgid "We have automatically added you to the following organisations:"
-msgstr "Heu estat afegit automàticament a les següents organitzacions:"
-
-#: web/admin/overview_user.php:269
+#: web/admin/overview_user.php:298
 msgid ""
-"We have added the organisations to your profile since your mail is listed as "
-"their administrator in the eduroam database.\n"
+"You can add organisations to your profile since your mail is listed as their "
+"administrator in the eduroam database.\n"
 "                            There may be several reasons why you are seeing "
 "this, for instance:\n"
 "                            <ul>\n"
@@ -2724,10 +2728,12 @@ msgid ""
 "                            <li>your IdP has changed it's behaviour, for "
 "instance it was previously sending the eduPersonTargetedId attribute but now "
 "it is only sending pairwise-id\n"
-"                            </ul>"
+"                            </ul>\n"
+"                            If you accept then invitation tokens will be "
+"automatically sent to your email address."
 msgstr ""
-"Hem afegit les organitzacions al vostre perfil ja que el vostre email "
-"apareix com a contacte/administrador a la base de dades d'eduroam.\n"
+"Podeu afegir organitzacions al vostre perfil ja que el vostre email apareix "
+"com a contacte/administrador a la base de dades d'eduroam.\n"
 "                            Hi ha diverses raons que poden explicar aquest "
 "fet, per exemple:\n"
 "                            <ul>\n"
@@ -2740,9 +2746,27 @@ msgstr ""
 "                            <li>el vostre IdP ha modificat la resposta, per "
 "exemple abans enviava l'atribut eduPersonTargetedId i ara en canvi només "
 "envia la id emparellada\n"
-"                            </ul>"
+"                            </ul>\n"
+"                             Si accepteu, rebreu les invitacions "
+"automàticament al vostre correu electrònic."
 
-#: web/admin/overview_user.php:284
+#: web/admin/overview_user.php:309
+msgid ""
+"According to the information obtained from your login attributes, you are "
+"entitled to be the administrator of the following CAT institutions:"
+msgstr ""
+"D'acord amb la informació obtinguda dels vostres atributs, podeu administrar "
+"les següent institucions CAT:"
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Send token"
+msgstr "Enviar codi"
+
+#: web/admin/overview_user.php:329 web/admin/overview_user.php:357
+msgid "Token sent"
+msgstr "Codi enviat"
+
+#: web/admin/overview_user.php:337
 msgid ""
 "The eduroam database says you are an administrator of these following "
 "institutions, but there seem to be no matching institutions in CAT."
@@ -2750,15 +2774,7 @@ msgstr ""
 "La base de dades eduaroam diu que podeu administrar les següent "
 "institucions, però no sembla que n'hi hagi cap a CAT."
 
-#: web/admin/overview_user.php:301
-msgid "Proceed with creating the CAT IdP?"
-msgstr "Crear la IdP CAT?"
-
-#: web/admin/overview_user.php:301
-msgid "create CAT profile for this institution"
-msgstr "crea el perfil CAT per a aquesta institució"
-
-#: web/admin/overview_user.php:309
+#: web/admin/overview_user.php:365
 msgid ""
 "According to the information obtained from your login attributes, you are "
 "entitled to be the administrator of the following CAT institutions:<p>"
@@ -2766,11 +2782,11 @@ msgstr ""
 "D'acord amb la informació obtinguda dels vostres atributs, podeu administrar "
 "les següent institucions CAT:<p>"
 
-#: web/admin/overview_user.php:324
+#: web/admin/overview_user.php:380
 msgid "take control"
 msgstr "agafar el control"
 
-#: web/admin/overview_user.php:337
+#: web/admin/overview_user.php:393
 #, php-format
 msgid "New %s Registration"
 msgstr "Registre Nou %s"
@@ -2835,7 +2851,7 @@ msgstr ""
 msgid "Invitation Token QR Code"
 msgstr "Codi QR de la invitació"
 
-#: web/admin/inc/manageAdmins.inc.php:63
+#: web/admin/inc/manageAdmins.inc.php:66
 #, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
@@ -2844,12 +2860,12 @@ msgstr ""
 "No teniu els privilegis necessaris per a modificar els administradors de %s. "
 "De fet, no hauríeu d'haver arribat tan lluny!"
 
-#: web/admin/inc/manageAdmins.inc.php:97
+#: web/admin/inc/manageAdmins.inc.php:100
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Administradors per a l'IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:159
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -2858,12 +2874,12 @@ msgstr ""
 "Sou l'administrador de %s. Podeu invitar-hi nous administradors, que podran "
 "també nomenar d'altres administradors."
 
-#: web/admin/inc/manageAdmins.inc.php:156 web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageAdmins.inc.php:159 web/lib/admin/UIElements.php:124
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrador de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -2873,45 +2889,49 @@ msgstr ""
 "Sou un administrador nomenat directament per l'administrador de %s. Podeu "
 "nomenar més administradors, però aquests no podran nomenar-ne de nous."
 
-#: web/admin/inc/manageAdmins.inc.php:162
+#: web/admin/inc/manageAdmins.inc.php:165
 msgid "Directly Appointed Administrator"
 msgstr "Administrador nomenat directament "
 
-#: web/admin/inc/manageAdmins.inc.php:180
+#: web/admin/inc/manageAdmins.inc.php:185
 msgid "User without name"
 msgstr "Usuari sense nom"
 
-#: web/admin/inc/manageAdmins.inc.php:183
+#: web/admin/inc/manageAdmins.inc.php:188
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(invitat originalment com %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:185
+#: web/admin/inc/manageAdmins.inc.php:190
 msgid "(self-appointed)"
 msgstr "(auto-nomenat)"
 
-#: web/admin/inc/manageAdmins.inc.php:197
+#: web/admin/inc/manageAdmins.inc.php:199
+msgid "Last seen: "
+msgstr "Vist per darrer cop:"
+
+#: web/admin/inc/manageAdmins.inc.php:207
 msgid "Delete Administrator"
 msgstr "Esborra Administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:219
+#: web/admin/inc/manageAdmins.inc.php:229
 msgid "Pending invitations for this IdP"
 msgstr "Invitacions pendents per a aquest IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Adreça(ces) email dels nous administradors (separades per comes):"
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:241
 msgid "Invite new administrator"
 msgstr "Inviteu un nou administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:244
+#: web/admin/inc/manageAdmins.inc.php:256
 #, php-format
 msgid "Take control of this %s"
 msgstr "Prendre el control de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:251
+#: web/admin/inc/manageAdmins.inc.php:263
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:150
 msgid "Close"
@@ -2953,7 +2973,7 @@ msgstr "Informació a <strong>%s Database</strong>"
 msgid "%s Name (%s)"
 msgstr "Nom de %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:77
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr "Usuari sense nom"
 
@@ -3159,7 +3179,7 @@ msgstr "Usuari i domini vàlids per al RADIUS:"
 msgid "Detect root CA"
 msgstr "Detecció de la CA arrel"
 
-#: web/admin/inc/sendinvite.inc.php:116
+#: web/admin/inc/sendinvite.inc.php:128
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -3381,7 +3401,7 @@ msgstr "Llegiu les instruccions en el wiki"
 msgid "select language"
 msgstr "Selecciona idioma"
 
-#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:210
+#: web/lib/admin/OptionDisplay.php:387 web/lib/admin/UIElements.php:218
 msgid "default/other languages"
 msgstr "per defecte/altres idiomes"
 
@@ -3393,11 +3413,11 @@ msgstr "(per defecte/altres idiomes)"
 msgid "file content"
 msgstr "contingut de l'arxiu"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "on"
 msgstr "on"
 
-#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:244
+#: web/lib/admin/OptionDisplay.php:513 web/lib/admin/UIElements.php:252
 msgid "off"
 msgstr "off"
 
@@ -3801,61 +3821,86 @@ msgstr ""
 "geant:eduroam:inst:admin. Aquesta opció només té sentit si s'habilita "
 "l'\"Autoregistre basat en autorització\""
 
+#: web/lib/admin/UIElements.php:170
+msgid "Custom number of days of allowed admin inactivity"
+msgstr "Nombre personalitzat de dies permesos sense activitat de l'admin"
+
 #: web/lib/admin/UIElements.php:171
+#, php-format
+msgid ""
+"You can override the default value of %d days after which an inactivity "
+"warning will be displayed on the NRO admin page."
+msgstr ""
+"Podeu sobreescriure el valor de %d dies d'inactivitat per defecte abans de "
+"mostrar l'avís a la pàgina NRO d'administració."
+
+#: web/lib/admin/UIElements.php:174
+msgid "Do not show any warnings about missing/inactive admins"
+msgstr "No mostrar avisos sobre administradors actius o no trobats"
+
+#: web/lib/admin/UIElements.php:175
+msgid ""
+"You can block any warnings on missing/inactive admins. The default is to "
+"show them."
+msgstr ""
+"Podeu bloquejar els avisos d'administradors inactius o no trobats. Per "
+"defecte es mostraran."
+
+#: web/lib/admin/UIElements.php:179
 msgid "VLAN for guests"
 msgstr "VLAN per a convidats"
 
-#: web/lib/admin/UIElements.php:172
+#: web/lib/admin/UIElements.php:180
 msgid "VLAN for own users"
 msgstr "VLAN per als usuaris propis"
 
-#: web/lib/admin/UIElements.php:174
+#: web/lib/admin/UIElements.php:182
 msgid "Custom Operator-Name attribute"
 msgstr "Valor Operator-Name personalitzat"
 
-#: web/lib/admin/UIElements.php:276
+#: web/lib/admin/UIElements.php:284
 #, php-format
 msgid "General %s details"
 msgstr "Detalls generals de %s"
 
-#: web/lib/admin/UIElements.php:293
+#: web/lib/admin/UIElements.php:301
 msgid "Global Helpdesk Details"
 msgstr "Detalls globals del SAU"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:376
+#: web/lib/admin/UIElements.php:384
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Hi ha hagut un error recuperant el certificat de la base de dades!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:393
 msgid "There was an error processing the certificate!"
 msgstr "Hi ha hagut un error processant el certificat!"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Root CA"
 msgstr "CA Arrel"
 
-#: web/lib/admin/UIElements.php:393
+#: web/lib/admin/UIElements.php:401
 msgid "Intermediate CA"
 msgstr "CA intermedi"
 
-#: web/lib/admin/UIElements.php:399
+#: web/lib/admin/UIElements.php:407
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Aquest és un certificat de <strong>SERVIDOR</strong>!"
 
-#: web/lib/admin/UIElements.php:401 web/lib/admin/UIElements.php:425
+#: web/lib/admin/UIElements.php:409 web/lib/admin/UIElements.php:433
 msgid "more info"
 msgstr "més informació"
 
-#: web/lib/admin/UIElements.php:411
+#: web/lib/admin/UIElements.php:419
 msgid "Certificate expired!"
 msgstr "Certificat caducat!"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:424
 msgid "Certificate close to expiry!"
 msgstr "Certificat proper a caducar!"
 
-#: web/lib/admin/UIElements.php:423
+#: web/lib/admin/UIElements.php:431
 msgid ""
 "Improper root certificate, required critical CA extension missing, will not "
 "reliably install!"
@@ -3863,83 +3908,95 @@ msgstr ""
 "Certficat arrel incorrecte, manca una extensió de CA crítica, no es pot "
 "instal.lar correctament!"
 
-#: web/lib/admin/UIElements.php:442
+#: web/lib/admin/UIElements.php:450
 msgid "Preview of logo file"
 msgstr "Vista prèvia del fitxer de logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:459
+#: web/lib/admin/UIElements.php:467
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Hi ha hagut un error recuperant el registre de la base de dades!"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "File exists"
 msgstr "Existeix l'arxiu"
 
-#: web/lib/admin/UIElements.php:465
+#: web/lib/admin/UIElements.php:473
 msgid "Preview"
 msgstr "Vista prèvia"
 
-#: web/lib/admin/UIElements.php:483
+#: web/lib/admin/UIElements.php:491
 msgid "Remark"
 msgstr "Observació"
 
-#: web/lib/admin/UIElements.php:484 web/lib/admin/UIElements.php:487
-#: web/lib/admin/UIElements.php:488
+#: web/lib/admin/UIElements.php:492 web/lib/admin/UIElements.php:495
+#: web/lib/admin/UIElements.php:496
 msgid "Warning!"
 msgstr "Alerta!"
 
-#: web/lib/admin/UIElements.php:485
+#: web/lib/admin/UIElements.php:493
 msgid "Error!"
 msgstr "Error!"
 
-#: web/lib/admin/UIElements.php:718
+#: web/lib/admin/UIElements.php:726
 msgid "All certificates are valid long enough"
 msgstr "Tots els certificats tenen una durada vàlida"
 
-#: web/lib/admin/UIElements.php:719
+#: web/lib/admin/UIElements.php:727
 msgid "At least one certificate is close to expiry"
 msgstr "Al menys in certificat caducarà properament"
 
-#: web/lib/admin/UIElements.php:720
+#: web/lib/admin/UIElements.php:728
 msgid "At least one certificate either has expired or is very close to expiry"
 msgstr "Al menys in certificat ha caducat o és molt a prop de fer-ho"
 
-#: web/lib/admin/UIElements.php:721
+#: web/lib/admin/UIElements.php:729
 msgid "OpenRoaming appears to be configured properly"
 msgstr "OpenRoamng sembla ben configurat"
 
-#: web/lib/admin/UIElements.php:722
+#: web/lib/admin/UIElements.php:730
 msgid "There are some minor OpenRoaming configuration issues"
 msgstr "Hi ha algunes errades de configuració menors a OpenRoaming"
 
-#: web/lib/admin/UIElements.php:723
+#: web/lib/admin/UIElements.php:731
 msgid "There are some average level OpenRoaming configuration issues"
 msgstr "Hi ha algunes errades de configuració menys importants a OpenRoaming"
 
-#: web/lib/admin/UIElements.php:724
+#: web/lib/admin/UIElements.php:732
 msgid "There are some critical OpenRoaming configuration issues"
 msgstr "Hi ha algunes errades de configuració crítiques a OpenRoaming"
 
-#: web/lib/admin/UIElements.php:727
+#: web/lib/admin/UIElements.php:735
 msgid "No configured profiles"
 msgstr "No hi ha perfils configurats"
 
-#: web/lib/admin/UIElements.php:728
+#: web/lib/admin/UIElements.php:736
 msgid "All active profiles redirected"
 msgstr "S'han redirigit tots els perfils actius"
 
-#: web/lib/admin/UIElements.php:729
+#: web/lib/admin/UIElements.php:737
 msgid "Linked"
 msgstr "Enllaçat"
 
-#: web/lib/admin/UIElements.php:730
+#: web/lib/admin/UIElements.php:738
 msgid "NOT linked"
 msgstr "NO enllaçat"
 
-#: web/lib/admin/UIElements.php:731
+#: web/lib/admin/UIElements.php:739
 msgid "Not showing cert info if no profiles are visible"
 msgstr "No es mostra la informació del certificat si no hi ha perfils visibles"
+
+#: web/lib/admin/UIElements.php:740
+msgid "Some of the admins have not been seen for a long time"
+msgstr "Alguns administradors no han accedit durant molt de temps"
+
+#: web/lib/admin/UIElements.php:741
+msgid "All admins are active"
+msgstr "Tots els administradors estan actius."
+
+#: web/lib/admin/UIElements.php:742
+msgid "No admins registered"
+msgstr "No hi administradors registrats"
 
 #: web/lib/admin/Wizard.php:92
 msgid "Click to open the help window"
