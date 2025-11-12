@@ -20,6 +20,11 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+
+/*
+ * FIX for v2.2.1 : introduce better type-safety for admin API - reported by: Nahit (Github: https://github.com/Dogru-Isim) 
+ */
+
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 // no SAML auth on this page. The API key authenticates the entity
@@ -49,7 +54,7 @@ if (!isset($inputDecoded['APIKEY'])) {
 
 $checkval = "FAIL";
 foreach (\config\ConfAssistant::CONSORTIUM['registration_API_keys'] as $key => $fed_name) {
-    if ($inputDecoded['APIKEY'] == $key) {
+    if ($inputDecoded['APIKEY'] === $key) {
         $mode = "API";
         $federation = $fed_name;
         $checkval = "OK-NEW";
