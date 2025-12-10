@@ -145,6 +145,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                     $altArray[] = "IP:" . $oneAltName;
                 }
             }
+            //print '<pre>'; print_r($csr); print '</pre>'; exit;
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
             $this->loggerInstance->debug(5, "PARAM_1: " . $this->eduPkiRaId . "\n");
@@ -157,7 +158,6 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERMAIL"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
-            
             $soapNewRequest = $soapPub->newRequest(
                     $this->eduPkiRaId, # RA-ID
                     $csr["CSR_STRING"], # Request im PEM-Format
@@ -200,7 +200,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                 "Subject" => $csr['SUBJECT'],
                 "SubjectAltNames" => $altArray,
                 "NotBefore" => (new \DateTime())->format('c'),
-                "NotAfter" => $expiry->format('c'),
+                #"NotAfter" => $expiry->format('c'), // to have maximum notafter (based on CA expiry time)
                     ]
             );
             if ($soapExpiryChange === FALSE) {
