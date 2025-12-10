@@ -76,7 +76,7 @@ class OptionDisplay extends \core\common\Entity
      * @param array  $options the options of interest
      * @param string $level   the level on which these options were defined by the user (not applicable for XHR UI, then it is NULL)
      */
-    public function __construct(array $options, string $level = NULL)
+    public function __construct(array $options, string $level = NULL, $wizardStyle = false)
     {
         $this->listOfOptions = $options;
         $this->level = $level;
@@ -95,12 +95,17 @@ class OptionDisplay extends \core\common\Entity
         
         $this->htmlDatatypeTexts = [
             \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
-            \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox' checked", "tail" => ''],
             \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
             \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
             \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => ">$openRoamingTail</select"],
             \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
         ];
+        
+        if ($wizardStyle) {
+            $this->htmlDatatypeTexts[\core\Options::TYPECODE_BOOLEAN] = ["html" => "input type='checkbox'", "tail" => ''];
+        } else {
+            $this->htmlDatatypeTexts[\core\Options::TYPECODE_BOOLEAN] = ["html" => "input type='checkbox' checked", "tail" => ''];            
+        }
     }
 
     /**
@@ -173,7 +178,6 @@ class OptionDisplay extends \core\common\Entity
     public static function enumerateOptionsToDisplay($class, $fed, $device='')
     {
         $optioninfo = \core\Options::instance();
-        $loggerInstance = new \core\common\Logging();
         $list = $optioninfo->availableOptions($class);
         // use federation context to delete more options, if the feds don't like
         // a particular one
@@ -213,7 +217,7 @@ class OptionDisplay extends \core\common\Entity
                         if ($optFlag == "SPECIFIC") {
                             $opt = str_replace('device-specific:', '', $l);
                             if (!isset($dev->options['device_options']) || !in_array($opt, $dev->options['device_options'])) {
-                                $loggerInstance->debug(5, $l, "removing option: ", "\n");
+                                 \core\common\Logging::debug_s(5, $l, "removing option: ", "\n");
                                 unset($list[array_search($l, $list)]);
                             }
                         }
@@ -237,7 +241,6 @@ class OptionDisplay extends \core\common\Entity
     private function addOptionNew(string $class, $fed)
     {
         $retval = "";
-
         $list2 = array_values(OptionDisplay::enumerateOptionsToDisplay($class, $fed));
 
         // add as many options as there are different option types
