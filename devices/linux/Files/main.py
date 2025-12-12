@@ -1000,7 +1000,7 @@ class IwdConfiguration:
             else:
                 domainMask.append(server)
 
-        return join_with_separator(domainMask, ':')
+        return join_with_separator(domainMask, ';')
 
     def generate_iwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """Generate an appropriate IWD 8021x config for a given EAP method"""
