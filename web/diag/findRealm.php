@@ -49,7 +49,6 @@ $realmCountry = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'co')));
 $realmOu = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'ou')));
 $forTests = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'addtest')));
 $token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
-
 if ($token && !is_dir($jsonDir.'/'.$token)) {
     mkdir($jsonDir.'/'.$token, 0777, true);
 }
@@ -177,7 +176,11 @@ if ($givenRealm != '') {
                     $details = $cat->getExternalDBEntityDetails($realmOu, strtoupper($realmCountry).'01');
                     if (!empty($details)) {
                         $returnArray['status'] = 1;
-                        $returnArray['realms'] = explode(',', $details['realmlist']);
+                        if ($details['realmlist'] == '') {
+                            $returnArray['realms'] = [];
+                        } else {
+                            $returnArray['realms'] = explode(',', $details['realmlist']);
+                        }
                     }
                 }
                 if ($forTests) {

@@ -59,7 +59,7 @@ $cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 </head>
 <body>
 <div id='wrap' style='background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "beta.png"); ?>");'>
-<form id="cat_form" name="cat_form" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
+<form id="cat_form" name="cat_form" autocomplete="off" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
 <?php
 echo $divs->divHeading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
@@ -97,7 +97,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                     echo '<div id="before_stage_1"><h3>' . _("The system needs some information on your home institution - issuer of your account") . '</h3>';
                     echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<strong>realm.tld</strong>'):");
                 ?>
-                <input type='text' name='user_realm' id='user_realm' value=''>
+                <input type='text' name='u_realm' autocomplete='off' readonly onfocus="this.removeAttribute('readonly');" id='u_realm' value=''>
                 <?php
                     echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
                     echo _("You can select your home institution from the following list") . '<br/>';
@@ -195,7 +195,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
             $('input[name=problem_type]').each(function() {
                 $(this).prop('checked', false);
             });
-            $('#user_realm').val('');
+            $('#u_realm').val('');
             $('#select_idp_area').html('');
             $('#select_idp_country').show();
             $('#select_sp_area').html('');
@@ -213,8 +213,8 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
         }
         reset_footer();
     });
-    $('#user_realm').bind('change keyup blur input', function(e)  {
-        if (isDomain($('#user_realm').val())) {
+    $('#u_realm').bind('change keyup blur input', function(e)  {
+        if (isDomain($('#u_realm').val())) {
             $('#start_test_area').show();
         } else {
             $('#start_test_area').hide();
@@ -226,7 +226,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
     $('#idp_countries_list').click(function(event){
         event.preventDefault();
         $('#start_test_area').hide();
-        $('#user_realm').val("");
+        $('#u_realm').val("");
         countrySelection("idp");
         return false;
     });
@@ -411,16 +411,24 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                         }
                         realmselect = realmselect + '</span></td>';
                     } else {
-                        realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"'; ?>;
-                        realmselect = realmselect + '<td>' + "<span style='margin-left: 10px'>";
-                        realmselect = realmselect + realms[0] + '</span>';
-                        realmselect = realmselect + '<input type="hidden" name="realm" value="' + realms[0] + '">';
-                        realmselect = realmselect + '</span></td>';
+                        if (realms.length == 1) {
+                            realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"'; ?>;
+                            realmselect = realmselect + '<td>' + "<span style='margin-left: 10px'>";
+                            realmselect = realmselect + realms[0] + '</span>';
+                            realmselect = realmselect + '<input type="hidden" name="realm" value="' + realms[0] + '">';
+                            realmselect = realmselect + '</span></td>';
+                        } else {
+                            realmselect = <?php echo '"<td>' . _("Realm:") . '</td><td>' . _("no realm found") . ', ' .
+                                    _("it is not possible to test this institution realms, try to enter a realm in the field above")
+                                    . '</td>"'; ?>;
+                        }
                     }
                     $('#row_idp_realm').html("");
                     $('#row_idp_realm').append(realmselect);
-                    $('#start_test_area').show();
-                    $("#user_realm").val("");
+                    if (realms.length > 0) {
+                        $('#start_test_area').show();
+                    }
+                    $("#u_realm").val("");
                     $("#realm_info+ok").hide();
                     reset_footer();
                 }
@@ -443,7 +451,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
             $('#select_idp_area').hide();
             $('#select_idp_area').html('');
             $('#select_idp_country').show();
-            realm = trimRealm($("#user_realm").val());
+            realm = trimRealm($("#u_realm").val());
         } else {
             /* realm_in_db_admin click */
             realmfield = trimRealm($("#admin_realm").val());
@@ -541,8 +549,8 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
             $('#realm_by_select').hide();
         }
         var realm = '';
-        if ($('#user_realm').val()) {
-            realm = trimRealm($('#user_realm').val());
+        if ($('#u_realm').val()) {
+            realm = trimRealm($('#u_realm').val());
         }
         if ($('#idp_inst').val()) {
             if ($('input[name="realm"]').attr('type') === 'hidden') {
@@ -613,7 +621,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                     if ($('#select_idp_area').is(':hidden')) {
                         $('#realm_by_select').show();
                     }
-                    $('#user_realm').val("");
+                    $('#u_realm').val("");
                     reset_footer();
                     alert('magicTelepath error');
                 }
@@ -736,8 +744,8 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                 $('#admin_realm').attr('title', '');
                 $('#realm_in_db_admin').show();
                 if ($('#admin_realm').val().indexOf('@') == -1) {
-                    $('#outer_user_realm').html('@' + $('#admin_realm').val());
-                    $('#outer_user_row').removeClass('hidden_row').addClass('visible_row');
+                    $('#outer_u_realm').html('@' + $('#admin_realm').val());
+                    $('#outer_u_row').removeClass('hidden_row').addClass('visible_row');
                 }
             }
     });
