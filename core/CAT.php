@@ -190,7 +190,7 @@ class CAT extends \core\common\Entity
             'DEFAULT' => ['name'=>_("Default")],
             'AM' => ['name'=>_("Armenia")],
             'AZ' => ['name'=>_("Azerbaijan")],
-            'BY' => ['name'=>_("Belarus")],
+            //'BY' => ['name'=>_("Belarus")],
             'EC' => ['name'=>_("Ecuador")],
             'HK' => ['name'=>_("Hong Kong")],
             'KE' => ['name'=>_("Kenya")],
@@ -202,7 +202,7 @@ class CAT extends \core\common\Entity
             'ME' => ['name'=>_("Montenegro")],
             'MO' => ['name'=>_("Macau")],
             'MT' => ['name'=>_("Malta")],
-            'RU' => ['name'=>_("Russia")],
+            //'RU' => ['name'=>_("Russia")],
             'SG' => ['name'=>_("Singapore")],
             'TH' => ['name'=>_("Thailand")],
             'TW' => ['name'=>_("Taiwan")],
@@ -591,8 +591,10 @@ class CAT extends \core\common\Entity
             $timeElapsed = $timeEnd - $timeStart;
             // the query yielded a mysqli_result because it's a SELECT, this never gives back a boolean
             while ($eduroamFederations = mysqli_fetch_object(/** @scrutinizer ignore-type */ $federations)) {
-                $fedIdentifier = $eduroamFederations->country;
-                $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier]['name'] : $fedIdentifier;
+                if (array_key_exists($eduroamFederations->country, $this->knownFederations)) {
+                    $fedIdentifier = $eduroamFederations->country;
+                    $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier]['name'] : $fedIdentifier;
+                }
             }
             asort($returnArray, SORT_LOCALE_STRING);
             $returnArray['time'] = $timeElapsed;
