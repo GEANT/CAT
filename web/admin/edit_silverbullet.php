@@ -36,7 +36,7 @@ if (!isset($_REQUEST['profile_id'])) {
     // someone might want to trick themselves into this page by sending an inst_id but
     // not having permission for silverbullet. Sanity check that the fed in question
     // does allow SB and that the IdP doesn't have any non-SB profiles
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
+    if (!\core\CAT::hostedIDPEnabled()) {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
     [$inst, $editMode] = $validator->existingIdPInt(filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT), $_SESSION['user']);

@@ -673,7 +673,7 @@ function radius_ready($dsp) {
 <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
             if ($readonly === FALSE && $editMode === 'fullaccess') {
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0) {
+                if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                     // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>

@@ -43,7 +43,7 @@ class OutsideComm extends Entity
     {
         $loggerInstance = new \core\common\Logging();
         if (!preg_match("/:\/\//", $url)) {
-            $loggerInstance->debug(3, "The specified string does not seem to be a URL!");
+            $loggerInstance->debug(4, "The specified string does not seem to be a URL!");
             return FALSE;
         }
         # we got a URL, download it

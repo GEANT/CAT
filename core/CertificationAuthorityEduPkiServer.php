@@ -145,7 +145,6 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                     $altArray[] = "IP:" . $oneAltName;
                 }
             }
-            //print '<pre>'; print_r($csr); print '</pre>'; exit;
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
             $this->loggerInstance->debug(5, "PARAM_1: " . $this->eduPkiRaId . "\n");
@@ -158,6 +157,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERMAIL"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
+            
             $soapNewRequest = $soapPub->newRequest(
                     $this->eduPkiRaId, # RA-ID
                     $csr["CSR_STRING"], # Request im PEM-Format
@@ -193,17 +193,19 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $expiry = new \DateTime();
             $expiry->modify("+$expiryDays day");
             $expiry->setTimezone(new \DateTimeZone("UTC"));
-            $soapExpiryChange = $soap->setRequestParameters(
-                    $soapReqnum, [
+            $soapParameters = [
                 "RaID" => $this->eduPkiRaId,
                 "Role" => $profile,
                 "Subject" => $csr['SUBJECT'],
                 "SubjectAltNames" => $altArray,
                 "NotBefore" => (new \DateTime())->format('c'),
-                #"NotAfter" => $expiry->format('c'), // to have maximum notafter (based on CA expiry time)
-                    ]
-            );
-            if ($soapExpiryChange === FALSE) {
+                ];
+            if (\config\ConfAssistant::eduPKI['max_expiry'] === true) {
+                $soapParameters["NotAfter"] = $expiry->format('c');
+            }
+            $soapExpiryChange = $soap->setRequestParameters(
+                    $soapReqnum, $soapParameters);
+            if ($soapExpiryChange === false) {
                 throw new Exception("Error when sending SOAP request (unable to change expiry date).");
             }
             // retrieve the raw request to prepare for signature and approval

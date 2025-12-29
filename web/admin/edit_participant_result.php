@@ -152,10 +152,9 @@ switch ($_POST['submitbutton']) {
         $myfed = new \core\Federation($myInstReinstantiated->federation);
         $allow_sb = $myfed->getAttributes("fed:silverbullet");
         // only show IdP parts if fed has enabled hosted services && participant is an SP-type
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0 && preg_match("/IdP/", $myInstReinstantiated->type) ) {
+        if (\core\CAT::hostedIDPEnabled() && count($allow_sb) > 0 && preg_match("/IdP/", $myInstReinstantiated->type)) {
 // show the new profile jumpstart buttons only if we do not have any profile at all
             if (count($myInstReinstantiated->listProfiles()) == 0) {
-
                 echo "<br/>";
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
@@ -167,7 +166,7 @@ switch ($_POST['submitbutton']) {
                     echo "</table>";
                 }
 
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+                if (\core\CAT::radiusProfilesEnabled()) {
                     echo "<br/><form method='post' action='edit_profile.php?inst_id=$instId' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
                 }
             }

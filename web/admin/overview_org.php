@@ -385,7 +385,7 @@ $(document).ready(function() {
                         default:
                     }
                 }
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
+                if (\core\CAT::hostedIDPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
                     // the button is greyed out if there's no support email address configured...
                     $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
@@ -402,7 +402,7 @@ $(document).ready(function() {
 
                 <?php
                 // adding a normal profile is always possible if we're configured for it
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL" && $editMode === 'fullaccess') {
+                if (\core\CAT::radiusProfilesEnabled() && $editMode === 'fullaccess') {
                     ?>
                     <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
@@ -484,7 +484,7 @@ $(document).ready(function() {
         <hr/>
         <?php
     }
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && preg_match("/SP/", $my_inst->type)) {
+    if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0 && preg_match("/SP/", $my_inst->type)) {
         include "overview_sp.php";
     }
     echo $deco->footer();

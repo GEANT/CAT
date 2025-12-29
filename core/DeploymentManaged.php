@@ -418,6 +418,7 @@ class DeploymentManaged extends AbstractDeployment
         // only check the consortium pool group we want to attach to
         // TODO: if we also collect stats from OpenRoaming hosts, differentiate the logs!
         $opName = $this->getOperatorName();
+        $handle = DBConnection::handle('MSP_ACTIVITY');
         if ($limit !== 0) {
             $conditional1 = "";
             $conditional2 = "DESC LIMIT $limit";
@@ -426,7 +427,7 @@ class DeploymentManaged extends AbstractDeployment
             $conditional2 = "DESC";
         }
         $client = 'SP' . $this->identifier . '-' . $this->institution;
-        $stats = $this->databaseHandle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot, outer_user FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
+        $stats = $handle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot, outer_user FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
        
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }

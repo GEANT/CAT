@@ -152,7 +152,7 @@ class OptionDisplay extends \core\common\Entity
         $loggerInstance = new \core\common\Logging();
         
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname|managedsp:guest_vlan";
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+        if (\core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
         foreach ($prepopulate as $option) {
@@ -198,7 +198,7 @@ class OptionDisplay extends \core\common\Entity
                 //normally, we have nothing to hide on that level
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                if (\core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;

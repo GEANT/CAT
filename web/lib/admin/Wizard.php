@@ -125,15 +125,15 @@ class Wizard extends UIElements {
         $this->helpMessage['fed_general'] = $h;
         // SUPPORT
         $h = "<p>" . _("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.") . "</p>";
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\core\CAT::radiusProfilesEnabled()) {
             $h .= "<p>" .
             sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."), $this->nomenclatureParticipant) . "</p>" .
             "<p>" .
             _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
-            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            if (\core\CAT::hostedServicesEnabled()) {
                 $h .= "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), \config\ConfAssistant::SILVERBULLET['product_name']) . " " . _("This is the contact point for your organisation. It may be displayed publicly.") . "</p>";
             }
-        } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        } elseif (\core\CAT::hostedServicesEnabled()) {
             $h .= "<p>" . _("Providing at least a local support e-mail contact is required.") . " " . _("This is the contact point for your end users' level 1 support.") . "</p>";
         }
         $this->helpMessage['support'] = $h;

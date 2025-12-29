@@ -104,6 +104,7 @@ class UIElements extends \core\common\Entity {
             "media:wired" => ['display' => _("Configure Wired Ethernet"), 'help' => ""],
             "eap:server_name" => ['display' => _("Name (CN) of Authentication Server"), 'help' => ""],
             "eap:ca_vailduntil" => ['display' => _("Valid until"), 'help' => ""],
+            "eap:ca_vaildfrom" => ['display' => _("Valid from"), 'help' => ""],
             "eap:enable_nea" => ['display' => _("Enable device assessment"), 'help' => ""],
             "support:info_file" => ['display' => _("Terms of Use"), 'help' => ""],
             "eap:ca_url" => ['display' => _("CA Certificate URL"), 'help' => ""],
@@ -245,7 +246,7 @@ class UIElements extends \core\common\Entity {
                         }
                         break;
                     case "boolean":
-                        if ($option['name'] == "fed:silverbullet" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        if ($option['name'] == "fed:silverbullet" && \core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }
@@ -394,7 +395,7 @@ class UIElements extends \core\common\Entity {
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-
+        \core\common\Logging::debug_s(3, $details, "CERT DETAILS\n", "\n");
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
@@ -434,7 +435,17 @@ class UIElements extends \core\common\Entity {
             }
             $message .= "</div><br/>";
         }
-        $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $message . $details['name'] . "<br>" . $this->displayName('eap:ca_vailduntil') . " " . gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
+        if (strlen($details['full_details']['serialNumberHex']) < 8) {
+            $serial = $details['full_details']['serialNumberHex']." (0x".$details['full_details']['serialNumberHex'].")";
+        } else {
+            $ct = strlen($details['full_details']['serialNumberHex'])/2 - 1;
+            $serial = preg_replace('/(..)/','$1:', $details['full_details']['serialNumberHex'], $ct);
+        }
+        $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . 
+            $message.$details['name']."<br>". 
+            _("Serial number:")." ".$serial."<br/>".
+            $this->displayName('eap:ca_vaildfrom')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validFrom_time_t']) . " UTC<br/>".    
+            $this->displayName('eap:ca_vailduntil')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }

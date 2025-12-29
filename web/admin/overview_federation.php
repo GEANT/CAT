@@ -296,7 +296,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     }
     $link .= $_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
     $link = htmlspecialchars($link);
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+    if (\core\CAT::radiusProfilesEnabled() && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
         echo "<table><tr>
                         <td>".sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureIdP)."</td>
                         <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
@@ -486,7 +486,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // instantiating all profiles is costly, so we only do this if
                 // the deployment at hand has silverbullet enabled
                 $listOfSilverbulletRealms = [];
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                if (\core\CAT::hostedIDPEnabled()) {
                     foreach ($idp_instance->listProfiles() as $oneProfile) {
                         if ($oneProfile instanceof core\ProfileSilverbullet) {
                             $listOfSilverbulletRealms[] = $oneProfile->realm;

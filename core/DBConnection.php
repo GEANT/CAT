@@ -61,6 +61,7 @@ class DBConnection
             case "USER":
             case "EXTERNAL":
             case "FRONTEND":
+            case "MSP_ACTIVITY":
             case "DIAGNOSTICS":
                 if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
@@ -243,6 +244,8 @@ class DBConnection
      * @var array<DBConnection>
      */
     private static $instanceRADIUS;
+    
+    private static $instanceMSP_ACTIVITY;
 
     /**
      * after instantiation, keep state of which DB *this one* talks to
@@ -280,20 +283,20 @@ class DBConnection
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
         if (isset(\config\Master::DB[$databaseCapitalised])) {
-            $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
-            if ($this->connection->connect_error) {
-                throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
-            }
-            $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
-            $this->dbName = \config\Master::DB[$databaseCapitalised]['db'];
+            $db = \config\Master::DB[$databaseCapitalised];
         } else { // one of the RADIUS DBs
-            $this->connection = new \mysqli(\config\ConfAssistant::DB[$databaseCapitalised]['host'], \config\ConfAssistant::DB[$databaseCapitalised]['user'], \config\ConfAssistant::DB[$databaseCapitalised]['pass'], \config\ConfAssistant::DB[$databaseCapitalised]['db']);
-            if ($this->connection->connect_error) {
-                throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
-            }
-            $this->readOnly = \config\ConfAssistant::DB[$databaseCapitalised]['readonly'];
-            $this->dbName = \config\ConfAssistant::DB[$databaseCapitalised]['db'];
+            $db = \config\ConfAssistant::DB[$databaseCapitalised];
         }
+        if (!isset($db['port'])) {
+            $db['port'] = null;
+        }
+        $this->connection = new \mysqli($db['host'], $db['user'], $db['pass'], $db['db'], $db['port']);
+        if ($this->connection->connect_error) {
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
+        }        
+        $this->readOnly = $db['readonly'];
+        $this->dbName = $db['db'];
+        
         if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
         // it does not matter for internal time calculations with TIMESTAMPs but
         // sometimes we operate on date/time strings. Since MySQL returns those

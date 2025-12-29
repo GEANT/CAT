@@ -145,7 +145,7 @@ $end = $langInstance->rtl ? "left" : "right";
     $hasInst = $instMgmt->currentInstitutions['existing'];
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        if (\core\CAT::hostedServicesEnabled()) {
             $target = "https://wiki.geant.org/x/6Zg7Bw"; // Managed IdP manual
         }
         $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureParticipant) . "</h3>";
@@ -380,6 +380,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             echo "<button type='submit' class='XXX' value='" . \web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . _("take control"). "</button><br/>";
                             echo "</form>";
                             echo "</td></tr>";
+                            \core\common\Logging::debug_s(3, $idp->identifier, "Admin ".$_SESSION['user']." entitled to manage: ", "\n");
                     }
                     echo "</table>";               
                 }

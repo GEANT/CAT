@@ -119,12 +119,15 @@ class ConfAssistant
 
     /** eduPKI options:
      *
-     * at the moment we just have one whic decides wheather we are in the testing
-     * or production mode. In future it might make sense to move some other parametrs
-     * from code to this place.
+     * "testing" controls which instance of eduPKI we are using and also
+     * the requested expiry time of the certificates (1y for testing, 5y for production)
+     * "max_expiry" set to true means that we will be requesting certificates
+     * with maximum avaliable validity, controlled by eduPKI defaults (at the moment
+     * the expiry date of the CA certificate)
      */
     const eduPKI = [
         'testing' => false,
+        'max_expiry' => true,
     ];
     /** silverbullet options:
      *         default_maxusers: an institution is not allowed to create more than that amount of users
