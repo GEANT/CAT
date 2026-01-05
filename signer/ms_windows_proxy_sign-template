@@ -21,7 +21,7 @@
 
 # This script is a part of the eduroam CAT softwareand covered by the approapriate license
 # This is an example signer working with pkcs11proxy and accessing hardware or software tokens
-# plugged into remote machines. This script is set to use two servers but yoy can define more, if you like.
+# plugged into remote machines. This script is set to use two servers but you can define more, if you like.
 
 # PREFIX may come handy if your software is located in one place
 PREFIX=/usr/local/share/cat-signer

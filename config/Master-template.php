@@ -175,7 +175,7 @@ class Master
             'certfilename' => NULL,
             'keyfilename' => NULL,
             'keypass' => NULL,
-            'notify_nro' => false, // normally should be set to TRUE abd causes 
+            'notify_nro' => false, // normally should be set to TRUE and cause 
                                    // notifications being sent to NRO admins when
                                    // important changes are made
         ];
@@ -280,8 +280,8 @@ class Master
              * We are now prepared to use a local cache database. For the eduroam case a daily
              * update is sufficient and is done by the utils/update_monitor_copy.php. In this case
              * the EXTERNAL is actually a local DB, and EXTERNAL_SOURCE is used as the actual
-             * source for caching. You may use the EXTERNAL as a real extermal database and
-             * do not worry about setting aything in EXTERNAL_SOURCE
+             * source for caching. You may use the EXTERNAL as a real external database and
+             * do not worry about setting anything in EXTERNAL_SOURCE
              * 
              * The code for the consortium "eduroam" is already written and may serve as template. See the functions in question. */
             // Marking this as readonly currently has no effect, as we only ever do SELECTs on that database

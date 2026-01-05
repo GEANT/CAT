@@ -82,7 +82,7 @@ class Devices extends \core\common\Entity {
      *         The default is unset, so it is not listed in the Options array.
      * - 'hs20' - if defined and equal to 1 will mark the device as potentially supporting
      *         Hotspot 2.0.
-     * - 'device_options' - this is an array of strings pointing to device-sepecific options,
+     * - 'device_options' - this is an array of strings pointing to device-specific options,
      *         for instance possible strings are 'geteduroam' or 'geantlink'. If the corresponding
      *         option, like device-specific:geteduroam has the flag set to 'SPECIFIC'
      *         then the options selection in the admin interface will only show such an

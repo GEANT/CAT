@@ -360,7 +360,7 @@ function resetDevices(initial) {
   }
   $("#devices button").removeClass('alertButton');
   $("#devices button").removeClass('disabledDevice');
-  $("#devices button").removeClass('hasAdditonalInfo');
+  $("#devices button").removeClass('hasAdditionalInfo');
   $('#devices button').unbind('click');
   $('#devices tr').show();
   $('.device_info').html('');
@@ -474,7 +474,7 @@ function deviceButtonClick(button) {
       return;
     }
     pressedButton = button;
-    if (button.hasClass('hasAdditonalInfo')) {
+    if (button.hasClass('hasAdditionalInfo')) {
       $('#'+info_id).show(100);
     } else {
       if (button.hasClass("dev_or") && $("#openroaming_check").prop("checked") == true) {
@@ -543,7 +543,7 @@ function handleGuessOs(recognisedDevice) {
     if(recognisedDevice.redirect != '0') {
         $('.device_info').html('');
         $('.more_info_b').hide();
-        $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditonalInfo');
+        $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditionalInfo');
         i_div = $("#info_g_"+recognisedOS);
         t =  guiTexts.redirect+
             "<br><span class='redirect_link'><a href='"+recognisedDevice.redirect+"' target='_blank'>"+guiTexts.continue+"</a></span>";
@@ -575,7 +575,7 @@ function handleGuessOs(recognisedDevice) {
   if (recognisedDevice.device_customtext != '0' || 
       recognisedDevice.eap_customtext != '0' || 
       recognisedDevice.message != '0') {
-    $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditonalInfo');
+    $("#g_"+recognisedOS+",#g_or_"+recognisedOS).addClass('hasAdditionalInfo');
       i_div = $("#info_g_"+recognisedOS);
       /*
       if ($(this).hasClass("dev_or") && $("#openroaming_check").prop("checked") == false) {

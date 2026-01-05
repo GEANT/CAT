@@ -27,7 +27,7 @@ Various utilities to be included in the installer code:
   WLANSetEAPUserData - EAP credential loading utility from https://github.com/rozmansi/WLANSetEAPUserData
   check_wired.cmd - utility to check status of wired 802.1X subsystem
   wlan_test.exe - utility for checking wireless status of Windows
-  install_wired.cmd - install wired profile - a wrappr around netsh
+  install_wired.cmd - install wired profile - a wrapper around netsh
 
 Graphics:
   cat32.ico - CAT EXE icon

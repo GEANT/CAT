@@ -202,10 +202,10 @@ class UserNetAPI extends UserAPI
     }
     
     /**
-     * outputs a full list of IdPs containing the fllowing data:
+     * outputs a full list of IdPs containing the following data:
      * institution_is, institution name in all available languages,
      * list of production profiles.
-     * For eache profile the profile identifier, profile name in all languages
+     * For each profile the profile identifier, profile name in all languages
      * and redirect values (empty rediret value means that no redirect has been
      * set).
      * @return array of identity providers with attributes

@@ -94,7 +94,7 @@ Installing CAT
 4.  create the devices/Devices.php file from the supplied template
 5.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
 6.  make sure that you can connect to that database
-7.  make sure that the var/installer_cache, var/silverbullet and var/tmp directories exists and are writeable to the Apache web server user
+7.  make sure that the var/installer_cache, var/silverbullet and var/tmp directories exists and are writable to the Apache web server user
 8.  make sure that simpleSAMLphp is installed
 9.  make sure that simpleSAMLphp openid module is enabled and google (or any IdP of your choice) is uncommented in authsources
 10.  create a symlink web/external/jquery/jquery.js pointing to the most current version of jQuery. When installing CAT from composer, the most recent version will be available in vendor/components/jquery/jquery.min.js (the version shipped inside the distribution may not be the most current one!)

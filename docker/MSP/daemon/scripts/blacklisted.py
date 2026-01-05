@@ -78,7 +78,7 @@ for row in cur.execute(SELECTNEW):
         logger.info('%s with serial %s waiting (added %d mins ago)', _clientcn, _serial, _inmin)
         continue
     if not os.path.isfile(CONF_DIR + 'site_' + _suffix):
-        logger.info('%s with serial %s still waiting (added %d mins ago) because deployment is not acitve',
+        logger.info('%s with serial %s still waiting (added %d mins ago) because deployment is not active',
                     _clientcn, _serial, _inmin)
         continue
     _content = ''.join(bl_template) % {

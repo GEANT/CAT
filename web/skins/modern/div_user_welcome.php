@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 ?>
-<div id="user_welcome"> <!-- this information is shown just pefore the download -->
+<div id="user_welcome"> <!-- this information is shown just before the download -->
     <strong><?php echo $Gui->textTemplates->templates[web\lib\user\WELCOME_ABOARD_HEADING] ?></strong>
     <p>
         <span id="download_info"><?php

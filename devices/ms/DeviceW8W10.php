@@ -95,7 +95,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
                 $delProfiles[] = $ssid.' (TKIP)';
             }
         }
-        // the two lines below remove the eduroam® profiles we used to install, this is a temporary hack untill a better solution is implemented
+        // the two lines below remove the eduroam® profiles we used to install, this is a temporary hack until a better solution is implemented
         $delProfiles[] = 'eduroam®';
         $delProfiles[] = 'eduroam® via partner';
         // this removes the profile container that we used in CAT 2.1 and removed in 2.1.1
@@ -128,7 +128,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     
     /**
      * If separateHS20profiles is true then we should be saving OID and SSID
-     * profiles separately. OID profiles should be considered optionl, i.e.
+     * profiles separately. OID profiles should be considered optional, i.e.
      * the installer should not report installation failure (??). If we decide
      * that such installation failures should be silent then it is enough if
      * these profiles are marked as hs20 and no "nohs" profiles are created
@@ -297,7 +297,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     }
 
     /**
-     * Selects the appropriate handler for a given EAP type and retirns
+     * Selects the appropriate handler for a given EAP type and returns
      * an initiated object
      * 
      * @return a profile object

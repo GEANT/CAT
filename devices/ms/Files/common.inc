@@ -1119,7 +1119,7 @@ FileWriteUTF16LE $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
 FunctionEnd
 
 
-Function writePeapUserProfle
+Function writePeapUserProfile
     !insertmacro debug_cat 4 "Creating PEAP user profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\" encoding=$\"UTF-16$\"?>$\r$\n\
@@ -1186,7 +1186,7 @@ Function InstallWirelessCred
       Call writeTlsUserProfile
     !endif
     !ifdef PEAP
-      Call writePeapUserProfle
+      Call writePeapUserProfile
     !endif
     !ifdef TTLS
       Call writeTtlsUserProfile
@@ -1564,7 +1564,7 @@ Function InstallWiredUserCredentials
   ${If} $install_wired_credentials == 0
     Goto WiredEnd
   ${EndIf}
-   Call writePeapUserProfle
+   Call writePeapUserProfile
    Call InstallWiredCred
 WiredEnd:
 FunctionEnd

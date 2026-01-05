@@ -491,9 +491,9 @@ class OptionDisplay extends \core\common\Entity
                 $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;
             case \core\Options::TYPECODE_STRING:
-            // fall-thorugh is intentional; mostly identical HTML code for the three types
+            // fall-through is intentional; mostly identical HTML code for the three types
             case \core\Options::TYPECODE_INTEGER:
-            // fall-thorugh is intentional; mostly identical HTML code for the three types
+            // fall-through is intentional; mostly identical HTML code for the three types
             case \core\Options::TYPECODE_TEXT:
                 $displayedVariant = $optionValue; // for all three types, value tag and actual display are identical
                 $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
