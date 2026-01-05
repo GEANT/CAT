@@ -20,7 +20,7 @@
  */
 
 /**
- * This page is used to preapre creation of a duplicate of a RADIUS profile by
+ * This page is used to prepare creation of a duplicate of a RADIUS profile by
  * its administrator.
  * The new profile will have the display names replaces with one velue set by
  * the admin during duplication. The production-ready flag will be removed.

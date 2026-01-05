@@ -745,7 +745,7 @@ class Federation extends EntityWithDBProperties
             } else {
                 $inactivityTimestamp = time() - $inactivityOverride[0]['value'] * 24 * 3600;
             }
-            // $active shows the time difference between the moment when a login thime would be considered as inactive
+            // $active shows the time difference between the moment when a login would be considered as inactive
             // and the start of the recording system. If this is negative then we we cannot tell that someone who
             // was not recorded was not actually active within the allowed period
             $active = $inactivityTimestamp - strtotime(\config\ConfAssistant::ADMIN_LOGINS['startday']);

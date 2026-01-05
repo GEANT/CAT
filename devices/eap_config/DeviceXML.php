@@ -392,10 +392,10 @@ abstract class DeviceXML extends \core\DeviceConfig
     
     /**
      * Scales a logo to the desired byte imag size if necessary.
-     * If the image size is below tha alowed maximum, nothing is done;
+     * If the image size is below the allowed maximum, nothing is done;
      * if the image is larger than we run a series of scaling iterations to sizes
      * specified in $maxPixelSize and the moment we manage to end up below the $maxByte
-     * we returm the scaled blob - we always use png as the output format since it seems
+     * we return the scaled blob - we always use png as the output format since it seems
      * to behave best in scaling.
      * 
      * @param string $blob the image data

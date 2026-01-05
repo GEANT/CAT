@@ -386,7 +386,7 @@ class UserManagement extends \core\common\Entity
     public function listInstitutionsByAdmin()
     {
         $edugain = $_SESSION['eduGAIN'];
-        // get the list of local identifers of institutions managed by this user
+        // get the list of local identifiers of institutions managed by this user
         // it will be returned as $this->currentInstitutions
         $this->getCurrentInstitutionsByAdmin();
         if (count($this->currentInstitutions) == 0) {
@@ -398,7 +398,7 @@ class UserManagement extends \core\common\Entity
             return $this->currentInstitutions;
         }
         // now add additional institutions based on the external DB 
-        // proceed only if user has been authenticated fron an eduGAIN IdP        
+        // proceed only if user has been authenticated from an eduGAIN IdP        
         if ($edugain == false) {
             return $this->currentInstitutions;            
         }
@@ -407,7 +407,7 @@ class UserManagement extends \core\common\Entity
         // get the list of identifiers in the external DB with this user listed as the admin and linked to CAT institutions
         $extInstList = $externalDB->listExternalEntitiesByUserEmail($email);
         $extInstListTmp = $extInstList;
-        // we begin by removing entites in $extInstList which are already managed by this user and synced -
+        // we begin by removing entities in $extInstList which are already managed by this user and synced -
         // these require no further checking
         foreach ($extInstListTmp as $country => $extInstCountryList) {
             $len = count($extInstCountryList);
@@ -488,11 +488,11 @@ class UserManagement extends \core\common\Entity
         }
         foreach ($extInstCountryList as $extInst) {
             common\Logging::debug_s(4, "Testing ".$extInst['external_db_id']." for potential new inst\n");
-            if ($extInst['inst_id'] != null) { // there alreay exeists a CAT institution synced to this one
+            if ($extInst['inst_id'] != null) { // there already exeists a CAT institution synced to this one
                 continue;
             }
             $country = strtoupper($fed->tld);
-            // now run checks against creating dupplicates in CAT DB
+            // now run checks against creating duplicates in CAT DB
             $disectedNames = ExternalEduroamDBData::dissectCollapsedInstitutionNames($extInst['name']);
             $names = $disectedNames['joint'];
             $realms = ExternalEduroamDBData::dissectCollapsedInstitutionRealms($extInst['realm']);
@@ -624,8 +624,8 @@ class UserManagement extends \core\common\Entity
     /**
      * get the list of current institutions of the given admin
      * 
-     * This method does not rerurn anything but sets $this->currentInstitutions
-     * it only fillsh the 'existing' block, leaving the other two for other methods
+     * This method does not return anything but sets $this->currentInstitutions
+     * it only fills the 'existing' block, leaving the other two for other methods
      * to deal with
      */
     private function getCurrentInstitutionsByAdmin() {
@@ -636,7 +636,7 @@ class UserManagement extends \core\common\Entity
             'entitlement' => []
         ];
         $userId = $_SESSION['user'];
-        // get the list of local identifers of institutions managed by this user
+        // get the list of local identifiers of institutions managed by this user
         $institutions = $this->databaseHandle->exec("SELECT ownership.institution_id as inst_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userId);
         // SELECT -> resource, not boolean
         $catInstList = $institutions->fetch_all();
@@ -650,7 +650,7 @@ class UserManagement extends \core\common\Entity
      * given arrays of realms and names check if there already are institutions in CAT that 
      * could be a match - this is for ellimination and against creating duplicates
      * still this is not perfect, no realms given and institutions with a slightly different
-     * name will return no-match and thus open possibility for dupplicates
+     * name will return no-match and thus open possibility for duplicates
      * 
      * @param array $namesToTest
      * @param array $realmsToTest

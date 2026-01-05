@@ -3,7 +3,7 @@
  * This a one-time procedure required to resync CAT with eduroamv2 institition
  * identifiers
  * 
- * First run update_monitor_copy.php with resultung databases set to the ones listed below
+ * First run update_monitor_copy.php with resulting databases set to the ones listed below
  * Next run this script
  * 
  */
