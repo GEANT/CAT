@@ -668,4 +668,8 @@ class CAT extends \core\common\Entity
     public static function hostedServicesEnabled() {
         return \core\CAT::hostedIDPEnabled() || \core\CAT::hostedSPEnabled();
     }
+    
+    public static function diagnosticsEnabled() {
+        return \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSYCS'] === 'LOCAL';
+    }
 }

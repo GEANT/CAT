@@ -182,7 +182,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 ?>
             </table>
         </div>
-        <?php if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
+        <?php if (\core\CAT::radiusProfilesEnabled()) { ?>
         <div class='infobox'>
             <h2>
                 <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
@@ -296,7 +296,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     }
     $link .= $_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
     $link = htmlspecialchars($link);
-    if (\core\CAT::radiusProfilesEnabled() && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+    if (\core\CAT::radiusProfilesEnabled() && core\CAT::diagnosticsEnabled()) {
         echo "<table><tr>
                         <td>".sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureIdP)."</td>
                         <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
@@ -328,18 +328,21 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             ?>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
-            <?php if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') { ?>
+            <?php if (\core\CAT::radiusProfilesEnabled()) { ?>
             <th scope='col'><?php echo _("Status") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
             <?php
             }
             $pending_invites = $mgmt->listPendingInvitations();
-
+            if (\core\CAT::hostedSPEnabled()) {
+            echo "<th scope='col'>"._("MSP")."</th>";
+            }
             if (\config\Master::DB['enforce-external-sync']) {
                 echo "<th scope='col' style='max-width: 12em'>".sprintf(_("%s Database Link Status"), \config\ConfAssistant::CONSORTIUM['display_name'])."</th>";
             }
             ?>
+
             <th scope='col'>
                 <?php
                 if ($readonly === FALSE) {
@@ -352,10 +355,13 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tbody class='fedlist'>";
             echo "<tr><td colspan='1'><strong>"._("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
-            if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+            if (\core\CAT::radiusProfilesEnabled()) {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
+            }
+            if (\core\CAT::hostedSPEnabled()) {
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>&nbsp;</td>";
             }
             echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
             if ($hideWarnings) {
@@ -387,7 +393,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // get max profile status
                 $profileClass = '';
                 $maxProfileStatus = $idp_instance->maxProfileStatus();
-                if ($maxProfileStatus == \core\IdP::PROFILES_REDIRECTED) {
+                if ($maxProfileStatus === \core\IdP::PROFILES_REDIRECTED) {
                     $status = \core\IdP::PROFILES_REDIRECTED;
                     $profileClass = 'profileredirected profileok';
                 } elseif ($maxProfileStatus >= \core\IdP::PROFILES_SHOWTIME) {
@@ -402,6 +408,23 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                 $profileIconData = $uiElements->iconData(\core\IdP::PROFILES_INDEX[$status]);  
                 $profileIcon = $uiElements->catIcon($profileIconData);
+                
+                if (\core\CAT::hostedSPEnabled()) {
+                    $deploymentIcon = '-';
+                    $maxDeploymentStatus = $idp_instance->maxDeploymentStatus();
+                    switch ($maxDeploymentStatus) {
+                        case \core\IdP::DEPLOYMENTS_ACTIVE:
+                            $deploymentIconData = $uiElements->iconData('DEPLOYMENTS_ACTIVE');
+                            break;
+                        case \core\IdP::DEPLOYMENTS_INACTIVE:
+                            $deploymentIconData = $uiElements->iconData('DEPLOYMENTS_INACTIVE');
+                            break;
+                        default:
+                            $deploymentIconData = null;
+                            break;
+                    }
+                    $deploymentIcon = $deploymentIconData  === null ? '-' : $uiElements->catIcon($deploymentIconData);
+                }
                 
                 // verify the certificates status for this IdP
                 if (isset($certStatus[$index])) {
@@ -508,10 +531,13 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                        . "</td>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime     
-                if (\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+                if (\core\CAT::radiusProfilesEnabled()) {
                     echo  "<td>$profileIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";
+                }
+                if (\core\CAT::hostedSPEnabled()) {
+                    echo "<td style='text-align: center'>$deploymentIcon</td>";
                 }
                 
                 // external DB sync, if configured as being necessary

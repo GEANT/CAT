@@ -81,7 +81,6 @@ echo $mapCode->htmlHeadCode();
 ?>
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
-    $langObject = new \core\common\Language();
     echo $deco->productheader("ADMIN-PARTICIPANT");
     ?>
     <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
@@ -157,10 +156,10 @@ echo $mapCode->htmlHeadCode();
         ?>
         <button type='button' class='newoption' onclick='getXML("support", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
-    if ($editMode == 'readonly') {
+    if ($editMode === 'readonly') {
         $discardLabel = _("Return");
     }
-    if ($editMode == 'fullaccess') {
+    if ($editMode === 'fullaccess') {
         $discardLabel = _("Discard changes");
     }
     if ($wizardStyle) {

@@ -17,7 +17,7 @@ $languageInstance->setTextDomain("web_admin");
 $validator = new web\lib\common\InputValidation();
 [$inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 
-if ($editMode == 'fullaccess') {
+if ($editMode == 'fullaccess'|| $editMode === 'readonly') {
     $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $inst);
     $deployment_id = $_GET['deployment_id'];
     $inst_id = $_GET['inst_id'];

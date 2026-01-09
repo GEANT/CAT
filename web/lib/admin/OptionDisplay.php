@@ -81,23 +81,29 @@ class OptionDisplay extends \core\common\Entity
         $this->listOfOptions = $options;
         $this->level = $level;
         $this->allLocationCount = 0;
-
-        $this->enumPrettyPrints = [
-            "ask" => _("Ask User"),
-            "ask-preagreed" => _("Ask User; T&C Pre-Agreed"),
-            "always" => _("Always"),
-            "always-preagreed" => _("Always; T&C Pre-Agreed"),
-        ];
-        $openRoamingTail = "";
-        foreach ($this->enumPrettyPrints as $optionName => $optionDisplay) {
-            $openRoamingTail .= "<option value='$optionName'>$optionDisplay</option>";
+        if ($level === \core\Options::LEVEL_PROFILE || $level === \core\Options::LEVEL_IDP) {
+            $this->enumPrettyPrints = [
+                "ask" => _("Ask User"),
+                "ask-preagreed" => _("Ask User; T&C Pre-Agreed"),
+                "always" => _("Always"),
+                "always-preagreed" => _("Always; T&C Pre-Agreed"),
+            ];
+        } elseif ($level === \core\Options::LEVEL_FED || $level === \core\Options::LEVEL_IDP) {
+            $this->enumPrettyPrints = [
+                "fedadmin-only" => _("Only federation admins"),
+                "all" => _("All institutions"),
+            ];
         }
-        
+        $listTail = "";
+        foreach ($this->enumPrettyPrints as $optionName => $optionDisplay) {
+            $listTail .= "<option value='$optionName'>$optionDisplay</option>";
+        }
+
         $this->htmlDatatypeTexts = [
             \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
             \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
             \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
-            \core\Options::TYPECODE_ENUM_OPENROAMING => ["html" => "select", "tail" => ">$openRoamingTail</select"],
+            \core\Options::TYPECODE_ENUM_LIST => ["html" => "select", "tail" => ">$listTail</select"],
             \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
         ];
         
@@ -147,24 +153,21 @@ class OptionDisplay extends \core\common\Entity
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
         // we expect the variable $class to contain the class of options
+        \core\common\Logging::debug_s(4, $class, "CLASS:", "\n");
         $retval = "";
-        $optioninfo = \core\Options::instance();
-        $loggerInstance = new \core\common\Logging();
-        
-        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname|managedsp:guest_vlan";
-        if (\core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
-            $blackListOnPrefill .= "|fed:silverbullet";
-        }
+        $optioninfo = \core\Options::instance();        
+        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname|managedsp:guest_vlan|managedsp:name";
+        $blackListOnPrefill .= "|fed:silverbullet";
         foreach ($prepopulate as $option) {
             if (preg_match("/^$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
-                $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
+                \core\common\Logging::debug_s(5, "About to execute optiontext with PREFILL!\n");
                 $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row_id'] : $option['value']), $option['lang']);
             }
         }
         return $retval;
     }
-
+    
     /**
      * Find which options to expose to UI and which to hide.
      * Not all options defined in the database are (always) displayed. Some have
@@ -173,6 +176,7 @@ class OptionDisplay extends \core\common\Entity
      * 
      * @param string $class the type of options requested
      * @param string $fed   the federation TLD, to determine fed ops preference context
+     * @param string $device - only used with device-specific class - limit options to the given device type
      * @return array the list of options to display
      */
     public static function enumerateOptionsToDisplay($class, $fed, $device='')
@@ -193,6 +197,7 @@ class OptionDisplay extends \core\common\Entity
                 unset($list[array_search("managedsp:vlan", $list)]);
                 unset($list[array_search("managedsp:guest_vlan", $list)]);
                 unset($list[array_search("managedsp:operatorname", $list)]);
+                unset($list[array_search("managedsp:name", $list)]);
                 break;
             case "fed":
                 //normally, we have nothing to hide on that level
@@ -200,6 +205,10 @@ class OptionDisplay extends \core\common\Entity
                 // to change the "Enable Managed IdP" boolean - it is simply always there
                 if (\core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
                     unset($list[array_search("fed:silverbullet", $list)]);
+                }
+                if (!\core\CAT::hostedIDPEnabled()) {
+                    unset($list[array_search("fed:silverbullet-maxusers", $list)]);
+                    unset($list[array_search("fed:silverbullet-noterm", $list)]);
                 }
                 break;
             case "media":
@@ -305,7 +314,7 @@ class OptionDisplay extends \core\common\Entity
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($key == \core\Options::TYPECODE_FILE ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($key == \core\Options::TYPECODE_TEXT ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($key == \core\Options::TYPECODE_STRING ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-enum_openroaming\").style.display = \"" . ($key == \core\Options::TYPECODE_ENUM_OPENROAMING ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-enum_openroaming\").style.display = \"" . ($key == \core\Options::TYPECODE_ENUM_LIST ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($key == \core\Options::TYPECODE_BOOLEAN ? "block" : "none") . "\";
                                   document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($key == \core\Options::TYPECODE_INTEGER ? "block" : "none") . "\";
                              }
@@ -500,7 +509,7 @@ FOO;
                         $retval .= _("file content");
                 }
                 break;
-            case \core\Options::TYPECODE_ENUM_OPENROAMING: // is a string after all
+            case \core\Options::TYPECODE_ENUM_LIST: // is a string after all
                 $displayedVariant = $this->enumPrettyPrints[$optionValue];
                 $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;

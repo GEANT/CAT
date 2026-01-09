@@ -289,7 +289,8 @@ class DeploymentManaged extends AbstractDeployment
                                             ORDER BY option_name", "Profile");
         $tempAttribMergedIdP = $this->levelPrecedenceAttributeJoin($thisLevelAttributes, $this->idpAttributes, "IdP");
         $this->attributes = $this->levelPrecedenceAttributeJoin($tempAttribMergedIdP, $this->fedAttributes, "FED");
-        
+        $tmpName = $this->getAttributes('managedsp:name');
+        $this->name = $this->getAttributes('managedsp:name')[0]['value'] ?? "SP".$this->identifier."-".$this->institution;
         $this->termsAndConditions = "<h2>Product Definition</h2>
 <p>eduroam Managed SP enables eligible institutions to outsource the technical setup of the roaming uplink functions in an eduroam SP to the eduroam Operations Team. eduroam SP administrators use the service instead of a local RADIUS infrastructure. A unique selling point of this service is that the typical limitation of being required to have a static IP address is waived - eduroam SP Wi-Fi infrastructure can be managed by the system even on IP connectivity with changing IP addresses (e.g. DSL, mobile networks).</p>
 <p>The service includes:</p>
@@ -403,6 +404,23 @@ class DeploymentManaged extends AbstractDeployment
                           array('digest_alg'=>'sha512', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
         openssl_x509_export($clientcert, $this->radsec_cert);
     } 
+    /**
+     * get last activity time for this deployment
+     * 
+     * @return string: activity_time or False
+     * @throws Exception
+     */
+    public function getLastActivity()
+    {
+        $handle = DBConnection::handle('MSP_ACTIVITY');
+        $activity = $handle->exec("SELECT activity_time FROM last_activity WHERE deployment_id = ?", "i", $this->identifier );
+        if ($activity->num_rows == 0) {
+            return False;
+        }
+        $la = mysqli_fetch_object(/** @scrutinizer ignore-type */ $activity);
+        return $la->activity_time;
+    }   
+    
     /**
      * retrieves usage statistics for the deployment
      * 
@@ -668,18 +686,18 @@ class DeploymentManaged extends AbstractDeployment
     {
         $txt = '';
         if ($status == 'OK') {
-            $txt = $remove ? _('Profile deactivation succeeded') : _('Profile activation/modification succeeded');
+            $txt = $remove ? _("Profile deactivation succeeded") : _("Profile activation/modification succeeded");
         } else {
-            $txt = $remove ? _('Profile deactivation failed') : _('Profile activation/modification failed');
+            $txt = $remove ? _("Profile deactivation failed") : _("Profile activation/modification failed");
         }
         $txt = $txt . ' ';
         if (array_count_values($response)[$status] == 2) {
-            $txt = $txt . _('on both RADIUS servers: primary and backup') . '.';
+            $txt = $txt . _("on both RADIUS servers: primary and backup") . '.';
         } else {
             if ($response['res[1]'] == $status) {
-                $txt = $txt . _('on primary RADIUS server') . '.';
+                $txt = $txt . _("on primary RADIUS server") . '.';
             } else {
-                $txt = $txt . _('on backup RADIUS server') . '.';
+                $txt = $txt . _("on backup RADIUS server") . '.';
             }
         }
         $mail = \core\common\OutsideComm::mailHandle();
@@ -687,9 +705,9 @@ class DeploymentManaged extends AbstractDeployment
         $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
         $mail->addAddress($email);
         if ($status == 'OK') {
-            $mail->Subject = _('RADIUS profile update problem fixed');
+            $mail->Subject = _("RADIUS profile update problem fixed");
         } else {
-            $mail->Subject = _('RADIUS profile update problem');
+            $mail->Subject = _("RADIUS profile update problem");
         }
         $mail->Body = $txt;
         $sent = $mail->send();

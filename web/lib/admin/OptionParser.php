@@ -398,8 +398,8 @@ class OptionParser extends \core\common\Entity {
                     }
                     continue 2;
                     
-                case \core\Options::TYPECODE_ENUM_OPENROAMING:
-                    $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_ENUM_OPENROAMING];
+                case \core\Options::TYPECODE_ENUM_LIST:
+                    $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_ENUM_LIST];
                     if (!empty($previsionalContent)) {
                         $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
                         if ($content === FALSE) {

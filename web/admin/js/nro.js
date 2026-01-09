@@ -45,7 +45,7 @@ function row_filter(tbody) {
         } 
         if (tr_visible && profile_warn && $(this).hasClass('profileok')) {
             tr_visible = false;
-        }         
+        }
         if (tr_visible && input !== '') {
             inp_found = $(this).find("span.inst_name:contains('"+input+"')").length;
             if (inp_found == 0) {

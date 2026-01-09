@@ -33,8 +33,19 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
+
+$optionlist = \core\Options::instance();
+$availableFedOptions  = $optionlist->availableOptions('managedsp');
+$wizard = new \web\lib\admin\Wizard(false);
+$wizard->setOptionsHelp($availableFedOptions);
+$wizard->setMessages();
 // initialize inputs
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+[$my_inst, $editMode]  = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+if ($editMode !== 'fullaccess') {
+    echo "<h1>";
+    echo _("Not sufficient access rights for this page");
+    exit;
+}
 $myfed = new \core\Federation($my_inst->federation);
 if (!isset($_GET['deployment_id'])) {
     /*if (isset($_POST['consortium']) && ( $_POST['consortium'] == "eduroam" ||
@@ -50,6 +61,7 @@ if (!isset($_GET['deployment_id'])) {
         throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
     }
 }
+$my_inst->type =  'SP';
 
 // if we have come this far, we are editing an existing deployment
 
@@ -179,6 +191,10 @@ if (isset($_POST['submitbutton'])) {
                 $postArray['option']['S1234567891'] = "managedsp:operatorname#string##";
                 $postArray['value']['S1234567891-string'] = $postArray['opname'];
             }
+            if (isset($postArray['hotspotname'])) {
+                $postArray['option']['S1234567893'] = "managedsp:name#string##";
+                $postArray['value']['S1234567893-string'] = $postArray['hotspotname'];
+            }  
             $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
             // if ToU were already accepted, keep them (would otherwise be auto-deleted
             if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
@@ -211,16 +227,22 @@ if (isset($_POST['command'])) {
 $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
 $guest_vlan = $deployment->getAttributes("managedsp:guest_vlan")[0]['value'] ?? NULL;
 $opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
+$name = $deployment->getAttributes("managedsp:name")[0]['value'] ?? "";
+$hotspotname = $deployment->getAttributes("managedsp:name")[0]['value'] ?? "";
 echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script type="text/javascript" src="js/wizard.js"></script> 
+<link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 </head>
 <body>
     <?php
     echo $deco->productheader("ADMIN-SP");
     ?>
+    <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
     <h1>
         <?php
         printf(_("Editing %s deployment"), $uiElements->nomenclatureHotspot);
@@ -242,12 +264,25 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
                 ?>
             </strong>
         </legend>
+        <?php echo $wizard->displayHelp("managedsp"); ?>
+
         <table>
             <caption><?php echo $tablecaption; ?></caption>
             <tr>
                 <th class="wai-invisible" scope="col"><?php echo _("Property Type"); ?></th>
                 <th class="wai-invisible" scope="col"><?php echo _("Language if applicable"); ?></th>
                 <th class="wai-invisible" scope="col"><?php echo _("Property Value"); ?></th>
+            </tr>
+            <tr>
+                <!-- input for Hotspot name-->
+                <td>
+                    <span id1='hotspotname_label'>
+                        <?php echo _("Custom  Hotspot Name:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='text' width="20" name="hotspotname" value="<?php echo $name; ?>"/>
+                </td>
             </tr>
             <tr>
                 <!-- input for Operator-Name override-->
@@ -296,11 +331,20 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
         <?php
         echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
         ?>
+        <?php if($editMode === 'fullaccess') { ?>
         <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option (a realm for own users)"); ?></button>
-    </fieldset>
+        <?php } ?>
+    </fieldset><p>
 
     <?php
-    echo "<p><button type='submit' name='submitbutton' class='deploymentopts' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+    if ($editMode === 'fullaccess') {
+        echo "<button type='submit' name='submitbutton' class='deploymentopts' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button>";
+        $discardLabel = _("Discard changes");
+    } else {
+        $discardLabel = _("Return");
+    }
+    echo "<button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"edit_hotspot.php?inst_id=$my_inst->identifier\"'>$discardLabel</button></p>";
+    echo "</form>";
     echo $deco->footer();
     ?>
     <script>

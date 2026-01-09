@@ -104,7 +104,8 @@ function copyIcon($target) {
  * @param \core\DeploymentManaged $deploymentObject the deployment to work with
  * @throws Exception
  */
-function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
+
+function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $editMode) {
     // RADIUS status icons
     $depId = $deploymentObject->identifier;
     $radiusMessages = [
@@ -123,14 +124,14 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 $response = $deploymentObject->setRADIUSconfig($id, 1);
             }
         }
-    }
+    }    
     ?>
     <div style='display: table-row_id;'>
         <div class='profilebox' id="profilebox_<?php echo $depId;?>" style='display: table-cell;'>
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
-                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP$depId-".$deploymentObject->institution;
+                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": ".$deploymentObject->name;
                         break;
                     case "OpenRoaming":
                         $displayname = "OpenRoaming ANP";
@@ -444,11 +445,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                 </form>
             </table>
             <div class='buttongroupprofilebox' style='clear:both;'>
+                <?php if($editMode === 'fullaccess') { ?>
                 <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <br/>
                     <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                 </form>
-                <?php if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
+                <?php } ?>
+                <?php if ($isradiusready && $deploymentObject->status === \core\AbstractDeployment::ACTIVE && $editMode === 'fullaccess') { ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                             <?php echo _("Deactivate"); ?>
@@ -471,15 +474,23 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         }
                         ?>
                     </form>
-                    <?php
+                <?php 
                 } elseif (count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted")) == 0) {
+                    if ($editMode === 'fullaccess') {
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_TERMSOFUSE_NEEDACCEPTANCE; ?>'>
                             <?php echo _("Accept Terms of Use"); ?>
                         </button>
                     </form>
-                <?php }
+                <?php 
+                    } else {
+                        echo "<strong>"._("Terms of Use not accepted.")."</strong>";
+                    }
+                }
+                    $discardLabel = _("Return"); ?>
+                <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
+                    <?php
                     if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
@@ -503,8 +514,9 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                             }
                             ?>
                         </form>
-                <?php } 
-                    if ($deploymentObject->status == \core\AbstractDeployment::INACTIVE) { ?>
+                <?php }
+                if ($editMode === 'fullaccess') {
+                    if ($deploymentObject->status === \core\AbstractDeployment::INACTIVE) { ?>
                         <div align="right">
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_REMOVESP; ?>' onclick="return confirm('<?php printf(_("Do you really want to remove this %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
@@ -528,6 +540,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[]) {
                         <input id="upfile" name="upload" type="file" value="upload" onchange="sendcsr(this);" />
                     </div>
                     </form>
+                <?php } ?>
                         <!--
                     <label for="csr"><?php echo _("Upload CSR to sign my own TLS credentials"); ?></label>
                     <div align="right">
@@ -672,10 +685,8 @@ function radius_ready($dsp) {
 ?>
 <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
-            if ($readonly === FALSE && $editMode === 'fullaccess') {
+                if ($readonly === FALSE && $editMode === 'fullaccess') {
                 if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0) {
-                    // the button is greyed out if there's no support email address configured...
-                    $hasMail = count($my_inst->getAttributes("support:email"));
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
@@ -714,21 +725,17 @@ function radius_ready($dsp) {
             ?>
         </h2>
 <?php
-        $hotspotProfiles = $my_inst->listDeployments();
+        $hotspotProfiles = [];
+        if (isset($_GET['deployment_id'])) {
+           $hotspotProfiles = [ $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst) ];
+        } else {
+           $hotspotProfiles = $my_inst->listDeployments();
+        }
         if (count($hotspotProfiles) == 0) { // no profiles yet.
             echo sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot);
         }
 
         foreach ($hotspotProfiles as $counter => $deploymentObject) {
-            switch (get_class($deploymentObject)) {
-                case "core\DeploymentManaged":
-                    displayDeploymentPropertyWidget($deploymentObject, $errormsg);
-                    break;
-                case "core\DeploymentClassic":
-                    displayClassicHotspotPropertyWidget($deploymentObject);
-                    break;
-                default:
-                    throw new Exception("We were asked to operate on something that is neither a classic nor a Managed hotspot deployment!");
-            }
+            displayDeploymentPropertyWidget($deploymentObject, $errormsg, $editMode);
         }
 ?>

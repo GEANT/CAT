@@ -154,9 +154,13 @@ class IdP extends EntityWithDBProperties
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
      * @return \core\AbstractDeployment[] list of deployments of this IdP
      */
-    public function listDeployments(bool $activeOnly = FALSE)
+    public function listDeployments(bool $activeOnly = FALSE, $deploymentId = null)
     {
-        $query = "SELECT deployment_id FROM deployment WHERE inst_id = $this->identifier" . ($activeOnly ? " AND status = " . AbstractDeployment::ACTIVE : "");
+        $deploymentSelect = '';
+        if ($deploymentId !== null) {
+            $deploymentSelect = " AND deployment_id = '$deploymentId'";
+        }
+        $query = "SELECT deployment_id FROM deployment WHERE inst_id = $this->identifier".$deploymentSelect.($activeOnly ? " AND status = ".AbstractDeployment::ACTIVE : "");
         $allDeployments = $this->databaseHandle->exec($query);
         $returnarray = [];
         // SELECT -> resource, not boolean
@@ -172,6 +176,9 @@ class IdP extends EntityWithDBProperties
     const PROFILES_CONFIGURED = 1;
     const PROFILES_SHOWTIME = 2;
     const PROFILES_REDIRECTED = 3;
+    const DEPLOYMENTS_NONE = -1;
+    const DEPLOYMENTS_INACTIVE = 0;
+    const DEPLOYMENTS_ACTIVE = 1;
     
     const PROFILES_INDEX = [
         self::PROFILES_INCOMPLETE => 'PROFILES_INCOMPLETE',
@@ -205,6 +212,20 @@ class IdP extends EntityWithDBProperties
             }            
         }
         return self::PROFILES_REDIRECTED;
+    }
+    
+    /**
+     * looks through deployments of the inst and determines the highest deployment status
+     * @return int the highest level of completeness (-1 none defined, 0 non active, 1 active) 
+     */
+    public function maxDeploymentStatus()
+    {
+        $allDeployments = $this->databaseHandle->exec("SELECT MAX(status) as status FROM deployment WHERE inst_id = $this->identifier");
+        $res = $allDeployments->fetch_object();
+        if ($res->status === null) {
+            return self::DEPLOYMENTS_NONE;
+        }
+        return $res->status;
     }
 
     /**

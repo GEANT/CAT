@@ -101,7 +101,6 @@ class Wizard extends UIElements {
         return $content;        
     }
     
-    
     public function setOptionsHelp($optionsList) {
         $this->optionsHelp = [];
         foreach ($optionsList as $option) {
@@ -109,8 +108,9 @@ class Wizard extends UIElements {
         }
         array_multisort(array_column($this->optionsHelp,'display'), SORT_ASC, $this->optionsHelp);
     }
-    
+   
     public function setMessages() {
+        $optionlist = \core\Options::instance();
         // FED general
         $h = "<p><h3>" . _("Here you set federation-level options.") . "</h3><p>";
         $h .= "<i>" . _("The following options are available:") . "</i><p>";
@@ -202,6 +202,19 @@ class Wizard extends UIElements {
         $h .= _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         $this->helpMessage['profile'] = $h;
         
+        // MANAGED SP
+        
+        $h = "<p><h3>" . _("These are custom options for this hotspot deployment.") . "</h3><p>";
+        $h .= "<dl>";
+        if (isset($this->optionsHelp)) {
+            foreach ($this->optionsHelp as $o) {
+                $h .= "<dt>". $o['display'] . "</dt>";
+                $h .= "<dd>" . $o['help'] . "</dd>";
+            }
+            $h .= "</dl>";
+        }        
+        $this->helpMessage['managedsp'] = $h;
+        
         // REALM
         $h = "<p>".sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types")."</p>".
           "<p>"._("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix.")."</p>".
@@ -216,7 +229,7 @@ class Wizard extends UIElements {
         $h = "<p>"._("Now, we need to know which EAP types your IdP supports. If you support multiple EAP types, you can assign every type a priority (1=highest). This tool will always generate an automatic installer for the EAP type with the highest priority; only if the user's device can't use that EAP type, we will use an EAP type further down in the list.") . "</p>";
         $this->helpMessage['eap_support'] = $h;
         
-        // LOCATIOM
+        // LOCATION
         $h = "<p>" .
                     _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
                     "</p>

@@ -139,11 +139,11 @@ class UIElements extends \core\common\Entity {
             "fed:realname" => [
                 'display' => sprintf(_("%s Name"), $this->nomenclatureFed),
                 'help' => "The name of your federation."],
-            "fed:url" => ['display' => sprintf(_("%s Homepage"), $this->nomenclatureFed), 'help' => ""],
+            "fed:url" => ['display' => sprintf(_("%s Homepage"), $this->nomenclatureFed), 'help' => _("URL to your federation page - only used when federation logo is provided as well.")],
             "fed:custominvite" => [
                 'display' => sprintf(_("Custom text in %s Invitations"), $this->nomenclatureParticipant),
                 'help' => _("Your text in invitation mails sent for new IdP")],
-            "fed:silverbullet" => ['display' => sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']), 'help' => ""],
+            "fed:silverbullet" => ['display' => sprintf(_("Enable %s"), \config\ConfAssistant::SILVERBULLET['product_name']), 'help' => "XXXX"],
             "fed:silverbullet-noterm" => ['display' => sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME), 'help' => ""],
             "fed:silverbullet-maxusers" => ['display' => sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME), 'help' => ""],
             "fed:minted_ca_file" => [
@@ -177,11 +177,20 @@ class UIElements extends \core\common\Entity {
             ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
-            "managedsp:guest_vlan" => ['display' => _("VLAN for guests"), 'help' => ""],
-            "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => ""],
-            "managedsp:realmforvlan" => ['display' => _("Realm to be considered own users"), 'help' => ""],
-            "managedsp:operatorname" => ['display' => _("Custom Operator-Name attribute"), 'help' => ""],
+            "managedsp:guest_vlan" => ['display' => _("VLAN for guests"), 'help' => "Users with realms NOT matching your local realms list will be put into this VLAN."],
+            "managedsp:vlan" => ['display' => _("VLAN for own users"), 'help' => "Users with realms matching your local realms list will be put into this VLAN."],
+            "managedsp:realmforvlan" => ['display' => _("Realm to be considered own users"), 'help' => _("If you want to put local users into a specific VLAN, you need to specify all realms that are to be recognised as local. Put each realm in a separate option.")],
+            "managedsp:operatorname" => ['display' => _("Custom Operator-Name attribute"), 'help' => "You can set the Operator-Name attribute value that will be sent by this hotspot. The value mys have a well-defined format - a valid domain name assigned to your organisation  proceeded by '1'."],
+            "managedsp:name" => ['display' => _("Hotspot Display Name"), 'help' => _("This will be the name used for this hotspot instead of the default one set during hotspot creation. It will be visible only on the admin pages.")],
         ];
+        
+        if (\core\CAT::hostedIDPEnabled() && \core\CAT::hostedSPEnabled()) {
+            $displayNames['fed:silverbullet']['help'] = _("Enable Managed IdP and Managed SP in your federation");
+        } elseif (\core\CAT::hostedIDPEnabled()) {
+            $displayNames['fed:silverbullet']['help'] = _("Enable Managed IdP in your federation");
+        } elseif (\core\CAT::hostedSPEnabled()) {
+            $displayNames['fed:silverbullet']['help'] = _("Enable Managed SP in your federation");
+        }
 
         if (!isset($displayNames[$input])) { // this is an error! throw an Exception
             return false;
@@ -300,7 +309,7 @@ class UIElements extends \core\common\Entity {
         </table>
     </div>";
         $blocks = [["support", _("Global Helpdesk Details")]];        
-        if ($myInst->type != "SP") {
+        if ($myInst->type !== "SP") {
             $blocks [] = ["media", _("Media Properties")];
         }
         foreach ($blocks as $block) {
@@ -395,7 +404,6 @@ class UIElements extends \core\common\Entity {
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
-        \core\common\Logging::debug_s(3, $details, "CERT DETAILS\n", "\n");
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
@@ -737,12 +745,12 @@ class UIElements extends \core\common\Entity {
             'CERT_STATUS_OK' => ['img' => 'Tabler/certificate-green.svg', 'text' => _("All certificates are valid long enough")],
             'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
             'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
-            'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
+            'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-orange.svg', 'text' => _("OpenRoaming appears to be configured properly")],
             'OVERALL_OPENROAMING_LEVEL_NOTE' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some minor OpenRoaming configuration issues")],
             'OVERALL_OPENROAMING_LEVEL_WARN' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some average level OpenRoaming configuration issues")],
             'OVERALL_OPENROAMING_LEVEL_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text' => _("There are some critical OpenRoaming configuration issues")],            
             'PROFILES_SHOWTIME' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
-            'PROFILES_CONFIGURED' => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
+            'PROFILES_CONFIGURED' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
             'PROFILES_INCOMPLETE' => ['img' => 'Tabler/access-point-off-red.svg', 'text' => _("No configured profiles")],
             'PROFILES_REDIRECTED' => ['img' => 'Tabler/external-link.svg', 'text' => _("All active profiles redirected")],
             'IDP_LINKED' => ['img' => 'Tabler/database-green.svg', 'text' => _("Linked")],
@@ -751,6 +759,8 @@ class UIElements extends \core\common\Entity {
             'ADMINS_INACTIVE' => ['img' => 'Tabler/alert-square-rounded-filled-red-small.svg', 'text' => _("Some of the admins have not been seen for a long time")],
             'ADMINS_OK' => ['img' => 'Tabler/check-green-small.svg', 'text' => _("All admins are active")],
             'ADMINS_MISSING' => ['img' => 'Tabler/alert-square-rounded-filled-yellow-small.svg', 'text' => _("No admins registered")],
+            'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
+            'DEPLOYMENTS_INACTIVE' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one hotspot is defined but none are active")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);

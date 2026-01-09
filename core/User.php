@@ -50,6 +50,8 @@ class User extends EntityWithDBProperties
     public $userName;
     
     public $edugain = false;
+    
+    public $roles = [];
 
     /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
@@ -92,6 +94,26 @@ class User extends EntityWithDBProperties
                                                 FROM $this->entityOptionTable
                                                 WHERE $this->entityIdColumn = ?", "User");
         }
+        $this->getAdminRoles();
+    }
+    
+    /**
+     * This dunction loads the roles table with all user's functions.
+     */
+    
+    private function getAdminRoles() {
+        if (in_array($this->userName, \config\Master::SUPERADMINS)) {
+            $this->roles[] = 'superadmin';
+        }
+        if (in_array($this->userName, \config\Master::SUPPORT)) {
+            $this->roles[] = 'support';
+        }
+        if (count($this->getAttributes("user:fedadmin")) > 0) {
+            $this->roles[] = 'fedadmin';
+        }
+        if (count($this->listOwnerships()) > 0) {
+            $this->roles[] = 'instadmin';
+        }
     }
 
     /**
@@ -127,7 +149,7 @@ class User extends EntityWithDBProperties
      */
     public function isSuperadmin()
     {
-        return in_array($this->userName, \config\Master::SUPERADMINS);
+        return in_array('superadmin', $this->roles);
     }
     
     
@@ -139,7 +161,7 @@ class User extends EntityWithDBProperties
      */
     public function isSupport()
     {
-        return in_array($this->userName, \config\Master::SUPPORT);
+        return in_array('support', $this->roles);
     }
 
     /**

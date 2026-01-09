@@ -83,6 +83,13 @@ abstract class AbstractDeployment extends EntityWithDBProperties
      * @var string
      */
     public $instName;
+    
+    /**
+     * The name of the hotspot deployment
+     * 
+     * @var string
+     */
+    public $name;
 
     /**
      * number of deployments the IdP this profile is attached to has

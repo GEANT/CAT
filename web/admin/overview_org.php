@@ -484,8 +484,21 @@ $(document).ready(function() {
         <hr/>
         <?php
     }
-    if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0 && preg_match("/SP/", $my_inst->type)) {
-        include "overview_sp.php";
+    $silverbulletFedAttr = $myfed->getAttributes("fed:silverbullet");
+    if (\core\CAT::hostedSPEnabled() && count($silverbulletFedAttr) > 0 && preg_match("/SP/", $my_inst->type)) {
+        switch ($silverbulletFedAttr[0]['value']) {
+            case 'all':
+                include "overview_sp_summary.php";
+                break;
+            case 'fedadmin-only':
+                $user = new \core\User($_SESSION['user']);
+                if ($user->isFederationAdmin($my_inst->federation)) {
+                    include "overview_sp_summary.php";
+                }
+                break;
+            default:
+                break;
+        }        
     }
     echo $deco->footer();
-    
+   

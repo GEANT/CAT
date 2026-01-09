@@ -43,5 +43,22 @@ $languageInstance->setTextDomain("web_admin");
 // add one option of the specified class
 
 $list = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], (isset($_GET["device"])?$_GET["device"]:NULL));
-$optionDisplay = new \web\lib\admin\OptionDisplay($list);
+switch ($_GET["class"]) {
+    case 'fed':
+        $level = \core\Options::LEVEL_FED;
+        break;
+    case 'idp':
+        $level = \core\Options::LEVEL_IDP;
+        break;
+    case 'media':
+        $level = \core\Options::LEVEL_IDP;
+        break;
+    case ' profile':
+        $level = \core\Options::LEVEL_PROFILE;
+        break;
+    default :
+        $level = null;
+        break;
+}
+$optionDisplay = new \web\lib\admin\OptionDisplay($list, $level);
 echo $optionDisplay->optiontext(array_values($list));

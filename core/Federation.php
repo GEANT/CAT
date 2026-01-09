@@ -241,18 +241,18 @@ class Federation extends EntityWithDBProperties
         }
         $this->loggerInstance->debug(4, $fedname, "Creating federation:", " \n");
         // fetch attributes from DB; populates $this->attributes array
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row_id
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?
                                             ORDER BY option_name", "FED");
-
 
         $this->attributes[] = array("name" => "internal:country",
             "lang" => NULL,
             "value" => $this->tld,
             "level" => Options::LEVEL_FED,
             "row_id" => 0,
-            "flag" => NULL);
+            "flag" => NULL,
+            );
         
         if (!\core\CAT::radiusProfilesEnabled() && \core\CAT::hostedServicesEnabled()) {
             // this instance exclusively does SB, so it is not necessary to ask
@@ -260,10 +260,11 @@ class Federation extends EntityWithDBProperties
             // to the list of fed attributes
             $this->attributes[] = array("name" => "fed:silverbullet",
                 "lang" => NULL,
-                "value" => "on",
+                "value" => "all",
                 "level" => Options::LEVEL_FED,
                 "row_id" => 0,
-                "flag" => NULL);
+                "flag" => NULL,
+                );
         }
 
         $this->idpListActive = [];
