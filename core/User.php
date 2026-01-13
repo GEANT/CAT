@@ -195,6 +195,20 @@ class User extends EntityWithDBProperties
             return false;
         }
         $entityId = $matches[1];
+        $test = $this->eduGAINTest($entityId);
+        if ($test === false) {
+            $authorizingAuthority = $_SESSION['authorizing_authority'];
+            $test = $this->eduGAINTest($authorizingAuthority);
+            if ($test === false) {
+                return false;
+            }
+        }
+        \core\common\Logging::debug_s(3, $_SESSION['entitlement'], "User in eduGAIN\n","\n");
+        $_SESSION['eduGAIN'] = $test;
+        return true;
+    }
+    
+    private function eduGAINTest($entityId) {
         $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&opt=2&e_id=$entityId";
         \core\common\Logging::debug_s(4, $url, "URL: ","\n");
         $ch = curl_init($url);
@@ -225,9 +239,7 @@ class User extends EntityWithDBProperties
             \core\common\Logging::debug_s(4,"User not in eduGAIN\n");
             return false;            
         }
-        \core\common\Logging::debug_s(4,"User in eduGAIN\n");
-        $_SESSION['eduGAIN'] = $responseDetails['regauth'];
-        return true;
+        return $responseDetails['regauth'];
     }
     
     /**

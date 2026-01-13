@@ -64,10 +64,20 @@ class Authentication extends \core\common\Entity {
         if (!$authSimple->isAuthenticated()) {
             $_SESSION['saveLog'] = true;
         }
-        
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
-        \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR:\n", "\n");
+        \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR0:\n", "\n");
+        if (isset($admininfo['uniqueIdentifier'])) {
+            $idps = explode('##########', $admininfo['uniqueIdentifier']);
+            $idpsNo = count($idps);
+            if ($idpsNo > 2) {
+                \core\common\Logging::debug_s(3, $idps, "PROXIED IDP:\n", "\n");
+            }
+            $authorizingAuthority = $idps[count($idps)-2];
+            \core\common\Logging::debug_s(3, $authorizingAuthority, "IDP:\n", "\n");
+            $_SESSION['authorizing_authority'] = $authorizingAuthority;
+
+        }
         if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
             $saveLog = true;
         } else {
@@ -98,15 +108,11 @@ class Authentication extends \core\common\Entity {
          * */
         //$_SESSION['user'] = "<saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" NameQualifier=\"https://idp.jisc.ac.uk/idp/shibboleth\" SPNameQualifier=\"https://cat-beta.govroam.uk/simplesaml/module.php/saml/sp/metadata.php/default-sp\" Format=\"urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\">XXXXXXXXXXXXXXXX</saml:NameID>";
 
-
         $newNameReceived = FALSE;
-
         $userObject = new \core\User($user);
-
         $attribMapping = [
             "ssp-attrib-name" => "user:realname",
             "ssp-attrib-email" => "user:email"];
-
         foreach ($attribMapping as $SSPside => $CATside) {
             if (isset($admininfo[\config\Master::AUTHENTICATION[$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0) && \config\Master::DB['USER']['readonly'] === FALSE) {
                 $name = $admininfo[\config\Master::AUTHENTICATION[$SSPside]][0];
@@ -133,7 +139,6 @@ class Authentication extends \core\common\Entity {
      * @return void
      */
     public function deauthenticate() {
-
         $as = new \SimpleSAML\Auth\Simple(\config\Master::AUTHENTICATION['ssp-authsource']);
         $servername = htmlspecialchars(strip_tags(filter_input(INPUT_SERVER, 'SERVER_NAME')));
         $scriptself = htmlspecialchars(strip_tags(filter_input(INPUT_SERVER, 'PHP_SELF')));
@@ -145,7 +150,6 @@ class Authentication extends \core\common\Entity {
                 $url = "//$servername" . $base . "/logout_check.php";
             }
         }
-
         $as->logout([
             'ReturnTo' => $url,
             'ReturnStateParam' => 'LogoutState',
