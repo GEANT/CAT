@@ -92,6 +92,43 @@ $end = $langInstance->rtl ? "left" : "right";
 <body>
     <?php
     echo $deco->productheader("ADMIN");
+    $instMgmt->listInstitutionsByAdmin();
+    \core\common\Logging::debug_s(4, $instMgmt->currentInstitutions, "Current Inst:\n", "\n");
+    $hasInst = $instMgmt->currentInstitutions['existing'];
+    if (sizeof($hasInst) > 0) {
+        // we need to run the Federation constructor
+        $cat = new \core\CAT;
+        $instlist = [];
+        $my_idps = [];
+        $myFeds = [];
+        $fed_count = 0;
+        $entitlementEnabled = false;
+
+        foreach ($hasInst as $instId) {
+            $my_inst = new \core\IdP($instId);
+            $inst_name = $my_inst->name;
+            $fed_id = strtoupper($my_inst->federation);
+            $my_idps[$fed_id][$instId] = strtolower($inst_name);
+            $myFeds[$fed_id] = $cat->knownFederations[$fed_id]['name'];
+            $instlist[$instId] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
+        }
+        asort($myFeds);
+        if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === 'eduGAIN') {
+            foreach ($myFeds as $fed_id => $fedName) {
+                $fed = new \core\Federation($fed_id);
+                $autoreg = $fed->getAttributes('fed:autoregister-entitlement');
+                if (isset($autoreg[0]['value']) && $autoreg[0]['value'] == 'on') {
+                    $entitlementEnabled = true;
+                    break;
+                }                
+            }
+        } 
+
+        foreach ($instlist as $key => $row_id) {
+            $country[$key] = $row_id['country'];
+            $name[$key] = $row_id['name'];
+        }
+    }
     ?>
     <div id="wizard_help_window"><img id="wizard_menu_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div></div></div>
     <h1>
@@ -121,6 +158,21 @@ $end = $langInstance->rtl ? "left" : "right";
                     <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'', '\x27', str_replace('"', '\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
+            <?php if ($entitlementEnabled === true && count($_SESSION['entitlement']) > 0) { ?>
+            <tr>
+                <td>
+                    <?php echo _("Entitlements passed to CAT"); ?>
+                </td>
+                <td></td><td><strong>
+                    <?php foreach ($_SESSION['entitlement'] as $entitlement) {
+                        echo $entitlement."<br/>";
+                    }
+                        
+                        ?>
+                    </strong></td>
+                    
+            </tr>
+            <?php } ?>
         </table>
     </div>
     <div>
@@ -140,9 +192,6 @@ $end = $langInstance->rtl ? "left" : "right";
         ?>
     </div>
     <?php
-    $instMgmt->listInstitutionsByAdmin();
-    \core\common\Logging::debug_s(4, $instMgmt->currentInstitutions, "Current Inst:\n", "\n");
-    $hasInst = $instMgmt->currentInstitutions['existing'];
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/25g7Bw"; // CAT manual, outdated
         if (\core\CAT::hostedServicesEnabled()) {
@@ -154,29 +203,8 @@ $end = $langInstance->rtl ? "left" : "right";
     }
 
     if (sizeof($hasInst) > 0) {
-        // we need to run the Federation constructor
-        $cat = new \core\CAT;
         /// first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
         echo "<h2>" . sprintf(ngettext("You are managing the following <span style='display:none'>%d </span>%s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclatureParticipant) . "</h2>";
-        $instlist = [];
-        $my_idps = [];
-        $myFeds = [];
-        $fed_count = 0;
-
-        foreach ($hasInst as $instId) {
-            $my_inst = new \core\IdP($instId);
-            $inst_name = $my_inst->name;
-            $fed_id = strtoupper($my_inst->federation);
-            $my_idps[$fed_id][$instId] = strtolower($inst_name);
-            $myFeds[$fed_id] = $cat->knownFederations[$fed_id]['name'];
-            $instlist[$instId] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
-        }
-        asort($myFeds);
-
-        foreach ($instlist as $key => $row_id) {
-            $country[$key] = $row_id['country'];
-            $name[$key] = $row_id['name'];
-        }
         ?>
         <table class='user_overview'>
             <caption><?php echo sprintf(_("%s Management Overview"), $uiElements->nomenclatureParticipant); ?></caption>
@@ -290,7 +318,7 @@ $end = $langInstance->rtl ? "left" : "right";
         }
 
         elseif (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === 'eduGAIN') {
-            if ($user->edugain !== false) {                
+            if ($user->edugain !== false) {
                 $resyncedInst = $instMgmt->currentInstitutions['resynced'];
                 $newInst = $instMgmt->currentInstitutions['new'];
                 $entitlementCatInst = $instMgmt->currentInstitutions['entitlement'];
