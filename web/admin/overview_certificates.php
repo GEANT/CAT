@@ -40,6 +40,7 @@ $eduroamDb = new \core\ExternalEduroamDBData();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
+$fedId = $_GET['fed_id'];
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -69,6 +70,9 @@ $langObject = new \core\common\Language();
 // okay... we are indeed entitled to "do stuff"
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $oneFed) {
+        if ($oneFed['value'] != $fedId) {
+            continue;
+        }
         $theFed = new \core\Federation($oneFed['value']);
         printf("<h2>" . _("Certificate Information for %s %s")."</h2>", $uiElements->nomenclatureFed, $theFed->name);
         foreach ($theFed->listTlsCertificates() as $oneCert) {
@@ -99,6 +103,7 @@ $langObject = new \core\common\Language();
         if (count($eduroamDb->listExternalTlsServersFederation($theFed->tld)) > 0) {
             ?>
             <form action="action_req_certificate.php" method="POST">
+                <input type="hidden" name='fed_id' value='<?php echo $fedId; ?>'/>
                 <button type="submit" name="newreq" id="newreq" value="<?php echo \web\lib\common\FormElements::BUTTON_CONTINUE ?>"><?php echo _("Request new Certificate"); ?></button>
             </form>
             <?php

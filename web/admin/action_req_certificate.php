@@ -33,7 +33,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
-
+$fedId = $_POST['fed_id'];
 /* Are we operating against the eduPKI Test CA? For the prod CA, set to false */
 $is_testing = true;
 
@@ -72,6 +72,9 @@ $langObject = new \core\common\Language();
     $feds = [];
     $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
     foreach ($allAuthorizedFeds as $oneFed) {
+        if ($oneFed["value"] != $fedId) {
+            continue;
+        }
         $fed = $validator->existingFederation($oneFed["value"]);
         $country = strtoupper($fed->tld);
         $serverInfo = $externalDb->listExternalTlsServersFederation($fed->tld);
@@ -333,6 +336,9 @@ $langObject = new \core\common\Language();
         <?php 
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
+            if ($oneFed["value"] != $fedId) {
+                continue;
+            }
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
                 if (count($oneIdP['contacts']) ==0) {
                     continue;
@@ -371,10 +377,13 @@ $langObject = new \core\common\Language();
                     }
             });
             $(document).on('change', '#NRO' , function() {
+                    $("#additionalinfo").hide();
+                    $("#ondb").hide();
                     $("#INST-list").val("notset");
                     $("#certlevel").html("<?php echo _('NRO level certificate'); ?>");
                     $("#serversinfo").html(nroservers);
                     $("#policiesinfo").html("eduroam IdP/SP");
+                    $("#certinfo").show();
                     $("#errorbox").html("");
             });
             $(document).on('change', '#INST' , function() {

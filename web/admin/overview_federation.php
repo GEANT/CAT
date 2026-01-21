@@ -223,6 +223,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     if ($editMode === 'fullaccess') {
     ?>
     <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
+        <input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->tld); ?>'/>
         <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
     </form>
 
