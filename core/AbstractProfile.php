@@ -694,7 +694,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
      * register new supported EAP method for this profile
      *
      * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
-     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @param int              $preference preference of this EAP Type. If a preference value is reused, the order of EAP types of the same preference level is undefined.
      * @return void
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference)
