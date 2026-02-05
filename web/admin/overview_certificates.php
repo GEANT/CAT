@@ -23,6 +23,7 @@
  * This page edits a federation.
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
 ?>
 <?php
@@ -40,7 +41,7 @@ $eduroamDb = new \core\ExternalEduroamDBData();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
-$fedId = $_GET['fed_id'];
+$fedId = $_REQUEST['fed_id'];
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>

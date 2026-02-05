@@ -281,6 +281,7 @@ $langObject = new \core\common\Language();
         
         ?>
         <form action="overview_certificates.php" method="GET">
+            <input type="hidden" name='fed_id' value='<?php echo $fedId; ?>'/>
             <button type="submit"><?php echo _("Back to Certificate Overview"); ?></button>
         </form>
         <?php
@@ -292,6 +293,7 @@ $langObject = new \core\common\Language();
     ?>
     <h2><?php echo _("1. Certificate Holder Details"); ?></h2>
     <form action="action_req_certificate.php" onsubmit="check_csr();" method="POST">
+        <input type="hidden" name='fed_id' value='<?php echo $fedId; ?>'/>
         <?php
         switch (count($feds)) {
             case 0:
@@ -472,6 +474,7 @@ foreach ($allIdPs as $id => $name) {
 </form>
     <div style="margin-left:50em">
 <form action="overview_certificates.php" method="POST">
+    <input type="hidden" name='fed_id' value='<?php echo $fedId; ?>'/>
     <button type="submit" name="abort" id="abort" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Back to Overview Page"); ?></button>
 </form>
     </div>

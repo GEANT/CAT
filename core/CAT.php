@@ -670,6 +670,6 @@ class CAT extends \core\common\Entity
     }
     
     public static function diagnosticsEnabled() {
-        return \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSYCS'] === 'LOCAL';
+        return \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] === 'LOCAL';
     }
 }

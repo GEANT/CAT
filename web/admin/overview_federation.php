@@ -24,6 +24,7 @@
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
 
 require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
@@ -482,11 +483,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                         $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
                         $orIcon = $uiElements->catIcon($iconData);                    
                 }
-                
-                if ($certStatus[$index] > 0) {
-                    $certClass = 'certproblem';
-                } else {
-                    $certClass = 'certok';
+                if (isset($certStatus[$index])) {
+                    if ($certStatus[$index] > 0) {
+                        $certClass = 'certproblem';
+                    } else {
+                        $certClass = 'certok';
+                    }
                 }
                     
                 $adminClass = 'adminok';
