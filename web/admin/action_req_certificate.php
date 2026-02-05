@@ -72,7 +72,7 @@ $langObject = new \core\common\Language();
     $feds = [];
     $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
     foreach ($allAuthorizedFeds as $oneFed) {
-        if ($oneFed["value"] != $fedId) {
+        if ($oneFed["value"] !== $fedId) {
             continue;
         }
         $fed = $validator->existingFederation($oneFed["value"]);
@@ -338,11 +338,11 @@ $langObject = new \core\common\Language();
         <?php 
         $allIdPs = [];
         foreach ($allAuthorizedFeds as $oneFed) {
-            if ($oneFed["value"] != $fedId) {
+            if ($oneFed["value"] !== $fedId) {
                 continue;
             }
             foreach ($externalDb->listExternalTlsServersInstitution($oneFed['value']) as $id => $oneIdP) {
-                if (count($oneIdP['contacts']) ==0) {
+                if (count($oneIdP['contacts']) == 0) {
                     continue;
                 }
                 $allIdPs[$id] = '[' . substr($id, 0, 2) . '] ' . $oneIdP["name"];            
