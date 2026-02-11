@@ -29,10 +29,12 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
-
+$auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
+
+$auth->authenticate();
 
 $optionlist = \core\Options::instance();
 $availableFedOptions  = $optionlist->availableOptions('managedsp');

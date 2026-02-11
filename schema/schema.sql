@@ -178,6 +178,8 @@ CREATE TABLE `managed_sp_servers` (
   `server_token` varchar(64) DEFAULT NULL,
   `server_secret` varchar(64) DEFAULT NULL,
   `server_iv` varchar(64) DEFAULT NULL,
+  `port_range` varchar(12) DEFAULT NULL,
+  `max_clients` int (11) DEFAULT NULL,
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

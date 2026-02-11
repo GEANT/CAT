@@ -58,7 +58,6 @@ class DeploymentManaged extends AbstractDeployment
      * in FreeRADIUS and take twice as many. initialise() takes this into
      * account.
      */
-    const MAX_CLIENTS_PER_SERVER = 200;
     const PRODUCTNAME = "Managed SP";
 
     /**
@@ -202,8 +201,7 @@ class DeploymentManaged extends AbstractDeployment
     public $server2_secret;
     public $server1_iv;
     public $server2_iv;
-    
-    
+
     /**
      * Class constructor for existing deployments (use 
      * IdP::newDeployment() to actually create one). Retrieves all 
@@ -318,24 +316,35 @@ class DeploymentManaged extends AbstractDeployment
         // first, if there is a pool of servers specifically for this federation, prefer it
         // only check the consortium pool group we want to attach to
         $cons = $this->consortium;
-        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = ? AND consortium = ?", "ss", $federation, $cons);
+        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat, port_range, max_clients FROM managed_sp_servers WHERE pool = ? AND consortium = ?", "ss", $federation, $cons);
         $serverCandidates = [];
+        $portRange = '';
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
-            $maxSupportedClients = DeploymentManaged::MAX_CLIENTS_PER_SERVER;
+            if ($iterator->max_clients == NULL) {
+                $maxSupportedClients = \config\ConfAssistant::SILVERBULLET['msp_max_clients_per_server'];
+            } else {
+                $maxSupportedClients = $iterator->max_clients;
+            }
+            error_log("MAXSupportClients $maxSupportedClients");
             if ($iterator->radius_ip4 == NULL || $iterator->radius_ip6 == NULL) {
                 // half the amount of IP stacks means half the amount of FDs in use, so we can take twice as many
                 $maxSupportedClients = $maxSupportedClients * 2;
             }
             $serverId = $iterator->server_id;
+            if (in_array($iterator->server_id, $blacklistedServers)) {
+                continue;
+            }
+            $portRange = $iterator->port_range;
+            if ($portRange === NULL) {
+                $portRange = \config\ConfAssistant::SILVERBULLET['msp_port_min'] . '-' . \config\ConfAssistant::SILVERBULLET['msp_port_max'];
+            }
             $clientCount1 = $this->databaseHandle->exec("SELECT port_instance_1 AS tenants1 FROM deployment WHERE radius_instance_1 = ?", "s", $serverId);
             $clientCount2 = $this->databaseHandle->exec("SELECT port_instance_2 AS tenants2 FROM deployment WHERE radius_instance_2 = ?", "s", $serverId);
 
             $clients = $clientCount1->num_rows + $clientCount2->num_rows;
-            if (in_array($iterator->server_id, $blacklistedServers)) {
-                continue;
-            }
+            
             if ($clients < $maxSupportedClients) {
-                $serverCandidates[IdPlist::geoDistance($adminLocation, ['lat' => $iterator->location_lat, 'lon' => $iterator->location_lon])] = $iterator->server_id;
+                $serverCandidates[IdPlist::geoDistance($adminLocation, ['lat' => $iterator->location_lat, 'lon' => $iterator->location_lon])] = $iterator->server_id . "#$portRange";
             }
             if ($clients > $maxSupportedClients * 0.9) {
                 $this->loggerInstance->debug(1, "A RADIUS server for Managed SP (" . $iterator->server_id . ") is serving at more than 90% capacity!");
@@ -464,21 +473,28 @@ class DeploymentManaged extends AbstractDeployment
         if ($geoip['status'] == 'ok') {
             $ourLocation = ['lon' => $geoip['geo']['lon'], 'lat' => $geoip['geo']['lat']];
         }
+         
         $inst = new IdP($this->institution);
-        $ourserver = $this->findGoodServerLocation($ourLocation, $inst->federation, []);
+        $ourserverwithports = $this->findGoodServerLocation($ourLocation, $inst->federation, []);
+        $ourserver = substr($ourserverwithports, 0, strpos($ourserverwithports, "#"));
+        $portRange = substr($ourserverwithports, strpos($ourserverwithports, "#")+1);
+        $ports = explode("-", $portRange);
         // now, find an unused port in the preferred server
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
-            $portCandidate = random_int(1200, 65535);
+            $portCandidate = random_int($ports[0],$ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = ? AND port_instance_1 = ?", "si", $ourserver, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort1 = $portCandidate;
             }
         }
-        $ourSecondServer = $this->findGoodServerLocation($ourLocation, $inst->federation, [$ourserver]);
+        $ourserver2withports = $this->findGoodServerLocation($ourLocation, $inst->federation, [$ourserver]);
+        $ourSecondServer = substr($ourserver2withports, 0, strpos($ourserver2withports, "#"));
+        $portRange = substr($ourserver2withports, strpos($ourserver2withports, "#")+1);
+        $ports = explode("-", $portRange);
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
-            $portCandidate = random_int(1200, 65535);
+            $portCandidate = random_int($ports[0],$ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = ? AND port_instance_2 = ?", "si", $ourSecondServer, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort2 = $portCandidate;

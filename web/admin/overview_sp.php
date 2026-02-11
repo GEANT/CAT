@@ -685,6 +685,7 @@ function radius_ready($dsp) {
 ?>
 <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
+                $readonly = \config\Master::DB['INST']['readonly'];
                 if ($readonly === FALSE && $editMode === 'fullaccess') {
                 if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                     ?>
