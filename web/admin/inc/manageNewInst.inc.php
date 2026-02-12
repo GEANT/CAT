@@ -104,7 +104,7 @@ if (\config\Master::DB['enforce-external-sync']) {
                 <?php echo _("Name"); ?> <input type='text' size='30' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
             </td>
             <td>
-                <?php if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') { ?>
+                <?php if(\core\CAT::singleService() === 'CONFASSISTANT_MSP') { ?>
                 &nbsp; <input type='hidden' name='participant_type' value='SP'>
                 <?php } else { ?>
                 <select name="participant_type">

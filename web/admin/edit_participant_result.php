@@ -125,7 +125,7 @@ switch ($_POST['submitbutton']) {
         }
 
         $uiElements = new web\lib\admin\UIElements();
-        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] !== 'MSP') {
+        if(\core\CAT::singleService() !== 'CONFASSISTANT_MSP') {
             echo "<table>";
             if (count($ssids) > 0) {
                 $printedlist = "";

@@ -309,7 +309,7 @@ class UIElements extends \core\common\Entity {
         </table>
     </div>";
         $blocks = [["support", _("Global Helpdesk Details")]];        
-        if ($myInst->type !== "SP") {
+	if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $myInst->type !== "SP") {
             $blocks [] = ["media", _("Media Properties")];
         }
         foreach ($blocks as $block) {

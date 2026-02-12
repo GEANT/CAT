@@ -365,7 +365,7 @@ $(document).ready(function() {
     <hr/>
     <?php
     $readonly = \config\Master::DB['INST']['readonly'];
-    if (preg_match("/IdP/", $my_inst->type)) {
+    if  ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && preg_match("/IdP/", $my_inst->type)) {
         ?>
         <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureIdP); ?>&nbsp;
             <?php

@@ -157,7 +157,9 @@ class OptionDisplay extends \core\common\Entity
         $retval = "";
         $optioninfo = \core\Options::instance();        
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname|managedsp:guest_vlan|managedsp:name";
-        $blackListOnPrefill .= "|fed:silverbullet";
+        if (!\core\CAT::hostedServicesEnabled()) {
+            $blackListOnPrefill .= "|fed:silverbullet";
+        }
         foreach ($prepopulate as $option) {
             if (preg_match("/^$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);

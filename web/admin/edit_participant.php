@@ -135,7 +135,7 @@ echo $mapCode->htmlHeadCode();
     </fieldset>
     <?php
     echo $mapCode->htmlShowtime($wizardStyle, $additional);
-    if ($my_inst->type != "SP") {
+    if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $my_inst->type != "SP") {
         ?>
         <fieldset class="option_container">
             <legend><strong><?php echo _("Media Properties"); ?></strong></legend>

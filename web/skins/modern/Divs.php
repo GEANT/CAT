@@ -54,14 +54,22 @@ class Divs {
      * @return string the HTML code
      */
     public function divHeading($visibility = 'all') {
+        if (\core\CAT::radiusProfilesEnabled()) {
+            $serviceName = "Configuration Assistant Tool";
+        }
+        if (\core\CAT::singleService() === 'CONFASSISTANT_MSP') {
+            $serviceName = "Managed SP Service";
+        }
+        if (\core\CAT::singleService() === 'CONFASSISTANT_MIDP') {
+            $serviceName = "Managed IdP Service";
+        }
         $selectedLang = $this->Gui->languageInstance->getLang();
-        $menu = new Menu($visibility, $selectedLang);
         $retval = "<div id='heading'>";
         $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");
         if ($location !== FALSE) {
             $retval .= "<div id='cat_logo'>
             <a href='".\config\ConfAssistant::CONSORTIUM['homepage']."'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
-            <span>Configuration Assistant Tool</span>
+            <span>$serviceName</span>
             </div>";
         }
         $retval .= "<div id='motd'>".(isset(\config\Master::APPEARANCE['MOTD']) ? \config\Master::APPEARANCE['MOTD'] : '&nbsp')."</div>";
@@ -69,13 +77,17 @@ class Divs {
         if ($loc2 !== FALSE) {
             $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
         }
+        if (\core\CAT::radiusProfilesEnabled()) {
+        $menu = new Menu($visibility, $selectedLang);
         $retval .= "<div id='menu_top'>";
         if ($visibility === 'start') {
             $retval .= $menu->printMinimalMenu();
         } else {
             $retval .= $menu->printMenu();
         }
-        $retval .= "</div></div>\n";
+        $retval .= "</div>";
+        }
+        $retval .= "</div>\n";
         return $retval;
     }
 
@@ -136,6 +148,23 @@ class Divs {
      * @return string the HTML code
      */
     public function divTopWelcome() {
+        if (\core\CAT::singleService() === 'CONFASSISTANT_MSP') {
+            return "
+<div id='welcome_top1'>
+    Welcome to the eduroam Managed SP service.<p>
+    If you are an administrator for an institution serviced here or and NRO admin please use the login button below.
+</div>
+";
+        }
+        if (\core\CAT::singleService() === 'CONFASSISTANT_MIDP') {
+            return "
+<div id='welcome_top1'>
+    Welcome to the eduroam Managed IdP service.<p>
+    If you are an administrator for an institution serviced here or and NRO admin please use the login button below.
+</div>
+";
+        }
+        
         $retval = '';
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval = "<br><div id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</div>";
@@ -156,18 +185,19 @@ class Divs {
      */
     public function divRoller() {
         $retval = "
-<div id='roller'>
-    <div id='slides'>
+        <div id='roller'>
+        <div id='slides'>";
+        
+        if (!\core\CAT::radiusProfilesEnabled()) {
+            $retval .= "</div></div>";  
+            return $retval;            
+        }
+        $retval .= "
         <span id='line1'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_EASY]."</span>
         <span id='line2'></span>
         <span id='line3'></span>
         <span id='line4'>";
-
-        if (\core\CAT::radiusProfilesEnabled()) {
-            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
-        } elseif (\core\CAT::hostedServicesEnabled()) {
-            $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_ROLLER_CUSTOMBUILT];
-        }
+        $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
 
         $retval .= "</span>
         <span id='line5'>";
@@ -194,15 +224,14 @@ class Divs {
      */
     public function divMainButton() {
         $retval = "<div id='user_button_td'>";
-        $retval .= "<span id='signin'>
-     <button class='large_button signin signin_large' id='user_button1'>
-        <span id='user_button'>";
+        $retval .= "<span id='signin'>";
         if (\core\CAT::radiusProfilesEnabled()) {
+            $retval .= "<button class='large_button signin signin_large' id='user_button1'><span id='user_button'>";
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON];
         } elseif (\core\CAT::hostedServicesEnabled()) {
+            $retval .= "<button class='large_button signin_large' id='user_button1' onclick='goAdmin(); return(false);'><span id='user_button'>";
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_BIGDOWNLOADBUTTON];
         }
-
         $retval .= "
         </span>
      </button>

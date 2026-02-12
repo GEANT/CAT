@@ -672,4 +672,21 @@ class CAT extends \core\common\Entity
     public static function diagnosticsEnabled() {
         return \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] === 'LOCAL';
     }
+    
+    public static function singleService() {
+        $serviceCount = 0;
+        $selectedService = null;
+        foreach (\config\Master::FUNCTIONALITY_LOCATIONS as $service => $value) {
+            if ($service !== 'DIAGNOSTICS' && $value === 'LOCAL') {
+                $serviceCount++;
+                $selectedService = $service;
+            }
+        }
+        if ($serviceCount === 1) {
+            return $selectedService;
+        } else {
+            return null;
+        }
+                
+    }
 }

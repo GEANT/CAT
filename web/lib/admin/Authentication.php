@@ -66,7 +66,7 @@ class Authentication extends \core\common\Entity {
         }
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
-        \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR0:\n", "\n");
+        \core\common\Logging::debug_s(3, $admininfo, "SAML ATTR:\n", "\n");
         if (isset($admininfo['uniqueIdentifier'])) {
             $idps = explode('##########', $admininfo['uniqueIdentifier']);
             $idpsNo = count($idps);
@@ -75,8 +75,6 @@ class Authentication extends \core\common\Entity {
             }
             $authorizingAuthority = $idps[count($idps)-2];
             \core\common\Logging::debug_s(3, $authorizingAuthority, "IDP:\n", "\n");
-            $_SESSION['authorizing_authority'] = $authorizingAuthority;
-
         }
         if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
             $saveLog = true;
@@ -99,6 +97,9 @@ class Authentication extends \core\common\Entity {
         $_SESSION['user'] = $user;
         $_SESSION['name'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-name']][0] ?? _("Unnamed User");
         $_SESSION['auth_email'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-email']][0] ?? _("");
+        if ($authorizingAuthority !== null) {
+            $_SESSION['authorizing_authority'] = $authorizingAuthority;
+        }
         if (isset($admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']])) {
             $_SESSION['entitlement'] = $admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']];
         }

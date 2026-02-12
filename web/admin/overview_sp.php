@@ -491,7 +491,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     $discardLabel = _("Return"); ?>
                 <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
                     <?php
-                    if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
+                    if ($editMode === 'fullaccess' && $isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                                 <?php echo _("Activate"); ?>

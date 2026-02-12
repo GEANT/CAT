@@ -126,7 +126,7 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[SB_GO_AWAY] = sprintf(_("You can download your %s installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."), \config\ConfAssistant::CONSORTIUM['display_name']);
-        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("This site provides %s installers for many organisations, click here to see if yours is on the list."), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = _("Administrator login");
         $this->templates[SB_FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for you");
         if (isset(\config\ConfAssistant::CONSORTIUM['signer_name'])) {
             $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['signer_name']);
