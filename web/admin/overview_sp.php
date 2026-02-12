@@ -684,46 +684,7 @@ function radius_ready($dsp) {
 
 ?>
 <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
-            <?php
-                $readonly = \config\Master::DB['INST']['readonly'];
-                $hasMail = count($my_inst->getAttributes("support:email"));
-                if ($readonly === FALSE && $editMode === 'fullaccess') {
-                if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0) {
-                    ?>
-                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <div>
-                            <input type="hidden" name="consortium" value="eduroam"/>
-                            
-                            <span style='color: red;'>
-                            <?php if ($hasMail == 0) { 
-                              echo _("Helpdesk mail address is required but missing!");  
-                            }
-                            ?>
-                            </span>
-                        </div>
-                    </form>
-                    
-                    <?php 
-                    /*
-                    if (count($myfed->getAttributes("fed:openroaming")) > 0) {
-                        ?>
-                        &nbsp;
-                        <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <div>
-                                <input type="hidden" name="consortium" value="OpenRoaming"/>
-                                <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                                    <?php echo sprintf(_("Add %s deployment ..."), "OpenRoaming ANP"); ?>
-                                </button>
-
-                            </div>
-                        </form>
-                        <?php
-                    }
-                    */
-                }
-            }
-            ?>
-        </h2>
+</h2>
 <?php
         $hotspotProfiles = [];
         if (isset($_GET['deployment_id'])) {
