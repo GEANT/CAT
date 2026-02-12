@@ -491,7 +491,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     $discardLabel = _("Return"); ?>
                 <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
                     <?php
-                    if ($editMode === 'fullaccess' && $isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
+                    if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                                 <?php echo _("Activate"); ?>
@@ -686,15 +686,14 @@ function radius_ready($dsp) {
 <h2 style='display: flex;'><?php printf(_("%s: %s Deployment Details"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureHotspot); ?>&nbsp;
             <?php
                 $readonly = \config\Master::DB['INST']['readonly'];
+                $hasMail = count($my_inst->getAttributes("support:email"));
                 if ($readonly === FALSE && $editMode === 'fullaccess') {
                 if (\core\CAT::hostedSPEnabled() && count($myfed->getAttributes("fed:silverbullet")) > 0) {
                     ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <div>
                             <input type="hidden" name="consortium" value="eduroam"/>
-                            <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                                <?php echo sprintf(_("Add %s deployment ..."), \config\ConfAssistant::CONSORTIUM['name'] . " " . \core\DeploymentManaged::PRODUCTNAME); ?>
-                            </button>
+                            
                             <span style='color: red;'>
                             <?php if ($hasMail == 0) { 
                               echo _("Helpdesk mail address is required but missing!");  

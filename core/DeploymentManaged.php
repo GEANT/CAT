@@ -325,7 +325,6 @@ class DeploymentManaged extends AbstractDeployment
             } else {
                 $maxSupportedClients = $iterator->max_clients;
             }
-            error_log("MAXSupportClients $maxSupportedClients");
             if ($iterator->radius_ip4 == NULL || $iterator->radius_ip6 == NULL) {
                 // half the amount of IP stacks means half the amount of FDs in use, so we can take twice as many
                 $maxSupportedClients = $maxSupportedClients * 2;
