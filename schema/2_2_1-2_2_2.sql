@@ -33,3 +33,5 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ALTER TABLE `managed_sp_servers` ADD COLUMN (`port_range` varchar(12) DEFAULT NULL,
+  `max_clients` int (11) DEFAULT NULL);
