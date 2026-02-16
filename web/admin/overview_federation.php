@@ -224,8 +224,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
     if ($editMode === 'fullaccess') {
     ?>
     <form action='overview_certificates.php' method='GET' accept-charset='UTF-8'>
-        <input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->tld); ?>'/>
         <button type='submit'><?php echo sprintf(_('RADIUS/TLS Certificate management')); ?></button>
+        <input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->tld); ?>'/>
     </form>
 
     <?php
@@ -310,7 +310,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     </table>";
     }
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
-        $helptext = "<h3>".sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/qJg7Bw", $uiElements->nomenclatureFed)."</h3>";
+        $helptext = "<h3>".sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBEQQ", $uiElements->nomenclatureFed)."</h3>";
     } else {
         $helptext = "";
     }
@@ -352,6 +352,11 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                 ?>
             </th>
+            <?php if (\core\CAT::singleService() === null) { ?>
+            <th scope='col'>
+                <?php echo _("Type"); ?>
+            </th>
+            <?php } ?>
         </tr>
         <?php
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
@@ -483,6 +488,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                         $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
                         $orIcon = $uiElements->catIcon($iconData);                    
                 }
+
                 if (isset($certStatus[$index])) {
                     if ($certStatus[$index] > 0) {
                         $certClass = 'certproblem';
@@ -561,6 +567,16 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=".$index."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                       <button type='submit' style='vertical-align:middle'>" .$adminIcon."&nbsp;&nbsp;".
                     _("Add/Remove Administrators")."
+                                      </button>
+                                  </form>
+                                </div>";
+                }
+                echo "</td>";
+                echo "<td>";
+                if ($readonly === FALSE) {
+                    echo "<div style='white-space: nowrap;'>
+                                  <form method='post' action='inc/manageType.inc.php?inst_id=".$index."' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                      <button type='submit' style='vertical-align:middle; width:8ex'>".$idp_instance->type."
                                       </button>
                                   </form>
                                 </div>";

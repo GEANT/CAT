@@ -345,7 +345,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
     } else {
         $discardLabel = _("Return");
     }
-    echo "<button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"edit_hotspot.php?inst_id=$my_inst->identifier\"'>$discardLabel</button></p>";
+    echo "<button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_sp_wrapper.php?inst_id=$my_inst->identifier&deployment_id=$deployment->identifier\"'>$discardLabel</button></p>";
     echo "</form>";
     echo $deco->footer();
     ?>
