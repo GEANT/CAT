@@ -270,7 +270,7 @@ class IdP extends EntityWithDBProperties
     public function isPrimaryOwner($user)
     {
         foreach ($this->listOwners() as $oneOwner) {
-            if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
+            if ($oneOwner['ID'] == $user && ($oneOwner['LEVEL'] == "FED" || $oneOwner['LEVEL'] == "EDB")) {
                 return TRUE;
             }
         }
@@ -332,6 +332,10 @@ class IdP extends EntityWithDBProperties
             default:
                 return [IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP];
         }
+    }
+    
+    public function updateType($type) {
+        $this->databaseHandle->exec("UPDATE institution set type='$type' WHERE inst_id = $this->identifier");
     }
 
     /**
@@ -430,7 +434,7 @@ class IdP extends EntityWithDBProperties
 
         // notify federation admins
         if (\config\Master::MAILSETTINGS['notify_nro']) {
-            $fed = new Federation($this->federation);
+                $fed = new Federation($this->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new User($id);
                 $message = sprintf(_("Hi,
