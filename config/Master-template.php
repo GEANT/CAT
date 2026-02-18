@@ -84,7 +84,7 @@ class Master
              *  - NULL (component does not live anywhere, trim functionality from display)
              *  - or an absolute URL to the base directory of an installation with the functionality aspect
              */
-            'CONFASSISTANT_MSP' => 'NULL',
+            'CONFASSISTANT_MSP' => NULL,
             'CONFASSISTANT_MIDP' => NULL,
             'CONFASSISTANT_RADIUS' => 'LOCAL',
             'DIAGNOSTICS' => 'LOCAL',

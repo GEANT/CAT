@@ -40,7 +40,6 @@ if (!isset($_REQUEST['profile_id'])) {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
     [$inst, $editMode] = $validator->existingIdPInt(filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT), $_SESSION['user']);
-
     if ($inst->profileCount() > 0) {
         foreach ($inst->listProfiles() as $oneProfile) {
             $profileEapMethod = $oneProfile->getEapMethodsInOrderOfPreference()[0];
@@ -327,9 +326,11 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
 <link rel='stylesheet' type='text/css' href='css/silverbullet.css.php' />
+<?php
 if ($editMode == 'readonly') {
     print('<style>.admin_only {visibility: hidden}</style>');
 }
+?>
 </head>
 
 <body>
