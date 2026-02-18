@@ -193,7 +193,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             }
         } while (!$nonDupSerialFound);
         $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type ECDSA.\n");
-        $cert = openssl_csr_sign($csr["CSR_OBJECT"], $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'ecdsa-with-SHA1', 'config' => $this->conffile], $serial);
+        $cert = openssl_csr_sign($csr["CSR_OBJECT"], $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'sha256', 'config' => $this->conffile], $serial);
         if ($cert === FALSE) {
             throw new Exception("Unable to sign the request and generate the certificate!");
         }
@@ -235,7 +235,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
                     'CN' => $username,
                 // 'emailAddress' => $username,
                 ], $privateKey, [
-            'digest_alg' => "ecdsa-with-SHA1",
+            'digest_alg' => "sha256",
             'req_extensions' => 'v3_req',
                 ]
         );
