@@ -20,6 +20,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-RSA.pem";
     private const LOCATION_ISSUING_KEY = ROOT . "/config/SilverbulletClientCerts/real-RSA.key";
     private const LOCATION_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-RSA.cnf";
+    private const LOCATION_CSR_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-csr.cnf";
 
     /**
      * string with the PEM variant of the root CA
@@ -47,6 +48,12 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @var string
      */
     private $conffile;
+
+    /**
+     * filename of the openssl.cnf file we use for generating CSR
+     * @var string
+     */
+    private $crsconffile;
 
     /**
      * resource for private key
@@ -91,6 +98,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             throw new Exception("openssl configuration not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG);
         }
         $this->conffile = CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG;
+        $this->csrconffile = CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG;
     }
 
     /**
@@ -237,6 +245,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
                 ], $privateKey, [
             'digest_alg' => "sha256",
             'req_extensions' => 'v3_req',
+	    'config' => $this->csrconffile,
                 ]
         );
         if ($newCsr === FALSE || is_resource($newCsr)) {

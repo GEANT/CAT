@@ -50,6 +50,12 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     private $conffile;
 
     /**
+     * filename of the openssl.cnf file we use
+     * @var string
+     */
+    private $csrconffile;
+
+    /**
      * resource for private key
      * 
      * @var \OpenSSLAsymmetricKey
