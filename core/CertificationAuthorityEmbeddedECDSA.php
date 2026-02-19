@@ -20,6 +20,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-ECDSA.pem";
     private const LOCATION_ISSUING_KEY = ROOT . "/config/SilverbulletClientCerts/real-ECDSA.key";
     private const LOCATION_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-ECDSA.cnf";
+    private const LOCATION_CSR_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-csr.cnf";
 
     /**
      * string with the PEM variant of the root CA
@@ -91,6 +92,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             throw new Exception("openssl configuration not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG);
         }
         $this->conffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG;
+        $this->csrconffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CSR_CONFIG;
     }
 
     /**
@@ -192,7 +194,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
                 $nonDupSerialFound = TRUE;
             }
         } while (!$nonDupSerialFound);
-        $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type ECDSA.\n");
+        $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type ECDSA, config ".$this->conffile.".\n");
         $cert = openssl_csr_sign($csr["CSR_OBJECT"], $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'sha256', 'config' => $this->conffile], $serial);
         if ($cert === FALSE) {
             throw new Exception("Unable to sign the request and generate the certificate!");
@@ -235,6 +237,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
                     'CN' => $username,
                 // 'emailAddress' => $username,
                 ], $privateKey, [
+	    'config' => $this->csrconffile,
             'digest_alg' => "sha256",
             'req_extensions' => 'v3_req',
                 ]
