@@ -81,7 +81,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
             <h2><?php
                 switch ($deploymentObject->consortium) {
                     case "eduroam":
-                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": SP$depId-".$deploymentObject->institution;
+                        $displayname = config\ConfAssistant::CONSORTIUM['name'] . " " . core\DeploymentManaged::PRODUCTNAME. ": ".$deploymentObject->name;
                         break;
                     case "OpenRoaming":
                         $displayname = "OpenRoaming ANP";
