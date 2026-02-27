@@ -11,7 +11,7 @@
 require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
 /**
- * The sctipt will be called from crontab
+ * The script will be called from crontab
  * 
  * list all profiles
  * foreach profile create the profile object

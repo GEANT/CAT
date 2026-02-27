@@ -173,8 +173,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * separate institution names as written in the eduroam DB into array
      * 
      * @param string $collapsed - '#' separated list of names - each name has
-     *      two-letter language prefic followed by ':'
-     * @return array $nameList - tle list contains both separate per-lang entires
+     *      two-letter language prefix followed by ':'
+     * @return array $nameList - tle list contains both separate per-lang entries
      *        and a joint one, just names no lang info - this used for comparison with CAT institution names
      */
     public static function dissectCollapsedInstitutionNames($collapsed) {
@@ -298,7 +298,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     
     /**
      * retrieves the list of identifiers (external and local) of all institutions
-     * which have the admin email listed in the externam DB, thos that are synced to an
+     * which have the admin email listed in the external DB, those that are synced to an
      * existing CAT institution will also have the local identifier (else NULL)
      * 
      * @param string $userEmail

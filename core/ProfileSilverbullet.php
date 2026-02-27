@@ -192,7 +192,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * register new supported EAP method for this profile
      *
      * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
-     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @param int              $preference preference of this EAP Type. If a preference value is reused, the order of EAP types of the same preference level is undefined.
      * @return void
      * @throws Exception
      */
@@ -252,7 +252,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * 
      * @param int $userId the numerical user ID of the user in question
      * @param boolean $testActivity set true if we are only interested in checking
-     *        user existance in auth database
+     *        user existence in auth database
      * @return array
      */
     public function getUserAuthRecords($userId, $testActivity = false) {

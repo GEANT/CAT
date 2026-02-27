@@ -126,7 +126,7 @@ class ExternalNothing implements ExternalLinkInterface
     
     /**
      * retrieves the list of identifiers (external and local) of all institutions
-     * which have the admin email listed in the externam DB, thos that are synced to an
+     * which have the admin email listed in the external DB, those that are synced to an
      * existing CAT institution will also have the local identifier (else NULL)
      * 
      * @param string $userEmail

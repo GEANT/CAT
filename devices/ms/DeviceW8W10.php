@@ -95,7 +95,7 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
                 $delProfiles[] = $ssid.' (TKIP)';
             }
         }
-        // the two lines below remove the eduroam® profiles we used to install, this is a temporary hack untill a better solution is implemented
+        // the two lines below remove the eduroam® profiles we used to install, this is a temporary hack until a better solution is implemented
         $delProfiles[] = 'eduroam®';
         $delProfiles[] = 'eduroam® via partner';
         // this removes the profile container that we used in CAT 2.1 and removed in 2.1.1

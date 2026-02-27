@@ -155,14 +155,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity
      * are not considered.
      *
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
-     * @param string$omittedOptionName optionally drop attibutes with that name
+     * @param string$omittedOptionName optionally drop attributes with that name
      * @return array of arrays of attributes which were set for this IdP
      */
     public function getAttributes(string $optionName = NULL, string $omittedOptionName = NULL)
     {
         if ($optionName !== NULL) {
             if ($optionName === $omittedOptionName) {
-                throw new Exception("The attibute to be shown has the same name as that to be omitted");
+                throw new Exception("The attribute to be shown has the same name as that to be omitted");
             }
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {

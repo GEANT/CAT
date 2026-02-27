@@ -122,7 +122,7 @@ class ConfAssistant
      * "testing" controls which instance of eduPKI we are using and also
      * the requested expiry time of the certificates (1y for testing, 5y for production)
      * "max_expiry" set to true means that we will be requesting certificates
-     * with maximum avaliable validity, controlled by eduPKI defaults (at the moment
+     * with maximum available validity, controlled by eduPKI defaults (at the moment
      * the expiry date of the CA certificate)
      */
     const eduPKI = [

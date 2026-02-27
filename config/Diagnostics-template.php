@@ -124,7 +124,7 @@ class Diagnostics
             'secret' => '1q2w3e4r5t0O9I8U7Y6TaZ',
         ];
         const TIMEOUTS = [
-            'ajax_radius_tests' => 15000, // miliseconds
+            'ajax_radius_tests' => 15000, // milliseconds
             'crl_download' => 10,         // seconds
         ];
 }

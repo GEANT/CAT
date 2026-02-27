@@ -1415,7 +1415,7 @@ msgstr "Jouw attributen"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr "Gebruikersattibuten - Overzicht van verstrekte gegevens"
+msgstr "Gebruikersattributen - Overzicht van verstrekte gegevens"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
