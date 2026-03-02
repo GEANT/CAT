@@ -21,9 +21,15 @@ $(function () {
     $("img.wizard_icon").tooltip();
 
     $("img.wizard_icon").on("click", function() {
+        $("#wizard_menu_close").next().html($(this).parent().next().html());
+        $("#wizard_help_window").show();
+    });
+
+    $("img.wizard_icon_near").on("click", function() {
         $("#wizard_menu_close").next().html($(this).next().html());
         $("#wizard_help_window").show();
     });
+    
     
     $("#wizard_menu_close").on("click", function() {
         $("#wizard_help_window").hide();

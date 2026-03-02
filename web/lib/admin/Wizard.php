@@ -78,8 +78,8 @@ class Wizard extends UIElements {
      * @return string the HTML content for the page
      * 
      */
-    public function displayHelpText($input) {
-        return $this->displayHelpElement($input);
+    public function displayHelpText($input, $near='XX') {
+        return $this->displayHelpElement($input,$near);
     }
     
     /**
@@ -88,16 +88,26 @@ class Wizard extends UIElements {
      * @param string $input
      * @return string the HTML content
      */
-    private function displayHelpElement($input) {
+    private function displayHelpElement($input, $near='XX') {
         $iconTitle = _("Click to open the help window");
         if ($this->wizardStyle) {
             $wizardClass = "wizard_visible";
             $content = "<div>";
         } else {
             $wizardClass = "wizard_hidden";
-            $content = "<div style='min-height:28px'><img src='../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg' class='wizard_icon' title=\"$iconTitle\">";            
+            if ($near === 'near') {
+                $iconClass = 'wizard_icon_near';
+            } else {
+                $iconClass = 'wizard_icon';
+            }
+            $icon = "<img src='../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg' class='$iconClass' title=\"$iconTitle\">";
+            if ($near === 'near') {
+                $content = $icon;
+            } else {
+                $content = "<div style='min-height:28px'>".$icon."</div>";
+            }
         }
-        $content .= "<div class='$wizardClass'>".$input."</div></div>";
+        $content .= "<div class='$wizardClass'>".$input."</div>";
         return $content;        
     }
     
