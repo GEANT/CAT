@@ -167,8 +167,6 @@ class IdP extends EntityWithDBProperties
         while ($deploymentQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allDeployments)) {
             $returnarray[] = new DeploymentManaged($this, $deploymentQuery->deployment_id);
         }
-
-        $this->loggerInstance->debug(4, "listDeployments: " . /** @scrutinizer ignore-type */ print_r($returnarray, true));
         return $returnarray;
     }
 
