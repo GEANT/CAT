@@ -73,4 +73,5 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::AP
                 break;
         }        
     }    
-    
+
+    echo $deco->footer();
