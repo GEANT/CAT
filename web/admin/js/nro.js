@@ -23,6 +23,7 @@
 function row_filter(tbody) {
     var linked = tbody.find('[id^="unlinked_ck_"]').is(':checked');
     var broken_cert = tbody.find('[id^="brokencert_ck_"]').is(':checked');
+    var wired_set = tbody.find('[id^="wiredset_ck_"]').is(':checked');
     var or_warn = tbody.find('[id^="or_ck_"]').is(':checked');
     var profile_warn = tbody.find('[id^="profile_ck_"]').is(':checked');
     var adminproblem = tbody.find('[id^="adminproblem_ck_"]').is(':checked');
@@ -37,6 +38,9 @@ function row_filter(tbody) {
         if (tr_visible && broken_cert && $(this).hasClass('certok')) {
             tr_visible = false;
         }
+        if (tr_visible && wired_set && $(this).hasClass('wiredunset')) {
+            tr_visible = false;
+        }        
         if (tr_visible && or_warn && $(this).hasClass('orok')) {
             tr_visible = false;
         }      

@@ -367,7 +367,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
-            }
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='wiredset' id='wiredset_ck_".$fedId."'></td>";
+                }
             if (\core\CAT::hostedSPEnabled()) {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>&nbsp;</td>";
             }
@@ -450,7 +451,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 
                 // verify the wired status for this IdP
                 $wiredSet = $idp_instance->maxWiredStatus();
-                $wiredIcon = " ";
+                $wiredIcon = ' ';
+                $wiredClass = 'wiredunset';
                 if ($wiredSet === \core\IdP::WIRED_SET) {
                     $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
                     $wiredClass = 'wiredset';
@@ -523,7 +525,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
