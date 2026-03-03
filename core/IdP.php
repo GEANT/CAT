@@ -267,8 +267,9 @@ class IdP extends EntityWithDBProperties
      */
     public function isPrimaryOwner($user)
     {
+        $fedFlatAdminStructure = \core\Federation::isFlatAdminStructure($this->federation);
         foreach ($this->listOwners() as $oneOwner) {
-            if ($oneOwner['ID'] == $user && ($oneOwner['LEVEL'] == "FED" || $oneOwner['LEVEL'] == "EDB")) {
+            if ($oneOwner['ID'] == $user && ($fedFlatAdminStructure || $oneOwner['LEVEL'] === "FED" || $oneOwner['LEVEL'] === "EDB")) {
                 return TRUE;
             }
         }
