@@ -451,7 +451,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 
                 // verify the wired status for this IdP
                 $wiredSet = $idp_instance->maxWiredStatus();
-                $wiredIcon = ' ';
+                $wiredIcon = '-';
                 $wiredClass = 'wiredunset';
                 if ($wiredSet === \core\IdP::WIRED_SET) {
                     $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
@@ -557,7 +557,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     echo  "<td>$profileIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";
-                    echo "<td>$wiredIcon</td>";
+                    echo "<td style='text-align: center'>$wiredIcon</td>";
                 }
                 if (\core\CAT::hostedSPEnabled()) {
                     echo "<td style='text-align: center'>$deploymentIcon</td>";
