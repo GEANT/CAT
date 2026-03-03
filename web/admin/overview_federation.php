@@ -167,7 +167,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     </td>
                 </tr>
                 <?php
-                echo $uiElements->infoblock($thefed->getAttributes(), "fed", "FED");
+                echo $uiElements->infoblock(\web\lib\admin\OptionDisplay::sortAttributesForDisplay($thefed->getAttributes()), "fed", "FED");
                 if ($readonly === FALSE) {
                         if ($editMode == 'fullaccess') {
                             $editLabel = _("Edit ...");

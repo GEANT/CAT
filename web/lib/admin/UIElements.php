@@ -81,7 +81,12 @@ class UIElements extends \core\common\Entity {
      * @return string the human-readable variant
      * @throws \Exception
      */
-    public function displayName($input, $fullDisplay = false) {
+    public function displayName($in, $fullDisplay = false) {
+        if (is_array($in)) {
+            $input=$in[0];
+        } else {
+            $input = $in;
+        }
         \core\common\Entity::intoThePotatoes();
         $ssidText = _("SSID");
         $passpointOiText = _("HS20 Consortium OI");
@@ -174,6 +179,10 @@ class UIElements extends \core\common\Entity {
             "fed:hide-admin-warnings" => [
                 'display' => _("Do not show any warnings about missing/inactive admins"),
                 'help' => _("You can block any warnings on missing/inactive admins. The default is to show them.")
+            ],
+            "fed:flat-admin-structure" => [
+                'display' => _("Use flat structure of institution administrators"),
+                'help' => _("")
             ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
@@ -309,7 +318,7 @@ class UIElements extends \core\common\Entity {
         </table>
     </div>";
         $blocks = [["support", _("Global Helpdesk Details")]];        
-	if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $myInst->type !== "SP") {
+        if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $myInst->type !== "SP") {
             $blocks [] = ["media", _("Media Properties")];
         }
         foreach ($blocks as $block) {

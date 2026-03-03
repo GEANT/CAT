@@ -56,10 +56,10 @@ if ($editMode == 'readonly') {
             . '</style>');
 }
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script src="js/XHR.js" type="text/javascript"></script>
+<script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/wizard.js"></script> 
 <link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 
@@ -125,36 +125,38 @@ echo $mapCode->htmlHeadCode();
     }
     $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, \core\Options::LEVEL_IDP);
     ?>
-    <fieldset class="option_container">
+    <input type="hidden" id="fedid"  value="<?php echo $my_inst->federation ?>">
+    <input type="hidden" id="attribute_class"  value="profile">
+    <fieldset class="option_container" name="general">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
         <?php
         echo $wizard->displayHelp("idp_general");
         echo $optionDisplay->prefilledOptionTable("general", $my_inst->federation);
         ?>
-        <button type='button' class='newoption' onclick='getXML("general", "<?php echo $my_inst->federation; ?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     echo $mapCode->htmlShowtime($wizardStyle, $additional);
     if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $my_inst->type != "SP") {
         ?>
-        <fieldset class="option_container">
+        <fieldset class="option_container" name="media">
             <legend><strong><?php echo _("Media Properties"); ?></strong></legend>
             <?php
             echo $wizard->displayHelp("media");
             echo $optionDisplay->prefilledOptionTable("media", $fed->tld);
             ?>
-            <button type='button' class='newoption' onclick='getXML("media", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
+            <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
         </fieldset>
         <?php
     }
     ?>
-    <fieldset class="option_container">
+    <fieldset class="option_container" name="support">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
         <?php
         echo $wizard->displayHelp("support");
         echo $optionDisplay->prefilledOptionTable("support", $fed->tld);
         ?>
-        <button type='button' class='newoption' onclick='getXML("support", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button></fieldset>
+        <button type='button' class='newoption'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($editMode === 'readonly') {
         $discardLabel = _("Return");

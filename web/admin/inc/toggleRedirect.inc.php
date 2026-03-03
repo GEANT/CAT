@@ -121,10 +121,12 @@ if ($device !== NULL) {
     throw new Exception("previous type checks make it impossible to reach this code path.");
 }
 ?>
+
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>
 <hr/>
-
 <form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post' accept-charset='UTF-8'><?php echo $extrainput; ?>
+        <input type="hidden" id="fedid"  value="<?php echo $my_inst->federation ?>">
+        <fieldset class="option_container" name="<?php echo $keyword; ?>">
     <?php
 // see if we already have any attributes; if so, display these
     $interesting_attribs = [];
@@ -133,16 +135,8 @@ if ($device !== NULL) {
             $interesting_attribs[] = $attrib;
         }
     }
+    
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
     echo $optionDisplay->prefilledOptionTable($keyword, $my_inst->federation);
-    if (\config\Master::DB['INST']['readonly'] === FALSE) {
-        if ($editMode == 'fullaccess') {
-        ?>
-        <button type='button' class='newoption' onclick='getXML("<?php echo $keyword;?>", "<?php echo $my_inst->federation;?>", "<?php echo $dev;?>")'><?php echo _("Add new option"); ?></button>
-        <br/>
-        <hr/>
-        <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
-        <?php }
-    }
-    ?>
-</form>
+
+

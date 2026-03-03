@@ -136,13 +136,13 @@ switch ($operationMode) {
         break;
     case OPERATION_MODE_SELF_ADMIN_ADD:
         $idp = $validator->existingIdP($_GET['inst_id']);
-        $allowedIdPs = $_SESSION['resyncedIdPs'];
+        $allowedIdPs = $_SESSION['ownedExternal'];
         if (!in_array($idp->identifier, $allowedIdPs)) {
             throw new Exception("sendinvite: requested IdP token for and IdP identifier which is not within the allowed list for this user");
         }
         $validAddresses = [$_SESSION['auth_email']];
         $prettyprintname = $idp->name;
-        $newtokens = $mgmt->createTokens("FED", $validAddresses, $idp);
+        $newtokens = $mgmt->createTokens("EDB", $validAddresses, $idp);
         \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP (self)" . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
         $participant_type = $idp->type;
         $introtext = "SELF-ADMIN";
@@ -208,7 +208,7 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
-        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+        if(\core\CAT::singleService() === 'CONFASSISTANT_MSP') {
             $participant_type = \core\IdP::TYPE_SP;
         } else {
             $participant_type = $extinfo['type'];
@@ -250,7 +250,7 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
-        if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+        if(\core\CAT::singleService() === 'CONFASSISTANT_MSP') {
             $participant_type = \core\IdP::TYPE_SP;
         } else {
             $participant_type = $extinfo['type'];

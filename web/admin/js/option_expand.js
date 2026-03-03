@@ -20,25 +20,98 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML(attribute_class, fedid, device) {
-    console.log("Device="+device);
-    var client = new XMLHttpRequest();
-    client.attribute_class = attribute_class;
-    client.onreadystatechange = addOption;
-    if (device === undefined) {
-        client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML");
+$(function () {
+    $(".newoption").on("click", getXML);
+    $("button.deleteOption").on("click", deleteOption);
+});
+
+function getXML(event) {
+    event.preventDefault();
+    fedid = $("#fedid").val();
+    filedset = $(this).parents("fieldset").eq(0);
+    attribute_class = $(this).parents("fieldset").eq(0).attr("name");
+    if (attribute_class === 'device-specific') {
+        device = $("#optionvalue").val();
+        inp = {class: attribute_class, fedid: fedid, etype: "XML", device: device};
     } else {
-        client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&fedid="+ fedid + "&etype=XML&device="+device);
+        inp = {class: attribute_class, fedid: fedid, etype: "XML"};
     }
-    client.send();
+
+    $.ajax({
+        url: "inc/option_xhr.inc.php",
+        method: "GET",
+        dataType: "html",
+        data: inp,
+        statusCode: {
+            200: function(data) { 
+                tbody = $("#expandable_"+attribute_class+"_options tbody");
+                if (tbody.length === 0) {
+                    $("#expandable_"+attribute_class+"_options").append("<tbody></tbody>");
+                }
+                $("#expandable_"+attribute_class+"_options tbody").append(data);
+                newSelect = $("#expandable_"+attribute_class+"_options tbody").children().last();
+                hideOptionsAlreadySet(newSelect, attribute_class);
+                $("select.MMM").on('change', function() {
+                    showInputElement($('option:selected',this));
+                });
+                $("button.deleteOption").on("click", deleteOption);
+            }
+        }
+    });
 }
 
-function addOption() {
-    if (this.readyState === 4 && this.status === 200) {
-        var field = document.getElementById("expandable_" + this.attribute_class + "_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
+function hideOptionsAlreadySet(element, attribute_class) {
+    set_options = [];
+    element.find("option").show();
+    element.find("option[id|='option']").show();
+    element.find("option[id|='option']").prop('selected', false);
+    i=0;
+    $("#expandable_"+attribute_class+"_options input[id|=option]").each(function() {
+        v = $(this).val();
+        s = v.match(/^([^#]+)#.*0$/);
+        if (s !== null) {
+            set_options[s[1]] = 1;
+        }
+    });
+   
+    element.find("option[id|='option']").each(function() {
+        v = $(this).val();
+        s = v.match(/^([^#]+)#/);    
+        if (set_options[s[1]] === 1) {
+            $(this).hide();
+        } else {
+            if (i === 0) {
+                $(this).prop('selected', true);
+                i = 1;
+                showInputElement($(this));
+            }
+        }
+    });
+}
+
+function showInputElement(element) {
+    id=element.attr('id');
+    m = id.match(/^option-S(\d+)-/);    
+    rowid=m[1];
+    v=element.val();
+    s = v.match(/^([^#]+)#([^#]+)#([^#]*)#/);
+    optionId = s[1];
+    dataType=s[2];
+    ml = s[3];
+    $("[id|='S"+rowid+"-input']").hide();
+    $("#S"+rowid+"-input-"+dataType).show();
+    if (ml === 'ML') {
+        $("#S"+rowid+"-input-langselect").show();
+    }
+}
+
+function deleteOption() {
+    tr=$(this).parents("tr").eq(0);
+    v=tr.find("input").eq(0).val();
+    s=v.match(/^([^#]+)#/);
+    tr.remove();
+    if (s !== null) {
+        $("option[id$='"+s[1]+"']").show();
     }
 }
 
@@ -49,15 +122,7 @@ function processCredentials() {
     }
 }
 
-function doCredentialCheck(form) {
-    postXML(processCredentials, form);
-}
-
-function deleteOption(identifier) {
-    var field = document.getElementById(identifier);
-    field.parentNode.removeChild(field);
-}
-
 function MapGoogleDeleteCoord(e) {
     marks[e - 1].setOptions({visible: false});
 }
+

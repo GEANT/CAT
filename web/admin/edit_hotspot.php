@@ -57,7 +57,7 @@ if (!isset($_GET['deployment_id'])) {
     if (isset($_POST['consortium']) &&  $_POST['consortium'] == "eduroam")
     {
         $deployment = $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
-        header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+        header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
         exit(0);
     } else {
         throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
@@ -115,19 +115,19 @@ if (isset($_POST['submitbutton'])) {
             if (isset($_POST['agreement']) && $_POST['agreement'] == "true") {
                 $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
             }
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_DELETE:
             $response = $deployment->setRADIUSconfig();
             if (in_array('OK', $response)) {
                 $deployment->deactivate();
             }
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . 
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . 
                    $deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_REMOVESP:
             $deployment->remove();
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_RENEWTLS:
             $data = openssl_x509_parse($deployment->radsec_cert);
@@ -138,14 +138,14 @@ if (isset($_POST['submitbutton'])) {
             $torevoke = implode('#', $certdata);
             $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
             $deployment->renewtls();
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_USECSR:
             if (isset($_FILES['upload']) && $_FILES['upload']['size'] > 0) {
                 $csrpem = file_get_contents($_FILES['upload']['tmp_name']);
                 if ($csrpem === FALSE) {
                     // seems we can't work with this file for some reason. Ignore.
-                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '&deployment_id=' . $deployment->identifier);
                     exit(0);
                 }
                 $csr = new \phpseclib3\File\X509();
@@ -160,10 +160,10 @@ if (isset($_POST['submitbutton'])) {
                     $torevoke = implode('#', $certdata);
                     $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
                     $deployment->tlsfromcsr($csr);
-                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
                     exit(0);
                 } else {
-                    header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '#profilebox_' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '&deployment_id=' . $deployment->identifier);
                     exit(0);
                 }
             }
@@ -173,7 +173,7 @@ if (isset($_POST['submitbutton'])) {
                 if (in_array('OK', $response)) {
                     $deployment->activate();
                 }
-                header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
+                header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . $deployment->identifier);
                 exit(0);
             } else {
                 throw new Exception("Activate button pushed without acknowledged ToUs!");
@@ -210,7 +210,7 @@ if (isset($_POST['submitbutton'])) {
             } else {
                 $response = ['NOOP', 'NOOP'];
             }
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '#profilebox_' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . $deployment->identifier);
             exit(0);
           default:
                 throw new Exception("Unknown button action requested!");
@@ -219,10 +219,10 @@ if (isset($_POST['submitbutton'])) {
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
         case web\lib\common\FormElements::BUTTON_CLOSE:
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier) . '#profilebox_' . $deployment->identifier;
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier) . '&deployment_id=' . $deployment->identifier;
             exit(0);
         default:
-            header("Location: overview_org.php?inst_id=" . $my_inst->identifier . '#profilebox_' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
             exit(0);
         }
 }
@@ -257,7 +257,8 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, \core\Options::LEVEL_PROFILE);
     ?>
-    <fieldset class='option_container' id='managedsp_override'>
+    <input type="hidden" id="fedid"  value="<?php echo $my_inst->federation ?>">
+    <fieldset class='option_container' id='managedsp_override' name='managedsp'>
         <legend>
             <strong>
                 <?php
@@ -334,7 +335,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
         echo $optionDisplay->prefilledOptionTable("managedsp", $my_inst->federation);
         ?>
         <?php if($editMode === 'fullaccess') { ?>
-        <button type='button' class='newoption' onclick='getXML("managedsp", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option (a realm for own users)"); ?></button>
+        <button type='button' class='newoption'><?php echo _("Add new option (a realm for own users)"); ?></button>
         <?php } ?>
     </fieldset><p>
 

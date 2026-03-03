@@ -209,7 +209,7 @@ class UserManagement extends \core\common\Entity
         $externalinfo = $cat->getExternalDBEntityDetails($extId, $ROid);
         $invitationDetails = [
             'invite_fortype' => $externalinfo['type'],
-            'invite_issuer_level' => "FED",
+            'invite_issuer_level' => "EDB",
             'invite_dest_mail' => $_SESSION['auth_email'],
         ];
         $idp = $this->newIdPFromExternal($extId, $fed, $invitationDetails, $owner, $externalinfo);
@@ -249,7 +249,7 @@ class UserManagement extends \core\common\Entity
         $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $user, $idp->identifier);
         // SELECT -> resource, not boolean
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) == 0) {
-            $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'FED', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
+            $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'EDB', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
         }
         return TRUE;
     }
@@ -296,7 +296,12 @@ class UserManagement extends \core\common\Entity
      */
     public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0, $partType = 0)
     {
-        $level = ($isByFedadmin ? "FED" : "INST");
+        if ($isByFedadmin === "FED" || $isByFedadmin === 'EDB') {
+            $level = $isByFedadmin;
+        } else {
+            $level = "INST";
+        }
+        
         $tokenList = [];
         foreach ($for as $oneDest) {
             $token = bin2hex(random_bytes(40));
@@ -309,7 +314,7 @@ class UserManagement extends \core\common\Entity
                 $extinfo = $cat->getExternalDBEntityDetails($externalId, $ROid);
                 $extCountry = $extinfo['country'];
                 $extType = $extinfo['type'];
-                if(\config\Master::FUNCTIONALITY_FLAGS['SINGLE_SERVICE'] === 'MSP') {
+                if(\core\CAT::singleService() === 'CONFASSISTANT_MSP') {
                     $extType = \core\IdP::TYPE_SP;
                 }
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?, ?)", "sssssss", $extType, $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
@@ -337,9 +342,9 @@ class UserManagement extends \core\common\Entity
     {
         $retval = [];
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry
-                                        FROM invitations 
-                                        WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
+            FROM invitations WHERE ".( $idpIdentifier != 0 ? "cat_institution_id = $idpIdentifier AND " : " ")."invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
+        $q = "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry FROM invitations WHERE ".( $idpIdentifier != 0 ? "cat_institution_id = $idpIdentifier AND " : "")."invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0";
         common\Logging::debug_s(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
             $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token, "expiry" => $invitationQuery->expiry];
@@ -413,8 +418,18 @@ class UserManagement extends \core\common\Entity
             $len = count($extInstCountryList);
             for($i = 0; $i < $len; ++$i) {
                 $extInst = $extInstCountryList[$i];
-                if ($extInst['inst_id'] != NULL && in_array($extInst['inst_id'], $this->currentInstitutions['existing'])) {
-                    unset($extInstList[$country][$i]);
+                if ($extInst['inst_id'] != NULL) {
+                    $id = array_search($extInst['inst_id'], array_column($this->currentInstitutions['existing'], 'inst'));
+                    if ($id !== false) {
+                        if($this->currentInstitutions['existing'][$id]['blesslevel'] === 2) {
+                            unset($extInstList[$country][$i]);
+                        }
+                        if($this->currentInstitutions['existing'][$id]['blesslevel'] === 1) {
+                            $extInstList[$country][$i]['owned'] = 1;
+                        }                        
+                    }                    
+                } else {
+                    $extInstList[$country][$i]['owned'] = 0;
                 }
             }
             if (count($extInstList[$country]) == 0) {
@@ -441,6 +456,7 @@ class UserManagement extends \core\common\Entity
         }
         $_SESSION['entitledIdPs'] = array_column($this->currentInstitutions['entitlement'], 0);
         $_SESSION['resyncedIdPs'] = $this->currentInstitutions['resynced'];
+        $_SESSION['ownedExternal'] = $this->currentInstitutions['owned_external'];
         $_SESSION['newIdPs'] = $this->currentInstitutions['new'];
         common\Logging::debug_s(4, $this->currentInstitutions, "currentInstitutions\n", "\n");
         return $this->currentInstitutions;
@@ -455,12 +471,13 @@ class UserManagement extends \core\common\Entity
      * @param object $fed - the Federation object
      */
     private function doExternalDBAutoregister($extInstCountryList, $fed) {
+        common\Logging::debug_s(4, $extInstCountryList, "EXT\n", "\n");
         $userId = $_SESSION['user'];
         $email = $_SESSION['auth_email'];
         $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
         if ($autoSyncedFlag == []) {
             return;
-        }        
+        }
         foreach ($extInstCountryList as $extInst) {
             common\Logging::debug_s(4, "Testing ".$extInst['external_db_id']."\n");
             if ($extInst['inst_id'] == null) {
@@ -469,7 +486,12 @@ class UserManagement extends \core\common\Entity
             }
             // is institution synced, if so we add this admin if the federation allows
             common\Logging::debug_s(4, "It is synced\n");
-            $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
+            if ($extInst['owned'] === 0) {
+                $this->currentInstitutions['resynced'][] = $extInst['inst_id'];
+            }
+            if ($extInst['owned'] === 1) {
+                $this->currentInstitutions['owned_external'][] = $extInst['inst_id'];
+            }
         }
     }
     
@@ -536,7 +558,7 @@ class UserManagement extends \core\common\Entity
             return [];            
         }
         // first check if pairwise-id is set
-        $userId = $_SESSION['user'];
+        $userId = $_SESSION['user']; 
         if (substr($userId, 0, 12) !== 'pairwise-id:') {
             return [];
         }
@@ -631,17 +653,25 @@ class UserManagement extends \core\common\Entity
     private function getCurrentInstitutionsByAdmin() {
         $returnarray = [
             'existing' => [],
+            'owned_external' => [],
             'resynced' => [],
             'new' => [],
             'entitlement' => []
         ];
         $userId = $_SESSION['user'];
         // get the list of local identifers of institutions managed by this user
-        $institutions = $this->databaseHandle->exec("SELECT ownership.institution_id as inst_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userId);
+        $institutions = $this->databaseHandle->exec("SELECT ownership.institution_id as inst_id, ownership.blesslevel AS blesslevel FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userId);
         // SELECT -> resource, not boolean
         $catInstList = $institutions->fetch_all();
         foreach ($catInstList as $inst) {
-            $returnarray['existing'][] = $inst[0];
+            $blesslevel = 0;
+            if ($inst[1] === 'INST') {
+               $blesslevel = 1;
+            }            
+            if ($inst[1] === 'FED' || $inst[1] === 'EDB') {
+               $blesslevel = 2;
+            }                        
+            $returnarray['existing'][] = ['inst'=>$inst[0], 'blesslevel'=>$blesslevel];
         }
         $this->currentInstitutions = $returnarray;
     }

@@ -33,5 +33,22 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `activity_time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `profile_option_dict` ADD COLUMN `multivalued` int DEFAULT '0';
+
+INSERT IGNORE INTO `profile_option_dict` VALUES ('managedsp:name', 'hotspot display name', 'string', NULL, 0);
+INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:flat-admin-structure', 'allow full privileges to admins invited by local institution admins', 'boolean', 0);
+UPDATE `profile_option_dict` SET `type`='enum_openroaming', `flag`='VALUES:fedadmin-only,all' WHERE `name` = 'fed:silverbullet';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `flag` = 'ML';
+
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'general:geo_coordinates';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'managedsp:realmforvlan';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'managedsp:media:remove_SSID';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'managedsp:media:SSID';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'eap:ca_file';
+UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'eap:server_name';
+
 ALTER TABLE `managed_sp_servers` ADD COLUMN (`port_range` varchar(12) DEFAULT NULL,
   `max_clients` int (11) DEFAULT NULL);
+

@@ -35,12 +35,11 @@ $uiElements = new web\lib\admin\UIElements();
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
 $langInstance = new core\common\Language();
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
-
 <!-- JQuery --> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script src="js/XHR.js" type="text/javascript"></script>
+<script src="js/option_expand.js" type="text/javascript"></script>
 <!-- EAP sorting code -->
 <script type="text/javascript" src="js/eapSorter.js"></script>
 <link rel='stylesheet' type='text/css' href='css/eapSorter.css.php' />
@@ -179,7 +178,8 @@ $wizard->setMessages();
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($profile_options, \core\Options::LEVEL_PROFILE, $wizardStyle);
     ?>
-    <fieldset class="option_container">
+    <input type="hidden" id="fedid"  value="<?php echo $fed->tld ?>">
+    <fieldset class="option_container" name="profile">
         <legend>
             <strong><?php echo _("General Profile properties"); ?></strong>
         </legend>
@@ -194,7 +194,7 @@ $wizard->setMessages();
         echo $wizard->displayHelp("profile");
         echo $optionDisplay->prefilledOptionTable("profile", $my_inst->federation);
         ?>
-        <button type='button' class='newoption' onclick='getXML("profile", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
         <table>
             <caption><?php echo _("Basic Realm Information"); ?></caption>
             <tr>
@@ -350,7 +350,7 @@ $wizard->setMessages();
     </p>
 
 </fieldset>
-<fieldset class="option_container">
+<fieldset class="option_container" name="eap">
     <legend><strong><?php echo _("Supported EAP types"); ?></strong></legend>
     <?php
     echo $wizard->displayHelp("eap_support");
@@ -458,7 +458,7 @@ $fields = [
     "media" => _("Media Properties for this profile")];
 
 foreach ($fields as $name => $description) {
-    echo "<fieldset class='option_container' id='" . $name . "_override'>
+    echo "<fieldset class='option_container' name='$name' id='" . $name . "_override'>
     <legend><strong>$description</strong></legend>
     <p>";
     echo $wizard->displayHelp($name);
@@ -468,7 +468,7 @@ foreach ($fields as $name => $description) {
     echo "</p>";
     echo $optionDisplay->prefilledOptionTable($name, $my_inst->federation);
     ?>
-    <button type='button' class='newoption' onclick='getXML("<?php echo $name ?>", "<?php echo $my_inst->federation ?>")'><?php echo _("Add new option"); ?></button>
+    <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
     <?php
     echo "</fieldset>";
 }
