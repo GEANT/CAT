@@ -770,6 +770,7 @@ class UIElements extends \core\common\Entity {
             'ADMINS_MISSING' => ['img' => 'Tabler/alert-square-rounded-filled-yellow-small.svg', 'text' => _("No admins registered")],
             'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
             'DEPLOYMENTS_INACTIVE' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one hotspot is defined but none are active")],
+            'WIRED_SET' => ['img' => 'Tabler/check-green.svg', 'text' => _("The wired Ethernet option is set on the institution or profile level")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);

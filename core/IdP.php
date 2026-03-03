@@ -177,6 +177,8 @@ class IdP extends EntityWithDBProperties
     const DEPLOYMENTS_NONE = -1;
     const DEPLOYMENTS_INACTIVE = 0;
     const DEPLOYMENTS_ACTIVE = 1;
+    const WIRED_SET = 1;
+    const WIRED_NOT_SET = 0;
     
     const PROFILES_INDEX = [
         self::PROFILES_INCOMPLETE => 'PROFILES_INCOMPLETE',
@@ -226,6 +228,21 @@ class IdP extends EntityWithDBProperties
         return $res->status;
     }
 
+    /**
+     * looks trouggh istitution and profile options to see if there are any wired set
+     */
+    public function maxWiredStatus()
+    {
+        if (isset($this->getAttributes('media:wired')[0]['value'])) {
+            return self::WIRED_SET;
+        }
+        $q = "SELECT option_value FROM profile_option JOIN profile ON profile_option.profile_id=profile.profile_id WHERE profile.inst_id=? and profile_option.option_name='media:wired'";
+        $res = $this->databaseHandle->exec($q, "i", $this->identifier);
+        if ($res->num_rows > 0) {
+            return self::WIRED_SET;
+        }
+        return self::WIRED_NOT_SET;
+    }
     /**
      * looks through all the profiles of the inst and determines the highest 
      * participation/conformance level for OpenRoaming
