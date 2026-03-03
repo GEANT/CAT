@@ -285,7 +285,7 @@ class UserManagement extends \core\common\Entity
      * administrator of an existing institution, or for a new institution. In the latter case, the institution only actually gets 
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
-     * @param boolean $isByFedadmin   is the invitation token created from a federation admin (TRUE) or from an existing inst admin (FALSE)
+     * @param string $isByFedadmin   is the invitation token created from a federation admin (FED), from an existing inst admin (INST) or self-issued in case of existing entitlement (EDB)
      * @param array   $for            identifiers (typically email addresses) for which the invitation is created
      * @param mixed   $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string  $externalId     if the IdP to be created is related to an external DB entity, this parameter contains that ID

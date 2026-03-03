@@ -20,15 +20,20 @@
 
 /* General function for doing HTTP XML GET requests. */
 
+var attribute_class;
+
 $(function () {
     $(".newoption").on("click", getXML);
     $("button.deleteOption").on("click", deleteOption);
 });
 
 function getXML(event) {
+    var fedid;
+    var device;
+    var inp;
+    
     event.preventDefault();
     fedid = $("#fedid").val();
-    filedset = $(this).parents("fieldset").eq(0);
     attribute_class = $(this).parents("fieldset").eq(0).attr("name");
     if (attribute_class === 'device-specific') {
         device = $("#optionvalue").val();
@@ -44,12 +49,12 @@ function getXML(event) {
         data: inp,
         statusCode: {
             200: function(data) { 
-                tbody = $("#expandable_"+attribute_class+"_options tbody");
+                var tbody = $("#expandable_"+attribute_class+"_options tbody");
                 if (tbody.length === 0) {
                     $("#expandable_"+attribute_class+"_options").append("<tbody></tbody>");
                 }
                 $("#expandable_"+attribute_class+"_options tbody").append(data);
-                newSelect = $("#expandable_"+attribute_class+"_options tbody").children().last();
+                var newSelect = $("#expandable_"+attribute_class+"_options tbody").children().last();
                 hideOptionsAlreadySet(newSelect, attribute_class);
                 $("select.MMM").on('change', function() {
                     showInputElement($('option:selected',this));
@@ -61,7 +66,7 @@ function getXML(event) {
 }
 
 function hideOptionsAlreadySet(element, attribute_class) {
-    set_options = [];
+    var set_options = [];
     element.find("option").show();
     element.find("option[id|='option']").show();
     element.find("option[id|='option']").prop('selected', false);
@@ -75,8 +80,9 @@ function hideOptionsAlreadySet(element, attribute_class) {
     });
    
     element.find("option[id|='option']").each(function() {
-        v = $(this).val();
-        s = v.match(/^([^#]+)#/);    
+        var i;
+        var v = $(this).val();
+        var s = v.match(/^([^#]+)#/);    
         if (set_options[s[1]] === 1) {
             $(this).hide();
         } else {
@@ -90,14 +96,14 @@ function hideOptionsAlreadySet(element, attribute_class) {
 }
 
 function showInputElement(element) {
-    id=element.attr('id');
-    m = id.match(/^option-S(\d+)-/);    
-    rowid=m[1];
-    v=element.val();
-    s = v.match(/^([^#]+)#([^#]+)#([^#]*)#/);
-    optionId = s[1];
-    dataType=s[2];
-    ml = s[3];
+    var id = element.attr('id');
+    var m = id.match(/^option-S(\d+)-/);    
+    var rowid=m[1];
+    var v = element.val();
+    var s = v.match(/^([^#]+)#([^#]+)#([^#]*)#/);
+    var optionId = s[1];
+    var dataType = s[2];
+    var ml = s[3];
     $("[id|='S"+rowid+"-input']").hide();
     $("#S"+rowid+"-input-"+dataType).show();
     if (ml === 'ML') {
@@ -106,15 +112,16 @@ function showInputElement(element) {
 }
 
 function deleteOption() {
-    tr=$(this).parents("tr").eq(0);
-    v=tr.find("input").eq(0).val();
-    s=v.match(/^([^#]+)#/);
+    var tr = $(this).parents("tr").eq(0);
+    var v = tr.find("input").eq(0).val();
+    var s = v.match(/^([^#]+)#/);
     tr.remove();
     if (s !== null) {
         $("option[id$='"+s[1]+"']").show();
     }
 }
 
+/*
 function processCredentials() {
     if (this.readyState === 4 && this.status === 200) {
         var field = document.getElementById("disposable_credential_container");
@@ -125,4 +132,4 @@ function processCredentials() {
 function MapGoogleDeleteCoord(e) {
     marks[e - 1].setOptions({visible: false});
 }
-
+*/

@@ -128,8 +128,13 @@ switch ($operationMode) {
             echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
             exit(1);
         }
+        if ($fedadmin) {
+            $level = 'FED';
+        } else {
+            $level = 'INST';
+        }
         $prettyprintname = $idp->name;
-        $newtokens = $mgmt->createTokens($fedadmin, $validAddresses, $idp);
+        $newtokens = $mgmt->createTokens($level, $validAddresses, $idp);
         \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
         $introtext = "CO-ADMIN";
         $participant_type = $idp->type;
@@ -166,7 +171,7 @@ switch ($operationMode) {
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $newinstname, 0, $newcountry, $participant_type);
+        $newtokens = $mgmt->createTokens("FED", $validAddresses, $newinstname, 0, $newcountry, $participant_type);
         \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $validAddresses));
         break;
     case OPERATION_MODE_SELF_NEWFROMDB:
@@ -216,7 +221,7 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid, $fedId);
+        $newtokens = $mgmt->createTokens("FED", $validAddresses, $prettyprintname, $newexternalid, $fedId);
         \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP FUTURE (self) - Token created for " . implode(",", $validAddresses));        
         break; 
     case OPERATION_MODE_NEWFROMDB:
@@ -258,7 +263,7 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid, $fedId);
+        $newtokens = $mgmt->createTokens("FED", $validAddresses, $prettyprintname, $newexternalid, $fedId);
         \core\common\Logging::writeSQLAudit_s($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
         break;
     default: // includes OPERATION_MODE_INVALID
