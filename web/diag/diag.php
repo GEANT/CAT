@@ -25,10 +25,16 @@ $sp = filter_input(INPUT_GET, 'sp', FILTER_VALIDATE_INT);
 $givenRealm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
 $auth = new \web\lib\admin\Authentication();
 $isauth = 0;
+$user = NULL;
+
 if ($auth->isAuthenticated()) {
-    $isauth = 1;
+    $auth->authenticate();
+    $user = new \core\User($_SESSION['user']);
+    if (count($user->roles) > 0) {
+        $isauth = 1;
+    }
 }
-if ($admin == 1 && !$isauth) { 
+if ($admin == 1 && !$isauth && $user === NULL) { 
     if ($_SERVER['QUERY_STRING']) {
         $q_el = explode('&', $_SERVER['QUERY_STRING']);
         if (($idx = array_search("admin=1", $q_el)) !== NULL) {

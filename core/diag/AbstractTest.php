@@ -487,8 +487,8 @@ class AbstractTest extends \core\common\Entity
          * The server certificate's names contained at least which was not a hostname.
          */
         $code24 = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
-        $this->returnCodes[$code24]["message"] = _("The certificate contained a CN or subjectAltName:DNS which does not parse as a hostname. This can be problematic on some supplicants. If the certificate also contains names which are a proper hostname, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
-        $this->returnCodes[$code24]["severity"] = \core\common\Entity::L_REMARK;
+        $this->returnCodes[$code24]["message"] = _("The certificate does not contain any CN or subjectAltName:DNS which is a valid hostname. This can be problematic on some supplicants.");
+        $this->returnCodes[$code24]["severity"] = \core\common\Entity::L_WARN;
 
         /**
          * The server certificate's names contained at least one wildcard name.

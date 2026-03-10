@@ -203,7 +203,31 @@ class RADIUSTests extends AbstractTest {
     private function printTm($time) {
         return(gmdate(\DateTime::COOKIE, $time));
     }
+    
+    /**
+     * check if a name is FQDN
+     * 
+     * @param string $name 
+     * @return boolean
+     */
+    private function isDNSname($name) {
+        $disallowedAddresses = [
+            'localhost',
+            '127.0.0.1',
+            '0.0.0.0',
+            '::1',
+        ];
 
+        if (in_array($name, $disallowedAddresses, true)) {
+            return FALSE;
+        // Sourced from https://stackoverflow.com/questions/11809631/fully-qualified-domain-name-validation
+        } elseif (!preg_match('/(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}$)/', $name)) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    
     /**
      * This function parses a X.509 server cert and checks if it finds client device incompatibilities
      * 
@@ -246,14 +270,21 @@ class RADIUSTests extends AbstractTest {
         $allnames = array_values(array_unique(array_merge($commonName, $sANdns)));
 // check for wildcards
 // check for real hostnames, and whether there is a wildcard in a name
+        $dnsnameok = FALSE;
         foreach ($allnames as $onename) {
+            if ($dnsnameok === FALSE && $this->isDNSname($onename)) {
+                $dnsnameok = TRUE;
+            }
             if (preg_match("/\*/", $onename)) {
                 $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
                 continue; // otherwise we'd ALSO complain that it's not a real hostname
             }
-            if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
+            /*if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
                 $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
-            }
+            }*/
+        }
+        if ($dnsnameok === FALSE) {
+            $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
         }
         $servercert['incoming_server_names'] = $allnames;
         $servercert['sAN_DNS'] = $sANdns;
@@ -1153,6 +1184,7 @@ network={
         // misconfiguration on the EAP server side
         $previousHighestKnownIssuer = [];
         $currentHighestKnownIssuer = $bundle['SERVERCERT'][0]['full_details']['issuer'];
+        error_log("HIGHEST ".serialize($currentHighestKnownIssuer));
         $serverName = $bundle['SERVERCERT'][0]['CN'][0];
         // maybe there is an intermediate and the EAP server sent it. If so,
         // go and look at that, going one level higher
@@ -1183,6 +1215,7 @@ network={
         // trust, and custom ones we may have configured
         $ourRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-custom']);
         $mozillaRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-mozilla']);
+        error_log("MOZILLA $mozillaRoots");
         $allRoots = $x509->splitCertificate($ourRoots . "\n" . $mozillaRoots);
         foreach ($allRoots as $oneRoot) {
             $processedRoot = $x509->processCertificate($oneRoot);
