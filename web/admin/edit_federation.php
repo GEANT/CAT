@@ -38,23 +38,20 @@ $auth->authenticate();
 $fedPost = $_POST['fed_id'];
 
 $wizard = new \web\lib\admin\Wizard(false);
-$wizard->setMessages();
 
 [$my_fed, $editMode] = $validator->existingFederationInt($fedPost, $_SESSION['user']);
-$fed_options = $my_fed->getAttributes();
+$fed_options = \web\lib\admin\OptionDisplay::sortAttributesForDisplay($my_fed->getAttributes());
 $availableFedOptions = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay("fed", $my_fed->tld);
 $wizard->setOptionsHelp($availableFedOptions);
 $wizard->setMessages();
-
-
 
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/wizard.js"></script> 
 <link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 <?php
@@ -98,8 +95,9 @@ if ($editMode == 'readonly') {
     echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->tld" . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     ?>
-    <fieldset class="option_container">
-        <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>
+    <input type="hidden" id="fedid"  value="<?php echo $my_fed->tld ?>">
+    <fieldset class="option_container" name="fed">
+        <legend><strong><?php echo sprintf(_("%s Properties"), $uiElements->nomenclatureFed); ?></strong></legend>
         <?php
         $options = [
             'level' => 'fed',
@@ -109,7 +107,7 @@ if ($editMode == 'readonly') {
         $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_FED);
         echo $optionDisplay->prefilledOptionTable("fed", $my_fed->tld);
         ?>
-        <button type='button' class='newoption' onclick='getXML("fed", "<?php echo $my_fed->tld ?>")'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     echo "<div>";

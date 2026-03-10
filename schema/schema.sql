@@ -54,6 +54,7 @@ CREATE TABLE `profile_option_dict` (
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(32) DEFAULT NULL,
   `flag` varchar(255) DEFAULT NULL,
+  `multivalued` int DEFAULT '0',
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -178,8 +179,6 @@ CREATE TABLE `managed_sp_servers` (
   `server_token` varchar(64) DEFAULT NULL,
   `server_secret` varchar(64) DEFAULT NULL,
   `server_iv` varchar(64) DEFAULT NULL,
-  `port_range` varchar(12) DEFAULT NULL,
-  `max_clients` int (11) DEFAULT NULL,
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -300,7 +299,9 @@ INSERT INTO `profile_option_dict` VALUES
 ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
 ('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
 ('managedsp:operatorname','Operator-Name attribute to be added to requests','string',NULL),
-('hiddenmanagedsp:tou_accepted','were the terms of use accepted?','boolean',NULL);
+('hiddenmanagedsp:tou_accepted','were the terms of use accepted?','boolean',NULL),
+('managedsp:name','hotspot display name', 'string',NULL);
+
 
 CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',

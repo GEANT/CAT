@@ -26,11 +26,11 @@ $validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
+
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<script src="js/option_expand.js" type="text/javascript"></script>
 <style>
     #download_box {
     display: none;
@@ -43,7 +43,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
     padding:10px;
     font-size: 12px;
     }
-    #download_box_close {
+    img.options_box_close {
         position: absolute;
         right: 5px;
         top: 7px;
@@ -81,7 +81,6 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             var boxTitle = $(this).html().replace('<br>', ' ');
             $("#download_box_text").html(boxTitle);
             currentForm = $(this).parent("form");
-            console.log(currentForm.attr("action"));
             $("#copy_link").tooltip({
                 content: $("#copy_link").attr("title")
             });
@@ -99,7 +98,6 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         });
         
         $("#copy_link").tooltip();
-       
         $("#copy_link").on("click", function() {
             navigator.clipboard.writeText(currentForm.attr("action"));
             $(this).tooltip({
@@ -107,7 +105,40 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             });
             $(this).fadeOut(150).fadeIn(150);
         });
+        $("button.deleteOption").on("click", deleteOption);
+        $("button.openoptions").on("click", loadOptions);
+        $("#overlay_box_hide").on('click', function() {$("#overlay1").hide(); });
+        $("#overlay1").hide();       
     });
+    
+    function loadOptions() {
+        optiontype = $(this).next("input").attr("name");
+        optionvalue = $(this).next("input").val();
+        $("#container").attr('name', optiontype);
+        $("#optionvalue").val(optionvalue);
+        $.ajax({
+                url: "inc/load_fine_tuning.php",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    inst_id: instid,
+                    profile_id: profileid,
+                    optiontype: optiontype,
+                    optionvalue: optionvalue
+                },
+                statusCode: {
+                    200: function(data) {
+                        $("#container_box").html(data);
+                        $("button.deleteOption").on("click", deleteOption);
+                        $(".newoption").on("click", getXML);
+                        $("#overlay1").show();
+                    }
+                }
+            });
+    }
+    
+    function saveOptions() {
+    }
 </script>
 </head>
 <body>
@@ -118,8 +149,9 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
     $downloadBoxText .=  ' <img id="copy_link" src="../resources/images/icons/Tabler/copy.svg" title="'. _("Copy link to clipboard").'" >';
     
     ?>
-    <div id="download_box"><img id="download_box_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div><?php echo $downloadBoxText; ?></div></div>
-<?php
+    <div id="download_box"><img class="options_box_close" id="download_box_close" src="../resources/images/icons/button_cancel.png" ALT="Close"/><div><?php echo $downloadBoxText; ?></div></div>
+
+        <?php
     [$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 
     $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
@@ -132,6 +164,40 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
     $preflist = $my_profile->getEapMethodsinOrderOfPreference();
     ?>
+    <script>
+        var instid = "<?php echo $my_inst->identifier ?>";
+        var profileid = "<?php echo $my_profile->identifier ?>";
+    </script>
+    <input type="hidden" id="fedid"  value="<?php echo $my_inst->federation ?>">
+    <div id="overlay1">
+    <div id="overlay"></div>
+    <div class="graybox" style="position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); opacity: 1; z-index: 100">
+        <img  class="options_box_close" id="overlay_box_hide" src="../resources/images/icons/button_cancel.png" ALT="Close"/>
+        <form method='post' action="inc/save_fine_tuning.php">
+            <input type="hidden" name="profile_id" value="<?php echo $my_profile->identifier ?>">
+            <input type="hidden" name="inst_id" value="<?php echo $my_inst->identifier ?>">
+            <input type="hidden" id="optionvalue" name="optionvalue" value="">
+            <div id="container_box"></div>
+            <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
+        </form>
+    </div>
+    </div> 
+        <?php
+/*
+        $options = [
+            'level' => 'eap',
+            'fed_id'=> $my_inst->federation
+        ];
+
+//        \core\common\Logging::debug_s(3, $wizard->displayHelp("eap", $options), "HHHH1\n", "\nXX\n");
+//        echo $wizard->displayHelp("eap", $options);
+//        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_METHOD);
+//        echo $optionDisplay->prefilledOptionTable("eap-specific", $my_inst->federation);
+ * 
+ */
+        ?>
+   
+    
     <h1><?php $tablecaption = sprintf(_("Device compatibility matrix for %s of %s "), $profile_name, $inst_name);
     echo $tablecaption; ?></h1>
     <table class="compatmatrix">
@@ -144,10 +210,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             foreach ($preflist as $method) {
                 $escapedMethod = $method->getIntegerRep();
                 echo "<th  scope='col' style='min-width:200px'>" . $method->getPrintableRep() . "<br/>
-                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                        <input type='hidden' name='eaptype' value='$escapedMethod'>
-                        <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
-                        </form></th>";
+                  <button class='openoptions'>". _("EAP-Type-specific options...") . "</button><input type='hidden' name='eap-specific' value='$escapedMethod'></th>";
             }
             ?>
 
@@ -167,10 +230,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             }
             echo "<tr>";
             echo "<td align='center'><img src='../resources/images/vendorlogo/" . $description['group'] . ".png' alt='logo'></td><td>" . $description['display'] . "<br/>
-                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                        <input type='hidden' name='device' value='$index'>
-                        <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
-                        </form>
+                        <button class='openoptions'>"._("Device-specific options...")."</button><input type='hidden' name='device-specific' value='$index'>
                         </td>";
             $defaultisset = FALSE;
             foreach ($preflist as $method) {

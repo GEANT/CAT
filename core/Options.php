@@ -120,25 +120,26 @@ class Options
         $uiElements = new \web\lib\admin\UIElements();
         $this->loggerInstance->debug(4, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
-        $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
+        $options = $handle->exec("SELECT name,type,flag, multivalued from profile_option_dict ORDER BY name");
         // SELECT -> resource, not boolean
         while ($optionDataQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $options)) {
             $optionValue = $uiElements->displayName($optionDataQuery->name, true);
             if ($optionValue != false) {
-                $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
+                $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type,
+                    "flag" => $optionDataQuery->flag, "multivalued" => $optionDataQuery->multivalued];
             }
         }
-        $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
-        $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
-        $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL];
-        $this->typeDb["internal:profile_count"] = ["type" => "integer", "flag" => NULL];
-        $this->typeDb["internal:checkuser_outer"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:checkuser_value"] = ["type" => "string", "flag" => NULL];
-        $this->typeDb["internal:verify_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
-        $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL, 'multivalued' => 1];
+        $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:profile_count"] = ["type" => "integer", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:checkuser_outer"] = ["type" => "boolean", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:checkuser_value"] = ["type" => "string", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:verify_userinput_suffix"] = ["type" => "boolean", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL, "multivalued" => 0];
+        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL, "multivalued" => 0];
         $this->loggerInstance->debug(4, "--- END constructing Options instance ---\n");
     }
 
@@ -149,31 +150,27 @@ class Options
      * @assert ("user") == Array("user:email","user:fedadmin","user:realname")
      * 
      * @param string $className optionally specifies the class of options to be listed (class is the part of the option name before the : sign)
+     * @param int $showMultiFlag optionally show the single/multi valued flag for the option
      * @return array of options
      */
-    public function availableOptions($className = 0)
+    public function availableOptions($className = 0, $showMultiFlag=0)
     {
+        $showMultiFlag=0;
         $tempArray = [];
-        $this->loggerInstance->debug(4, "CLASSNAME IS $className\n");
-
-        foreach (array_keys($this->typeDb) as $name) {
+        foreach ($this->typeDb as $name=>$values) {
+            if (!\core\CAT::hostedServicesEnabled() && (preg_match('/^fed:silverbullet/', $name) > 0)) {
+                continue;
+            }
+            if (!\core\CAT::radiusProfilesEnabled() && (preg_match('/^fed:minted_ca_file/', $name) > 0)) {
+                continue;
+            }
             if ($className === 0) {
-                $tempArray[] = $name;
+                $tempArray[] = $showMultiFlag === 1 ? [$name, $values['multivalued']] : $name;
             } elseif (preg_match('/^' . $className . ':/', $name) > 0) {
-                $tempArray[] = $name;
+                $tempArray[] = $showMultiFlag === 1 ? [$name, $values['multivalued']] : $name;
             }
         }
-        $returnArray = $tempArray;
-        // remove silverbullet-specific options if this deployment is not SB
-        foreach ($tempArray as $key => $val) {
-            if (!\core\CAT::hostedServicesEnabled() && (preg_match('/^fed:silverbullet/', $val) > 0)) {
-                unset($returnArray[$key]);
-            }
-            if (!\core\CAT::radiusProfilesEnabled() && (preg_match('/^fed:minted_ca_file/', $val) > 0)) {
-                unset($returnArray[$key]);
-            }
-        }
-        return $returnArray;
+        return $tempArray;
     }
 
     /** This function returns the properties of a given attribute name. This currently means it returns its type and its flag field ("ML").

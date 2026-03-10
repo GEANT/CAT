@@ -730,6 +730,27 @@ class Federation extends EntityWithDBProperties
     }
     
     /**
+     * A fast verification if the flat admin structure is set for a givem federation
+     * @param string $fedname
+     * @retuurn boolean true is flat admin structure is set, false otherwise
+     * @throws Exception
+     */
+    public static function isFlatAdminStructure($fedname) {
+        $fed_id = strtoupper($fedname);
+        $cat = new CAT();
+        if (!isset($cat->knownFederations[$fed_id])) {
+            throw new Exception("This federation is not known to the system!");
+        }
+        $dbHandle = DBConnection::handle("INST");
+        $query = "SELECT CONVERT(option_value USING utf8mb4) FROM federation_option WHERE federation_id='$fed_id' AND option_name='fed:flat-admin-structure'";
+        $result = $dbHandle->exec($query);
+        if ($result->num_rows > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Loads existing admins in all institutions of a given federation and check if some have been
      * inactive for a time longet that allowed threshold. Marks institutions as 0 - all good
      * or 1 - inactive admin(s) found

@@ -203,7 +203,7 @@ class User extends EntityWithDBProperties
                 return false;
             }
         }
-        \core\common\Logging::debug_s(3, $_SESSION['entitlement'], "User in eduGAIN\n","\n");
+        \core\common\Logging::debug_s(4, $_SESSION['entitlement'], "User in eduGAIN\n","\n");
         $_SESSION['eduGAIN'] = $test;
         return true;
     }

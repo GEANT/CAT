@@ -42,7 +42,7 @@ $languageInstance->setTextDomain("web_admin");
 
 // add one option of the specified class
 
-$list = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], (isset($_GET["device"])?$_GET["device"]:NULL));
+$list = \web\lib\admin\OptionDisplay::enumerateOptionsToDisplay($_GET["class"], $_GET['fedid'], (isset($_GET["device"])?$_GET["device"]:NULL), 1);
 switch ($_GET["class"]) {
     case 'fed':
         $level = \core\Options::LEVEL_FED;

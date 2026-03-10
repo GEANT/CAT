@@ -66,15 +66,15 @@ class Authentication extends \core\common\Entity {
         }
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
-        \core\common\Logging::debug_s(3, $admininfo, "SAML ATTR:\n", "\n");
+        \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR:\n", "\n");
         if (isset($admininfo['uniqueIdentifier'])) {
             $idps = explode('##########', $admininfo['uniqueIdentifier']);
             $idpsNo = count($idps);
             if ($idpsNo > 2) {
-                \core\common\Logging::debug_s(3, $idps, "PROXIED IDP:\n", "\n");
+                \core\common\Logging::debug_s(4, $idps, "PROXIED IDP:\n", "\n");
             }
             $authorizingAuthority = $idps[count($idps)-2];
-            \core\common\Logging::debug_s(3, $authorizingAuthority, "IDP:\n", "\n");
+            \core\common\Logging::debug_s(4, $authorizingAuthority, "IDP:\n", "\n");
         }
         if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
             $saveLog = true;

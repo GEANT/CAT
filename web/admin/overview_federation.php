@@ -167,7 +167,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     </td>
                 </tr>
                 <?php
-                echo $uiElements->infoblock($thefed->getAttributes(), "fed", "FED");
+                echo $uiElements->infoblock(\web\lib\admin\OptionDisplay::sortAttributesForDisplay($thefed->getAttributes()), "fed", "FED");
                 if ($readonly === FALSE) {
                         if ($editMode == 'fullaccess') {
                             $editLabel = _("Edit ...");
@@ -326,7 +326,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             if ($hideWarningsFlag !== []) {
                 $hideWarnings = true;
             }
-            echo "<tr><td colspan='9'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";            
+            echo "<tr><td colspan='10'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";            
             ?>
         <tr>
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
@@ -334,6 +334,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             <th scope='col'><?php echo _("Status") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
+            <th scope='col'><?php echo _("Wired"); ?></th>
             <?php
             }
             $pending_invites = $mgmt->listPendingInvitations();
@@ -366,7 +367,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
-            }
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='wiredset' id='wiredset_ck_".$fedId."'></td>";
+                }
             if (\core\CAT::hostedSPEnabled()) {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>&nbsp;</td>";
             }
@@ -446,6 +448,17 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     $certClass = 'certok';
                 }
                 $certIcon = $uiElements->catIcon($certIconData);
+                
+                // verify the wired status for this IdP
+                $wiredSet = $idp_instance->maxWiredStatus();
+                $wiredIcon = '-';
+                $wiredClass = 'wiredunset';
+                if ($wiredSet === \core\IdP::WIRED_SET) {
+                    $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
+                    $wiredClass = 'wiredset';
+                }
+                
+                
 
                 // verify DB sync status for this IdP
                 $linkClass = 'nosync';
@@ -512,7 +525,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
@@ -544,6 +557,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     echo  "<td>$profileIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";
+                    echo "<td style='text-align: center'>$wiredIcon</td>";
                 }
                 if (\core\CAT::hostedSPEnabled()) {
                     echo "<td style='text-align: center'>$deploymentIcon</td>";

@@ -21,6 +21,11 @@ main() {
     CAT_PATH="$XDG_CONFIG_HOME"
   fi
 
+  if [ ! -d "$CAT_PATH" ] ; then
+    mkdir "$CAT_PATH"
+    log "Directory $CAT_PATH created."
+  fi
+
   printf -v CAT_DIR_EXISTS "$CAT_DIR_EXISTS" "$CAT_PATH"
 
   if [ -d "$CAT_PATH/cat_installer" ] ; then

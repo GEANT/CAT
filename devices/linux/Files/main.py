@@ -175,11 +175,14 @@ def get_config_path() -> str:
     Return XDG_CONFIG_HOME path if exists otherwise $HOME/.config
     """
 
-    xdg_config_home_path = os.environ.get('XDG_CONFIG_HOME')
-    if not xdg_config_home_path:
-        home_path = os.environ.get('HOME')
-        return f'{home_path}/.config'
-    return xdg_config_home_path
+    _config_path = os.environ.get('XDG_CONFIG_HOME')
+    if not _config_path:
+        _config_path = f'{os.environ.get('HOME')}/.config'
+
+        if not os.path.exists(_config_path):
+            os.mkdir(_config_path, 0o755)
+
+    return _config_path
 
 
 def run_installer() -> None:

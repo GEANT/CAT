@@ -81,7 +81,12 @@ class UIElements extends \core\common\Entity {
      * @return string the human-readable variant
      * @throws \Exception
      */
-    public function displayName($input, $fullDisplay = false) {
+    public function displayName($in, $fullDisplay = false) {
+        if (is_array($in)) {
+            $input=$in[0];
+        } else {
+            $input = $in;
+        }
         \core\common\Entity::intoThePotatoes();
         $ssidText = _("SSID");
         $passpointOiText = _("HS20 Consortium OI");
@@ -174,6 +179,10 @@ class UIElements extends \core\common\Entity {
             "fed:hide-admin-warnings" => [
                 'display' => _("Do not show any warnings about missing/inactive admins"),
                 'help' => _("You can block any warnings on missing/inactive admins. The default is to show them.")
+            ],
+            "fed:flat-admin-structure" => [
+                'display' => _("Use flat structure of institution administrators"),
+                'help' => _("")
             ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
@@ -309,7 +318,7 @@ class UIElements extends \core\common\Entity {
         </table>
     </div>";
         $blocks = [["support", _("Global Helpdesk Details")]];        
-	if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $myInst->type !== "SP") {
+        if ((\core\CAT::radiusProfilesEnabled() || \core\CAT::hostedIDPEnabled()) && $myInst->type !== "SP") {
             $blocks [] = ["media", _("Media Properties")];
         }
         foreach ($blocks as $block) {
@@ -745,9 +754,9 @@ class UIElements extends \core\common\Entity {
             'CERT_STATUS_OK' => ['img' => 'Tabler/certificate-green.svg', 'text' => _("All certificates are valid long enough")],
             'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
             'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
-            'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-orange.svg', 'text' => _("OpenRoaming appears to be configured properly")],
+            'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
             'OVERALL_OPENROAMING_LEVEL_NOTE' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some minor OpenRoaming configuration issues")],
-            'OVERALL_OPENROAMING_LEVEL_WARN' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some average level OpenRoaming configuration issues")],
+            'OVERALL_OPENROAMING_LEVEL_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg', 'text' => _("There are some average level OpenRoaming configuration issues")],
             'OVERALL_OPENROAMING_LEVEL_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text' => _("There are some critical OpenRoaming configuration issues")],            
             'PROFILES_SHOWTIME' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
             'PROFILES_CONFIGURED' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
@@ -761,6 +770,7 @@ class UIElements extends \core\common\Entity {
             'ADMINS_MISSING' => ['img' => 'Tabler/alert-square-rounded-filled-yellow-small.svg', 'text' => _("No admins registered")],
             'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
             'DEPLOYMENTS_INACTIVE' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one hotspot is defined but none are active")],
+            'WIRED_SET' => ['img' => 'Tabler/check-green.svg', 'text' => _("The wired Ethernet option is set on the institution or profile level")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);

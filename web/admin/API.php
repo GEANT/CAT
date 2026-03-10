@@ -143,7 +143,7 @@ switch ($inputDecoded['ACTION']) {
         if ($admin === FALSE) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
-        $newtokens = $mgmt->createTokens(true, [$admin], $idp);
+        $newtokens = $mgmt->createTokens("FED", [$admin], $idp);
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=" . array_keys($newtokens)[0];
         $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there

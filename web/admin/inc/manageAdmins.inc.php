@@ -161,7 +161,7 @@ if ($isFedAdmin) {
     echo "</table></div>";
 }
 
-if (!$isFedAdmin && $is_admin_with_blessing) {
+if (!$isFedAdmin && $is_admin_with_blessing && !\core\Federation::isFlatAdminStructure($my_inst->federation)) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo $uiElements->boxRemark(sprintf(_("You are an administrator who was directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclatureFed), _("Directly Appointed Administrator"));
     echo "</table></div>";

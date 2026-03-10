@@ -93,37 +93,43 @@ $end = $langInstance->rtl ? "left" : "right";
     <?php
     echo $deco->productheader("ADMIN");
     $instMgmt->listInstitutionsByAdmin();
-    \core\common\Logging::debug_s(4, $instMgmt->currentInstitutions, "Current Inst:\n", "\n");
     $hasInst = $instMgmt->currentInstitutions['existing'];
+    $externalOwned = $instMgmt->currentInstitutions['owned_external'];
     if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
         $cat = new \core\CAT;
         $instlist = [];
         $my_idps = [];
         $myFeds = [];
+        $myFedObjects = [];
         $fed_count = 0;
         $entitlementEnabled = false;
 
-        foreach ($hasInst as $instId) {
-            $my_inst = new \core\IdP($instId);
+        foreach ($hasInst as $inst) {
+            $my_inst = new \core\IdP($inst['inst']);
+//            $eduroamDB
             $inst_name = $my_inst->name;
+            $instId = $my_inst->identifier;
             $fed_id = strtoupper($my_inst->federation);
+            if (!isset($myFedObjects[$fed_id])) {
+                $myFedObjects[$fed_id] = new \core\Federation($fed_id);
+                $myFeds[$fed_id] = $cat->knownFederations[$fed_id]['name'];
+            }
             $my_idps[$fed_id][$instId] = strtolower($inst_name);
-            $myFeds[$fed_id] = $cat->knownFederations[$fed_id]['name'];
-            $instlist[$instId] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
+            $instlist[$instId] = ["country" => $fed_id, "name" => $inst_name, "object" => $my_inst];
         }
         asort($myFeds);
         if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === 'eduGAIN') {
-            foreach ($myFeds as $fed_id => $fedName) {
-                $fed = new \core\Federation($fed_id);
+            foreach ($myFedObjects as $fed_id => $fed) {
                 $autoreg = $fed->getAttributes('fed:autoregister-entitlement');
-                if (isset($autoreg[0]['value']) && $autoreg[0]['value'] == 'on') {
+                 if (isset($autoreg[0]['value']) && $autoreg[0]['value'] == 'on') {
                     $entitlementEnabled = true;
                     break;
                 }                
+                
+                
             }
         } 
-
         foreach ($instlist as $key => $row_id) {
             $country[$key] = $row_id['country'];
             $name[$key] = $row_id['name'];
@@ -158,7 +164,7 @@ $end = $langInstance->rtl ? "left" : "right";
                     <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'', '\x27', str_replace('"', '\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
-            <?php if ($entitlementEnabled === true && count($_SESSION['entitlement']) > 0) { ?>
+            <?php if ($entitlementEnabled === true && isset($_SESSION['entitlement']) && count($_SESSION['entitlement']) > 0) { ?>
             <tr>
                 <td>
                     <?php echo _("Entitlements passed to CAT"); ?>
@@ -237,6 +243,8 @@ $end = $langInstance->rtl ? "left" : "right";
                 </tr>
                 <?php
                 $fedOrganisations = $my_idps[$fed_id];
+                $fedFlatAdminStructure = (isset($myFedObjects[$fed_id]->getAttributes('fed:flat-admin-structure')[0]) ? $myFedObjects[$fed_id]->getAttributes('fed:flat-admin-structure')[0]['value'] : null);
+                \core\common\Logging::debug_s(4, $fedFlatAdminStructure, "AdminStructure\n", "\n");
                 asort($fedOrganisations);
                 foreach ($fedOrganisations as $index => $myOrganisation) {
                     $oneinst = $instlist[$index];
@@ -250,6 +258,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             <?php
                             $admins = $the_inst->listOwners();
                             $blessedUser = FALSE;
+//                            $fed->getAttributes('fed:autoregister-synced');
                             foreach ($admins as $number => $username) {
                                 if ($username['ID'] != $_SESSION['user']) {
                                     /*
@@ -263,7 +272,7 @@ $end = $langInstance->rtl ? "left" : "right";
                                      */
                                 } else { // don't list self
                                     unset($admins[$number]);
-                                    if ($username['LEVEL'] == "FED") {
+                                    if ($fedFlatAdminStructure === 'on' || $username['LEVEL'] == "FED" || $username['LEVEL'] == "EDB") {
                                         $blessedUser = TRUE;
                                     }
                                 }
@@ -278,6 +287,17 @@ $end = $langInstance->rtl ? "left" : "right";
                             <?php
                             if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
                                 echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                            } elseif(in_array($the_inst->identifier, $externalOwned)) { 
+                            $helpText = _("You can upgrade your access rights since your mail is listed as this institution administrator in the eduroam database.
+                            The extended rights will allow you to invite other administrators to this institution.
+                            <p>Click the button to send the invitation token to your email address.");    
+                                ?>
+                             <form action='inc/sendinvite.inc.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                    <input type="hidden" name="mailaddr" value="<?php echo $_SESSION['auth_email'];?>"/>
+                    <input type="hidden" name="self_registration"/>
+                    <button type='submit' name='submitbutton' class='self-service' id='submintbutton_<?php echo $id; ?>' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo \web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send token<br>to upgrade access"); ?></button><?php print $wizard->displayHelpText($helpText, 'near');?><span style='display: none; font-weight: bold' class='token_confirm' id='token_confirm_<?php echo $id; ?>'><?php echo _("Token sent")?></span>
+                             </form>  
+                            <?php
                             }
                             ?>
                         </td>
@@ -332,7 +352,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargetedId attribute but now it is only sending pairwise-id
                             </ul>
                             If you accept then invitation tokens will be automatically sent to your email address.");
-                    print $wizard->displayHelpText($helpText);
+                    print $wizard->displayHelpText($helpText, "ZZ");
                     
                     echo "<h3>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:")."</h3>";                        
 
@@ -408,7 +428,7 @@ $end = $langInstance->rtl ? "left" : "right";
                             echo "<button type='submit' class='XXX' value='" . \web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . _("take control"). "</button><br/>";
                             echo "</form>";
                             echo "</td></tr>";
-                            \core\common\Logging::debug_s(3, $idp->identifier, "Admin ".$_SESSION['user']." entitled to manage: ", "\n");
+                            \core\common\Logging::debug_s(4, $idp->identifier, "Admin ".$_SESSION['user']." entitled to manage: ", "\n");
                     }
                     echo "</table>";               
                 }

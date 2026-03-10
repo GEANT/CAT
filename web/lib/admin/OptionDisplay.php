@@ -124,8 +124,8 @@ class OptionDisplay extends \core\common\Entity
     public function prefilledOptionTable(string $attributePrefix, $fed)
     {
         $retval = "<table id='expandable_$attributePrefix" . "_options'>";
-
         $prepopulate = [];
+        
         foreach ($this->listOfOptions as $existingAttribute) {
             if ($existingAttribute['level'] == $this->level) {
                 $prepopulate[] = $existingAttribute;
@@ -137,6 +137,7 @@ class OptionDisplay extends \core\common\Entity
             $retval .= $this->addOptionNew($attributePrefix, $fed);
         }
         $retval .= "</table>";
+        
         return $retval;
     }
 
@@ -181,10 +182,10 @@ class OptionDisplay extends \core\common\Entity
      * @param string $device - only used with device-specific class - limit options to the given device type
      * @return array the list of options to display
      */
-    public static function enumerateOptionsToDisplay($class, $fed, $device='')
+    public static function enumerateOptionsToDisplay($class, $fed, $device='', $showMultiFlag=0)
     {
         $optioninfo = \core\Options::instance();
-        $list = $optioninfo->availableOptions($class);
+        $list = $optioninfo->availableOptions($class, $showMultiFlag);
         // use federation context to delete more options, if the feds don't like
         // a particular one
         $fedInstance = new \core\Federation($fed);
@@ -238,8 +239,20 @@ class OptionDisplay extends \core\common\Entity
             default:
                 break;
         }
-
         return $list;
+    }
+    
+    public static function sortAttributesForDisplay($attributeList) {
+        \core\common\Entity::intoThePotatoes();
+        $uiElements = new UIElements();
+        $sortArray = [];
+        foreach ($attributeList as $value) {
+            $sortArray[] = $uiElements->displayName($value['name']);
+        }
+        array_multisort($sortArray, SORT_ASC, $attributeList);
+        \core\common\Entity::outOfThePotatoes();
+        return($attributeList);
+        
     }
 
     /**
@@ -305,39 +318,6 @@ class OptionDisplay extends \core\common\Entity
      */
     private function selectElement($rowid, $list)
     {
-        $jsmagic = "onchange='
-                               if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
-                                   } else {
-                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
-                                   }";
-        foreach (array_keys($this->htmlDatatypeTexts) as $key) {
-            $jsmagic .= "if (/#" . $key . "#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($key == \core\Options::TYPECODE_FILE ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($key == \core\Options::TYPECODE_TEXT ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($key == \core\Options::TYPECODE_STRING ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-enum_openroaming\").style.display = \"" . ($key == \core\Options::TYPECODE_ENUM_LIST ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($key == \core\Options::TYPECODE_BOOLEAN ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($key == \core\Options::TYPECODE_INTEGER ? "block" : "none") . "\";
-                             }
-                             ";
-            // hide all tooltips (each is a <span>, and there are no other <span>s)
-            $jsmagic .= <<< FOO
-                    var ourtooltips = document.querySelectorAll(&#34;[id^=&#39;S$rowid-tooltip-&#39;]&#34;);
-                    for (var i=0; i<ourtooltips.length; i++) {
-                      ourtooltips[i].style.display = "none";
-                    }
-                    var optionnamefull = document.getElementById("option-S$rowid-select").value;
-                    var firstdelimiter = optionnamefull.indexOf("#");
-                    var optionname = optionnamefull.substring(0,firstdelimiter);
-                    var tooltipifany = document.getElementById("S$rowid-tooltip-"+optionname);
-                    if (tooltipifany != null) {
-                      tooltipifany.style.display = "block";
-                    }
-FOO;
-        }
-        $jsmagic .= "'";
-
         $optioninfo = \core\Options::instance();
         $retval = "<span style='display:flex';>";
         $iterator = 0;
@@ -354,7 +334,7 @@ FOO;
                 $tooltips = $this->tooltip($rowid, $value, TRUE);
                 break;
             default:
-                $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+                $retval .= "<select class='MMM' id='option-S$rowid-select' name='option[S$rowid]'>";
                 $sortArray = [];
                 foreach ($list as $value) {
                     $sortArray[] = $uiElements->displayName($value);
@@ -362,20 +342,10 @@ FOO;
                 array_multisort($sortArray, SORT_ASC, $list);
                 foreach ($list as $value) {
                     $listtype = $optioninfo->optionType($value);
-                    $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-                    if ($iterator == $this->optionIterator) {
-                        $retval .= "selected='selected'";
-                        $activelisttype = $listtype;
-                        $tooltips .= $this->tooltip($rowid, $value, TRUE);
-                    } else {
-                        $tooltips .= $this->tooltip($rowid, $value, FALSE);
-                    }
+                    $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"]. '#' . $listtype["multivalued"] . "' ";
+                    $tooltips .= $this->tooltip($rowid, $value, FALSE);
                     $retval .= ">" . $uiElements->displayName($value) . "</option>";
                     $iterator++;
-                }
-
-                if (count($activelisttype) == 0) {
-                    throw new \Exception("We should have found the active list type by now!");
                 }
                 $retval .= "</select>";
         }
@@ -465,7 +435,7 @@ FOO;
         $listtype = $optioninfo->optionType($optionName);
         $retval .= "<span style='display:flex;'>" . $uiElements->displayName($optionName);
         $retval .= $this->tooltip($rowid, $optionName, TRUE) . "</span>";
-        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
+        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#". $listtype["multivalued"] . "' ></td>";
 
         // language tag if any
         $retval .= "<td>";
@@ -569,7 +539,7 @@ FOO;
         $retval .= "
 
        <td>
-          <button type='button' class='delete' onclick='";
+          <button type='button' class='delete deleteOption' onclickk='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
             $funcname = "Map" . \config\ConfAssistant::MAPPROVIDER['PROVIDER'] . 'DeleteCoord';
             $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
