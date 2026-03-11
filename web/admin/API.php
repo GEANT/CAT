@@ -94,7 +94,6 @@ foreach ($scrubbedParameters as $oneParam) {
     }
 }
 
-
 switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_NEWINST:
         // create the inst, no admin, no attributes
@@ -108,6 +107,49 @@ switch ($inputDecoded['ACTION']) {
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
+        break;
+    case web\lib\admin\API::ACTION_NEWINST_BY_REF:
+        $typeRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE);
+        if ($typeRaw === FALSE) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "We did not receive a valid participant type!");
+            exit(1);
+        }
+        $type = $validator->partType($typeRaw);
+        $ROid = strtoupper($fed->tld).'01';
+        $extId = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_EXTERNALID);
+        if ($validator->existingExtInstitution($extId, 'API', $ROid) === 0) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
+            exit(1);
+        }
+        if (\core\Federation::isExternalInstInCAT($extId, $fed->tld)) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER,"This external identifier is already used in your federation!");
+            exit(1);
+        }        
+        $details = $fed->newIdPFromAPI($type, $extId);
+        $idp = new \core\IdP($details['new_idp']);
+        $out = [];
+        foreach ($details['names'] as $lang=>$name) {
+            $out[] = ["LANG"=>$lang, "NAME"=>"general:instname", "VALUE"=>$name, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];
+            if ($lang === 'en') {
+            $out[] = ["LANG"=>"C", "NAME"=>"general:instname", "VALUE"=>$name, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];                
+            }
+        }
+        if (isset($details['contacts'][0])) {
+            foreach ($details['contacts'][0] as $contactType => $contactValue) {
+                switch ($contactType) {
+                    case 'name':
+                        break;
+                    case 'mail':
+                        $contactType = 'email';
+                    default:
+                        $out[] = ["LANG"=>"C", "NAME"=>"support:$contactType", "VALUE"=>$contactValue, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];
+                        break;
+                }
+            }
+        }
+        $inputs = $adminApi->uglify(array_merge($scrubbedParameters, $out));
+        $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
+        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);      
         break;
     case web\lib\admin\API::ACTION_DELINST:
         try {

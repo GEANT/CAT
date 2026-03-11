@@ -228,7 +228,27 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             ];
         }
         return $contactList;
-    }  
+    }
+    /**
+     * This is just a part of the listExternalEntities code takeb out, for possible use in other situations
+     * Hovever remember that there is a similar function \core\CAT\getExternalDBEntityDetails()
+     * 
+     */
+    private function fetchExternalDetaisFromObject($externalObject) {
+        $names = $this->splitNames($externalObject->collapsed_name);
+        $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
+        $contacts = $this::dissectCollapsedContacts($externalObject->collapsed_contact);
+        $mails = [];
+        foreach ($contacts as $contact) {
+            // extracting real names is nice, but the <> notation
+            // really gets screwed up on POSTs and HTML safety
+            // so better not do this; use only mail addresses
+            $mails[] = $contact['mail'];
+        }
+        $convertedType = array_search($externalObject->type, self::TYPE_MAPPING);
+        return ["ID" => $externalObject->id, "name" => $thelanguage, "contactlist" => implode(", ", $mails), "country" => $externalObject->country, "realmlist" => $externalObject->realmlist, "type" => $convertedType];
+
+    }
 
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
@@ -251,18 +271,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         $externals = $this->db->exec($query, "s", $tld);
         // was a SELECT query, so a resource and not a boolean
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
-            $names = $this->splitNames($externalQuery->collapsed_name);
-            $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
-            $contacts = $this::dissectCollapsedContacts($externalQuery->collapsed_contact);
-            $mails = [];
-            foreach ($contacts as $contact) {
-                // extracting real names is nice, but the <> notation
-                // really gets screwed up on POSTs and HTML safety
-                // so better not do this; use only mail addresses
-                $mails[] = $contact['mail'];
-            }
-            $convertedType = array_search($externalQuery->type, self::TYPE_MAPPING);
-            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => implode(", ", $mails), "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $convertedType];
+            $returnarray[] = $this->fetchExternalDetaisFromObject($externalQuery);
         }
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
@@ -344,9 +353,10 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @return int 1 if found 0 if not
      */
     public function verifyExternalEntity($ROid, $extId, $userEmail = NULL) {
-        $query = "SELECT * FROM view_institution_admins JOIN view_active_institution ON view_institution_admins.instid=view_active_institution.instid AND view_institution_admins.ROid=view_active_institution.ROid WHERE view_active_institution. ROid='$ROid' AND view_institution_admins.instid='$extId'";
-        if ($userEmail != NULL) {
-            $query .= " AND email='$userEmail'";
+        if ($userEmail === 'API') {
+            $query = "SELECT * FROM view_active_institution WHERE instid='$extId'";
+        } else {
+            $query = "SELECT * FROM view_institution_admins JOIN view_active_institution ON view_institution_admins.instid=view_active_institution.instid AND view_institution_admins.ROid=view_active_institution.ROid WHERE view_active_institution.ROid='$ROid' AND view_institution_admins.instid='$extId' AND email='$userEmail'";
         }
         $result = $this->db->exec($query);
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $result) > 0) {
@@ -404,13 +414,17 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * 
      * @return array
      */
-    public function listExternalTlsServersInstitution($tld, $include_not_ready=FALSE) {
+    public function listExternalTlsServersInstitution($tld, $include_not_ready=FALSE, $extId=null) {
         $retval = [];
         // this includes servers of type "staging", which is fine
         $query = "SELECT ROid, instid, type, inst_name, servers, contacts, ts FROM view_tls_inst WHERE country = ?";
         if (!$include_not_ready) {
-            $query = $query . " AND servers IS NOT NULL AND contacts IS NOT NULL";
+            $query .= " AND servers IS NOT NULL AND contacts IS NOT NULL";
         }
+        if ($extId !== null) {
+            $query .= " AND instid = '$extId'";
+        }
+        
         $instServerTransaction = $this->db->exec($query, "s", $tld);
         while ($instServerResponses = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instServerTransaction)) {
             $contactList = $this::dissectCollapsedContacts($instServerResponses->contacts);

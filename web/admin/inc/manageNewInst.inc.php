@@ -37,7 +37,9 @@ $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
+?>
 
+<?php
 // new invitations are only permitted by federation operator himself
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
@@ -79,7 +81,7 @@ if (\config\Master::DB['enforce-external-sync']) {
                      </td>";
 
             echo "<td colspan='3'>
-                <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id;'>
+                <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id.slice(7);'>
                     <option value='FREETEXT'>" . sprintf(_("--- select %s here ---"),$uiElements->nomenclatureParticipant) . "</option>";
 
             foreach ($feds as $fed_value) {
@@ -87,13 +89,14 @@ if (\config\Master::DB['enforce-external-sync']) {
                 $temparray = [];
                 $contacts = [];
                 $entities = $thefed->listExternalEntities(TRUE, NULL);
-
+                $i = 0;
                 foreach ($entities as $v) {
-                    echo "<option id='" . $v['contactlist'] . "' value='" . $fed_value['value']. '-' . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
+                    echo "<option id='".sprintf('%06d-', $i) . $v['contactlist'] . "' value='" . $fed_value['value']. '-' . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
+                    $i++;                   
                 }
             }
 
-            echo "</select></td></tr>";
+//            echo "</select>&nbsp;<input id='inst_search' type='text' style='padding-top:0px; padding-bottom:0px;margin-top: 0px; margin-bottom:0px'/></td></tr>";
         }
         ?>
         <tr>

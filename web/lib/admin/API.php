@@ -253,7 +253,10 @@ class API {
     const ACTIONS = [
         // Inst-level actions.
         API::ACTION_NEWINST_BY_REF => [
-            "REQ" => [API::AUXATTRIB_EXTERNALID,],
+            "REQ" => [
+                API::AUXATTRIB_EXTERNALID,
+                API::AUXATTRIB_INSTTYPE,
+                ],
             "OPT" => [
                 'general:geo_coordinates',
                 'general:logo_file',
@@ -268,6 +271,9 @@ class API {
                 'support:url'
             ],
             "FLAG" => [],
+            "RETVAL" => [
+                API::AUXATTRIB_CAT_INST_ID, // New inst ID.
+            ],  
         ],
         API::ACTION_NEWINST => [
             "REQ" => [API::AUXATTRIB_INSTTYPE,], // "IdP", "SP" or "IdPSP"
@@ -525,6 +531,15 @@ class API {
                             continue 2;
                         }
                         break;
+                    case API::AUXATTRIB_EXTERNALID:
+                        try {
+                            $ROid = strtoupper($fedObject->tld)."01";
+                            $extId = $this->validator->string($oneIncomingParam['VALUE']);
+                            $extInst = $this->validator->existingExtInstitution($extId, 'API', $ROid);
+                        } catch (Exception $ex) {
+
+                        }
+                        break;
                     case API::AUXATTRIB_TARGETMAIL:
                         if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
                             // invalid mail format
@@ -571,7 +586,7 @@ class API {
      */
     public function firstParameterInstance($inputs, $expected) {
         foreach ($inputs as $attrib) {
-            if ($attrib['NAME'] == $expected) {
+            if ($attrib['NAME'] === $expected) {
                 return $attrib['VALUE'];
             }
         }
@@ -600,7 +615,6 @@ class API {
             $basename = "S$number";
             $extension = "";
             switch ($optionInfo['type']) {
-
                 case \core\Options::TYPECODE_COORDINATES:
                     $extension = \core\Options::TYPECODE_TEXT;
                     $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";

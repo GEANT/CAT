@@ -270,6 +270,29 @@ class Federation extends EntityWithDBProperties
         $this->idpListActive = [];
         $this->idpListAll = [];
     }
+    
+    public function newIdPFromAPI($type = null, $extId = null)
+    {
+        if ($extId === null && $type === null) {
+            throw new Exception("At least one of IdP type and externanalId need to be known!");
+        }
+        if ($extId === null) {
+            $q = "INSERT INTO institution (country, type) VALUES('$this->tld', '$type')";
+        } else {
+            // get info about the external institution
+            if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                $externalDB = CAT::determineExternalConnection();
+                $tlsInst = $externalDB->listExternalTlsServersInstitution($this->tld, true, $extId);
+                $extDetails = array_pop($tlsInst);
+            }
+            $q = "INSERT INTO institution (country, type, external_db_id, external_db_syncstate) VALUES('$this->tld', '$type', '$extId', ".IdP::EXTERNAL_DB_SYNCSTATE_SYNCED.")";
+    }
+        $this->databaseHandle->exec($q);
+        $identifier = $this->databaseHandle->lastID();
+        $extDetails['new_idp'] = $identifier ;
+        return $extDetails;
+
+    }
 
     /**
      * Creates a new IdP inside the federation.
@@ -728,11 +751,34 @@ class Federation extends EntityWithDBProperties
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
+
+    /**
+     * Test if a given external identifier in this federation is already linked to a CAT institution
+     * @param string $external_id
+     * @param string $fedname
+     * @return bool
+     * @throws Exception
+     */
+    
+    public static function isExternalInstInCAT ($external_id, $fedname) {
+        $fed_id = strtoupper($fedname);
+        $cat = new CAT();
+        if (!isset($cat->knownFederations[$fed_id])) {
+            throw new Exception("This federation is not known to the system!");
+        }
+        $query = "SELECT inst_id FROM institution WHERE external_db_id = ? AND country = ?";
+        $dbHandle = DBConnection::handle("INST");
+        $result = $dbHandle->exec($query, "ss", $external_id, $fed_id);
+        if ($result->num_rows > 0) {
+            return true;
+        }
+        return false;
+    }
     
     /**
      * A fast verification if the flat admin structure is set for a givem federation
      * @param string $fedname
-     * @retuurn boolean true is flat admin structure is set, false otherwise
+     * @return boolean true is flat admin structure is set, false otherwise
      * @throws Exception
      */
     public static function isFlatAdminStructure($fedname) {

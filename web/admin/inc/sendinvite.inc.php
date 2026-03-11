@@ -100,7 +100,7 @@ if ($filteredCreation == "new" && $filteredName !== NULL && $filteredCountry !==
     $operationMode = OPERATION_MODE_NEWUNLINKED;
 }
 
-if ($filteredCreation == "existing" && $filteredExternals !== NULL && $filteredExternals != "FREETEXT") {
+if ($filteredCreation === "existing" && $filteredExternals !== NULL && $filteredExternals !== "FREETEXT") {
     if (isset($_POST['self_registration'])) {
         \core\common\Logging::debug_s(4, "Self registration received\n");
         $operationMode = OPERATION_MODE_SELF_NEWFROMDB;
