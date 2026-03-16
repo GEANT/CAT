@@ -25,10 +25,10 @@
  * FIX for v2.2.1 : introduce better type-safety for admin API - reported by: Nahit (Github: https://github.com/Dogru-Isim) 
  */
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 function diag_call($payload, $url) {
-    $params=http_build_query($payload);
+    $params = http_build_query($payload);
     $ch = curl_init("$url?$params");
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -51,7 +51,7 @@ $inputRaw = file_get_contents('php://input');
 
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
-    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data." . json_last_error_msg() . $inputRaw);
+    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.".json_last_error_msg().$inputRaw);
     exit(1);
 }
 
@@ -194,7 +194,7 @@ switch ($inputDecoded['ACTION']) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
         $newtokens = $mgmt->createTokens("FED", [$admin], $idp);
-        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=" . array_keys($newtokens)[0];
+        $URL = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME'])."/action_enrollment.php?token=".array_keys($newtokens)[0];
         $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
@@ -231,7 +231,7 @@ switch ($inputDecoded['ACTION']) {
         if ($found) {
             $adminApi->returnSuccess([]);
         }
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP " . $idp->identifier);
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
         break;
     case web\lib\admin\API::ACTION_STATISTICS_FED:
         $detail = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DETAIL);
@@ -282,16 +282,6 @@ switch ($inputDecoded['ACTION']) {
                 }
             }
         }
-        
-/*        
-                    $retArray[$idpIdentifier] = [];
-            foreach ($thisIdP->listProfiles() as $oneProfile) {
-                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
-            }
-
- * 
- */        
-        
         $adminApi->returnSuccess($retArray);
         break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:
@@ -336,10 +326,10 @@ switch ($inputDecoded['ACTION']) {
                 $outer = "";
                 $profile->setAnonymousIDSupport(FALSE);
             } else {
-                $outer = $outer . "@";
+                $outer = $outer."@";
                 $profile->setAnonymousIDSupport(TRUE);
             }
-            $profile->setRealm($outer . $realm);
+            $profile->setRealm($outer.$realm);
         }
         /* const AUXATTRIB_PROFILE_TESTUSER = 'ATTRIB-PROFILE-TESTUSER'; */
         $testuser = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_TESTUSER);
@@ -586,7 +576,7 @@ switch ($inputDecoded['ACTION']) {
         // extract relevant subset of information from cert objects
         $certDetails = [];
         foreach ($certs as $cert) {
-            $certDetails[$cert->ca_type . ":" . $cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username, "ANNOTATION" => $cert->annotation];
+            $certDetails[$cert->ca_type.":".$cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username, "ANNOTATION" => $cert->annotation];
         }
         $adminApi->returnSuccess($certDetails);
         break;
