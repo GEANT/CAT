@@ -29,11 +29,10 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 function diag_call($payload, $url) {
     $params=http_build_query($payload);
-    print $params;
     $ch = curl_init("$url?$params");
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
+    curl_exec($ch);
 }
 
 // no SAML auth on this page. The API key authenticates the entity
@@ -675,7 +674,6 @@ switch ($inputDecoded['ACTION']) {
         $realm = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_REALM);
         $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
         $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
-        print $profile_id;
         if ($realm === FALSE && $profile_id === FALSE) {
             exit(1);
         }
