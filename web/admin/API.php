@@ -130,7 +130,7 @@ switch ($inputDecoded['ACTION']) {
             exit(1);
         }
         if (\core\Federation::isExternalInstInCAT($extId, $fed->tld)) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER,"This external identifier is already used in your federation!");
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This external identifier is already used in your federation!");
             exit(1);
         }        
         $details = $fed->newIdPFromAPI($type, $extId);
