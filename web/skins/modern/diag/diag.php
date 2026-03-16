@@ -54,7 +54,7 @@ $cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 ?>
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />";
+<link rel='stylesheet' type='text/css' href='<?php echo $cssUrl ?>' />
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>
@@ -136,9 +136,8 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
             <div id='diagnostic_admin' style='display: <?php if (!$admin) { echo 'none'; } ?> ;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
-                    echo '<input type="hidden" id="isadmin" value="';
                     if ($isauth) {
-                        echo "1\">";
+                        echo '<input type="hidden" id="isadmin" value="1">';
                         echo "<div id='admin_test_area' style='display: ";
                         if (!$admin) {
                             echo 'none';
@@ -156,10 +155,14 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                         echo "<div id='idp_problem'></div>";
                         echo "</div>"; 
                     } else {
-                        echo "0\">";
-                        echo _("This service is for authenticated admins only.") . '<br>';
-                        echo "<a href=\"diag.php?admin=1\">" .
-                             _("eduroam® admin access is needed") . "</a>";
+                        echo '<input type="hidden" id="isadmin" value="0">';
+                        if ($user !== NULL) {
+                            echo _("This service is available only for authenticated users being an institution administrator.") . '<br>';
+                        } else {
+                            echo _("This service is for authenticated admins only.") . '<br>';
+                            echo "<a href=\"diag.php?admin=1\">" .
+                                 _("eduroam® admin access is needed") . "</a>";
+                        }
                     }
                 ?>
                 <div id="realm_problem">
@@ -421,6 +424,7 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                             realmselect = <?php echo '"<td>' . _("Realm:") . '</td><td>' . _("no realm found") . ', ' .
                                     _("it is not possible to test this institution realms, try to enter a realm in the field above")
                                     . '</td>"'; ?>;
+                            $('#start_test_area').hide();
                         }
                     }
                     $('#row_idp_realm').html("");
@@ -510,7 +514,6 @@ require dirname(__DIR__) . '/diag/js/diag_js.php';
                     }
                 }
                 if (addtest) {
-                console.log(data);
                     runConnectionTests(data, realm, data.outeruser, token, 'diag');
                 }   
                 if (realmFound == 0) {

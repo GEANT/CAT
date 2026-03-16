@@ -25,9 +25,10 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
-$uiElements = new \web\lib\admin\UIElements();
 
+$uiElements = new \web\lib\admin\UIElements();
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
+
 $user = new \core\User($_SESSION['user']);
 $user->edugain = $user->isFromEduGAIN();
 $wizard = new \web\lib\admin\Wizard(false);

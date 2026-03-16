@@ -47,17 +47,20 @@ function disp_name($eap)
     return $displayName['OUTER'].($displayName['INNER'] != '' ? '-'.$displayName['INNER'] : '');
 }
 
+const VALID_TEST_TYPES = ['udp_login', 'udp', 'capath', 'clients', 'openroamingcapath', 'openroamingclients'];
+
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
-
-const VALID_TEST_TYPES = ['udp_login', 'udp', 'capath', 'clients', 'openroamingcapath', 'openroamingclients'];
-
 $test_type = 'INVALID'; // will throw Exception if not replaced with correct
 foreach (VALID_TEST_TYPES as $index => $oneType) {
     if ($_REQUEST['test_type'] == $oneType) {
         $test_type = VALID_TEST_TYPES[$index]; // from constant -> definitely not user-tainted
     }
+}
+
+if ($test_type === 'INVALID') {
+    throw new Exception("Invalid test_type was submitted!");
 }
 
 $check_realm = $validator->realm($_REQUEST['realm']);
@@ -81,7 +84,6 @@ if (isset($_REQUEST['profile_id'])) {
     }
 }
 session_write_close();
-
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
     throw new Exception("The requested host index is not numeric!");    

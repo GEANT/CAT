@@ -36,13 +36,28 @@ require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 \core\CAT::sessionStart();
 
 $jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
-
+$validator = new \web\lib\common\InputValidation();
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
+$profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_VALIDATE_INT);
 $givenRealm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm')));
+$testedProfile = NULL;
+if ($givenRealm == '' && $profile_id) {
+    $profile = $validator->existingProfile($profile_id);
+    if (!$profile instanceof \core\ProfileRADIUS) {
+            throw new Exception("realm checks are only supported for RADIUS Profiles!");
+    }
+    $testedProfile = $profile;
+}
+if ($testedProfile !== NULL) {
+    $checkrealm = $testedProfile->getAttributes("internal:realm");
+    if (count($checkrealm) > 0) {
+        $givenRealm = $checkrealm[0]['value'];
+    }
+}
 $outerUser = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'outeruser')));
 $realmQueryType = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'type')));
 $realmCountry = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'co')));
@@ -84,13 +99,17 @@ if ($givenRealm != '') {
             $elems = explode(', ', $allRealms[$foundIndex]['contact']);
             foreach ($elems as $admin) {
                 if (substr($admin, 0, 2) == 'e:') {
-                    $admins[] = substr($admin, 3);
+                    $admins[] = substr($admin, 2);
                 }
             }
             $details['admins'] = base64_encode(join(',', $admins));
         } else {
             $details['admins'] = '';
-        }        
+        }
+        $links = \core\Federation::determineIdPIdByRealm($givenRealm);
+        if ($links["CAT"] !== \core\Federation::UNKNOWN_IDP) {
+            $details['catProfile'] = $links["CAT"];
+        }
         $details['status'] = 1;
         $details['realm'] = $givenRealm;   
         break;
@@ -107,8 +126,11 @@ if ($givenRealm != '') {
             $telepath = new \core\diag\Telepath($givenRealm);
             $outerUser = $telepath->getOuter();
         }
-        $testsuite = new \core\diag\RADIUSTests($givenRealm, $outerUser . '@' . $givenRealm);
-       
+        if ($testedProfile !== NULL) {
+            $testsuite = new \core\diag\RADIUSTests($givenRealm, $testedProfile->getRealmCheckOuterUsername(), $testedProfile->getEapMethodsinOrderOfPreference(1), $testedProfile->getCollapsedAttributes()['eap:server_name'], $testedProfile->getCollapsedAttributes()["eap:ca_file"]);
+        } else {
+            $testsuite = new \core\diag\RADIUSTests($givenRealm, $outerUser . '@' . $givenRealm);
+        }
         $naptr = $rfc7585suite->relevantNAPTR(); 
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
             $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();

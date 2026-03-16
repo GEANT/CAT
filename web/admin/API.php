@@ -27,6 +27,15 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
+function diag_call($payload, $url) {
+    $params=http_build_query($payload);
+    print $params;
+    $ch = curl_init("$url?$params");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+}
+
 // no SAML auth on this page. The API key authenticates the entity
 
 $mode = "API";
@@ -88,7 +97,7 @@ foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequi
     }
 }
 foreach ($scrubbedParameters as $oneParam) {
-    if ($oneParam['VERFY_RESULT'] === false) {
+    if ($oneParam['VERIFY_RESULT'] === false) {
         $adminApi->returnError(web\lib\admin\API::ERROR_MISSING_PARAMETER, $oneParam['VERIFY_DESC']);
         exit(1);
     }
@@ -129,9 +138,9 @@ switch ($inputDecoded['ACTION']) {
         $idp = new \core\IdP($details['new_idp']);
         $out = [];
         foreach ($details['names'] as $lang=>$name) {
-            $out[] = ["LANG"=>$lang, "NAME"=>"general:instname", "VALUE"=>$name, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];
+            $out[] = ["LANG"=>$lang, "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
             if ($lang === 'en') {
-            $out[] = ["LANG"=>"C", "NAME"=>"general:instname", "VALUE"=>$name, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];                
+            $out[] = ["LANG"=>"C", "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];                
             }
         }
         if (isset($details['contacts'][0])) {
@@ -142,7 +151,7 @@ switch ($inputDecoded['ACTION']) {
                     case 'mail':
                         $contactType = 'email';
                     default:
-                        $out[] = ["LANG"=>"C", "NAME"=>"support:$contactType", "VALUE"=>$contactValue, "VERFY_RESULT"=>true, "VERIFY_DESC"=>""];
+                        $out[] = ["LANG"=>"C", "NAME"=>"support:$contactType", "VALUE"=>$contactValue, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
                         break;
                 }
             }
@@ -656,6 +665,152 @@ switch ($inputDecoded['ACTION']) {
             $retArray[$idpIdentifier] = [];
             foreach ($thisIdP->listProfiles() as $oneProfile) {
                 $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+            }
+        }
+        $adminApi->returnSuccess($retArray);
+        break;
+    case web\lib\admin\API::ACTION_DIAG_TESTS:
+        $retArray = [];
+        $token = bin2hex(openssl_random_pseudo_bytes(20));
+        $realm = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_REALM);
+        $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        print $profile_id;
+        if ($realm === FALSE && $profile_id === FALSE) {
+            exit(1);
+        }
+        $login_user = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DIAG_USERNAME);
+        $login_pass = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DIAG_PASSWD);
+        $login_outer = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_DIAG_OUTERUSER);
+        $jsondir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
+        if (isset($_SERVER['HTTPS'])) {
+            $catlink = 'https://';
+        } else {
+            $catlink = 'http://';
+        }
+        $catlink .= $_SERVER['SERVER_NAME'];
+        $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
+        if (substr($relPath, -1) == '/') {
+            $relPath = substr($relPath, 0, -1);
+            if ($relPath === FALSE) {
+                throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
+            }
+        }
+        $catlink .= $relPath;
+        
+        $payload = ['token' => $token, 'addtest' => 1];
+        if ($profile_id !== FALSE) {
+            $payload['profile_id'] = $profile_id;
+        }
+        if ($realm !== FALSE) {
+            $payload['realm'] = $realm;
+        } else {
+            $realm = '';
+        }
+        diag_call($payload, "$catlink/diag/findRealm.php");
+        $filename = "$jsondir/$token/realm";
+        if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+            $data = json_decode(file_get_contents($filename), TRUE);
+        }
+        $retArray['realm'] = $data['realm'];
+        $retArray['datetime'] = $data['datetime'];
+        $retArray['outeruser'] = $data['outeruser'];
+        $retArray['resultinCAT'] = "$catlink/diag/show_realmcheck.php?norefresh=1&token=$token";
+        if ($realm === '' && $data['realm'] !== NULL) {
+            $realm = $data['realm'];
+        }
+        $retArray['radius_hosts_tests'] = [];
+        if ($login_user !== FALSE) {
+            $retArray['live_login_tests'] = [];
+        }
+        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+            $radius = [];
+            $radius['name'] = $host['display_name'];
+            $radius["ip"] = $host['ip'];
+            $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
+            if ($profile_id !== FALSE) {
+                $payload['profile_id'] = $profile_id;
+            }
+            diag_call($payload, "$catlink/diag/radius_tests.php");
+            $filename = "$jsondir/$token/udp_$hostindex";
+            if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+                $testdata = json_decode(file_get_contents($filename), TRUE);
+            }
+            $radius['returncode'] = $testdata['returncode'][0];
+            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                $radius['returncode'] = "OK (REJECT)";
+            }
+            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+                $radius['returncode'] = "IMMEDIATE REJECT";
+            }
+            $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
+            $radius['message'] = $testdata['result'][0]['message'];
+            $radius['datetime'] = $testdata['datetime'];
+            $retArray['radius_hosts_tests'][] = $radius;
+            if ($login_user !== FALSE) {
+                if ($login_outer === FALSE) {
+                    $login_outer = '';
+                }
+                if ($login_pass === FALSE) {
+                   $login_pass = '';
+                }
+                $live_login = [];
+                if (!isset($payload['profile_id'])) {
+                    $live_login['message'] = _("Live login test requires ATTRIB-CAT-PROFILEID value");
+                    $retArray['live_login_tests'][] = $live_login;
+                } else {
+                    $payload['test_type'] = 'udp_login';
+                    $payload['username'] = $login_user;
+                    $payload['password'] = $login_pass;
+                    $payload['outer_username'] = "$login_outer@$realm";
+                    diag_call($payload, "$catlink/diag/radius_tests.php");
+                    $testdata = NULL;
+                    $filename = "$jsondir/$token/udp_login_$hostindex";
+                    if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+                        $testdata = json_decode(file_get_contents($filename), TRUE);
+                    }
+                    if ($testdata !== NULL) {
+                        $live_login['name'] = $host['display_name'];
+                        $live_login['ip'] = $host["ip"];
+                        $live_login['returncode'] = $testdata['returncode'][0];
+                        if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                            $live_login['returncode'] = "REJECT";
+                        }
+                        if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_OK) {
+                            $live_login['returncode'] = "ACCEPT";
+                        }
+                        $live_login['time_millisec'] = $testdata["result"][0]["time_millisec"];
+                        $live_login['message'] = $testdata["result"][0]["message"];
+                        $live_login['eap_type'] = $testdata["result"][0]["eap"];
+                        $retArray['live_login_tests'][] = $live_login;
+                    }
+                }
+            }
+        }
+        if (isset($data['naptr']) && $data['naptr'] > 0) {
+            $retArray['dynamic_connectivity_tests'] = [];
+        }
+        if (isset($data['totest']) && count($data['totest']) > 0) {
+            foreach ($data['totest'] as $i=>$totest) {
+                $dynamic = [];
+                $dynamic['host'] = $totest['host'];
+                $dynamic['name'] = $totest['name'];
+                $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $token, 'src' => $totest['host'], 
+                            'hostindex' => $i, 'expectedname' => $totest['name'], 'ssltest' => $totest['ssltest']];
+                diag_call($payload, "$catlink/diag/radius_tests.php");
+                $payload['test_type'] = 'clients';
+                diag_call($payload, "$catlink/diag/radius_tests.php");
+                $filename = "$jsondir/$token/capath_$i";
+                if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+                    $testdata = json_decode(file_get_contents($filename), TRUE);
+                    $dynamic['time_millisec'] = $testdata['time_millisec'];
+                    if ($testdata['result'] === 0) {
+		        $dynamic['check_ca'] = 'PASSED';
+                    } else {
+		        $dynamic['check_ca'] = 'FAILED';
+                    }
+                }
+                $retArray['dynamic_connectivity_tests'][] = $dynamic;
             }
         }
         $adminApi->returnSuccess($retArray);

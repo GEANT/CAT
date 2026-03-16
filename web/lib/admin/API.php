@@ -212,6 +212,10 @@ class API {
      */
     const ACTION_CERT_REVOKE = "CERT-REVOKE";
 
+    /** This action calls diagnostics tests
+     *
+     */
+    const ACTION_DIAG_TESTS = "DIAG-TESTS";
     /**
      * This action adds internal notes regarding this certificate. These notes
      * are included when retrieving certificate information with 
@@ -242,6 +246,9 @@ class API {
     const AUXATTRIB_TOKEN_ACTIVATIONS = "ATTRIB-TOKEN-ACTIVATIONS";
     const AUXATTRIB_INSTTYPE = "ATTRIB-INSTITUTION-TYPE";
     const AUXATTRIB_DETAIL = "ATTRIB-DETAIL";
+    const AUXATTRIB_DIAG_USERNAME = "ATTRIB-DIAG-USERNAME";
+    const AUXATTRIB_DIAG_PASSWD = "ATTRIB-DIAG-PASSWD";
+    const AUXATTRIB_DIAG_OUTERUSER = "ATTRIB-DIAG-OUTERUSER";
     /**
      * This section defines allowed flags for actions
      */
@@ -467,6 +474,13 @@ class API {
             "OPT" => [],
             "FLAG" => [],
             "RETVAL" => [],
+        ],
+        API::ACTION_DIAG_TESTS => [
+            "REQ" => [],
+            "OPT" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_PROFILE_REALM, API::AUXATTRIB_DIAG_USERNAME,
+                      API::AUXATTRIB_DIAG_PASSWD, API::AUXATTRIB_DIAG_OUTERUSER],
+            "FLAG" => [],
+            "RETVAL" => [],
         ]
     ];
 
@@ -492,7 +506,7 @@ class API {
      * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
-    public function scrub($inputJson, $fedObject) {        
+    public function scrub($inputJson, $fedObject) {
         $optionInstance = \core\Options::instance();
         $parameters = [];
         $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT'],  API::ACTIONS[$inputJson['ACTION']]['FLAG']);
@@ -521,13 +535,13 @@ class API {
                         } catch (Exception $e) {
                             // invalid IdP number
                             \core\common\Logging::debug_s(4, $oneIncomingParam['VALUE'], "No such IdP: ", "\n");
-                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"No such IdP"]);
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"No such IdP"]);
                             continue 2;
                         }
                         if (strtoupper($inst->federation) != strtoupper($fedObject->tld)) {
                             // IdP in different fed, scrub it
                             \core\common\Logging::debug_s(4, $oneIncomingParam['VALUE'], "IdP not in your fed: ", "\n");
-                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"IdP not in your federation"]);
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"IdP not in your federation"]);
                             continue 2;
                         }
                         break;
@@ -543,7 +557,7 @@ class API {
                     case API::AUXATTRIB_TARGETMAIL:
                         if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
                             // invalid mail format
-                            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"Invalid mail format"]);
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"Invalid mail format"]);
                             continue 2;
                         }
                         break;
@@ -560,7 +574,7 @@ class API {
             } elseif (preg_match("/^FLAG-/", $oneIncomingParam['NAME'])) {
                 if ($oneIncomingParam['VALUE'] != "TRUE" && $oneIncomingParam['VALUE'] != "FALSE" ) {
                     // incorrect FLAG value
-                    $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"Incorrect FLAG value"]);
+                    $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"Incorrect FLAG value"]);
                     continue;
                 }
             } else {
@@ -568,11 +582,11 @@ class API {
                 $optionProperties = $optionInstance->optionType($oneIncomingParam['NAME']);
                 if ($optionProperties["flag"] == "ML" && !array_key_exists("LANG", $oneIncomingParam)) {
                     // LANG parameter missing
-                    $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>false, 'VERIFY_DESC'=>"LANG parameter missing"]);
+                    $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"LANG parameter missing"]);
                     continue;
                 }
             }
-            $parameters[$number] = array_merge($oneIncomingParam, ['VERFY_RESULT'=>true, 'VERIFY_DESC'=>""]);
+            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>true, 'VERIFY_DESC'=>""]);
         }
         return $parameters;
     }

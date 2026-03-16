@@ -297,6 +297,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     function runConnectionTests(data, realm, user, token, wherefrom) {
         dynamic_req = null;
         udp_req = null;
+
         var running = <?php echo '"<img style=\'vertical-align:middle\' src='."'../resources/images/icons/loading51.gif' width='24' height='24'/><i>"._('Running connectivity tests for this realm').'...</i>"'; ?>;
         var testresult = "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
         if (wherefrom == 'diag') {
