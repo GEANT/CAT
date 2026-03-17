@@ -271,15 +271,17 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $dnsChecks = new \core\diag\RFC7585Tests($this->getAttributes("internal:realm")[0]['value'], $tag);
             $relevantNaptrRecords = $dnsChecks->relevantNAPTR();
             if ($relevantNaptrRecords <= 0) {
-                $explanation = _("There is no relevant DNS NAPTR record ($tag) for this realm. OpenRoaming will not work.");
+                $explanation = sprintf(_("There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will not work."), $tag);
                 $reason = $this::OPENROAMING_NO_NAPTR;
                 $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
                 $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
-                $resultLevel = min([$resultLevel, $level]);
+                $this->setOpenRoamingReadinessInfo($level);
+                return $results;
+//                $resultLevel = min([$resultLevel, $level]);
             } else {
                 $recordCompliance = $dnsChecks->relevantNAPTRcompliance();
                 if ($recordCompliance != \core\diag\AbstractTest::RETVAL_OK) {
-                    $explanation = _("The DNS NAPTR record ($tag) for this realm is not syntax conform. OpenRoaming will likely not work.");
+                    $explanation = sprintf(_("The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming will likely not work."), $tag);
                     $reason = $this::OPENROAMING_BAD_NAPTR;
                     $level = $this::OVERALL_OPENROAMING_LEVEL_WARN;
                     $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
@@ -308,7 +310,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                 $hostnameResolution = $dnsChecks->relevantNAPTRhostnameResolution();
 
                 if ($srvResolution <= 0) {
-                    $explanation = _("The DNS SRV target for NAPTR $tag does not resolve. OpenRoaming will not work.");
+                    $explanation = sprintf(_("The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."), $tag);
                     $level = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
                     $reason = $this::OPENROAMING_BAD_NAPTR_RESOLVE;
                     $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
@@ -358,7 +360,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
         if (!$dnsChecks->allResponsesSecure) {
             $explanation = _("At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may refuse to connect to the endpoint.");
-            $level = $this::OVERALL_OPENROAMING_LEVEL_WARN;
+            $level = $this::OVERALL_OPENROAMING_LEVEL_NOTE;
             $reason = $this::OPENROAMING_NO_DNSSEC;
             $results[] = ['level' => $level, 'explanation' => $explanation, 'reason' => $reason];
             $resultLevel = min([$resultLevel, $level]);
@@ -381,7 +383,20 @@ abstract class AbstractProfile extends EntityWithDBProperties
      */
     public function setOpenRoamingReadinessInfo(int $level)
     {
-            $this->databaseHandle->exec("UPDATE profile SET openroaming = ? WHERE profile_id = ?", "ii", $level, $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET openroaming = ? WHERE profile_id = ?", "ii", $level, $this->identifier);
+    }
+    
+    public function getOpenRoamingReadinessInfo()
+    {
+        if (count($this->getAttributes("media:openroaming")) === 0 || $this->getAttributes("media:openroaming")[0]['value'] === NULL) {
+            return $this::OVERALL_OPENROAMING_LEVEL_NO;
+        }
+        $result = $this->databaseHandle->exec("SELECT openroaming FROM profile WHERE profile_id = ?", "i", $this->identifier);
+        $level = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result);
+        if ($level->openroaming === $this::OVERALL_OPENROAMING_LEVEL_NO) {
+            $level->openroaming = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+        }
+        return $level->openroaming;
     }
 
     /**
