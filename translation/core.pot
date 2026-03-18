@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-03-18 17:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,35 +23,55 @@ msgid ""
 "OpenRoaming can be executed."
 msgstr ""
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:274
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+
+#: core/AbstractProfile.php:284
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:301
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr ""
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:313
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:319
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:346
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:352
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:362
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:369
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -249,10 +269,7 @@ msgstr ""
 msgid "Azerbaijan"
 msgstr ""
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr ""
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr ""
@@ -297,10 +314,7 @@ msgstr ""
 msgid "Malta"
 msgstr ""
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr ""
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr ""
@@ -321,39 +335,39 @@ msgstr ""
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:704
 msgid "Profile deactivation succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:704
 msgid "Profile activation/modification succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:706
 msgid "Profile deactivation failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:706
 msgid "Profile activation/modification failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:710
 msgid "on both RADIUS servers: primary and backup"
 msgstr ""
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:713
 msgid "on primary RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:715
 msgid "on backup RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:723
 msgid "RADIUS profile update problem fixed"
 msgstr ""
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:725
 msgid "RADIUS profile update problem"
 msgstr ""
 
@@ -378,7 +392,7 @@ msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:339 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -391,7 +405,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:354
 #, php-format
 msgid ""
 "Hi,\n"
@@ -413,7 +427,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:380
 #, php-format
 msgid ""
 "Hi,\n"
@@ -430,12 +444,12 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:402 core/Federation.php:408
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:415
+#: core/IdP.php:456
 #, php-format
 msgid ""
 "Hi,\n"
@@ -449,7 +463,7 @@ msgid ""
 "    %s"
 msgstr ""
 
-#: core/IdP.php:424
+#: core/IdP.php:465
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -503,7 +517,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:270
+#: core/User.php:304
 msgid "Feedback"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-03-18 17:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,10 +143,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:490
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate does not contain any CN or subjectAltName:DNS which is a "
+"valid hostname. This can be problematic on some supplicants."
 msgstr ""
 
 #: core/diag/AbstractTest.php:497
@@ -369,19 +367,19 @@ msgstr ""
 msgid "Additional Comments:"
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1345
+#: core/diag/RADIUSTests.php:1378
 #, php-format
 msgid "Connected to %s."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1350 web/diag/radius_tests.php:240
+#: core/diag/RADIUSTests.php:1383 web/diag/radius_tests.php:242
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1355
+#: core/diag/RADIUSTests.php:1388
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1038,193 +1036,209 @@ msgstr ""
 msgid "Tools for eduroam admins"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:147
+#: web/skins/modern/diag/diag.php:146
 msgid "What is the nature of the problem?"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:149
+#: web/skins/modern/diag/diag.php:148
 msgid "I suspect a technical problem at a particular IdP"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:151
+#: web/skins/modern/diag/diag.php:150
 msgid "I want to report abuse of network resources by a roaming user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:153
+#: web/skins/modern/diag/diag.php:152
 msgid "I suspect a technical problem for one of my users at a particular SP"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:160
-msgid "This service is for authenticated admins only."
+msgid ""
+"This service is available only for authenticated users being an institution "
+"administrator."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:162
+msgid "This service is for authenticated admins only."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:164
 msgid "eduroam® admin access is needed"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:243 web/skins/modern/diag/diag.php:317
 msgid "Fetching institutions list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
+#: web/skins/modern/diag/diag.php:261 web/skins/modern/diag/diag.php:335
 #: web/skins/modern/diag/js/diag_js.php:46
 msgid "Select institution:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:279
+#: web/skins/modern/diag/diag.php:282
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:288
+#: web/skins/modern/diag/diag.php:291
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:304
+#: web/skins/modern/diag/diag.php:307
 msgid "Check if this realm is registered"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
+#: web/skins/modern/diag/diag.php:309 web/diag/adminQuery.php:82
 msgid "Check this realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:355
+#: web/skins/modern/diag/diag.php:358
 msgid "Other location"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:389
+#: web/skins/modern/diag/diag.php:392
 msgid "Fetching realms list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:402
+#: web/skins/modern/diag/diag.php:405
 msgid "Check realm(s):"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:414
+#: web/skins/modern/diag/diag.php:418 web/skins/modern/diag/diag.php:424
 msgid "Realm:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:472 web/skins/modern/diag/diag.php:534
+#: web/skins/modern/diag/diag.php:424
+msgid "no realm found"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:425
+msgid ""
+"it is not possible to test this institution realms, try to enter a realm in "
+"the field above"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:484 web/skins/modern/diag/diag.php:545
 msgid "Running realm tests"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:582
+#: web/skins/modern/diag/diag.php:593
 msgid "Diagnostics results for selected realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:583
+#: web/skins/modern/diag/diag.php:594
 msgid "An unknown problem occurred"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:597
 msgid "This test includes checking of the following realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:588
+#: web/skins/modern/diag/diag.php:599
 msgid "This test includes checking of the following realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:598
+#: web/skins/modern/diag/diag.php:609
 msgid "You should report this to"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:666
+#: web/skins/modern/diag/diag.php:677
 msgid "eduroam admin report submission"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:669
+#: web/skins/modern/diag/diag.php:680
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:671 web/skins/modern/diag/diag.php:695
+#: web/skins/modern/diag/diag.php:682 web/skins/modern/diag/diag.php:706
 msgid "Reason"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:672 web/skins/modern/diag/diag.php:699
+#: web/skins/modern/diag/diag.php:683 web/skins/modern/diag/diag.php:710
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:673 web/skins/modern/diag/diag.php:700
+#: web/skins/modern/diag/diag.php:684 web/skins/modern/diag/diag.php:711
 msgid "Calling-Station-Id"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:674 web/skins/modern/diag/diag.php:701
+#: web/skins/modern/diag/diag.php:685 web/skins/modern/diag/diag.php:712
 msgid "Additional description"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:675
+#: web/skins/modern/diag/diag.php:686
 msgid "An email to contact the reporter"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:676
+#: web/skins/modern/diag/diag.php:687
 msgid "Test result"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:678 web/diag/adminQuery.php:260
+#: web/skins/modern/diag/diag.php:689 web/diag/adminQuery.php:260
 msgid "failure"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:680 web/diag/adminQuery.php:258
+#: web/skins/modern/diag/diag.php:691 web/diag/adminQuery.php:258
 msgid "success"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:694
 msgid "Test URL"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:695
 msgid "Email to IdP administrators "
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:697
 msgid "send successfully"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:699
 msgid "not sent - failure while sending"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:693
+#: web/skins/modern/diag/diag.php:704
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:696
+#: web/skins/modern/diag/diag.php:707
 msgid "SP's Operator-Name"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:697
+#: web/skins/modern/diag/diag.php:708
 msgid "User's outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:698
+#: web/skins/modern/diag/diag.php:709
 msgid "IdP email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:702
+#: web/skins/modern/diag/diag.php:713
 msgid "How to contact the user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:733
+#: web/skins/modern/diag/diag.php:744
 msgid "Wrong format of realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:747 web/skins/modern/diag/diag.php:769
+#: web/skins/modern/diag/diag.php:758 web/skins/modern/diag/diag.php:780
 msgid "Wrong format of email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:760
+#: web/skins/modern/diag/diag.php:771
 msgid "MAC address is incomplete"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:778
+#: web/skins/modern/diag/diag.php:789
 msgid "Wrong format of outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:787
+#: web/skins/modern/diag/diag.php:798
 msgid "Wrong string given as OperatorName"
 msgstr ""
 
@@ -1572,61 +1586,61 @@ msgstr ""
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
 
-#: web/diag/radius_tests.php:180
+#: web/diag/radius_tests.php:182
 msgid "<strong>Test successful.</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:184
+#: web/diag/radius_tests.php:186
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:187
+#: web/diag/radius_tests.php:189
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:192
+#: web/diag/radius_tests.php:194
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
 
-#: web/diag/radius_tests.php:197
+#: web/diag/radius_tests.php:199
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/diag/radius_tests.php:201
+#: web/diag/radius_tests.php:203
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
 
-#: web/diag/radius_tests.php:207 web/diag/radius_tests.php:249
+#: web/diag/radius_tests.php:209 web/diag/radius_tests.php:251
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
 
-#: web/diag/radius_tests.php:212 web/diag/radius_tests.php:253
+#: web/diag/radius_tests.php:214 web/diag/radius_tests.php:255
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
 
-#: web/diag/radius_tests.php:217
+#: web/diag/radius_tests.php:219
 msgid "<strong>Test FAILED</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:238
+#: web/diag/radius_tests.php:240
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
 
-#: web/diag/radius_tests.php:244
+#: web/diag/radius_tests.php:246
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1636,26 +1650,26 @@ msgid ""
 "appears misconfigured or it is unreachable."
 msgstr ""
 
-#: web/diag/radius_tests.php:257
+#: web/diag/radius_tests.php:259
 msgid "unhandled error"
 msgstr ""
 
-#: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
+#: web/diag/radius_tests.php:284 web/diag/radius_tests.php:352
 msgid "<strong>ERROR</strong>: connectivity problem!"
 msgstr ""
 
-#: web/diag/radius_tests.php:294
+#: web/diag/radius_tests.php:296
 #, php-format
 msgid "elapsed time: %d"
 msgstr ""
 
-#: web/diag/radius_tests.php:296
+#: web/diag/radius_tests.php:298
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
 
-#: web/diag/radius_tests.php:306
+#: web/diag/radius_tests.php:308
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
@@ -1793,19 +1807,19 @@ msgstr ""
 msgid "This realm does not exist"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:300
+#: web/skins/modern/diag/js/diag_js.php:301
 msgid "Running connectivity tests for this realm"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:301
+#: web/skins/modern/diag/js/diag_js.php:302
 msgid "New tests results are available, click to see"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:426
-#: web/skins/modern/diag/js/diag_js.php:434
+#: web/skins/modern/diag/js/diag_js.php:427
+#: web/skins/modern/diag/js/diag_js.php:435
 msgid "See details"
 msgstr ""
 
-#: web/skins/modern/diag/js/diag_js.php:436
+#: web/skins/modern/diag/js/diag_js.php:437
 msgid "If you want to report your problem, fill fields below."
 msgstr ""
