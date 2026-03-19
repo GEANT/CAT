@@ -505,10 +505,9 @@ class API {
      * Also sanitise by enforcing LANG attribute in multi-lang attributes.
      * 
      * @param array            $inputJson the incoming JSON request
-     * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
-    public function scrub($inputJson, $fedObject) {
+    public function scrub($inputJson) {
         $optionInstance = \core\Options::instance();
         $parameters = [];
         $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT'],  API::ACTIONS[$inputJson['ACTION']]['FLAG']);
@@ -540,7 +539,7 @@ class API {
                             $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"No such IdP"]);
                             continue 2;
                         }
-                        if (strtoupper($inst->federation) != strtoupper($fedObject->tld)) {
+                        if (strtoupper($inst->federation) != strtoupper($this->fed->tld)) {
                             // IdP in different fed, scrub it
                             \core\common\Logging::debug_s(4, $oneIncomingParam['VALUE'], "IdP not in your fed: ", "\n");
                             $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"IdP not in your federation"]);
@@ -549,7 +548,7 @@ class API {
                         break;
                     case API::AUXATTRIB_EXTERNALID:
                         try {
-                            $ROid = strtoupper($fedObject->tld)."01";
+                            $ROid = strtoupper($this->fed->tld)."01";
                             $extId = $this->validator->string($oneIncomingParam['VALUE']);
                             $extInst = $this->validator->existingExtInstitution($extId, 'API', $ROid);
                         } catch (Exception $ex) {
@@ -601,7 +600,7 @@ class API {
      * @param string $expected attribute that is to be extracted
      * @return mixed the value, or FALSE if none was found
      */
-    public function firstParameterInstance($inputs, $expected) {
+    public function firstParameterInstanceOld($inputs, $expected) {
         foreach ($inputs as $attrib) {
             if ($attrib['NAME'] === $expected) {
                 return $attrib['VALUE'];
@@ -618,7 +617,7 @@ class API {
      * @param string $expected attribute that is to be extracted
      * @return mixed the value, or FALSE if none was found
      */
-    public function firstParameterInstance1($expected) {
+    public function firstParameterInstance($expected) {
         foreach ($this->scrubbedParameters as $attrib) {
             if ($attrib['NAME'] === $expected) {
                 return $attrib['VALUE'];
@@ -743,21 +742,21 @@ class API {
     
     
     public function actionNewinstByRef() {
-        $typeRaw = $this->firstParameterInstance1($this::AUXATTRIB_INSTTYPE);
+        $typeRaw = $this->firstParameterInstance(API::AUXATTRIB_INSTTYPE);
         if ($typeRaw === FALSE) {
-            $this->returnError($this::ERROR_INVALID_PARAMETER, "We did not receive a valid participant type!");
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "We did not receive a valid participant type!");
             exit(1);
         }
         $type = $this->validator->partType($typeRaw);
         $ROid = strtoupper($this->fed->tld).'01';
-        $extId = $this->firstParameterInstance1($this::AUXATTRIB_EXTERNALID);
+        $extId = $this->firstParameterInstance(API::AUXATTRIB_EXTERNALID);
         \core\common\Logging::debug_s(3,$extId, "EXTID\n", "\n");
         if ($this->validator->existingExtInstitution($extId, 'API', $ROid) === 0) {
-            $this->returnError($this::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
             exit(1);
         }
         if (\core\Federation::isExternalInstInCAT($extId, $this->fed->tld)) {
-            $this->returnError($this::ERROR_INVALID_PARAMETER, "This external identifier is already used in your federation!");
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "This external identifier is already used in your federation!");
             exit(1);
         }        
         $details = $this->fed->newIdPFromAPI($type, $extId);
@@ -784,12 +783,11 @@ class API {
         }
         $inputs = $this->uglify(array_merge($this->scrubbedParameters, $out));
         $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $this->returnSuccess([$this::AUXATTRIB_CAT_INST_ID => $idp->identifier]);  
+        $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);  
     }
     
     public function actionNewinst() {
-//        $typeRaw = $this->firstParameterInstance($this->scrubbedParameters, $this::AUXATTRIB_INSTTYPE);
-        $typeRaw = $this->firstParameterInstance1($this::AUXATTRIB_INSTTYPE);
+        $typeRaw = $this->firstParameterInstance(API::AUXATTRIB_INSTTYPE);
         if ($typeRaw === FALSE) {
             throw new Exception("We did not receive a valid participant type!");
         }
@@ -798,7 +796,7 @@ class API {
         // now add all submitted attributes
         $inputs = $this->uglify($this->scrubbedParameters);
         $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $this->returnSuccess([$this::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
+        $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
     }
     
     public function actionAdminList() {
@@ -817,7 +815,7 @@ class API {
         // here is the token
         $mgmt = new \core\UserManagement();
         // we know we have an admin ID but scrutinizer wants this checked more explicitly
-        $admin = $this->firstParameterInstance1($this::AUXATTRIB_ADMINID);
+        $admin = $this->firstParameterInstance(API::AUXATTRIB_ADMINID);
         if ($admin === FALSE) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
@@ -825,7 +823,7 @@ class API {
         $URL = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME'])."/action_enrollment.php?token=".array_keys($newtokens)[0];
         $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there
-        $email = $this->firstParameterInstance1($this::AUXATTRIB_TARGETMAIL);
+        $email = $this->firstParameterInstance(API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
             $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $this->fed, $idp->type);
             $success["EMAIL SENT"] = $sent["SENT"];
@@ -836,11 +834,86 @@ class API {
         $this->returnSuccess($success);
     }
     
+    public function actionFederationListip() {
+        $retArray = [];
+        $noLogo = null;
+        $idpIdentifier = $this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID);
+        $logoFlag = $this->firstParameterInstance(API::FLAG_NOLOGO);
+//        $detail = $this->firstParameterInstance1(API::AUXATTRIB_DETAIL);
+        if ($logoFlag === "TRUE") {
+            $noLogo = 'general:logo_file';
+        }
+        if ($idpIdentifier === FALSE) {
+            $allIdPs = $this->fed->listIdentityProviders(0);
+            foreach ($allIdPs as $instanceId => $oneIdP) {
+                $theIdP = $oneIdP["instance"];
+                $retArray[$instanceId] = $theIdP->getAttributes(null, $noLogo);
+            }
+        } else {
+            try {
+                $thisIdP = $this->validator->existingIdP($idpIdentifier, NULL, $this_fed);
+            } catch (Exception $e) {
+                $this->returnError(API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+                exit(1);
+            }
+            $retArray[$idpIdentifier] = $thisIdP->getAttributes(null, $noLogo);
+            foreach ($thisIdP->listProfiles() as $oneProfile) {
+                $retArray[$idpIdentifier]["PROFILES"][$oneProfile->identifier] = $oneProfile->getAttributes(null, $noLogo);
+            }
+        }
+        foreach ($retArray as $instNumber => $oneInstData) {
+            foreach ($oneInstData as $attribNumber => $oneAttrib) {
+                if ($oneAttrib['name'] == "general:logo_file") {
+                    // JSON doesn't cope well with raw binary data, so b64 it
+                    $retArray[$instNumber][$attribNumber]['value'] = base64_encode($oneAttrib['value']);
+                }
+                if ($attribNumber == "PROFILES") {
+                    // scan for included fed:logo_file and b64 escape it, t2oo
+                    foreach ($oneAttrib as $profileNumber => $profileContent) {
+                        foreach ($profileContent as $oneProfileIterator => $oneProfileContent) {
+                                if ($oneProfileContent['name'] == "fed:logo_file" || $oneProfileContent['name'] == "general:logo_file" || $oneProfileContent['name'] == "eap:ca_file") {
+                                        $retArray[$instNumber]["PROFILES"][$profileNumber][$oneProfileIterator]['value'] = base64_encode($oneProfileContent['value']);
+                                }
+                        }
+                    }
+                }
+            }
+        }
+        $this->returnSuccess($retArray);
+    }
+    
+    public function actionStatisticsFed() {
+        $detail = $this->firstParameterInstance(API::AUXATTRIB_DETAIL);
+        $this->returnSuccess($this->fed->downloadStats("array", $detail));
+    }
+    
+    public function actionAdminDel() {
+        $idp = $this->getIdpFromParams();
+        $currentAdmins = $idp->listOwners();
+        $toBeDeleted = $this->firstParameterInstance(API::AUXATTRIB_ADMINID);
+        if ($toBeDeleted === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        }
+        $found = FALSE;
+        foreach ($currentAdmins as $oneAdmin) {
+            if ($oneAdmin['MAIL'] == $toBeDeleted) {
+                $found = TRUE;
+                $mgmt = new \core\UserManagement();
+                $mgmt->removeAdminFromIdP($idp, $oneAdmin['ID']);
+            }
+        }
+        if ($found) {
+            $this->returnSuccess([]);
+            return;
+        }
+        $this->returnError(API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
+    }
+    
     private function getIdpFromParams() {
         try {
-            $idp = $this->validator->existingIdP($this->firstParameterInstance1($this::AUXATTRIB_CAT_INST_ID), NULL, $this->fed);
+            $idp = $this->validator->existingIdP($this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID), NULL, $this->fed);
         } catch (Exception $e) {
-            $this->returnError($this::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }   
         return $idp;
