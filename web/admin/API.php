@@ -230,6 +230,7 @@ switch ($inputDecoded['ACTION']) {
         }
         if ($found) {
             $adminApi->returnSuccess([]);
+            break;
         }
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
         break;
