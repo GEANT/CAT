@@ -152,7 +152,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
             
         } 
-        
+       
         $certStatus = $theProfile->certificateStatus();
         switch ($certStatus) {
             case core\AbstractProfile::CERT_STATUS_OK:
@@ -176,6 +176,15 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         $has_eaptypes = count($theProfile->getEapMethodsInOrderOfPreference(1));
         $hasRealmArray = $theProfile->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
+        $orStateIcon = '';
+        $openRoamingReady = $theProfile->getOpenRoamingReadinessInfo();
+        \core\common\Logging::debug_s(3, $openRoamingReady, "Profile OR :".$theProfile->identifier.":","\n");
+        if ($openRoamingReady !== \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO) {
+            $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$openRoamingReady]);
+            $orStateIcon = $uiElements->catIcon(($iconData));
+        } else {
+            $orStateIcon = '';
+        }
 
         // our own base location, to give to diag URLs
         if (isset($_SERVER['HTTPS'])) {
@@ -186,6 +195,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         $link .= $_SERVER['SERVER_NAME'];
         ?>
         <div class='profilemodulebuttons' style='float:right;'>
+            <input type='hidden' name='profileid' value="<?php echo $theProfile->identifier?>">
             <?php
             if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
                 if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == "LOCAL") {
@@ -196,7 +206,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                 ?>
                 <form action='<?php echo $diagUrl . "action_realmcheck.php?inst_id=" . $theProfile->institution . "&profile_id=" . $theProfile->identifier ?>' method='post' accept-charset='UTF-8'>
                     <input type='hidden' name='comefrom' value='<?php echo htmlspecialchars($link . $_SERVER['SCRIPT_NAME']); ?>'/>
-                    <button type='submit' name='profile_action' value='check' <?php echo ($has_realm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
+                    <button type='submit' name='profile_action' style='vertical-align: middle; height: 25px' value='check' <?php echo ($has_realm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
                         <?php echo _("Check realm reachability"); ?>
                     </button>
                 </form>
@@ -204,10 +214,13 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             }
             ?>
             <form action='overview_installers.php?inst_id=<?php echo $theProfile->institution; ?>&amp;profile_id=<?php echo $theProfile->identifier; ?>' method='post' accept-charset='UTF-8'>
-                <button type='submit' name='profile_action' value='check' <?php echo ($has_eaptypes ? "" : "disabled='disabled'"); ?> title='<?php echo _("You have not fully configured any supported EAP types!"); ?>'>
+                <button type='submit' name='profile_action' style='vertical-align: middle; height: 25px' value='check' <?php echo ($has_eaptypes ? "" : "disabled='disabled'"); ?> title='<?php echo _("You have not fully configured any supported EAP types!"); ?>'>
                     <?php echo _("Installer Fine-Tuning and Download"); ?>
                 </button>
             </form>
+            <?php if ($openRoamingReady !== \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO) { ?>
+            <button type='submit' id='or_test' style='vertical-align: middle; height: 25px'><?php echo $orStateIcon.'&nbsp;&nbsp;'._("Verify OpenRoaming settings") ?></button>
+            <?php } ?>
         </div>
         <div class='buttongroupprofilebox' style='clear:both; display: flex;'>
             <?php 
@@ -295,6 +308,7 @@ echo $mapCode->htmlHeadCode();
 <script src="js/popup_redirect.js"></script>
 <script src="../external/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="css/wizard.css.php" />
 <style>
     #yourBtn {
   width: 150px;
@@ -307,11 +321,29 @@ echo $mapCode->htmlHeadCode();
   text-align: center;
   background-color: yellow;
 }
+
 </style>
 <script src="../external/jquery/DataTables/datatables.js"></script>
 <link type="text/css"  rel="stylesheet" href="../external/jquery/DataTables/datatables.css"  media="all" />
 <script>
-$(document).ready(function() {    
+$(document).ready(function() {
+    var orIcons = [];
+    var curr_icon;
+
+<?php
+$or = [
+    'OVERALL_OPENROAMING_LEVEL_GOOD',
+    'OVERALL_OPENROAMING_LEVEL_NOTE',
+    'OVERALL_OPENROAMING_LEVEL_WARN',
+    'OVERALL_OPENROAMING_LEVEL_ERROR'
+];
+
+foreach ($or as $optIndex) {
+    $iconData = $uiElements->iconData($optIndex);
+    echo "orIcons['$optIndex']='".$iconData['img']."';\n";
+}
+?>
+    
     $("img.cat-icon").tooltip();
     $("table.downloads").DataTable({
           "dom": 't',
@@ -321,6 +353,34 @@ $(document).ready(function() {
         { orderSequence: ['desc', 'asc'], targets: [1] },
         { orderSequence: ['desc', 'asc'], targets: [2] }
         ]
+    });
+    
+    $("#or_test").on("click", function() {
+        var instid = $("#instid").val();
+        curr_icon = $(this).children("img:first-child");
+        var profileid = $(this).siblings("input[name='profileid']").val();
+        $.ajax({
+            url: "../diag/openroaming_test.php",
+            method: "GET",
+            dataType: "json",
+            data: {
+                inst_id: instid,
+                profile_id: profileid
+            },
+            statusCode: {
+                200: function(data) {
+                    curr_icon.attr('src', '../resources/images/icons/'+orIcons[data.state]);
+                    $("#info_content").html(data.html);
+                    $("div.profilebox").css('opacity', "0.5");
+                    $("#info_overlay").show();
+                }
+            }
+        });
+    });
+    $("#wizard_menu_close").on("click", function() {
+        $("#info_content").html("");
+        $("div.profilebox").css('opacity', "1");
+        $("#info_overlay").hide();
     });
 });
 
@@ -339,9 +399,14 @@ $(document).ready(function() {
         $editLabel = _("Edit ...");
     }
     ?>
+    <div id="info_overlay">
+            <img id="wizard_menu_close" class="close_button" src="../resources/images/icons/button_cancel.png" ALT="Close"/>    
+        <div id="info_content"></div>
+    </div>
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureParticipant); ?></h1>
     <hr/>
     <div>
+        <input type='hidden' id='instid' value="<?php echo $my_inst->identifier; ?>">
         <h2 style='display: flex;'><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureParticipant); ?>&nbsp;
             <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo $editLabel; ?></button>

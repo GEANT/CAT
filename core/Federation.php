@@ -271,11 +271,16 @@ class Federation extends EntityWithDBProperties
         $this->idpListAll = [];
     }
     
-    public function newIdPFromAPI($type = null, $extId = null)
+    /**
+     * Creates a new IdP inside the federation - only for API use
+     * @param string $type
+     * @param string $extId
+     * @return integer identifier of the new IdP
+     * @throws Exception
+     */
+    public function newIdPFromAPI($type, $extId = null)
     {
-        if ($extId === null && $type === null) {
-            throw new Exception("At least one of IdP type and externanalId need to be known!");
-        }
+        $extDetails = [];
         if ($extId === null) {
             $q = "INSERT INTO institution (country, type) VALUES('$this->tld', '$type')";
         } else {
@@ -286,7 +291,7 @@ class Federation extends EntityWithDBProperties
                 $extDetails = array_pop($tlsInst);
             }
             $q = "INSERT INTO institution (country, type, external_db_id, external_db_syncstate) VALUES('$this->tld', '$type', '$extId', ".IdP::EXTERNAL_DB_SYNCSTATE_SYNCED.")";
-    }
+        }
         $this->databaseHandle->exec($q);
         $identifier = $this->databaseHandle->lastID();
         $extDetails['new_idp'] = $identifier ;
@@ -307,6 +312,9 @@ class Federation extends EntityWithDBProperties
      */
     public function newIdP($model, $type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL)
     {
+        if ($model !== 'SELF' && $model !== 'TOKEN') {
+            throw new Exception("Unnoperted model used!");
+        }
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 

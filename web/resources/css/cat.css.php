@@ -180,6 +180,11 @@ div.profilemodulebuttons {
     text-align: <?php echo $end;?>;
 }
 
+div.profilemodulebuttons button img {
+    vertical-align: middle;
+    height: 20px;
+}
+
 div.profilebox {
     background: #f0f0f0;
     display: block;
