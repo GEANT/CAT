@@ -76,6 +76,7 @@ if ($checkval == "FAIL") {
 
 // let's instantiate the fed, we will need it later
 $fed = new \core\Federation($federation);
+$adminApi->fed = $fed;
 // it's a valid admin; what does he want to do?
 if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
     $adminApi->returnError(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
@@ -103,82 +104,20 @@ foreach ($scrubbedParameters as $oneParam) {
 }
 
 switch ($inputDecoded['ACTION']) {
-    case web\lib\admin\API::ACTION_NEWINST:
-        // create the inst, no admin, no attributes
-        $typeRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE);
-        if ($typeRaw === FALSE) {
-            throw new Exception("We did not receive a valid participant type!");
-        }
-        $type = $validator->partType($typeRaw);
-        $idp = new \core\IdP($fed->newIdP('TOKEN', $type, "PENDING", "API"));
-        // now add all submitted attributes
-        $inputs = $adminApi->uglify($scrubbedParameters);
-        $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
+    case web\lib\admin\API::ACTION_NEWINST: // create the inst, no admin
+        $adminApi->actionNewinst();
         break;
     case web\lib\admin\API::ACTION_NEWINST_BY_REF:
-        $typeRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE);
-        if ($typeRaw === FALSE) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "We did not receive a valid participant type!");
-            exit(1);
-        }
-        $type = $validator->partType($typeRaw);
-        $ROid = strtoupper($fed->tld).'01';
-        $extId = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_EXTERNALID);
-        if ($validator->existingExtInstitution($extId, 'API', $ROid) === 0) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
-            exit(1);
-        }
-        if (\core\Federation::isExternalInstInCAT($extId, $fed->tld)) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This external identifier is already used in your federation!");
-            exit(1);
-        }        
-        $details = $fed->newIdPFromAPI($type, $extId);
-        $idp = new \core\IdP($details['new_idp']);
-        $out = [];
-        foreach ($details['names'] as $lang=>$name) {
-            $out[] = ["LANG"=>$lang, "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
-            if ($lang === 'en') {
-            $out[] = ["LANG"=>"C", "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];                
-            }
-        }
-        if (isset($details['contacts'][0])) {
-            foreach ($details['contacts'][0] as $contactType => $contactValue) {
-                switch ($contactType) {
-                    case 'name':
-                        break;
-                    case 'mail':
-                        $contactType = 'email';
-                    default:
-                        $out[] = ["LANG"=>"C", "NAME"=>"support:$contactType", "VALUE"=>$contactValue, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
-                        break;
-                }
-            }
-        }
-        $inputs = $adminApi->uglify(array_merge($scrubbedParameters, $out));
-        $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);      
+        $adminApi->actionNewinstByRef();
         break;
     case web\lib\admin\API::ACTION_DELINST:
-        try {
-            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID), NULL, $fed);
-        } catch (Exception $e) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
-            exit(1);
-        }
-        $idp->destroy();
-        $adminApi->returnSuccess([]);
+        $adminApi->actionDelinst();
         break;
     case web\lib\admin\API::ACTION_ADMIN_LIST:
-        try {
-            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID), NULL, $fed);
-        } catch (Exception $e) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
-            exit(1);
-        }
-        $adminApi->returnSuccess($idp->listOwners());
+        $adminApi->actionAdminList();
         break;
     case web\lib\admin\API::ACTION_ADMIN_ADD:
+        $adminApi->actionAdminAdd();
         // IdP in question
         try {
             $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID), NULL, $fed);

@@ -489,12 +489,14 @@ class API {
      * @var \web\lib\common\InputValidation
      */
     private $validator;
+    private $optionParser;
 
     /**
      * construct the API class
      */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
+        $this->optionParser = new \web\lib\admin\OptionParser();
         $this->loggerInstance = new \core\common\Logging();
     }
 
@@ -588,6 +590,7 @@ class API {
             }
             $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>true, 'VERIFY_DESC'=>""]);
         }
+        $this->scrubbedParameters = $parameters;
         return $parameters;
     }
 
@@ -607,6 +610,22 @@ class API {
         return FALSE;
     }
 
+
+    /**
+     * extracts the first occurrence of a given parameter name from the set of inputs
+     * 
+     * @param array  $inputs   incoming set of arrays
+     * @param string $expected attribute that is to be extracted
+     * @return mixed the value, or FALSE if none was found
+     */
+    public function firstParameterInstance1($expected) {
+        foreach ($this->scrubbedParameters as $attrib) {
+            if ($attrib['NAME'] === $expected) {
+                return $attrib['VALUE'];
+            }
+        }
+        return FALSE;
+    }    
     /**
      * we are coercing the submitted JSON-style parameters into the same format
      * we use for the HTML POST user-interactively.
@@ -698,10 +717,9 @@ class API {
      * @return boolean|array
      */
     public function commonSbProfileChecks($fed, $id) {
-        $validator = new \web\lib\common\InputValidation();
         $adminApi = new \web\lib\admin\API();
         try {
-            $profile = $validator->existingProfile($id);
+            $profile = $this->validator->existingProfile($id);
         } catch (Exception $e) {
             $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
             return FALSE;
@@ -722,6 +740,115 @@ class API {
         return [$idp, $profile];
     }
     
+    
+    
+    public function actionNewinstByRef() {
+        $typeRaw = $this->firstParameterInstance1($this::AUXATTRIB_INSTTYPE);
+        if ($typeRaw === FALSE) {
+            $this->returnError($this::ERROR_INVALID_PARAMETER, "We did not receive a valid participant type!");
+            exit(1);
+        }
+        $type = $this->validator->partType($typeRaw);
+        $ROid = strtoupper($this->fed->tld).'01';
+        $extId = $this->firstParameterInstance1($this::AUXATTRIB_EXTERNALID);
+        \core\common\Logging::debug_s(3,$extId, "EXTID\n", "\n");
+        if ($this->validator->existingExtInstitution($extId, 'API', $ROid) === 0) {
+            $this->returnError($this::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
+            exit(1);
+        }
+        if (\core\Federation::isExternalInstInCAT($extId, $this->fed->tld)) {
+            $this->returnError($this::ERROR_INVALID_PARAMETER, "This external identifier is already used in your federation!");
+            exit(1);
+        }        
+        $details = $this->fed->newIdPFromAPI($type, $extId);
+        $idp = new \core\IdP($details['new_idp']);
+        $out = [];
+        foreach ($details['names'] as $lang=>$name) {
+            $out[] = ["LANG"=>$lang, "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
+            if ($lang === 'en') {
+            $out[] = ["LANG"=>"C", "NAME"=>"general:instname", "VALUE"=>$name, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];                
+            }
+        }
+        if (isset($details['contacts'][0])) {
+            foreach ($details['contacts'][0] as $contactType => $contactValue) {
+                switch ($contactType) {
+                    case 'name':
+                        break;
+                    case 'mail':
+                        $contactType = 'email';
+                    default:
+                        $out[] = ["LANG"=>"C", "NAME"=>"support:$contactType", "VALUE"=>$contactValue, "VERIFY_RESULT"=>true, "VERIFY_DESC"=>""];
+                        break;
+                }
+            }
+        }
+        $inputs = $this->uglify(array_merge($this->scrubbedParameters, $out));
+        $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
+        $this->returnSuccess([$this::AUXATTRIB_CAT_INST_ID => $idp->identifier]);  
+    }
+    
+    public function actionNewinst() {
+//        $typeRaw = $this->firstParameterInstance($this->scrubbedParameters, $this::AUXATTRIB_INSTTYPE);
+        $typeRaw = $this->firstParameterInstance1($this::AUXATTRIB_INSTTYPE);
+        if ($typeRaw === FALSE) {
+            throw new Exception("We did not receive a valid participant type!");
+        }
+        $type = $this->validator->partType($typeRaw);
+        $idp = new \core\IdP($this->fed->newIdP('TOKEN', $type, "PENDING", "API"));
+        // now add all submitted attributes
+        $inputs = $this->uglify($this->scrubbedParameters);
+        $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
+        $this->returnSuccess([$this::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
+    }
+    
+    public function actionAdminList() {
+        $idp = $this->getIdpFromParams();
+        $this->returnSuccess($idp->listOwners());
+    }
+    
+    public function actionDelinst() {
+        $idp = $this->getIdpFromParams();
+        $idp->destroy();
+        $this->returnSuccess([]);
+    }
+    
+    public function actionAdminAdd() {
+        $idp = $this->getIdpFromParams();
+        // here is the token
+        $mgmt = new \core\UserManagement();
+        // we know we have an admin ID but scrutinizer wants this checked more explicitly
+        $admin = $this->firstParameterInstance1($this::AUXATTRIB_ADMINID);
+        if ($admin === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        }
+        $newtokens = $mgmt->createTokens("FED", [$admin], $idp);
+        $URL = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME'])."/action_enrollment.php?token=".array_keys($newtokens)[0];
+        $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
+        // done with the essentials - display in response. But if we also have an email address, send it there
+        $email = $this->firstParameterInstance1($this::AUXATTRIB_TARGETMAIL);
+        if ($email !== FALSE) {
+            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $this->fed, $idp->type);
+            $success["EMAIL SENT"] = $sent["SENT"];
+            if ($sent["SENT"] === TRUE) {
+                $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];
+            }
+        }
+        $this->returnSuccess($success);
+    }
+    
+    private function getIdpFromParams() {
+        try {
+            $idp = $this->validator->existingIdP($this->firstParameterInstance1($this::AUXATTRIB_CAT_INST_ID), NULL, $this->fed);
+        } catch (Exception $e) {
+            $this->returnError($this::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
+        }   
+        return $idp;
+    }
+    
+    
     public $loggerInstance;
+    public $scrubbedParameters = [];
+    public $fed;
 
 }
