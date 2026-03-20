@@ -1091,24 +1091,75 @@ class API {
         
     public function actionStatisticsInst() {
         $retArray = [];
-        $idpIdentifier = $this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID);
-        if ($idpIdentifier === FALSE) {
-            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
-        } else {
-            try {
-                $thisIdP = $validator->existingIdP($idpIdentifier, NULL, $fed);
-            } catch (Exception $e) {
-                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
-                exit(1);
+        $idp = $this->getIdpFromParams();
+        $retArray[$idp->identifier] = [];
+        foreach ($idp->listProfiles() as $oneProfile) {
+            $retArray[$idp->identifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+        }
+        $this->returnSuccess($retArray);
+    }
+    
+    public function actionNewProfRadius() {
+        $idp = $this->getIdpFromParams();
+        $profile = $idp->newProfile("RADIUS");
+        if ($profile === NULL) {
+            $this->returnError(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+            exit(1);
+        }
+        $inputs = $this->uglify($this->scrubbedParameters);
+        $this->optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
+        $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
+        $outer = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_OUTERVALUE);
+        if ($realm !== FALSE) {
+            if ($outer === FALSE) {
+                $outer = "";
+                $profile->setAnonymousIDSupport(FALSE);
+            } else {
+                $outer = $outer."@";
+                $profile->setAnonymousIDSupport(TRUE);
             }
-            $retArray[$idpIdentifier] = [];
-            foreach ($thisIdP->listProfiles() as $oneProfile) {
-                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+            $profile->setRealm($outer.$realm);
+        }
+        /* const AUXATTRIB_PROFILE_TESTUSER = 'ATTRIB-PROFILE-TESTUSER'; */
+        $testuser = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_TESTUSER);
+        if ($testuser !== FALSE) {
+            $profile->setRealmCheckUser(TRUE, $testuser);
+        }
+        /* const AUXATTRIB_PROFILE_INPUT_HINT = 'ATTRIB-PROFILE-HINTREALM';
+          const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM'; */
+        $hint = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_INPUT_HINT);
+        $enforce = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_INPUT_VERIFY);
+        if ($enforce !== FALSE) {
+            $profile->setInputVerificationPreference($enforce, $hint);
+        }
+        /* const AUXATTRIB_PROFILE_EAPTYPE */
+        $iterator = 1;
+        foreach ($this->scrubbedParameters as $oneParam) {
+            if ($oneParam['NAME'] == API::AUXATTRIB_PROFILE_EAPTYPE && is_int($oneParam["VALUE"])) {
+                $type = new \core\common\EAP($oneParam["VALUE"]);
+                $profile->addSupportedEapMethod($type, $iterator);
+                $iterator = $iterator + 1;
             }
         }
-        $adminApi->returnSuccess($retArray);
+        // reinstantiate $profile freshly from DB - it was updated in the process
+        $profileFresh = new \core\ProfileRADIUS($profile->identifier);
+        $profileFresh->prepShowtime();
+        $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
     }
+    
 
+    public function actionNewProfSb() {
+        $idp = $this->getIdpFromParams();
+        $profile = $idp->newProfile("SILVERBULLET");
+        $inputs = $this->uglify($this->scrubbedParameters);
+        $this->optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
+        // auto-accept ToU?
+        if ($this->firstParameterInstance(API::AUXATTRIB_SB_TOU) !== FALSE) {
+            $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
+        }
+        // we're done at this point
+        $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
+    }
     
     private function getIdpFromParams() {
         try {
