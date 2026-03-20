@@ -27,8 +27,6 @@
 
 require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
-
-
 // no SAML auth on this page. The API key authenticates the entity
 
 $mode = "API";
@@ -195,9 +193,9 @@ switch ($inputDecoded['ACTION']) {
         $profileFresh->prepShowtime();
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
-    case web\lib\admin\API::ACTION_ENDUSER_NEW:
+    case web\lib\admin\API::ACTION_ENDUSER_NEW: // SB
     // fall-through intentional, those two actions are doing nearly identical things
-    case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
+    case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY: // SB
         $prof_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);
@@ -239,9 +237,9 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user, \web\lib\admin\API::AUXATTRIB_SB_USERID => $retval]);
         break;
-    case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
+    case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE: // SB
     // fall-through intended: both actions are very similar
-    case \web\lib\admin\API::ACTION_TOKEN_NEW:
+    case \web\lib\admin\API::ACTION_TOKEN_NEW: // SB
         $profile_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($profile_id === FALSE) {
             exit(1);
@@ -298,7 +296,7 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnSuccess($additionalInfo);
         break;
-    case \web\lib\admin\API::ACTION_ENDUSER_IDENTIFY:
+    case \web\lib\admin\API::ACTION_ENDUSER_IDENTIFY: // SB
         $profile_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($profile_id === FALSE) {
             exit(1);
@@ -346,9 +344,9 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "No matching user found in this profile.");
         break;
-    case \web\lib\admin\API::ACTION_ENDUSER_LIST:
+    case \web\lib\admin\API::ACTION_ENDUSER_LIST: // SB
     // fall-through: those two are similar
-    case \web\lib\admin\API::ACTION_TOKEN_LIST:
+    case \web\lib\admin\API::ACTION_TOKEN_LIST: // SB
         $profile_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($profile_id === FALSE) {
             exit(1);
@@ -381,7 +379,7 @@ switch ($inputDecoded['ACTION']) {
                 $adminApi->returnSuccess($infoSet);
         }
         break;
-    case \web\lib\admin\API::ACTION_TOKEN_REVOKE:
+    case \web\lib\admin\API::ACTION_TOKEN_REVOKE: // SB
         $tokenRaw = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TOKEN);
         if ($tokenRaw === FALSE) {
             exit(1);
@@ -394,7 +392,7 @@ switch ($inputDecoded['ACTION']) {
         $token->revokeInvitation();
         $adminApi->returnSuccess([]);
         break;
-    case \web\lib\admin\API::ACTION_CERT_LIST:
+    case \web\lib\admin\API::ACTION_CERT_LIST: // SB
         $prof_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         $user_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
         if ($prof_id === FALSE || !is_int($user_id)) {
@@ -418,7 +416,7 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnSuccess($certDetails);
         break;
-    case \web\lib\admin\API::ACTION_CERT_REVOKE:
+    case \web\lib\admin\API::ACTION_CERT_REVOKE: // SB
         $prof_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);
@@ -444,7 +442,7 @@ switch ($inputDecoded['ACTION']) {
         $cert->revokeCertificate();
         $adminApi->returnSuccess([]);
         break;
-    case \web\lib\admin\API::ACTION_CERT_ANNOTATE:
+    case \web\lib\admin\API::ACTION_CERT_ANNOTATE: // SB
         $prof_id = $adminApi->firstParameterInstanceOld($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);

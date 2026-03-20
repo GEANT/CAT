@@ -253,9 +253,9 @@ class API {
     /**
      * This section defines allowed flags for actions
      */
-    const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listing
+    const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listings
     
-    const DIAG_SCOPES = ["ALL", "LIVE-TEST", "UDP", "DYNAMIC"];
+    const DIAG_SCOPES = ["ALL", "LIVE-TEST", "INFRASTRUCTURE", "DYNAMIC"];
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
      * 
@@ -283,7 +283,7 @@ class API {
             "FLAG" => [],
             "RETVAL" => [
                 API::AUXATTRIB_CAT_INST_ID, // New inst ID.
-            ],  
+            ],
         ],
         API::ACTION_NEWINST => [
             "REQ" => [API::AUXATTRIB_INSTTYPE,], // "IdP", "SP" or "IdPSP"
@@ -595,7 +595,7 @@ class API {
         $this->scrubbedParameters = $parameters;
         return $parameters;
     }
-
+    
     /**
      * extracts the first occurrence of a given parameter name from the set of inputs
      * 
@@ -916,7 +916,6 @@ class API {
         $retArray = [];
         $token = bin2hex(openssl_random_pseudo_bytes(20));
         $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
-        $idpIdentifier = $this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID);
         $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
         $scope = $this->firstParameterInstance(API::AUXATTRIB_DIAG_SCOPE);
         print "\n$scope\n";
@@ -1073,6 +1072,28 @@ class API {
         $this->returnSuccess($retArray);
         
     }
+        
+    public function actionStatisticsInst() {
+        $retArray = [];
+        $idpIdentifier = $this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID);
+        if ($idpIdentifier === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        } else {
+            try {
+                $thisIdP = $validator->existingIdP($idpIdentifier, NULL, $fed);
+            } catch (Exception $e) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+                exit(1);
+            }
+            $retArray[$idpIdentifier] = [];
+            foreach ($thisIdP->listProfiles() as $oneProfile) {
+                $retArray[$idpIdentifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
+            }
+        }
+        $adminApi->returnSuccess($retArray);
+    }
+
+    
     private function getIdpFromParams() {
         try {
             $idp = $this->validator->existingIdP($this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID), NULL, $this->fed);
@@ -1082,7 +1103,7 @@ class API {
         }   
         return $idp;
     }
-    
+
     private function diag_call($payload, $url) {
         $params = http_build_query($payload);
         $ch = curl_init("$url?$params");
@@ -1090,6 +1111,7 @@ class API {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
     }
+    
     
     public $loggerInstance;
     public $scrubbedParameters = [];
