@@ -255,7 +255,12 @@ class API {
      */
     const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listings
     
-    const DIAG_SCOPES = ["ALL", "LIVE-TEST", "INFRASTRUCTURE", "DYNAMIC"];
+    const DIAG_ALL = "ALL";
+    const DIAG_LIVE_LOGIN = "LIVE-LOGIN";
+    const DIAG_INFRASTRUCTURE = "INFRASTRUCTURE";
+    const DIAG_DYNAMIC = "DYNAMIC";
+    
+    const DIAG_SCOPES = [API::DIAG_ALL, API::DIAG_LIVE_LOGIN, API::DIAG_INFRASTRUCTURE, API::DIAG_DYNAMIC];
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
      * 
@@ -572,6 +577,11 @@ class API {
                             continue 2;
                         }
                         break;
+                    case API::AUXATTRIB_DIAG_SCOPE:
+                        if (!in_array($oneIncomingParam['VALUE'], API::DIAG_SCOPES)) {
+                            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"Invalid scope value"]);
+                            continue 2;
+                        }
                     default:
                         break;
                 }   
@@ -918,9 +928,8 @@ class API {
         $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
         $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
         $scope = $this->firstParameterInstance(API::AUXATTRIB_DIAG_SCOPE);
-        print "\n$scope\n";
         if ($realm === FALSE && $profile_id === FALSE) {
-            exit(1);
+            $this->returnError(self::ERROR_INVALID_PARAMETER, "A profile identifier or a realm has to be provided!");
         }
         if ($scope === FALSE) {
             $scope = API::DIAG_SCOPES[0];
@@ -930,14 +939,12 @@ class API {
             }
         }
         $live_tests = FALSE;
-        print "\n$scope\n";
-        if ($scope === 'ALL' || $scope === 'LIVE-TEST') {
+        if ($scope === API::DIAG_ALL || $scope === API::DIAG_LIVE_LOGIN) {
             $login_user = $this->firstParameterInstance(API::AUXATTRIB_DIAG_USERNAME);
             $login_pass = $this->firstParameterInstance(API::AUXATTRIB_DIAG_PASSWD);
             $login_outer = $this->firstParameterInstance(API::AUXATTRIB_DIAG_OUTERUSER);
             $live_tests = TRUE;
         }
-        if ($live_tests === TRUE) { echo "\nLive tests\n";} 
         $jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
         if (isset($_SERVER['HTTPS'])) {
             $catlink = 'https://';
@@ -979,43 +986,51 @@ class API {
         if ($live_tests === TRUE && $login_user !== FALSE) {
             $retArray['live_login_tests'] = [];
         }
-        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
-            $radius = [];
-            $radius['name'] = $host['display_name'];
-            $radius["ip"] = $host['ip'];
-            $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
-            if ($profile_id !== FALSE) {
-                $payload['profile_id'] = $profile_id;
-            }
-            $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-            $filename = "$jsondir/$token/udp_$hostindex";
-            if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
-                $testdata = json_decode(file_get_contents($filename), TRUE);
-            }
-            $radius['returncode'] = $testdata['returncode'][0];
-            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                $radius['returncode'] = "OK (REJECT)";
-            }
-            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
-                $radius['returncode'] = "IMMEDIATE REJECT";
-            }
-            $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
-            $radius['message'] = $testdata['result'][0]['message'];
-            $radius['datetime'] = $testdata['datetime'];
-            $retArray['radius_hosts_tests'][] = $radius;
-            if ($live_tests === TRUE && $login_user !== FALSE) {
-                if ($login_outer === FALSE) {
-                    $login_outer = '';
+        if ($scope === API::DIAG_ALL || $scope === API::DIAG_INFRASTRUCTURE) {
+            foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+                $radius = [];
+                $radius['name'] = $host['display_name'];
+                $radius["ip"] = $host['ip'];
+                $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
+                if ($profile_id !== FALSE) {
+                    $payload['profile_id'] = $profile_id;
                 }
-                if ($login_pass === FALSE) {
-                   $login_pass = '';
+                $this->diag_call($payload, "$catlink/diag/radius_tests.php");
+                $filename = "$jsondir/$token/udp_$hostindex";
+                if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+                    $testdata = json_decode(file_get_contents($filename), TRUE);
                 }
+                $radius['returncode'] = $testdata['returncode'][0];
+                if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                    $radius['returncode'] = "OK (REJECT)";
+                }
+                if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+                    $radius['returncode'] = "IMMEDIATE REJECT";
+                }
+                $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
+                $radius['message'] = $testdata['result'][0]['message'];
+                $radius['datetime'] = $testdata['datetime'];
+                $retArray['radius_hosts_tests'][] = $radius;
+            }
+        }
+        if ($live_tests === TRUE && $login_user !== FALSE) {
+            if ($login_outer === FALSE) {
+                $login_outer = '';
+            }
+            if ($login_pass === FALSE) {
+               $login_pass = '';
+            }
+            foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
                 $live_login = [];
-                if (!isset($payload['profile_id'])) {
+                $payload = ['test_type' => 'udp_login', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
+                if ($profile_id !== FALSE) {
+                    $payload['profile_id'] = $profile_id;
+                }
+                if ($profile_id === FALSE) {
                     $live_login['message'] = _("Live login test requires ATTRIB-CAT-PROFILEID value");
                     $retArray['live_login_tests'][] = $live_login;
                 } else {
-                    $payload['test_type'] = 'udp_login';
+                    $payload['profile_id'] = $profile_id;
                     $payload['username'] = $login_user;
                     $payload['password'] = $login_pass;
                     $payload['outer_username'] = "$login_outer@$realm";
@@ -1043,34 +1058,35 @@ class API {
                 }
             }
         }
-        if (isset($data['naptr']) && $data['naptr'] > 0) {
-            $retArray['dynamic_connectivity_tests'] = [];
-        }
-        if (isset($data['totest']) && count($data['totest']) > 0) {
-            foreach ($data['totest'] as $i=>$totest) {
-                $dynamic = [];
-                $dynamic['host'] = $totest['host'];
-                $dynamic['name'] = $totest['name'];
-                $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $token, 'src' => $totest['host'], 
-                            'hostindex' => $i, 'expectedname' => $totest['name'], 'ssltest' => $totest['ssltest']];
-                $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                $payload['test_type'] = 'clients';
-                $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                $filename = "$jsondir/$token/capath_$i";
-                if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
-                    $testdata = json_decode(file_get_contents($filename), TRUE);
-                    $dynamic['time_millisec'] = $testdata['time_millisec'];
-                    if ($testdata['result'] === 0) {
-		        $dynamic['check_ca'] = 'PASSED';
-                    } else {
-		        $dynamic['check_ca'] = 'FAILED';
+        if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
+            if (isset($data['naptr']) && $data['naptr'] > 0) {
+                $retArray['dynamic_connectivity_tests'] = [];
+            }
+            if (isset($data['totest']) && count($data['totest']) > 0) {
+                foreach ($data['totest'] as $i=>$totest) {
+                    $dynamic = [];
+                    $dynamic['host'] = $totest['host'];
+                    $dynamic['name'] = $totest['name'];
+                    $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $token, 'src' => $totest['host'], 
+                                'hostindex' => $i, 'expectedname' => $totest['name'], 'ssltest' => $totest['ssltest']];
+                    $this->diag_call($payload, "$catlink/diag/radius_tests.php");
+                    $payload['test_type'] = 'clients';
+                    $this->diag_call($payload, "$catlink/diag/radius_tests.php");
+                    $filename = "$jsondir/$token/capath_$i";
+                    if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+                        $testdata = json_decode(file_get_contents($filename), TRUE);
+                        $dynamic['time_millisec'] = $testdata['time_millisec'];
+                        if ($testdata['result'] === 0) {
+                            $dynamic['check_ca'] = 'PASSED';
+                        } else {
+                            $dynamic['check_ca'] = 'FAILED';
+                        }
                     }
+                    $retArray['dynamic_connectivity_tests'][] = $dynamic;
                 }
-                $retArray['dynamic_connectivity_tests'][] = $dynamic;
             }
         }
         $this->returnSuccess($retArray);
-        
     }
         
     public function actionStatisticsInst() {
