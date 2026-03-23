@@ -990,15 +990,15 @@ class API {
             $retArray['live_login_tests'] = [];
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_INFRASTRUCTURE) {
-            $retArray = array_merge($retArray, $this->infrastructure_test($profile_id, $realm));
+            $retArray = array_merge($retArray, $this->infrastructureTest($profile_id, $realm));
         }
         if ($live_tests === TRUE && $login_user !== FALSE) {
-            $retArray = array_merge($retArray, $this->live_login_test($profile_id, $realm, $login_outer, $login_user, $login_pass));
+            $retArray = array_merge($retArray, $this->liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass));
             
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
             if (isset($data['naptr']) && $data['naptr'] > 0 && isset($data['totest']) && count($data['totest']) > 0) {
-                $retArray = array_merge($retArray, $this->dynamic_test($realm, $data['totest']));
+                $retArray = array_merge($retArray, $this->dynamicTest($realm, $data['totest']));
             }
         }
         $this->returnSuccess($retArray);
@@ -1094,7 +1094,7 @@ class API {
         curl_exec($ch);
     }
     
-    private function infrastructure_test($profile_id, $realm) {
+    private function infrastructureTest($profile_id, $realm) {
         $infrastructure_test = [];
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
             $radius = [];
@@ -1124,7 +1124,7 @@ class API {
         return $infrastructure_test;
     }
     
-    private function live_login_test($profile_id, $realm, $login_outer, $login_user, $login_pass) {
+    private function liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass) {
         $live_test = [];
         if ($login_outer === FALSE) {
             $login_outer = '';
@@ -1165,15 +1165,15 @@ class API {
                     $live_login['time_millisec'] = $testdata["result"][0]["time_millisec"];
                     $live_login['message'] = $testdata["result"][0]["message"];
                     $live_login['eap_type'] = $testdata["result"][0]["eap"];
-                    $live_test['live_login_tests'][] = $live_login;
+                    $live_test[] = $live_login;
                 }
             }
         }
-        return $live_test;
+        return ['live_login_tests' => $live_test];
     }
     
-    private function dynamic_test($realm, $totest) {
-        $dynamic_test_res['dynamic_connectivity_tests'] = [];
+    private function dynamicTest($realm, $totest) {
+        $dynamic_test_res =  [];
         if (isset($totest) && count($totest) > 0) {
             foreach ($totest as $i=>$host) {
                 $dynamic = [];
@@ -1194,10 +1194,10 @@ class API {
                         $dynamic['check_ca'] = 'FAILED';
                     }
                 }
-                $dynamic_test_res['dynamic_connectivity_tests'][] = $dynamic;
+                $dynamic_test_res[] = $dynamic;
             }
         }
-        return $dynamic_test_res;
+        return ['dynamic_connectivity_tests' => $dynamic_test_res];
     }
         
     public $loggerInstance;
