@@ -499,6 +499,9 @@ class API {
     private $validator;
     private $optionParser;
 
+    private $jsondir;
+    private $catlink;
+    private $token;
     /**
      * construct the API class
      */
@@ -924,7 +927,7 @@ class API {
     
     public function actionDiagTest() {
         $retArray = [];
-        $token = bin2hex(openssl_random_pseudo_bytes(20));
+        $this->token = bin2hex(openssl_random_pseudo_bytes(20));
         $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
         $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
         $scope = $this->firstParameterInstance(API::AUXATTRIB_DIAG_SCOPE);
@@ -945,13 +948,13 @@ class API {
             $login_outer = $this->firstParameterInstance(API::AUXATTRIB_DIAG_OUTERUSER);
             $live_tests = TRUE;
         }
-        $jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
+        $this->jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
         if (isset($_SERVER['HTTPS'])) {
-            $catlink = 'https://';
+            $this->catlink = 'https://';
         } else {
-            $catlink = 'http://';
+            $this->catlink = 'http://';
         }
-        $catlink .= $_SERVER['SERVER_NAME'];
+        $this->catlink .= $_SERVER['SERVER_NAME'];
         $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
         if (substr($relPath, -1) == '/') {
             $relPath = substr($relPath, 0, -1);
@@ -959,9 +962,9 @@ class API {
                 throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
             }
         }
-        $catlink .= $relPath;
+        $this->catlink .= $relPath;
         
-        $payload = ['token' => $token, 'addtest' => 1];
+        $payload = ['token' => $this->token, 'addtest' => 1];
         if ($profile_id !== FALSE) {
             $payload['profile_id'] = $profile_id;
         }
@@ -970,15 +973,15 @@ class API {
         } else {
             $realm = '';
         }
-        $this->diag_call($payload, "$catlink/diag/findRealm.php");
-        $filename = "$jsondir/$token/realm";
-        if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
+        $this->diag_call($payload, $this->catlink."/diag/findRealm.php");
+        $filename = $this->jsondir.'/'.$this->token.'/realm';
+        if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
             $data = json_decode(file_get_contents($filename), TRUE);
         }
         $retArray['realm'] = $data['realm'];
         $retArray['datetime'] = $data['datetime'];
         $retArray['outeruser'] = $data['outeruser'];
-        $retArray['resultinCAT'] = "$catlink/diag/show_realmcheck.php?norefresh=1&token=$token";
+        $retArray['resultinCAT'] = $this->catlink."/diag/show_realmcheck.php?norefresh=1&token=".$this->token;
         if ($realm === '' && $data['realm'] !== NULL) {
             $realm = $data['realm'];
         }
@@ -987,103 +990,15 @@ class API {
             $retArray['live_login_tests'] = [];
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_INFRASTRUCTURE) {
-            foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
-                $radius = [];
-                $radius['name'] = $host['display_name'];
-                $radius["ip"] = $host['ip'];
-                $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
-                if ($profile_id !== FALSE) {
-                    $payload['profile_id'] = $profile_id;
-                }
-                $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                $filename = "$jsondir/$token/udp_$hostindex";
-                if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
-                    $testdata = json_decode(file_get_contents($filename), TRUE);
-                }
-                $radius['returncode'] = $testdata['returncode'][0];
-                if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                    $radius['returncode'] = "OK (REJECT)";
-                }
-                if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
-                    $radius['returncode'] = "IMMEDIATE REJECT";
-                }
-                $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
-                $radius['message'] = $testdata['result'][0]['message'];
-                $radius['datetime'] = $testdata['datetime'];
-                $retArray['radius_hosts_tests'][] = $radius;
-            }
+            $retArray = array_merge($retArray, $this->infrastructure_test($profile_id, $realm));
         }
         if ($live_tests === TRUE && $login_user !== FALSE) {
-            if ($login_outer === FALSE) {
-                $login_outer = '';
-            }
-            if ($login_pass === FALSE) {
-               $login_pass = '';
-            }
-            foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
-                $live_login = [];
-                $payload = ['test_type' => 'udp_login', 'realm' => $realm, 'token' => $token, 'src' => $hostindex, 'hostindex' => $hostindex];
-                if ($profile_id !== FALSE) {
-                    $payload['profile_id'] = $profile_id;
-                }
-                if ($profile_id === FALSE) {
-                    $live_login['message'] = _("Live login test requires ATTRIB-CAT-PROFILEID value");
-                    $retArray['live_login_tests'][] = $live_login;
-                } else {
-                    $payload['profile_id'] = $profile_id;
-                    $payload['username'] = $login_user;
-                    $payload['password'] = $login_pass;
-                    $payload['outer_username'] = "$login_outer@$realm";
-                    $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                    $testdata = NULL;
-                    $filename = "$jsondir/$token/udp_login_$hostindex";
-                    if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
-                        $testdata = json_decode(file_get_contents($filename), TRUE);
-                    }
-                    if ($testdata !== NULL) {
-                        $live_login['name'] = $host['display_name'];
-                        $live_login['ip'] = $host["ip"];
-                        $live_login['returncode'] = $testdata['returncode'][0];
-                        if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                            $live_login['returncode'] = "REJECT";
-                        }
-                        if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_OK) {
-                            $live_login['returncode'] = "ACCEPT";
-                        }
-                        $live_login['time_millisec'] = $testdata["result"][0]["time_millisec"];
-                        $live_login['message'] = $testdata["result"][0]["message"];
-                        $live_login['eap_type'] = $testdata["result"][0]["eap"];
-                        $retArray['live_login_tests'][] = $live_login;
-                    }
-                }
-            }
+            $retArray = array_merge($retArray, $this->live_login_test($profile_id, $realm, $login_outer, $login_user, $login_pass));
+            
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
-            if (isset($data['naptr']) && $data['naptr'] > 0) {
-                $retArray['dynamic_connectivity_tests'] = [];
-            }
-            if (isset($data['totest']) && count($data['totest']) > 0) {
-                foreach ($data['totest'] as $i=>$totest) {
-                    $dynamic = [];
-                    $dynamic['host'] = $totest['host'];
-                    $dynamic['name'] = $totest['name'];
-                    $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $token, 'src' => $totest['host'], 
-                                'hostindex' => $i, 'expectedname' => $totest['name'], 'ssltest' => $totest['ssltest']];
-                    $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                    $payload['test_type'] = 'clients';
-                    $this->diag_call($payload, "$catlink/diag/radius_tests.php");
-                    $filename = "$jsondir/$token/capath_$i";
-                    if ($token && is_dir($jsondir.'/'.$token) && is_file($filename)) {  
-                        $testdata = json_decode(file_get_contents($filename), TRUE);
-                        $dynamic['time_millisec'] = $testdata['time_millisec'];
-                        if ($testdata['result'] === 0) {
-                            $dynamic['check_ca'] = 'PASSED';
-                        } else {
-                            $dynamic['check_ca'] = 'FAILED';
-                        }
-                    }
-                    $retArray['dynamic_connectivity_tests'][] = $dynamic;
-                }
+            if (isset($data['naptr']) && $data['naptr'] > 0 && isset($data['totest']) && count($data['totest']) > 0) {
+                $retArray = array_merge($retArray, $this->dynamic_test($realm, $data['totest']));
             }
         }
         $this->returnSuccess($retArray);
@@ -1179,7 +1094,112 @@ class API {
         curl_exec($ch);
     }
     
+    private function infrastructure_test($profile_id, $realm) {
+        $infrastructure_test = [];
+        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+            $radius = [];
+            $radius['name'] = $host['display_name'];
+            $radius["ip"] = $host['ip'];
+            $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex];
+            if ($profile_id !== FALSE) {
+                $payload['profile_id'] = $profile_id;
+            }
+            $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
+            $filename = $this->jsondir.'/'.$this->token."/udp_$hostindex";
+            if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
+                $testdata = json_decode(file_get_contents($filename), TRUE);
+            }
+            $radius['returncode'] = $testdata['returncode'][0];
+            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                $radius['returncode'] = "OK (REJECT)";
+            }
+            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+                $radius['returncode'] = "IMMEDIATE REJECT";
+            }
+            $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
+            $radius['message'] = $testdata['result'][0]['message'];
+            $radius['datetime'] = $testdata['datetime'];
+            $infrastructure_test['radius_hosts_tests'][] = $radius;
+        }
+        return $infrastructure_test;
+    }
     
+    private function live_login_test($profile_id, $realm, $login_outer, $login_user, $login_pass) {
+        $live_test = [];
+        if ($login_outer === FALSE) {
+            $login_outer = '';
+        }
+        if ($login_pass === FALSE) {
+            $login_pass = '';
+        }
+        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+            $payload = ['test_type' => 'udp_login', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex];
+            if ($profile_id !== FALSE) {
+                $payload['profile_id'] = $profile_id;
+            }
+            if ($profile_id === FALSE) {
+                $live_login = [];
+                $live_login['message'] = _("Live login test requires ATTRIB-CAT-PROFILEID value");
+                $live_test['live_login_tests'][] = $live_login;
+            } else {
+                $payload['profile_id'] = $profile_id;
+                $payload['username'] = $login_user;
+                $payload['password'] = $login_pass;
+                $payload['outer_username'] = "$login_outer@$realm";
+                $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
+                $testdata = NULL;
+                $filename = $this->jsondir.'/'.$this->token."/udp_login_$hostindex";
+                if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
+                    $testdata = json_decode(file_get_contents($filename), TRUE);
+                }
+                if ($testdata !== NULL) {
+                    $live_login['name'] = $host['display_name'];
+                    $live_login['ip'] = $host["ip"];
+                    $live_login['returncode'] = $testdata['returncode'][0];
+                    if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                        $live_login['returncode'] = "REJECT";
+                    }
+                    if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_OK) {
+                        $live_login['returncode'] = "ACCEPT";
+                    }
+                    $live_login['time_millisec'] = $testdata["result"][0]["time_millisec"];
+                    $live_login['message'] = $testdata["result"][0]["message"];
+                    $live_login['eap_type'] = $testdata["result"][0]["eap"];
+                    $live_test['live_login_tests'][] = $live_login;
+                }
+            }
+        }
+        return $live_test;
+    }
+    
+    private function dynamic_test($realm, $totest) {
+        $dynamic_test_res['dynamic_connectivity_tests'] = [];
+        if (isset($totest) && count($totest) > 0) {
+            foreach ($totest as $i=>$host) {
+                $dynamic = [];
+                $dynamic['host'] = $host['host'];
+                $dynamic['name'] = $host['name'];
+                $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $this->token, 'src' => $host['host'], 
+                            'hostindex' => $i, 'expectedname' => $host['name'], 'ssltest' => $host['ssltest']];
+                $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
+                $payload['test_type'] = 'clients';
+                $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
+                $filename = $this->jsondir.'/'.$this->token."/capath_$i";
+                if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
+                    $testdata = json_decode(file_get_contents($filename), TRUE);
+                    $dynamic['time_millisec'] = $testdata['time_millisec'];
+                    if ($testdata['result'] === 0) {
+                        $dynamic['check_ca'] = 'PASSED';
+                    } else {
+                        $dynamic['check_ca'] = 'FAILED';
+                    }
+                }
+                $dynamic_test_res['dynamic_connectivity_tests'][] = $dynamic;
+            }
+        }
+        return $dynamic_test_res;
+    }
+        
     public $loggerInstance;
     public $scrubbedParameters = [];
     public $fed;
