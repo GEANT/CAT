@@ -925,7 +925,9 @@ class API {
             $login_user = $this->firstParameterInstance(API::AUXATTRIB_DIAG_USERNAME);
             $login_pass = $this->firstParameterInstance(API::AUXATTRIB_DIAG_PASSWD);
             $login_outer = $this->firstParameterInstance(API::AUXATTRIB_DIAG_OUTERUSER);
-            $live_tests = TRUE;
+            if ($login_user !== FALSE) {
+                $live_tests = TRUE;
+            }
         }
         $this->jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
         if (isset($_SERVER['SERVER_NAME'])) {
@@ -1473,7 +1475,6 @@ class API {
                 if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
                     $testdata = json_decode(file_get_contents($filename), TRUE);
                 }
-                echo "\n$filename\n";
                 if ($testdata !== NULL) {
                     $live_login['name'] = $host['display_name'];
                     $live_login['ip'] = $host["ip"];
