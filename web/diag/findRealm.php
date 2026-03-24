@@ -132,6 +132,7 @@ if ($givenRealm != '') {
             $testsuite = new \core\diag\RADIUSTests($givenRealm, $outerUser . '@' . $givenRealm);
         }
         $naptr = $rfc7585suite->relevantNAPTR(); 
+        $hosts = 0;
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
             $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
             if ($naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {

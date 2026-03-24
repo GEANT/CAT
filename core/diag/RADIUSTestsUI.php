@@ -211,7 +211,7 @@ class RADIUSTestsUI extends AbstractTest
 
     public function isDynamic()
     {
-        if ($this->naptr > 0) {
+        if ($this->naptr > 0 && $this->hosts > 0) {
             return TRUE;
         }
         return FALSE;
@@ -289,13 +289,17 @@ class RADIUSTestsUI extends AbstractTest
 
             $out[] = "</table><br/>";
             $out[] = sprintf(_("Realm is <strong>%s</strong> "), _(($this->naptr > 0 ? "DYNAMIC" : "STATIC")));
-            if (count($this->testSuite->listerrors()) == 0) {
+            if (count($this->testSuite->listerrors()) == 0 && $this->hosts > 0) {
                 $out[] = _("with no DNS errors encountered. Congratulations!");
             } else {
                 $out[] = _("but there were DNS errors! Check them!")." "._("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
                 $out[] = "<div class='notacceptable'><table>";
-                foreach ($this->testSuite->listerrors() as $details) {
-                    $out[] = "<tr><td>".$details['TYPE']."</td><td>".$details['TARGET']."</td></tr>";
+                if (count($this->testSuite->listerrors()) > 0) {
+                    foreach ($this->testSuite->listerrors() as $details) {
+                        $out[] = "<tr><td>".$details['TYPE']."</td><td>".$details['TARGET']."</td></tr>";
+                    }
+                } else {
+                    $out[] = "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
                 }
                 $out[] = "</table></div>";
             }
@@ -438,7 +442,7 @@ class RADIUSTestsUI extends AbstractTest
                 }
                             
                 $certdesc .= '</ul>';
-                $more .= '<span class="morecontent"><span>'.$certdesc.$protocoldesc.
+                $more .= '<span class="morecontent"><span>'.$certdesc.
                         '</span>&nbsp;&nbsp;<a href="" class="morelink">'._("more").'&raquo;</a></span></td></tr>';
             } else {
                 $certdesc = '<br>';

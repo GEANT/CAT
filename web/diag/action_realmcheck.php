@@ -662,7 +662,8 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                                     echo _("This check was skipped.");
                                     break;
                                 case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                    printf(_("At least one NAPTR with invalid content found!"));
+                                    printf(_("At least one SRV with invalid content found!"));
+                                    $naptr_valid = \core\diag\RADIUSTests::RETVAL_INVALID;
                                     break;
                                 default: // print number of successfully retrieved SRV targets
                                     printf(_("%d host names discovered."), $srv);
@@ -670,39 +671,50 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                             echo "</td></tr>";
                         }
                         // IP addresses for the hosts
-                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
-                            $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
-                            echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
-                            switch ($srv) {
-                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
-                                    echo _("This check was skipped.");
-                                    break;
-                                case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                    printf(_("At least one hostname could not be resolved!"));
-                                    break;
-                                default: // print number of successfully retrieved SRV targets
-                                    printf(_("%d IP addresses resolved."), $hosts);
+                        $hosts = 0;
+                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK ) {
+                            if ($srv > 0) {
+                                $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
+                                echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
+                                switch ($srv) {
+                                    case \core\diag\RADIUSTests::RETVAL_SKIPPED:
+                                        echo _("This check was skipped.");
+                                        break;
+                                    case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                        printf(_("At least one hostname could not be resolved!"));
+                                        break;
+                                    default: // print number of successfully retrieved SRV targets
+                                        printf(_("%d IP addresses resolved."), $hosts);
+                                }
+                            } else {
+                                
                             }
                             echo "</td></tr>";
                         }
 
                         echo "</table><br/>";
                         if ($dynType == "") {
-                            if (count($testsuite->listerrors()) == 0) {
+                            
+                            if (count($testsuite->listerrors()) == 0 && $hosts > 0) {
                                 echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
                             } else {
                                 echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
                                 echo "<div class='notacceptable'><table>";
-                                foreach ($testsuite->listerrors() as $details) {
-                                    echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                                if (count($testsuite->listerrors()) > 0) {
+                                    foreach ($testsuite->listerrors() as $details) {
+                                        echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
                                 }
                                 echo "</table></div>";
                             }
                         }
                         echo '</div><hr>';
-                  
+                                    
                         echo '<script type="text/javascript">';
-                        if ($dynType == "") {
+                        
+                        if ($dynType == "" && $hosts>0) {
                             echo '
               function run_dynamic() {
                  running_ajax_dyn = 0;
@@ -712,6 +724,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                  global_level_dyn = L_OK;
                  $("#dynamic_tests").show();
               ';             
+                        if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             $expectedName = $addr['hostname'];
@@ -726,6 +739,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                             running_ajax_dyn++;
                             $.ajax({url:'radius_tests.php', timeout: ajax_timeout, data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', ssltest: $ssltest }, hostindex: '$hostindex', error: error_handler, success: clients, dataType: 'json'});
                        ";
+                        }
                         }
                         echo "}
               </script>";
@@ -749,7 +763,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         }
                         echo "}
               </script>";
-                        } 
+                        }
                     }
                     if ($dynType == '') {
                          $naptrs[0] = $naptr;
@@ -757,11 +771,12 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                          $naptrs[1] = $naptr;
                      }
                 }
+                
                     echo "<strong>" . _("Static connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
          </tr></table>";
-                    if ($naptrs[0] > 0) {
+                    if ($naptrs[0] > 0 && $hosts > 0) {
                         echo "<hr><strong>" . _("Dynamic connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
@@ -966,15 +981,14 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_idp) . "</button>"
                 . "</form>";
-            }
-            if ($check_realm !== FALSE) {
+            } 
+           if ($check_realm !== FALSE) {
                 echo "<script>
 
 
             var realm = '$check_realm';
             run_udp();";
-
-                if ($naptrs[0] > 0) {
+                if ($naptrs[0] > 0 && $hosts > 0) {
                     echo "run_dynamic();";
                 } else {
                     echo '$("#tabs-d-li").hide();';

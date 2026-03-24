@@ -979,7 +979,7 @@ class API {
 
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
-            if (isset($data['naptr']) && $data['naptr'] > 0 && isset($data['totest']) && count($data['totest']) > 0) {
+            if (isset($data['naptr']) && $data['naptr'] > 0) {
                 $retArray = array_merge($retArray, $this->dynamicTest($realm, $data['totest']));
             }
         }
@@ -1491,6 +1491,9 @@ class API {
     }
     
     private function dynamicTest($realm, $totest) {
+        if (empty($totest)) {
+            return ['dynamic_connectivity_problem' => _("A NAPTR record present but hosts resolution failed.")];
+        }
         $dynamic_test_res =  [];
         if (isset($totest) && count($totest) > 0) {
             foreach ($totest as $i=>$host) {
