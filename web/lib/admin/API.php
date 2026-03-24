@@ -966,11 +966,10 @@ class API {
         if ($realm === '' && $data['realm'] !== NULL) {
             $realm = $data['realm'];
         }
-        $retArray['radius_hosts_tests'] = [];
         if ($live_tests === TRUE && $login_user !== FALSE) {
             $retArray['live_login_tests'] = [];
         }
-        if ($scope === API::DIAG_ALL || $scope === API::DIAG_INFRASTRUCTURE) {
+        if (($scope === API::DIAG_ALL && $live_tests === FALSE) || $scope === API::DIAG_INFRASTRUCTURE) {
             $retArray = array_merge($retArray, $this->infrastructureTest($profile_id, $realm));
         }
         if ($live_tests === TRUE && $login_user !== FALSE) {
@@ -1374,6 +1373,53 @@ class API {
         curl_exec($ch);
     }
 
+    private function setReturnCodeInfo($data, $live=FALSE) {
+        $res = [];
+        $expected = \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT;
+        if ($live === TRUE) {
+            $expected = \core\diag\RADIUSTests::RETVAL_OK;
+        }
+        $res['returncode'] = $data['returncode'][0];
+        
+        if ($res['returncode'] === $expected) {
+            if (isset($data['result'][0]['cert_oddities']) && count($data['result'][0]['cert_oddities']) > 0) {
+                if ($live === TRUE) {
+                    $res['description'] = _("ACCEPT - a few configuration problems exist");
+                } else {
+                    $res['description'] = _("REJECT as expected - a few problems exist");
+                }
+                $res['returncode'] = 1;
+                
+            } else {
+                if ($live === TRUE) {
+                    $res['description'] = _("ACCEPT - no problem detected");
+                } else {
+                    $res['description'] = _("REJECT as expected - no problem detected");
+                }
+                $res['returncode'] = 0;
+            }
+        } else {
+            if ($live === TRUE && $res['returncode'] === \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+                if (isset($data['result'][0]['cert_oddities']) && count($data['result'][0]['cert_oddities']) > 0) {
+                    $res['description'] = _("REJECT and also a few configuration problems exist");
+                }
+                $res['returncode'] = 4;
+            }
+        }
+        if (isset($data['result'][0]['cert_oddities'])) {
+            foreach ($data['result'][0]['cert_oddities'] as $cert_oddity) {
+                if ($cert_oddity['code'] === \core\diag\RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION) {
+                    $res['deprecatedTLS'] = $cert_oddity['message'];
+                }
+            }
+        }
+        if ($res['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+            $res['description'] = _("IMMEDIATE REJECT");
+            $res['returncode'] = 2;
+        }
+        return $res;
+    }
+    
     private function infrastructureTest($profile_id, $realm) {
         $infrastructure_test = [];
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
@@ -1389,13 +1435,8 @@ class API {
             if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
                 $testdata = json_decode(file_get_contents($filename), TRUE);
             }
-            $radius['returncode'] = $testdata['returncode'][0];
-            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                $radius['returncode'] = "OK (REJECT)";
-            }
-            if ($radius['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
-                $radius['returncode'] = "IMMEDIATE REJECT";
-            }
+            $radius = array_merge($radius, $this->setReturnCodeInfo($testdata));
+            
             $radius['time_millisec'] = $testdata['result'][0]['time_millisec'];
             $radius['message'] = $testdata['result'][0]['message'];
             $radius['datetime'] = $testdata['datetime'];
@@ -1432,16 +1473,12 @@ class API {
                 if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
                     $testdata = json_decode(file_get_contents($filename), TRUE);
                 }
+                echo "\n$filename\n";
                 if ($testdata !== NULL) {
                     $live_login['name'] = $host['display_name'];
                     $live_login['ip'] = $host["ip"];
-                    $live_login['returncode'] = $testdata['returncode'][0];
-                    if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                        $live_login['returncode'] = "REJECT";
-                    }
-                    if ($live_login['returncode'] == \core\diag\RADIUSTests::RETVAL_OK) {
-                        $live_login['returncode'] = "ACCEPT";
-                    }
+                    $live_login = array_merge($live_login, $this->setReturnCodeInfo($testdata, TRUE));
+                    
                     $live_login['time_millisec'] = $testdata["result"][0]["time_millisec"];
                     $live_login['message'] = $testdata["result"][0]["message"];
                     $live_login['eap_type'] = $testdata["result"][0]["eap"];
