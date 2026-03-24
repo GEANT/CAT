@@ -60,6 +60,7 @@ function getXML(event) {
                     showInputElement($('option:selected',this));
                 });
                 $("button.deleteOption").on("click", deleteOption);
+                showInputElement($('select.MMM option:selected'));
             }
         }
     });
