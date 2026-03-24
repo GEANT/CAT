@@ -92,6 +92,9 @@ class API {
      */
     const ERROR_NO_TOU = 10;
 
+    // IMPORTANT - if you decide to change some action names, remember to change
+    // action handler mathods names accordingly!
+    
     /**
      * This action creates a new institution. The institution is identified by
      * a reference to the external DB.
@@ -259,7 +262,7 @@ class API {
     const DIAG_LIVE_LOGIN = "LIVE-LOGIN";
     const DIAG_INFRASTRUCTURE = "INFRASTRUCTURE";
     const DIAG_DYNAMIC = "DYNAMIC";
-    
+
     const DIAG_SCOPES = [API::DIAG_ALL, API::DIAG_LIVE_LOGIN, API::DIAG_INFRASTRUCTURE, API::DIAG_DYNAMIC];
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -498,17 +501,16 @@ class API {
      */
     private $validator;
     private $optionParser;
-
     private $jsondir;
-    private $catlink;
+    public $catlink;
     private $token;
+
     /**
      * construct the API class
      */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
         $this->optionParser = new \web\lib\admin\OptionParser();
-        $this->loggerInstance = new \core\common\Logging();
     }
 
     /**
@@ -580,11 +582,6 @@ class API {
                             continue 2;
                         }
                         break;
-                    case API::AUXATTRIB_DIAG_SCOPE:
-                        if (!in_array($oneIncomingParam['VALUE'], API::DIAG_SCOPES)) {
-                            $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>false, 'VERIFY_DESC'=>"Invalid scope value"]);
-                            continue 2;
-                        }
                     default:
                         break;
                 }   
@@ -606,25 +603,9 @@ class API {
             $parameters[$number] = array_merge($oneIncomingParam, ['VERIFY_RESULT'=>true, 'VERIFY_DESC'=>""]);
         }
         $this->scrubbedParameters = $parameters;
+        $this->action = $inputJson['ACTION'];
         return $parameters;
     }
-    
-    /**
-     * extracts the first occurrence of a given parameter name from the set of inputs
-     * 
-     * @param array  $inputs   incoming set of arrays
-     * @param string $expected attribute that is to be extracted
-     * @return mixed the value, or FALSE if none was found
-     */
-    public function firstParameterInstanceOld($inputs, $expected) {
-        foreach ($inputs as $attrib) {
-            if ($attrib['NAME'] === $expected) {
-                return $attrib['VALUE'];
-            }
-        }
-        return FALSE;
-    }
-
 
     /**
      * extracts the first occurrence of a given parameter name from the set of inputs
@@ -714,6 +695,9 @@ class API {
      * @return string
      */
     public function returnSuccess($details) {
+        if ($this->outputFormat === 'array') {
+            return ["result" => "SUCCESS", "details" => $details];
+        }
         $output = json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
         if ($output === FALSE) {
             $this->returnError(API::ERROR_INTERNAL_ERROR, "Unable to JSON encode return data: ". json_last_error(). " - ". json_last_error_msg());
@@ -732,30 +716,27 @@ class API {
      * @return boolean|array
      */
     public function commonSbProfileChecks($fed, $id) {
-        $adminApi = new \web\lib\admin\API();
         try {
             $profile = $this->validator->existingProfile($id);
         } catch (Exception $e) {
-            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
+            $this->returnError(self::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
             return FALSE;
         }
         if (!$profile instanceof \core\ProfileSilverbullet) {
-            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
+            $this->returnError(self::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
             return FALSE;
         }
         $idp = new \core\IdP($profile->institution);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
-            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
+            $this->returnError(self::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
             return FALSE;
         }
         if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
-            $adminApi->returnError(self::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
+            $this->returnError(self::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
             return FALSE;
         }
         return [$idp, $profile];
     }
-    
-    
     
     public function actionNewinstByRef() {
         $typeRaw = $this->firstParameterInstance(API::AUXATTRIB_INSTTYPE);
@@ -766,7 +747,6 @@ class API {
         $type = $this->validator->partType($typeRaw);
         $ROid = strtoupper($this->fed->tld).'01';
         $extId = $this->firstParameterInstance(API::AUXATTRIB_EXTERNALID);
-        \core\common\Logging::debug_s(3,$extId, "EXTID\n", "\n");
         if ($this->validator->existingExtInstitution($extId, 'API', $ROid) === 0) {
             $this->returnError(API::ERROR_INVALID_PARAMETER, "This is not a valid identifier in eduroam DB!");
             exit(1);
@@ -799,7 +779,7 @@ class API {
         }
         $inputs = $this->uglify(array_merge($this->scrubbedParameters, $out));
         $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);  
+        return $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);  
     }
     
     public function actionNewinst() {
@@ -812,18 +792,18 @@ class API {
         // now add all submitted attributes
         $inputs = $this->uglify($this->scrubbedParameters);
         $this->optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
-        $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
+        return $this->returnSuccess([API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
     }
     
     public function actionAdminList() {
         $idp = $this->getIdpFromParams();
-        $this->returnSuccess($idp->listOwners());
+        return $this->returnSuccess($idp->listOwners());
     }
     
     public function actionDelinst() {
         $idp = $this->getIdpFromParams();
         $idp->destroy();
-        $this->returnSuccess([]);
+        return $this->returnSuccess([]);
     }
     
     public function actionAdminAdd() {
@@ -847,10 +827,10 @@ class API {
                 $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];
             }
         }
-        $this->returnSuccess($success);
+        return $this->returnSuccess($success);
     }
     
-    public function actionFederationListip() {
+    public function actionDatadumpFed() {
         $retArray = [];
         $noLogo = null;
         $idpIdentifier = $this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID);
@@ -867,7 +847,7 @@ class API {
             }
         } else {
             try {
-                $thisIdP = $this->validator->existingIdP($idpIdentifier, NULL, $this_fed);
+                $thisIdP = $this->validator->existingIdP($idpIdentifier, NULL, $this->fed);
             } catch (Exception $e) {
                 $this->returnError(API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
                 exit(1);
@@ -895,12 +875,12 @@ class API {
                 }
             }
         }
-        $this->returnSuccess($retArray);
+        return $this->returnSuccess($retArray);
     }
     
     public function actionStatisticsFed() {
         $detail = $this->firstParameterInstance(API::AUXATTRIB_DETAIL);
-        $this->returnSuccess($this->fed->downloadStats("array", $detail));
+        return $this->returnSuccess($this->fed->downloadStats("array", $detail));
     }
     
     public function actionAdminDel() {
@@ -919,13 +899,12 @@ class API {
             }
         }
         if ($found) {
-            $this->returnSuccess([]);
-            return;
+            return $this->returnSuccess([]);
         }
         $this->returnError(API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
     }
-    
-    public function actionDiagTest() {
+
+    public function actionDiagTests() {
         $retArray = [];
         $this->token = bin2hex(openssl_random_pseudo_bytes(20));
         $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
@@ -949,21 +928,23 @@ class API {
             $live_tests = TRUE;
         }
         $this->jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
-        if (isset($_SERVER['HTTPS'])) {
-            $this->catlink = 'https://';
-        } else {
-            $this->catlink = 'http://';
-        }
-        $this->catlink .= $_SERVER['SERVER_NAME'];
-        $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-        if (substr($relPath, -1) == '/') {
-            $relPath = substr($relPath, 0, -1);
-            if ($relPath === FALSE) {
-                throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
+        if (isset($_SERVER['SERVER_NAME'])) {
+            if (isset($_SERVER['HTTPS'])) {
+                $this->catlink = 'https://';
+            } else {
+                $this->catlink = 'http://';
             }
+            $this->catlink .= $_SERVER['SERVER_NAME'];
+            $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
+            if (substr($relPath, -1) == '/') {
+                $relPath = substr($relPath, 0, -1);
+                if ($relPath === FALSE) {
+                    throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
+                }
+            }
+            $this->catlink .= $relPath;
         }
-        $this->catlink .= $relPath;
-        
+
         $payload = ['token' => $this->token, 'addtest' => 1];
         if ($profile_id !== FALSE) {
             $payload['profile_id'] = $profile_id;
@@ -975,7 +956,7 @@ class API {
         }
         $this->diag_call($payload, $this->catlink."/diag/findRealm.php");
         $filename = $this->jsondir.'/'.$this->token.'/realm';
-        if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
+        if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
             $data = json_decode(file_get_contents($filename), TRUE);
         }
         $retArray['realm'] = $data['realm'];
@@ -994,16 +975,16 @@ class API {
         }
         if ($live_tests === TRUE && $login_user !== FALSE) {
             $retArray = array_merge($retArray, $this->liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass));
-            
+
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
             if (isset($data['naptr']) && $data['naptr'] > 0 && isset($data['totest']) && count($data['totest']) > 0) {
                 $retArray = array_merge($retArray, $this->dynamicTest($realm, $data['totest']));
             }
         }
-        $this->returnSuccess($retArray);
+        return $this->returnSuccess($retArray);
     }
-        
+          
     public function actionStatisticsInst() {
         $retArray = [];
         $idp = $this->getIdpFromParams();
@@ -1011,14 +992,14 @@ class API {
         foreach ($idp->listProfiles() as $oneProfile) {
             $retArray[$idp->identifier][$oneProfile->identifier] = $oneProfile->getUserDownloadStats();
         }
-        $this->returnSuccess($retArray);
+        return $this->returnSuccess($retArray);
     }
     
-    public function actionNewProfRadius() {
+    public function actionNewprofRadius() {
         $idp = $this->getIdpFromParams();
         $profile = $idp->newProfile("RADIUS");
         if ($profile === NULL) {
-            $this->returnError(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+            $this->returnError(API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
             exit(1);
         }
         $inputs = $this->uglify($this->scrubbedParameters);
@@ -1059,11 +1040,10 @@ class API {
         // reinstantiate $profile freshly from DB - it was updated in the process
         $profileFresh = new \core\ProfileRADIUS($profile->identifier);
         $profileFresh->prepShowtime();
-        $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
+        return $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
     }
     
-
-    public function actionNewProfSb() {
+    public function actionNewrofManaged() {
         $idp = $this->getIdpFromParams();
         $profile = $idp->newProfile("SILVERBULLET");
         $inputs = $this->uglify($this->scrubbedParameters);
@@ -1073,9 +1053,309 @@ class API {
             $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
         }
         // we're done at this point
-        $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
+        return $this->returnSuccess([API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
     }
     
+    public function actionEnduserNew() {
+        return $this->actionEnduserChangeexpiry();
+    }
+
+    public function actionEnduserChangeexpiry() {
+        $prof_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $user = $this->validator->string($this->firstParameterInstance(API::AUXATTRIB_SB_USERNAME));
+        $expiryRaw = $this->firstParameterInstance(API::AUXATTRIB_SB_EXPIRY);
+        if ($expiryRaw === FALSE) {
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "The expiry date wasn't found in the request.");
+            return;
+        }
+        $expiry = new DateTime($expiryRaw);
+        try {
+            switch ($this-action) {
+                case API::ACTION_ENDUSER_NEW:
+                    $retval = $profile->addUser($user, $expiry);
+                    break;
+                case API::ACTION_ENDUSER_CHANGEEXPIRY:
+                    $retval = 0;
+                    $userlist = $profile->listAllUsers();
+                    $userId = array_keys($userlist, $user);
+                    if (isset($userId[0])) {
+                        $profile->setUserExpiryDate($userId[0], $expiry);
+                        $retval = 1; // function doesn't have any failure vectors not raising an Exception and doesn't return a value
+                    }
+                    break;
+            }
+        } catch (Exception $e) {
+            $this->returnError(API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
+            exit(1);
+        }
+        if ($retval == 0) {// that didn't work, it seems
+            $this->returnError(API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
+            return;
+        }
+        return $this->returnSuccess([API::AUXATTRIB_SB_USERNAME => $user, API::AUXATTRIB_SB_USERID => $retval]);
+    }
+    
+    public function actionToken_New() {
+        return $this->actionEnduserDeactivate();
+    }
+
+    public function actionEnduserDeactivate() {
+    // fall-through intended: both actions are very similar
+        $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $profile_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $userId = $this->validator->integer($this->firstParameterInstance(API::AUXATTRIB_SB_USERID));
+        if ($userId === FALSE) {
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "User ID is not an integer.");
+            exit(1);
+        }
+        $additionalInfo = [];
+        switch ($this->action) { // this is where the two differ
+            case API::ACTION_ENDUSER_DEACTIVATE:
+                $result = $profile->deactivateUser($userId);
+                break;
+            case API::ACTION_TOKEN_NEW:
+                $counter = $this->validator->integer($this->firstParameterInstance(API::AUXATTRIB_TOKEN_ACTIVATIONS));
+                if (!is_integer($counter)) {
+                    $counter = 1;
+                }
+                $invitation = core\SilverbulletInvitation::createInvitation($profile->identifier, $userId, $counter);
+                $result = TRUE;
+                $additionalInfo[API::AUXATTRIB_TOKENURL] = $invitation->link();
+                $additionalInfo[API::AUXATTRIB_TOKEN] = $invitation->invitationTokenString;
+                $emailRaw = $this->firstParameterInstance(API::AUXATTRIB_TARGETMAIL);
+                if ($emailRaw) { // an email parameter was specified
+                    $email = $this->validator->email($emailRaw);
+                    if (is_string($email)) { // it's a valid address
+                        $retval = $invitation->sendByMail($email);
+                        $additionalInfo["EMAIL SENT"] = $retval["SENT"];
+                        if ($retval["SENT"]) {
+                            $additionalInfo["EMAIL TRANSPORT SECURE"] = $retval["TRANSPORT"];
+                        }
+                    }
+                }
+                $smsRaw = $this->firstParameterInstance(API::AUXATTRIB_TARGETSMS);
+                if ($smsRaw !== FALSE) {
+                    $sms = $this->validator->sms($smsRaw);
+                    if (is_string($sms)) {
+                        $wasSent = $invitation->sendBySms($sms);
+                        $additionalInfo["SMS SENT"] = $wasSent == core\common\OutsideComm::SMS_SENT ? TRUE : FALSE;
+                    }
+                }
+                break;
+        }
+
+        if ($result !== TRUE) {
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
+            exit(1);
+        }
+        return $this->returnSuccess($additionalInfo);
+    }    
+
+    public function actionEnduserIdentify() {
+        $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $profile_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $userId = $this->firstParameterInstance(API::AUXATTRIB_SB_USERID);
+        $userName = $this->$this->firstParameterInstance(API::AUXATTRIB_SB_USERNAME);
+        $certSerial = $this->firstParameterInstance(API::AUXATTRIB_SB_CERTSERIAL);
+		$certCN = $this->firstParameterInstance(API::AUXATTRIB_SB_CERTCN);
+        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE && $certCN === FALSE) {
+            // we need at least one of those
+            $this->returnError(API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, certificate serial, or certificate CN is required.");
+            return;
+        }
+        if ($certSerial !== FALSE) { // we got a cert serial
+            $serial = explode(":", $certSerial);
+            $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+            }
+        if ($certCN !== FALSE) { // we got a cert CN
+            $cert = new \core\SilverbulletCertificate($certCN);
+        }
+        if ($cert !== NULL) { // we found a cert; verify it and extract userId
+            if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+                return $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate not found.");
+            }
+            if ($cert->profileId != $profile->identifier) {
+                return $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate does not belong to this profile.");
+            }
+            $userId = $cert->userId;
+        }
+        if ($userId !== FALSE) {
+            $userList = $profile->getUserById($userId);
+        }
+        if ($userName !== FALSE) {
+            $userList = $profile->getUserByName($userName);
+        }
+        if (count($userList) === 1) {
+            foreach ($userList as $oneUserId => $oneUserName) {
+                return $this->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $oneUserName, API::AUXATTRIB_SB_USERID => $oneUserId]);
+            }
+        }
+        $this->returnError(API::ERROR_INVALID_PARAMETER, "No matching user found in this profile.");
+
+    }
+    
+    public function actionEnduserList() {
+        return $this->actionTokenList();
+    }
+
+    public function actionTokenList() {
+        $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $profile_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $allUsers = $profile->listAllUsers();
+        // this is where they differ
+        switch ($inputDecoded['ACTION']) {
+            case API::ACTION_ENDUSER_LIST:
+                return $this->returnSuccess($allUsers);
+            case API::ACTION_TOKEN_LIST:
+                $user = $validator->integer($this->firstParameterInstance(\API::AUXATTRIB_SB_USERID));
+                if ($user !== FALSE) {
+                    $allUsers = [$user];
+                }
+                $tokens = [];
+                foreach ($allUsers as $oneUser) {
+                    $tokens = array_merge($tokens, $profile->userStatus($oneUser));
+                }
+                // reduce to important subset of information
+                $infoSet = [];
+                foreach ($tokens as $oneTokenObject) {
+                    $infoSet[$oneTokenObject->userId] = [API::AUXATTRIB_TOKEN => $oneTokenObject->invitationTokenString, "STATUS" => $oneTokenObject->invitationTokenStatus];
+                }
+                return $this->returnSuccess($infoSet);
+        }
+        
+    }
+    
+    public function actionTokenRevoke() {
+        $tokenRaw = $this->firstParameterInstance(API::AUXATTRIB_TOKEN);
+        if ($tokenRaw === FALSE) {
+            exit(1);
+        }
+        $token = new core\SilverbulletInvitation($tokenRaw);
+        if ($token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_VALID && $token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+            $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This is not a currently valid token.");
+            exit(1);
+        }
+        $token->revokeInvitation();
+        return $this->returnSuccess([]);
+    }
+
+
+    public function actionCertList() {
+        $prof_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        $user_id = $this->firstParameterInstance(API::AUXATTRIB_SB_USERID);
+        if ($prof_id === FALSE || !is_int($user_id)) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $invitations = $profile->userStatus($user_id);
+        // now pull out cert information from the object
+        $certs = [];
+        foreach ($invitations as $oneInvitation) {
+            $certs = array_merge($certs, $oneInvitation->associatedCertificates);
+        }
+        // extract relevant subset of information from cert objects
+        $certDetails = [];
+        foreach ($certs as $cert) {
+            $certDetails[$cert->ca_type.":".$cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username, "ANNOTATION" => $cert->annotation];
+        }
+        return $this->returnSuccess($certDetails);
+        
+    }
+    
+    public function ationCertRevoke() {
+        $prof_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        // tear apart the serial
+        $serialRaw = $this->firstParameterInstance(API::AUXATTRIB_SB_CERTSERIAL);
+        if ($serialRaw === FALSE) {
+            exit(1);
+        }
+        $serial = explode(":", $serialRaw);
+        $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+            $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+        }
+        if ($cert->profileId != $profile->identifier) {
+            $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+        }
+        $cert->revokeCertificate();
+        return $this->returnSuccess([]);
+        
+    }
+    
+    public function actionCertAnnotate() {
+        $prof_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = $this->commonSbProfileChecks($this->fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        // tear apart the serial
+        $serialRaw = $this->firstParameterInstance(API::AUXATTRIB_SB_CERTSERIAL);
+        if ($serialRaw === FALSE) {
+            exit(1);
+        }
+        $serial = explode(":", $serialRaw);
+        $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+            $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+        }
+        if ($cert->profileId != $profile->identifier) {
+            $this->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+        }
+        $annotationRaw = $this->firstParameterInstance(API::AUXATTRIB_SB_CERTANNOTATION);
+        if ($annotationRaw === FALSE) {
+            $this->returnError(API::ERROR_INVALID_PARAMETER, "Unable to extract annotation.");
+            return;
+        }
+        $annotation = json_decode($annotationRaw, TRUE);
+        $cert->annotate($annotation);
+        return $this->returnSuccess([]);
+    }
+
     private function getIdpFromParams() {
         try {
             $idp = $this->validator->existingIdP($this->firstParameterInstance(API::AUXATTRIB_CAT_INST_ID), NULL, $this->fed);
@@ -1085,7 +1365,7 @@ class API {
         }   
         return $idp;
     }
-
+    
     private function diag_call($payload, $url) {
         $params = http_build_query($payload);
         $ch = curl_init("$url?$params");
@@ -1093,7 +1373,7 @@ class API {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
     }
-    
+
     private function infrastructureTest($profile_id, $realm) {
         $infrastructure_test = [];
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
@@ -1106,7 +1386,7 @@ class API {
             }
             $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
             $filename = $this->jsondir.'/'.$this->token."/udp_$hostindex";
-            if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
+            if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
                 $testdata = json_decode(file_get_contents($filename), TRUE);
             }
             $radius['returncode'] = $testdata['returncode'][0];
@@ -1123,7 +1403,7 @@ class API {
         }
         return $infrastructure_test;
     }
-    
+
     private function liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass) {
         $live_test = [];
         if ($login_outer === FALSE) {
@@ -1179,13 +1459,13 @@ class API {
                 $dynamic = [];
                 $dynamic['host'] = $host['host'];
                 $dynamic['name'] = $host['name'];
-                $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $this->token, 'src' => $host['host'], 
+                $payload = ['test_type' => 'capath', 'realm' => $realm, 'token' => $this->token, 'src' => $host['host'],
                             'hostindex' => $i, 'expectedname' => $host['name'], 'ssltest' => $host['ssltest']];
                 $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
                 $payload['test_type'] = 'clients';
                 $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
                 $filename = $this->jsondir.'/'.$this->token."/capath_$i";
-                if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {  
+                if ($this->token && is_dir($this->jsondir.'/'.$this->token) && is_file($filename)) {
                     $testdata = json_decode(file_get_contents($filename), TRUE);
                     $dynamic['time_millisec'] = $testdata['time_millisec'];
                     if ($testdata['result'] === 0) {
@@ -1199,9 +1479,10 @@ class API {
         }
         return ['dynamic_connectivity_tests' => $dynamic_test_res];
     }
-        
-    public $loggerInstance;
+    
     public $scrubbedParameters = [];
+    public $action;
     public $fed;
+    public $outputFormat = '';
 
 }
