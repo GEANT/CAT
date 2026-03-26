@@ -1377,34 +1377,56 @@ class API {
 
     private function setReturnCodeInfo($data, $live=FALSE) {
         $res = [];
+        if ($data['returncode'][0] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
+            $res['description'] = _("IMMEDIATE REJECT");
+            $res['returncode'] = 2;
+            return $res;
+        }
         $expected = \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT;
         if ($live === TRUE) {
             $expected = \core\diag\RADIUSTests::RETVAL_OK;
         }
         $res['returncode'] = $data['returncode'][0];
-        
-        if ($res['returncode'] === $expected) {
-            if (isset($data['result'][0]['cert_oddities']) && count($data['result'][0]['cert_oddities']) > 0) {
-                if ($live === TRUE) {
-                    $res['description'] = _("ACCEPT - a few configuration problems exist");
-                } else {
-                    $res['description'] = _("REJECT as expected - a few problems exist");
+        $max_oddity = \core\common\Entity::L_OK;
+        if (isset($data['result'][0]['cert_oddities'])) {
+            foreach ($data['result'][0]['cert_oddities'] as $oddity) {
+                if ($max_oddity === NULL || $oddity['level'] > $max_oddity) {
+                    $max_oddity = $oddity['level'];
                 }
-                $res['returncode'] = 1;
-                
-            } else {
-                if ($live === TRUE) {
-                    $res['description'] = _("ACCEPT - no problem detected");
-                } else {
-                    $res['description'] = _("REJECT as expected - no problem detected");
-                }
-                $res['returncode'] = 0;
             }
+        }
+        $overall = 0;
+        $message = '';
+        switch ($max_oddity) {
+            case \core\common\Entity::L_OK:
+                $message = _("no problem detected");
+                break;
+            case \core\common\Entity::L_REMARK:
+                $overall = 1;
+                $message = _("a few configuration remarks exist");
+            case \core\common\Entity::L_WARN:
+                $overall = 2;
+                $message = _("a few configuration problems detected");
+                break;
+            case \core\common\Entity::L_ERROR:
+                $overall = 3;
+                $message = _("errors detected");
+                break;
+            }
+        if ($res['returncode'] === $expected) {
+            $head = _("REJECT as expected");  
+            if ($live === TRUE) {
+                $head = _("ACCEPT");
+            }
+            $res['description'] = $head.' - '.$message;
+            $res['returncode'] = $overall;
         } else {
             if ($live === TRUE && $res['returncode'] === \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-                if (isset($data['result'][0]['cert_oddities']) && count($data['result'][0]['cert_oddities']) > 0) {
-                    $res['description'] = _("REJECT and also a few configuration problems exist");
+                $message = _("REJECT");
+                if ($max_oddity > \core\common\Entity::L_OK) {
+                    $message = _("REJECT and also a few configuration problems exist");
                 }
+                $res['description'] = $message;
                 $res['returncode'] = 4;
             }
         }
@@ -1414,10 +1436,6 @@ class API {
                     $res['deprecatedTLS'] = $cert_oddity['message'];
                 }
             }
-        }
-        if ($res['returncode'] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
-            $res['description'] = _("IMMEDIATE REJECT");
-            $res['returncode'] = 2;
         }
         return $res;
     }
