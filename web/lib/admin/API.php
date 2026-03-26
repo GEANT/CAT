@@ -1404,6 +1404,7 @@ class API {
             case \core\common\Entity::L_REMARK:
                 $overall = 1;
                 $message = _("a few configuration remarks exist");
+                break;
             case \core\common\Entity::L_WARN:
                 $overall = 2;
                 $message = _("a few configuration problems detected");
