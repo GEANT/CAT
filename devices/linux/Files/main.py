@@ -946,11 +946,13 @@ class WpaConf:
         """
 
         if Config.eap_outer in ('PEAP', 'TTLS'):
-            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
-                         f"\tpassword=\"{user_data.password}\"\n"
             if Config.anonymous_identity != '':
-                interface += f"\tanonymous_identity=\"{Config.anonymous_identity}\"\n"
-
+                outer_identity = Config.anonymous_identity
+            else:
+                outer_identity = user_data.username
+            interface += f"phase2=\"auth={Config.eap_inner}\"\n" \
+                         f"\tpassword=\"{user_data.password}\"\n" \
+                         f"\tanonymous_identity=\"{outer_identity}\"\n"
         elif Config.eap_outer == 'TLS':
             interface += "\tprivate_key_passwd=\"{}\"\n" \
                          "\tprivate_key=\"{}/.cat_installer/user.p12" \
@@ -1207,6 +1209,10 @@ class CatNMConfigTool:
         else:
             match_key = 'subject-match'
             match_value = server_name
+        if Config.anonymous_identity != '':
+            outer_identity = Config.anonymous_identity
+        else:
+            outer_identity = self.user_data.username
         s_8021x_data = {
             'eap': [Config.eap_outer.lower()],
             'identity': self.user_data.username,
@@ -1216,8 +1222,7 @@ class CatNMConfigTool:
         if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
-            if Config.anonymous_identity != '':
-                s_8021x_data['anonymous-identity'] = Config.anonymous_identity
+            s_8021x_data['anonymous-identity'] = outer_identity
             s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
