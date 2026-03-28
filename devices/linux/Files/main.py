@@ -1199,6 +1199,15 @@ class CatNMConfigTool:
             except dbus.exceptions.DBusException:
                 pass
 
+    @staticmethod
+    def __nm_file_uri(path: str) -> dbus.ByteArray:
+        """
+        Build a DBus byte array for NetworkManager file URI settings.
+        D-Bus arrays are length-delimited, so adding a C-style NUL
+        terminator is unnecessary and can leak into persisted config.
+        """
+        return dbus.ByteArray(f"file://{path}".encode())
+
     def __add_connection(self, ssid: str) -> None:
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
@@ -1216,8 +1225,7 @@ class CatNMConfigTool:
         s_8021x_data = {
             'eap': [Config.eap_outer.lower()],
             'identity': self.user_data.username,
-            'ca-cert': dbus.ByteArray(
-                f"file://{self.cacert_file}\0".encode()),
+            'ca-cert': self.__nm_file_uri(self.cacert_file),
             match_key: match_value}
         if Config.eap_outer in ('PEAP', 'TTLS'):
             s_8021x_data['password'] = self.user_data.password
@@ -1225,10 +1233,8 @@ class CatNMConfigTool:
             s_8021x_data['anonymous-identity'] = outer_identity
             s_8021x_data['password-flags'] = 1
         elif Config.eap_outer == 'TLS':
-            s_8021x_data['client-cert'] = dbus.ByteArray(
-                f"file://{self.pfx_file}\0".encode())
-            s_8021x_data['private-key'] = dbus.ByteArray(
-                f"file://{self.pfx_file}\0".encode())
+            s_8021x_data['client-cert'] = self.__nm_file_uri(self.pfx_file)
+            s_8021x_data['private-key'] = self.__nm_file_uri(self.pfx_file)
             s_8021x_data['private-key-password'] = self.user_data.password
             s_8021x_data['private-key-password-flags'] = 1
         s_con = dbus.Dictionary({
