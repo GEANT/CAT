@@ -289,21 +289,23 @@ class RADIUSTestsUI extends AbstractTest
 
             $out[] = "</table><br/>";
             $out[] = sprintf(_("Realm is <strong>%s</strong> "), _(($this->naptr > 0 ? "DYNAMIC" : "STATIC")));
-            if (count($this->testSuite->listerrors()) == 0 && $this->hosts > 0) {
-                $out[] = _("with no DNS errors encountered. Congratulations!");
-            } else {
-                $out[] = _("but there were DNS errors! Check them!")." "._("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
-                $out[] = "<div class='notacceptable'><table>";
-                if (count($this->testSuite->listerrors()) > 0) {
-                    foreach ($this->testSuite->listerrors() as $details) {
-                        $out[] = "<tr><td>".$details['TYPE']."</td><td>".$details['TARGET']."</td></tr>";
-                    }
+            if ($this->naptr > 0) {
+                if (count($this->testSuite->listerrors()) == 0 && $this->hosts > 0) {
+                    $out[] = _("with no DNS errors encountered. Congratulations!");
                 } else {
-                    $out[] = "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
+                    $out[] = _("but there were DNS errors! Check them!")." "._("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
+                    $out[] = "<div class='notacceptable'><table>";
+                    if (count($this->testSuite->listerrors()) > 0) {
+                        foreach ($this->testSuite->listerrors() as $details) {
+                            $out[] = "<tr><td>".$details['TYPE']."</td><td>".$details['TARGET']."</td></tr>";
+                        }
+                    } else {
+                        $out[] = "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
+                    }
+                    $out[] = "</table></div>";
                 }
-                $out[] = "</table></div>";
+                $out[] = '</div>';
             }
-            $out[] = '</div>';
         } else {
             $out[] = "<tr><td>"._("Dynamic discovery test is not configured")."</td><td>";
         }

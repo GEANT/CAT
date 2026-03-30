@@ -694,21 +694,23 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
 
                         echo "</table><br/>";
                         if ($dynType == "") {
-                            
-                            if (count($testsuite->listerrors()) == 0 && $hosts > 0) {
-                                echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
-                            } else {
-                                echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
-                                echo "<div class='notacceptable'><table>";
-                                if (count($testsuite->listerrors()) > 0) {
-                                    foreach ($testsuite->listerrors() as $details) {
-                                        echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                                echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC")));
+                                if ($naptr >0) {
+                                    if (count($testsuite->listerrors()) == 0 && $hosts > 0) {
+                                        echo  _("with no DNS errors encountered. Congratulations!");
+                                    } else {
+                                        echo _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
+                                        echo "<div class='notacceptable'><table>";
+                                        if (count($testsuite->listerrors()) > 0) {
+                                            foreach ($testsuite->listerrors() as $details) {
+                                                echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                                            }
+                                        } else {
+                                            echo "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
+                                        }
+                                        echo "</table></div>";
                                     }
-                                } else {
-                                    echo "<tr><td>"._("Hosts resolution failed!")."</td></tr>";
                                 }
-                                echo "</table></div>";
-                            }
                         }
                         echo '</div><hr>';
                                     
