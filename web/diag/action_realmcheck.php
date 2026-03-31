@@ -134,6 +134,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var connection_timeout = "<?php echo _("Connection timeout") ?>";
     var global_info = new Array();
     global_info[L_OK] = "<?php echo _("All tests passed."); ?>";
+    global_info[L_UNKNOWN] = "<?php echo _("No RADIUS exchange possible."); ?>"
     global_info[L_WARN] = "<?php echo _("There were some warnings."); ?>";
     global_info[L_ERROR] = "<?php echo _("There were some errors."); ?>";
     global_info[L_REMARK] = "<?php echo _("There were some remarks."); ?>";
