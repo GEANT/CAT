@@ -755,7 +755,7 @@ class UIElements extends \core\common\Entity {
             'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
             'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
             'TEST_STATUS_OK' => ['img' => 'Tabler/checks-green.svg', 'text' => _("Connection tests results OK")],
-            'TEST_STATUS_UNKNOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Connection tests not done - immediate reject")],
+            'TEST_STATUS_UNKNOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Connection tests not possible")],
             'TEST_STATUS_REMARK' => ['img' => 'Tabler/info-square-rounded-blue.svg',  'text'=> _("Some tests show minor warnings")],
             'TEST_STATUS_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg',  'text'=> _("Some tests show warnings, please verify")],
             'TEST_STATUS_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text'=> _("Some tests had errors")],
