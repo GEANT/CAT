@@ -66,14 +66,16 @@ class Authentication extends \core\common\Entity {
         }
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
+        $user = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0];
         \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR:\n", "\n");
         if (isset($admininfo['uniqueIdentifier'])) {
             $idps = explode('##########', $admininfo['uniqueIdentifier']);
             $idpsNo = count($idps);
+            $authorizingAuthority = $idps[count($idps)-2];
             if ($idpsNo > 2) {
                 \core\common\Logging::debug_s(4, $idps, "PROXIED IDP:\n", "\n");
+                $this->saveEquivalentIdentifier($user, $authorizingAuthority);
             }
-            $authorizingAuthority = $idps[count($idps)-2];
             \core\common\Logging::debug_s(4, $authorizingAuthority, "IDP:\n", "\n");
         }
         if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
@@ -81,6 +83,7 @@ class Authentication extends \core\common\Entity {
         } else {
             $saveLog = false;
         }
+
         unset($_SESSION['saveLog']);
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $session->cleanup();
@@ -89,7 +92,6 @@ class Authentication extends \core\common\Entity {
             echo $failtext;
             throw new Exception($failtext);
         }
-        $user = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0];
         if ($saveLog) {
             $loggerInstance->debug(4, "Writing log\n");
             $this->logLoginTime($user);
@@ -110,6 +112,7 @@ class Authentication extends \core\common\Entity {
         //$_SESSION['user'] = "<saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" NameQualifier=\"https://idp.jisc.ac.uk/idp/shibboleth\" SPNameQualifier=\"https://cat-beta.govroam.uk/simplesaml/module.php/saml/sp/metadata.php/default-sp\" Format=\"urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\">XXXXXXXXXXXXXXXX</saml:NameID>";
 
         $newNameReceived = FALSE;
+
         $userObject = new \core\User($user);
         $attribMapping = [
             "ssp-attrib-name" => "user:realname",
@@ -131,6 +134,20 @@ class Authentication extends \core\common\Entity {
             }
         }
         \core\common\Entity::outOfThePotatoes();
+    }
+    
+    private function saveEquivalentIdentifier($user, $authorizingAuthority) {
+        $alternativeId = preg_replace('/![^!]*$/', '!'.$authorizingAuthority, $user);
+        preg_match('/!([^!]*)$/', $user, $m);
+        $idp=$m[1];
+        \core\common\Logging::debug_s(3, $alternativeId, "ALTERNATIVE ID:", "\n");
+        $_SESSION['alternative_id'] = $alternativeId;
+        $handle = \core\DBConnection::handle("INST");
+        if (!$handle instanceof \core\DBConnection) {
+            throw new Exception("This database type is never an array!");
+        }
+        $handle->exec("INSERT IGNORE INTO idp_equivalence (idp, alternative_idp) VALUES ('$idp', '$authorizingAuthority')");
+        $handle->exec("INSERT IGNORE INTO admin_equivalence (user_id, alternative_id) VALUES ('$user', '$alternativeId')");
     }
 
     /**
@@ -161,7 +178,7 @@ class Authentication extends \core\common\Entity {
     private function logLoginTime($user) {
         $handle = \core\DBConnection::handle("INST");
         if (!$handle instanceof \core\DBConnection) {
-            $frontendHandle = $handle;
+            throw new Exception("This database type is never an array!");
         }
         $truncatedUser = substr($user,0,999);      
         $handle->exec("INSERT INTO admin_logins (user_id, last_login) VALUES ('$truncatedUser', NOW()) ON DUPLICATE KEY UPDATE last_login=NOW()");

@@ -332,6 +332,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
             <?php if (\core\CAT::radiusProfilesEnabled()) { ?>
             <th scope='col'><?php echo _("Status") ?></th>
+            <th scope='col'><?php echo _("Tests") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
             <th scope='col'><?php echo _("Wired"); ?></th>
@@ -365,6 +366,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             echo "<tr><td colspan='1'><strong>"._("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
             if (\core\CAT::radiusProfilesEnabled()) {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='testcheck' id='test_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='wiredset' id='wiredset_ck_".$fedId."'></td>";
@@ -390,6 +392,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             }
             $idps = $thefed->listIdentityProviders(0);
             $certStatus = $thefed->getIdentityProvidersCertStatus();
+            $testStatus = $thefed->getIdentityProvidersTestStatus();
+            
             $thefed->loadAdminsLogins();
             $my_idps = [];
             foreach ($idps as $index => $idp) {
@@ -457,8 +461,19 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
                     $wiredClass = 'wiredset';
                 }
-                
-                
+             
+                if (isset($testStatus[$index])) {
+                    $testIconData = $uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$testStatus[$index]]);
+                    if ($testStatus[$index] > 0) {
+                        $testClass = 'testprobem';
+                    } else {
+                        $testClass = 'testok';
+                    }
+                } else {
+                    $testIconData = null;
+                    $testClass = 'testok';
+                }
+                $testIcon = $testIconData === null ? '-' : $uiElements->catIcon($testIconData);
 
                 // verify DB sync status for this IdP
                 $linkClass = 'nosync';
@@ -481,6 +496,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
 
                 // verify the OpenRoaming status for this IdP
                 $orStatus = $idp_instance->maxOpenRoamingStatus();
+                \core\common\Logging::debug_s(3, $orStatus, "OR STAT:".$idp_instance->identifier.":", "\n");
                 $orClass = 'orok';
                 $orIcon = '';
                 switch ($orStatus) {
@@ -509,7 +525,15 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                         $certClass = 'certok';
                     }
                 }
-                    
+                
+                if (isset($testStatus[$index])) {
+                    if ($testStatus[$index] > 0) {
+                        $testClass = 'testproblem';
+                    } else {
+                        $testClass = 'testok';
+                    }
+                }                
+                   
                 $adminClass = 'adminok';
                 $adminIcon = '<span style="padding-left:20px"></span>';
                 if (!$hideWarnings) {
@@ -525,7 +549,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass $testClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
@@ -555,6 +579,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // show happy eyeballs if at least one profile is configured/showtime     
                 if (\core\CAT::radiusProfilesEnabled()) {
                     echo  "<td>$profileIcon</td>";
+                    echo  "<td style='text-align: center'>$testIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";
                     echo "<td style='text-align: center'>$wiredIcon</td>";

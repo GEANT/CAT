@@ -251,7 +251,7 @@ class IdP extends EntityWithDBProperties
      */
     public function maxOpenRoamingStatus()
     {
-        $allProfiles = $this->databaseHandle->exec("SELECT MIN(openroaming) AS maxlevel FROM profile WHERE inst_id = $this->identifier");
+        $allProfiles = $this->databaseHandle->exec("SELECT MIN(openroaming) AS maxlevel FROM profile JOIN profile_option ON profile_option.profile_id=profile.profile_id WHERE inst_id = $this->identifier AND option_name='media:openroaming'");
         // SELECT yields a resource, not a boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
             return (is_numeric($res->maxlevel) ? (int)$res->maxlevel : AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO ); // insts without profiles should get a "NO"

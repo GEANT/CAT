@@ -131,6 +131,7 @@ CREATE TABLE `profile` (
   `showtime` tinyint(1) DEFAULT '1',
   `sufficient_config` tinyint(1) NULL DEFAULT NULL,
   `openroaming` int(2) NOT NULL DEFAULT 4,
+  `test_result` int NOT NULL DEFAULT -1,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `preference` int DEFAULT '1000',
   PRIMARY KEY (`profile_id`)

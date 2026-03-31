@@ -176,9 +176,18 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
         $has_eaptypes = count($theProfile->getEapMethodsInOrderOfPreference(1));
         $hasRealmArray = $theProfile->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
+        
+        $testStateIcon = '';
+        $testStatus = $theProfile->getTestStatusInfo();
+        if ($testStatus !== \core\AbstractProfile::TEST_STATUS_NONE) {
+            $iconData = $uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$testStatus]);
+            $testStateIcon = $uiElements->catIcon(($iconData));
+        } else {
+            $testStateIcon=  '';
+        }        
+                
         $orStateIcon = '';
         $openRoamingReady = $theProfile->getOpenRoamingReadinessInfo();
-        \core\common\Logging::debug_s(3, $openRoamingReady, "Profile OR :".$theProfile->identifier.":","\n");
         if ($openRoamingReady !== \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO) {
             $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$openRoamingReady]);
             $orStateIcon = $uiElements->catIcon(($iconData));
@@ -207,7 +216,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                 <form action='<?php echo $diagUrl . "action_realmcheck.php?inst_id=" . $theProfile->institution . "&profile_id=" . $theProfile->identifier ?>' method='post' accept-charset='UTF-8'>
                     <input type='hidden' name='comefrom' value='<?php echo htmlspecialchars($link . $_SERVER['SCRIPT_NAME']); ?>'/>
                     <button type='submit' name='profile_action' style='vertical-align: middle; height: 25px' value='check' <?php echo ($has_realm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
-                        <?php echo _("Check realm reachability"); ?>
+                        <?php echo $testStateIcon.'&nbsp;&nbsp;'._("Check realm reachability"); ?>
                     </button>
                 </form>
                 <?php

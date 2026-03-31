@@ -544,7 +544,7 @@ class Federation extends EntityWithDBProperties
         foreach ($rows as $row) {
             $inst = $row[0];
             $profile = $row[1];
-            // pass any rofile which is not active
+            // pass any profile which is not active
             if (!in_array($profile, $activeProfiles)) {
                 continue;
             }
@@ -567,6 +567,28 @@ class Federation extends EntityWithDBProperties
             $idpCertStatus[$inst] = max($idpCertStatus[$inst], $certsStatus[$encodedCert]);
         }
         return $idpCertStatus;
+    }
+    
+    /**
+     * Get the "worst" rechibility statuses from all institution profiles (only production ready
+     * profiles are used) and do so for evely institution in the current federation
+     * 
+     * @return array The arry of statuses (indexed by the inst identifier)
+     */
+    public function getIdentityProvidersTestStatus() {
+        $idpTestStatus =[];
+        $query =  "SELECT max(test_result) AS max_test_result, profile.inst_id AS inst_id"
+                . " FROM profile JOIN institution ON profile.inst_id=institution.inst_id"
+                . " JOIN profile_option ON profile.profile_id = profile_option.profile_id"
+                . " WHERE country='".$this->tld."'"
+                . " AND profile.test_result != ". \core\AbstractProfile::TEST_STATUS_NONE
+                . " AND option_name='profile:production'"
+                . " AND sufficient_config = 1 group by profile.inst_id";
+        $result = $this->databaseHandle->exec($query);
+        while ($row = $result->fetch_row()) {
+            $idpTestStatus[$row[1]] = $row[0];
+        }
+        return $idpTestStatus;
     }
     
     /**

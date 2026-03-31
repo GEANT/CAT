@@ -50,6 +50,7 @@ abstract class Entity
 
     const L_OK = 0;
     const L_REMARK = 4;
+    const L_UNKNOWN = 8;
     const L_WARN = 32;
     const L_ERROR = 256;
     const L_CERT_OK = 512;

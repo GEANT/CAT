@@ -156,6 +156,13 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const CERT_STATUS_WARN = 1;
     const CERT_STATUS_ERROR = 2;
     
+    const TEST_STATUS_NONE = -1;
+    const TEST_STATUS_OK = common\Entity::L_OK;
+    const TEST_STATUS_UNKNOWN = common\Entity::L_UNKNOWN;
+    const TEST_STATUS_REMARK = common\Entity::L_REMARK;
+    const TEST_STATUS_WARN = common\Entity::L_WARN;
+    CONST TEST_STATUS_ERROR = common\Entity::L_ERROR ;
+    
     const OVERALL_OPENROAMING_INDEX = [
         self::OVERALL_OPENROAMING_LEVEL_NO => 'OVERALL_OPENROAMING_LEVEL_NO',
         self::OVERALL_OPENROAMING_LEVEL_GOOD => 'OVERALL_OPENROAMING_LEVEL_GOOD',
@@ -172,6 +179,14 @@ abstract class AbstractProfile extends EntityWithDBProperties
         self::CERT_STATUS_OK => 'CERT_STATUS_OK',
         self::CERT_STATUS_WARN => 'CERT_STATUS_WARN',
         self::CERT_STATUS_ERROR => 'CERT_STATUS_ERROR',     
+    ];
+    
+    const TEST_STATUS_INDEX = [
+        self::TEST_STATUS_OK => 'TEST_STATUS_OK',
+        self::TEST_STATUS_UNKNOWN => 'TEST_STATUS_UNKNOWN',
+        self::TEST_STATUS_REMARK => 'TEST_STATUS_REMARK',
+        self::TEST_STATUS_WARN => 'TEST_STATUS_WARN',
+        self::TEST_STATUS_ERROR => 'TEST_STATUS_ERROR',     
     ];
     
     /**
@@ -383,9 +398,16 @@ abstract class AbstractProfile extends EntityWithDBProperties
      */
     public function setOpenRoamingReadinessInfo(int $level)
     {
+        \core\common\Logging::debug_s(3, $level, "SAVING LEVEL profile:".$this->identifier.":", "\n");
         $this->databaseHandle->exec("UPDATE profile SET openroaming = ? WHERE profile_id = ?", "ii", $level, $this->identifier);
+        \core\common\Logging::debug_s(3, "SAVED\n");
     }
     
+    /**\
+     * Reads the OpenRoaming readiness level from the database
+     * 
+     * @return int the readiness level
+     */
     public function getOpenRoamingReadinessInfo()
     {
         if (count($this->getAttributes("media:openroaming")) === 0 || $this->getAttributes("media:openroaming")[0]['value'] === NULL) {
@@ -397,6 +419,26 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $level->openroaming = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
         }
         return $level->openroaming;
+    }
+
+    /**
+     * Saves the reachibility testing staus into the database
+     * 
+     * @param int $level
+     */
+    public function setTestStatusInfo($level) {
+        $this->databaseHandle->exec("UPDATE profile SET test_result=$level WHERE profile_id = ?", "i", $this->identifier);
+    }
+    
+    /**
+     * Reads the reachibility testing staus from the database
+     * 
+     * @return int the reachibility testing staus
+     */
+    public function getTestStatusInfo() {
+        $result = $this->databaseHandle->exec("SELECT test_result FROM profile WHERE profile_id = ?", "i", $this->identifier);
+        $level = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result);
+        return $level->test_result;
     }
 
     /**

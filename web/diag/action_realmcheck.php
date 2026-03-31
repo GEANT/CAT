@@ -97,12 +97,14 @@ $end = $langInstance->rtl ? "left" : "right";
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
 <script type="text/javascript">
     var L_OK = <?php echo \core\common\Entity::L_OK ?>;
+    var L_UNKNOWN = <?php echo \core\common\Entity::L_UNKNOWN ?>;
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
     var ajax_timeout = <?php echo \config\Diagnostics::TIMEOUTS['ajax_radius_tests'] ?>;
     var icons = new Array();
     icons[L_OK] = '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg';
+    icons[L_UNKNOWN] = '../resources/images/icons/Tabler/question-mark-filled-blue.svg';
     icons[L_WARN] = '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg';
     icons[L_ERROR] = '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg';
     icons[L_REMARK] = '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg';
@@ -141,6 +143,7 @@ $end = $langInstance->rtl ? "left" : "right";
     var running_ajax_dyn = 0;
     var global_level_udp = L_OK;
     var global_level_dyn = L_OK;
+    var global_level = L_OK;
     var global_level_openroaming = L_OK;
     servercert['title'] = "<?php echo _("Server certificate") ?>";
     servercert['subject'] = "<?php echo _("Subject") ?>";
@@ -432,17 +435,27 @@ $end = $langInstance->rtl ? "left" : "right";
             $("#main_static_ico").attr('src', icons[global_level_udp]);
             $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_static_result").show();
+            global_level = Math.max(global_level, global_level_udp);
         }
         if (running_ajax_dyn === 0) {
             $("#main_dynamic_ico").attr('src', icons[global_level_dyn]);
             $("#main_dynamic_result").html(global_info[global_level_dyn] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_dynamic_result").show();
+            global_level = Math.max(global_level, global_level_dyn);
         }
         if (running_ajax_openroaming === 0) {
             $("#main_openroaming_ico").attr('src', icons[global_level_openroaming]);
             $("#main_openroaming_result").html(global_info[global_level_openroaming] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_openroaming_result").show();
         }
+        if (Math.max(running_ajax_stat, running_ajax_dyn, running_ajax_openroaming) === 0) {
+            $.ajax({
+                url: 'save_tests_result.php',
+                type: 'POST',
+                data: {profile_id: <?php echo $profile_id ?>, idp_id: <?php echo $inst_id; ?>, level: global_level},
+                dataType: 'json'
+            });
+    }
     }
 
     function udp_login(data, status) {

@@ -244,7 +244,9 @@ switch ($test_type) {
                 break;
             case \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
                 $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. This is not necessarily an error: if the RADIUS server enforces that outer identities correspond to an existing username, then this result is expected (Note: you could configure a valid outer identity in your profile settings to get past this hurdle). In all other cases, the server appears misconfigured or it is unreachable.");
-                $level = \core\common\Entity::L_WARN;
+                $level = \core\common\Entity::L_UNKNOWN;
+                unset($returnarray['result'][$i]['cert_oddities']);
+                $returnarray['result'][$i]['server'] = 0;
                 break;
             case \core\diag\RADIUSTests::RETVAL_NO_RESPONSE:
                 $returnarray['result'][$i]['server'] = 0;

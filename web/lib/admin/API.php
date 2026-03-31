@@ -1379,7 +1379,7 @@ class API {
         $res = [];
         if ($data['returncode'][0] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
             $res['description'] = _("IMMEDIATE REJECT");
-            $res['returncode'] = 2;
+            $res['returncode'] = 5;
             return $res;
         }
         $expected = \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT;
