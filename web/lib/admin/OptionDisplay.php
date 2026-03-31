@@ -266,7 +266,6 @@ class OptionDisplay extends \core\common\Entity
     {
         $retval = "";
         $list2 = array_values(OptionDisplay::enumerateOptionsToDisplay($class, $fed));
-
         // add as many options as there are different option types
         $numberOfOptions = count($list2);
         for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
@@ -343,7 +342,13 @@ class OptionDisplay extends \core\common\Entity
                 foreach ($list as $value) {
                     $listtype = $optioninfo->optionType($value);
                     $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"]. '#' . $listtype["multivalued"] . "' ";
-                    $tooltips .= $this->tooltip($rowid, $value, FALSE);
+                    if ($iterator == $this->optionIterator) {
+                        $retval .= "selected='selected'";
+                        $activelisttype = $listtype;
+                        $tooltips .= $this->tooltip($rowid, $value, TRUE);
+                    } else {
+                        $tooltips .= $this->tooltip($rowid, $value, FALSE);
+                    }
                     $retval .= ">" . $uiElements->displayName($value) . "</option>";
                     $iterator++;
                 }
