@@ -55,7 +55,6 @@ use \Exception;
  */
 class Federation extends EntityWithDBProperties
 {
-
     /**
      * the handle to the FRONTEND database (only needed for some stats access)
      * 
@@ -527,7 +526,7 @@ class Federation extends EntityWithDBProperties
      * Gets an array of certificate status (as most critical) from all profiles
      * per IdP - passing over the non-active profiles
      */
-    public function getIdentityProvidersCertStatus() {
+    private function getIdentityProvidersCertStatus() {
         $query = "SELECT distinct profile.profile_id  FROM profile JOIN profile_option ON profile.profile_id = profile_option.profile_id WHERE option_name='profile:production' AND profile.sufficient_config = 1";
         $activeProfiles = [];
         $result = $this->databaseHandle->exec($query);
@@ -570,12 +569,42 @@ class Federation extends EntityWithDBProperties
     }
     
     /**
+     * Gets an array of all institutions that have at least one active profile with no anonymous support (TLS-only and redirected profiles are not taken into account)
+     * 
+     * @return array the array indexed by institution identifiers
+     */
+    private function getIdentityProvidersAnonymityStatus() {
+        $q = "SELECT profile.inst_id,profile_id FROM profile JOIN institution ON profile.inst_id=institution.inst_id WHERE sufficient_config=1 AND showtime=1 AND (realm IS NULL OR realm ='' OR use_anon_outer != 1) AND country=?";
+        $result = $this->databaseHandle->exec($q, 's', $this->tld);
+        $possibleCandidates = $result->fetch_all();
+        
+        $q = "SELECT profile_id FROM profile_option WHERE option_name='device-specific:redirect' AND device_id IS NULL";
+        $result = $this->databaseHandle->exec($q);
+        $redirectedProfiles = [];
+        $rows = $result->fetch_all();
+        foreach ($rows as $row) {
+            $redirectedProfiles[] = $row[0];
+        }        
+        
+        $noAnonymousSupport = [];
+        foreach ($possibleCandidates as $candidate) {
+            $inst = $candidate[0];
+            $profileId = $candidate[1];
+            if (!in_array($profileId, $redirectedProfiles)) {
+                $noAnonymousSupport[$inst] = 1;
+            }
+        }
+        return $noAnonymousSupport;
+    }
+    
+    
+    /**
      * Get the "worst" rechibility statuses from all institution profiles (only production ready
      * profiles are used) and do so for evely institution in the current federation
      * 
      * @return array The arry of statuses (indexed by the inst identifier)
      */
-    public function getIdentityProvidersTestStatus() {
+    private function getIdentityProvidersTestStatus() {
         $idpTestStatus =[];
         $query =  "SELECT max(test_result) AS max_test_result, profile.inst_id AS inst_id"
                 . " FROM profile JOIN institution ON profile.inst_id=institution.inst_id"
@@ -589,6 +618,54 @@ class Federation extends EntityWithDBProperties
             $idpTestStatus[$row[1]] = $row[0];
         }
         return $idpTestStatus;
+    }
+    
+    private function getIdentityProvidersORStatus() {
+        $idpORStatus = [];
+        $q = "SELECT institution.inst_id ,MIN(openroaming) FROM profile JOIN profile_option ON profile_option.profile_id=profile.profile_id JOIN institution ON profile.inst_id = institution.inst_id WHERE option_name='media:openroaming' AND country=? GROUP BY institution.inst_id";
+        $allProfiles = $this->databaseHandle->exec($q, 's', $this->tld);
+        while ($res = mysqli_fetch_row(/** @scrutinizer ignore-type */ $allProfiles)) {
+            $idpORStatus[$res[0]] = (int)$res[1];
+        }
+        return $idpORStatus;
+    }
+    
+    private function getIdentityProvidersWiredStatus()
+    {
+        // first test the IdP level
+        $idpWiredStatus = [];
+        $q = "SELECT institution.inst_id FROM institution_option JOIN institution ON institution_option.institution_id=institution.inst_id WHERE institution.country=? and institution_option.option_name='media:wired'";
+        $allIdps = $this->databaseHandle->exec($q, 's', $this->tld);
+        while ($row = mysqli_fetch_row(/** @scrutinizer ignore-type */ $allIdps)) {
+            $idpWiredStatus[$row[0]] = 1;
+        }
+
+        $q = "SELECT distinct profile.inst_id FROM profile_option JOIN profile ON profile_option.profile_id=profile.profile_id JOIN institution ON profile.inst_id = institution.inst_id WHERE institution.country=? AND profile_option.option_name='media:wired'";
+        $profileIdps = $this->databaseHandle->exec($q, "s", $this->tld);
+        while ($row = mysqli_fetch_row(/** @scrutinizer ignore-type */ $profileIdps)) {
+            $idpWiredStatus[$row[0]] = 1;
+        }
+        return $idpWiredStatus;
+    }
+    
+    public function getIdentityProviderStatus() {
+        $testStatus = $this->getIdentityProvidersTestStatus();
+        $anonStatus = $this->getIdentityProvidersAnonymityStatus();
+        $certStatus = $this->getIdentityProvidersCertStatus();
+        $orStatus = $this->getIdentityProvidersORStatus();
+        $wiredStatus = $this->getIdentityProvidersWiredStatus();
+        $idps = array_unique(array_merge(array_keys($testStatus), array_keys($anonStatus), array_keys($certStatus), array_keys($orStatus), array_keys($wiredStatus)));
+        $out = [];
+        foreach ($idps as $idp) {
+            $out[$idp] = [
+                'test' => isset($testStatus[$idp]) ? $testStatus[$idp] : null,
+                'anon' => isset($anonStatus[$idp]) ? $anonStatus[$idp] : null,
+                'cert' => isset($certStatus[$idp]) ? $certStatus[$idp] : null,
+                'or' => isset($orStatus[$idp]) ? $orStatus[$idp] : null,
+                'wired' => isset($wiredStatus[$idp]) ? $wiredStatus[$idp] : null 
+            ];
+        }
+        return $out;
     }
     
     /**

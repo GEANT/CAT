@@ -25,11 +25,14 @@ function row_filter(tbody) {
     var broken_cert = tbody.find('[id^="brokencert_ck_"]').is(':checked');
     var wired_set = tbody.find('[id^="wiredset_ck_"]').is(':checked');
     var or_warn = tbody.find('[id^="or_ck_"]').is(':checked');
+    var anon_warn = tbody.find('[id^="anon_ck_"]').is(':checked');
+    var test_warn = tbody.find('[id^="test_ck_"]').is(':checked');
     var profile_warn = tbody.find('[id^="profile_ck_"]').is(':checked');
     var adminproblem = tbody.find('[id^="adminproblem_ck_"]').is(':checked');
     var input = tbody.find('[id^="qsearch_"]').val().toLowerCase();
     var tr_visible;
     var inp_found;
+    var counter = tbody.siblings(".fedheader").first().find("span.idp_count").first();
     tbody.children("tr.idp_tr").each(function() {
         tr_visible = true;
         if (linked && $(this).hasClass('linked')) {
@@ -43,7 +46,13 @@ function row_filter(tbody) {
         }        
         if (tr_visible && or_warn && $(this).hasClass('orok')) {
             tr_visible = false;
-        }      
+        }
+        if (tr_visible && anon_warn && $(this).hasClass('anonok')) {
+            tr_visible = false;
+        }
+        if (tr_visible && test_warn && $(this).hasClass('testok')) {
+            tr_visible = false;
+        } 
         if (tr_visible && adminproblem && $(this).hasClass('adminok')) {
             tr_visible = false;
         } 
@@ -62,6 +71,8 @@ function row_filter(tbody) {
             $(this).hide();            
         }
     });
+    counter.html(tbody.children("tr.idp_tr:visible").length);
+  
 }
 
 function filter_action() {
@@ -119,6 +130,12 @@ $(document).ready(function() {
     $("#loading_gif").hide();
     $("tbody.fedlist").each(function() {
         row_filter($(this));
+    });
+
+    $('#inst_search').on('keyup', function(){
+        var input = $(this).val().toLowerCase();
+        console.log(input);
+        $("#externams options").filter(function(index) {console.log($(this).val());});
     });
 });
 

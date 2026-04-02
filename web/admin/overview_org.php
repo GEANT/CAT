@@ -123,7 +123,8 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             foreach ($attribs as $attrib) {
                 if ($attrib['level'] == \core\Options::LEVEL_METHOD && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
                     $justOnce = TRUE;
-                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Tabler/square-rounded-letter-e-blue.svg' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
+                    $iconData = $uiElements->iconData('EAP_OPTIONS_SET');
+                    $buffer_eaptypediv .= $uiElements->catIcon(($iconData));
                 }
             }
             $buffer_eaptypediv .= "<br/>";
@@ -151,7 +152,12 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
             $iconData['text'] = _("Profile redirected");
             $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
             
-        } 
+        }
+        
+        if ($theProfile->getAnonymousIDSupport() === 0) {
+            $iconData = $uiElements->iconData('ANONYMOUS_NONE_PROFILE');
+            $buffer_headline .= "<br/>" . $uiElements->catIcon(($iconData));
+        }
        
         $certStatus = $theProfile->certificateStatus();
         switch ($certStatus) {
@@ -175,26 +181,22 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
 
         $has_eaptypes = count($theProfile->getEapMethodsInOrderOfPreference(1));
         $hasRealmArray = $theProfile->getAttributes("internal:realm");
-        $has_realm = $hasRealmArray[0]['value'];
+        $hasRealm = $hasRealmArray[0]['value'];
         
         $testStateIcon = '';
         $testStatus = $theProfile->getTestStatusInfo();
         if ($testStatus !== \core\AbstractProfile::TEST_STATUS_NONE) {
             $iconData = $uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$testStatus]);
             $testStateIcon = $uiElements->catIcon(($iconData));
-        } else {
-            $testStateIcon=  '';
-        }        
-                
+        }
+                    
         $orStateIcon = '';
         $openRoamingReady = $theProfile->getOpenRoamingReadinessInfo();
         if ($openRoamingReady !== \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO) {
             $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$openRoamingReady]);
             $orStateIcon = $uiElements->catIcon(($iconData));
-        } else {
-            $orStateIcon = '';
         }
-
+        
         // our own base location, to give to diag URLs
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
@@ -215,8 +217,8 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                 ?>
                 <form action='<?php echo $diagUrl . "action_realmcheck.php?inst_id=" . $theProfile->institution . "&profile_id=" . $theProfile->identifier ?>' method='post' accept-charset='UTF-8'>
                     <input type='hidden' name='comefrom' value='<?php echo htmlspecialchars($link . $_SERVER['SCRIPT_NAME']); ?>'/>
-                    <button type='submit' name='profile_action' style='vertical-align: middle; height: 25px' value='check' <?php echo ($has_realm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
-                        <?php echo $testStateIcon.'&nbsp;&nbsp;'._("Check realm reachability"); ?>
+                    <button type='submit' name='profile_action' style='vertical-align: middle; height: 25px' value='check' <?php echo ($hasRealm ? "" : "disabled='disabled'"); ?> title='<?php echo _("The realm can only be checked if you configure the realm!"); ?>'>
+                        <?php echo ($hasRealm ? $testStateIcon : '').'&nbsp;&nbsp;'._("Check realm reachability"); ?>
                     </button>
                 </form>
                 <?php

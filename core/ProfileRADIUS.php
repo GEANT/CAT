@@ -311,6 +311,29 @@ class ProfileRADIUS extends AbstractProfile
     {
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
+    
+    /**
+     * Check if the profile supports user privacy (profiles with EAP-TLS as the preferred method are not tested)
+     * 
+     * @ return int:
+     *     0 - profile does not support anonymity,
+     *     1 - profile id TLS or supports anonymity
+     *     2 - profile does not have EAP type set
+     */
+    public function getAnonymousIDSupport() {
+        $eaps = $this->getEapMethodsinOrderOfPreference(1);
+        if (!isset($eaps[0]) || $eaps[0] === null) {
+            return 2;
+        }
+        if ($eaps[0]->getIntegerRep() === \core\common\EAP::INTEGER_TLS) {
+            return 1;
+        }
+        $result =  $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE profile_id = ".$this->identifier." AND use_anon_outer = 1 AND realm IS NOT NULL AND REALM != ''");
+        if ($result->num_rows > 0) {
+            return 1;
+        }
+        return 0;
+    }
 
     /** Toggle special username for realm checks
      *
@@ -372,5 +395,54 @@ class ProfileRADIUS extends AbstractProfile
             $returnArray[$queryResult->row_id] = "KILLME";
         }
         return $returnArray;
+    }
+    
+    /**
+     * Takes note of the OpenRoaming participation and conformance level
+     * 
+     * @param int $level the readiness level, as determined by RFC7585Tests
+     * @return void
+     */
+    public function setOpenRoamingReadinessInfo(int $level)
+    {
+        $this->databaseHandle->exec("UPDATE profile SET openroaming = ? WHERE profile_id = ?", "ii", $level, $this->identifier);
+    }
+    
+    /**
+     * Reads the OpenRoaming readiness level from the database
+     * 
+     * @return int the readiness level
+     */
+    public function getOpenRoamingReadinessInfo()
+    {
+        if (count($this->getAttributes("media:openroaming")) === 0 || $this->getAttributes("media:openroaming")[0]['value'] === NULL) {
+            return $this::OVERALL_OPENROAMING_LEVEL_NO;
+        }
+        $result = $this->databaseHandle->exec("SELECT openroaming FROM profile WHERE profile_id = ?", "i", $this->identifier);
+        $level = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result);
+        if ($level->openroaming === $this::OVERALL_OPENROAMING_LEVEL_NO) {
+            $level->openroaming = $this::OVERALL_OPENROAMING_LEVEL_ERROR;
+        }
+        return $level->openroaming;
+    }
+    
+    /**
+     * Saves the reachibility testing staus into the database
+     * 
+     * @param int $level
+     */
+    public function setTestStatusInfo($level) {
+        $this->databaseHandle->exec("UPDATE profile SET test_result=$level WHERE profile_id = ?", "i", $this->identifier);
+    }
+    
+    /**
+     * Reads the reachibility testing staus from the database
+     * 
+     * @return int the reachibility testing staus
+     */
+    public function getTestStatusInfo() {
+        $result = $this->databaseHandle->exec("SELECT test_result FROM profile WHERE profile_id = ?", "i", $this->identifier);
+        $level = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result);
+        return $level->test_result;
     }
 }

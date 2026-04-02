@@ -326,12 +326,14 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             if ($hideWarningsFlag !== []) {
                 $hideWarnings = true;
             }
+            echo "<tbody class='fedheader'>";
             echo "<tr><td colspan='10'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";            
             ?>
         <tr>
-            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
+            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant).' - '._("showing <span class='idp_count'>XXX</span>"); ?></th>
             <?php if (\core\CAT::radiusProfilesEnabled()) { ?>
             <th scope='col'><?php echo _("Status") ?></th>
+            <th scope='col'><?php echo _("Priv.") ?></th>
             <th scope='col'><?php echo _("Tests") ?></th>
             <th scope='col'><?php echo $OpenRoamingSymbol ?></th>
             <th scope='col'><?php echo _("Cert"); ?></th>
@@ -360,12 +362,14 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             </th>
             <?php } ?>
         </tr>
+        </tbody>
         <?php
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tbody class='fedlist'>";
             echo "<tr><td colspan='1'><strong>"._("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
             if (\core\CAT::radiusProfilesEnabled()) {
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='anoncheck' id='anon_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='testcheck' id='test_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
                 echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
@@ -390,10 +394,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                     $display_pendings = TRUE;
                 }
             }
-            $idps = $thefed->listIdentityProviders(0);
-            $certStatus = $thefed->getIdentityProvidersCertStatus();
-            $testStatus = $thefed->getIdentityProvidersTestStatus();
-            
+            $idps = $thefed->listIdentityProviders(0);      
+            $globalStatus = $thefed->getIdentityProviderStatus();
             $thefed->loadAdminsLogins();
             $my_idps = [];
             foreach ($idps as $index => $idp) {
@@ -402,7 +404,8 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             asort($my_idps);
 
             foreach ($my_idps as $index => $my_idp) {
-                $idp_instance = $idps[$index]['instance'];                
+                $idp_instance = $idps[$index]['instance'];
+                $idpStatus = isset($globalStatus[$index]) ? $globalStatus[$index] : null;
                 // get max profile status
                 $profileClass = '';
                 $maxProfileStatus = $idp_instance->maxProfileStatus();
@@ -440,41 +443,67 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                 
                 // verify the certificates status for this IdP
-                if (isset($certStatus[$index])) {
-                    $certIconData = $uiElements->iconData(\core\AbstractProfile::CERT_STATUS_INDEX[$certStatus[$index]]);
-                    if ($certStatus[$index] > 0) {
+                $certClass = 'certok';
+                if (isset($idpStatus['cert']) && $idpStatus['cert'] !== null) {
+                    $certIconData = $uiElements->iconData(\core\AbstractProfile::CERT_STATUS_INDEX[$idpStatus['cert']]);
+                    if ($idpStatus['cert'] > 0) {
                         $certClass = 'certproblem';
-                    } else {
-                        $certClass = 'certok';
                     }
                 } else {
                     $certIconData = $uiElements->iconData('CERTS_NOT_SHOWN');
-                    $certClass = 'certok';
                 }
                 $certIcon = $uiElements->catIcon($certIconData);
                 
-                // verify the wired status for this IdP
-                $wiredSet = $idp_instance->maxWiredStatus();
-                $wiredIcon = '-';
-                $wiredClass = 'wiredunset';
-                if ($wiredSet === \core\IdP::WIRED_SET) {
-                    $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
-                    $wiredClass = 'wiredset';
-                }
-             
-                if (isset($testStatus[$index])) {
-                    $testIconData = $uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$testStatus[$index]]);
-                    if ($testStatus[$index] > 0) {
+                $testClass = 'testok';
+                $testIcon = '-';
+                if (isset($idpStatus['test']) && $idpStatus['test'] !== null) {
+                    $testIcon = $uiElements->catIcon($uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$idpStatus['test']]));
+                    if ($idpStatus['test'] > 0) {
                         $testClass = 'testprobem';
-                    } else {
-                        $testClass = 'testok';
                     }
                 } else {
                     $testIconData = null;
-                    $testClass = 'testok';
                 }
-                $testIcon = $testIconData === null ? '-' : $uiElements->catIcon($testIconData);
+                
+                $anonClass = 'anonok';
+                $anonIcon = '';
+                if (isset($idpStatus['anon']) && $idpStatus['anon'] !== null) {
+                    $anonIcon = $uiElements->catIcon($uiElements->iconData('ANONYMOUS_NONE_INST'));
+                    $anonClass = 'anonproblem';
+                }
+                
+                $orClass = 'orok';
+                $orIcon = '';
+                if (isset($idpStatus['or']) && $idpStatus['or'] !== null) {
+                    $orStatus = $idpStatus['or'];
+                    switch ($orStatus) {
+                        case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO:
+                            $orIcon = '-';
+                            break;
+                        case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD:
+                            break;
+                        case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
+                        case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
+                        case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
+                            $orClass = 'orwarn';
+                            break;
+                        default:
+                            throw new \Exception("Impossible OpenRoaming status!");
+                    }
+                    
+                    if ($orIcon === '') {
+                            $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
+                            $orIcon = $uiElements->catIcon($iconData);                    
+                    }                    
+                }
 
+                $wiredClass = 'wiredunset';
+                $wiredIcon = '';
+                if (isset($idpStatus['wired']) && $idpStatus['wired'] !== null) {
+                    $wiredIcon = $uiElements->catIcon($uiElements->iconData('WIRED_SET'));
+                    $wiredClass = 'wiredset';
+                }
+                        
                 // verify DB sync status for this IdP
                 $linkClass = 'nosync';
                 $linkIcon = '';
@@ -492,47 +521,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                             $linkIcon = $uiElements->catIcon($uiElements->iconData('IDP_NOT_LINKED'));
                             break;
                     }                
-                }
-
-                // verify the OpenRoaming status for this IdP
-                $orStatus = $idp_instance->maxOpenRoamingStatus();
-                \core\common\Logging::debug_s(3, $orStatus, "OR STAT:".$idp_instance->identifier.":", "\n");
-                $orClass = 'orok';
-                $orIcon = '';
-                switch ($orStatus) {
-                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO:
-                        $orIcon = "-";
-                        break;
-                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_GOOD:
-                        break;
-                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NOTE:
-                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_WARN:
-                    case \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_ERROR:
-                        $orClass = 'orwarn';
-                        break;
-                    default:
-                        throw new \Exception("Impossible OpenRoaming status!");
-                }
-                if ($orIcon === "") {
-                        $iconData = $uiElements->iconData(\core\AbstractProfile::OVERALL_OPENROAMING_INDEX[$orStatus]);
-                        $orIcon = $uiElements->catIcon($iconData);                    
-                }
-
-                if (isset($certStatus[$index])) {
-                    if ($certStatus[$index] > 0) {
-                        $certClass = 'certproblem';
-                    } else {
-                        $certClass = 'certok';
-                    }
-                }
-                
-                if (isset($testStatus[$index])) {
-                    if ($testStatus[$index] > 0) {
-                        $testClass = 'testproblem';
-                    } else {
-                        $testClass = 'testok';
-                    }
-                }                
+                }      
                    
                 $adminClass = 'adminok';
                 $adminIcon = '<span style="padding-left:20px"></span>';
@@ -549,7 +538,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass $testClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass $testClass $anonClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if
@@ -579,6 +568,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // show happy eyeballs if at least one profile is configured/showtime     
                 if (\core\CAT::radiusProfilesEnabled()) {
                     echo  "<td>$profileIcon</td>";
+                    echo  "<td style='text-align: center'>$anonIcon</td>";
                     echo  "<td style='text-align: center'>$testIcon</td>";
                     echo "<td style='text-align: center'>$orIcon</td>";
                     echo "<td>$certIcon</td>";

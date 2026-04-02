@@ -776,6 +776,9 @@ class UIElements extends \core\common\Entity {
             'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
             'DEPLOYMENTS_INACTIVE' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one hotspot is defined but none are active")],
             'WIRED_SET' => ['img' => 'Tabler/check-green.svg', 'text' => _("The wired Ethernet option is set on the institution or profile level")],
+            'ANONYMOUS_NONE_PROFILE' => ['img' => 'Tabler/no-key-red.svg', 'text' => _("This profile does not provide user anonymity")],
+            'ANONYMOUS_NONE_INST' => ['img' => 'Tabler/no-key-red.svg', 'text' => _("There are profiles that do not provide user anonymity")],
+            'EAP_OPTIONS_SET' => ['img' => 'Tabler/square-rounded-letter-e-blue.svg', 'text' => _("Options on EAP Method/Device level are in effect.")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);
