@@ -21,7 +21,6 @@
  */
 
 require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
-
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
@@ -49,6 +48,18 @@ function disp_name($eap)
 
 const VALID_TEST_TYPES = ['udp_login', 'udp', 'capath', 'clients', 'openroamingcapath', 'openroamingclients'];
 
+$frag = 1;
+if (isset($_REQUEST['frag']) && $_REQUEST['frag'] == 0 ) {
+    $frag = 0;
+}
+$user_cert = '';
+if (isset($_REQUEST['usercert']) && $_REQUEST['usercert'] != '') {
+    $user_cert = $_REQUEST['usercert'];
+}
+$user_cert_pass = '';
+if (isset($_REQUEST['usercertpass']) && $_REQUEST['usercertpass'] != '') {
+    $user_cert_pass = $_REQUEST['usercertpass'];
+}
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
@@ -136,16 +147,30 @@ switch ($test_type) {
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
+            $run_test = TRUE;
             if ($eap->getIntegerRep() == \core\common\EAP::INTEGER_TLS) {
-                $run_test = TRUE;
-                if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
+                if (!(isset($_REQUEST['privkey_pass']) && isset($_FILES['cert']['tmp_name'])) && !($user_cert && $user_cert_pass)) {
+                    $testresult = \core\diag\RADIUSTests::RETVAL_INCOMPLETE_DATA;
+                    $run_test = FALSE;
+                    continue;
+                }
+                
+                if (isset($_FILES['cert']['tmp_name']) && $_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
+                } else {
+                    if ($user_cert != '') {
+                        $clientcertdata = base64_decode($user_cert);
+                        $privkey_pass = $user_cert_pass;
+                    }
+                }
+                if ($clientcertdata != '') {
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
                         $tls_username = $validator->syntaxConformUser(htmlspecialchars(strip_tags(filter_input(INPUT_POST, 'tls_username'))));
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);
+                            
                             if (isset($mydetails['subject']['CN']) && $mydetails['subject']['CN']) {
                                 $tls_username = $mydetails['subject']['CN'];
                                 $loggerInstance->debug(4, "PKCS12-CN=$tls_username\n");
@@ -164,15 +189,16 @@ switch ($test_type) {
                 }
                 if ($run_test) {
                     $loggerInstance->debug(4, "TLS-USERNAME=$tls_username\n");
-                    $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
+                    $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $tls_username, $privkey_pass, TRUE, $frag, $clientcertdata);
                 }
             } else {
-                $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $user_name, $user_password);
+                $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $user_name, $user_password, TRUE, $frag);
             }
-            $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
+            if ($run_test) {
+                $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
+            }
             $returnarray['result'][$i]['eap'] = $eap->getPrintableRep();
             $returnarray['returncode'][$i] = $testresult;
-
 
             switch ($testresult) {
                 case \core\diag\RADIUSTests::RETVAL_OK:
@@ -214,6 +240,11 @@ switch ($test_type) {
                     $returnarray['message'] = sprintf(_("<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, but it did not finish after %d seconds!"), $timeout);
                     $returnarray['level'] = \core\common\Entity::L_ERROR;
                     break;
+                case \core\diag\RADIUSTests::RETVAL_INCOMPLETE_DATA:
+                    $level = \core\common\Entity::L_ERROR;
+                    $message = _("<strong>Test not executed</strong>: insufficient data provided!");
+                    $returnarray['result'][$i]['server'] = 0;
+                    break;
                 default:
                     $level = isset($testsuite->returnCodes[$testresult]['severity']) ? $testsuite->returnCodes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
                     $message = isset($testsuite->returnCodes[$testresult]['message']) ? $testsuite->returnCodes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
@@ -228,7 +259,7 @@ switch ($test_type) {
     case 'udp':
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
-        $testresult = $testsuite->udpReachability($hostindex);
+        $testresult = $testsuite->udpReachability($hostindex, TRUE, $frag);
         $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;

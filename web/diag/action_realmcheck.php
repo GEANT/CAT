@@ -489,7 +489,14 @@ $end = $langInstance->rtl ? "left" : "right";
                 });
             }
             o = o + cert_data + '</table>';
-            $("#eap_test" + data.hostindex).append('<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start;?>: 1em">' + v.eap + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start;?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>');
+            console.log(v);
+            fullmsg = '<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start;?>: 1em">' + v.eap;
+            if (v.server != 0 && v.time_millisec != undefined) {
+                fullmsg = fullmsg + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start;?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>';
+            } else {
+                fullmsg = fullmsg + ' &ndash; ' + v.message;
+            }   
+            $("#eap_test" + data.hostindex).append(fullmsg);
         });
     }
 

@@ -252,11 +252,14 @@ class API {
     const AUXATTRIB_DIAG_USERNAME = "ATTRIB-DIAG-USERNAME";
     const AUXATTRIB_DIAG_PASSWD = "ATTRIB-DIAG-PASSWD";
     const AUXATTRIB_DIAG_OUTERUSER = "ATTRIB-DIAG-OUTERUSER";
+    const AUXATTRIB_DIAG_USERCERT = "ATTRIB-DIAG-USERCERT";
+    const AUXATTRIB_DIAG_USERCERT_PASSWD = "ATTRIB-DIAG-USERCERT-PASSWD";
     const AUXATTRIB_DIAG_SCOPE = "ATTRIB-DIAG-SCOPE";
     /**
      * This section defines allowed flags for actions
      */
     const FLAG_NOLOGO = "FLAG-NO-LOGO"; // skip logos in attribute listings
+    const FLAG_PROVOKE_FRAGM = "FLAG-PROVOKE-FRAGM"; 
     
     const DIAG_ALL = "ALL";
     const DIAG_LIVE_LOGIN = "LIVE-LOGIN";
@@ -488,9 +491,11 @@ class API {
         ],
         API::ACTION_DIAG_TESTS => [
             "REQ" => [],
-            "OPT" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_PROFILE_REALM, API::AUXATTRIB_DIAG_USERNAME,
-                      API::AUXATTRIB_DIAG_PASSWD, API::AUXATTRIB_DIAG_OUTERUSER, API::AUXATTRIB_DIAG_SCOPE],
-            "FLAG" => [],
+            "OPT" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_PROFILE_REALM, 
+                      API::AUXATTRIB_DIAG_USERNAME, API::AUXATTRIB_DIAG_PASSWD, API::AUXATTRIB_DIAG_OUTERUSER,
+                      API::AUXATTRIB_DIAG_USERCERT, API::AUXATTRIB_DIAG_USERCERT_PASSWD,
+                      API::AUXATTRIB_DIAG_SCOPE],
+            "FLAG" => [API::FLAG_PROVOKE_FRAGM],
             "RETVAL" => [],
         ]
     ];
@@ -504,6 +509,7 @@ class API {
     private $jsondir;
     public $catlink;
     private $token;
+    private $provokefragm;
 
     /**
      * construct the API class
@@ -910,6 +916,10 @@ class API {
         $realm = $this->firstParameterInstance(API::AUXATTRIB_PROFILE_REALM);
         $profile_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
         $scope = $this->firstParameterInstance(API::AUXATTRIB_DIAG_SCOPE);
+        $this->provokefragm = FALSE;
+        if ($this->firstParameterInstance(API::FLAG_PROVOKE_FRAGM) === FALSE) {
+            $this->provokefragm = TRUE;
+        }
         if ($realm === FALSE && $profile_id === FALSE) {
             $this->returnError(self::ERROR_INVALID_PARAMETER, "A profile identifier or a realm has to be provided!");
         }
@@ -925,9 +935,11 @@ class API {
             $login_user = $this->firstParameterInstance(API::AUXATTRIB_DIAG_USERNAME);
             $login_pass = $this->firstParameterInstance(API::AUXATTRIB_DIAG_PASSWD);
             $login_outer = $this->firstParameterInstance(API::AUXATTRIB_DIAG_OUTERUSER);
-            if ($login_user !== FALSE) {
+            $login_user_cert = $this->firstParameterInstance(API::AUXATTRIB_DIAG_USERCERT);
+            $login_cert_pass = $this->firstParameterInstance(API::AUXATTRIB_DIAG_USERCERT_PASSWD);
+            if ($login_user !== FALSE || $login_user_cert !== FALSE) {
                 $live_tests = TRUE;
-            }
+            } 
         }
         $this->jsondir = dirname(dirname(dirname(dirname(__FILE__))))."/var/json_cache";
         if (isset($_SERVER['SERVER_NAME'])) {
@@ -974,8 +986,8 @@ class API {
         if (($scope === API::DIAG_ALL && $live_tests === FALSE) || $scope === API::DIAG_INFRASTRUCTURE) {
             $retArray = array_merge($retArray, $this->infrastructureTest($profile_id, $realm));
         }
-        if ($live_tests === TRUE && $login_user !== FALSE) {
-            $retArray = array_merge($retArray, $this->liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass));
+        if ($live_tests === TRUE && $login_user !== FALSE || $login_user_cert !== FALSE) {
+            $retArray = array_merge($retArray, $this->liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass, $login_user_cert, $login_cert_pass));
 
         }
         if ($scope === API::DIAG_ALL || $scope === API::DIAG_DYNAMIC) {
@@ -1296,7 +1308,7 @@ class API {
         
     }
     
-    public function ationCertRevoke() {
+    public function actionCertRevoke() {
         $prof_id = $this->firstParameterInstance(API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);
@@ -1447,7 +1459,7 @@ class API {
             $radius = [];
             $radius['name'] = $host['display_name'];
             $radius["ip"] = $host['ip'];
-            $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex];
+            $payload = ['test_type' => 'udp', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex, 'frag' => $this->provokefragm];
             if ($profile_id !== FALSE) {
                 $payload['profile_id'] = $profile_id;
             }
@@ -1466,7 +1478,7 @@ class API {
         return $infrastructure_test;
     }
 
-    private function liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass) {
+    private function liveLoginTest($profile_id, $realm, $login_outer, $login_user, $login_pass, $login_user_cert, $login_cert_pass) {
         $live_test = [];
         if ($login_outer === FALSE) {
             $login_outer = '';
@@ -1474,8 +1486,32 @@ class API {
         if ($login_pass === FALSE) {
             $login_pass = '';
         }
+        if ($login_cert_pass === FALSE) {
+            $login_cert_pass = '';
+        }
+        $profile = $this->validator->existingProfile($profile_id);
+        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
+        $sufficientdata = FALSE;
+        $eap_methods = [];
+        foreach ($eaps as $eap) {
+            if ($eap->getIntegerRep() == \core\common\EAP::INTEGER_TLS) {
+                if ($login_user_cert !== FALSE) {
+                    $sufficientdata = TRUE;
+                }
+            } else {
+                if ($login_user !== FALSE) {
+                    $sufficientdata = TRUE;
+                }
+            }
+            $eap_methods[] = $eap->getPrintableRep();
+        }
+        if ($sufficientdata === FALSE) {
+            return ['live_login_tests' => ['message' => _("Insufficient data for login test, this profile enables:") . ' ' . implode(', ', $eap_methods),
+                                          ]];
+        }
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
-            $payload = ['test_type' => 'udp_login', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex];
+            $payload = ['test_type' => 'udp_login', 'realm' => $realm, 'token' => $this->token, 'src' => $hostindex, 'hostindex' => $hostindex,
+                        'frag' => $this->provokefragm];
             if ($profile_id !== FALSE) {
                 $payload['profile_id'] = $profile_id;
             }
@@ -1488,6 +1524,10 @@ class API {
                 $payload['username'] = $login_user;
                 $payload['password'] = $login_pass;
                 $payload['outer_username'] = "$login_outer@$realm";
+                if ($login_user_cert !== FALSE) {
+                    $payload['usercert'] = $login_user_cert;
+                    $payload['usercertpass'] = $login_cert_pass;
+                }
                 $this->diag_call($payload, $this->catlink."/diag/radius_tests.php");
                 $testdata = NULL;
                 $filename = $this->jsondir.'/'.$this->token."/udp_login_$hostindex";

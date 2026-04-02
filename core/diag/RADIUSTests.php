@@ -595,6 +595,9 @@ network={
         $config .= '  identity="' . $inner . "\"\n";
         $logConfig .= '  identity="' . $inner . "\"\n";
 // outer identity, may be equal
+        if ($eaptype == \core\common\EAP::EAPTYPE_TLS) {
+            $outer = $inner;
+        }
         $config .= '  anonymous_identity="' . $outer . "\"\n";
         $logConfig .= '  anonymous_identity="' . $outer . "\"\n";
 // done
@@ -1184,7 +1187,6 @@ network={
         // misconfiguration on the EAP server side
         $previousHighestKnownIssuer = [];
         $currentHighestKnownIssuer = $bundle['SERVERCERT'][0]['full_details']['issuer'];
-        error_log("HIGHEST ".serialize($currentHighestKnownIssuer));
         $serverName = $bundle['SERVERCERT'][0]['CN'][0];
         // maybe there is an intermediate and the EAP server sent it. If so,
         // go and look at that, going one level higher
@@ -1215,7 +1217,6 @@ network={
         // trust, and custom ones we may have configured
         $ourRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-custom']);
         $mozillaRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-mozilla']);
-        error_log("MOZILLA $mozillaRoots");
         $allRoots = $x509->splitCertificate($ourRoots . "\n" . $mozillaRoots);
         foreach ($allRoots as $oneRoot) {
             $processedRoot = $x509->processCertificate($oneRoot);
@@ -1251,6 +1252,7 @@ network={
      */
     public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         $preliminaries = $this->udpLoginPreliminaries($probeindex, $eaptype, $clientcertdata);
+
         if ($preliminaries !== TRUE) {
             return $preliminaries;
         }

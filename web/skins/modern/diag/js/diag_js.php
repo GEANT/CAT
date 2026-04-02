@@ -26,14 +26,17 @@ $Gui->languageInstance->setTextDomain("diagnostics");
 ?>
 <script>
     var L_OK = <?php echo \core\common\Entity::L_OK ?>;
+    var L_UNKNOWN = <?php echo \core\common\Entity::L_UNKNOWN ?>;
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
     var global_info = new Array();
-    global_info[L_OK] = "<?php echo _("All connectivity tests passed"); ?>";
-    global_info[L_WARN] = "<?php echo _("There were some warnings from connectivity tests"); ?>";
-    global_info[L_REMARK] = "<?php echo _("There were some remarks from connectivity tests"); ?>";
-    global_info[L_ERROR] = "<?php echo _("There were some errors from connectivity tests"); ?>";
+    global_info[L_OK] = "<?php echo _("All tests passed."); ?>";
+    global_info[L_UNKNOWN] = "<?php echo _("No RADIUS exchange possible."); ?>"
+    global_info[L_WARN] = "<?php echo _("There were some warnings."); ?>";
+    global_info[L_ERROR] = "<?php echo _("There were some errors."); ?>";
+    global_info[L_REMARK] = "<?php echo _("There were some remarks."); ?>";
+    
     function countryAddSelect(selecthead, select, type) {
         if (selecthead !== '') {
             select = selecthead + select + '</td>';
@@ -424,7 +427,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         return requests;
     }
     function show_tests_result(token, level) {
-        $('#tests_info_area').html(global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>');
+        $('#tests_info_area').html(global_info[level] + ' ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>');
         if (level > 0) {
             $('#tests_info_area').css('color', 'red');
             $('#tests_result').val('1');
@@ -432,7 +435,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#tests_info_area').css('color', 'black');
             $('#tests_result').val('0');
         }
-        var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
+        var info = global_info[level] + ' ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
         if (level == 0) {
             info = info + '<br>' + <?php echo "'"._("If you want to report your problem, fill fields below.")."'"; ?>;
         }
