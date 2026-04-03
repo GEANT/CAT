@@ -489,7 +489,6 @@ $end = $langInstance->rtl ? "left" : "right";
                 });
             }
             o = o + cert_data + '</table>';
-            console.log(v);
             fullmsg = '<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start;?>: 1em">' + v.eap;
             if (v.server != 0 && v.time_millisec != undefined) {
                 fullmsg = fullmsg + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start;?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>';
@@ -559,7 +558,6 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
     function error_handler(e1, e2, e3) {
         var consortium = this.consortium;
         var caller = this.success.name;
-        console.log(caller + " tests error: "+e3+" for "+this.hostindex);
         if (caller == 'udp') {
             running_ajax_stat--;
             global_level_udp = L_ERROR;

@@ -192,6 +192,11 @@ switch ($test_type) {
                     $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $tls_username, $privkey_pass, TRUE, $frag, $clientcertdata);
                 }
             } else {
+                if ($user_name == '') {
+                    $testresult = \core\diag\RADIUSTests::RETVAL_INCOMPLETE_DATA;
+                    $run_test = FALSE;
+                    continue;
+                }
                 $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $user_name, $user_password, TRUE, $frag);
             }
             if ($run_test) {
