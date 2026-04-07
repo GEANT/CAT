@@ -29,7 +29,7 @@ $loggerInstance = new \core\common\Logging();
 $o = new stdClass();
 $data = filter_input(INPUT_GET, 'data');
 if ($data !== FALSE) {    
-    $o = json_decode(data);
+    $o = json_decode($data);
 }
 $sp_problem = array(
     'technical' => _("I suspect a Technical Problem with the IdP"),

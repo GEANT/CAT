@@ -691,7 +691,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         }
                         // IP addresses for the hosts
                         $hosts = 0;
-                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK ) {
+                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
                             if ($srv > 0) {
                                 $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
                                 echo "<tr><td>"._("Checking IP address resolution:")."</td><td>";
@@ -714,7 +714,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         echo "</table><br/>";
                         if ($dynType == "") {
                                 echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC")));
-                                if ($naptr >0) {
+                                if ($naptr > 0) {
                                     if (count($testsuite->listerrors()) == 0 && $hosts > 0) {
                                         echo  _("with no DNS errors encountered. Congratulations!");
                                     } else {
@@ -735,7 +735,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                                     
                         echo '<script type="text/javascript">';
                         
-                        if ($dynType == "" && $hosts>0) {
+                        if ($dynType == "" && $hosts > 0) {
                             echo '
               function run_dynamic() {
                  running_ajax_dyn = 0;
@@ -840,7 +840,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
 
             </div>
             <?php
-            for ($i=3; $i<5; $i++) {
+            for ($i=3; $i < 5; $i++) {
                 if ($i == 3 && $naptrs[0] <= 0) {
                    continue;
                 }
@@ -856,19 +856,39 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 }
             ?>
                 <div id="tabs-<?php echo $i; ?>">
-                    <button id="run_<?php if ($i==3) echo 'd'; else echo 'o'; ?>_tests"; onclick="run_<?php if ($i==3) echo 'dynamic'; else echo 'openroaming'; ?>()"><?php if ($i==3) echo _("Repeat dynamic connectivity tests"); else echo _("Repeat OpenRoaming connectivity tests"); ?></button>
-
+                    <button id="run_<?php if ($i == 3) {
+                        echo 'd';
+                    } else {
+                        echo 'o';
+                    }
+                    ?>_tests"; onclick="run_<?php if ($i == 3) {
+                        echo 'dynamic'; 
+                    } else {
+                        echo 'openroaming';
+                    }
+                    ?>()"><?php if ($i == 3) {
+                        echo _("Repeat dynamic connectivity tests");
+                    } else {
+                        echo _("Repeat OpenRoaming connectivity tests");
+                    }
+                    ?>
+                    </button>
                 <?php
                     echo "<div id='";
-                    if ($i==3) { echo 'dynamic'; } else { echo 'openroaming'; }
-                    echo "_tests'><fieldset class='option_container'>
-                <legend><strong>";
-                    if ($i==3) {
-                     echo _("DYNAMIC connectivity tests");
+                    if ($i == 3) {
+                        echo 'dynamic';
                     } else {
-                     echo _("OpenRoaming connectivity tests");
+                        echo 'openroaming';
                     }
-                    echo  "</strong></legend>";
+                ?>_tests'><fieldset class='option_container'>
+                <legend><strong>
+                <?php if ($i == 3) {
+                     echo _("DYNAMIC connectivity tests");
+                } else {
+                    echo _("OpenRoaming connectivity tests");
+                }
+                ?></strong></legend>
+                <?php
                     $prefix1 = 'dynamic';
                     $prefix2 = '';
                     if ($i == 4) {
@@ -914,14 +934,14 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                             $clientstest[] = "<span id='".$prefix2."clientresults$hostindex'><table style='width:100%'>
 <tr>
 <td class='icon_td'>";
-                            if ($i == 4 ) {
+                            if ($i == 4) {
                                 $clientstest[] = "<!--";
                             }
                             $clientstest[] = "<img src='../resources/images/icons/loading51.gif' id='".$prefix2."srcclient$hostindex"."_img'></td>
 <td id='".$prefix2."srcclient$hostindex'>
 "._("testing...");
 
-                            if ($i == 4 ) {
+                            if ($i == 4) {
                                 $clientstest[] = "-->"._("not implemented yet");
                             }
                             $clientstest[] = "</td></tr></table></span>";
@@ -998,7 +1018,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
             }
 
             if (isset($_POST['comefrom'])) {
-                $return = htmlspecialchars_decode($_POST['comefrom']).( $inst_id ? "?inst_id=".$inst_id : "" );
+                $return = htmlspecialchars_decode($_POST['comefrom']).( $inst_id ? "?inst_id=".$inst_id : "");
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='".web\lib\common\FormElements::BUTTON_CLOSE."'>".sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_idp)."</button>"
                 ."</form>";
