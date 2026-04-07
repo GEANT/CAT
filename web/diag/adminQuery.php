@@ -27,8 +27,9 @@ $loggerInstance = new \core\common\Logging();
 // without any control!
 // $loggerInstance->debug(4, $_REQUEST);
 $o = new stdClass();
-if (isset($_REQUEST['data'])) {    
-    $o = json_decode($_REQUEST['data']);
+$data = filter_input(INPUT_GET, 'data');
+if ($data !== FALSE) {    
+    $o = json_decode(data);
 }
 $sp_problem = array(
     'technical' => _("I suspect a Technical Problem with the IdP"),
