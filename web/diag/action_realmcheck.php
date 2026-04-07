@@ -277,7 +277,7 @@ $end = $langInstance->rtl ? "left" : "right";
                     
                     cliinfo = cliinfo + '<li>';
                     if (data.ca[key].certificate[c].finalerror && data.ca[key].certificate[c].finalerror==2) {
-                        cliinfo = cliinfo + ' <?php echo _("this test was skipped - no appropriate client certificate");?>' + '</ul></li>';
+                        cliinfo = cliinfo + ' <?php echo _("this test was skipped - no appropriate client certificate"); ?>' + '</ul></li>';
                     } else {
                         cliinfo = cliinfo + '<table><tbody><tr><td class="icon_td"><img class="icon" src="' + icons[level] + '" style="width: 24px;"></td><td>' + state;
                         cliinfo = cliinfo + ' <?php echo "(".sprintf(_("elapsed time: %sms."), "'+data.ca[key].certificate[c].time_millisec+'&nbsp;").")"; ?>' + add + '</td></tr>';
@@ -489,9 +489,9 @@ $end = $langInstance->rtl ? "left" : "right";
                 });
             }
             o = o + cert_data + '</table>';
-            fullmsg = '<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start;?>: 1em">' + v.eap;
+            fullmsg = '<strong><img style="position: relative; top: 2px;" src="' + icons[v.level] + '"><span style="position: relative; top: -5px; <?php echo $start; ?>: 1em">' + v.eap;
             if (v.server != 0 && v.time_millisec != undefined) {
-                fullmsg = fullmsg + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start;?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>';
+                fullmsg = fullmsg + ' &ndash; <?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-<?php echo $start; ?>: 40px"><div class="morecontent"><div style="display:none; background: #eee;">' + o + '</div><a href="" class="morelink">' + moretext + '</a></div></div>';
             } else {
                 fullmsg = fullmsg + ' &ndash; ' + v.message;
             }   
@@ -855,8 +855,8 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                     $rfc7585suite = $dnsChecksOR;
                 }
             ?>
-                <div id="tabs-<?php echo $i;?>">
-                    <button id="run_<?php if ($i==3) echo 'd'; else echo 'o';?>_tests"; onclick="run_<?php if ($i==3) echo 'dynamic'; else echo 'openroaming';?>()"><?php if ($i==3) echo _("Repeat dynamic connectivity tests"); else echo _("Repeat OpenRoaming connectivity tests");?></button>
+                <div id="tabs-<?php echo $i; ?>">
+                    <button id="run_<?php if ($i==3) echo 'd'; else echo 'o'; ?>_tests"; onclick="run_<?php if ($i==3) echo 'dynamic'; else echo 'openroaming'; ?>()"><?php if ($i==3) echo _("Repeat dynamic connectivity tests"); else echo _("Repeat OpenRoaming connectivity tests"); ?></button>
 
                 <?php
                     echo "<div id='";
