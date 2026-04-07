@@ -638,9 +638,9 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                     $naptr = $rfc7585suite->relevantNAPTR();
                     if ($naptr == \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
                         if ($dynType == "") {
-                        	echo "<tr><td>"._("Dynamic discovery test is not configured")."</td><td>";
+                            echo "<tr><td>"._("Dynamic discovery test is not configured")."</td><td>";
                         } else {
-                        	echo "<tr><td>"._("OpenRoaming connectivity test is not configured")."</td><td>";
+                            echo "<tr><td>"._("OpenRoaming connectivity test is not configured")."</td><td>";
                         }
                     } else {
                         echo "<table>";
@@ -765,7 +765,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         echo "}
               </script>";
                         } else {
-                   echo ' 
+                    echo ' 
               function run_openroaming() {
                  running_ajax_openroaming = 0;
                  $("#main_openroaming_ico").attr("src",icon_loading);
@@ -787,10 +787,10 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         }
                     }
                     if ($dynType == '') {
-                         $naptrs[0] = $naptr;
-                     } else {
-                         $naptrs[1] = $naptr;
-                     }
+                        $naptrs[0] = $naptr;
+                    } else {
+                        $naptrs[1] = $naptr;
+                    }
                 }
                 
                     echo "<strong>"._("Static connectivity tests")."</strong>
@@ -804,7 +804,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
          </tr></table>";
                     }
                     if (isset($orrealm) && count($orrealm) && ($naptrs[1] > 0)) {
-                      echo "<hr><strong>"._("OpenRoaming connectivity tests")."</strong>
+                        echo "<hr><strong>"._("OpenRoaming connectivity tests")."</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_openroaming_ico' class='icon'></td><td id='main_openroaming_result' style='display:none'>&nbsp;</td>
          </tr></table>";
@@ -842,12 +842,12 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
             <?php
             for ($i=3; $i < 5; $i++) {
                 if ($i == 3 && $naptrs[0] <= 0) {
-                   continue;
+                    continue;
                 }
                 if ($i == 4) {
-                   if ((count($orrealm) == 0) || ($naptrs[1] <= 0)) {
-                       continue;
-                   }
+                    if ((count($orrealm) == 0) || ($naptrs[1] <= 0)) {
+                        continue;
+                    }
                 }
                 if ($i == 3) {
                     $rfc7585suite = $dnsChecks;
@@ -883,7 +883,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 ?>_tests'><fieldset class='option_container'>
                 <legend><strong>
                 <?php if ($i == 3) {
-                     echo _("DYNAMIC connectivity tests");
+                    echo _("DYNAMIC connectivity tests");
                 } else {
                     echo _("OpenRoaming connectivity tests");
                 }
@@ -892,8 +892,8 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                     $prefix1 = 'dynamic';
                     $prefix2 = '';
                     if ($i == 4) {
-                    	$prefix1 = 'openroaming';
-                    	$prefix2 = $prefix1;
+                        $prefix1 = 'openroaming';
+                        $prefix2 = $prefix1;
                     }
                     $resultstoprint = [];
                     if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
@@ -1023,7 +1023,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                     <button type='submit' name='submitbutton' value='".web\lib\common\FormElements::BUTTON_CLOSE."'>".sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_idp)."</button>"
                 ."</form>";
             } 
-           if ($check_realm !== FALSE) {
+            if ($check_realm !== FALSE) {
                 echo "<script>
 
 
