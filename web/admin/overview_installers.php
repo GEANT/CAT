@@ -189,7 +189,6 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             'fed_id'=> $my_inst->federation
         ];
 
-//        \core\common\Logging::debug_s(3, $wizard->displayHelp("eap", $options), "HHHH1\n", "\nXX\n");
 //        echo $wizard->displayHelp("eap", $options);
 //        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_METHOD);
 //        echo $optionDisplay->prefilledOptionTable("eap-specific", $my_inst->federation);

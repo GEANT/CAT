@@ -418,24 +418,25 @@ class UserManagement extends \core\common\Entity
             $len = count($extInstCountryList);
             for($i = 0; $i < $len; ++$i) {
                 $extInst = $extInstCountryList[$i];
+                $extInstList[$country][$i]['owned'] = 0;
                 if ($extInst['inst_id'] != NULL) {
                     $id = array_search($extInst['inst_id'], array_column($this->currentInstitutions['existing'], 'inst'));
                     if ($id !== false) {
+                        $extInstList[$country][$i]['owned'] = 0;
                         if($this->currentInstitutions['existing'][$id]['blesslevel'] === 2) {
                             unset($extInstList[$country][$i]);
                         }
                         if($this->currentInstitutions['existing'][$id]['blesslevel'] === 1) {
                             $extInstList[$country][$i]['owned'] = 1;
                         }                        
-                    }                    
-                } else {
-                    $extInstList[$country][$i]['owned'] = 0;
+                    }            
                 }
             }
             if (count($extInstList[$country]) == 0) {
                 unset($extInstList[$country]);
             }
         }
+        
         // now verify the $extInstList separately for each federation making sure
         // that the federation allows autoregistration
         foreach ($extInstList as $country => $extInstCountryList) {
@@ -446,7 +447,6 @@ class UserManagement extends \core\common\Entity
         // now we run tests for adding admins based on pairwise-id and entitlement
         $entitledCountries = $this->getUserEntitledFed();
         $entitlementInst = $this->listCatInstitutionsByPairwiseId();
-        common\Logging::debug_s(4, $entitlementInst, "entitlementInst\n", "\n");
         foreach ($entitlementInst as $country => $instList) {
             if (!in_array($country, $entitledCountries)) {
                 continue;
@@ -458,7 +458,6 @@ class UserManagement extends \core\common\Entity
         $_SESSION['resyncedIdPs'] = $this->currentInstitutions['resynced'];
         $_SESSION['ownedExternal'] = $this->currentInstitutions['owned_external'];
         $_SESSION['newIdPs'] = $this->currentInstitutions['new'];
-        common\Logging::debug_s(4, $this->currentInstitutions, "currentInstitutions\n", "\n");
         return $this->currentInstitutions;
     }
 
@@ -471,7 +470,6 @@ class UserManagement extends \core\common\Entity
      * @param object $fed - the Federation object
      */
     private function doExternalDBAutoregister($extInstCountryList, $fed) {
-        common\Logging::debug_s(4, $extInstCountryList, "EXT\n", "\n");
         $userId = $_SESSION['user'];
         $email = $_SESSION['auth_email'];
         $autoSyncedFlag = $fed->getAttributes('fed:autoregister-synced');
@@ -540,7 +538,7 @@ class UserManagement extends \core\common\Entity
         }
         $country = strtoupper($fed->tld);
         foreach ($instList as $instId) {
-            if (!in_array($instId, $this->currentInstitutions['existing'])) {
+            if (!in_array($instId, array_column($this->currentInstitutions['existing'], 'inst'))) {
                 $this->currentInstitutions['entitlement'][] = [$instId, $country];
             }
         }

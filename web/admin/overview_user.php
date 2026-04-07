@@ -343,6 +343,36 @@ $end = $langInstance->rtl ? "left" : "right";
                 $resyncedInst = $instMgmt->currentInstitutions['resynced'];
                 $newInst = $instMgmt->currentInstitutions['new'];
                 $entitlementCatInst = $instMgmt->currentInstitutions['entitlement'];
+                if (count($entitlementCatInst) > 0) {
+                    echo "<h3>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:</h3>");                        
+                    echo "<table class='inst-selection'>";
+                    foreach ($entitlementCatInst as $entitlementInst) {
+                            $entitledId = $entitlementInst[0];
+                            $keyTest = array_search($entitledId, $resyncedInst);
+                            if ($keyTest !== false) {
+                                unset($resyncedInst[$keyTest]);
+                            }
+
+                            $idp = new \core\IdP($entitledId);
+                            echo "<tr><td>";
+                            $names = $idp->getAttributes('general:instname');
+                            $i =0;
+                            foreach ($names as $onename) {
+                                if ($i > 0) {
+                                    echo "; ";
+                                }
+                                $i++;
+                                echo "[".$onename['lang']."] ".$onename['value'];
+                            }
+                            echo "</th><td>";
+                            echo "<form action='inc/manageAdmins.inc.php?inst_id=$idp->identifier' method='post'>";                            
+                            echo "<button type='submit' class='XXX' value='" . \web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . _("take control"). "</button><br/>";
+                            echo "</form>";
+                            echo "</td></tr>";
+                            \core\common\Logging::debug_s(4, $idp->identifier, "Admin ".$_SESSION['user']." entitled to manage: ", "\n");
+                    }
+                    echo "</table>";               
+                }
                 if (count($resyncedInst) > 0) {
                     $helpText = _("You can add organisations to your profile since your mail is listed as their administrator in the eduroam database.
                             There may be several reasons why you are seeing this, for instance:
@@ -353,9 +383,8 @@ $end = $langInstance->rtl ? "left" : "right";
                             <li>your IdP has changed it's behaviour, for instance it was previously sending the eduPersonTargetedId attribute but now it is only sending pairwise-id
                             </ul>
                             If you accept then invitation tokens will be automatically sent to your email address.");
-                    print $wizard->displayHelpText($helpText, "ZZ");
                     
-                    echo "<h3>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:")."</h3>";                        
+                    echo "<h3>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:").$wizard->displayHelpText($helpText, "ZZ")."</h3>";                        
 
                     echo "<table class='inst-selection'>";
                     foreach ($resyncedInst as $id) {
@@ -408,30 +437,6 @@ $end = $langInstance->rtl ? "left" : "right";
                 </div></td></tr>   
                    <?php }
                     echo "</table>";
-                }
-                if (count($entitlementCatInst) > 0) {
-                    echo "<table class='inst-selection'>";
-                    echo "<p>"._("According to the information obtained from your login attributes, you are entitled to be the administrator of the following CAT institutions:<p>");                        
-                    foreach ($entitlementCatInst as $entitlementInst) {
-                            $idp = new \core\IdP($entitlementInst[0]);
-                            echo "<tr><th>";
-                            $names = $idp->getAttributes('general:instname');
-                            $i =0;
-                            foreach ($names as $onename) {
-                                if ($i > 0) {
-                                    echo "; ";
-                                }
-                                $i++;
-                                echo "[".$onename['lang']."] ".$onename['value'];
-                            }
-                            echo "</th><td>";
-                            echo "<form action='inc/manageAdmins.inc.php?inst_id=$idp->identifier' method='post'>";                            
-                            echo "<button type='submit' class='XXX' value='" . \web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . _("take control"). "</button><br/>";
-                            echo "</form>";
-                            echo "</td></tr>";
-                            \core\common\Logging::debug_s(4, $idp->identifier, "Admin ".$_SESSION['user']." entitled to manage: ", "\n");
-                    }
-                    echo "</table>";               
                 }
             }       
         }
