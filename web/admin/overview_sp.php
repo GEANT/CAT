@@ -451,6 +451,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                 </form>
                 <?php } ?>
+                
                 <?php if ($isradiusready && $deploymentObject->status === \core\AbstractDeployment::ACTIVE && $editMode === 'fullaccess') { ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
@@ -489,7 +490,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     }
                 }
                     $discardLabel = _("Return"); ?>
-                <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
+                
                     <?php
                     if ($isradiusready && $deploymentObject->status == \core\AbstractDeployment::INACTIVE && count($deploymentObject->getAttributes("hiddenmanagedsp:tou_accepted"))) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -525,7 +526,13 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         </form>
                         </div>
                 <?php } ?>
+                <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
                     <div align="right">
+                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='renewsecrets' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWSECRET; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace shared secret for this %s deployment? The new shared secret will be effective immediately."), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Renew RADIUS shared secret"); ?>
+                            </button>
+                    </form>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='renewtls' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Renew RADIUS over TLS credentials"); ?>

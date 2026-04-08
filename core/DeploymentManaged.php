@@ -561,6 +561,18 @@ class DeploymentManaged extends AbstractDeployment
     }
     
     /**
+     * Renews the deployment secret
+     * 
+     * @return void
+     */
+    public function renewsecret()
+    {
+       $id = $this->identifier;
+       $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
+       $this->databaseHandle->exec("UPDATE deployment SET secret = ? WHERE deployment_id = ?", "si", $this->secret, $id);           
+    }
+    
+    /**
      * Create new deployment TLS credentials based on uploaded CSR
      * 
      * @return void

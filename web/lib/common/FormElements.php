@@ -58,4 +58,5 @@ class FormElements {
     const BUTTON_REMOVESP = 22;
     const BUTTON_RENEWTLS = 23;
     const BUTTON_USECSR = 24;
+    const BUTTON_RENEWSECRET = 25;
 }
