@@ -855,12 +855,12 @@ network={
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
             $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . /** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE) . /** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
-            if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
+            if (array_search(strtolower($expectedName), array_map('strtolower', $servercert['CN'])) !== FALSE && array_search(strtolower($expectedName), array_map('strtolower', $servercert['sAN_DNS'])) !== FALSE) {
                 $this->loggerInstance->debug(4, "Totally happy!");
                 $happiness = "TOTALLY";
                 break;
             } else {
-                if (array_search($expectedName, $servercert['CN']) !== FALSE || array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
+                if (array_search(strtolower($expectedName), array_map('strtolower', $servercert['CN'])) !== FALSE || array_search($expectedName, array_map('strtolower', $servercert['sAN_DNS'])) !== FALSE) {
                     $happiness = "PARTIALLY";
 // keep trying with other expected names! We could be happier!
                 }
