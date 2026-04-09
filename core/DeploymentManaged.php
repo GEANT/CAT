@@ -396,20 +396,20 @@ class DeploymentManaged extends AbstractDeployment
         );
         // Generate a new private (and public) key pair
         $privkey = openssl_pkey_new(array(
-                                          "private_key_bits" => 4096,
-                                          "private_key_type" => OPENSSL_KEYTYPE_RSA));
+                                           "private_key_bits" => 4096,
+                                           "private_key_type" => OPENSSL_KEYTYPE_RSA));
         // export private key to $clientprivateKey (as string)
         openssl_pkey_export($privkey, $this->radsec_priv);
         // Generate a certificate signing request
         $csr = openssl_csr_new($dn, $privkey,
-                               array('digest_alg' => 'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"));
+                                array('digest_alg' => 'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"));
         // get CA certificate and private key
         $caprivkey = array(file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key"),
                             \config\Master::MANAGEDSP['capass']);
         $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
         $this->setTLSSerialNumber();
         $clientcert = openssl_csr_sign($csr, $cacert, $caprivkey, \config\Master::MANAGEDSP['daystoexpiry'],
-                          array('digest_alg'=>'sha512', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
+                            array('digest_alg'=>'sha512', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
         openssl_x509_export($clientcert, $this->radsec_cert);
     } 
     /**
@@ -555,9 +555,9 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function renewtls()
     {
-       $id = $this->identifier;
-       $futureTlsClient = $this->createTLScredentials();
-       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = ?, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "ssii", $this->radsec_priv, $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
+        $id = $this->identifier;
+        $futureTlsClient = $this->createTLScredentials();
+        $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = ?, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "ssii", $this->radsec_priv, $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
     }
     
     /**
@@ -567,9 +567,9 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function renewsecret()
     {
-       $id = $this->identifier;
-       $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
-       $this->databaseHandle->exec("UPDATE deployment SET secret = ? WHERE deployment_id = ?", "si", $this->secret, $id);           
+        $id = $this->identifier;
+        $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
+        $this->databaseHandle->exec("UPDATE deployment SET secret = ? WHERE deployment_id = ?", "si", $this->secret, $id);           
     }
     
     /**
@@ -579,38 +579,37 @@ class DeploymentManaged extends AbstractDeployment
      */
     public function tlsfromcsr($csr)
     {
-       $id = $this->identifier;
-       $dn = array();
-       $dn['rdnSequence'] = array();
-       $dn['rdnSequence'][0] = array();
-       $dn['rdnSequence'][0][] = array('type' => 'id-at-organizationName', 'value' => array());
-       $dn['rdnSequence'][0][0]['value']['utf8String'] = 'eduroam';
-       $dn['rdnSequence'][1] = array();
-       $dn['rdnSequence'][1][] = array('type' => 'id-at-organizationalUnitName', 'value' => array());
-       $dn['rdnSequence'][1][0]['value']['utf8String'] = 'eduroam Managed SP';
-       $dn['rdnSequence'][2] = array();
-       $dn['rdnSequence'][2][] = array('type' => 'id-at-commonName', 'value' => array());
-       $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP' . $this->identifier . "-" . $this->institution;
-       $csr->setDN($dn);
-       $pemcakey = file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key");
-       $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass'] );
-       $pemca = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
-       $ca = new \phpseclib3\File\X509();
-       $ca->loadX509($pemca);
-       $ca->setPrivateKey($cakey);
-       // Sign the updated request, producing the certificate.
-       $x509 = new \phpseclib3\File\X509();
-       $csr->setExtension('id-ce-keyUsage', ['digitalSignature', 'nonRepudiation', 'keyEncipherment']);
-       $csr->setExtension('id-ce-extKeyUsage', ['id-kp-clientAuth']);
-       $csr->setExtension('id-ce-basicConstraints', ['cA' => false], false);
-       $x509->setEndDate('+' . \config\Master::MANAGEDSP['daystoexpiry'] . ' days');
-       $this->setTLSSerialNumber(999999999999999999);
-       $x509->setSerialNumber($this->radsec_cert_serial_no, 10);
-       $cert = $x509->loadX509($x509->saveX509($x509->sign($ca, $csr)));
-       $this->radsec_cert = $x509->saveX509($cert);
-       $this->radsec_priv = NULL;
-       //$futureTlsClient = $this->createTLScredentials();
-       $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = NULL, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "sii", $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
+        $id = $this->identifier;
+        $dn = array();
+        $dn['rdnSequence'] = array();
+        $dn['rdnSequence'][0] = array();
+        $dn['rdnSequence'][0][] = array('type' => 'id-at-organizationName', 'value' => array());
+        $dn['rdnSequence'][0][0]['value']['utf8String'] = 'eduroam';
+        $dn['rdnSequence'][1] = array();
+        $dn['rdnSequence'][1][] = array('type' => 'id-at-organizationalUnitName', 'value' => array());
+        $dn['rdnSequence'][1][0]['value']['utf8String'] = 'eduroam Managed SP';
+        $dn['rdnSequence'][2] = array();
+        $dn['rdnSequence'][2][] = array('type' => 'id-at-commonName', 'value' => array());
+        $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP' . $this->identifier . "-" . $this->institution;
+        $csr->setDN($dn);
+        $pemcakey = file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key");
+        $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass'] );
+        $pemca = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+        $ca = new \phpseclib3\File\X509();
+        $ca->loadX509($pemca);
+        $ca->setPrivateKey($cakey);
+        // Sign the updated request, producing the certificate.
+        $x509 = new \phpseclib3\File\X509();
+        $csr->setExtension('id-ce-keyUsage', ['digitalSignature', 'nonRepudiation', 'keyEncipherment']);
+        $csr->setExtension('id-ce-extKeyUsage', ['id-kp-clientAuth']);
+        $csr->setExtension('id-ce-basicConstraints', ['cA' => false], false);
+        $x509->setEndDate('+' . \config\Master::MANAGEDSP['daystoexpiry'] . ' days');
+        $this->setTLSSerialNumber(999999999999999999);
+        $x509->setSerialNumber($this->radsec_cert_serial_no, 10);
+        $cert = $x509->loadX509($x509->saveX509($x509->sign($ca, $csr)));
+        $this->radsec_cert = $x509->saveX509($cert);
+        $this->radsec_priv = NULL;
+        $this->databaseHandle->exec("UPDATE deployment SET radsec_priv = NULL, radsec_cert = ?, radsec_cert_serial_number = ? WHERE deployment_id = ?", "sii", $this->radsec_cert, $this->radsec_cert_serial_no, $id);           
     }
     /**
      * marks the deployment as deactivated 
@@ -965,11 +964,11 @@ class DeploymentManaged extends AbstractDeployment
                 unlink("$zipdir/$key/detail.zip");
                 $files = scandir("$zipdir/$key/");
                 foreach($files as $file) {
-                  if ($file == '.' || $file == '..') continue;
-                  $data = file_get_contents("$zipdir/$key/$file");
-                  $zipt->addFromString("radius-$key/$file", $data);
-                  $cnt += 1;
-                  unlink("$zipdir/$key/$file");
+                    if ($file == '.' || $file == '..') continue;
+                    $data = file_get_contents("$zipdir/$key/$file");
+                    $zipt->addFromString("radius-$key/$file", $data);
+                    $cnt += 1;
+                    unlink("$zipdir/$key/$file");
                 } 
                 if (file_exists("$zipdir/$key")) {
                     rmdir("$zipdir/$key");

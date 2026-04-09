@@ -27,7 +27,7 @@
  */
 ?>
 <?php
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
@@ -37,12 +37,12 @@ $uiElements = new web\lib\admin\UIElements();
 $auth->authenticate();
 
 $optionlist = \core\Options::instance();
-$availableFedOptions  = $optionlist->availableOptions('managedsp');
+$availableFedOptions = $optionlist->availableOptions('managedsp');
 $wizard = new \web\lib\admin\Wizard(false);
 $wizard->setOptionsHelp($availableFedOptions);
 $wizard->setMessages();
 // initialize inputs
-[$my_inst, $editMode]  = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
+[$my_inst, $editMode] = $validator->existingIdPInt($_GET['inst_id'], $_SESSION['user']);
 if ($editMode !== 'fullaccess') {
     echo "<h1>";
     echo _("Not sufficient access rights for this page");
@@ -54,16 +54,16 @@ if (!isset($_GET['deployment_id'])) {
             ( $_POST['consortium'] == "OpenRoaming" && count($myfed->getAttributes("fed:openroaming")) > 0 )
             )
     ) {*/
-    if (isset($_POST['consortium']) &&  $_POST['consortium'] == "eduroam")
+    if (isset($_POST['consortium']) && $_POST['consortium'] == "eduroam")
     {
         $deployment = $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED, $_POST['consortium']);
-        header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
+        header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
         exit(0);
     } else {
         throw new Exception("Desired consortium for Managed SP needs to be specified, and allowed!");
     }
 }
-$my_inst->type =  'SP';
+$my_inst->type = 'SP';
 
 // if we have come this far, we are editing an existing deployment
 
@@ -115,19 +115,19 @@ if (isset($_POST['submitbutton'])) {
             if (isset($_POST['agreement']) && $_POST['agreement'] == "true") {
                 $deployment->addAttribute("hiddenmanagedsp:tou_accepted", NULL, 1);
             }
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_DELETE:
             $response = $deployment->setRADIUSconfig();
             if (in_array('OK', $response)) {
                 $deployment->deactivate();
             }
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . 
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='. 
                    $deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_REMOVESP:
             $deployment->remove();
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_RENEWTLS:
             $data = openssl_x509_parse($deployment->radsec_cert);
@@ -138,7 +138,7 @@ if (isset($_POST['submitbutton'])) {
             $torevoke = implode('#', $certdata);
             $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
             $deployment->renewtls();
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_RENEWSECRET:
             $deployment->renewsecret();
@@ -149,7 +149,7 @@ if (isset($_POST['submitbutton'])) {
             } else {
                 $response = ['NOOP', 'NOOP'];
             }
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_ACTIVATE:
             if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
@@ -157,7 +157,7 @@ if (isset($_POST['submitbutton'])) {
                 if (in_array('OK', $response)) {
                     $deployment->activate();
                 }
-                header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . $deployment->identifier);
+                header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
                 exit(0);
             } else {
                 throw new Exception("Activate button pushed without acknowledged ToUs!");
@@ -167,7 +167,7 @@ if (isset($_POST['submitbutton'])) {
                 $csrpem = file_get_contents($_FILES['upload']['tmp_name']);
                 if ($csrpem === FALSE) {
                     // seems we can't work with this file for some reason. Ignore.
-                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&errormsg=NOCSR_' . $deployment->identifier . '&deployment_id=' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&errormsg=NOCSR_'.$deployment->identifier.'&deployment_id='.$deployment->identifier);
                     exit(0);
                 }
                 $csr = new \phpseclib3\File\X509();
@@ -182,10 +182,10 @@ if (isset($_POST['submitbutton'])) {
                     $torevoke = implode('#', $certdata);
                     $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
                     $deployment->tlsfromcsr($csr);
-                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
                     exit(0);
                 } else {
-                    header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&errormsg=WRONGCSR_' . $deployment->identifier . '&deployment_id=' . $deployment->identifier);
+                    header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&errormsg=WRONGCSR_'.$deployment->identifier.'&deployment_id='.$deployment->identifier);
                     exit(0);
                 }
             }
@@ -221,7 +221,7 @@ if (isset($_POST['submitbutton'])) {
             } else {
                 $response = ['NOOP', 'NOOP'];
             }
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)) . '&deployment_id=' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
             exit(0);
           default:
                 throw new Exception("Unknown button action requested!");
@@ -230,10 +230,10 @@ if (isset($_POST['submitbutton'])) {
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
         case web\lib\common\FormElements::BUTTON_CLOSE:
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier) . '&deployment_id=' . $deployment->identifier;
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier).'&deployment_id='.$deployment->identifier;
             exit(0);
         default:
-            header("Location: overview_sp_wrapper.php?inst_id=" . $my_inst->identifier . '&deployment_id=' . $deployment->identifier);
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
             exit(0);
         }
 }
@@ -265,7 +265,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
     echo $uiElements->instLevelInfoBoxes($my_inst);
     $deploymentOptions = $deployment->getAttributes();
     echo "<form enctype='multipart/form-data' action='edit_hotspot.php?inst_id=$my_inst->identifier&amp;deployment_id=$deployment->identifier' method='post' accept-charset='UTF-8'>
-                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
+                <input type='hidden' name='MAX_FILE_SIZE' value='".\config\Master::MAX_UPLOAD_SIZE."'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, \core\Options::LEVEL_PROFILE);
     ?>
     <input type="hidden" id="fedid"  value="<?php echo $my_inst->federation ?>">
@@ -313,7 +313,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
                 <!-- input for VLAN identifier for guests-->
                 <td>
                     <span id='guest_vlan_label'>
-                        <?php echo sprintf(_("VLAN tag for guests:"), ($guest_vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
+                        <?php echo sprintf(_("VLAN tag for guests:"), ($guest_vlan === NULL ? "" : " "._("(unset with '0')"))); ?>
                     </span>
                 </td>
                 <td>
@@ -329,7 +329,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
                 <!-- input for VLAN identifier for home users-->
                 <td>
                     <span id='vlan_label'>
-                        <?php echo sprintf(_("VLAN tag for own users%s:"), ($vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
+                        <?php echo sprintf(_("VLAN tag for own users%s:"), ($vlan === NULL ? "" : " "._("(unset with '0')"))); ?>
                     </span>
                 </td>
                 <td>
@@ -352,7 +352,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
 
     <?php
     if ($editMode === 'fullaccess') {
-        echo "<button type='submit' name='submitbutton' class='deploymentopts' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button>";
+        echo "<button type='submit' name='submitbutton' class='deploymentopts' value='".web\lib\common\FormElements::BUTTON_SAVE."'>"._("Save data")."</button>";
         $discardLabel = _("Discard changes");
     } else {
         $discardLabel = _("Return");
