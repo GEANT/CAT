@@ -989,24 +989,6 @@ class IwdConfiguration:
             command = f'echo "{self.config}" > {file_path}'
             subprocess.run(['pkexec', 'bash', '-c', command], check=True)
 
-    def set_domain_mask() -> str:
-        """
-        Set the domain mask for the IWD config.
-        This is a list of DNS servers that the client will accept
-        """
-        # The domain mask is a list of DNS servers that the client will accept
-        # It is a comma-separated list of DNS servers (without the DNS: prefix)
-        domainMask = []
-
-        # We need to strip the DNS: prefix
-        for server in Config.servers:
-            if server.startswith('DNS:'):
-                domainMask.append(server[4:])
-            else:
-                domainMask.append(server)
-
-        return join_with_separator(domainMask, ';')
-
     def generate_iwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """Generate an appropriate IWD 8021x config for a given EAP method"""
         #TODO: It would probably be best to generate these configs from scratch but the logic is a little harder
@@ -1045,7 +1027,7 @@ class IwdConfiguration:
 EAP-Method=PEAP
 EAP-Identity={outer_identity}
 EAP-PEAP-CACert=embed:eduroam_ca_cert
-EAP-PEAP-ServerDomainMask={IwdConfiguration.set_domain_mask()}
+EAP-PEAP-ServerDomainMask={Config.servers_cn}
 EAP-PEAP-Phase2-Method=MSCHAPV2
 EAP-PEAP-Phase2-Identity={user_data.username}
 EAP-PEAP-Phase2-Password={user_data.password}
@@ -1068,7 +1050,7 @@ AutoConnect=true
 EAP-Method=TTLS
 EAP-Identity={outer_identity}
 EAP-TTLS-CACert=embed:eduroam_ca_cert
-EAP-TTLS-ServerDomainMask={IwdConfiguration.set_domain_mask()}
+EAP-TTLS-ServerDomainMask={Config.servers_cn}
 EAP-TTLS-Phase2-Method=Tunneled-PAP
 EAP-TTLS-Phase2-Identity={user_data.username}
 EAP-TTLS-Phase2-Password={user_data.password}
@@ -1113,7 +1095,7 @@ class CatNMConfigTool:
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
-        if self.nm_version in ("0.9", "1.0"):
+        if self.nm_version in ("0.9", "1.0", "1.24"):
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -1160,8 +1142,12 @@ class CatNMConfigTool:
                 self.system_service_name, "/org/freedesktop/NetworkManager")
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             version = props.Get("org.freedesktop.NetworkManager", "Version")
+            version_float = float(re.search(r"\d\.\d*", version).group())
         except dbus.exceptions.DBusException:
             version = ""
+        if version_float >= 1.24:
+            self.nm_version = "1.24"
+            return
         if re.match(r'^1\.', version):
             self.nm_version = "1.0"
             return
@@ -1202,8 +1188,12 @@ class CatNMConfigTool:
     def __add_connection(self, ssid: str) -> None:
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
+        server_cn_list = Config.servers_cn
         server_name = Config.server_match
-        if self.nm_version in ("0.9", "1.0"):
+        if self.nm_version in ("1.24"):
+            match_key = 'domain-match'
+            match_value = server_cn_list        
+        elif self.nm_version in ("0.9", "1.0"):
             match_key = 'altsubject-matches'
             match_value = server_alt_subject_name_list
         else:
@@ -1269,3 +1259,4 @@ class CatNMConfigTool:
             self.__add_connection(ssid)
         for ssid in Config.del_ssids:
             self.__delete_existing_connection(ssid)
+

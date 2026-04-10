@@ -189,6 +189,7 @@ class DeviceLinux extends \core\DeviceConfig {
             'ssids' => $this->mkSsidList(),
             'del_ssids' => $this->mkDelSsidList(),
             'servers' => $this->mkSubjectAltNameList(),
+            'servers_cn' => $this->mkServerNameList(),
         ];
 
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
@@ -286,6 +287,20 @@ class DeviceLinux extends \core\DeviceConfig {
         return "[".$out. "]";
     }
 
+    private function mkServerNameList() {
+        $serverList = $this->attributes['eap:server_name'];
+        if (!$serverList) {
+            return '';
+        }
+        $out = '';
+        foreach ($serverList as $oneServer) {
+            if ($out) {
+                $out .= ';';
+            }
+            $out .= $oneServer;
+        }
+        return "'".$out."'";        
+    }
     /**
      * generates the list of SSIDs to configure
      *
