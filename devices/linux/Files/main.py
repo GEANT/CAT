@@ -92,6 +92,7 @@ def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
+
 def join_with_separator(inplist: List, separator: str) -> str:
     """
     Join a list of strings with a separator; if only one element
@@ -177,7 +178,7 @@ def get_config_path() -> str:
 
     _config_path = os.environ.get('XDG_CONFIG_HOME')
     if not _config_path:
-        _config_path = f'{os.environ.get('HOME')}/.config'
+        _config_path = f'{os.environ.get("HOME")}/.config'
 
         if not os.path.exists(_config_path):
             os.mkdir(_config_path, 0o755)
@@ -281,7 +282,7 @@ class Messages:
                     "if you wish. Be warned that your connection password will be saved " \
                     "in this file as clear text."
     save_wpa_confirm = "Write the file"
-    wrongUsernameFormat = "Error: Your username must be of the form " \
+    wrong_username_format = "Error: Your username must be of the form " \
                           "'xxx@institutionID' e.g. 'john@example.net'!"
     wrong_realm = "Error: your username must be in the form of 'xxx@{}'. " \
                   "Please enter the username in the correct format."
@@ -882,20 +883,20 @@ class InstallerData:
         # trailing @
         if pos == len(self.username) - 1:
             debug("username ending with @")
-            self.alert(Messages.wrongUsernameFormat)
+            self.alert(Messages.wrong_username_format)
             return False
         # no @ at all
         if pos == -1:
             if Config.verify_user_realm_input:
                 debug("missing realm")
-                self.alert(Messages.wrongUsernameFormat)
+                self.alert(Messages.wrong_username_format)
                 return False
             debug("No realm, but possibly correct")
             return True
         # @ at the beginning
         if pos == 0:
             debug("missing user part")
-            self.alert(Messages.wrongUsernameFormat)
+            self.alert(Messages.wrong_username_format)
             return False
         pos += 1
         if Config.verify_user_realm_input:
@@ -916,12 +917,12 @@ class InstallerData:
         pos1 = self.username.find('@', pos)
         if pos1 > -1:
             debug("second @ character found")
-            self.alert(Messages.wrongUsernameFormat)
+            self.alert(Messages.wrong_username_format)
             return False
         pos1 = self.username.find('.', pos)
         if pos1 == pos:
             debug("a dot immediately after the @ character")
-            self.alert(Messages.wrongUsernameFormat)
+            self.alert(Messages.wrong_username_format)
             return False
         debug("all passed")
         return True
@@ -1192,7 +1193,7 @@ class CatNMConfigTool:
         server_name = Config.server_match
         if self.nm_version in ("1.24"):
             match_key = 'domain-match'
-            match_value = server_cn_list        
+            match_value = server_cn_list
         elif self.nm_version in ("0.9", "1.0"):
             match_key = 'altsubject-matches'
             match_value = server_alt_subject_name_list
