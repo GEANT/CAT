@@ -619,6 +619,9 @@ class CAT extends \core\common\Entity
     public static function sessionStart()
     {
         $loggerInstance = new \core\common\Logging();
+        if (php_sapi_name() === 'cli') {
+            return;
+        }
         if (session_status() != PHP_SESSION_ACTIVE) {
             $loggerInstance->debug(4, "Session start\n");
             session_name("CAT");

@@ -88,12 +88,14 @@ class RADIUSTestsUI extends AbstractTest
             \core\common\Entity::L_OK => _("All tests passed."),
             \core\common\Entity::L_WARN => _("There were some warnings."),
             \core\common\Entity::L_ERROR => _("There were some errors."),
+            \core\common\Entity::L_CONF_ERROR => _("There were configuration some errors."),
             \core\common\Entity::L_REMARK => _("There were some remarks.")
         ]; 
         $this->stateIcons = [
             \core\common\Entity::L_OK => '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg',
             \core\common\Entity::L_WARN => '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg',
-            \core\common\Entity::L_ERROR => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg',
+            \core\common\Entity::L_ERROR => '../resources/images/icons/Tabler/square-rounded-x-filled-yellow.svg',
+            \core\common\Entity::L_CONF_ERROR => '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg',
             \core\common\Entity::L_REMARK => '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg'
         ];
         $this->states = [

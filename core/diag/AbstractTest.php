@@ -353,7 +353,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code4 = RADIUSTests::RETVAL_INVALID;
         $this->returnCodes[$code4]["message"] = _("There were errors during the test.");
-        $this->returnCodes[$code4]["severity"] = \core\common\Entity::L_OK;
+        $this->returnCodes[$code4]["severity"] = \core\common\Entity::L_ERROR;
 
 // return codes specific to authentication checks
         /**
@@ -396,14 +396,14 @@ class AbstractTest extends \core\common\Entity
          */
         $code12 = RADIUSTests::RETVAL_INCOMPLETE_DATA;
         $this->returnCodes[$code12]["message"] = _("Not enough data provided to perform an authentication");
-        $this->returnCodes[$code12]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code12]["severity"] = \core\common\Entity::L_ERROR;  //
 
         /**
          * PKCS12 password does not match the certificate file
          */
         $code13 = RADIUSTests::RETVAL_WRONG_PKCS12_PASSWORD;
         $this->returnCodes[$code13]["message"] = _("The certificate password you provided does not match the certificate file.");
-        $this->returnCodes[$code13]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code13]["severity"] = \core\common\Entity::L_CONF_ERROR;
 
 // certificate property errors
         /**
@@ -481,7 +481,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code23 = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
         $this->returnCodes[$code23]["message"] = _("The server certificate was revoked by the CA!");
-        $this->returnCodes[$code23]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code23]["severity"] = \core\common\Entity::L_CONF_ERROR;
 
         /**
          * The server certificate's names contained at least which was not a hostname.
@@ -502,7 +502,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code26 = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         $this->returnCodes[$code26]["message"] = _("At least one certificate is outside its validity period (not yet valid, or already expired)!");
-        $this->returnCodes[$code26]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code26]["severity"] = \core\common\Entity::L_CONF_ERROR;
 
         /**
          * cert is not yet, or not any more, valid but is not taking part in server validation
@@ -516,7 +516,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code28 = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
         $this->returnCodes[$code28]["message"] = _("The server certificate could not be verified to the root CA you configured in your profile!");
-        $this->returnCodes[$code28]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code28]["severity"] = \core\common\Entity::L_CONF_ERROR;
 
         $code29 = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
         $this->returnCodes[$code29]["message"] = _("The certificate chain as received in EAP was not sufficient to verify the certificate to the root CA in your profile. It was verified using the intermediate CAs in your profile though. You should consider sending the required intermediate CAs inside the EAP conversation.");
@@ -526,7 +526,7 @@ class AbstractTest extends \core\common\Entity
          */
         $code30 = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
         $this->returnCodes[$code30]["message"] = _("The EAP server name does not match any of the configured names in your profile!");
-        $this->returnCodes[$code30]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code30]["severity"] = \core\common\Entity::L_CONF_ERROR;
 
         /**
          * The received server certificate's name only matched either CN or subjectAltName, but not both

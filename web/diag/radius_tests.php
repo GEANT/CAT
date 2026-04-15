@@ -31,7 +31,8 @@ $additional_message = [
     \core\common\Entity::L_OK => '',
     \core\common\Entity::L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
     \core\common\Entity::L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
-    \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
+    \core\common\Entity::L_ERROR => _("Some connection errors were observed; the list is below."),
+    \core\common\Entity::L_CONF_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
 /**

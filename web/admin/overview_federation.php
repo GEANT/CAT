@@ -42,6 +42,23 @@ $stausIcons = [
     \core\IdP::PROFILES_CONFIGURED => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
 ];
 
+function limiterCheckbox($fedId, $name) {
+    $limiters = [
+        'PROFILE' => ['id' => 'profile', 'text' => _("Only instututions with profile problems")],
+        'HOSTED_SP' => ['id' => 'hostedsp', 'text' => _("Only instututions with defined deployments")],
+        'WIRED' => ['id' => 'wiredset', 'text' => _("Only instututions with wired support")],
+        'CERT' => ['id' => 'brokencert', 'text' => _("Only institutions with some certificate problems")],
+        'TEST' => ['id' => 'test', 'text' => _("Only institutions with test problems requiring special attention")],
+        'ANON' => ['id' => 'anon', 'text' => _("Only institutions with no support for anonymous outer identity")],
+        'OR' => ['id' => 'or', 'text' => _("Only institutions with OpenRoaming support")],
+        'ADMIN' => ['id' => 'adminproblem', 'text' => _("Only institutions with no admins")],
+        'LINKED' => ['id' => 'unlinked', 'text' => _("Only institutions not linked")],
+    ];
+    $id = $limiters[$name]['id'];
+    $text = $limiters[$name]['text'];
+    return "<input type='checkbox' name='".$id."check' id='".$id."_ck_".$fedId."' class='limiter' title=\"".$text."\">";
+}
+
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $user = new \core\User($_SESSION['user']);
 ?>
@@ -330,7 +347,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             echo "<tr><td colspan='10'><strong>".sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureFed, '<span style="color:green">'.$thefed->name.'</span>')."</strong></td></tr>";            
             ?>
         <tr>
-            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant).' - '._("showing <span class='idp_count'>XXX</span>"); ?></th>
+            <th scope='col' class='fed_subheader'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant).' - '._("showing <span class='idp_count'>XXX</span>"); ?></th>
             <?php if (\core\CAT::radiusProfilesEnabled()) { ?>
             <th scope='col'><?php echo _("Status") ?></th>
             <th scope='col'><?php echo _("Priv.") ?></th>
@@ -368,21 +385,21 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
             echo "<tbody class='fedlist'>";
             echo "<tr><td colspan='1'><strong>"._("Quick search:")." </strong><input style='background:#eeeeee;' type='text' id='qsearch_".$fedId."'></td>";
             if (\core\CAT::radiusProfilesEnabled()) {
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='profilecheck' id='profile_ck_".$fedId."'></td>";
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='anoncheck' id='anon_ck_".$fedId."'></td>";
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='testcheck' id='test_ck_".$fedId."'></td>";
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='orcheck' id='or_ck_".$fedId."'></td>";
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='brokencert' id='brokencert_ck_".$fedId."'></td>";
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='wiredset' id='wiredset_ck_".$fedId."'></td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'PROFILE')."</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'ANON')."</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'TEST')."</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'OR')."</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'CERT')."</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'WIRED')."</td>";
                 }
             if (\core\CAT::hostedSPEnabled()) {
-                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>&nbsp;</td>";
+                echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'HOSTED_SP')."</td>";
             }
-            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'><input type='checkbox' name='unlinked' id='unlinked_ck_".$fedId."'></td>";
+            echo "<td style='border-bottom-style: dotted;border-bottom-width: 1px;'>".limiterCheckbox($fedId, 'LINKED')."</td>";
             if ($hideWarnings) {
                 $adminCheckbox = '&nbsp;';
             } else {
-                $adminCheckbox = "<input type='checkbox' name='adminproblem' id='adminproblem_ck_".$fedId."'>";
+                $adminCheckbox = limiterCheckbox($fedId, 'ADMIN');
             }
             echo "<td colspan='5' style='border-bottom-style: dotted;border-bottom-width: 1px;'>$adminCheckbox</td>";
             echo "</tr>";
@@ -425,18 +442,22 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 $profileIconData = $uiElements->iconData(\core\IdP::PROFILES_INDEX[$status]);  
                 $profileIcon = $uiElements->catIcon($profileIconData);
                 
+                $hostedSpClass = '';
                 if (\core\CAT::hostedSPEnabled()) {
                     $deploymentIcon = '-';
                     $maxDeploymentStatus = $idp_instance->maxDeploymentStatus();
                     switch ($maxDeploymentStatus) {
                         case \core\IdP::DEPLOYMENTS_ACTIVE:
                             $deploymentIconData = $uiElements->iconData('DEPLOYMENTS_ACTIVE');
+                            $hostedSpClass = 'hostedspok';
                             break;
                         case \core\IdP::DEPLOYMENTS_INACTIVE:
                             $deploymentIconData = $uiElements->iconData('DEPLOYMENTS_INACTIVE');
+                            $hostedSpClass = 'hostedspok';
                             break;
                         default:
                             $deploymentIconData = null;
+                            $hostedSpClass = 'hostedspnone';
                             break;
                     }
                     $deploymentIcon = $deploymentIconData  === null ? '-' : $uiElements->catIcon($deploymentIconData);
@@ -456,9 +477,9 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 
                 $testClass = 'testok';
                 $testIcon = '-';
-                if (isset($idpStatus['test']) && $idpStatus['test'] !== null) {
+                if (isset($idpStatus['test']) && $idpStatus['test'] !== null && $idpStatus['test'] !==  "1") {
                     $testIcon = $uiElements->catIcon($uiElements->iconData(\core\AbstractProfile::TEST_STATUS_INDEX[$idpStatus['test']]));
-                    if ($idpStatus['test'] > 0) {
+                    if ($idpStatus['test'] > \core\AbstractProfile::TEST_STATUS_REMARK) {
                         $testClass = 'testprobem';
                     }
                 } else {
@@ -538,7 +559,7 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 }
                                 
                 // new row_id, with one IdP inside
-                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass $testClass $anonClass'>";
+                echo "<tr class='idp_tr $profileClass $linkClass $certClass $orClass $adminClass $wiredClass $testClass $anonClass $hostedSpClass'>";
 
                 // name; and realm of silverbullet profiles if any
                 // instantiating all profiles is costly, so we only do this if

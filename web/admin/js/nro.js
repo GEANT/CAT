@@ -20,6 +20,15 @@
 
 /* various jquery scripts for the NRO admin page */
 
+var max_inst_td_width;
+
+function inst_td_width() {
+    var max_inst_td_width = Math.max($('th.fed_subheader').map(function() {
+        return $(this).width();
+    }).get());
+    $('th.fed_subheader').css("width", max_inst_td_width);
+}
+
 function row_filter(tbody) {
     var linked = tbody.find('[id^="unlinked_ck_"]').is(':checked');
     var broken_cert = tbody.find('[id^="brokencert_ck_"]').is(':checked');
@@ -29,11 +38,13 @@ function row_filter(tbody) {
     var test_warn = tbody.find('[id^="test_ck_"]').is(':checked');
     var profile_warn = tbody.find('[id^="profile_ck_"]').is(':checked');
     var adminproblem = tbody.find('[id^="adminproblem_ck_"]').is(':checked');
+    var msp_set = tbody.find('[id^="hostedsp_ck_"]').is(':checked');
     var input = tbody.find('[id^="qsearch_"]').val().toLowerCase();
     var tr_visible;
     var inp_found;
-    var counter = tbody.siblings(".fedheader").first().find("span.idp_count").first();
-    tbody.children("tr.idp_tr").each(function() {
+    var first_col = tbody.siblings(".fedheader").first();
+    var counter = first_col.find("span.idp_count").first();
+     tbody.children("tr.idp_tr").each(function() {
         tr_visible = true;
         if (linked && $(this).hasClass('linked')) {
             tr_visible = false;
@@ -57,6 +68,9 @@ function row_filter(tbody) {
             tr_visible = false;
         } 
         if (tr_visible && profile_warn && $(this).hasClass('profileok')) {
+            tr_visible = false;
+        }
+        if (tr_visible && msp_set && $(this).hasClass('hostedspnone')) {
             tr_visible = false;
         }
         if (tr_visible && input !== '') {
@@ -127,16 +141,19 @@ $(document).ready(function() {
     });
     
     $("img.cat-icon").tooltip();
+    $("input.limiter").tooltip();
     $("#loading_gif").hide();
     $("tbody.fedlist").each(function() {
         row_filter($(this));
     });
-
+    
     $('#inst_search').on('keyup', function(){
         var input = $(this).val().toLowerCase();
         console.log(input);
         $("#externams options").filter(function(index) {console.log($(this).val());});
     });
+
+    inst_td_width();
 });
 
 

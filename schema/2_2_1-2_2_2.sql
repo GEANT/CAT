@@ -34,11 +34,17 @@ CREATE TABLE IF NOT EXISTS `activity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `feds_for_testing` (
+  `federation_id` varchar(16) NOT NULL,
+  PRIMARY KEY (`federation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `profile_option_dict` ADD COLUMN `multivalued` int DEFAULT '0';
 
 INSERT IGNORE INTO `profile_option_dict` VALUES ('managedsp:name', 'hotspot display name', 'string', NULL, 0);
 INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:flat-admin-structure', 'allow full privileges to admins invited by local institution admins', 'boolean', NULL, 0);
+INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:no-testing', 'stop periodic RADIUS testing', 'boolean', NULL, 0);
+
 UPDATE `profile_option_dict` SET `type`='enum_openroaming', `flag`='VALUES:fedadmin-only,all' WHERE `name` = 'fed:silverbullet';
 UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `flag` = 'ML';
 

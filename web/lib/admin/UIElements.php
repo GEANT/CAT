@@ -184,6 +184,10 @@ class UIElements extends \core\common\Entity {
                 'display' => _("Use flat structure of institution administrators"),
                 'help' => _("")
             ],
+            "fed:no-testing" => [
+                'display' => _("Stop periodic RADIUS testing"),
+                'help' => _("By default CAT will run connectivity tests on all production-level profiles. This option will block such tests.")
+            ],
             "media:SSID" => ['display' => $ssidText, 'help' => ""],
             "media:consortium_OI" => ['display' => $passpointOiText, 'help' => ""],
             "managedsp:guest_vlan" => ['display' => _("VLAN for guests"), 'help' => "Users with realms NOT matching your local realms list will be put into this VLAN."],
@@ -758,7 +762,8 @@ class UIElements extends \core\common\Entity {
             'TEST_STATUS_UNKNOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Connection tests not possible")],
             'TEST_STATUS_REMARK' => ['img' => 'Tabler/info-square-rounded-blue.svg',  'text'=> _("Some tests show minor warnings")],
             'TEST_STATUS_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg',  'text'=> _("Some tests show warnings, please verify")],
-            'TEST_STATUS_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text'=> _("Some tests had errors")],
+            'TEST_STATUS_ERROR' => ['img' => 'Tabler/alert-square-rounded-yellow.svg', 'text'=> _("Some tests had errors")],
+            'TEST_STATUS_CONF_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text'=> _("Some tests showed serious configuration errors")],
             'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
             'OVERALL_OPENROAMING_LEVEL_NOTE' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text' => _("There are some minor OpenRoaming configuration issues")],
             'OVERALL_OPENROAMING_LEVEL_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg', 'text' => _("There are some average level OpenRoaming configuration issues")],
@@ -776,13 +781,14 @@ class UIElements extends \core\common\Entity {
             'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
             'DEPLOYMENTS_INACTIVE' => ['img' => 'Tabler/check-orange.svg', 'text' => _("At least one hotspot is defined but none are active")],
             'WIRED_SET' => ['img' => 'Tabler/check-green.svg', 'text' => _("The wired Ethernet option is set on the institution or profile level")],
-            'ANONYMOUS_NONE_PROFILE' => ['img' => 'Tabler/no-key-red.svg', 'text' => _("This profile does not provide user anonymity")],
-            'ANONYMOUS_NONE_INST' => ['img' => 'Tabler/no-key-red.svg', 'text' => _("There are profiles that do not provide user anonymity")],
+            'ANONYMOUS_NONE_PROFILE' => ['img' => 'Tabler/icon-tabler-lock-off.svg', 'text' => _("This profile does not provide user anonymity")],
+            'ANONYMOUS_NONE_INST' => ['img' => 'Tabler/icon-tabler-lock-off.svg', 'text' => _("There are profiles that do not provide user anonymity")],
             'EAP_OPTIONS_SET' => ['img' => 'Tabler/square-rounded-letter-e-blue.svg', 'text' => _("Options on EAP Method/Device level are in effect.")],
             ];
             \core\common\Entity::outOfThePotatoes();
         return($icons[$index]);
     }
+    
     
 /**
  * the HTML img element produced 0n the basis of a simple [src,title] array

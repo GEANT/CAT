@@ -44,7 +44,7 @@ $inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT);
 $profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_VALIDATE_INT);
 $realm = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'realm') ?? filter_input(INPUT_POST, 'realm')));
 if ($inst_id && $profile_id) {
-    $my_inst = $validator->existingIdP($inst_id, $user);
+    [$my_inst, $editMode] = $validator->existingIdPInt($inst_id, $user);
     $my_profile = $validator->existingProfile($profile_id, $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
@@ -100,13 +100,15 @@ $end = $langInstance->rtl ? "left" : "right";
     var L_UNKNOWN = <?php echo \core\common\Entity::L_UNKNOWN ?>;
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
     var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
+    var L_CONF_ERROR = <?php echo \core\common\Entity::L_CONF_ERROR ?>;
     var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
     var ajax_timeout = <?php echo \config\Diagnostics::TIMEOUTS['ajax_radius_tests'] ?>;
     var icons = new Array();
     icons[L_OK] = '../resources/images/icons/Tabler/square-rounded-check-filled-green.svg';
     icons[L_UNKNOWN] = '../resources/images/icons/Tabler/question-mark-filled-blue.svg';
     icons[L_WARN] = '../resources/images/icons/Tabler/alert-square-rounded-filled-yellow.svg';
-    icons[L_ERROR] = '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg';
+    icons[L_ERROR] = '../resources/images/icons/Tabler/square-rounded-x-filled-yellow.svg';
+    icons[L_CONF_ERROR] = '../resources/images/icons/Tabler/square-rounded-x-filled-red.svg';
     icons[L_REMARK] = '../resources/images/icons/Tabler/info-square-rounded-filled-blue.svg';
     var icon_loading = '../resources/images/icons/loading51.gif';
     var tmp_content;
@@ -137,6 +139,7 @@ $end = $langInstance->rtl ? "left" : "right";
     global_info[L_UNKNOWN] = "<?php echo _("No RADIUS exchange possible."); ?>"
     global_info[L_WARN] = "<?php echo _("There were some warnings."); ?>";
     global_info[L_ERROR] = "<?php echo _("There were some errors."); ?>";
+    global_info[L_CONF_ERROR] = "<?php echo _("There were configuration some errors."); ?>";
     global_info[L_REMARK] = "<?php echo _("There were some remarks."); ?>";
     var servercert = new Array();
     var arefailed = 0;

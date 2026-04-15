@@ -658,10 +658,10 @@ class Federation extends EntityWithDBProperties
         $out = [];
         foreach ($idps as $idp) {
             $out[$idp] = [
-                'test' => isset($testStatus[$idp]) ? $testStatus[$idp] : null,
                 'anon' => isset($anonStatus[$idp]) ? $anonStatus[$idp] : null,
-                'cert' => isset($certStatus[$idp]) ? $certStatus[$idp] : null,
+                'test' => isset($testStatus[$idp]) ? $testStatus[$idp] : null,
                 'or' => isset($orStatus[$idp]) ? $orStatus[$idp] : null,
+                'cert' => isset($certStatus[$idp]) ? $certStatus[$idp] : null,
                 'wired' => isset($wiredStatus[$idp]) ? $wiredStatus[$idp] : null 
             ];
         }

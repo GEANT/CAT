@@ -141,6 +141,11 @@ class API {
      * This action retrieves cumulated statistics for the entire federation.
      */
     const ACTION_STATISTICS_FED = "STATISTICS-FED";
+    
+    /**
+     * Provides a JSON view of the overview_federation page
+     */
+    const ACTION_STATUS_FED = "STATUS-FED";
 
     /**
      * Dumps all configured information about IdPs in the federation
@@ -255,6 +260,7 @@ class API {
     const AUXATTRIB_DIAG_USERCERT = "ATTRIB-DIAG-USERCERT";
     const AUXATTRIB_DIAG_USERCERT_PASSWD = "ATTRIB-DIAG-USERCERT-PASSWD";
     const AUXATTRIB_DIAG_SCOPE = "ATTRIB-DIAG-SCOPE";
+    const AUXATTRIB_OUTPUT_FORMAT = "ATTRIB-OUTPUT-FORMAT";
     /**
      * This section defines allowed flags for actions
      */
@@ -367,6 +373,11 @@ class API {
             "RETVAL" => [
                 ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // Plus "TOTAL".
             ],
+        ],
+        API::ACTION_STATUS_FED => [
+            "REQ" => [],
+            "OPT" => [API::AUXATTRIB_OUTPUT_FORMAT],
+            "FLAG" => [],         
         ],
         API::ACTION_FEDERATION_LISTIDP => [
             "REQ" => [],
@@ -889,6 +900,30 @@ class API {
         return $this->returnSuccess($this->fed->downloadStats("array", $detail));
     }
     
+    public function actionStatusFed() {
+        $status = $this->fed->getIdentityProviderStatus();
+        $format = $this->firstParameterInstance(API::AUXATTRIB_OUTPUT_FORMAT);
+        foreach (array_keys($status) as $inst_id) {
+            $idp = new \core\IdP($inst_id);
+            $msp = $idp->maxDeploymentStatus();
+            $syncState = '';
+            if (\config\Master::DB['enforce-external-sync']) {
+                $syncState = $idp->getExternalDBSyncState();
+            }
+            $status[$inst_id]['msp'] = $msp;
+            $status[$inst_id]['sync_state'] = $syncState;
+        }        
+        if ($format === 'csv') {
+            $out = "Inst_id;Priv;Tests;OR;Cert;Wired;MSP;Link Status\n";
+            foreach ($status as $inst_id => $det) {
+                $out .= $inst_id.';'.implode(';', $det)."\n";
+            }
+            echo $out;
+            return;
+        }
+        return $this->returnSuccess($status);
+    }
+    
     public function actionAdminDel() {
         $idp = $this->getIdpFromParams();
         $currentAdmins = $idp->listOwners();
@@ -1394,6 +1429,17 @@ class API {
             $res['returncode'] = 5;
             return $res;
         }
+        if ($data['returncode'][0] == \core\diag\RADIUSTests::RETVAL_NO_RESPONSE) {
+            $res['description'] = _("NO RESPONSE");
+            $res['returncode'] = 5;
+            return $res;
+        }
+        if ($data['returncode'][0] == \core\diag\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM) {
+            $res['description'] = _("NO RESPONSE");
+            $res['returncode'] = 5;
+            return $res;
+        }        
+        
         $expected = \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT;
         if ($live === TRUE) {
             $expected = \core\diag\RADIUSTests::RETVAL_OK;
@@ -1425,6 +1471,10 @@ class API {
                 $overall = 3;
                 $message = _("errors detected");
                 break;
+            case \core\common\Entity::L_CONF_ERROR:
+                $overall = 4;
+                $message = _("confguration errors detected");
+                break;            
             }
         if ($res['returncode'] === $expected) {
             $head = _("REJECT as expected");  

@@ -159,12 +159,13 @@ abstract class AbstractProfile extends EntityWithDBProperties
     const WIRED_SET = 1;
     const WIRED_NOT_SET = 0;
     
-    const TEST_STATUS_NONE = -1;
+    const TEST_STATUS_NONE = 1;
     const TEST_STATUS_OK = common\Entity::L_OK;
     const TEST_STATUS_UNKNOWN = common\Entity::L_UNKNOWN;
     const TEST_STATUS_REMARK = common\Entity::L_REMARK;
     const TEST_STATUS_WARN = common\Entity::L_WARN;
-    CONST TEST_STATUS_ERROR = common\Entity::L_ERROR ;
+    CONST TEST_STATUS_ERROR = common\Entity::L_ERROR;
+    CONST TEST_STATUS_CONF_ERROR = common\Entity::L_CONF_ERROR;
     
     const OVERALL_OPENROAMING_INDEX = [
         self::OVERALL_OPENROAMING_LEVEL_NO => 'OVERALL_OPENROAMING_LEVEL_NO',
@@ -189,7 +190,8 @@ abstract class AbstractProfile extends EntityWithDBProperties
         self::TEST_STATUS_UNKNOWN => 'TEST_STATUS_UNKNOWN',
         self::TEST_STATUS_REMARK => 'TEST_STATUS_REMARK',
         self::TEST_STATUS_WARN => 'TEST_STATUS_WARN',
-        self::TEST_STATUS_ERROR => 'TEST_STATUS_ERROR',     
+        self::TEST_STATUS_ERROR => 'TEST_STATUS_ERROR',
+        self::TEST_STATUS_CONF_ERROR => 'TEST_STATUS_CONF_ERROR',
     ];
     
     /**
@@ -1030,7 +1032,6 @@ abstract class AbstractProfile extends EntityWithDBProperties
     public function prepShowtime()
     {
         $properConfig = $this->readyForShowtime();
-        \core\common\Logging::debug_s(3, $properConfig, "Proper config:", "\n");
         $this->databaseHandle->exec("UPDATE profile SET sufficient_config = ".($properConfig ? "TRUE" : "FALSE")." WHERE profile_id = ".$this->identifier);
 
         $attribs = $this->getCollapsedAttributes();
