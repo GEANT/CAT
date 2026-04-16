@@ -41,18 +41,6 @@ class Logging
     }
 
     /**
-     * writes a message to file
-     * 
-     * @param string $filename the name of the log file, relative (path to logdir gets prepended)
-     * @param string $message  what to write into the file
-     * @return void
-     */
-    private function writeToFile($filename, $message)
-    {
-        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
-    }
-
-    /**
      * writes a message to file (static version)
      * 
      * @param string $filename the name of the log file, relative (path to logdir gets prepended)
@@ -61,7 +49,9 @@ class Logging
      */
     private static function writeToFile_s($filename, $message)
     {
-        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
+        [$sec, $msec] = explode('.',microtime(TRUE));
+        $timeStr = date("Y-m-d H:i:s", $sec).'.'.$msec;
+        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", $timeStr." ".$message, FILE_APPEND);
     }
     
     /**
@@ -93,7 +83,7 @@ class Logging
         } else {
             $output .= $prefix . var_export($stuff, TRUE) . $suffix;
         }
-        $this->writeToFile("debug.log", $output);
+        self::writeToFile_s("debug.log", $output);
 
         return;
     }
@@ -152,7 +142,7 @@ class Logging
                 ob_start();
                 echo " ($category)  $user : $message\n";
                 $output = ob_get_clean();
-                $this->writeToFile("audit-activity.log", $output);
+                self::writeToFile_s("audit-activity.log", $output);
                 return TRUE;
             default:
                 throw new Exception("Unable to write to AUDIT file (unknown category, requested data was $user, $category, $message!");
@@ -201,7 +191,7 @@ class Logging
         $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
         $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
         $logTextStep3 = iconv("UTF-8", "UTF-8//IGNORE", $logTextStep2);
-        $this->writeToFile("audit-SQL.log", " " . $logTextStep3 . "\n");
+        self::writeToFile_s("audit-SQL.log", " " . $logTextStep3 . "\n");
     }
     
     
