@@ -232,6 +232,8 @@ class DeviceLinux extends \core\DeviceConfig {
         }
         if (isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on') {
             fwrite($file, 'Config.wired = "set"'."\n");
+        } else {
+            fwrite($file, 'Config.wired = ""'."\n");
         }
         fwrite($file, 'Config.CA = """'.$this->mkCAfile().'"""'."\n");
         $sbUserFile = $this->mkSbUserFile();
