@@ -134,7 +134,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'passwords_differ'=> _("passwords do not match"),
         'empty_field' => _("one of the fields was empty"),
         'installation_finished' => _("Installation successful"),
-        'cat_dir_exisits' => _("Directory {} exists; some of its files may be overwritten."),
+        'cat_dir_exists' => _("Directory {} exists; some of its files may be overwritten."),
         'cont' => _("Continue?"),
         'nm_not_supported' => _("This NetworkManager version is not supported"),
         'cert_error' => _("Certificate file not found, looks like a CAT error"),
@@ -152,7 +152,9 @@ class DeviceLinux extends \core\DeviceConfig {
         'wrong_realm' => _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."),
         'wrong_realm_suffix' => _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."),
         'user_cert_missing' => _("personal certificate file not found"),
-        'cat_dir_exists' => _("Directory {} exists; some of its files may be overwritten")
+        'cat_dir_exists' => _("Directory {} exists; some of its files may be overwritten"),
+        'wired' =>_("Configure eduroam also on the wired Ethernet?\\n\\n Please be aware that doing so will introduce a connection delay lasting up to 30 sec. when you connect to an open wired network."),
+            
         ];
         foreach ($messages as $name => $value) {
             $this->writeConfigLine($file, 'Messages.', $name, $value.'"');
@@ -228,7 +230,9 @@ class DeviceLinux extends \core\DeviceConfig {
         } else {
             fwrite($file, 'Config.tou = """'.$tou.'"""'."\n");
         }
-
+        if (isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on') {
+            fwrite($file, 'Config.wired = "set"'."\n");
+        }
         fwrite($file, 'Config.CA = """'.$this->mkCAfile().'"""'."\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
