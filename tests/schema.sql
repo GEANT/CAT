@@ -256,7 +256,7 @@ CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` 
 INSERT INTO `profile_option_dict` VALUES 
 ('device-specific:customtext','extra text to be displayed to the user when downloading an installer for this device','text','ML',1),
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML',1),
-('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML'),
+('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML',1),
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL,0),
 ('device-specific:geteduroam','show the dedicated geteduroam download page for this device','boolean',NULL,0),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL,0),
