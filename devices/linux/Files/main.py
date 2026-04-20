@@ -186,6 +186,7 @@ def run_installer() -> None:
     gui = ''
     wpa_conf = False
     iwd_conf = False
+    global NM_AVAILABLE
 
     if ARGS.username:
         username = ARGS.username
