@@ -339,7 +339,7 @@ class InstallerData:
         if Config.tou != '':
             if self.ask(Config.tou, Messages.cont, 1):
                 sys.exit(1)
-        if NM_AVAILABLE == True && self.__has_active_wired_interface() and Config.wired != '':
+        if NM_AVAILABLE == True and self.__has_active_wired_interface() and Config.wired != '':
             if self.ask(Messages.wired):
                 debug("Wired will be omittted")
             else:
