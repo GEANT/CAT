@@ -168,7 +168,8 @@ build:
                       'skins' => ['modern', 'example'],
                       ];
                       const FUNCTIONALITY_LOCATIONS =
-                      ['CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+                      ['CONFASSISTANT_MIDP' => 'LOCAL',
+                       'CONFASSISTANT_MSP' => 'LOCAL',
                        'CONFASSISTANT_RADIUS' => 'LOCAL',   
                        'DIAGNOSTICS' => 'LOCAL',
                       ];
@@ -208,6 +209,7 @@ build:
                       const MAX_UPLOAD_SIZE = 100000000;
                       const DEBUG_LEVEL = 5;
                       const SUPERADMINS = [];
+                      const SERVICE_BREAK = ['on' => false, 'message' => 'Temporary service break, sorry ...' ];
                       }" >/home/scrutinizer/build/config/Master.php
                     - |
                       echo "<?php 
@@ -244,7 +246,10 @@ build:
                       const NSIS_VERSION = 3;
                       const USE_KEYWORDS = true;
                       const PRELOAD_IDPS = true;  
-                    
+                      const ADMIN_LOGINS = [
+                        'startday' => '2025-09-01',
+                        'allowed_inactivity_days' =>  365,
+                      ];
                       }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "
