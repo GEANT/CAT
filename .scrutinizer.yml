@@ -240,7 +240,19 @@ build:
                       ],
                       ];
                       const SILVERBULLET = [
-                      'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
+                          'product_name' => 'Hosted Services',
+                          'subproduct_sp_name' => 'Managed SP',
+                          'subproduct_idp_name' => 'Managed IdP',
+                          'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
+                          'default_maxusers' => 200,
+                          'realm_suffix' => '.hosted.eduroam.org',
+                          'server_suffix' => '.hosted.eduroam.org',
+                          'gracetime' => 90,
+                          'msp_port_min' => 1200,
+                          'msp_port_max' => 65535,
+                          'msp_max_clients_per_server' => 200,
+                          'CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
+                              # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
                       ];
                       const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
                       const NSIS_VERSION = 3;
