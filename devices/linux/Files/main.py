@@ -41,6 +41,14 @@ selected by the user.
 The script runs under python3.
 
 """
+# pylint: disable=broad-except
+# pylint: disable=bare-except
+# pylint: disable=too-many-lines
+# pylint: disable=too-many-branches
+# pylint: disable=line-too-long
+# pylint: disable=too-few-public-methods
+# pylint: disable=fixme
+
 import argparse
 import base64
 import getpass
@@ -60,21 +68,22 @@ DEBUG_ON = False
 
 parser = argparse.ArgumentParser(description='eduroam linux installer.')
 parser.add_argument('--debug', '-d', action='store_true', dest='debug',
-                    default=False, help='set debug flag')
+    default=False, help='set debug flag')
 parser.add_argument('--username', '-u', action='store', dest='username',
-                    help='set username')
+    help='set username')
 parser.add_argument('--password', '-p', action='store', dest='password',
-                    help='set text_mode flag')
+    help='set text_mode flag')
 parser.add_argument('--silent', '-s', action='store_true', dest='silent',
-                    help='set silent flag')
+    help='set silent flag')
 parser.add_argument('--pfxfile', action='store', dest='pfx_file',
-                    help='set path to user certificate file')
+    help='set path to user certificate file')
 parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
-                    help='generate wpa_supplicant config file without configuring the system')
+    help='generate wpa_supplicant config file without configuring the system')
 parser.add_argument("--iwd_conf", action='store_true', dest='iwd_conf',
-                    help='generate iwd config file without configuring the system')
+    help='generate iwd config file without configuring the system')
 parser.add_argument("--gui", action='store', dest='gui',
-                    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI system if present, falling back to standard choice if not')
+    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI ' + \
+        'system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
 if ARGS.debug:
     DEBUG_ON = True
@@ -97,7 +106,8 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    print("WARNING: Cannot import the dbus module for "+sys.executable+" - please install dbus-python!")
+    print("WARNING: Cannot import the dbus module for "+sys.executable+\
+        " - please install dbus-python!")
     debug("Cannot import the dbus module for "+sys.executable)
     NM_AVAILABLE = False
 
@@ -112,7 +122,8 @@ except ImportError:
         from OpenSSL import crypto
         crypto.load_pkcs12  # missing in newer versions
         OPENSSL_CRYPTO_AVAILABLE = True
-    except (ImportError, AttributeError):  # AttributeError sometimes thrown by old/broken OpenSSL versions
+    except (ImportError, AttributeError):  # AttributeError sometimes thrown
+                                           # by old/broken OpenSSL versions
         OPENSSL_CRYPTO_AVAILABLE = False
 
 
@@ -340,7 +351,7 @@ class InstallerData:
         if Config.tou != '':
             if self.ask(Config.tou, Messages.cont, 1):
                 sys.exit(1)
-        if NM_AVAILABLE == True and self.__has_active_wired_interface() and Config.wired != '':
+        if NM_AVAILABLE is True and self.__has_active_wired_interface() and Config.wired != '':
             if self.ask(Messages.wired):
                 debug("Wired will be omittted")
             else:
@@ -1019,18 +1030,18 @@ class IwdConfiguration:
         #TODO: It would probably be best to generate these configs from scratch but the logic is a little harder
         #      This would add flexibility when dealing with inner and outer config types.
         if Config.eap_outer == 'PWD':
-            self._create_eap_pwd_config(ssid, user_data)
+            self._create_eap_pwd_config(user_data)
         elif Config.eap_outer == 'PEAP':
-            self._create_eap_peap_config(ssid, user_data)
+            self._create_eap_peap_config(user_data)
         elif Config.eap_outer == 'TTLS':
-            self._create_ttls_pap_config(ssid, user_data)
+            self._create_ttls_pap_config(user_data)
         else:
             msg = 'Invalid_connection_type'
             raise ValueError(msg)
         self.write_config(ssid)
 
 
-    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_eap_pwd_config(self, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
         self.config = f"""
 [Security]
@@ -1042,7 +1053,7 @@ EAP-Password={user_data.password}
 AutoConnect=true
 """
 
-    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_eap_peap_config(self, user_data: Type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
         if Config.anonymous_identity != '':
             outer_identity = Config.anonymous_identity
@@ -1065,7 +1076,7 @@ AutoConnect=true
 {Config.CA}
 """
 
-    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+    def _create_ttls_pap_config(self, user_data: Type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
         if Config.anonymous_identity != '':
             outer_identity = Config.anonymous_identity
@@ -1278,7 +1289,7 @@ class CatNMConfigTool:
                 f"file://{self.pfx_file}\0".encode())
             s_8021x_data['private-key-password'] = self.user_data.password
             s_8021x_data['private-key-password-flags'] = 1
-        return(dbus.Dictionary(s_8021x_data))
+        return dbus.Dictionary(s_8021x_data)
 
 
     def __add_wired_connection(self, s_8021x):
