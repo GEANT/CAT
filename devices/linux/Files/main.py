@@ -1246,7 +1246,7 @@ class CatNMConfigTool:
                 connection_settings = connection.GetSettings()
                 conn_id = connection_settings['connection']['id']
                 if connection_settings['connection']['type'] == '802-3-ethernet' and \
-                    (conn_id == 'wired-eduroam' or conn_id == 'cat-wired'):
+                    (conn_id in ('wired-eduroam', 'cat-wired')):
                     debug("Deleting wired connection " + conn_id)
                     connection.Delete()
             except dbus.exceptions.DBusException:
