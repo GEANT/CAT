@@ -261,7 +261,7 @@ build:
                           'makensis' => '/usr/bin/makensis',
                           'zip' => 'zip',
                           'trust-store-mozilla' => '/etc/ssl/certs/ca-certificates.crt',
-                          'trust-store-custom' => __DIR__ . "/known-roots.pem",
+                          'trust-store-custom' => '',
                       ];
                       const MAPPROVIDER = [
                           'PROVIDER' => 'OpenLayers', // recognised values: Google, Bing, OpenLayers, None
@@ -270,7 +270,8 @@ build:
                       const CERT_WARNINGS = [
                           'expiry_warning' => 5184000, // 60 days
                           'expiry_critical' => 0, //
-                      ];                      const NSIS_VERSION = 3;
+                      ];
+                      const NSIS_VERSION = 3;
                       const USE_KEYWORDS = true;
                       const PRELOAD_IDPS = true;  
                       const ADMIN_LOGINS = [
