@@ -258,7 +258,7 @@ build:
                           'max_expiry' => true,
                       ];
                       const PATHS = [
-                          'makensis' => '/usr/bin/makensis',
+                          'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis'',
                           'zip' => 'zip',
                           'trust-store-mozilla' => '/etc/ssl/certs/ca-certificates.crt',
                           'trust-store-custom' => '',
