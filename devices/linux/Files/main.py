@@ -82,7 +82,7 @@ parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
 parser.add_argument("--iwd_conf", action='store_true', dest='iwd_conf',
     help='generate iwd config file without configuring the system')
 parser.add_argument("--gui", action='store', dest='gui',
-    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI ' + \
+    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI '
         'system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
 if ARGS.debug:
