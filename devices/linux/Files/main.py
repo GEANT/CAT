@@ -29,6 +29,7 @@ Contributors:
     Dimitri Papadopoulos Orfanos https://github.com/DimitriPapadopoulos
     sdasda7777 https://github.com/sdasda7777
     Matt Jolly http://gitlab.com/Matt.Jolly
+    
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
@@ -708,9 +709,9 @@ class InstallerData:
             else:
                 self.graphics = 'tkinter'
                 return
-            for cmd in ('yad', 'zenity', 'kdialog'):
-                if self.__check_graphics(cmd):
-                    return
+        for cmd in ('yad', 'zenity', 'kdialog'):
+            if self.__check_graphics(cmd):
+                return
 
 
     def __process_p12(self) -> bool:
@@ -1305,7 +1306,7 @@ class CatNMConfigTool:
         })
         s_con_cat = dbus.Dictionary({
             'type': '802-3-ethernet',
-            'autoconnect-priority': -50,
+            'autoconnect-priority': -150,
             'autoconnect-retries': 1,
             'uuid': str(uuid.uuid4()),
             'permissions': ['user:' + os.environ.get('USER')],
