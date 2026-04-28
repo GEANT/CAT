@@ -765,7 +765,7 @@ class InstallerData:
                         'pass:' + self.password, '-nokeys', '-clcerts']
             shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
                                               stderr=subprocess.PIPE)
-            out, err = shell_command1.communicate()
+            out, _err = shell_command1.communicate()
             if shell_command1.returncode != 0:
                 return False
         if Config.use_other_tls_id:
