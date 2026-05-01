@@ -49,7 +49,6 @@ $langObject = new \core\common\Language();
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 </head>
 <body>
-
     <?php echo $deco->productheader("FEDERATION"); ?>
 
     <h1>
@@ -449,7 +448,7 @@ foreach ($allIdPs as $id => $name) {
         echo _("Most likely we do not have required data on this institution in the eduroam database.");
         echo '<br/>';
         ?>
-        <a target="_blank" href="overview_radsec_readiness.php">
+        <a target="_blank" href="overview_radsec_readiness.php?fed_id=<?php echo $fedId;?>">
         <?php
         echo _('On this page');
         echo '</a> ';
