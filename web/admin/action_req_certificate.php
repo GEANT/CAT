@@ -33,7 +33,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
-$fedId = $_POST['fed_id'];
+$fedId = filter_input(INPUT_POST, 'fed_id');
 /* Are we operating against the eduPKI Test CA? For the prod CA, set to false */
 $is_testing = true;
 
