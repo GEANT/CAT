@@ -45,7 +45,7 @@ INSERT IGNORE INTO `profile_option_dict` VALUES ('managedsp:name', 'hotspot disp
 INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:flat-admin-structure', 'allow full privileges to admins invited by local institution admins', 'boolean', NULL, 0);
 INSERT IGNORE INTO `profile_option_dict` VALUES ('fed:no-testing', 'stop periodic RADIUS testing', 'boolean', NULL, 0);
 
-UPDATE `profile_option_dict` SET `type`='enum_openroaming', `flag`='VALUES:fedadmin-only,all' WHERE `name` = 'fed:silverbullet';
+UPDATE `profile_option_dict` SET `type`='enum_openroaming', `flag`='VALUES:fedadmin-only,all', `description`='enable hosted services in this federation' WHERE `name` = 'fed:silverbullet';
 UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `flag` = 'ML';
 
 UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'general:geo_coordinates';
