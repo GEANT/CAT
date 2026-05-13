@@ -512,6 +512,7 @@ class DeploymentManaged extends AbstractDeployment
 
     private function getPort($server_id, $idx) {
         $cons = $this->consortium;
+        $portRange = '';
         $server = $this->databaseHandle->exec("SELECT port_range FROM managed_sp_servers WHERE server_id = ? AND consortium = ?", "ss", $server_id, $cons);
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server)) {
             $portRange = $iterator->port_range;
@@ -522,7 +523,7 @@ class DeploymentManaged extends AbstractDeployment
         $ports = explode("-", $portRange);
         $foundFreePort = 0;
         while ($foundFreePort == 0) {
-            $portCandidate = random_int($ports[0],$ports[1]);
+            $portCandidate = random_int((int)$ports[0],(int)$ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_" . $idx . " FROM deployment WHERE radius_instance_" . $idx . " = ? AND port_instance_" . $idx . " = ?", "si", $server_id, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort = $portCandidate;
@@ -600,8 +601,6 @@ class DeploymentManaged extends AbstractDeployment
     public function UDPsupport($enabled=1)
     {
         $id = $this->identifier;
-        $cons = $this->consortium;
-       
         if ($enabled === 0) {
             $this->secret = NULL;
             $this->port1 = 0;
