@@ -147,6 +147,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                 <tr>
                     <th colspan="2"><?php echo("RADIUS over UDP"); ?></th>
                 </tr>
+                <?php if ($deploymentObject->port1 != NULL && $deploymentObject->port2 != NULL && $deploymentObject->secret != NULL) { ?>
                 <tr style="vertical-align:top">
                     <td>
                         <?php echo _("Your primary RADIUS server") ?>
@@ -212,7 +213,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     </td>
                 </tr>
                 <tr style="vertical-align:bottom">
-                    <td><?php echo _("RADIUS shared secret for both servers"); ?></td>
+                    <td><?php echo _("Shared secret for both servers"); ?></td>
                     <td>
                         <span id="shared_data_<?php echo $deploymentObject->identifier;?>"><?php echo $deploymentObject->secret;?></span>
                         <?php echo copyIcon("shared_icon_".$deploymentObject->identifier) ?>
@@ -220,8 +221,11 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     <td></td>
                 </tr>
                 <tr></tr>
+                <?php } else { ?>
+                <tr><td></td><td><?php echo _("Disabled"); ?></td></tr>
+                <?php } ?>
                 <tr><td colspan="3" style="background-color: #1d4a74; height: 1px"></tr>
-
+                
                 <tr>
                     <th colspan="2"><?php echo("RADIUS over TLS or TLS-PSK"); ?></th>
                 </tr>
@@ -231,6 +235,11 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     </td>
                     <td>
                         <?php
+                        if ($deploymentObject->radius_hostname_1 != NULL) {
+                            printf(_("FQDN: %s"), "<span id='radius_hostname_1_data_$depId'>".$deploymentObject->radius_hostname_1."</span>");
+                            echo copyIcon("radius_hostname_1_icon_$depId");
+                            echo "<br/>";
+                        }
                         if ($deploymentObject->host1_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host1_v4_t_data_$depId'>".$deploymentObject->host1_v4."</span>");
                             echo copyIcon("host1_v4_t_icon_$depId");                             
@@ -263,6 +272,11 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     </td>
                     <td>
                         <?php
+                        if ($deploymentObject->radius_hostname_2 != NULL) {
+                            printf(_("FQDN: %s"), "<span id='radius_hostname_2_data_$depId'>".$deploymentObject->radius_hostname_2."</span>");
+                            echo copyIcon("radius_hostname_2_icon_$depId");
+                            echo "<br/>";
+                        }
                         if ($deploymentObject->host2_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host2_v4_t_data_$depId'>".$deploymentObject->host2_v4."</span>");
                             echo copyIcon("host2_v4_t_icon_$depId");                            
@@ -289,14 +303,20 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         ?>
                     </td>
                 </tr>
-                
+                <tr style="vertical-align:bottom">
+                    <td><?php echo _("Shared secret for both servers"); ?></td>
+                    <td>
+                        radsec
+                    </td>
+                    <td></td>
+                </tr>
 
                 
                 <?php if ($deploymentObject->radsec_cert != '') { 
                     $data = openssl_x509_parse($deploymentObject->radsec_cert);
                     ?>
                 <tr style="vertical-align:top">
-                    <td><?php echo _("RADIUS over TLS credentials"); ?></td>
+                    <td><?php echo _("RADIUS/TLS credentials"); ?></td>
                     <td>
                     <?php
                     if ($deploymentObject->radsec_priv == '') {
@@ -312,7 +332,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     if ($dleft > 2) {
                         echo '<br>' . _('Number of days to expiry:') . ' ' . $dleft;
                     } else {
-                        echo '<br>' . _('If you are using RADIUS over TLS you should urgently renew your credentials') . '!';
+                        echo '<br>' . _('If you are using RADIUS/TLS you should urgently renew your credentials') . '!';
                     }
                     if ($dleft < 30) { echo '</font>'; }
                     ?></td>
@@ -342,8 +362,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                     <?php
                         if ($deploymentObject->radsec_cert != NULL) {
                             echo "<i>";
-                            echo _('If your certificate is close to expiry or you need to create new RADIUS over TLS credentials') . '<br>' .
-                                 _('click on "Renew RADIUS over TLS credentials" button') . '<br>';
+                            echo _('If your certificate is close to expiry or you need to create new RADIUS/TLS credentials') . '<br>' .
+                                 _('click on "Renew RADIUS/TLS credentials" button') . '<br>';
                         
                             echo '<br/>' . _('You can upload your own CSR to replace default TLS credentials.') . '<br>' . 
                                 _('Click on "Upload CSR to sign my own TLS credentials"');
@@ -528,18 +548,33 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                 <?php } ?>
                 <p><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = "overview_org.php?inst_id=<?php echo $deploymentObject->institution; ?>"'><?php echo $discardLabel ?></button></p>
                     <div align="right">
-                    <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='renewsecrets' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWSECRET; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace shared secret for this %s deployment? The new shared secret will be effective immediately."), core\DeploymentManaged::PRODUCTNAME); ?>')">
-                                <?php echo _("Renew RADIUS shared secret"); ?>
+                    <?php
+                    if ($deploymentObject->port1 != NULL && $deploymentObject->port2 != NULL && $deploymentObject->secret != NULL) { ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='turnoffudp' type='submit' name='submitbutton' style='width: 330px;' value='<?php echo web\lib\common\FormElements::BUTTON_TURNOFFUDP; ?>' onclick="return confirm('<?php printf(_("Do you really want to remove UDP configuration for this %s deployment? RADIUS over TLS and TLS-PSK will be still available."), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Disable RADIUS/UDP configuration"); ?>
                             </button>
-                    </form>
+                        </form>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='renewsecrets' type='submit' name='submitbutton' style='width: 330px;' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWSECRET; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace shared secret for this %s deployment? The new shared secret will be effective immediately."), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Renew RADIUS/UDP shared secret"); ?>
+                            </button>
+                        </form>
+                    <?php 
+                    } else { ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='turnonudp' type='submit' name='submitbutton' style='width: 330px;' value='<?php echo web\lib\common\FormElements::BUTTON_TURNONUDP; ?>'>
+                                <?php echo _("Enable RADIUS/UDP configuration"); ?>
+                            </button>
+                        </form>
+                    <?php } ?>
                     <form action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='renewtls' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
-                                <?php echo _("Renew RADIUS over TLS credentials"); ?>
+                            <button class='renewtls' type='submit' name='submitbutton' style='width: 330px;' value='<?php echo web\lib\common\FormElements::BUTTON_RENEWTLS; ?>' onclick="return confirm('<?php printf(_("Do you really want to replace TLS credentials for this %s deployment? The current TLS credentials will be revoked in 4 hours."), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Renew RADIUS/TLS credentials"); ?>
                             </button>
                     </form>           
                     <form name="csrupload" enctype="multipart/form-data" action='edit_hotspot.php?inst_id=<?php echo $deploymentObject->institution; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                           <button class='usecsr' type='submit' onclick="getFile();"); ?>                
+                           <button class='usecsr' type='submit' style='width: 330px;' onclick="getFile();"); ?>                
                                 <?php echo _("Upload CSR to sign my own TLS credentials"); ?>
                             </button>
                     <div style='height: 0px;width: 0px; overflow:hidden;'>

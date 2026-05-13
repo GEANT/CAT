@@ -151,6 +151,28 @@ if (isset($_POST['submitbutton'])) {
             }
             header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
             exit(0);
+        case web\lib\common\FormElements::BUTTON_TURNOFFUDP:
+            $deployment->UDPsupport(0);
+            $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
+            if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
+                $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
+                $response = $deploymentReinstantiated->setRADIUSconfig();
+            } else {
+                $response = ['NOOP', 'NOOP'];
+            }
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
+            exit(0);
+        case web\lib\common\FormElements::BUTTON_TURNONUDP:
+            $deployment->UDPsupport();
+            $deploymentReinstantiated = $validator->existingDeploymentManaged($deployment->identifier, $my_inst);
+            if ($deploymentReinstantiated->status == core\DeploymentManaged::ACTIVE) {
+                $deploymentReinstantiated->status = core\DeploymentManaged::INACTIVE;
+                $response = $deploymentReinstantiated->setRADIUSconfig();
+            } else {
+                $response = ['NOOP', 'NOOP'];
+            }
+            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
+            exit(0);
         case web\lib\common\FormElements::BUTTON_ACTIVATE:
             if (count($deployment->getAttributes("hiddenmanagedsp:tou_accepted")) > 0) {
                 $response = $deployment->setRADIUSconfig();

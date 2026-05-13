@@ -510,6 +510,26 @@ class DeploymentManaged extends AbstractDeployment
         return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer, "pskkey" => $futurePSKkey];
     }
 
+    private function getPort($server_id, $idx) {
+        $cons = $this->consortium;
+        $server = $this->databaseHandle->exec("SELECT port_range FROM managed_sp_servers WHERE server_id = ? AND consortium = ?", "ss", $server_id, $cons);
+        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server)) {
+            $portRange = $iterator->port_range;
+            if ($portRange === NULL) {
+                $portRange = \config\ConfAssistant::SILVERBULLET['msp_port_min'] . '-' . \config\ConfAssistant::SILVERBULLET['msp_port_max'];
+            }
+        }
+        $ports = explode("-", $portRange);
+        $foundFreePort = 0;
+        while ($foundFreePort == 0) {
+            $portCandidate = random_int($ports[0],$ports[1]);
+            $check = $this->databaseHandle->exec("SELECT port_instance_" . $idx . " FROM deployment WHERE radius_instance_" . $idx . " = ? AND port_instance_" . $idx . " = ?", "si", $server_id, $portCandidate);
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
+                $foundFreePort = $portCandidate;
+            }
+        }
+        return $foundFreePort;
+    }
     /**
      * update the last_changed timestamp for this deployment
      * 
@@ -571,7 +591,29 @@ class DeploymentManaged extends AbstractDeployment
         $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
         $this->databaseHandle->exec("UPDATE deployment SET secret = ? WHERE deployment_id = ?", "si", $this->secret, $id);           
     }
-    
+   
+    /**
+     * Enable / disable RADIUS/UDP
+     * 
+     * @return void
+     */
+    public function UDPsupport($enabled=1)
+    {
+        $id = $this->identifier;
+        $cons = $this->consortium;
+       
+        if ($enabled === 0) {
+            $this->secret = NULL;
+            $this->port1 = 0;
+            $this->port2 = 0;
+            $this->databaseHandle->exec("UPDATE deployment SET secret=NULL, port_instance_1=0, port_instance_2=0 WHERE deployment_id = ?", "i", $id);
+        } else {
+            $this->port1 = $this->getPort($this->radius_instance_1, 1);
+            $this->port2 = $this->getPort($this->radius_instance_2, 2);
+            $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
+            $this->databaseHandle->exec("UPDATE deployment SET secret = ?, port_instance_1 = ?, port_instance_2 = ?  WHERE deployment_id = ?", "siii", $this->secret, $this->port1, $this->port2, $id);     
+        }    
+    }
     /**
      * Create new deployment TLS credentials based on uploaded CSR
      * 
