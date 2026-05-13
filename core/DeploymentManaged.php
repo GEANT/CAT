@@ -523,7 +523,7 @@ class DeploymentManaged extends AbstractDeployment
         $ports = explode("-", $portRange);
         $foundFreePort = 0;
         while ($foundFreePort == 0) {
-            $portCandidate = random_int((int)$ports[0], (int)$ports[1]);
+            $portCandidate = random_int((int) $ports[0], (int) $ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_".$idx." FROM deployment WHERE radius_instance_".$idx." = ? AND port_instance_".$idx." = ?", "si", $server_id, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort = $portCandidate;
@@ -993,7 +993,7 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         $zipt = new \ZipArchive;
-        $zipt->open("$zipdir/detail-".$this->identifier.'-' .$this->institution.'.zip', \ZipArchive::CREATE);
+        $zipt->open("$zipdir/detail-".$this->identifier.'-'.$this->institution.'.zip', \ZipArchive::CREATE);
         $cnt = 0;
         foreach ($toPost as $key => $value) {
             if (file_exists("$zipdir/$key/detail.zip")) {
@@ -1006,7 +1006,9 @@ class DeploymentManaged extends AbstractDeployment
                 unlink("$zipdir/$key/detail.zip");
                 $files = scandir("$zipdir/$key/");
                 foreach ($files as $file) {
-                    if ($file == '.' || $file == '..') continue;
+                    if ($file == '.' || $file == '..') {
+                        continue;
+                    }
                     $data = file_get_contents("$zipdir/$key/$file");
                     $zipt->addFromString("radius-$key/$file", $data);
                     $cnt += 1;
