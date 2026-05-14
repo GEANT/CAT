@@ -30,7 +30,7 @@ Contributors:
     sdasda7777 https://github.com/sdasda7777
     Matt Jolly http://gitlab.com/Matt.Jolly
     Benoit LE TEXIER benoit.le-texier@imt-atlantique.fr
-    
+
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
