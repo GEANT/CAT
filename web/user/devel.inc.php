@@ -28,4 +28,3 @@ $out = "<h3>" . _("Access the sources") . "</h3>" .
         "<h3><a href='" . \core\CAT::getRootUrlPath() . "/apidoc' target='_blank'>". _("Documentation") . "</a></h3>" ;
 
         
-

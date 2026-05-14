@@ -378,6 +378,3 @@ class DeviceW8W10 extends \devices\ms\WindowsCommon
     private $profileNames;
     private $iterator;
 }
-
-
-

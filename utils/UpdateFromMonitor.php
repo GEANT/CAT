@@ -168,4 +168,3 @@ class UpdateFromMonitor {
         return($out);
     }
 }
-

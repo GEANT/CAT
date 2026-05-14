@@ -130,8 +130,3 @@ $profiles_for_this_idp = $my_inst->listProfiles();
   ?>
 </form>
 <?php echo $deco->footer();
-
-
-
-
-

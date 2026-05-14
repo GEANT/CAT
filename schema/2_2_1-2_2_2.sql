@@ -58,4 +58,3 @@ UPDATE `profile_option_dict` SET `multivalued` = 1 WHERE `name` = 'eap:server_na
 ALTER TABLE `managed_sp_servers` ADD COLUMN (`port_range` varchar(12) DEFAULT NULL,
   `max_clients` int (11) DEFAULT NULL);
 ALTER TABLE `profile`  ADD COLUMN `test_result` int default 1;
-

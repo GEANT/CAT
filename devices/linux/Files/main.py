@@ -1362,5 +1362,3 @@ class CatNMConfigTool:
         if user_data.install_wired:
             self.__delete_existing_wired_connections()
             self.__add_wired_connection(s_8021x)
-
-

@@ -327,6 +327,3 @@ switch ($operationMode) {
     default:
         header("Location: $redirectDestination" . $finalDestParams);
 }
-
-
-

@@ -13,11 +13,3 @@ Description of the process of moving from dependence on eduroam DB v1 to v2-only
 5. Run sync_databases.php - this ma take over 10 minutes - this script intentionally does not delete the temporary databases
    so that you can repeat steps 4 and 5 without the need to run the previous ones.
 6. Update the database schema using schema/2_1_3-2_2.sql.
-
-
-
-
-
-
-
-

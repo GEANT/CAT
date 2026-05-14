@@ -56,13 +56,3 @@ while ($row = $profiles->fetch_row()) {
 foreach ($updates as $update) {
     $db->query($update); 
 }
-
-
-
-
-
-
-
-
-
-

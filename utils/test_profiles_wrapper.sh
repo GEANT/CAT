@@ -35,6 +35,3 @@ $basename/test_profiles.sh >> $log 2>&1 &
 $basename/test_profiles.sh >> $log 2>&1 &
 $basename/test_profiles.sh >> $log 2>&1 &
 $basename/test_profiles.sh >> $log 2>&1 &
-
-
-

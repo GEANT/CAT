@@ -177,4 +177,3 @@ switch ($_POST['submitbutton']) {
     default:
         throw new Exception("Unknown action requested!");
 }
-

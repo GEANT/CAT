@@ -65,7 +65,3 @@ CentOS 6.2            -  yes
 Mageia 2              -  no (based on Drak)
 Slackware 13.37       -  not tested but live distros like Salix, Zewnwalk use wicd,
                          while Kongoni works with a sudo.
-
-
-
-

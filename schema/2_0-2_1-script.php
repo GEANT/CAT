@@ -37,4 +37,3 @@ foreach (['profile', 'institution'] as $tablePrefix) {
         $removalPayload = $dbInstance->exec("DELETE FROM ".$tablePrefix."_option WHERE option_name = 'media:SSID' AND option_value = '".$oneSsid."'");
     }
 }
-

@@ -237,4 +237,3 @@ if ($token) {
 }
 header("Content-type: application/json; utf-8");
 echo($json_data);
-

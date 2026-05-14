@@ -9,5 +9,3 @@ exclude_paths:
 - "devices/devices-template.php"
 - "web/external/"
 - "core/phpqrcode.php"
-
-

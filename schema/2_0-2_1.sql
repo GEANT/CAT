@@ -91,4 +91,3 @@ ALTER TABLE downloads ADD UNIQUE KEY `profile_device_lang` (`device_id`,`profile
 
 # ALTER TABLE managed_sp_servers ADD COLUMN `consortium` varchar(64) NOT NULL DEFAULT 'eduroam';
 # ALTER TABLE deployment ADD COLUMN `consortium` varchar(64) DEFAULT NULL;
-

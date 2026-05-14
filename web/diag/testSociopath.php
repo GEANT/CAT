@@ -43,4 +43,3 @@ print_r(json_decode($sociopath->getCurrentGuessState(), TRUE));
 echo "And now, let's see what the verdict text to display would be: (consists of the basic AREA text plus a lecture on what the user did wrong.\n\n";
 echo wordwrap($sociopath->verdictText(\core\diag\AbstractTest::INFRA_DEVICE));
 echo "</pre>";
-

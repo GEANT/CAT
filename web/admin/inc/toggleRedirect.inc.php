@@ -138,5 +138,3 @@ if ($device !== NULL) {
     
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
     echo $optionDisplay->prefilledOptionTable($keyword, $my_inst->federation);
-
-

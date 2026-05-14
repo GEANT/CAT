@@ -51,5 +51,3 @@ $html .= '</table>';
 $out = json_encode(['state'=>$levelString, 'html'=>$html]);
 header("Content-type: application/json; utf-8");
 print($out);
-
-

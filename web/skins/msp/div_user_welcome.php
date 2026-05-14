@@ -41,4 +41,3 @@
         <a href="javascript:back_to_downloads()"><strong><?php echo _("Back to downloads") ?></strong></a>
     </p>
 </div> <!-- id="user_welcomer_page" -->
-

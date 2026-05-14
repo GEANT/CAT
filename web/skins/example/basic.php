@@ -24,4 +24,3 @@
 // UI to devices with small screens or otherwise limited UI capabilities
 // If your skin doesn't want or need that, just redirect to the main index page
 header("Location: .");
-

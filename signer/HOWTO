@@ -94,6 +94,3 @@ Enable signing
 ~~~~~~~~~~~~~~
 
 edit devices/devices.php and change the sign option value form 0 to 1
-
-
-

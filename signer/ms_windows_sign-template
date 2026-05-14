@@ -51,4 +51,3 @@ if [ -z "$TIMESTAMP_URL"] ; then
 else
   $OSSL_PATH sign -certs "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
 fi
-

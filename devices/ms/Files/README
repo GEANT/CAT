@@ -58,4 +58,3 @@ The constants below are set by the Windows module when it generates the actual i
   SILVERBULLET - use the SilverBullet installation specifics
   SB_FINGERPRINT - SilverBullet user certificate SHA-1 fingerprint
   SB_USERNAME - SilverBullet username
-

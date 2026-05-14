@@ -26,7 +26,3 @@ $start = $langInstance->rtl ? "right" : "left";
     font-size: 12px;  
     font-weight: normal; 
 }
-
-
-
-
