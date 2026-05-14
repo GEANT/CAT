@@ -146,3 +146,4 @@ class RFC5997Tests extends AbstractTest
         // and we have checked Response-Authenticator.
         return AbstractTest::RETVAL_OK;
     }
+}
