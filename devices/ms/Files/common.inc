@@ -90,6 +90,7 @@ Var Netsh
 Var Msiexec
 Var rebootRequired
 Var spacesRemoved
+Var hwnd
 !ifdef GEANTLink
   !define CRED
   !define PASSWORD_BASED_CRED
@@ -471,6 +472,20 @@ Function ShowControls
   GetDlgItem $0 $HWNDPARENT 1045
   ShowWindow $0 ${SW_HIDE}
   LockWindow off
+FunctionEnd
+
+; Show the password
+; Adapted from https://nsis.sourceforge.io/NsDialogs_FAQ#How_to_hide.2Fshow_passwords_in_a_Text_Password_contro
+Function ShowPassword
+    Pop $hwnd
+    ${NSD_GetState} $hwnd $0
+    ShowWindow $PASS1_F ${SW_HIDE}
+    ${If} $0 == 1
+            SendMessage $PASS1_F ${EM_SETPASSWORDCHAR} 0 0
+    ${Else}
+            SendMessage $PASS1_F ${EM_SETPASSWORDCHAR} 42 0
+    ${EndIf}
+    ShowWindow $PASS1_F ${SW_SHOW}
 FunctionEnd
 
 Function PrepareWelcomeText  
@@ -1208,6 +1223,19 @@ FunctionEnd
 ;=============================
 !ifdef TLS
 Function PFXCertificateSelect
+;TRANSLATION
+    <?php 
+    if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        $certPasswordLabel = WindowsCommon::sprintNsis(_("import password:"));
+        $certPasswordLength = strlen($certPasswordLabel);
+    } else {
+        $certPasswordLabel = WindowsCommon::sprintNsis(_("certificate password:"));
+        $certPasswordLength = strlen($certPasswordLabel);
+        $certUsernameLabel = WindowsCommon::sprintNsis(_("Username:"));
+        $certUsernameLength = strlen($certUsernameLabel);
+        $labelLength = max($certPasswordLength,$certUsernameLength);
+    }
+  ?>
   !ifndef SILVERBULLET
 ;TRANSLATION
 !insertmacro MUI_HEADER_TEXT "<?php printf(WindowsCommon::sprintNsis(_("%s installer for")),\config\ConfAssistant::CONSORTIUM['display_name'])?> " "<?php WindowsCommon::echoNsis(_("Install personal certificate"))?>"
@@ -1221,18 +1249,8 @@ Function PFXCertificateSelect
   ${EndIf}
   nsDialogs::SelectFileDialog open "" "<?php WindowsCommon::echoNsis(_("Certificate files (*.p12)"))?>|*.p12|<?php WindowsCommon::echoNsis(_("Certificate files (*pfx)"))?>|*.pfx|<?php WindowsCommon::echoNsis(_("All files"))?>|*.*"
   Pop $Cert_file
-;TRANSLATION
-  <?php $certPasswordLabel = WindowsCommon::sprintNsis(_("certificate password:"));
-        $certPasswordLength = strlen($certPasswordLabel);
-        $certUsernameLabel = WindowsCommon::sprintNsis(_("Username:"));
-        $certUsernameLength = strlen($certUsernameLabel);
-        $labelLength = max($certPasswordLength,$certUsernameLength);
-  ?>
   ${NSD_CreateLabel} 0 0 100% 32u "<?php WindowsCommon::echoNsis(_("Selected file: \$Cert_file"))?>"
   !else
-  <?php $certPasswordLabel = WindowsCommon::sprintNsis(_("import password:"));
-        $certPasswordLength = strlen($certPasswordLabel);
-  ?>
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
   nsArray::Set Delete_files "SB_cert.p12"
@@ -1252,12 +1270,16 @@ Function PFXCertificateSelect
     ${NSD_CreateLabel} 0 35u ${LABEL_LENGTH} 12u "<?php echo $certPasswordLabel?>"
     ${NSD_CreatePassword} ${TEXT_START} 34.5u 120u 12u ""
     Pop $PASS1_F
+    SendMessage $PASS1_F ${EM_SETPASSWORDCHAR} 42 0
     ${NSD_SetFocus} $PASS1_F
     !ifdef PFX_USERNAME
        ${NSD_CreateLabel} 0 60u ${LABEL_LENGTH} 12u "<?php echo $certUsernameLabel?>"
        ${NSD_CreateText} ${TEXT_START} 60u 120u 12u ""
        Pop $UNAME_F
     !endif
+    ${NSD_CreateCheckbox} 10 90u 80u 22u " <?php WindowsCommon::echoNsis(_("Show password"))?>"
+    Pop $hwnd
+    ${NSD_OnClick} $hwnd ShowPassword   
   ${EndIf}
   nsDialogs::Show
 FunctionEnd
@@ -1487,16 +1509,21 @@ Function GetPasswordBasedCredentials
   !insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echoNsis(_("User credentials"))?>" " "
         nsDialogs::Create 1018
         Pop $0
-
         ${NSD_CreateLabel} 10 36u 60u 12u "<?php WindowsCommon::echoNsis(_("Username:"))?>"
         ${NSD_CreateText} 67u 35u 80u 12u "$UNAME"
         Pop $UNAME_F
         ${NSD_CreateLabel} 10 51u 60u 12u "<?php WindowsCommon::echoNsis(_("Password:"))?>"
         ${NSD_CreatePassword} 67u 50u 80u 12u "$PASS1"
         Pop $PASS1_F
-        ${NSD_CreateLabel} 10 66u 60u 22u "<?php WindowsCommon::echoNsis(_("Repeat password:"))?>"
-        ${NSD_CreatePassword} 67u 65u 80u 12u "$PASS2"
-        Pop $PASS2_F
+        SendMessage $PASS1_F ${EM_SETPASSWORDCHAR} 42 0
+;        ${NSD_CreateLabel} 10 66u 60u 22u "<?php WindowsCommon::echoNsis(_("Repeat password:"))?>"
+;        ${NSD_CreatePassword} 67u 65u 80u 12u "$PASS2"
+;        Pop $PASS2_F
+
+        ${NSD_CreateCheckbox} 10 90u 80u 22u " <?php WindowsCommon::echoNsis(_("Show password"))?>"
+        Pop $hwnd
+        ${NSD_OnClick} $hwnd ShowPassword        
+        
         nsDialogs::Show
 FunctionEnd
 
@@ -1504,7 +1531,7 @@ FunctionEnd
 Function SavePasswordBasedCredentials
    ${NSD_GetText} $UNAME_F $UNAME
    ${NSD_GetText} $PASS1_F $PASS1
-   ${NSD_GetText} $PASS2_F $PASS2
+;   ${NSD_GetText} $PASS2_F $PASS2
    Push $UNAME
    call trimTrailingSpaces
    Pop $UNAME
@@ -1524,12 +1551,12 @@ Function SavePasswordBasedCredentials
      MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Missing password"))?>"
      Abort
    ${EndIf}
-   ${If} "$PASS1" != "$PASS2"
-   ${NSD_SetText} $PASS1_F ""
-   ${NSD_SetText} $PASS2_F ""
-   MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Password mismatch"))?>"
-   Abort
-   ${EndIf}
+;   ${If} "$PASS1" != "$PASS2"
+;   ${NSD_SetText} $PASS1_F ""
+;   ${NSD_SetText} $PASS2_F ""
+;   MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Password mismatch"))?>"
+;   Abort
+;   ${EndIf}
    ${Base64_Encode} $PASS1
    Pop $PASS_B64
    ${Base64_Encode} $UNAME
