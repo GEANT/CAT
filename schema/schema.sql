@@ -290,7 +290,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:logo_file','logo of the NRO/federation','file',NULL,0),
 ('fed:custominvite','custom text to send with new IdP invitations','text',NULL,0),
 ('fed:include_logo_installers','whether or not the fed logo should be visible in installers','boolean',NULL,0),
-('fed:silverbullet','enable hosted services in this federation','enum_openroaming',VALUES:fedadmin-only,all,0),
+('fed:silverbullet','enable hosted services in this federation','enum_openroaming','VALUES:fedadmin-only,all',0),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL,0),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL,0),
 ('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL,0),
