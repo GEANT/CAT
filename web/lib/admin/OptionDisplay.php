@@ -275,7 +275,7 @@ class OptionDisplay extends \core\common\Entity
     }
 
     /**
-     * produce code for a option-specific tooltip
+     * produce code for an option-specific tooltip
      * @param int     $rowid     the number (once during page build) of the option 
      *                           that should get the tooltip
      * @param string  $input     the option name. Tooltip for it will be displayed
