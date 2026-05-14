@@ -60,7 +60,6 @@ $fedId = $_REQUEST['fed_id'];
     </h1>
     <?php
     $user = new \core\User($_SESSION['user']);
-    $mgmt = new \core\UserManagement();
     $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
@@ -72,6 +71,9 @@ $fedId = $_REQUEST['fed_id'];
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $oneFed) {
         if ($oneFed['value'] != $fedId) {
+            continue;
+        }
+        if (isset($_SESSION['selected_fed']) && $oneFed['value'] != $_SESSION['selected_fed']) {
             continue;
         }
         $theFed = new \core\Federation($oneFed['value']);

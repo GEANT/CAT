@@ -335,7 +335,7 @@ class DeploymentManaged extends AbstractDeployment
             }
             $portRange = $iterator->port_range;
             if ($portRange === NULL) {
-                $portRange = \config\ConfAssistant::SILVERBULLET['msp_port_min'] . '-' . \config\ConfAssistant::SILVERBULLET['msp_port_max'];
+                $portRange = \config\ConfAssistant::SILVERBULLET['msp_port_min'].'-'.\config\ConfAssistant::SILVERBULLET['msp_port_max'];
             }
             $clientCount1 = $this->databaseHandle->exec("SELECT port_instance_1 AS tenants1 FROM deployment WHERE radius_instance_1 = ?", "s", $serverId);
             $clientCount2 = $this->databaseHandle->exec("SELECT port_instance_2 AS tenants2 FROM deployment WHERE radius_instance_2 = ?", "s", $serverId);
@@ -343,10 +343,10 @@ class DeploymentManaged extends AbstractDeployment
             $clients = $clientCount1->num_rows + $clientCount2->num_rows;
             
             if ($clients < $maxSupportedClients) {
-                $serverCandidates[IdPlist::geoDistance($adminLocation, ['lat' => $iterator->location_lat, 'lon' => $iterator->location_lon])] = $iterator->server_id . "#$portRange";
+                $serverCandidates[IdPlist::geoDistance($adminLocation, ['lat' => $iterator->location_lat, 'lon' => $iterator->location_lon])] = $iterator->server_id."#$portRange";
             }
             if ($clients > $maxSupportedClients * 0.9) {
-                $this->loggerInstance->debug(1, "A RADIUS server for Managed SP (" . $iterator->server_id . ") is serving at more than 90% capacity!");
+                $this->loggerInstance->debug(1, "A RADIUS server for Managed SP (".$iterator->server_id.") is serving at more than 90% capacity!");
             }
         }
         if (count($serverCandidates) == 0 && $federation != "DEFAULT") {
@@ -368,7 +368,7 @@ class DeploymentManaged extends AbstractDeployment
      * 
      * @throws Exception
      */
-    private function setTLSSerialNumber($max=PHP_INT_MAX) {
+    private function setTLSSerialNumber($max = PHP_INT_MAX) {
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, $max);
@@ -388,7 +388,7 @@ class DeploymentManaged extends AbstractDeployment
      */
     private function createTLScredentials()
     {
-        $clientName = 'SP' . $this->identifier . '-' . $this->institution;
+        $clientName = 'SP'.$this->identifier.'-'.$this->institution;
         $dn = array(
                     "organizationName" => "eduroam",
                     "organizationalUnitName" => "eduroam Managed SP",
@@ -402,14 +402,14 @@ class DeploymentManaged extends AbstractDeployment
         openssl_pkey_export($privkey, $this->radsec_priv);
         // Generate a certificate signing request
         $csr = openssl_csr_new($dn, $privkey,
-                                array('digest_alg' => 'sha256', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"));
+                                array('digest_alg' => 'sha256', 'config' => ROOT."/config/ManagedSPCerts/openssl.cnf"));
         // get CA certificate and private key
-        $caprivkey = array(file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key"),
+        $caprivkey = array(file_get_contents(ROOT."/config/ManagedSPCerts/eduroamSP-CA.key"),
                             \config\Master::MANAGEDSP['capass']);
-        $cacert = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+        $cacert = file_get_contents(ROOT."/config/ManagedSPCerts/eduroamSP-CA.pem");
         $this->setTLSSerialNumber();
         $clientcert = openssl_csr_sign($csr, $cacert, $caprivkey, \config\Master::MANAGEDSP['daystoexpiry'],
-                            array('digest_alg'=>'sha512', 'config' => ROOT . "/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
+                            array('digest_alg'=>'sha512', 'config' => ROOT."/config/ManagedSPCerts/openssl.cnf"), $this->radsec_cert_serial_no);
         openssl_x509_export($clientcert, $this->radsec_cert);
     } 
     /**
@@ -421,7 +421,7 @@ class DeploymentManaged extends AbstractDeployment
     public function getLastActivity()
     {
         $handle = DBConnection::handle('MSP_ACTIVITY');
-        $activity = $handle->exec("SELECT activity_time FROM last_activity WHERE deployment_id = ?", "i", $this->identifier );
+        $activity = $handle->exec("SELECT activity_time FROM last_activity WHERE deployment_id = ?", "i", $this->identifier);
         if ($activity->num_rows == 0) {
             return False;
         }
@@ -452,8 +452,8 @@ class DeploymentManaged extends AbstractDeployment
             $conditional1 = "AND activity_time > DATE_SUB(NOW(), INTERVAL $backlog SECOND )";
             $conditional2 = "DESC";
         }
-        $client = 'SP' . $this->identifier . '-' . $this->institution;
-        $stats = $handle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot, outer_user FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client );
+        $client = 'SP'.$this->identifier.'-'.$this->institution;
+        $stats = $handle->exec("SELECT activity_time, realm, mac, cui, result, ap_id, prot, outer_user FROM activity WHERE owner = ? $conditional1 ORDER BY activity_time $conditional2", "s", $client);
        
         return mysqli_fetch_all($stats, \MYSQLI_ASSOC);
     }
@@ -476,12 +476,12 @@ class DeploymentManaged extends AbstractDeployment
         $inst = new IdP($this->institution);
         $ourserverwithports = $this->findGoodServerLocation($ourLocation, $inst->federation, []);
         $ourserver = substr($ourserverwithports, 0, strpos($ourserverwithports, "#"));
-        $portRange = substr($ourserverwithports, strpos($ourserverwithports, "#")+1);
+        $portRange = substr($ourserverwithports, strpos($ourserverwithports, "#") + 1);
         $ports = explode("-", $portRange);
         // now, find an unused port in the preferred server
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
-            $portCandidate = random_int($ports[0],$ports[1]);
+            $portCandidate = random_int($ports[0], $ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = ? AND port_instance_1 = ?", "si", $ourserver, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort1 = $portCandidate;
@@ -489,11 +489,11 @@ class DeploymentManaged extends AbstractDeployment
         }
         $ourserver2withports = $this->findGoodServerLocation($ourLocation, $inst->federation, [$ourserver]);
         $ourSecondServer = substr($ourserver2withports, 0, strpos($ourserver2withports, "#"));
-        $portRange = substr($ourserver2withports, strpos($ourserver2withports, "#")+1);
+        $portRange = substr($ourserver2withports, strpos($ourserver2withports, "#") + 1);
         $ports = explode("-", $portRange);
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
-            $portCandidate = random_int($ports[0],$ports[1]);
+            $portCandidate = random_int($ports[0], $ports[1]);
             $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = ? AND port_instance_2 = ?", "si", $ourSecondServer, $portCandidate);
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort2 = $portCandidate;
@@ -510,6 +510,27 @@ class DeploymentManaged extends AbstractDeployment
         return ["port_instance_1" => $foundFreePort1, "port_instance_2" => $foundFreePort2, "secret" => $futureSecret, "radius_instance_1" => $ourserver, "radius_instance_2" => $ourSecondServer, "pskkey" => $futurePSKkey];
     }
 
+    private function getPort($server_id, $idx) {
+        $cons = $this->consortium;
+        $portRange = '';
+        $server = $this->databaseHandle->exec("SELECT port_range FROM managed_sp_servers WHERE server_id = ? AND consortium = ?", "ss", $server_id, $cons);
+        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server)) {
+            $portRange = $iterator->port_range;
+            if ($portRange === NULL) {
+                $portRange = \config\ConfAssistant::SILVERBULLET['msp_port_min'].'-'.\config\ConfAssistant::SILVERBULLET['msp_port_max'];
+            }
+        }
+        $ports = explode("-", $portRange);
+        $foundFreePort = 0;
+        while ($foundFreePort == 0) {
+            $portCandidate = random_int((int) $ports[0], (int) $ports[1]);
+            $check = $this->databaseHandle->exec("SELECT port_instance_".$idx." FROM deployment WHERE radius_instance_".$idx." = ? AND port_instance_".$idx." = ?", "si", $server_id, $portCandidate);
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
+                $foundFreePort = $portCandidate;
+            }
+        }
+        return $foundFreePort;
+    }
     /**
      * update the last_changed timestamp for this deployment
      * 
@@ -571,7 +592,27 @@ class DeploymentManaged extends AbstractDeployment
         $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
         $this->databaseHandle->exec("UPDATE deployment SET secret = ? WHERE deployment_id = ?", "si", $this->secret, $id);           
     }
-    
+   
+    /**
+     * Enable / disable RADIUS/UDP
+     * 
+     * @return void
+     */
+    public function UDPsupport($enabled = 1)
+    {
+        $id = $this->identifier;
+        if ($enabled === 0) {
+            $this->secret = NULL;
+            $this->port1 = 0;
+            $this->port2 = 0;
+            $this->databaseHandle->exec("UPDATE deployment SET secret=NULL, port_instance_1=0, port_instance_2=0 WHERE deployment_id = ?", "i", $id);
+        } else {
+            $this->port1 = $this->getPort($this->radius_instance_1, 1);
+            $this->port2 = $this->getPort($this->radius_instance_2, 2);
+            $this->secret = trim(chunk_split(bin2hex(openssl_random_pseudo_bytes(14)), 4, '-'), '-');
+            $this->databaseHandle->exec("UPDATE deployment SET secret = ?, port_instance_1 = ?, port_instance_2 = ?  WHERE deployment_id = ?", "siii", $this->secret, $this->port1, $this->port2, $id);     
+        }    
+    }
     /**
      * Create new deployment TLS credentials based on uploaded CSR
      * 
@@ -590,11 +631,11 @@ class DeploymentManaged extends AbstractDeployment
         $dn['rdnSequence'][1][0]['value']['utf8String'] = 'eduroam Managed SP';
         $dn['rdnSequence'][2] = array();
         $dn['rdnSequence'][2][] = array('type' => 'id-at-commonName', 'value' => array());
-        $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP' . $this->identifier . "-" . $this->institution;
+        $dn['rdnSequence'][2][0]['value']['utf8String'] = 'SP'.$this->identifier."-".$this->institution;
         $csr->setDN($dn);
-        $pemcakey = file_get_contents(ROOT . "/config/ManagedSPCerts/eduroamSP-CA.key");
-        $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass'] );
-        $pemca = file_get_contents(ROOT .  "/config/ManagedSPCerts/eduroamSP-CA.pem");
+        $pemcakey = file_get_contents(ROOT."/config/ManagedSPCerts/eduroamSP-CA.key");
+        $cakey = \phpseclib3\Crypt\PublicKeyLoader::loadPrivateKey($pemcakey, \config\Master::MANAGEDSP['capass']);
+        $pemca = file_get_contents(ROOT."/config/ManagedSPCerts/eduroamSP-CA.pem");
         $ca = new \phpseclib3\File\X509();
         $ca->loadX509($pemca);
         $ca->setPrivateKey($cakey);
@@ -603,7 +644,7 @@ class DeploymentManaged extends AbstractDeployment
         $csr->setExtension('id-ce-keyUsage', ['digitalSignature', 'nonRepudiation', 'keyEncipherment']);
         $csr->setExtension('id-ce-extKeyUsage', ['id-kp-clientAuth']);
         $csr->setExtension('id-ce-basicConstraints', ['cA' => false], false);
-        $x509->setEndDate('+' . \config\Master::MANAGEDSP['daystoexpiry'] . ' days');
+        $x509->setEndDate('+'.\config\Master::MANAGEDSP['daystoexpiry'].' days');
         $this->setTLSSerialNumber(999999999999999999);
         $x509->setSerialNumber($this->radsec_cert_serial_no, 10);
         $cert = $x509->loadX509($x509->saveX509($x509->sign($ca, $csr)));
@@ -644,7 +685,7 @@ class DeploymentManaged extends AbstractDeployment
     {
         $customAttrib = $this->getAttributes("managedsp:operatorname");
         if (count($customAttrib) == 0) {
-            return "1sp." . $this->identifier . "-" . $this->institution . \config\ConfAssistant::SILVERBULLET['realm_suffix'];
+            return "1sp.".$this->identifier."-".$this->institution.\config\ConfAssistant::SILVERBULLET['realm_suffix'];
         }
         return $customAttrib[0]["value"];
     }
@@ -659,24 +700,24 @@ class DeploymentManaged extends AbstractDeployment
     private function sendToRADIUS(int $idx, $post)
     {
         $hostname = "radius_hostname_$idx";
-        $p = "server$idx" . "_secret";
+        $p = "server$idx"."_secret";
         $key = $this->$p;
-        $p = "server$idx" . "_iv";
+        $p = "server$idx"."_iv";
         $iv = $this->$p;
-        $p = "server$idx" . "_token";
+        $p = "server$idx"."_token";
         $token = $this->$p;
-        $encrypted = openssl_encrypt($post . "&token=$token", "CHACHA20", $key, 0, $iv);
+        $encrypted = openssl_encrypt($post."&token=$token", "CHACHA20", $key, 0, $iv);
         if ($encrypted !== false) {
-            $post = "enc=". urlencode(base64_encode($encrypted));
+            $post = "enc=".urlencode(base64_encode($encrypted));
         }
-        $ch = curl_init("http://" . $this->$hostname . ':' . \config\Master::MANAGEDSP['radiusconfigport']);
+        $ch = curl_init("http://".$this->$hostname.':'.\config\Master::MANAGEDSP['radiusconfigport']);
         if ($ch === FALSE) {
             $res = 'FAILURE';
         } else {
             curl_setopt($ch, CURLOPT_USERAGENT, "CAT-ManagedSP");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ':' . \config\Master::MANAGEDSP['radiusconfigport'] . "/$post\n");
+            $this->loggerInstance->debug(1, "Posting to http://".$this->$hostname.':'.\config\Master::MANAGEDSP['radiusconfigport']."/$post\n");
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -716,19 +757,19 @@ class DeploymentManaged extends AbstractDeployment
         } else {
             $txt = $remove ? _("Profile deactivation failed") : _("Profile activation/modification failed");
         }
-        $txt = $txt . ' ';
+        $txt = $txt.' ';
         if (array_count_values($response)[$status] == 2) {
-            $txt = $txt . _("on both RADIUS servers: primary and backup") . '.';
+            $txt = $txt._("on both RADIUS servers: primary and backup").'.';
         } else {
             if ($response['res[1]'] == $status) {
-                $txt = $txt . _("on primary RADIUS server") . '.';
+                $txt = $txt._("on primary RADIUS server").'.';
             } else {
-                $txt = $txt . _("on backup RADIUS server") . '.';
+                $txt = $txt._("on backup RADIUS server").'.';
             }
         }
         $mail = \core\common\OutsideComm::mailHandle();
         $email = $this->getAttributes("support:email")[0]['value'];
-        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        $mail->FromName = \config\Master::APPEARANCE['productname']." Notification System";
         $mail->addAddress($email);
         if ($status == 'OK') {
             $mail->Subject = _("RADIUS profile update problem fixed");
@@ -762,7 +803,7 @@ class DeploymentManaged extends AbstractDeployment
             return NULL;
         }
         $timeout = 10;
-        curl_setopt($ch, CURLOPT_URL, 'http://' . $host);
+        curl_setopt($ch, CURLOPT_URL, 'http://'.$host);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_exec($ch);
@@ -856,35 +897,35 @@ class DeploymentManaged extends AbstractDeployment
     {
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
         if ($torevoke != '') {
-            $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier .
+            $toPostTemplate = 'instid='.$this->institution.'&deploymentid='.$this->identifier.
                     "&torevoke=$torevoke";
             foreach (array_keys($toPost) as $key) {
                 $toPost[$key] = $toPostTemplate;
             }
         } else {
             $remove = ($this->status == \core\AbstractDeployment::INACTIVE) ? 0 : 1;
-            $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . 
-                '&secret=' . $this->secret .
-                '&country=' . $this->getAttributes("internal:country")[0]['value'] .
-                '&pskkey=' . $this->pskkey . '&';
+            $toPostTemplate = 'instid='.$this->institution.'&deploymentid='.$this->identifier.
+                '&secret='.$this->secret.
+                '&country='.$this->getAttributes("internal:country")[0]['value'].
+                '&pskkey='.$this->pskkey.'&';
             if ($remove) {
-                $toPostTemplate = $toPostTemplate . 'remove=1&';
+                $toPostTemplate = $toPostTemplate.'remove=1&';
             } else {
-                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getOperatorName() . '&'; 
+                $toPostTemplate = $toPostTemplate.'operatorname='.$this->getOperatorName().'&'; 
                 if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                     $allRealms = $this->getAllRealms();
                     if (!empty($allRealms)) {
-                        $toPostTemplate = $toPostTemplate . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
-                        $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+                        $toPostTemplate = $toPostTemplate.'vlan='.$this->getAttributes("managedsp:vlan")[0]['value'].'&';
+                        $toPostTemplate = $toPostTemplate.'realmforvlan[]='.implode('&realmforvlan[]=', $allRealms).'&';
                     }
                 }
                 if ($this->getAttributes("managedsp:guest_vlan")[0]['value'] ?? NULL) {
-                    $toPostTemplate = $toPostTemplate . 'guest_vlan=' . $this->getAttributes("managedsp:guest_vlan")[0]['value'] . '&';
+                    $toPostTemplate = $toPostTemplate.'guest_vlan='.$this->getAttributes("managedsp:guest_vlan")[0]['value'].'&';
                 }
             }
             foreach (array_keys($toPost) as $key) {
-                $elem = 'port' . $key;
-                $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;
+                $elem = 'port'.$key;
+                $toPost[$key] = $toPostTemplate.'port='.$this->$elem;
             }
         }
         $response = array();
@@ -894,14 +935,15 @@ class DeploymentManaged extends AbstractDeployment
             /*if ($key == 2) {
                 $response['res[2]'] = 'OK'; 
             } else { */
-            $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            $response['res['.$key.']'] = $this->sendToRADIUS($key, $toPost[$key]);
             //}
         }
         if ($onlyone) {
-            $response['res[' . ($onlyone == 1) ? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
+            $key = ($onlyone == 1) ? 2 : 1;
+            $response['res['.$key.']'] = \core\AbstractDeployment::RADIUS_OK;
         }
         foreach (array('OK', 'FAILURE') as $status) {
-            if ( ( ($status == 'OK' && $notify) || ($status == 'FAILURE') ) && ( in_array($status, $response) ) ) {
+            if ((($status == 'OK' && $notify) || ($status == 'FAILURE')) && (in_array($status, $response))) {
                 $this->sendMailtoAdmin($remove, $response, $status);
             }
         }
@@ -920,7 +962,7 @@ class DeploymentManaged extends AbstractDeployment
         $randomiv = "";
         if ($logs) {
             $randomiv = bin2hex(random_bytes(8));
-            $toPostTemplate = 'logid=DEBUG-' . $this->identifier . '-' .$this->institution . "&backlog=$logs&iv=$randomiv";
+            $toPostTemplate = 'logid=DEBUG-'.$this->identifier.'-'.$this->institution."&backlog=$logs&iv=$randomiv";
             foreach (array_keys($toPost) as $key) {
                 $toPost[$key] = $toPostTemplate;
             }
@@ -929,21 +971,21 @@ class DeploymentManaged extends AbstractDeployment
         $tempdir = \core\common\Entity::createTemporaryDirectory("test");
         $zipdir = $tempdir['dir'];
         foreach ($toPost as $key => $value) {
-            $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
-            $p = "server$key" . "_secret";
+            $this->loggerInstance->debug(1, 'toPost '.$toPost[$key]."\n");
+            $p = "server$key"."_secret";
             $secret = $this->$p;
-            $p = "server$key" . "_token";
+            $p = "server$key"."_token";
             $token = $this->$p;
-            $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            $response['res['.$key.']'] = $this->sendToRADIUS($key, $toPost[$key]);
             $paths = [];
-            if (substr($response['res[' . $key . ']'], 0, 8) == 'ZIPDATA:' && $randomiv != '') {
-                $encrypted = substr($response['res[' . $key . ']'], 8);
+            if (substr($response['res['.$key.']'], 0, 8) == 'ZIPDATA:' && $randomiv != '') {
+                $encrypted = substr($response['res['.$key.']'], 8);
                 $data = openssl_decrypt($encrypted, "CHACHA20", $secret, 0, $randomiv);
                 if ($data !== false && substr($data, 0, strlen($token)) == $token) {
                     $data = substr($data, strlen($token));
                 }
                 if (!file_exists("$zipdir/$key")) {
-                    mkdir("$zipdir/$key", 0755, true );
+                    mkdir("$zipdir/$key", 0755, true);
                 }
                 $fileHandle = fopen("$zipdir/$key/detail.zip", "wb");
                 fwrite($fileHandle, $data);
@@ -951,7 +993,7 @@ class DeploymentManaged extends AbstractDeployment
             }
         }
         $zipt = new \ZipArchive;
-        $zipt->open("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip', \ZipArchive::CREATE);
+        $zipt->open("$zipdir/detail-".$this->identifier.'-'.$this->institution.'.zip', \ZipArchive::CREATE);
         $cnt = 0;
         foreach ($toPost as $key => $value) {
             if (file_exists("$zipdir/$key/detail.zip")) {
@@ -963,8 +1005,10 @@ class DeploymentManaged extends AbstractDeployment
                 $zipf->close();
                 unlink("$zipdir/$key/detail.zip");
                 $files = scandir("$zipdir/$key/");
-                foreach($files as $file) {
-                    if ($file == '.' || $file == '..') continue;
+                foreach ($files as $file) {
+                    if ($file == '.' || $file == '..') {
+                        continue;
+                    }
                     $data = file_get_contents("$zipdir/$key/$file");
                     $zipt->addFromString("radius-$key/$file", $data);
                     $cnt += 1;
@@ -979,14 +1023,14 @@ class DeploymentManaged extends AbstractDeployment
             $zipt->addEmptyDir('.');
         }
         $zipt->close();
-        if (file_exists("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip')) {
-            $data = file_get_contents("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip');
-            unlink("$zipdir/detail-" . $this->identifier . '-' .$this->institution . '.zip'); 
+        if (file_exists("$zipdir/detail-".$this->identifier.'-'.$this->institution.'.zip')) {
+            $data = file_get_contents("$zipdir/detail-".$this->identifier.'-'.$this->institution.'.zip');
+            unlink("$zipdir/detail-".$this->identifier.'-'.$this->institution.'.zip'); 
             rmdir($zipdir);
         }     
         if ($data !== FALSE) {
             header('Content-Type: application/zip');
-            header("Content-Disposition: attachment; filename=\"detail-".$this->identifier . '-' .$this->institution.".zip\"");
+            header("Content-Disposition: attachment; filename=\"detail-".$this->identifier.'-'.$this->institution.".zip\"");
             header("Content-Transfer-Encoding: binary");
             echo $data;
         } 

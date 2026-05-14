@@ -20,7 +20,7 @@
  */
 
 /**
- * This page edits a federation.
+ * This page shows a federation details on RadSec data in DB
  * 
  * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
@@ -33,10 +33,15 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
-
+$fedId = $_REQUEST['fed_id'];
 $auth->authenticate();
-
-
+$user = new \core\User($_SESSION['user']);
+$mgmt = new \core\UserManagement();
+$isFedAdmin = $user->isFederationAdmin();
+if (!$isFedAdmin) {
+    echo _("You do not have the necessary privileges to request server certificates.");
+    exit(1);
+}
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
@@ -58,22 +63,29 @@ $langObject = new \core\common\Language();
     </h1>
     <?php
     $user = new \core\User($_SESSION['user']);
-    $mgmt = new \core\UserManagement();
     $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
     if (!$isFedAdmin) {
-        echo _("You do not have the necessary privileges to request server certificates.");
+        echo _("You do not have the necessary privileges to this page.");
         exit(1);
     }
     $externalDb = new \core\ExternalEduroamDBData();
 // okay... we are indeed entitled to "do stuff"
     $feds = $user->getAttributes("user:fedadmin");
+    $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
+    
     foreach ($feds as $oneFed) {
+        if ($oneFed['value'] != $fedId) {
+            continue;
+        }
+        if (isset($_SESSION['selected_fed']) && $oneFed['value'] != $fedId) {
+            continue;
+        }
         $theFed = new \core\Federation($oneFed['value']);
-        echo '<p>';
+        echo '<p><h2>';
         printf(_("eduroam DB status for %s %s"), $uiElements->nomenclatureFed, $theFed->name);
-        echo '</p>';
+        echo '</h2></p>';
         echo _('Below you can select an institution and check what information on this institution is present in the eduroam database.');
         echo '<p/>';
         echo _("In the 'Servers' column we show TLS servers names provided for this institution (it means servers having the type 1 - RADIUS over TLS).");
@@ -86,9 +98,8 @@ $langObject = new \core\common\Language();
         echo '<p/>';
         echo _('If you cannot find your institution on this list it means that this institution is not present in your upstream data.');        
         echo '<p/>';
-        $allAuthorizedFeds = $user->getAttributes("user:fedadmin");
-        $extInsts = $externalDb->listExternalTlsServersInstitution($allAuthorizedFeds[0]['value'], TRUE);
         
+        $extInsts = $externalDb->listExternalTlsServersInstitution($fedId, TRUE);
         ?>
         
     <select name="INST-list" id="INST-list">
@@ -145,7 +156,7 @@ $langObject = new \core\common\Language();
             <?php
             foreach (array_keys($instdata) as $iid) {
                 echo "instservers['" . $iid . "']='" . $instdata[$iid]['servers']. "';\n";
-                echo "instname['" . $iid . "']='" . $instdata[$iid]['name']. "';\n";
+                echo "instname['" . $iid . "']=\"" . $instdata[$iid]['name']. "\";\n";
                 echo "insttype['" . $iid . "']='" . $instdata[$iid]['type']. "';\n";
                 echo "instcontact['" . $iid . "']='" . $instdata[$iid]['contacts']. "';\n";
                 echo "instts['" . $iid . "']='" . $instdata[$iid]['ts']. "';\n";

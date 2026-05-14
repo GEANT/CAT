@@ -29,6 +29,8 @@ Contributors:
     Dimitri Papadopoulos Orfanos https://github.com/DimitriPapadopoulos
     sdasda7777 https://github.com/sdasda7777
     Matt Jolly http://gitlab.com/Matt.Jolly
+    Benoit LE TEXIER benoit.le-texier@imt-atlantique.fr
+    
 Many thanks for multiple code fixes, feature ideas, styling remarks
 much of the code provided by them in the form of pull requests
 has been incorporated into the final form of this script.
@@ -82,7 +84,7 @@ parser.add_argument("--wpa_conf", action='store_true', dest='wpa_conf',
 parser.add_argument("--iwd_conf", action='store_true', dest='iwd_conf',
     help='generate iwd config file without configuring the system')
 parser.add_argument("--gui", action='store', dest='gui',
-    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI ' + \
+    help='one of: tty, tkinter, zenity, kdialog, yad - use this GUI '
         'system if present, falling back to standard choice if not')
 ARGS = parser.parse_args()
 if ARGS.debug:
@@ -708,9 +710,9 @@ class InstallerData:
             else:
                 self.graphics = 'tkinter'
                 return
-            for cmd in ('yad', 'zenity', 'kdialog'):
-                if self.__check_graphics(cmd):
-                    return
+        for cmd in ('yad', 'zenity', 'kdialog'):
+            if self.__check_graphics(cmd):
+                return
 
 
     def __process_p12(self) -> bool:
@@ -765,7 +767,7 @@ class InstallerData:
                         'pass:' + self.password, '-nokeys', '-clcerts']
             shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
                                               stderr=subprocess.PIPE)
-            out, err = shell_command1.communicate()
+            out, _err = shell_command1.communicate()
             if shell_command1.returncode != 0:
                 return False
         if Config.use_other_tls_id:
@@ -970,7 +972,7 @@ class WpaConf:
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
         pairwise=CCMP
-        group=CCMP TKIP
+        group=CCMP
         eap=""" + Config.eap_outer + """
         ca_cert=\"""" + get_config_path() + """/cat_installer/ca.pem\"""""""
         identity=\"""" + user_data.username + """\"""""""
@@ -1246,7 +1248,7 @@ class CatNMConfigTool:
                 connection_settings = connection.GetSettings()
                 conn_id = connection_settings['connection']['id']
                 if connection_settings['connection']['type'] == '802-3-ethernet' and \
-                    (conn_id in ('wired-eduroam', 'cat-wired')):
+                    (conn_id in ('wired-eduroam')):
                     debug("Deleting wired connection " + conn_id)
                     connection.Delete()
             except dbus.exceptions.DBusException:
@@ -1297,20 +1299,13 @@ class CatNMConfigTool:
         s_ip6 = dbus.Dictionary({'method': 'auto'})
         s_con_eduroam = dbus.Dictionary({
             'type': '802-3-ethernet',
-            'autoconnect-priority': -100,
+            'autoconnect-priority': 100,
             'autoconnect-retries' : 3,
             'uuid': str(uuid.uuid4()),
             'permissions': ['user:' + os.environ.get('USER')],
             'id': 'wired-eduroam'
         })
-        s_con_cat = dbus.Dictionary({
-            'type': '802-3-ethernet',
-            'autoconnect-priority': -50,
-            'autoconnect-retries': 1,
-            'uuid': str(uuid.uuid4()),
-            'permissions': ['user:' + os.environ.get('USER')],
-            'id': 'cat-wired'
-        })
+
         s_8021x['optional'] = True
         s_8021x['auth-timeout'] = 10
         con = dbus.Dictionary({
@@ -1320,13 +1315,6 @@ class CatNMConfigTool:
             'ipv6': s_ip6
         })
         debug("ADDING wired-eduroam")
-        self.settings.AddConnection(con)
-        con = dbus.Dictionary({
-            'connection': s_con_cat,
-            'ipv4': s_ip4,
-            'ipv6': s_ip6
-        })
-        debug("ADDING cat-wired")
         self.settings.AddConnection(con)
 
 
@@ -1347,7 +1335,7 @@ class CatNMConfigTool:
             'key-mgmt': 'wpa-eap',
             'proto': ['rsn'],
             'pairwise': ['ccmp'],
-            'group': ['ccmp', 'tkip']
+            'group': ['ccmp']
         })
 
         con = dbus.Dictionary({

@@ -33,7 +33,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 $cat = new core\CAT();
-$fedId = $_POST['fed_id'];
+$fedId = filter_input(INPUT_POST, 'fed_id');
 /* Are we operating against the eduPKI Test CA? For the prod CA, set to false */
 $is_testing = true;
 
@@ -49,7 +49,6 @@ $langObject = new \core\common\Language();
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 </head>
 <body>
-
     <?php echo $deco->productheader("FEDERATION"); ?>
 
     <h1>
@@ -449,7 +448,7 @@ foreach ($allIdPs as $id => $name) {
         echo _("Most likely we do not have required data on this institution in the eduroam database.");
         echo '<br/>';
         ?>
-        <a target="_blank" href="overview_radsec_readiness.php">
+        <a target="_blank" href="overview_radsec_readiness.php?fed_id=<?php echo $fedId;?>">
         <?php
         echo _('On this page');
         echo '</a> ';
