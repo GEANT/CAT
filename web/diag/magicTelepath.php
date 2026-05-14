@@ -25,7 +25,7 @@ $visited = htmlspecialchars(strip_tags(filter_input(INPUT_GET,'visited')));
 $nro = htmlspecialchars(strip_tags(filter_input(INPUT_GET,'nro')));
 \core\CAT::sessionStart();
 $languageObject = new core\common\Language();
-$languageObject->setTextDomain("diagonstics");
+$languageObject->setTextDomain("diagnostics");
 $telepath = new \core\diag\Telepath($realm, $nro, $visited);
 $telepathArray = $telepath->magic();
 

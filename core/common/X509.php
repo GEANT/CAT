@@ -142,7 +142,7 @@ class X509
         // default: not a CA unless convinced otherwise
         $out['ca'] = 0; // we need to resolve this ambiguity
         $out['basicconstraints_set'] = 0;
-        // if no basicContraints are set at all, this is a problem in itself
+        // if no basicConstraints are set at all, this is a problem in itself
         // is this a CA? or not? Treat as server, but add a warning...
         if (isset($mydetails['extensions']['basicConstraints'])) {
             $out['ca'] = preg_match('/^CA:TRUE/', $mydetails['extensions']['basicConstraints']);

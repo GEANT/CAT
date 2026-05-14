@@ -22,7 +22,7 @@
 namespace web\lib\admin;
 
 /**
- * This class contains methods for displaing "wizard" help information for 
+ * This class contains methods for displaying "wizard" help information for 
  * novice admins. During the first setup the messages are showm in-line.
  * Later only help icons are displayed and corresponding hints are displayed
  * in an overlay window
@@ -50,7 +50,7 @@ class Wizard extends UIElements {
     /**
      * Depending on the wizardStyle setting either display help in a fixed window
      * or display the "i" icon pointing to the help text in a hidden window
-     * The text itself is taken from the helppMessage object indexed bu the $ubject
+     * The text itself is taken from the helppMessage object indexed by the $ubject
      * 
      * @param string $subject
      * @param array $options

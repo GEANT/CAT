@@ -94,9 +94,9 @@ Function InstallGEANTLink
   IfSilent +2
   MessageBox MB_OK  "<?php WindowsCommon::echoNsis( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
   !insertmacro debug_cat 1 "Run GEANTLink installer"
-  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink-$Platform.msi" REBOOT=Supress'
+  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink-$Platform.msi" REBOOT=Suppress'
   ClearErrors
-  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink-$Platform.msi" /qb REBOOT=Supress' $0
+  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink-$Platform.msi" /qb REBOOT=Suppress' $0
   !insertmacro debug_cat 4 "GEANTLink returned $0"
   StrCmp $0 0 Cont2
   ${If} $0 == 3010

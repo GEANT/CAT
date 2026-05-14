@@ -969,11 +969,11 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                 <legend><strong>"._("Live login test")."</strong></legend>";
                     $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
                     if (count($prof_compl) > 0) {
-                        $passwordReqired = FALSE;
+                        $passwordRequired = FALSE;
                         $clientCertRequired = FALSE;
                         foreach ($prof_compl as $eap) {
                             if ($eap->isPasswordRequired()) {
-                                $passwordReqired = TRUE;
+                                $passwordRequired = TRUE;
                             }
                             if ($eap->isClientCertRequired()) {
                                 $clientCertRequired = TRUE;
@@ -988,7 +988,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                     <input type='hidden' name='profile_id' value='".$my_profile->identifier."'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-                        if ($passwordReqired) {
+                        if ($passwordRequired) {
                             echo "<tr><td colspan='2'><strong>"._("Password-based EAP types")."</strong></td></tr>
                         <tr><td>"._("Real (inner) username:")."</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
                             echo "<tr><td>"._("Anonymous outer ID (optional):")."</td><td><input type='text' id='outer_username' name='outer_username'/></td></tr>";

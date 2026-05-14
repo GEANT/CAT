@@ -21,7 +21,7 @@
 
 /**
  * This page is used create a duplicate of a RADIUS profile by its administrator.
- * The new profile will have the display names replaces with one velue set by
+ * The new profile will have the display names replaces with one value set by
  * the admin during duplication. The production-ready flag will be removed.
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -37,10 +37,10 @@ $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 
-function copyRow($row, $feldsArray, $table, $dbHandle) {
+function copyRow($row, $fieldsArray, $table, $dbHandle) {
     $fieldsList = implode(',', array_keys($row));
     foreach ($row as $key => $value) {
-        if ($feldsArray[$key] == 's') {
+        if ($fieldsArray[$key] == 's') {
             if ($value === null) {
                 $row[$key] = 'NULL';
             } else {
@@ -55,8 +55,8 @@ function copyRow($row, $feldsArray, $table, $dbHandle) {
     $dbHandle->exec($insert);
 }
 
-function runSelect($profileId, $feldsArray, $table, $dbHandle) {
-    $fieldsList = implode(',', array_keys($feldsArray));
+function runSelect($profileId, $fieldsArray, $table, $dbHandle) {
+    $fieldsList = implode(',', array_keys($fieldsArray));
     $query = 'SELECT '.$fieldsList.' FROM '.$table.' WHERE profile_id=?';
     return $dbHandle->exec($query, "i", $profileId);
 }

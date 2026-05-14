@@ -37,7 +37,7 @@ $cat = new \core\CAT(); // initialises Entity static members
 //$OpenRoamingSymbol = "<img src='../resources/images/icons/or.svg' alt='OpenRoaming' title='OpenRoaming' class='cat-icon'>";
 $OpenRoamingSymbol = "OR";
 $fedArray = [];
-$stausIcons = [
+$statusIcons = [
     \core\IdP::PROFILES_SHOWTIME => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one profile is fully configured and visible in the user interface")],
     \core\IdP::PROFILES_CONFIGURED => ['img' => 'Tabler/check-green.svg', 'text' => _("At least one profile is fully configured but none are set as production-ready therefore the institution is not visible in the user interface")],
 ];

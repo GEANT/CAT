@@ -370,7 +370,7 @@ abstract class DeviceConfig extends \core\common\Entity
     final protected function saveCertificateFiles($format)
     {
         switch ($format) {
-            case "der": // fall-thorugh, same treatment
+            case "der": // fall-through, same treatment
             case "pem":
                 $iterator = 0;
                 $caFiles = [];
@@ -682,7 +682,7 @@ abstract class DeviceConfig extends \core\common\Entity
     {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
-        $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
+        $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'unsupported';
         $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.'.$ext, "w");
         if ($fileHandle === FALSE) {

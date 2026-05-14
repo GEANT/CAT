@@ -74,7 +74,7 @@ ms_windows_sign will require defining URL and NAME values
    When you an an exe on version Windows as administrator, you will see a warning window
    with some information about the exe.  This window will show you the program name, 
    this is the string taken from the NAME, and the O of the certificate.
-   Not sure when the URL can get used, but we suggest uou define it anyway.
+   Not sure when the URL can get used, but we suggest you define it anyway.
    for instance you might define
    URL=http://www.eduroam.org
    NAME="eduroam configurator"
@@ -88,7 +88,7 @@ ms_windows_sign will require defining URL and NAME values
 If you have kept the certificate file names as in this HOWTO then nothing else needs to be modified,
 otherwise you need to set file names to their proper values.
 
-Both scripts should be readable and executable (but not writeable) by the Apache process.
+Both scripts should be readable and executable (but not writable) by the Apache process.
 
 Enable signing
 ~~~~~~~~~~~~~~

@@ -41,7 +41,7 @@ class RFC5997Tests extends AbstractTest
 
     const PACKET_TYPE_STATUS_SERVER = "\xc";
     const PACKET_TYPE_ACCESS_ACCEPT = "\x2";
-    const PACKET_LENGTH = "\x0\x2b"; // only calid for string CAT in NAS-Id
+    const PACKET_LENGTH = "\x0\x2b"; // only valid for string CAT in NAS-Id
     const ATTRIBUTE_NAS_IDENTIFIER = "\x20";
     const LENGTH_NAS_IDENTIFIER = "\x5"; // only valid for string CAT
     const VALUE_NAS_IDENTIFIER = "CAT";
@@ -143,7 +143,6 @@ class RFC5997Tests extends AbstractTest
             throw new Exception("Received incorrect Response-Authenticator. Something is very wrong.");
         }
         // we don't validate Message-Authenticator, as it is optional in RFC5997
-        // and we have checked Response-Authenticaor.
+        // and we have checked Response-Authenticator.
         return AbstractTest::RETVAL_OK;
     }
-}

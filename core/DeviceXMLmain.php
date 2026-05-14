@@ -180,7 +180,7 @@ class DeviceXMLmain
      * 
      * @param $node \SimpleXMLElement DOM object to which the node is to be attached
      * @param $name the tag name of the child node to be attached
-     * @param $object the XXX object which is to be transfored to the DOM object
+     * @param $object the XXX object which is to be transformed to the DOM object
      *     and attached as a child to the $node
      * @param $namespace of the child
      * @param $root Boolean - if true treat the node as the tree root, i.e do not

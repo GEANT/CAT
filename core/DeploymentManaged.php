@@ -930,8 +930,8 @@ class DeploymentManaged extends AbstractDeployment
         }
         $response = array();
         foreach ($toPost as $key => $value) {
-            $this->loggerInstance->debug(1, 'toPost '.$toPost[$key]."\n");
-            // temporarly one server $response['res['.$key.']'] = $this->sendToRADIUS($key, $toPost[$key]);
+            $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] . "\n");
+            // temporarily one server $response['res[' . $key . ']'] = $this->sendToRADIUS($key, $toPost[$key]);
             /*if ($key == 2) {
                 $response['res[2]'] = 'OK'; 
             } else { */

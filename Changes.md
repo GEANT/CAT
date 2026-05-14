@@ -92,7 +92,7 @@ Changes in 2.1.2
 - [FEATURE #13] add TIMEOUTS constant to config/Diagnostics.php to eliminate
                 very long delays in testing sites - this requires updating 
                 your instance following the Diagnostics-template.php
-- [FEATURE #14] Improvemens to the linux python installed, in particular add support
+- [FEATURE #14] Improvements to the linux python installed, in particular add support
                 for Tkinker and yad provided by https://github.com/sdasda7777
 - [FEATURE #15] Removing the Registered Trademark character form the eduroam profile
                 name in Windows
@@ -101,7 +101,7 @@ Changes in 2.1.2
                 the deprecated FILTER_SANITIZE_STRING usage
 - [BUGFIX #2]   replaced slow SQL queries in Managed IdP area with much faster ones
 - [BUGFIX #3]   fixed blocking of Ajax requests caused by php sessions
-- [BUGFIX #4]   added several mising indexes in tables
+- [BUGFIX #4]   added several missing indexes in tables
 - [BUGFIX #5]   reduced number of database queries in overrvier_federation.php
 
 Changes in 2.1
@@ -309,7 +309,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 overview page
 - [FEATURE #5]  federation customisation: name, logo, custom invitation texts and
                 more
-- [FEATURE #6]  deprecated NSISArray has been replaced with nsArry
+- [FEATURE #6]  deprecated NSISArray has been replaced with nsArray
 - [FEATURE #7]  Support for UTF-8 installer has been added (this requires nsis v3)
 - [FEATURE #8]  also check for SHA-1 signatures and warn if found
 - [FEATURE #9]  implement skin selection system. For details read 
