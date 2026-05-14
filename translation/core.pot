@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 17:48+0100\n"
+"POT-Creation-Date: 2026-05-14 12:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,61 +17,61 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr ""
 
-#: core/AbstractProfile.php:274
+#: core/AbstractProfile.php:294
 #, php-format
 msgid ""
 "There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
 "not work."
 msgstr ""
 
-#: core/AbstractProfile.php:284
+#: core/AbstractProfile.php:304
 #, php-format
 msgid ""
 "The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
 "will likely not work."
 msgstr ""
 
-#: core/AbstractProfile.php:301
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr ""
 
-#: core/AbstractProfile.php:313
+#: core/AbstractProfile.php:333
 #, php-format
 msgid ""
 "The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
 msgstr ""
 
-#: core/AbstractProfile.php:319
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr ""
 
-#: core/AbstractProfile.php:346
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
 msgstr ""
 
-#: core/AbstractProfile.php:352
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr ""
 
-#: core/AbstractProfile.php:362
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
 msgstr ""
 
-#: core/AbstractProfile.php:369
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -335,39 +335,39 @@ msgstr ""
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeploymentManaged.php:704
+#: core/DeploymentManaged.php:756
 msgid "Profile deactivation succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:704
+#: core/DeploymentManaged.php:756
 msgid "Profile activation/modification succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:706
+#: core/DeploymentManaged.php:758
 msgid "Profile deactivation failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:706
+#: core/DeploymentManaged.php:758
 msgid "Profile activation/modification failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:710
+#: core/DeploymentManaged.php:762
 msgid "on both RADIUS servers: primary and backup"
 msgstr ""
 
-#: core/DeploymentManaged.php:713
+#: core/DeploymentManaged.php:765
 msgid "on primary RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:715
+#: core/DeploymentManaged.php:767
 msgid "on backup RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:723
+#: core/DeploymentManaged.php:775
 msgid "RADIUS profile update problem fixed"
 msgstr ""
 
-#: core/DeploymentManaged.php:725
+#: core/DeploymentManaged.php:777
 msgid "RADIUS profile update problem"
 msgstr ""
 
@@ -386,13 +386,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:339 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -405,7 +405,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:354
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -427,7 +427,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:380
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -444,12 +444,12 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:402 core/Federation.php:408
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:456
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -463,7 +463,7 @@ msgid ""
 "    %s"
 msgstr ""
 
-#: core/IdP.php:465
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -517,7 +517,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:304
+#: core/User.php:306
 msgid "Feedback"
 msgstr ""
 
@@ -552,47 +552,47 @@ msgstr ""
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr ""
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr ""
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr ""
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr ""
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr ""
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr ""
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr ""
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr ""
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""
