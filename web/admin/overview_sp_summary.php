@@ -273,7 +273,7 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
 }
 
 /**
- * displays a eduroam DB entry for SPs. Not implemented yet.
+ * displays an eduroam DB entry for SPs. Not implemented yet.
  * 
  * @param \core\DeploymentClassic $deploymentObject the deployment to work with
  */

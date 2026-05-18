@@ -35,7 +35,7 @@ use \Exception;
 /**
  * Silverbullet (marketed as "Managed IdP") is a RADIUS profile which 
  * corresponds directly to a built-in RADIUS server and CA. 
- * It provides all functions needed for a admin-side web interface where users
+ * It provides all functions needed for an admin-side web interface where users
  * can be added and removed, and new devices be enabled.
  * 
  * When downloading a Silverbullet based profile, the profile includes per-user
