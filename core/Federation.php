@@ -602,7 +602,7 @@ class Federation extends EntityWithDBProperties
      * Get the "worst" rechibility statuses from all institution profiles (only production ready
      * profiles are used) and do so for evely institution in the current federation
      * 
-     * @return array The arry of statuses (indexed by the inst identifier)
+     * @return array The array of statuses (indexed by the inst identifier)
      */
     private function getIdentityProvidersTestStatus() {
         $idpTestStatus =[];
@@ -883,7 +883,7 @@ class Federation extends EntityWithDBProperties
     }
     
     /**
-     * A fast verification if the flat admin structure is set for a givem federation
+     * A fast verification if the flat admin structure is set for a given federation
      * @param string $fedname
      * @return boolean true is flat admin structure is set, false otherwise
      * @throws Exception

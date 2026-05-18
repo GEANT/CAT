@@ -231,10 +231,10 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     }
     /**
      * This is just a part of the listExternalEntities code takeb out, for possible use in other situations
-     * Hovever remember that there is a similar function \core\CAT\getExternalDBEntityDetails()
+     * However remember that there is a similar function \core\CAT\getExternalDBEntityDetails()
      * 
      */
-    private function fetchExternalDetaisFromObject($externalObject) {
+    private function fetchExternalDetailsFromObject($externalObject) {
         $names = $this->splitNames($externalObject->collapsed_name);
         $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
         $contacts = $this::dissectCollapsedContacts($externalObject->collapsed_contact);
@@ -271,7 +271,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         $externals = $this->db->exec($query, "s", $tld);
         // was a SELECT query, so a resource and not a boolean
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
-            $returnarray[] = $this->fetchExternalDetaisFromObject($externalQuery);
+            $returnarray[] = $this->fetchExternalDetailsFromObject($externalQuery);
         }
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
