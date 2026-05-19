@@ -9,6 +9,8 @@ extend-exclude = [
 
 [default.extend-identifiers]
 recognisedOShs20 = "recognisedOShs20"
+return_doc_comment_if_not_inferrable = "return_doc_comment_if_not_inferrable"
+param_doc_comment_if_not_inferrable = "param_doc_comment_if_not_inferrable"
 SELECTs = "SELECTs"
 setRADIUSconfig = "setRADIUSconfig"
 StrCpy = "StrCpy"
