@@ -413,5 +413,3 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \con
             });
         });
     </script>
-
-    
