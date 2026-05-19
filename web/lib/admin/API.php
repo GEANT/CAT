@@ -93,7 +93,7 @@ class API {
     const ERROR_NO_TOU = 10;
 
     // IMPORTANT - if you decide to change some action names, remember to change
-    // action handler mathods names accordingly!
+    // action handler methods names accordingly!
     
     /**
      * This action creates a new institution. The institution is identified by
@@ -1473,7 +1473,7 @@ class API {
                 break;
             case \core\common\Entity::L_CONF_ERROR:
                 $overall = 4;
-                $message = _("confguration errors detected");
+                $message = _("configuration errors detected");
                 break;            
             }
         if ($res['returncode'] === $expected) {

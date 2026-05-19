@@ -3200,7 +3200,7 @@ msgid "errors detected"
 msgstr ""
 
 #: web/lib/admin/API.php:1476
-msgid "confguration errors detected"
+msgid "configuration errors detected"
 msgstr ""
 
 #: web/lib/admin/API.php:1480

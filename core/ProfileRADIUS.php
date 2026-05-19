@@ -427,7 +427,7 @@ class ProfileRADIUS extends AbstractProfile
     }
     
     /**
-     * Saves the reachibility testing staus into the database
+     * Saves the reachibility testing status into the database
      * 
      * @param int $level
      */
@@ -436,9 +436,9 @@ class ProfileRADIUS extends AbstractProfile
     }
     
     /**
-     * Reads the reachibility testing staus from the database
+     * Reads the reachibility testing status from the database
      * 
-     * @return int the reachibility testing staus
+     * @return int the reachibility testing status
      */
     public function getTestStatusInfo() {
         $result = $this->databaseHandle->exec("SELECT test_result FROM profile WHERE profile_id = ?", "i", $this->identifier);
