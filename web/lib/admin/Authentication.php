@@ -68,16 +68,6 @@ class Authentication extends \core\common\Entity {
         $admininfo = $authSimple->getAttributes();
         $user = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-identifier']][0];
         \core\common\Logging::debug_s(4, $admininfo, "SAML ATTR:\n", "\n");
-        if (isset($admininfo['uniqueIdentifier'])) {
-            $idps = explode('##########', $admininfo['uniqueIdentifier']);
-            $idpsNo = count($idps);
-            $authorizingAuthority = $idps[count($idps)-2];
-            if ($idpsNo > 2) {
-                \core\common\Logging::debug_s(4, $idps, "PROXIED IDP:\n", "\n");
-                $this->saveEquivalentIdentifier($user, $authorizingAuthority);
-            }
-            \core\common\Logging::debug_s(4, $authorizingAuthority, "IDP:\n", "\n");
-        }
         if (isset($_SESSION['saveLog']) && $_SESSION['saveLog'] == true) {
             $saveLog = true;
         } else {
@@ -99,9 +89,6 @@ class Authentication extends \core\common\Entity {
         $_SESSION['user'] = $user;
         $_SESSION['name'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-name']][0] ?? _("Unnamed User");
         $_SESSION['auth_email'] = $admininfo[\config\Master::AUTHENTICATION['ssp-attrib-email']][0] ?? _("");
-        if ($authorizingAuthority !== null) {
-            $_SESSION['authorizing_authority'] = $authorizingAuthority;
-        }
         if (isset($admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']])) {
             $_SESSION['entitlement'] = $admininfo[\config\Master::AUTHENTICATION['ssp-entitlement']];
         }
@@ -134,20 +121,6 @@ class Authentication extends \core\common\Entity {
             }
         }
         \core\common\Entity::outOfThePotatoes();
-    }
-    
-    private function saveEquivalentIdentifier($user, $authorizingAuthority) {
-        $alternativeId = preg_replace('/![^!]*$/', '!'.$authorizingAuthority, $user);
-        preg_match('/!([^!]*)$/', $user, $m);
-        $idp=$m[1];
-        \core\common\Logging::debug_s(3, $alternativeId, "ALTERNATIVE ID:", "\n");
-        $_SESSION['alternative_id'] = $alternativeId;
-        $handle = \core\DBConnection::handle("INST");
-        if (!$handle instanceof \core\DBConnection) {
-            throw new Exception("This database type is never an array!");
-        }
-        $handle->exec("INSERT IGNORE INTO idp_equivalence (idp, alternative_idp) VALUES ('$idp', '$authorizingAuthority')");
-        $handle->exec("INSERT IGNORE INTO admin_equivalence (user_id, alternative_id) VALUES ('$user', '$alternativeId')");
     }
 
     /**

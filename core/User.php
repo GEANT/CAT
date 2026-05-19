@@ -196,13 +196,6 @@ class User extends EntityWithDBProperties
         }
         $entityId = $matches[1];
         $test = $this->eduGAINTest($entityId);
-        if ($test === false) {
-            $authorizingAuthority = $_SESSION['authorizing_authority'];
-            $test = $this->eduGAINTest($authorizingAuthority);
-            if ($test === false) {
-                return false;
-            }
-        }
         if (isset($_SESSION['entitlement'])) {
             \core\common\Logging::debug_s(4, $_SESSION['entitlement'], "User in eduGAIN\n","\n");
         }
