@@ -22,3 +22,4 @@ repos:
     rev: v1.46.2
     hooks:
       - id: typos
+        args: ["--force-exclude"]
