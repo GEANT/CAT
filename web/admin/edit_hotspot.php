@@ -127,7 +127,7 @@ if (isset($_POST['submitbutton'])) {
                 header("Location: overview_org.php?inst_id=".$my_inst->identifier);
             } else {
                 header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='. 
-                   $deployment->identifier);
+                    $deployment->identifier);
             }
             exit(0);
         case web\lib\common\FormElements::BUTTON_REMOVESP:
@@ -207,9 +207,9 @@ if (isset($_POST['submitbutton'])) {
                     // valid signature
                     $data = openssl_x509_parse($deployment->radsec_cert);
                     $certdata = array(
-                              $data['serialNumberHex'],
-                              date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
-                             );
+                                $data['serialNumberHex'],
+                                date_create_from_format('ymdGis', substr($data['validTo'], 0, -1))->format('YmdHis')
+                                );
                     $torevoke = implode('#', $certdata);
                     $response = $deployment->setRADIUSconfig(0, 0, $torevoke);
                     $deployment->tlsfromcsr($csr);
@@ -254,8 +254,8 @@ if (isset($_POST['submitbutton'])) {
             }
             header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
             exit(0);
-          default:
-                throw new Exception("Unknown button action requested!");
+        default:
+            throw new Exception("Unknown button action requested!");
     }
 }
 if (isset($_POST['command'])) {
