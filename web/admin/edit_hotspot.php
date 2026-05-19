@@ -118,16 +118,21 @@ if (isset($_POST['submitbutton'])) {
             header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&deployment_id='.$deployment->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_DELETE:
+            error_log(serialize($_SERVER));
             $response = $deployment->setRADIUSconfig();
             if (in_array('OK', $response)) {
                 $deployment->deactivate();
             }
-            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='. 
+            if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_match("/overview_org/", $_SERVER['HTTP_REFERER'])) {
+                header("Location: overview_org.php?inst_id=".$my_inst->identifier);
+            } else {
+                header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='. 
                    $deployment->identifier);
+            }
             exit(0);
         case web\lib\common\FormElements::BUTTON_REMOVESP:
             $deployment->remove();
-            header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier);
+            header("Location: overview_org.php?inst_id=".$my_inst->identifier);
             exit(0);
         case web\lib\common\FormElements::BUTTON_RENEWTLS:
             $data = openssl_x509_parse($deployment->radsec_cert);
@@ -179,7 +184,11 @@ if (isset($_POST['submitbutton'])) {
                 if (in_array('OK', $response)) {
                     $deployment->activate();
                 }
-                header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
+                if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_match("/overview_org/", $_SERVER['HTTP_REFERER'])) {
+                    header("Location: overview_org.php?inst_id=".$my_inst->identifier);
+                } else {
+                    header("Location: overview_sp_wrapper.php?inst_id=".$my_inst->identifier.'&'.urldecode(http_build_query($response)).'&deployment_id='.$deployment->identifier);
+                }
                 exit(0);
             } else {
                 throw new Exception("Activate button pushed without acknowledged ToUs!");
