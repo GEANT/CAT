@@ -9,8 +9,8 @@ checks:
         no_long_variable_names:
             maximum: '20'
         more_specific_types_in_doc_comments: true
-        return_doc_comment_if_not_inferrable: true
-        param_doc_comment_if_not_inferrable: true
+        return_doc_comment_if_not_inferable: true
+        param_doc_comment_if_not_inferable: true
         parameter_doc_comments: true
         no_goto: true
         properties_in_camelcaps: true
