@@ -138,4 +138,3 @@ The colours are all configured in the web/resources/css/ directory.
 
 * The default eduroam colour number 1 is #BCD7E8 (light blue). Change it to your own colours as needed.
 * The default eduroam colour number 2 is #0A698E (dark blue). Change it to your own colours as needed.
-

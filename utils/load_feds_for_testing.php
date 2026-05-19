@@ -21,7 +21,3 @@ foreach ($feds as $fed) {
         $db->query("INSERT INTO feds_for_testing VALUES ('$fed')");
     }
 }
-
-
-
-

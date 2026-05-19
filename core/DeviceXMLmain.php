@@ -276,5 +276,3 @@ class DeviceXMLmain
         }
     }
 }
-
-

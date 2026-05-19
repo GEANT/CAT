@@ -27,4 +27,3 @@ if ($editMode == 'fullaccess'|| $editMode === 'readonly') {
     } 
     $deployment->getRADIUSLogs(0, $backlog);
 }
-

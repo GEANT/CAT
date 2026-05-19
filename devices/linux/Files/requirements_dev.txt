@@ -1,6 +1,4 @@
 keyring
 
-flake8
-pep8
-isort
-pylint3
+ruff
+prek

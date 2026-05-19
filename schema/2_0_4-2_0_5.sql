@@ -24,4 +24,3 @@
  */
 
 INSERT INTO profile_option_dict (name, description, type, flag) VALUES('general:instshortname','short name of the institution (acronym etc) in multiple languages','string','ML');
-

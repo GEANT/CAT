@@ -254,4 +254,3 @@ class Wizard extends UIElements {
         $this->helpMessage['location'] = $h;
     }
 }
-

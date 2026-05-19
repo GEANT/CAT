@@ -89,5 +89,3 @@ function layerFilter(layer) {
 function basicFeatureHandler(feature, layer) {
     return(feature);
 }
-
-

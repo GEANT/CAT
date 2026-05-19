@@ -156,4 +156,3 @@ function prepareAnimation() {
    Program.nextStep();
    Program.Sleep(2000);
 }
-

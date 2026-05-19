@@ -483,4 +483,3 @@ if ($editMode == 'fullaccess') {
 }
 echo "<p><button type='submit' id='submitbutton' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' id=='abortbutton' style='visibility: visible' value='abort' onclick='javascript:window.location = \"overview_org.php?inst_id=$my_inst->identifier\"'>".$discardLabel."</button></p></form>";
 echo $deco->footer();
-

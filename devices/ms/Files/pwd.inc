@@ -89,5 +89,3 @@ Section "-koncowka"
 !endif
 SectionEnd
 ;==========================
-
-

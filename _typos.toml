@@ -1,0 +1,29 @@
+[files]
+extend-exclude = [
+    ".scrutinizer.yml",
+    "external",
+    "nsis3",
+    "tests/cat_integration_scrutinizer.sql",
+    "translation",
+]
+
+[default.extend-identifiers]
+recognisedOShs20 = "recognisedOShs20"
+SELECTs = "SELECTs"
+setRADIUSconfig = "setRADIUSconfig"
+StrCpy = "StrCpy"
+SURFnet = "SURFnet"
+
+[default.extend-words]
+BA = "BA"
+FO = "FO"
+gost = "gost"
+interm = "interm"
+MODULU = "MODULU"
+ois = "ois"
+OT = "OT"
+passin = "passin"
+pendings = "pendings"
+PN = "PN"
+tou = "tou"
+Widgits = "Widgits"

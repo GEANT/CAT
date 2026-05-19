@@ -61,4 +61,3 @@ img.wizard_icon {
    top: 7px;
    cursor: pointer;
 }
-

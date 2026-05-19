@@ -105,4 +105,3 @@ $end = $langInstance->rtl ? "left" : "right";
 .sb-message-box-info{
     color: green;
 }
-

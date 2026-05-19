@@ -84,4 +84,3 @@ do
 done
 echo mobileconfig signing FAILED globally >> $LOG_FILE
 exit 256
-

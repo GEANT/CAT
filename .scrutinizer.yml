@@ -9,8 +9,8 @@ checks:
         no_long_variable_names:
             maximum: '20'
         more_specific_types_in_doc_comments: true
-        return_doc_comment_if_not_inferrable: true
-        param_doc_comment_if_not_inferrable: true
+        return_doc_comment_if_not_inferable: true
+        param_doc_comment_if_not_inferable: true
         parameter_doc_comments: true
         no_goto: true
         properties_in_camelcaps: true
@@ -150,7 +150,7 @@ build:
                     - ./configure
                     - make
                     - sudo make install
-                    - sudo -H /home/scrutinizer/.pyenv/shims/python3.7 -m pip install pylint distro
+                    - sudo -H /home/scrutinizer/.pyenv/shims/python3.7 -m pip install ruff distro
             project_setup:
                 override:
                     - cd /home/scrutinizer/build
@@ -420,7 +420,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
                   title: "Generating a Linux (Python) installer via API call"
                 - 
-                  command: /home/scrutinizer/.pyenv/versions/3.7.2/bin/pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
+                  command: /home/scrutinizer/.pyenv/versions/3.7.2/bin/ruff check /home/scrutinizer/artifacts/LinuxInstaller.py
                   title: "Checking whether output is an error-free Python file"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux_sh\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.sh --no-verbose

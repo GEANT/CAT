@@ -149,4 +149,3 @@ chown -R www-data /opt/FR/var/log/forCAT
 /usr/sbin/rsyslogd
 /usr/sbin/apachectl start
 /usr/sbin/cron -f -P
-

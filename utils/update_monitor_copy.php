@@ -178,4 +178,3 @@ foreach (array_keys($myDB->fields) as $table) {
 foreach (array_keys($myDB->fields) as $table) {
     $myDB->fill_table($table);
 }
-
