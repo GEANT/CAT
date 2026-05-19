@@ -153,6 +153,7 @@ class ConfAssistant
         'gracetime' => 90,
         'msp_port_min' => 1200,
         'msp_port_max' => 65535,
+        'reserved_udp_ports' => [1812, 1816],
         'msp_max_clients_per_server' => 200,
         'CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
             # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
