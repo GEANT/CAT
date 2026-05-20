@@ -27,8 +27,8 @@ $uiElements = new web\lib\admin\UIElements();
 echo $deco->defaultPagePrelude(_("Editing User Attributes"));
 $user = new \core\User($_SESSION['user']);
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
+<script src="js/XHR.js"></script>
+<script src="js/option_expand.js"></script>
 </head>
 <body>
     <?php echo $deco->productheader("USERMGMT"); ?>

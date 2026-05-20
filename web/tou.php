@@ -39,7 +39,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
         <title><?php echo \config\Master::APPEARANCE['productname_long']; ?></title>
         <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
-        <script type="text/javascript">
+        <script>
             function showTOU() {
                 document.getElementById('all_tou_link').style.display = 'none';
                 document.getElementById('tou_2').style.display = 'block';

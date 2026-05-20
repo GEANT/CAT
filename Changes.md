@@ -1,6 +1,53 @@
 Changes in 2.2.1.1-alpha
 - [BUGFIX   #1] - fixed the problem with Add/Remove adminstrotors for institution admins
 - [BUGFIX   #2] - introduce better type-safety for admin API (reported by: Nahit (Github: https://github.com/Dogru-Isim))
+- [BUGFIX   #3] - boolean options should not be automatically set in the wizard mode
+
+
+GENERAL
+allow superadmin and support users to download installers of unpublished profiles
+add the concept of single/multivalued configuration option and limit the display of already used ones
+add uniform and sorted display of configuration options
+add the possibility to run automatic connectivity tests unless federations block that
+
+NRO
+add the possibility to change institution type between IdP, SP and IdPSP
+add the possibility to force a one-level structure of institution admins in a given federation (a reversible decision)
+extend the admin API - add creation of new institutions based on eduroam DB; add implementation of API testing of RADIUS connectivity
+add the connectivity tests status column to the NRO overview screen
+add the missing privacy support warning icon to the NRO overview screen
+add the icons showing wired suport turned on for institutions on the NRO overview screen
+add the count of currently visible institutions on the NRO overview screen
+add the distinguished_name listing in CSR upload
+
+
+ORGANISATION
+add the display of eduPersonEntitlement values for admin users (in case the NRO supports entitlement-based self-registration)
+add the privileges auto-upgrade possibility for entitled administrators
+add OpenRoaming profile configuration testing from the institution overview screen
+add the connectivity tests status icon for each profile to the institution overview screen
+add the missing privacy support warning icon for each profile to the institution overview screen
+multiple improvements for the presentation of Managed SP admin interface
+better support for coexistence  of Managed SP and the basic configurator service
+introduction of port range limits for ManagedSP
+add deployment naming option
+add the possibility of new secret generation for existing ManagedSP deployments
+introduce the option to disable UDP support in a given deployment
+
+DEVICE
+several additions/improvements to the Linux installer
+add explicit definition of outer identity in Linux installer in case it has not been defined in CAT (by Alba Mendez)
+add support for setting up wired eduroam in Linux installer
+in Windows installer replace the requirement to enter user password twice by show/hide password switch (suggested by ...
+
+
+
+
+
+
+
+
+
 
 Changes in 2.2.1
 =====================

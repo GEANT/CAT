@@ -25,11 +25,11 @@ $Gui->defaultPagePrelude();
 $Gui->languageInstance->setTextDomain("web_user");
 ?>
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
 <!-- JQuery -->
-<script type="text/javascript">
+<script>
     var recognisedOS = '';
     var downloadMessage = '';
     var message = '0';

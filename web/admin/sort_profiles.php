@@ -54,7 +54,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: Profile ordering for '%s'"), \conf
 </style>
 <!-- JQuery --> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
 <script>
 

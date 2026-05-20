@@ -275,11 +275,11 @@ $name = $deployment->getAttributes("managedsp:name")[0]['value'] ?? "";
 $hotspotname = $deployment->getAttributes("managedsp:name")[0]['value'] ?? "";
 echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="js/XHR.js"></script>
+<script src="js/option_expand.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script type="text/javascript" src="js/wizard.js"></script> 
+<script src="js/wizard.js"></script> 
 <link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 </head>
 <body>

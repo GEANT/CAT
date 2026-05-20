@@ -54,9 +54,9 @@ if ($cssUrl !== FALSE) {
 } 
 ?>
 <!-- JQuery -->
-<script type="text/javascript" src="../external/jquery/jquery.js"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
-<script type="text/javascript">
+<script src="../external/jquery/jquery.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script>
+<script>
 var morealltext = "<?php echo '<i>'._("Show detailed information for all tests").'&raquo;</i>' ?>";
 var lessalltext = "<?php echo '<i>'._("Hide detailed information for all tests").'&raquo;</i>' ?>";
 var moretext = "<?php echo _("more")."&raquo;" ?>";
@@ -179,7 +179,7 @@ if ($check_realm !== FALSE) {
 echo $deco->footer();
 if (!$norefresh) {
 ?>
-<script type="text/javascript">
+<script>
    $(function() {
     $('#run_tests').click();
    });

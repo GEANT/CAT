@@ -28,12 +28,12 @@
 ?>
 
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
 <!-- JQuery -->
 
-<script type="text/javascript">
+<script>
     var recognisedOS = '';
     var recognisedOShs20 = 0;
     var downloadMessage;
@@ -70,8 +70,8 @@ $cssUrl = $Gui->skinObject->findResourceUrl("CSS", "cat-user.css.php");
 </script>
 <?php $Gui->languageInstance->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/discojuice.js"); ?>"></script>
-<script type="text/javascript">
+<script src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/discojuice.js"); ?>"></script>
+<script>
     var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
 </script>
 <link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/css/discojuice.css"); ?>" />

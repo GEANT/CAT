@@ -93,9 +93,9 @@ $end = $langInstance->rtl ? "left" : "right";
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
 
 <!-- JQuery -->
-<script type="text/javascript" src="../external/jquery/jquery.js"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
-<script type="text/javascript">
+<script src="../external/jquery/jquery.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script>
+<script>
     var L_OK = <?php echo \core\common\Entity::L_OK ?>;
     var L_UNKNOWN = <?php echo \core\common\Entity::L_UNKNOWN ?>;
     var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
@@ -736,7 +736,7 @@ $.ajax({url:'radius_tests.php', timeout: ajax_timeout,  data:{test_type: 'udp', 
                         }
                         echo '</div><hr>';
                                     
-                        echo '<script type="text/javascript">';
+                        echo '<script>';
                         
                         if ($dynType == "" && $hosts > 0) {
                             echo '

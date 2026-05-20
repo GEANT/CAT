@@ -44,9 +44,9 @@ $auth->authenticate();
 echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
+<script src="js/XHR.js"></script>
+<script src="js/option_expand.js"></script>
+<script src="../external/jquery/jquery-migrate.js"></script> 
 </head>
 <body>
     <?php echo $deco->productheader("FEDERATION"); ?>
@@ -480,7 +480,7 @@ foreach ($allIdPs as $id => $name) {
 <?php
 echo $deco->footer();
 ?>
-<script type="text/javascript">
+<script>
     $(document).ready(function(){
         $("#additionalinfo").hide();
         $("#ondb").hide();

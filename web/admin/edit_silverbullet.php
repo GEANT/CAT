@@ -116,7 +116,7 @@ if (isset($_POST['command'])) {
                 $content = fopen($_FILES['newusers']['tmp_name'], "r");
                 if ($content === FALSE) {
                     // seems we can't work with this file for some reason. Ignore.
-                    continue;
+                    break;
                 }
                 $oneLine = TRUE;
                 while ($oneLine !== FALSE) {
@@ -147,7 +147,7 @@ if (isset($_POST['command'])) {
             if (isset($_POST['userexpiry']) && isset($_POST['userid'])) {
                 $properId = $validator->integer($_POST['userid']);
                 if ($properId === FALSE) { // not a real user ID
-                    continue;
+                    break;
                 }
                 try {
                     $properDate = new DateTime($_POST['userexpiry']);
@@ -170,11 +170,11 @@ if (isset($_POST['command'])) {
             if (isset($_POST['certSerial']) && isset($_POST['certAlgo'])) {
                 $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial')); 
                 if ($certSerial === FALSE) {
-                    continue;
+                    break;
                 }
                 $certAlgo = $validator->string($_POST['certAlgo']);
                 if ($certAlgo != devices\Devices::SUPPORT_EMBEDDED_RSA && $certAlgo != devices\Devices::SUPPORT_EMBEDDED_ECDSA) {
-                    continue;
+                    break;
                 }
                 $certObject = new \core\SilverbulletCertificate($certSerial, $certAlgo);
                 $certObject->revokeCertificate();
@@ -185,7 +185,7 @@ if (isset($_POST['command'])) {
             if (isset($_POST['userid'])) {
                 $properId = $validator->integer(filter_input(INPUT_POST, 'userid'));
                 if ($properId === FALSE) { // bogus user ID, ignore
-                    continue;
+                    break;
                 }
                 $profile->deactivateUser($properId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
@@ -195,7 +195,7 @@ if (isset($_POST['command'])) {
             if (isset($_POST['userid'])) {
                 $properId = $validator->integer(filter_input(INPUT_POST, 'userid'));
                 if ($properId === FALSE) { // bogus user ID, ignore
-                    continue;
+                    break;
                 }
                 $profile->deleteUser($properId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
@@ -206,7 +206,7 @@ if (isset($_POST['command'])) {
                 $properId = $validator->integer($_POST['userid']);
                 $number = $validator->integer($_POST['invitationsquantity']);
                 if ($properId === FALSE || $number === FALSE) { // bogus inputs, ignore
-                    continue;
+                    break;
                 }
                 core\SilverbulletInvitation::createInvitation($profile->identifier, $properId, $number);
             }
@@ -298,12 +298,12 @@ $activeUsers = $profile->listActiveUsers();
 echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilverbullet::PRODUCTNAME ));
 
 ?>
-<script src='js/option_expand.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery-ui.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery-migrate.js' type='text/javascript'></script>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/popup_redirect.js" type="text/javascript"></script>
+<script src='js/option_expand.js'></script>
+<script src='../external/jquery/jquery.js'></script>
+<script src='../external/jquery/jquery-ui.js'></script>
+<script src='../external/jquery/jquery-migrate.js'></script>
+<script src="js/XHR.js"></script>
+<script src="js/popup_redirect.js"></script>
 
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
 <script>

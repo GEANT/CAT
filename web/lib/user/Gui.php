@@ -65,21 +65,21 @@ class Gui extends \core\UserAPI {
           <head lang='<?php echo $ourlocale;?>'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
           <title><?php echo htmlspecialchars($pagetitle);?></title>
-          <script type="text/javascript">ie_version = 0;</script>
+          <script>ie_version = 0;</script>
 <!--[if IE]>
-<script type="text/javascript">ie_version=1;</script>
+<script>ie_version=1;</script>
 <![endif]-->
 <!--[if IE 7]>
-<script type="text/javascript">ie_version=7;</script>
+<script>ie_version=7;</script>
 <![endif]-->
 <!--[if IE 8]>
-<script type="text/javascript">ie_version=8;</script>
+<script>ie_version=8;</script>
 <![endif]-->
 <!--[if IE 9]>
-<script type="text/javascript">ie_version=9;</script>
+<script>ie_version=9;</script>
 <![endif]-->
 <!--[if IE 10]>
-<script type="text/javascript">ie_version=10;</script>
+<script>ie_version=10;</script>
 <![endif]-->
    <?php
     }

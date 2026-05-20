@@ -36,15 +36,15 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), 
 $langInstance = new core\common\Language();
 ?>
 <!-- JQuery --> 
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
+<script src="js/XHR.js"></script>
+<script src="js/option_expand.js"></script>
 <!-- EAP sorting code -->
-<script type="text/javascript" src="js/eapSorter.js"></script>
+<script src="js/eapSorter.js"></script>
 <link rel='stylesheet' type='text/css' href='css/eapSorter.css.php' />
 <!-- EAP sorting code end -->
-<script type="text/javascript" src="js/wizard.js"></script> 
+<script src="js/wizard.js"></script> 
 <link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 
 <?php

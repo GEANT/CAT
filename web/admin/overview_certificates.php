@@ -43,10 +43,10 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management 
 $langObject = new \core\common\Language();
 $fedId = $_REQUEST['fed_id'];
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
+<script src="js/XHR.js"></script>
+<script src="js/option_expand.js"></script>
+<script src="../external/jquery/jquery.js"></script> 
+<script src="../external/jquery/jquery-migrate.js"></script> 
 </head>
 <body>
 

@@ -27,10 +27,10 @@ $validator = new \web\lib\common\InputValidation();
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
 
-<script src="js/popup_redirect.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="js/popup_redirect.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script src="js/option_expand.js" type="text/javascript"></script>
+<script src="js/option_expand.js"></script>
 <style>
     #download_box {
     display: none;

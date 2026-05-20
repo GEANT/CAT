@@ -48,11 +48,11 @@ $wizard->setMessages();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 ?>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
+<script src="js/XHR.js"></script>
+<script src="../external/jquery/jquery-ui.js"></script> 
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
-<script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/wizard.js"></script> 
+<script src="js/option_expand.js"></script>
+<script src="js/wizard.js"></script> 
 <link rel='stylesheet' type='text/css' href='css/wizard.css.php' />
 <?php
 if ($editMode == 'readonly') {
