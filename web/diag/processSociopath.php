@@ -32,7 +32,9 @@ if ($answer > 0) {
     } else {
         return NULL;
     }
-    $loggerInstance->debug(4, $_SESSION['EVIDENCE']['QUESTIONSASKED']);
+    if (isset($_SESSION['EVIDENCE']) && isset($_SESSION['EVIDENCE']['QUESTIONSASKED'])) {
+        $loggerInstance->debug(4, $_SESSION['EVIDENCE']['QUESTIONSASKED']);
+    }
     $loggerInstance->debug(4, "\nAnswer question " . $QNUM . "\n");
     switch ($answer) {
         case 1:

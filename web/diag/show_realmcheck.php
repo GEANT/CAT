@@ -37,6 +37,7 @@ $gui->languageInstance->setTextDomain("diagnostics");
 echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), \config\Master::APPEARANCE['productname']), false);
 
 $ourlocale = $gui->languageInstance->getLang();
+$validator = new \web\lib\common\InputValidation();
 
 $error_message = '';
 $user = NULL;
@@ -111,7 +112,7 @@ if ($norefresh) {
     $norefresh = true;
 }
 $check_realm = false;
-$token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token')));
+$token = $validator->token(filter_input(INPUT_GET, 'token'));
 if ($token) {
     $realmTests = new \core\diag\RADIUSTestsUI($token);
     if ($realmTests->realm) {

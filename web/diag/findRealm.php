@@ -63,8 +63,15 @@ $realmQueryType = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'type')));
 $realmCountry = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'co')));
 $realmOu = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'ou')));
 $forTests = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'addtest')));
-$token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
-if ($token && !is_dir($jsonDir.'/'.$token)) {
+$token = '';
+if (filter_input(INPUT_GET, 'token')) {
+    $token = $validator->token(filter_input(INPUT_GET, 'token'));
+} else {
+    if (filter_input(INPUT_POST, 'token')) {
+        $token = $validator->token(filter_input(INPUT_POST, 'token'));
+    }
+}
+if ($token && strlen($token) == 40 && !is_dir($jsonDir.'/'.$token)) {
     mkdir($jsonDir.'/'.$token, 0777, true);
 }
 if ($givenRealm != '') {

@@ -102,8 +102,12 @@ if (!is_numeric($hostindex)) {
 }
 
 $token = '';
-if (isset($_REQUEST['token'])) {
-    $token = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'token') ?? filter_input(INPUT_POST, 'token')));
+if (filter_input(INPUT_GET, 'token')) {
+    $token = $validator->token(filter_input(INPUT_GET, 'token'));
+} else {
+    if (filter_input(INPUT_POST, 'token')) {
+        $token = $validator->token(filter_input(INPUT_POST, 'token'));
+    }
 }
 
 $ssltest = -1;
@@ -412,8 +416,8 @@ switch ($test_type) {
         throw new Exception("Unknown test requested: default case reached!");
 }
 $returnarray['datetime'] = date("Y-m-d H:i:s");
-if ($token!= '' && is_dir($jsonDir.'/'.$token)) {
-    @mkdir($jsonDir.'/'.$token, 0777, true);
+if ($token && strlen($token) == 40 && !is_dir($jsonDir.'/'.$token)) {
+    mkdir($jsonDir.'/'.$token, 0777, true);
 }
 $json_data = json_encode($returnarray);
 if ($token != '') {

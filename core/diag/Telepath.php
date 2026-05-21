@@ -416,7 +416,9 @@ class Telepath extends AbstractTest
                 case RADIUSTests::L_REMARK:
                     // both are fine - the IdP is working and the user problem
                     // is not on the IdP RADIUS level
-                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']];
+                    if (array_key_exists('DETAIL', $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0])) {
+                        $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']];
+                    }
                     unset($this->possibleFailureReasons[AbstractTest::INFRA_IDP_RADIUS]);
                     break;
                 case RADIUSTests::L_WARN:
