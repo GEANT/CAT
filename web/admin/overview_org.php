@@ -230,7 +230,7 @@ function displayRadiusPropertyWidget(&$theProfile, $readonly, &$uiElements, $edi
                 </button>
             </form>
             <?php if ($openRoamingReady !== \core\AbstractProfile::OVERALL_OPENROAMING_LEVEL_NO) { ?>
-            <button type='submit' id='or_test' style='vertical-align: middle; height: 25px'><?php echo $orStateIcon.'&nbsp;&nbsp;'._("Verify OpenRoaming settings") ?></button>
+            <button type='submit' name='or_test' style='vertical-align: middle; height: 25px'><?php echo $orStateIcon.'&nbsp;&nbsp;'._("Verify OpenRoaming settings") ?></button>
             <?php } ?>
         </div>
         <div class='buttongroupprofilebox' style='clear:both; display: flex;'>
@@ -337,10 +337,10 @@ echo $mapCode->htmlHeadCode();
 <script src="../external/jquery/DataTables/datatables.js"></script>
 <link type="text/css"  rel="stylesheet" href="../external/jquery/DataTables/datatables.css"  media="all" />
 <script>
+
 $(document).ready(function() {
     var orIcons = [];
     var curr_icon;
-
 <?php
 $or = [
     'OVERALL_OPENROAMING_LEVEL_GOOD',
@@ -366,7 +366,7 @@ foreach ($or as $optIndex) {
         ]
     });
     
-    $("#or_test").on("click", function() {
+    $("button[name='or_test']").on("click", function() {
         var instid = $("#instid").val();
         curr_icon = $(this).children("img:first-child");
         var profileid = $(this).siblings("input[name='profileid']").val();
