@@ -482,7 +482,7 @@ class DeploymentManaged extends AbstractDeployment
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
             $portCandidate = random_int($ports[0], $ports[1]);
-            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['reserved_udp_ports'])) {
+            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['msp_reserved_udp_ports'])) {
                 continue;
             }
             $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = ? AND port_instance_1 = ?", "si", $ourserver, $portCandidate);
@@ -497,7 +497,7 @@ class DeploymentManaged extends AbstractDeployment
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
             $portCandidate = random_int($ports[0], $ports[1]);
-            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['reserved_udp_ports'])) {
+            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['msp_reserved_udp_ports'])) {
                 continue;
             }
             $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = ? AND port_instance_2 = ?", "si", $ourSecondServer, $portCandidate);
@@ -530,7 +530,7 @@ class DeploymentManaged extends AbstractDeployment
         $foundFreePort = 0;
         while ($foundFreePort == 0) {
             $portCandidate = random_int((int) $ports[0], (int) $ports[1]);
-            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['reserved_udp_ports'])) {
+            if (in_array($portCandidate, \config\ConfAssistant::SILVERBULLET['msp_reserved_udp_ports'])) {
                 continue;
             }
             $check = $this->databaseHandle->exec("SELECT port_instance_".$idx." FROM deployment WHERE radius_instance_".$idx." = ? AND port_instance_".$idx." = ?", "si", $server_id, $portCandidate);
