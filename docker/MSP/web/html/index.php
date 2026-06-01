@@ -4,7 +4,7 @@ define("ZIPDIR", '/opt/FR/var/log/forCAT/');
 $remove = 0;
 $opn = $vlans = '';
 $guest_vlan = 0;
-if (isset($_POST['enc']) && $_POST['enc'] != '' && ($enc=base64_decode($_POST['enc'], true)) !== false) {
+if (isset($_POST['enc']) && $_POST['enc'] != '' && ($enc = base64_decode($_POST['enc'], true)) !== false) {
     $decrypted = openssl_decrypt($enc, "CHACHA20", SERVER_SECRET, 0, SERVER_IV);
     if ($decrypted === false) {
         echo "FAILURE";
