@@ -4,7 +4,7 @@ define("ZIPDIR", '/opt/FR/var/log/forCAT/');
 $remove = 0;
 $opn = $vlans = '';
 $guest_vlan = 0;
-if ( isset($_POST['enc'])  && $_POST['enc'] != '' && ($enc=base64_decode($_POST['enc'], true)) !== false ) {
+if (isset($_POST['enc']) && $_POST['enc'] != '' && ($enc=base64_decode($_POST['enc'], true)) !== false) {
     $decrypted = openssl_decrypt($enc, "CHACHA20", SERVER_SECRET, 0, SERVER_IV);
     if ($decrypted === false) {
         echo "FAILURE";
@@ -18,7 +18,7 @@ if ( isset($_POST['enc'])  && $_POST['enc'] != '' && ($enc=base64_decode($_POST[
     } 
 }
 # when a request contains logid and backlog ";s:11:"DEBUG-11-52";s:7:"backlog";s:1:"7";}
-if ( isset($darr['logid']) && isset($darr['backlog']) && isset($darr['iv']) ) {
+if (isset($darr['logid']) && isset($darr['backlog']) && isset($darr['iv'])) {
     if (substr($darr['logid'], 0, 5) == 'DEBUG') {
         $logid = substr($darr['logid'], 6);
     }
@@ -27,7 +27,7 @@ if ( isset($darr['logid']) && isset($darr['backlog']) && isset($darr['iv']) ) {
     $cnt = 0;
     if (substr($res, 0, strlen(ZIPDIR)) == ZIPDIR) {
         $content = file_get_contents($res);
-        $encrypted = openssl_encrypt(SERVER_TOKEN . $content, "CHACHA20", SERVER_SECRET, 0, $iv);
+        $encrypted = openssl_encrypt(SERVER_TOKEN.$content, "CHACHA20", SERVER_SECRET, 0, $iv);
         header('Content-Type: application/octet-stream');
         header("Content-Transfer-Encoding: binary");
         echo "ZIPDATA:$encrypted";
@@ -51,7 +51,7 @@ if (
             $opn = trim($darr['operatorname']);
         }
         if (isset($darr['vlan']) && isset($darr['realmforvlan']) && is_array($darr['realmforvlan'])) {
-            $vlans = $darr['vlan'] . '#' . implode('#', $darr['realmforvlan']);
+            $vlans = $darr['vlan'].'#'.implode('#', $darr['realmforvlan']);
         }
         if (isset($darr['guest_vlan'])) {
             $guest_vlan = $darr['guest_vlan'];
