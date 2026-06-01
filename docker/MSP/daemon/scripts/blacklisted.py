@@ -10,10 +10,6 @@ import logging
 import sqlite3
 import posix_ipc
 
-# set server IP
-HOSTIP = 'RADIUS_SP_IP'
-HOSTIPv6 = 'RADIUS_SP_IPV6'
-
 TEMPLATE_DIR = '/opt/templates/'
 FR_RADDB = '/opt/FR/etc/raddb/'
 TLS2SITE = 'tls2site'
@@ -71,14 +67,14 @@ for row in cur.execute(SELECTNEW):
     # row[3] createtime
     # row[4] handled
     _clientcn = row[0]
-    _suffix = _clientcn[3:]
+    _suffix = _clientcn[2:]
     _serial = row[1]
     _inmin = int((now-row[3])/60)
     if _inmin < IN4HOURS:
         logger.info('%s with serial %s waiting (added %d mins ago)', _clientcn, _serial, _inmin)
         continue
     if not os.path.isfile(CONF_DIR + 'site_' + _suffix):
-        logger.info('%s with serial %s still waiting (added %d mins ago) because deployment is not active',
+        logger.info('%s with serial %s still waiting (added %d mins ago) because deployment is not acitve',
                     _clientcn, _serial, _inmin)
         continue
     _content = ''.join(bl_template) % {

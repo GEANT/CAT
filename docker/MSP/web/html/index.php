@@ -4,6 +4,8 @@ define("ZIPDIR", '/opt/FR/var/log/forCAT/');
 $remove = 0;
 $opn = $vlans = '';
 $guest_vlan = 0;
+error_log(serialize($_POST));
+error_log(SERVER_SECRET);
 if ( isset($_POST['enc'])  && $_POST['enc'] != '' && ($enc=base64_decode($_POST['enc'], true)) !== false ) {
 	$decrypted = openssl_decrypt($enc, "CHACHA20", SERVER_SECRET, 0, SERVER_IV);
 	if ($decrypted === false) {
@@ -15,6 +17,7 @@ if ( isset($_POST['enc'])  && $_POST['enc'] != '' && ($enc=base64_decode($_POST[
 		  echo "FAILURE";
 		  exit;
           } 
+	  error_log("GREAT!");
 	} 
 }
 # when a request contains logid and backlog ";s:11:"DEBUG-11-52";s:7:"backlog";s:1:"7";}
@@ -25,12 +28,15 @@ if ( isset($darr['logid']) && isset($darr['backlog']) && isset($darr['iv']) ) {
 	$iv = $darr['iv'];
   	$res = cat_socket(implode(':', array($logid, $darr['backlog'])));
 	$cnt = 0;
+	error_log('GOT '.$res);
 	if (substr($res, 0, strlen(ZIPDIR)) == ZIPDIR) {
+            error_log('GOT filename '.$res);
 	    $content = file_get_contents($res);
             $encrypted = openssl_encrypt(SERVER_TOKEN . $content, "CHACHA20", SERVER_SECRET, 0, $iv);
 	    header('Content-Type: application/octet-stream');
             header("Content-Transfer-Encoding: binary");
 	    echo "ZIPDATA:$encrypted";
+	    error_log('Sent data in response');
 	}
 	if (file_exists($res)) {
 	  unlink($res);

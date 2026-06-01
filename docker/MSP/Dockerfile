@@ -1,17 +1,13 @@
-ARG from=ubuntu:latest
+ARG from=debian:trixie-slim
 FROM ${from} AS build
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y devscripts equivs wget quilt gcc curl nmap lsof \
-            nettle-dev \
+RUN apt-get install -y devscripts equivs quilt gcc wget curl \
             rsyslog \
-            mysql-server bind9-dnsutils \
-            nettle-dev mysql-server bind9-dnsutils \
-            cron apache2 php libapache2-mod-php telnet vim fetch-crl net-tools
-RUN apt-get update
-RUN apt-get install -y php-zip php-mysql python3-pymysql python3-pip python3-psutil
+            cron apache2 php libapache2-mod-php telnet vim fetch-crl net-tools  bind9-dnsutils
+RUN apt-get install -y php-zip python3-pip python3-psutil
 
 WORKDIR /etc/rsyslog.d
 COPY rsyslog/23_eduroam.conf .
@@ -19,14 +15,13 @@ COPY rsyslog/23_eduroam.conf .
 RUN mkdir -p /var/log/radsecproxy
 
 WORKDIR /var/www/html
-RUN mkdir -p  sp/server
+RUN mkdir -p sp/server
 COPY web/html sp
 RUN mkdir -p /opt/Socket/CAT_requests
 RUN chown -R www-data:www-data /opt/Socket/CAT_requests
 
 WORKDIR /usr/local
 RUN mkdir db
-COPY mysql/ db/
 COPY sqlite/ db/
 
 
@@ -45,7 +40,7 @@ RUN pip install --break-system-packages  posix-ipc
 #
 RUN install -d -o root -g root -m 0755 /etc/apt/keyrings \
  && curl -o /etc/apt/keyrings/packages.networkradius.com.asc "https://packages.networkradius.com/pgp/packages%40networkradius.com" \
- && echo "deb [signed-by=/etc/apt/keyrings/packages.networkradius.com.asc] http://packages.networkradius.com/extras/ubuntu/noble noble main" > /etc/apt/sources.list.d/networkradius-extras.list \
+ && echo "deb [signed-by=/etc/apt/keyrings/packages.networkradius.com.asc] http://packages.networkradius.com/extras/debian/trixie trixie main" > /etc/apt/sources.list.d/networkradius-extras.list \
  && apt-get update
 
 #
@@ -53,25 +48,29 @@ RUN install -d -o root -g root -m 0755 /etc/apt/keyrings \
 #
 RUN mkdir -p /usr/local/src/repositories
 WORKDIR /usr/local/src/repositories
-ARG releasef=freeradius-server-3.2.7
-ARG versionf=release_3_2_7
+ARG releasef=freeradius-server-3.2.8
+ARG versionf=release_3_2_8
 ARG sourcef=https://github.com/FreeRADIUS/freeradius-server/releases/download/${versionf}/${releasef}.tar.gz
 ARG versionr=1.11.2
 ARG sourcer=https://github.com/radsecproxy/radsecproxy/releases/download/${versionr}/radsecproxy-${versionr}.tar.gz
 
-RUN echo ${sourcef}
-RUN wget ${sourcef}
-RUN tar xfv ${releasef}.tar.gz
-RUN rm ${releasef}.tar.gz
+#RUN echo ${sourcef}
+#RUN wget ${sourcef}
+#RUN tar xfv ${releasef}.tar.gz
+#RUN rm ${releasef}.tar.gz
+RUN git clone https://github.com/FreeRADIUS/freeradius-server.git -b v3.2.x
 
 RUN echo ${sourcer}
 RUN wget ${sourcer}
 RUN tar xfv radsecproxy-${versionr}.tar.gz
-RUN rm radsecproxy-${versionr}.tar.gz
+#RUN rm radsecproxy-${versionr}.tar.gz
 #
 #  Install build dependencies for all branches from v4 onwards
 #
-WORKDIR /usr/local/src/repositories/${releasef}
+#WORKDIR /usr/local/src/repositories/${releasef}
+#COPY freeRADIUS/patches/ .
+WORKDIR /usr/local/src/repositories/freeradius-server
+
 #
 #  Install build dependencies
 #
@@ -82,6 +81,14 @@ RUN if [ -e ./debian/control.in ]; then \
 
 #
 #  Build the server
+#
+#  Work around fakeroot problems in Docker when building for different
+#  platforms - doesn't matter as we run as root in the container anyway.
+#
+#RUN make -j$(nproc) deb
+RUN debian/rules debian/control \
+ && dpkg-buildpackage --jobs=auto -b -uc
+
 
 RUN ./configure --prefix=/opt/FR
 RUN make 
@@ -93,14 +100,13 @@ RUN mkdir -p etc/raddb/tls2site/pre-proxy.d etc/raddb/tls2site/post-proxy.d
 RUN mkdir -p etc/raddb/tls2site/authorize-blacklist.d
 RUN mkdir -p etc/raddb/tls2site/authorize-1.d etc/raddb/tls2site/authorize-2.d
 RUN mkdir -p etc/raddb/tls2site/post-auth-1.d etc/raddb/tls2site/post-auth-2.d etc/raddb/tls2site/post-auth-3.d
-RUN mkdir mgw
+#RUN mkdir mgw
 
-COPY freeRADIUS/raddb/sites-available/site_1999 etc/raddb/sites-available/
 COPY freeRADIUS/raddb/sites-available/tls_2083 etc/raddb/sites-available/
 COPY freeRADIUS/raddb/sites-available/tls2site etc/raddb/sites-available/
 COPY freeRADIUS/raddb/proxy.conf etc/raddb/
 COPY freeRADIUS/raddb/mods-available/ etc/raddb/mods-available/
-COPY freeRADIUS/raddb/mods-config/queries.conf etc/raddb/mods-config/sql/cui/mysql/queries.conf
+#COPY freeRADIUS/raddb/mods-config/queries.conf etc/raddb/mods-config/sql/cui/mysql/queries.conf
 COPY freeRADIUS/raddb/mods-config/psksql.sql etc/raddb/mods-config/sql/main/sqlite/psksql.sql
 COPY freeRADIUS/raddb/certs/ etc/raddb/certs/
 COPY freeRADIUS/raddb/certs/clients/ etc/raddb/certs/clients/
@@ -134,8 +140,13 @@ RUN groupadd -g ${freerad_gid} -r freerad \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/* 
 
+
+RUN apt-get -y --purge remove devscripts gcc
 WORKDIR /
 COPY docker-entrypoint.sh.deb docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
 
+#EXPOSE 1812/udp 1999/udp 2000/udp
+#EXPOSE 8080/tcp
+#EXPOSE 2083/tcp
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -18,8 +18,8 @@ FR_LOG = '/opt/scripts/logs/radius_restart.log'
 TIME_F = "%Y%m%d%H%M%S"
 RESTART_INTERVAL = 30
 RESTART_TIME = '/opt/Socket/CAT_requests/last_fr_restart'
-FR_PID = '/opt/FR/var/run/radiusd/radiusd.pid'
-#RP_PID = '/var/run/radsecproxy-psk.pid'
+FR_PID = '/opt/FR/var/run/freeradius/freeradius.pid'
+#FR_PID = '/opt/FR/var/run/radiusd/radiusd.pid'
 
 
 def init_log():

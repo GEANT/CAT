@@ -15,10 +15,6 @@ import sqlite3
 import zipfile
 import posix_ipc
 
-# set server IP
-HOSTIP = '83.97.95.201'
-HOSTIPv6 = '83.97.95.201V6'
-
 SOCKET_C = '/opt/Socket/CAT_requests/queue'
 SEM_RR = '/FR_RESTART'
 SEM_JUST_SLEEPING = '/FR_SLEEPING'
@@ -142,23 +138,22 @@ def make_conf(data):
             os.makedirs(TEMP_DIR + _tls)
         if not os.path.exists(CONF_DIR + _tls):
             os.makedirs(CONF_DIR + _tls)
-    _site = [
-        _line % {'hostip': HOSTIP,
-                 'hostipv6': HOSTIPv6,
-                 'country': data[0],
-                 'instid': data[1],
-                 'deploymentid': data[2],
-                 'port': data[3],
-                 'secret': _secret,
-                 'operatorname': _operatorname,
-                 'nas_id': NAS_ID,
-                 'vlans': _vlan_block,
-                 'reply_username': REPLY_USER_NAME}
-        for _line in site_template
-    ]
-    with open(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
-              'w', encoding='utf-8') as _out:
-        _out.write(''.join(_site))
+    if data[3] != 0 and _secret != '':
+        _site = [
+            _line % {'country': data[0],
+                     'instid': data[1],
+                     'deploymentid': data[2],
+                     'port': data[3],
+                     'secret': _secret,
+                     'operatorname': _operatorname,
+                     'nas_id': NAS_ID,
+                     'vlans': _vlan_block,
+                     'reply_username': REPLY_USER_NAME}
+            for _line in site_template
+        ]
+        with open(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
+                  'w', encoding='utf-8') as _out:
+            _out.write(''.join(_site))
     for _tls in TLS:
         for _templ in TEMPLATES_TLS:
             with open(TEMPLATE_DIR + _tls + '/' + _templ,
@@ -179,8 +174,18 @@ def make_conf(data):
                       '-' + str(data[1]), 'w', encoding='utf-8') as _out:
                 _out.write(''.join(_alllines))
     if not os.path.isfile(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1])):
-        logger.error('No %ssite_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
-        return False
+        if data[3] != 0 and _secret != '':
+            logger.error('No %ssite_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
+            return False
+        else:
+            # request to disable RADIUS/UDP
+            if os.path.isfile(FR_SITES_A + 'site_' + str(data[2]) + '-' + str(data[1])):
+                os.remove(FR_SITES_A + 'site_' + str(data[2]) + '-' + str(data[1]))
+            if os.path.isfile(CONF_DIR + 'site_' + str(data[2]) + '-' + str(data[1])):
+                os.remove(CONF_DIR + 'site_' + str(data[2]) + '-' + str(data[1]))
+            if os.path.islink(FR_SITES_E + 'site_' + str(data[2]) + '-' + str(data[1])):
+                os.remove(FR_SITES_E + 'site_' + str(data[2]) + '-' + str(data[1]))
+            logger.info('UDP disabled for %s-%s', str(data[2]), str(data[1]))
 
     if os.path.isfile(FR_MODS_A + 'detail_' + str(data[2]) + '-' + str(data[1])):
         _detail = []
@@ -204,13 +209,14 @@ def make_conf(data):
         if not os.path.isfile(TEMP_DIR + 'detail_' + str(data[2]) + '-' + str(data[1])):
             logger.error('No %sdetail_%s-%s file', TEMP_DIR, str(data[2]), str(data[1]))
             return False
-
-    copy(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
-         CONF_DIR + 'site_' + str(data[2]) + '-' + str(data[1]))
-    move(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
-         FR_SITES_A + 'site_' + str(data[2]) + '-' + str(data[1]))
+    if os.path.isfile(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1])):
+        copy(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
+             CONF_DIR + 'site_' + str(data[2]) + '-' + str(data[1]))
+        move(TEMP_DIR + 'site_' + str(data[2]) + '-' + str(data[1]),
+             FR_SITES_A + 'site_' + str(data[2]) + '-' + str(data[1]))
     try:
-        if not os.path.islink(FR_SITES_E + 'site_' + str(data[2]) + '-' + str(data[1])):
+        if os.path.isfile(FR_SITES_A + 'site_' + str(data[2]) + '-' + str(data[1])) and \
+                not os.path.islink(FR_SITES_E + 'site_' + str(data[2]) + '-' + str(data[1])):
             os.chdir(FR_SITES_E)
             os.symlink(FR_SITES_A_REL + 'site_' + str(data[2]) + '-' + str(data[1]),
                        'site_' + str(data[2]) + '-' + str(data[1]))

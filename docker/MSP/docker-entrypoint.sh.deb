@@ -2,8 +2,6 @@
 set -e
 hostname=`hostname`
 sed -i "s/RADIUS_CONFIGURATION_NAME/${hostname}/g" /etc/apache2/sites-available/000-default.conf
-sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/sites-available/000-default.conf
-sed -i "s/RADIUS_CONFIGURATION_PORT/${RADIUS_CONFIGURATION_PORT}/g" /etc/apache2/ports.conf
 sed -i "s/SERVER_TOKEN_VALUE/${SERVER_TOKEN}/g" /var/www/html/sp/server/secret.php
 sed -i "s/SERVER_SECRET_VALUE/${SERVER_SECRET}/g" /var/www/html/sp/server/secret.php
 sed -i "s/SERVER_IV_VALUE/${SERVER_IV}/g" /var/www/html/sp/server/secret.php
@@ -11,33 +9,25 @@ chmod 500 /var/www/html/sp/server/
 chmod 400 /var/www/html/sp/server/*
 chown -R www-data /var/www/html/sp/server
 sed -i "s/CAT_IP/${CAT_IP}/g" /etc/rsyslog.d/23_eduroam.conf
-sed -i "s/CATUSERAGENT/${CATUSERAGENT}/g" /etc/apache2/sites-available/000-default.conf
 sed -i "s/FRRADSECSECRET/${FRRADSECSECRET}/g" /usr/local/etc/radsecproxy.conf
 sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /usr/local/etc/radsecproxy.conf
-sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/FR/etc/raddb/sites-available/site_1999
-sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/FR/etc/raddb/sites-available/tls2site
 sed -i "s/auth = no$/auth = yes/g" /opt/FR/etc/raddb/radiusd.conf
 sed -i "s/FRRADSECSECRET/${FRRADSECSECRET}/g" /opt/FR/etc/raddb/proxy.conf
-sed -i "s/HTTPD_USER/${HTTPD_USER}/g" /opt/scripts/radius_configuration.py
-sed -i "s/HTTPD_GROUP/${HTTPD_GROUP}/g" /opt/scripts/radius_configuration.py
-sed -i "s/RADIUS_SP_IP/${RADIUS_SP_IP}/g" /opt/scripts/radius_configuration.py
-sed -i "s/RADIUS_SP_IPV6/${RADIUS_SP_IPV6}/g" /opt/scripts/radius_configuration.py
 sed -i "s/RADIUS_DB/${RADIUS_DB}/g" /opt/FR/etc/raddb/mods-available/cui
 sed -i "s/RADIUS_USER/${RADIUS_USER}/g" /opt/FR/etc/raddb/mods-available/cui
 sed -i "s/RADIUS_PASS/${RADIUS_PASS}/g" /opt/FR/etc/raddb/mods-available/cui
-sed -i "s/MYSQL_PORT/${MYSQL_PORT}/g" /opt/FR/etc/raddb/mods-available/cui
 sed -i "s/CUI_HASH/${CUI_HASH}/g" /opt/FR/etc/raddb/policy.d/cui
-sed -i "s/MYSQL_PORT/${MYSQL_PORT}/g" /usr/local/db/mysqld.cnf
-sed -i "s/RADIUS_DB/${RADIUS_DB}/g" /usr/local/db/sql
-sed -i "s/RADIUS_USER/${RADIUS_USER}/g" /usr/local/db/sql
-sed -i "s/RADIUS_PASS/${RADIUS_PASS}/g" /usr/local/db/sql
 sed -i "s/\[.*/\/usr\/sbin\/fetch-crl -q/" /etc/cron.d/fetch-crl
+sed -i "s/TOP1HOST/${TOP1HOST}/g" /usr/local/etc/radsecproxy.conf
+sed -i "s/TOP2HOST/${TOP2HOST}/g" /usr/local/etc/radsecproxy.conf
 phpini=`find / -name php.ini|grep php.ini|grep apache2`
 sed -i "s/memory_limit = 128M/memory_limit = 1024M/" $phpini
 /usr/local/db/radiusdb.py
-cd /opt/FR/etc/raddb/sites-enabled
+cd /opt/FR/etc/raddb
+cp /var/tmp/certs/localCA/* certs/
+cp /var/tmp/certs/eduPKI/* /usr/local/etc/radsecproxy.conf.d/eduPKI/
+cd sites-enabled
 rm -f *
-ln -s ../sites-available/site_1999 .
 ln -s ../sites-available/tls_2083 .
 ln -s ../sites-available/tls2site .
 cd ../mods-enabled
@@ -120,32 +110,24 @@ for f in *; do
         esac
 done
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
-chown -R mysql:mysql /var/lib/mysql
-cp /usr/local/db/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
-/usr/sbin/mysqld -u mysql &
 cd /usr/local/etc/radsecproxy.conf.d/eduPKI/ca-certs
 /usr/bin/c_rehash .
 cd /opt/FR/etc/raddb/certs/clients/
 /usr/bin/c_rehash .
 [ ! -d /usr/local/logs ] && mkdir /usr/local/logs
-cd /usr/local/db
-sleep 5 
-if [ ! -d /var/lib/mysql/${RADIUS_DB} ]; then
-  echo "eduroam database do not exist"
-  mysql < sql
-else
-  echo "eduroam database exists"
-fi
 touch /opt/FR/var/log/fticks.log
-chown syslog:adm /opt/FR/var/log/fticks.log
+chown root:adm /opt/FR/var/log/fticks.log
 /usr/sbin/fetch-crl
 rm -rf /opt/FR/var/log/forCAT
 mkdir -p /opt/FR/var/log/forCAT
 chown -R www-data /opt/FR/var/log/forCAT
+chown -R freerad:freerad /opt/FR/etc/raddb
+chown -R freerad:freerad /opt/FR/var/log
 /opt/FR/sbin/radiusd
-#/opt/FR/sbin/radiusd -fxx -l /opt/FR/var/log/rrrr&
+##/opt/FR/sbin/radiusd -fxx -l /opt/FR/var/log/rrrr&
 /usr/local/sbin/radsecproxy
 /opt/scripts/radius_tools.sh
 /usr/sbin/rsyslogd
 /usr/sbin/apachectl start
-/usr/sbin/cron -f -P
+/usr/sbin/cron -f 
+
