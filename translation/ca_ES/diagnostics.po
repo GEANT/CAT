@@ -5,16 +5,16 @@
 #
 # Translators:
 # Joan Montané, 2019
-# eduki <ecercos@xtec.cat>, 2025
+# eduki <ecercos@xtec.cat>, 2026
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>, 2025\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2026\n"
 "Language-Team: Catalan (Spain) (https://app.transifex.com/eduroam_devel/"
 "teams/11799/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -31,9 +31,9 @@ msgstr "Completat"
 msgid "Product is not configured to run this check."
 msgstr "El producte no està configurat per fer aquesta comprovació."
 
-#: core/diag/AbstractTest.php:348 core/diag/RADIUSTestsUI.php:264
-#: core/diag/RADIUSTestsUI.php:279 web/diag/action_realmcheck.php:662
-#: web/diag/action_realmcheck.php:678
+#: core/diag/AbstractTest.php:348 core/diag/RADIUSTestsUI.php:266
+#: core/diag/RADIUSTestsUI.php:281 web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:703
 msgid "This check was skipped."
 msgstr "Aquesta comprovació s'ha omès."
 
@@ -69,8 +69,8 @@ msgstr ""
 "El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
 "conversa EAP."
 
-#: core/diag/AbstractTest.php:391 core/diag/RADIUSTestsUI.php:529
-#: web/diag/action_realmcheck.php:131
+#: core/diag/AbstractTest.php:391 core/diag/RADIUSTestsUI.php:537
+#: web/diag/action_realmcheck.php:135
 msgid "Connection refused"
 msgstr "S'ha negat la connexió"
 
@@ -179,16 +179,11 @@ msgstr "Aquest certificat de servidor va ser revocat per la CA!"
 
 #: core/diag/AbstractTest.php:490
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate does not contain any CN or subjectAltName:DNS which is a "
+"valid hostname. This can be problematic on some supplicants."
 msgstr ""
-"El certificat contenia un CN o un subjectAltName:DNS que no es correspon a "
-"un nom de servidor. Això pot ser problemàtic per a determinats clients wifi. "
-"Si el certificat conté també noms apropiats per a servidors, i només feu "
-"servir aquests per a la vostra configuració de client, aleshores podeu "
-"ignorar aquest avís."
+"El certificat no conté cap CN o subjectAltName:DNS que sigui un nom de "
+"servidor vàlid. Això pot ser problemàtic en alguns clients."
 
 #: core/diag/AbstractTest.php:497
 msgid ""
@@ -468,12 +463,12 @@ msgstr "Adreça MAC de l'usuari analitzat:"
 msgid "Additional Comments:"
 msgstr "Comentaris adicionals:"
 
-#: core/diag/RADIUSTests.php:1345
+#: core/diag/RADIUSTests.php:1380
 #, php-format
 msgid "Connected to %s."
 msgstr "Connectat a %s."
 
-#: core/diag/RADIUSTests.php:1350 web/diag/radius_tests.php:240
+#: core/diag/RADIUSTests.php:1385 web/diag/radius_tests.php:283
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -483,7 +478,7 @@ msgstr ""
 "bidireccional amb multiples viatges d'anada i tornada, finalitzant amb la "
 "resposta Access-Reject prevista."
 
-#: core/diag/RADIUSTests.php:1355
+#: core/diag/RADIUSTests.php:1390
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -495,89 +490,97 @@ msgstr ""
 "finalitzant amb la resposta Access-Reject prevista. Algunes propietat de la "
 "connexió no eren optimes; a sota teniu la llista."
 
-#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:88 web/diag/action_realmcheck.php:138
+#: web/skins/modern/diag/js/diag_js.php:34
 msgid "All tests passed."
 msgstr "S'ha superat totes les proves."
 
-#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:89 web/diag/action_realmcheck.php:140
+#: web/skins/modern/diag/js/diag_js.php:36
 msgid "There were some warnings."
 msgstr "Hi ha hagut alguns avisos."
 
-#: core/diag/RADIUSTestsUI.php:90 web/diag/action_realmcheck.php:136
+#: core/diag/RADIUSTestsUI.php:90 web/diag/action_realmcheck.php:141
+#: web/skins/modern/diag/js/diag_js.php:37
 msgid "There were some errors."
 msgstr "S'han produït alguns errors."
 
-#: core/diag/RADIUSTestsUI.php:91 web/diag/action_realmcheck.php:137
+#: core/diag/RADIUSTestsUI.php:91 web/diag/action_realmcheck.php:142
+msgid "There were configuration some errors."
+msgstr "S'han produït alguns errors de configuració."
+
+#: core/diag/RADIUSTestsUI.php:92 web/diag/action_realmcheck.php:143
+#: web/skins/modern/diag/js/diag_js.php:38
 msgid "There were some remarks."
 msgstr "Hi ha hagut algunes indicacions."
 
-#: core/diag/RADIUSTestsUI.php:100 web/diag/action_realmcheck.php:113
+#: core/diag/RADIUSTestsUI.php:102 web/diag/action_realmcheck.php:117
 msgid "PASS"
 msgstr "PASSA"
 
-#: core/diag/RADIUSTestsUI.php:101 web/diag/action_realmcheck.php:114
+#: core/diag/RADIUSTestsUI.php:103 web/diag/action_realmcheck.php:118
 msgid "FAIL"
 msgstr "FALLA"
 
-#: core/diag/RADIUSTestsUI.php:104 web/diag/action_realmcheck.php:159
+#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:166
 msgid "Subject:"
 msgstr "Assumpte:"
 
-#: core/diag/RADIUSTestsUI.php:105 web/diag/action_realmcheck.php:160
+#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:167
 msgid "Issuer:"
 msgstr "Emissor:"
 
-#: core/diag/RADIUSTestsUI.php:106 web/diag/action_realmcheck.php:161
+#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:168
 msgid "Valid from:"
 msgstr "Vàlid des de:"
 
-#: core/diag/RADIUSTestsUI.php:107 web/diag/action_realmcheck.php:162
+#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:169
 msgid "Valid to:"
 msgstr "Vàlid per a:"
 
-#: core/diag/RADIUSTestsUI.php:108 web/diag/action_realmcheck.php:163
+#: core/diag/RADIUSTestsUI.php:110 web/diag/action_realmcheck.php:170
 msgid "Serial number:"
 msgstr "Número de sèrie:"
 
-#: core/diag/RADIUSTestsUI.php:109 web/diag/action_realmcheck.php:164
+#: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:171
 msgid "SHA1 fingerprint:"
 msgstr "Empremta SHA1: "
 
-#: core/diag/RADIUSTestsUI.php:110
+#: core/diag/RADIUSTestsUI.php:112
 msgid "Public key length:"
 msgstr "Mida de la clau pública:"
 
-#: core/diag/RADIUSTestsUI.php:111 web/diag/action_realmcheck.php:145
+#: core/diag/RADIUSTestsUI.php:113 web/diag/action_realmcheck.php:152
 msgid "Server certificate"
 msgstr "Certificat de servidor"
 
-#: core/diag/RADIUSTestsUI.php:112
+#: core/diag/RADIUSTestsUI.php:114
 msgid "Policies:"
 msgstr "Polítiques:"
 
-#: core/diag/RADIUSTestsUI.php:113
+#: core/diag/RADIUSTestsUI.php:115
 msgid "crlDistributionPoint:"
 msgstr "crlDistributionPoint:"
 
-#: core/diag/RADIUSTestsUI.php:114
+#: core/diag/RADIUSTestsUI.php:116
 msgid "authorityInfoAccess:"
 msgstr "authorityInfoAccess:"
 
-#: core/diag/RADIUSTestsUI.php:115
+#: core/diag/RADIUSTestsUI.php:117
 msgid "SubjectAltName:"
 msgstr "SubjectAltName:"
 
-#: core/diag/RADIUSTestsUI.php:229 web/diag/action_realmcheck.php:594
-#: web/diag/action_realmcheck.php:603 web/diag/show_realmcheck.php:134
+#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:616
+#: web/diag/action_realmcheck.php:625 web/diag/show_realmcheck.php:135
 msgid "Overview"
 msgstr "Resum"
 
-#: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:611
+#: core/diag/RADIUSTestsUI.php:233 web/diag/action_realmcheck.php:633
 msgid "DNS checks"
 msgstr "Tests de DNS"
 
 #. output in friendly words
-#: core/diag/RADIUSTestsUI.php:234 web/diag/action_realmcheck.php:629
+#: core/diag/RADIUSTestsUI.php:236 web/diag/action_realmcheck.php:651
 msgid "Checking NAPTR existence:"
 msgstr "Provant l'existència de NAPTR:"
 
@@ -585,12 +588,12 @@ msgstr "Provant l'existència de NAPTR:"
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RADIUSTestsUI.php:237 core/diag/RFC7585Tests.php:157
-#: web/diag/action_realmcheck.php:632
+#: core/diag/RADIUSTestsUI.php:239 core/diag/RFC7585Tests.php:157
+#: web/diag/action_realmcheck.php:654
 msgid "This realm has no NAPTR records."
 msgstr "Aquest domini no té registres NAPTR."
 
-#: core/diag/RADIUSTestsUI.php:240 web/diag/action_realmcheck.php:635
+#: core/diag/RADIUSTestsUI.php:242 web/diag/action_realmcheck.php:657
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -599,62 +602,61 @@ msgstr ""
 "consorci de roaming."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: core/diag/RADIUSTestsUI.php:243 web/diag/action_realmcheck.php:638
+#: core/diag/RADIUSTestsUI.php:245 web/diag/action_realmcheck.php:660
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Aquest domini té %d registres NAPTR relatius a aquest consorci de roaming."
 
-#: core/diag/RADIUSTestsUI.php:248 web/diag/action_realmcheck.php:644
+#: core/diag/RADIUSTestsUI.php:250 web/diag/action_realmcheck.php:666
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Comprovant conformitat NAPTR (flag = S i regex = {buit}):"
 
-#: core/diag/RADIUSTestsUI.php:254 core/diag/RADIUSTestsUI.php:267
-#: web/diag/action_realmcheck.php:651 web/diag/action_realmcheck.php:665
+#: core/diag/RADIUSTestsUI.php:256 core/diag/RADIUSTestsUI.php:269
+#: web/diag/action_realmcheck.php:673
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Al menys s'ha trobat un NAPTR amb contingut invàlid!"
 
-#: core/diag/RADIUSTestsUI.php:261 web/diag/action_realmcheck.php:659
+#: core/diag/RADIUSTestsUI.php:263 web/diag/action_realmcheck.php:681
 msgid "Checking SRVs:"
 msgstr "Comprovant SRVs:"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:270 web/diag/action_realmcheck.php:668
+#: core/diag/RADIUSTestsUI.php:272 web/diag/action_realmcheck.php:691
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d noms de servidor descoberts."
 
-#: core/diag/RADIUSTestsUI.php:276 web/diag/action_realmcheck.php:675
+#: core/diag/RADIUSTestsUI.php:278 web/diag/action_realmcheck.php:700
 msgid "Checking IP address resolution:"
 msgstr "Comprovant resolució d'adreces IP:"
 
-#: core/diag/RADIUSTestsUI.php:282 web/diag/action_realmcheck.php:681
+#: core/diag/RADIUSTestsUI.php:284 web/diag/action_realmcheck.php:706
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Al menys un nom de servidor no s'ha pogut resoldre!"
 
 #. print number of successfully retrieved SRV targets
-#: core/diag/RADIUSTestsUI.php:285 web/diag/action_realmcheck.php:684
+#: core/diag/RADIUSTestsUI.php:287 web/diag/action_realmcheck.php:709
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "S'han resolt %d adreces IP."
 
-#: core/diag/RADIUSTestsUI.php:291 web/diag/action_realmcheck.php:692
-#: web/diag/action_realmcheck.php:694
+#: core/diag/RADIUSTestsUI.php:293 web/diag/action_realmcheck.php:719
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "El domini és <strong>%s</strong> "
 
-#: core/diag/RADIUSTestsUI.php:293 web/diag/action_realmcheck.php:692
+#: core/diag/RADIUSTestsUI.php:296 web/diag/action_realmcheck.php:722
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "sense errors DNS detectats. Enhorabona!"
 
-#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
+#: core/diag/RADIUSTestsUI.php:298 web/diag/action_realmcheck.php:724
 msgid "but there were DNS errors! Check them!"
 msgstr "però s'ha detectat errors DNS! Comproveu-los!"
 
-#: core/diag/RADIUSTestsUI.php:295 web/diag/action_realmcheck.php:694
+#: core/diag/RADIUSTestsUI.php:298 web/diag/action_realmcheck.php:724
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -663,31 +665,35 @@ msgstr ""
 "descobrir altres errors no detectats ara. Les causes exactes d'error es "
 "mostren a sota. "
 
-#: core/diag/RADIUSTestsUI.php:304 web/diag/action_realmcheck.php:622
+#: core/diag/RADIUSTestsUI.php:305 web/diag/action_realmcheck.php:731
+msgid "Hosts resolution failed!"
+msgstr "Ha fallat la resolució de noms!"
+
+#: core/diag/RADIUSTestsUI.php:312 web/diag/action_realmcheck.php:644
 msgid "Dynamic discovery test is not configured"
 msgstr "No s'ha configurat l'exploració dinàmica"
 
-#: core/diag/RADIUSTestsUI.php:306 web/diag/action_realmcheck.php:595
-#: web/diag/action_realmcheck.php:760 web/diag/show_realmcheck.php:135
+#: core/diag/RADIUSTestsUI.php:314 web/diag/action_realmcheck.php:617
+#: web/diag/action_realmcheck.php:799 web/diag/show_realmcheck.php:136
 msgid "Static connectivity tests"
 msgstr "Proves de connectivitat estàtica"
 
-#: core/diag/RADIUSTestsUI.php:310 core/diag/RADIUSTestsUI.php:316
-#: web/diag/action_realmcheck.php:433 web/diag/action_realmcheck.php:438
-#: web/diag/action_realmcheck.php:443
+#: core/diag/RADIUSTestsUI.php:318 core/diag/RADIUSTestsUI.php:324
+#: web/diag/action_realmcheck.php:440 web/diag/action_realmcheck.php:446
+#: web/diag/action_realmcheck.php:452
 msgid "See the appropriate tab for details."
 msgstr "Mireu la pestanya corresponent per a més detalls."
 
-#: core/diag/RADIUSTestsUI.php:313 web/diag/action_realmcheck.php:596
-#: web/diag/action_realmcheck.php:765 web/diag/show_realmcheck.php:139
+#: core/diag/RADIUSTestsUI.php:321 web/diag/action_realmcheck.php:618
+#: web/diag/action_realmcheck.php:804 web/diag/show_realmcheck.php:140
 msgid "Dynamic connectivity tests"
 msgstr "Proves de connectivitat dinàmica"
 
-#: core/diag/RADIUSTestsUI.php:327 web/diag/action_realmcheck.php:785
+#: core/diag/RADIUSTestsUI.php:335 web/diag/action_realmcheck.php:824
 msgid "STATIC connectivity tests"
 msgstr "Proves estàtiques de connectivitat "
 
-#: core/diag/RADIUSTestsUI.php:329 web/diag/action_realmcheck.php:787
+#: core/diag/RADIUSTestsUI.php:337 web/diag/action_realmcheck.php:826
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -704,120 +710,120 @@ msgstr ""
 "correctament. Per això esperem rebre una resposta \"Access-Reject\" després "
 "de mantenir una conversa EAP."
 
-#: core/diag/RADIUSTestsUI.php:335
+#: core/diag/RADIUSTestsUI.php:343
 #, php-format
 msgid "Testing from: <strong>%s"
 msgstr "Provant des de: <strong>%s"
 
-#: core/diag/RADIUSTestsUI.php:342 web/diag/action_realmcheck.php:166
+#: core/diag/RADIUSTestsUI.php:350 web/diag/action_realmcheck.php:173
 msgid "Connected to undetermined server"
 msgstr "Connectat a un servidor indeterminat"
 
-#: core/diag/RADIUSTestsUI.php:342 core/diag/RADIUSTestsUI.php:517
-#: web/diag/action_realmcheck.php:279 web/diag/action_realmcheck.php:397
-#: web/diag/action_realmcheck.php:417 web/diag/action_realmcheck.php:478
+#: core/diag/RADIUSTestsUI.php:350 core/diag/RADIUSTestsUI.php:525
+#: web/diag/action_realmcheck.php:286 web/diag/action_realmcheck.php:404
+#: web/diag/action_realmcheck.php:424 web/diag/action_realmcheck.php:497
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "temps transcorregut: %sms."
 
-#: core/diag/RADIUSTestsUI.php:359 web/diag/action_realmcheck.php:408
-#: web/diag/action_realmcheck.php:468
+#: core/diag/RADIUSTestsUI.php:367 web/diag/action_realmcheck.php:415
+#: web/diag/action_realmcheck.php:485
 msgid "Extensions"
 msgstr "Extensions"
 
-#: core/diag/RADIUSTestsUI.php:367 web/diag/action_realmcheck.php:409
+#: core/diag/RADIUSTestsUI.php:375 web/diag/action_realmcheck.php:416
 msgid "show server certificate details"
 msgstr "mostra els detalls del certificat de servidor"
 
-#: core/diag/RADIUSTestsUI.php:381 web/diag/action_realmcheck.php:845
+#: core/diag/RADIUSTestsUI.php:389 web/diag/action_realmcheck.php:904
 msgid "Checking server handshake..."
 msgstr "Comprovant la salutació del servidor..."
 
-#: core/diag/RADIUSTestsUI.php:397 web/diag/action_realmcheck.php:858
+#: core/diag/RADIUSTestsUI.php:405 web/diag/action_realmcheck.php:917
 msgid "supported TLS protocols: "
 msgstr "Protocols TLS acceptats:"
 
-#: core/diag/RADIUSTestsUI.php:400 web/diag/action_realmcheck.php:861
+#: core/diag/RADIUSTestsUI.php:408 web/diag/action_realmcheck.php:920
 msgid "not supported: "
 msgstr "no acceptat:"
 
-#: core/diag/RADIUSTestsUI.php:442 web/diag/action_realmcheck.php:125
-#: web/diag/show_realmcheck.php:62
+#: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:129
+#: web/diag/show_realmcheck.php:63
 msgid "more"
 msgstr "més"
 
-#: core/diag/RADIUSTestsUI.php:446 core/diag/RADIUSTestsUI.php:538
+#: core/diag/RADIUSTestsUI.php:454 core/diag/RADIUSTestsUI.php:546
 msgid "Test failed"
 msgstr "La prova ha fallat"
 
-#: core/diag/RADIUSTestsUI.php:473
+#: core/diag/RADIUSTestsUI.php:481
 msgid "Client certificate"
 msgstr "Certificat de client"
 
-#: core/diag/RADIUSTestsUI.php:484 web/diag/action_realmcheck.php:116
+#: core/diag/RADIUSTestsUI.php:492 web/diag/action_realmcheck.php:120
 msgid "expected result: "
 msgstr "resultat esperat:"
 
-#: core/diag/RADIUSTestsUI.php:487 web/diag/action_realmcheck.php:276
+#: core/diag/RADIUSTestsUI.php:495 web/diag/action_realmcheck.php:283
 msgid "this test was skipped - no appropriate client certificate"
 msgstr "no s'ha realitzat el test - no hi ha certificat de client correcte"
 
-#: core/diag/RADIUSTestsUI.php:497 web/diag/action_realmcheck.php:117
+#: core/diag/RADIUSTestsUI.php:505 web/diag/action_realmcheck.php:121
 msgid "Server accepted this client certificate"
 msgstr "El servidor ha acceptat aquest certificat de client"
 
-#: core/diag/RADIUSTestsUI.php:500 web/diag/action_realmcheck.php:122
+#: core/diag/RADIUSTestsUI.php:508 web/diag/action_realmcheck.php:126
 msgid "You should update your list of accredited CAs"
 msgstr "Heu d'actualitzar la llista de CAs acreditades"
 
-#: core/diag/RADIUSTestsUI.php:502 web/diag/action_realmcheck.php:123
+#: core/diag/RADIUSTestsUI.php:510 web/diag/action_realmcheck.php:127
 msgid "Get it from here."
 msgstr "Obteniu-lo aquí."
 
-#: core/diag/RADIUSTestsUI.php:504 web/diag/action_realmcheck.php:120
+#: core/diag/RADIUSTestsUI.php:512 web/diag/action_realmcheck.php:124
 msgid "Server did not accept this client certificate - reason"
 msgstr "El servidor no ha acceptat aquest certificat de client - raó"
 
-#: core/diag/RADIUSTestsUI.php:510 web/diag/action_realmcheck.php:118
+#: core/diag/RADIUSTestsUI.php:518 web/diag/action_realmcheck.php:122
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "El servidor ha acceptat aquest certificat de client, però no ho hauria "
 "d'haver fet"
 
-#: core/diag/RADIUSTestsUI.php:513 web/diag/action_realmcheck.php:119
+#: core/diag/RADIUSTestsUI.php:521 web/diag/action_realmcheck.php:123
 msgid "Server did not accept this client certificate"
 msgstr "El servidor no ha acceptat aquest certificat de client"
 
-#: core/diag/RADIUSTestsUI.php:521 web/diag/action_realmcheck.php:121
+#: core/diag/RADIUSTestsUI.php:529 web/diag/action_realmcheck.php:125
 msgid "Rest of tests for this CA skipped"
 msgstr "S'ha omès la resta de proves  per a aquesta CA"
 
-#: core/diag/RADIUSTestsUI.php:550
+#: core/diag/RADIUSTestsUI.php:558
 msgid "These tests were skipped because of previous errors."
 msgstr "Aquestes proves no s'han executat degut a errors previs."
 
-#: core/diag/RADIUSTestsUI.php:561 web/diag/action_realmcheck.php:831
+#: core/diag/RADIUSTestsUI.php:569 web/diag/action_realmcheck.php:889
 msgid "DYNAMIC connectivity tests"
 msgstr "Proves dinàmiques de connectivitat"
 
-#: core/diag/RADIUSTestsUI.php:570 web/diag/action_realmcheck.php:844
+#: core/diag/RADIUSTestsUI.php:578 web/diag/action_realmcheck.php:903
 msgid "Some errors were found during the tests, see below"
 msgstr "S'ha trobat alguns errors durant les proves, mireu a sota"
 
-#: core/diag/RADIUSTestsUI.php:576 web/diag/action_realmcheck.php:844
+#: core/diag/RADIUSTestsUI.php:584 web/diag/action_realmcheck.php:903
 msgid "All tests passed, congratulations!"
 msgstr "Felicitats! S'ha superat totes les proves."
 
-#: core/diag/RADIUSTestsUI.php:578 web/diag/action_realmcheck.php:127
-#: web/diag/action_realmcheck.php:845 web/diag/show_realmcheck.php:60
+#: core/diag/RADIUSTestsUI.php:586 web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:904 web/diag/show_realmcheck.php:61
 msgid "Show detailed information for all tests"
 msgstr "Mostra informació detallada per a totes les proves"
 
-#: core/diag/RADIUSTestsUI.php:582
+#: core/diag/RADIUSTestsUI.php:590
 msgid "Checking if certificates from CAs are accepted..."
 msgstr "Comprovant si els certificats de les CAs són vàlids..."
 
-#: core/diag/RADIUSTestsUI.php:582 web/diag/action_realmcheck.php:896
+#: core/diag/RADIUSTestsUI.php:590 web/diag/action_realmcheck.php:955
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1147,7 +1153,7 @@ msgstr "Sou "
 msgid "end-user"
 msgstr "usuari/a final"
 
-#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:151
+#: web/skins/modern/diag/diag.php:86 web/diag/adminQuery.php:152
 msgid "or"
 msgstr "o"
 
@@ -1207,7 +1213,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Cliqueu per a triar la localització on hi ha el problema d'eduroam"
 
-#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:117
+#: web/skins/modern/diag/diag.php:121 web/skins/modern/diag/js/diag_js.php:120
 msgid "Testing realm"
 msgstr "Provant domini"
 
@@ -1227,41 +1233,49 @@ msgstr "Executant proves"
 msgid "Tools for eduroam admins"
 msgstr "Eines per a administradors d'eduroam"
 
-#: web/skins/modern/diag/diag.php:147
+#: web/skins/modern/diag/diag.php:146
 msgid "What is the nature of the problem?"
 msgstr "Quina és la naturalesa del vostre problema?"
 
-#: web/skins/modern/diag/diag.php:149
+#: web/skins/modern/diag/diag.php:148
 msgid "I suspect a technical problem at a particular IdP"
 msgstr "Sospito d'un problema tècnic en un IdP concret"
 
-#: web/skins/modern/diag/diag.php:151
+#: web/skins/modern/diag/diag.php:150
 msgid "I want to report abuse of network resources by a roaming user"
 msgstr "Vull informar d'un abús de recursos de xarxa d'un usuari itinerant"
 
-#: web/skins/modern/diag/diag.php:153
+#: web/skins/modern/diag/diag.php:152
 msgid "I suspect a technical problem for one of my users at a particular SP"
 msgstr ""
 "Sospito d'un problema tècnic en un dels nostres usuaris en un SP concret"
 
 #: web/skins/modern/diag/diag.php:160
+msgid ""
+"This service is available only for authenticated users being an institution "
+"administrator."
+msgstr ""
+"El servei està disponible només per a usuaris autenticats administradors "
+"d'institució."
+
+#: web/skins/modern/diag/diag.php:162
 msgid "This service is for authenticated admins only."
 msgstr "Aquest servei és només per a administradors autenticats."
 
-#: web/skins/modern/diag/diag.php:162
+#: web/skins/modern/diag/diag.php:164
 msgid "eduroam® admin access is needed"
 msgstr "cal accés d'administrador d'eduroam® "
 
-#: web/skins/modern/diag/diag.php:240 web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:243 web/skins/modern/diag/diag.php:317
 msgid "Fetching institutions list"
 msgstr "Recuperant la llista d'institucions"
 
-#: web/skins/modern/diag/diag.php:258 web/skins/modern/diag/diag.php:332
-#: web/skins/modern/diag/js/diag_js.php:46
+#: web/skins/modern/diag/diag.php:261 web/skins/modern/diag/diag.php:335
+#: web/skins/modern/diag/js/diag_js.php:49
 msgid "Select institution:"
 msgstr "Escolliu institució:"
 
-#: web/skins/modern/diag/diag.php:279
+#: web/skins/modern/diag/diag.php:282
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
@@ -1270,7 +1284,7 @@ msgstr ""
 "La base de dades no conté la informació necessària per ajudar-vos a escollir "
 "el domini per a aquest país. Heu de facilitar el domini que us interessa."
 
-#: web/skins/modern/diag/diag.php:288
+#: web/skins/modern/diag/diag.php:291
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
@@ -1278,147 +1292,159 @@ msgstr ""
 "No es pot buscar a la base de dades. Heu de facilitar el domini que us "
 "interessa."
 
-#: web/skins/modern/diag/diag.php:304
+#: web/skins/modern/diag/diag.php:307
 msgid "Check if this realm is registered"
 msgstr "Comprovar si aquest domini està registrat"
 
-#: web/skins/modern/diag/diag.php:306 web/diag/adminQuery.php:82
+#: web/skins/modern/diag/diag.php:309 web/diag/adminQuery.php:83
 msgid "Check this realm"
 msgstr "Comprovar aquest domini"
 
-#: web/skins/modern/diag/diag.php:355
+#: web/skins/modern/diag/diag.php:358
 msgid "Other location"
 msgstr "Una altra localització"
 
-#: web/skins/modern/diag/diag.php:389
+#: web/skins/modern/diag/diag.php:392
 msgid "Fetching realms list"
 msgstr "Recuperant la llista de dominis"
 
-#: web/skins/modern/diag/diag.php:402
+#: web/skins/modern/diag/diag.php:405
 msgid "Check realm(s):"
 msgstr "Comproveu el(s) domini(s):"
 
-#: web/skins/modern/diag/diag.php:414
+#: web/skins/modern/diag/diag.php:418 web/skins/modern/diag/diag.php:424
 msgid "Realm:"
 msgstr "Domini:"
 
-#: web/skins/modern/diag/diag.php:472 web/skins/modern/diag/diag.php:534
+#: web/skins/modern/diag/diag.php:424
+msgid "no realm found"
+msgstr "cap domini detectat"
+
+#: web/skins/modern/diag/diag.php:425
+msgid ""
+"it is not possible to test this institution realms, try to enter a realm in "
+"the field above"
+msgstr ""
+"No es possible provar aquests dominis d'institucions, proveu a introduir un "
+"altre domini al camp anterior"
+
+#: web/skins/modern/diag/diag.php:484 web/skins/modern/diag/diag.php:545
 msgid "Running realm tests"
 msgstr "Executant proves de domini"
 
-#: web/skins/modern/diag/diag.php:582
+#: web/skins/modern/diag/diag.php:593
 msgid "Diagnostics results for selected realms"
 msgstr "Resultats de les proves per als dominis seleccionats"
 
-#: web/skins/modern/diag/diag.php:583
+#: web/skins/modern/diag/diag.php:594
 msgid "An unknown problem occurred"
 msgstr "Hi ha hagut un problema indeterminat"
 
-#: web/skins/modern/diag/diag.php:586
+#: web/skins/modern/diag/diag.php:597
 msgid "This test includes checking of the following realm"
 msgstr "Aquesta prova inclou comprovacions del següent domini"
 
-#: web/skins/modern/diag/diag.php:588
+#: web/skins/modern/diag/diag.php:599
 msgid "This test includes checking of the following realms"
 msgstr "Aquesta prova inclou comprovacions dels següents dominis"
 
-#: web/skins/modern/diag/diag.php:598
+#: web/skins/modern/diag/diag.php:609
 msgid "You should report this to"
 msgstr "Hauríeu d'informar a"
 
-#: web/skins/modern/diag/diag.php:666
+#: web/skins/modern/diag/diag.php:677
 msgid "eduroam admin report submission"
 msgstr "enviament de l'informe d'administració d'eduroam"
 
-#: web/skins/modern/diag/diag.php:669
+#: web/skins/modern/diag/diag.php:680
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP comunicant amb IdP per problemes tècnics o abús"
 
-#: web/skins/modern/diag/diag.php:671 web/skins/modern/diag/diag.php:695
+#: web/skins/modern/diag/diag.php:682 web/skins/modern/diag/diag.php:706
 msgid "Reason"
 msgstr "Motiu"
 
-#: web/skins/modern/diag/diag.php:672 web/skins/modern/diag/diag.php:699
+#: web/skins/modern/diag/diag.php:683 web/skins/modern/diag/diag.php:710
 msgid "Event's timestamp"
 msgstr "Marca de temps de l'esdeveniment"
 
-#: web/skins/modern/diag/diag.php:673 web/skins/modern/diag/diag.php:700
+#: web/skins/modern/diag/diag.php:684 web/skins/modern/diag/diag.php:711
 msgid "Calling-Station-Id"
 msgstr "Id de l'estació origen (Calling-Station-Id)"
 
-#: web/skins/modern/diag/diag.php:674 web/skins/modern/diag/diag.php:701
+#: web/skins/modern/diag/diag.php:685 web/skins/modern/diag/diag.php:712
 msgid "Additional description"
 msgstr "Descripció addicional"
 
-#: web/skins/modern/diag/diag.php:675
+#: web/skins/modern/diag/diag.php:686
 msgid "An email to contact the reporter"
 msgstr "Un email per a contactar a l'informant"
 
-#: web/skins/modern/diag/diag.php:676
+#: web/skins/modern/diag/diag.php:687
 msgid "Test result"
 msgstr "Resultat de la prova"
 
-#: web/skins/modern/diag/diag.php:678 web/diag/adminQuery.php:260
+#: web/skins/modern/diag/diag.php:689 web/diag/adminQuery.php:261
 msgid "failure"
 msgstr "error"
 
-#: web/skins/modern/diag/diag.php:680 web/diag/adminQuery.php:258
+#: web/skins/modern/diag/diag.php:691 web/diag/adminQuery.php:259
 msgid "success"
 msgstr "èxit"
 
-#: web/skins/modern/diag/diag.php:683
+#: web/skins/modern/diag/diag.php:694
 msgid "Test URL"
 msgstr "URL de prova"
 
-#: web/skins/modern/diag/diag.php:684
+#: web/skins/modern/diag/diag.php:695
 msgid "Email to IdP administrators "
 msgstr "Email als administradors de l'IdP"
 
-#: web/skins/modern/diag/diag.php:686
+#: web/skins/modern/diag/diag.php:697
 msgid "send successfully"
 msgstr "enviament exitós"
 
-#: web/skins/modern/diag/diag.php:688
+#: web/skins/modern/diag/diag.php:699
 msgid "not sent - failure while sending"
 msgstr "no enviat - errada mentre s'enviava"
 
-#: web/skins/modern/diag/diag.php:693
+#: web/skins/modern/diag/diag.php:704
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP comunicant amb SP per problemes tècnics o abús"
 
-#: web/skins/modern/diag/diag.php:696
+#: web/skins/modern/diag/diag.php:707
 msgid "SP's Operator-Name"
 msgstr "Nom de l'operador de l'SP"
 
-#: web/skins/modern/diag/diag.php:697
+#: web/skins/modern/diag/diag.php:708
 msgid "User's outer ID"
 msgstr "ID externa de l'usuari"
 
-#: web/skins/modern/diag/diag.php:698
+#: web/skins/modern/diag/diag.php:709
 msgid "IdP email"
 msgstr "IdP mail"
 
-#: web/skins/modern/diag/diag.php:702
+#: web/skins/modern/diag/diag.php:713
 msgid "How to contact the user"
 msgstr "Com contactar amb l'usuari"
 
-#: web/skins/modern/diag/diag.php:733
+#: web/skins/modern/diag/diag.php:744
 msgid "Wrong format of realm"
 msgstr "Format erroni del domini"
 
-#: web/skins/modern/diag/diag.php:747 web/skins/modern/diag/diag.php:769
+#: web/skins/modern/diag/diag.php:758 web/skins/modern/diag/diag.php:780
 msgid "Wrong format of email"
 msgstr "Format de mail erroni"
 
-#: web/skins/modern/diag/diag.php:760
+#: web/skins/modern/diag/diag.php:771
 msgid "MAC address is incomplete"
 msgstr "Adreça MAC incompleta"
 
-#: web/skins/modern/diag/diag.php:778
+#: web/skins/modern/diag/diag.php:789
 msgid "Wrong format of outer ID"
 msgstr "Format erroni de la ID externa"
 
-#: web/skins/modern/diag/diag.php:787
+#: web/skins/modern/diag/diag.php:798
 msgid "Wrong string given as OperatorName"
 msgstr "Cadena errònia de l'OperatorName"
 
@@ -1446,119 +1472,128 @@ msgstr "ESTÀTIC"
 msgid "DYNAMIC"
 msgstr "DINÀMIC"
 
-#: web/diag/action_realmcheck.php:115
+#: web/diag/action_realmcheck.php:119
 msgid "Client certificate:"
 msgstr "Certificat de client:"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:136
 msgid "Connection timeout"
 msgstr "La connexió ha fallat"
 
-#: web/diag/action_realmcheck.php:146
+#: web/diag/action_realmcheck.php:139 web/skins/modern/diag/js/diag_js.php:35
+msgid "No RADIUS exchange possible."
+msgstr "No es possible l'intercanvi RADIUS"
+
+#: web/diag/action_realmcheck.php:153
 msgid "Subject"
 msgstr "Assumpte"
 
-#: web/diag/action_realmcheck.php:147
+#: web/diag/action_realmcheck.php:154
 msgid "Issuer"
 msgstr "Emissor"
 
-#: web/diag/action_realmcheck.php:148
+#: web/diag/action_realmcheck.php:155
 msgid "Valid to"
 msgstr "Vàlid per a"
 
-#: web/diag/action_realmcheck.php:149
+#: web/diag/action_realmcheck.php:156
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/diag/action_realmcheck.php:150
+#: web/diag/action_realmcheck.php:157
 msgid "Certificate policies"
 msgstr "Política de certificat"
 
-#: web/diag/action_realmcheck.php:151
+#: web/diag/action_realmcheck.php:158
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:152
+#: web/diag/action_realmcheck.php:159
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:153 web/diag/action_realmcheck.php:165
+#: web/diag/action_realmcheck.php:160 web/diag/action_realmcheck.php:172
 msgid "Public key length"
 msgstr "Mida de la clau pública"
 
-#: web/diag/action_realmcheck.php:154 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:161 web/diag/show_realmcheck.php:62
 msgid "Hide detailed information for all tests"
 msgstr "Amaga informació detallada per a totes les proves"
 
-#: web/diag/action_realmcheck.php:219
+#: web/diag/action_realmcheck.php:226
 msgid "Some required input is missing!"
 msgstr "Manca alguna cosa requerida!"
 
-#: web/diag/action_realmcheck.php:456
+#: web/diag/action_realmcheck.php:473
 msgid "Server certificate details:"
 msgstr "Detalls del certificat de servidor:"
 
-#: web/diag/action_realmcheck.php:589 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:611 web/diag/show_realmcheck.php:127
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Provant el domini per a: %s"
 
-#: web/diag/action_realmcheck.php:597 web/diag/action_realmcheck.php:771
-#: web/diag/action_realmcheck.php:833
+#: web/diag/action_realmcheck.php:619 web/diag/action_realmcheck.php:810
+#: web/diag/action_realmcheck.php:891
 msgid "OpenRoaming connectivity tests"
 msgstr "Proves de connectivitat de l'OpenRoaming"
 
-#: web/diag/action_realmcheck.php:598
+#: web/diag/action_realmcheck.php:620
 msgid "Live login tests"
 msgstr "Proves d'autenticació real"
 
-#: web/diag/action_realmcheck.php:617
+#: web/diag/action_realmcheck.php:639
 msgid "OpenRoaming DNS checks"
 msgstr "Comprovacions DNS de l'OpenRoaming"
 
-#: web/diag/action_realmcheck.php:624
+#: web/diag/action_realmcheck.php:646
 msgid "OpenRoaming connectivity test is not configured"
 msgstr "La prova de connectivitat de l'OpenRoaming no està configurat"
 
-#: web/diag/action_realmcheck.php:648
+#: web/diag/action_realmcheck.php:670
 msgid "No issues found."
 msgstr "No s'ha detectat cap problema."
 
-#: web/diag/action_realmcheck.php:782 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:687
+#, php-format
+msgid "At least one SRV with invalid content found!"
+msgstr "Al menys s'ha trobat un SRV amb contingut invàlid!"
+
+#: web/diag/action_realmcheck.php:821 web/diag/show_realmcheck.php:152
 msgid "Repeat static connectivity tests"
 msgstr "Repetir la prova de connectivitat estàtica"
 
-#: web/diag/action_realmcheck.php:791 web/diag/action_realmcheck.php:949
+#: web/diag/action_realmcheck.php:830 web/diag/action_realmcheck.php:1008
 #, php-format
 msgid "Testing from: %s"
 msgstr "Provant des de: %s"
 
-#: web/diag/action_realmcheck.php:796 web/diag/action_realmcheck.php:869
-#: web/diag/action_realmcheck.php:886
+#: web/diag/action_realmcheck.php:835 web/diag/action_realmcheck.php:928
+#: web/diag/action_realmcheck.php:945
 msgid "testing..."
 msgstr "provant..."
 
-#: web/diag/action_realmcheck.php:823 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:873 web/diag/show_realmcheck.php:163
 msgid "Repeat dynamic connectivity tests"
 msgstr "Repetir proves de connectivitat dinàmica"
 
-#: web/diag/action_realmcheck.php:823
+#: web/diag/action_realmcheck.php:875
 msgid "Repeat OpenRoaming connectivity tests"
 msgstr "Repetir les proves de connectivitat de l'OpenRoaming"
 
-#: web/diag/action_realmcheck.php:889
+#: web/diag/action_realmcheck.php:948
 msgid "not implemented yet"
 msgstr "No s'ha implementat encara"
 
-#: web/diag/action_realmcheck.php:896
+#: web/diag/action_realmcheck.php:955
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Comprovant si els certificats de les CAs són acceptats..."
 
-#: web/diag/action_realmcheck.php:910
+#: web/diag/action_realmcheck.php:969
 msgid "Live login test"
 msgstr "Prova d'autenticació real"
 
-#: web/diag/action_realmcheck.php:923
+#: web/diag/action_realmcheck.php:982
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1566,7 +1601,7 @@ msgstr ""
 "Si entreu unes credencials existents aquí, podreu comprovar l'autenticació "
 "real des de diversos punts de prova de tot el mon."
 
-#: web/diag/action_realmcheck.php:924
+#: web/diag/action_realmcheck.php:983
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1579,7 +1614,7 @@ msgstr ""
 "d'EAP configurats funcionen realment. Si heu configurat una identitat "
 "anònima externa, la prova la farà servir."
 
-#: web/diag/action_realmcheck.php:925
+#: web/diag/action_realmcheck.php:984
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1591,56 +1626,56 @@ msgstr ""
 "<strong>comptes de prova temporals</strong>; comptes de prova vàlides "
 "permanentment es consideren perilloses!"
 
-#: web/diag/action_realmcheck.php:933
+#: web/diag/action_realmcheck.php:992
 msgid "Password-based EAP types"
 msgstr "Tipus EAP basats en contrasenya"
 
-#: web/diag/action_realmcheck.php:934
+#: web/diag/action_realmcheck.php:993
 msgid "Real (inner) username:"
 msgstr "Nom real (intern) de l'usuari:"
 
-#: web/diag/action_realmcheck.php:935
+#: web/diag/action_realmcheck.php:994
 msgid "Anonymous outer ID (optional):"
 msgstr "ID externa anònima (opcional):"
 
-#: web/diag/action_realmcheck.php:936
+#: web/diag/action_realmcheck.php:995
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: web/diag/action_realmcheck.php:940
+#: web/diag/action_realmcheck.php:999
 msgid "Certificate-based EAP types"
 msgstr "Tipus EAP basats en certificat"
 
-#: web/diag/action_realmcheck.php:941
+#: web/diag/action_realmcheck.php:1000
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Fitxer de certificat (.p12 o .pfx):"
 
-#: web/diag/action_realmcheck.php:942
+#: web/diag/action_realmcheck.php:1001
 msgid "Certificate password, if any:"
 msgstr "Contrasenya del certificat, si n'hi ha:"
 
-#: web/diag/action_realmcheck.php:943
+#: web/diag/action_realmcheck.php:1002
 msgid "Username, if different from certificate Subject:"
 msgstr "Usuari, si és diferent del Subject del certificat:"
 
-#: web/diag/action_realmcheck.php:945
+#: web/diag/action_realmcheck.php:1004
 msgid "Submit credentials"
 msgstr "Enviar credencials"
 
-#: web/diag/action_realmcheck.php:967
+#: web/diag/action_realmcheck.php:1026
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Torna a l'àrea d'administració de %s"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:35
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Sospitem d'un problema tècnic amb l'IdP"
 
-#: web/diag/adminQuery.php:35
+#: web/diag/adminQuery.php:36
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Un usuari d'aquest IdP presumptament ha infringit el copyright"
 
-#: web/diag/adminQuery.php:36
+#: web/diag/adminQuery.php:37
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1648,139 +1683,139 @@ msgstr ""
 "Un usuari d'aquest IdP ha realitzat accions malicioses de xarxa (spam, "
 "DDoS, ...)"
 
-#: web/diag/adminQuery.php:39
+#: web/diag/adminQuery.php:40
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "L'usuari es queixa de problemes de connectivitat però s'ha autenticat "
 "correctament"
 
-#: web/diag/adminQuery.php:40
+#: web/diag/adminQuery.php:41
 msgid "User claims that mandatory open port is not open"
 msgstr "L'usuari es queixa de que un port obligatori no està obert"
 
-#: web/diag/adminQuery.php:74 web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:75 web/diag/adminQuery.php:131
 msgid "Select your problem"
 msgstr "Escolliu el vostre problema"
 
-#: web/diag/adminQuery.php:78
+#: web/diag/adminQuery.php:79
 msgid "What is the realm of the IdP in question?"
 msgstr "Quin és el domini de l'IdP analitzat?"
 
-#: web/diag/adminQuery.php:88
+#: web/diag/adminQuery.php:89
 msgid "Do you prefer to use a specific outer identity for diagnostics test?"
 msgstr ""
 "Preferiu utilitzar una identitat externa específica per als tests de "
 "diagnòstic?"
 
-#: web/diag/adminQuery.php:92 web/diag/adminQuery.php:159
+#: web/diag/adminQuery.php:93 web/diag/adminQuery.php:160
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Quin és el registre de temps de l'autenticació de la sessió d'usuari "
 "analitzada?"
 
-#: web/diag/adminQuery.php:98 web/diag/adminQuery.php:166
+#: web/diag/adminQuery.php:99 web/diag/adminQuery.php:167
 msgid "What is the MAC address of the user session in question?"
 msgstr "Quina és l'adreça MAC de la sessió d'usuari analitzada?"
 
-#: web/diag/adminQuery.php:102
+#: web/diag/adminQuery.php:103
 msgid "Additional comments"
 msgstr "Comentaris addicionals"
 
-#: web/diag/adminQuery.php:106
+#: web/diag/adminQuery.php:107
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Indiqueu una adreça de correu on el vostre IdP pugui contactar amb vosaltres"
 
-#: web/diag/adminQuery.php:114 web/diag/adminQuery.php:182
+#: web/diag/adminQuery.php:115 web/diag/adminQuery.php:183
 msgid "Now you can send your query"
 msgstr "Ara podeu enviar la vostra consulta"
 
-#: web/diag/adminQuery.php:115 web/diag/adminQuery.php:183
+#: web/diag/adminQuery.php:116 web/diag/adminQuery.php:184
 msgid "Send"
 msgstr "Envia"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:135
 msgid "Identify the SP by one of following means"
 msgstr "Identifiqueu l'SP per un dels mitjans següents"
 
-#: web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:139
 msgid "SP Operator-Name attribute"
 msgstr "Atribut SP Operator-Name"
 
-#: web/diag/adminQuery.php:142
+#: web/diag/adminQuery.php:143
 msgid "Select the SP manually:"
 msgstr "Escolliu manualment l'SP:"
 
-#: web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:146
 msgid "click to select country and organisation"
 msgstr "cliqueu per a seleccionar país i organització"
 
-#: web/diag/adminQuery.php:151
+#: web/diag/adminQuery.php:152
 msgid "at least describe the SP location"
 msgstr "descriviu almenys la localització de l'SP"
 
-#: web/diag/adminQuery.php:155
+#: web/diag/adminQuery.php:156
 msgid "What is the outer ID of the user session in question?"
 msgstr "Quina és l'ID externa de la sessió d'usuari analitzada?"
 
-#: web/diag/adminQuery.php:170
+#: web/diag/adminQuery.php:171
 msgid "Additional comments about the problem"
 msgstr "Comentaris addicionals sobre el problema"
 
-#: web/diag/adminQuery.php:174
+#: web/diag/adminQuery.php:175
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr "Teniu dades de contacte on l'usuari desitja ser contactat per l'SP?"
 
-#: web/diag/adminQuery.php:178
+#: web/diag/adminQuery.php:179
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Indiqueu una adreça de correu on l'SP pugui contactar amb vosaltres"
 
-#: web/diag/adminQuery.php:252
+#: web/diag/adminQuery.php:253
 msgid "Suspected a technical problem with the IdP"
 msgstr "Es sospita d'un problema tècnic amb l'IdP"
 
-#: web/diag/adminQuery.php:253
+#: web/diag/adminQuery.php:254
 msgid "We suspect a technical problem with the IdP handling the realm"
 msgstr "Sospitem d'un problema tècnic amb l'IdP que controla el domini"
 
-#: web/diag/adminQuery.php:255
+#: web/diag/adminQuery.php:256
 msgid "The CAT diagnostic test was run for this realm during reporting.\n"
 msgstr ""
 "La prova de diagnòstic de CAT per a aquest domini s'ha executat mentre se "
 "n'informava.\n"
 
-#: web/diag/adminQuery.php:256
+#: web/diag/adminQuery.php:257
 msgid "The overall result was "
 msgstr "El resultat general ha estat"
 
-#: web/diag/adminQuery.php:262
+#: web/diag/adminQuery.php:263
 msgid "To see details go to "
 msgstr "Per a veure els detalls aneu a "
 
-#: web/diag/adminQuery.php:264
+#: web/diag/adminQuery.php:265
 msgid "The reported problem details are as follows"
 msgstr "Els detalls del problema informat són els següents"
 
-#: web/diag/adminQuery.php:265
+#: web/diag/adminQuery.php:266
 msgid "timestamp"
 msgstr "marca de temps"
 
-#: web/diag/adminQuery.php:266
+#: web/diag/adminQuery.php:267
 msgid "client MAC address"
 msgstr "adreça MAC del client"
 
-#: web/diag/adminQuery.php:268
+#: web/diag/adminQuery.php:269
 msgid "additional comments"
 msgstr "comentaris addicionals"
 
-#: web/diag/adminQuery.php:270
+#: web/diag/adminQuery.php:271
 msgid "You can contact the incident reporter at"
 msgstr "Ppdeu contactar a l'informador del incident a "
 
-#: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
+#: web/diag/radius_tests.php:32 web/diag/radius_tests.php:33
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
@@ -1788,24 +1823,28 @@ msgstr ""
 "Algunes propietats de l'intent de connexió no eren optimes; a sota teniu la "
 "llista."
 
+#: web/diag/radius_tests.php:34
+msgid "Some connection errors were observed; the list is below."
+msgstr "S'ha observat alguns errors de connexió; a sota teniu la llista."
+
 #: web/diag/radius_tests.php:35
 msgid "Some configuration errors were observed; the list is below."
 msgstr "S'ha observat alguns errors de configuració; a sota teniu la llista."
 
-#: web/diag/radius_tests.php:180
+#: web/diag/radius_tests.php:218
 msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Prova satisfactòria.</strong>"
 
-#: web/diag/radius_tests.php:184
+#: web/diag/radius_tests.php:222
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 "<strong>Prova parcialment satisfactòria</strong>: autenticació correcte."
 
-#: web/diag/radius_tests.php:187
+#: web/diag/radius_tests.php:225
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr "<strong>Prova FALLADA</strong>: autenticació correcte."
 
-#: web/diag/radius_tests.php:192
+#: web/diag/radius_tests.php:230
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
@@ -1813,11 +1852,11 @@ msgstr ""
 "<strong>Prova FALLADA</strong>: la petició ha estat rebutjada. El més "
 "probable és que hagueu escrit malament l'identificador i/o la contrasenya."
 
-#: web/diag/radius_tests.php:197
+#: web/diag/radius_tests.php:235
 msgid "This method cannot be tested"
 msgstr "Aquest mètode no es pot provar."
 
-#: web/diag/radius_tests.php:201
+#: web/diag/radius_tests.php:239
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
@@ -1827,7 +1866,7 @@ msgstr ""
 "sense conversa EAP! Potser heu escrit malament l'identificador o hi ha "
 "alguna cosa malament al servidor."
 
-#: web/diag/radius_tests.php:207 web/diag/radius_tests.php:249
+#: web/diag/radius_tests.php:245 web/diag/radius_tests.php:294
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1837,7 +1876,7 @@ msgstr ""
 "de %d segons. Potser el servidor ha caigut o bé hi ha un problema "
 "d'enrutament!"
 
-#: web/diag/radius_tests.php:212 web/diag/radius_tests.php:253
+#: web/diag/radius_tests.php:250 web/diag/radius_tests.php:298
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1846,11 +1885,15 @@ msgstr ""
 "<strong>Prova FALLADA</strong>: hi ha hagut comunicació RADIUS "
 "bidireccional, però no ha acabat després de %d segons!"
 
-#: web/diag/radius_tests.php:217
+#: web/diag/radius_tests.php:255
+msgid "<strong>Test not executed</strong>: insufficient data provided!"
+msgstr "<strong>Prova no realitzada</strong>: no s'han facilitat prou dades!"
+
+#: web/diag/radius_tests.php:260
 msgid "<strong>Test FAILED</strong>"
 msgstr "<strong>Prova FALLADA</strong>"
 
-#: web/diag/radius_tests.php:238
+#: web/diag/radius_tests.php:281
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1860,7 +1903,7 @@ msgstr ""
 "conversa RADIUS bidireccional amb multiples viatges d'anada i tornada, "
 "finalitzant amb la resposta Access-Reject prevista."
 
-#: web/diag/radius_tests.php:244
+#: web/diag/radius_tests.php:287
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1876,20 +1919,20 @@ msgstr ""
 "identitat externa vàlida en el vostre perfil per superar aquest obstacle). "
 "En tots els altres casos, el servidor està mal configurat o és inabastable."
 
-#: web/diag/radius_tests.php:257
+#: web/diag/radius_tests.php:302
 msgid "unhandled error"
 msgstr "error no controlat"
 
-#: web/diag/radius_tests.php:282 web/diag/radius_tests.php:350
+#: web/diag/radius_tests.php:327 web/diag/radius_tests.php:395
 msgid "<strong>ERROR</strong>: connectivity problem!"
 msgstr "<strong>ERROR</strong>: problema de connexió!"
 
-#: web/diag/radius_tests.php:294
+#: web/diag/radius_tests.php:339
 #, php-format
 msgid "elapsed time: %d"
 msgstr "temps transcorregut: %d"
 
-#: web/diag/radius_tests.php:296
+#: web/diag/radius_tests.php:341
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1897,7 +1940,7 @@ msgstr ""
 "<strong>ERROR</strong>: els ervidor ha presentat un certificat signat per "
 "una autoritat desconeguda!"
 
-#: web/diag/radius_tests.php:306
+#: web/diag/radius_tests.php:351
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
@@ -1905,77 +1948,61 @@ msgstr ""
 "<strong>ATENCIÓ</strong>: el nom de servidor descobert al registre SRV no "
 "correspon amb cap valor del certificat del servidor!"
 
-#: web/diag/show_realmcheck.php:130
+#: web/diag/show_realmcheck.php:131
 msgid "Tests timestamp: "
 msgstr "Marca de temps de la prova:"
 
-#: web/diag/show_realmcheck.php:145
+#: web/diag/show_realmcheck.php:146
 msgid "Repeat connectivity tests"
 msgstr "Repetir proves de connectivitat"
 
-#: web/diag/show_realmcheck.php:174
+#: web/diag/show_realmcheck.php:175
 msgid "Token missing, no data can be presented"
 msgstr "Manca el token, no es pot mostrar cap dada"
 
-#: web/diag/show_realmcheck.php:176
+#: web/diag/show_realmcheck.php:177
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
 "El token subministrat a la petició no existeix, no es pot mostrar cap dada"
 
-#: web/skins/modern/diag/js/diag_js.php:33
-msgid "All connectivity tests passed"
-msgstr "Superats tots els tests de connectivitat"
-
-#: web/skins/modern/diag/js/diag_js.php:34
-msgid "There were some warnings from connectivity tests"
-msgstr "Hi ha avisos en els tests de connectivitat"
-
-#: web/skins/modern/diag/js/diag_js.php:35
-msgid "There were some remarks from connectivity tests"
-msgstr "Hi ha indicacions en els tests de connectivitat"
-
-#: web/skins/modern/diag/js/diag_js.php:36
-msgid "There were some errors from connectivity tests"
-msgstr "Hi ha errors en els tests de connectivitat"
-
-#: web/skins/modern/diag/js/diag_js.php:72
+#: web/skins/modern/diag/js/diag_js.php:75
 msgid "Select country or region:"
 msgstr "Trieu país o regió:"
 
-#: web/skins/modern/diag/js/diag_js.php:80
+#: web/skins/modern/diag/js/diag_js.php:83
 msgid "Fetching country/region list"
 msgstr "Recuperant la llista de països/regions"
 
-#: web/skins/modern/diag/js/diag_js.php:141
+#: web/skins/modern/diag/js/diag_js.php:144
 msgid "Yes"
 msgstr "Sí"
 
-#: web/skins/modern/diag/js/diag_js.php:142
+#: web/skins/modern/diag/js/diag_js.php:145
 msgid "No"
 msgstr "No"
 
-#: web/skins/modern/diag/js/diag_js.php:143
+#: web/skins/modern/diag/js/diag_js.php:146
 msgid "I don't know"
 msgstr "No ho sabem"
 
-#: web/skins/modern/diag/js/diag_js.php:174
+#: web/skins/modern/diag/js/diag_js.php:177
 msgid "Diagnostic tests results for selected realm"
 msgstr "Resultats de les proves per al domini seleccionat"
 
-#: web/skins/modern/diag/js/diag_js.php:177
+#: web/skins/modern/diag/js/diag_js.php:180
 msgid "The result for tested realm:"
 msgstr "Resultats per al domini provat:"
 
-#: web/skins/modern/diag/js/diag_js.php:179
+#: web/skins/modern/diag/js/diag_js.php:182
 msgid "The system identified"
 msgstr "El sistema ha identificat"
 
-#: web/skins/modern/diag/js/diag_js.php:181
+#: web/skins/modern/diag/js/diag_js.php:184
 msgid "suspected areas which potentially can cause a problem."
 msgstr "àrees sospitoses que potencialment poden causar algun problema."
 
-#: web/skins/modern/diag/js/diag_js.php:182
+#: web/skins/modern/diag/js/diag_js.php:185
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -1983,30 +2010,30 @@ msgstr ""
 "Al costat de la descripció del problema es mostra la probabilitat estimada "
 "de l'esdeveniment."
 
-#: web/skins/modern/diag/js/diag_js.php:189
+#: web/skins/modern/diag/js/diag_js.php:192
 msgid "Your device configuration is broken"
 msgstr "La configuració del vostre dispositiu és errònia"
 
-#: web/skins/modern/diag/js/diag_js.php:192
+#: web/skins/modern/diag/js/diag_js.php:195
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "La xarxa Wi-Fi propera té problemes de qualitat"
 
-#: web/skins/modern/diag/js/diag_js.php:195
+#: web/skins/modern/diag/js/diag_js.php:198
 msgid "The network environment around you is broken"
 msgstr "L'entorn de xarxa proper està trencat"
 
-#: web/skins/modern/diag/js/diag_js.php:198
+#: web/skins/modern/diag/js/diag_js.php:201
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "El servidor RADIUS del vostre proveïdor és la causa del problema"
 
-#: web/skins/modern/diag/js/diag_js.php:201
+#: web/skins/modern/diag/js/diag_js.php:204
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
 "El servidor RADIUS de la vostra institució té un problema per autenticar-vos"
 
-#: web/skins/modern/diag/js/diag_js.php:204
+#: web/skins/modern/diag/js/diag_js.php:207
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -2014,7 +2041,7 @@ msgstr ""
 "El servidor nacional al país/regió on us trobeu no està funcionant "
 "correctament"
 
-#: web/skins/modern/diag/js/diag_js.php:207
+#: web/skins/modern/diag/js/diag_js.php:210
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -2022,7 +2049,7 @@ msgstr ""
 "L'enllaç entre el servidor nacional del país/regió on us trobeu i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/js/diag_js.php:210
+#: web/skins/modern/diag/js/diag_js.php:213
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -2030,38 +2057,38 @@ msgstr ""
 "L'enllaç entre el servidor nacional del vostre país/regió d'origen i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/js/diag_js.php:213
+#: web/skins/modern/diag/js/diag_js.php:216
 msgid "The communication to the top-level server is down"
 msgstr "La comunicació amb el servidor de màxim nivell està tallada"
 
-#: web/skins/modern/diag/js/diag_js.php:216
+#: web/skins/modern/diag/js/diag_js.php:219
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 "El servidor nacional del vostre país/regió d'origen no està funcionant "
 "correctament."
 
-#: web/skins/modern/diag/js/diag_js.php:219
+#: web/skins/modern/diag/js/diag_js.php:222
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "El servidor RADIUS de la vostra institució és el causant del problema"
 
-#: web/skins/modern/diag/js/diag_js.php:222
+#: web/skins/modern/diag/js/diag_js.php:225
 msgid "This realm does not exist"
 msgstr "Aquest domini no existeix"
 
-#: web/skins/modern/diag/js/diag_js.php:300
+#: web/skins/modern/diag/js/diag_js.php:304
 msgid "Running connectivity tests for this realm"
 msgstr "Executant tests de connectivitat per a aquest domini"
 
-#: web/skins/modern/diag/js/diag_js.php:301
+#: web/skins/modern/diag/js/diag_js.php:305
 msgid "New tests results are available, click to see"
 msgstr "Hi ha nou tests disponibles, feu clic per a veure'ls"
 
-#: web/skins/modern/diag/js/diag_js.php:426
-#: web/skins/modern/diag/js/diag_js.php:434
+#: web/skins/modern/diag/js/diag_js.php:430
+#: web/skins/modern/diag/js/diag_js.php:438
 msgid "See details"
 msgstr "Veure detalls"
 
-#: web/skins/modern/diag/js/diag_js.php:436
+#: web/skins/modern/diag/js/diag_js.php:440
 msgid "If you want to report your problem, fill fields below."
 msgstr "Si voleu informar del vostre problema ompliu els camps següents."

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2025
+# University of Ruse <support@uni-ruse.bg>, 2014-2020,2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, "
-"2014-2020,2022-2025\n"
+"2014-2020,2022-2026\n"
 "Language-Team: Bulgarian (Bulgaria) (http://app.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -506,7 +506,7 @@ msgstr ""
 "което се е втренчило във Вас. Ваша грешка? Наша грешка? Кой знае! Може би "
 "трябва да се върнете към <a href='%s'>Началната страница</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Поверително"
@@ -690,13 +690,8 @@ msgstr ""
 "този линк."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
-msgstr ""
-"Сайтът предоставя %s инсталатори за много организации, кликнете тук, за да "
-"видите дали Вашата е в списъка. "
+msgid "Administrator login"
+msgstr "Вход за администратор"
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

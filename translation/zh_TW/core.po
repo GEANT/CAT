@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Chi-Han Huang, 2025\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/eduroam_devel/cat/"
@@ -19,23 +19,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
 msgstr "這個設定檔不包含 Realm 資訊，因此無法執行 OpenRoaming 的 DNS 檢查。"
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:294
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+
+#: core/AbstractProfile.php:304
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr "OpenRoaming NAPTR SRV 紀錄出現未預期的結果。"
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:333
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
 msgstr "SRV 記錄中的 DNS 目標未指向真實的 IP，OpenRoaming 將無法正常運作。"
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
@@ -43,13 +63,13 @@ msgstr ""
 "當嘗試連線到發現的 OpenRoaming 端點時，端點出現錯誤，OpenRoaming 可能不會正常"
 "運作。"
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr "當嘗試連線到發現的 OpenRoaming 端點時，只有一部份端點正常運作。"
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
@@ -57,7 +77,7 @@ msgstr ""
 "有至少一個 DNS 回應未受 DNSSEC 保護，OpenRoaming ANPs 有機會拒絕連線到這些端"
 "點。"
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -255,10 +275,7 @@ msgstr ""
 msgid "Azerbaijan"
 msgstr ""
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr ""
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr ""
@@ -303,10 +320,7 @@ msgstr ""
 msgid "Malta"
 msgstr ""
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr ""
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr ""
@@ -327,39 +341,39 @@ msgstr ""
 msgid "Unnamed Entity"
 msgstr "未命名實體"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr "設定檔停用成功"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr "設定檔啟用/更改成功"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr "設定檔停用失敗"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr "設定檔啟用/更改失敗"
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr "在主要的和備援的 RADIUS 伺服器中"
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr "在主要的 RADIUS 伺服器中"
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr "在備援的 RADIUS 伺服器中"
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr "已修復 RADIUS 設定檔更新問題"
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr "RADIUS 設定檔更新問題"
 
@@ -378,13 +392,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -397,7 +411,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -419,7 +433,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -436,12 +450,12 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
 
-#: core/IdP.php:415
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -455,7 +469,7 @@ msgid ""
 "    %s"
 msgstr ""
 
-#: core/IdP.php:424
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr ""
@@ -509,7 +523,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:270
+#: core/User.php:299
 msgid "Feedback"
 msgstr "建議"
 
@@ -544,47 +558,47 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr "National Roaming Operator"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr "身分提供者"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr "組織"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr "身分提供者"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr "WiFi 熱點"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr "熱點"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr "服務提供者"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr "參與者"
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr "組織"
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr "組織"
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr "實體"
 
@@ -609,7 +623,7 @@ msgstr ""
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""

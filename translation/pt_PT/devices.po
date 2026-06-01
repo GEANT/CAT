@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>, 2013,2015-2018,2022-2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/eduroam_devel/"
@@ -655,7 +655,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr "ficheiro do certificado pessoal (p12 ou pfx)"
 
 #: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "All files"
 msgstr "Todos os ficheiros"
 
@@ -672,8 +672,8 @@ msgid "Write the file"
 msgstr "Escreva o ficheiro"
 
 #: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
-#: devices/ms/Files/common.inc:1440
+#: devices/ms/Files/common.inc:1391 devices/ms/Files/common.inc:1411
+#: devices/ms/Files/common.inc:1462
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -705,21 +705,28 @@ msgstr "ficheiro do certificado pessoal não encontrado"
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:342
+#: devices/linux/DeviceLinux.php:156
+msgid ""
+"Configure eduroam also on the wired Ethernet?\\n\\n Please be aware that "
+"doing so will introduce a connection delay lasting up to 30 sec. when you "
+"connect to an open wired network."
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:363
 msgid "This installer has been prepared for {0}"
 msgstr "O instalador foi preparado para {0}"
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
-#: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
+#: devices/linux/DeviceLinux.php:363 devices/linux/DeviceLinuxSh.php:344
+#: devices/ms/Files/common.inc:508 devices/ms/Files/common.inc:515
 msgid "More information and comments:"
 msgstr "Mais informações e comentários:"
 
-#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
-#: devices/ms/Files/common.inc:551
+#: devices/linux/DeviceLinux.php:364 devices/linux/DeviceLinuxSh.php:345
+#: devices/ms/Files/common.inc:566
 msgid "Installer created with software from the GEANT project."
 msgstr "Instalador criado com software do projecto GEANT."
 
-#: devices/linux/DeviceLinux.php:371
+#: devices/linux/DeviceLinux.php:392
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -727,7 +734,7 @@ msgstr ""
 "Este instalador apenas vai funcionar corretamente se for membro de {0} e do "
 "grupo de utilizadores: {1}."
 
-#: devices/linux/DeviceLinux.php:373
+#: devices/linux/DeviceLinux.php:394
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
 "Este instalador apenas funcionará da forma correta se for membro de {0}"
@@ -879,36 +886,36 @@ msgstr ""
 "definidos pelo administrador do IdP) e um dump de todos os atributos "
 "disponíveis. O instalador é chamado com %d SSIDs para configurar."
 
-#: devices/ms/Files/common.inc:148
+#: devices/ms/Files/common.inc:149
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr "Bem vindo ao instalador %s"
 
-#: devices/ms/Files/common.inc:149
+#: devices/ms/Files/common.inc:150
 msgid "Installation complete"
 msgstr "Instalação concluída"
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Network profiles have been installed."
 msgstr "Os perfís de rede foram instalados."
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Your system is ready."
 msgstr "O seu sistema está configurado e pronto a usar."
 
-#: devices/ms/Files/common.inc:151
+#: devices/ms/Files/common.inc:152
 msgid "Network installation had errors."
 msgstr "A configuração de rede tem erros."
 
-#: devices/ms/Files/common.inc:151 devices/ms/Files/common.inc:1038
+#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1053
 msgid "Please contact ${SUPPORT}."
 msgstr "Por favor contate ${SUPPORT}."
 
-#: devices/ms/Files/common.inc:159
+#: devices/ms/Files/common.inc:160
 msgid "Accept"
 msgstr "Aceitar"
 
-#: devices/ms/Files/common.inc:160
+#: devices/ms/Files/common.inc:161
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
@@ -916,48 +923,48 @@ msgstr ""
 "Se concordar com as condições, selecione Aceitar e clique Instalar para "
 "continuar."
 
-#: devices/ms/Files/common.inc:172
+#: devices/ms/Files/common.inc:173
 msgid "Finish"
 msgstr "Concluído"
 
-#: devices/ms/Files/common.inc:206
+#: devices/ms/Files/common.inc:207
 msgid "searching for certificate"
 msgstr "a pesquisar certificado"
 
-#: devices/ms/Files/common.inc:268
+#: devices/ms/Files/common.inc:269
 msgid "installing certificate"
 msgstr "a instalar certificado"
 
-#: devices/ms/Files/common.inc:274
+#: devices/ms/Files/common.inc:275
 msgid "could not install certificate"
 msgstr "não foi possível instalar o certificado"
 
-#: devices/ms/Files/common.inc:481
+#: devices/ms/Files/common.inc:496
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 "Os perfís que não usam TKIP são preferíveis. Se puder, utilize sempre um "
 "perfil  não TKIP."
 
-#: devices/ms/Files/common.inc:483
+#: devices/ms/Files/common.inc:498
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
 "Um perfil que não usa TKIP é sempre preferivel. Se puder, utilize sempre um "
 "perfil  não TKIP."
 
-#: devices/ms/Files/common.inc:489 devices/ms/Files/common.inc:497
+#: devices/ms/Files/common.inc:504 devices/ms/Files/common.inc:512
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "Este instalador foi criado para a/o ${ORGANISATION}"
 
-#: devices/ms/Files/common.inc:490
+#: devices/ms/Files/common.inc:505
 msgid "The installer will create the following wireless profiles:"
 msgstr "O instalador irá criar os seguintes perfis wireless:"
 
-#: devices/ms/Files/common.inc:498
+#: devices/ms/Files/common.inc:513
 msgid "The installer will create the wireless profile:"
 msgstr "O configurador vai criar o perfil wireless:"
 
-#: devices/ms/Files/common.inc:617
+#: devices/ms/Files/common.inc:632
 msgid ""
 "Your Windows 10 has not been updated which means that you are likely to have "
 "problems accessing network. We suggest that you quit this installation, "
@@ -967,7 +974,7 @@ msgstr ""
 "problemas para aceder à rede. Sugerimos que saia desta instalação, atualize "
 "o seu Windows e tente novamente"
 
-#: devices/ms/Files/common.inc:624
+#: devices/ms/Files/common.inc:639
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
@@ -976,7 +983,7 @@ msgstr ""
 "Windows 10 ou posterior. Por favor descarregue a versão correta do "
 "instalador e tente novamente."
 
-#: devices/ms/Files/common.inc:632 devices/ms/Files/common.inc:639
+#: devices/ms/Files/common.inc:647 devices/ms/Files/common.inc:654
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
@@ -985,7 +992,7 @@ msgstr ""
 "Windows  8 e 8.1. Por favor descarregue a versão correta do instalador e "
 "tente novamente."
 
-#: devices/ms/Files/common.inc:648
+#: devices/ms/Files/common.inc:663
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
@@ -994,7 +1001,7 @@ msgstr ""
 "para  Windows Vista e Windows 7. Faça o download do instalador correto e "
 "tente novamente."
 
-#: devices/ms/Files/common.inc:688
+#: devices/ms/Files/common.inc:703
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
@@ -1002,12 +1009,12 @@ msgstr ""
 "O serviço de configuração de rede wireless no Windows não está activo. O "
 "instalador não pode continuar."
 
-#: devices/ms/Files/common.inc:693
+#: devices/ms/Files/common.inc:708
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 "Não foi encontrado um interface wireless. O instalador não pode continuar."
 
-#: devices/ms/Files/common.inc:699
+#: devices/ms/Files/common.inc:714
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
@@ -1015,23 +1022,23 @@ msgstr ""
 "Não foram encontrados interfaces sem fios. O acesso à rede sem fios não será "
 "configurado. Pretende continuar e configurar o acesso no interface cablado?"
 
-#: devices/ms/Files/common.inc:715
+#: devices/ms/Files/common.inc:730
 msgid "Do you want to enable access on wired interfaces?"
 msgstr "Pretende habilitar o acesso a interfaces cablados?"
 
-#: devices/ms/Files/common.inc:756
+#: devices/ms/Files/common.inc:771
 msgid "Profiles installation"
 msgstr "Instalação de perfís"
 
-#: devices/ms/Files/common.inc:775
+#: devices/ms/Files/common.inc:790
 msgid "Checking for profile $R8"
 msgstr "A verificar o perfill $R8"
 
-#: devices/ms/Files/common.inc:783
+#: devices/ms/Files/common.inc:798
 msgid "found profile $R8"
 msgstr "foi encontrado o perfil $R8"
 
-#: devices/ms/Files/common.inc:814
+#: devices/ms/Files/common.inc:829
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -1039,11 +1046,11 @@ msgstr ""
 "Este instalador só funcionará correctamente se for um utilizador da/do "
 "${ORGANISATION} e do grupo de utilizadores ${USER_GROUP}."
 
-#: devices/ms/Files/common.inc:814 devices/ms/Files/common.inc:817
+#: devices/ms/Files/common.inc:829 devices/ms/Files/common.inc:832
 msgid "Click OK to continue with installation."
 msgstr "Clique OK para continuar com a instalação."
 
-#: devices/ms/Files/common.inc:817
+#: devices/ms/Files/common.inc:832
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
@@ -1051,7 +1058,7 @@ msgstr ""
 "Este instalador só funcionará correctamente se for um utilizador da/do "
 "${ORGANISATION}."
 
-#: devices/ms/Files/common.inc:825
+#: devices/ms/Files/common.inc:840
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
@@ -1059,7 +1066,7 @@ msgstr ""
 "Por favor leia a informação adicional da ${ORGANISATION} que vai ser "
 "mostrada dentro de momento"
 
-#: devices/ms/Files/common.inc:880
+#: devices/ms/Files/common.inc:895
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -1081,104 +1088,108 @@ msgstr ""
 "script chamado inst_cat. Inicie-o com um duplo clique e ele irá instalar os "
 "perfis. Terá de fazer o login em %s com a sua conta institucional."
 
-#: devices/ms/Files/common.inc:890
+#: devices/ms/Files/common.inc:905
 msgid "Please restart your system after installation finishes."
 msgstr "Por favor reinicie o seu dispositivo depois da instalação terminar"
 
-#: devices/ms/Files/common.inc:914
+#: devices/ms/Files/common.inc:929
 msgid "installing wired profile"
 msgstr "a instalar perfil de rede cablada"
 
-#: devices/ms/Files/common.inc:955 devices/ms/Files/common.inc:980
+#: devices/ms/Files/common.inc:970 devices/ms/Files/common.inc:995
 msgid "deleting profile $R1"
 msgstr "a apagar o perfil $R1"
 
-#: devices/ms/Files/common.inc:989
+#: devices/ms/Files/common.inc:1004
 msgid "installing profile $R1"
 msgstr "a instalar o perfil $R1"
 
-#: devices/ms/Files/common.inc:1038
+#: devices/ms/Files/common.inc:1053
 msgid "Profile installation error for $R1."
 msgstr "Erro a instalar o perfil $R1"
 
-#: devices/ms/Files/common.inc:1057
+#: devices/ms/Files/common.inc:1072
 msgid "deleting profile $R6"
 msgstr "a apagar o perfil $R6"
 
-#: devices/ms/Files/common.inc:1087
+#: devices/ms/Files/common.inc:1102
 msgid "installing credentials for wired"
 msgstr "a instalar credencias para rede cablada"
 
-#: devices/ms/Files/common.inc:1094
+#: devices/ms/Files/common.inc:1109
 msgid "installing credentials TLS"
 msgstr "a instalar credenciais TLS"
 
-#: devices/ms/Files/common.inc:1184
+#: devices/ms/Files/common.inc:1199
 msgid "installing credentials for profile $R1"
 msgstr "a instalar credenciais para o perfil $R1"
 
-#: devices/ms/Files/common.inc:1204 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1219 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Problema de instalação de credenciais"
 
-#: devices/ms/Files/common.inc:1213
+#: devices/ms/Files/common.inc:1229
+msgid "import password:"
+msgstr "importar palavra passe:"
+
+#: devices/ms/Files/common.inc:1232
+msgid "certificate password:"
+msgstr "password do certificado:"
+
+#: devices/ms/Files/common.inc:1234 devices/ms/Files/common.inc:1512
+msgid "Username:"
+msgstr "Username:"
+
+#: devices/ms/Files/common.inc:1241
 #, php-format
 msgid "%s installer for"
 msgstr "%s instalador para"
 
-#: devices/ms/Files/common.inc:1213
+#: devices/ms/Files/common.inc:1241
 msgid "Install personal certificate"
 msgstr "Instale o certificado pessoal"
 
-#: devices/ms/Files/common.inc:1216
+#: devices/ms/Files/common.inc:1244
 msgid "Preparing to install personal certificate."
 msgstr "A preparar para instalar o certificado pessoal"
 
-#: devices/ms/Files/common.inc:1216
+#: devices/ms/Files/common.inc:1244
 msgid "Click OK to continue"
 msgstr "Clique OK para avançar"
 
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "Certificate files (*.p12)"
 msgstr "Ficheiros contendo certificados (*.p12)"
 
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "Certificate files (*pfx)"
 msgstr "Ficheiros contendo certificados (*.pfx)"
 
-#: devices/ms/Files/common.inc:1225
-msgid "certificate password:"
-msgstr "password do certificado:"
-
-#: devices/ms/Files/common.inc:1227 devices/ms/Files/common.inc:1491
-msgid "Username:"
-msgstr "Username:"
-
-#: devices/ms/Files/common.inc:1231
+#: devices/ms/Files/common.inc:1252
 msgid "Selected file: $Cert_file"
 msgstr "Selecione o ficheiro $Cert_file"
 
-#: devices/ms/Files/common.inc:1233
-msgid "import password:"
-msgstr "importar palavra passe:"
+#: devices/ms/Files/common.inc:1280 devices/ms/Files/common.inc:1523
+msgid "Show password"
+msgstr ""
 
-#: devices/ms/Files/common.inc:1268
+#: devices/ms/Files/common.inc:1290
 msgid "No certificate file selected"
 msgstr "Não selecionou nunhum ficheiro contendo certificado"
 
-#: devices/ms/Files/common.inc:1272
+#: devices/ms/Files/common.inc:1294
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Password importada errada$\\r$\\ncoloque novamente"
 
-#: devices/ms/Files/common.inc:1274
+#: devices/ms/Files/common.inc:1296
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Password de certificado incorrecta$\\r$\\ntente novamente"
 
-#: devices/ms/Files/common.inc:1349
+#: devices/ms/Files/common.inc:1371
 msgid "Username contained some trailing spaces which were removed."
 msgstr "O nome de utilizador tinha espaços à direita que foram removidos."
 
-#: devices/ms/Files/common.inc:1384
+#: devices/ms/Files/common.inc:1406
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -1186,7 +1197,7 @@ msgstr ""
 "Erro: o seu nome de utilizador deve estar na forma 'xxx@${REALM}'. Por favor "
 "coloque o nome de utilizador no formato correto."
 
-#: devices/ms/Files/common.inc:1386
+#: devices/ms/Files/common.inc:1408
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -1195,38 +1206,38 @@ msgstr ""
 "terminar com '${REALM}'. Por favor coloque o nome de utilizador no formato "
 "correto."
 
-#: devices/ms/Files/common.inc:1487
+#: devices/ms/Files/common.inc:1509
 msgid "User credentials"
 msgstr "Credenciais do utilizador"
 
-#: devices/ms/Files/common.inc:1494
+#: devices/ms/Files/common.inc:1515
 msgid "Password:"
 msgstr "Password:"
 
-#: devices/ms/Files/common.inc:1497
+#: devices/ms/Files/common.inc:1519
 msgid "Repeat password:"
 msgstr "Repita a password:"
 
-#: devices/ms/Files/common.inc:1512
+#: devices/ms/Files/common.inc:1539
 msgid "Missing username"
 msgstr "Username em falta"
 
-#: devices/ms/Files/common.inc:1524
+#: devices/ms/Files/common.inc:1551
 msgid "Missing password"
 msgstr "Password em falta"
 
-#: devices/ms/Files/common.inc:1530
+#: devices/ms/Files/common.inc:1557
 msgid "Password mismatch"
 msgstr "Passwords diferentes"
 
-#: devices/ms/Files/common.inc:1623 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1650 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Instalação"
 
-#: devices/ms/Files/common.inc:1623
+#: devices/ms/Files/common.inc:1650
 msgid "Checking for existing wireless profiles"
 msgstr "A verificar a existência de perfis wireless"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Sonia Zabara, 2025\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/eduroam_devel/"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
@@ -30,11 +30,31 @@ msgstr ""
 "Informațiile profilului nu includ domeniul, astfel verificările DNS pentru "
 "OpenRoaming nu se pot executa."
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:294
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+
+#: core/AbstractProfile.php:304
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr "Ținta SVR a unei înregistrări NAPTR OpenRoaming este neașteptată."
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:333
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
@@ -42,7 +62,7 @@ msgstr ""
 "Numele de gazdă DNS din înregistrările SVR nu se rezolvă în IP-urile gazdă "
 "reale. OpenRoaming nu va funționa."
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
@@ -50,7 +70,7 @@ msgstr ""
 "La conectarea punctelor finale OpenRoaming descoperite, toate au avut erori. "
 "OpenRoaming probabil că nu va funcționa."
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
@@ -58,7 +78,7 @@ msgstr ""
 "La conectare punctelor finale OpenRoaming descoperite, numai un subset al "
 "acestora nu au avut erori."
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
@@ -66,7 +86,7 @@ msgstr ""
 "Cel puțin un răspuns DNS NU a fost securizat utilizând DNSSEC. ANP-urile "
 "OpenRoaming ar putea refuza conexiunea la punctul final."
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -266,10 +286,7 @@ msgstr "Armenia"
 msgid "Azerbaijan"
 msgstr "Azerbaidjan"
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr "Belorusia"
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr "Ecuador"
@@ -314,10 +331,7 @@ msgstr "Macao"
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr "Rusia"
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr "Singapore"
@@ -338,39 +352,39 @@ msgstr "Africa de Sud"
 msgid "Unnamed Entity"
 msgstr "Entitate nedefinită"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr "Dezactivarea profilului a fost efectuată cu succes."
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr "Activarea/modificare profilului a fost efectuată cu succes."
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr "Dezactivarea profilului a eșuat."
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr "Activarea/modificarea profilului a eșuat."
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr "pe ambele servere RADIUS: primar și de rezervă"
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr "pe serverul RADIUS primar"
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr "pe serverul RADIUS de rezervă"
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr "problema actualizării profilului RADIUS a fost rezolvată"
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr "problemă actualizare profil RADIUS"
 
@@ -391,13 +405,13 @@ msgstr ""
 "suplimentare"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(întrerupt/încetat) %s"
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr "%s și %s"
@@ -410,7 +424,7 @@ msgstr "%s și %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -442,7 +456,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -470,12 +484,12 @@ msgstr ""
 "    %s"
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s a fost creat în federaţia dumenavoastră"
 
-#: core/IdP.php:415
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -498,7 +512,7 @@ msgstr ""
 "\n"
 "    %s"
 
-#: core/IdP.php:424
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s a fost șters din federația dumeneavoastră"
@@ -563,7 +577,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%sSistem de Invitare"
 
-#: core/User.php:270
+#: core/User.php:299
 msgid "Feedback"
 msgstr "Părere"
 
@@ -598,47 +612,47 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr "Operator Național de Roaming"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr "furnizor de informații despre identitate"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr "instituție"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr "Furnizor de Informații despre Identitate"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr "Hotspot Wi-Fi"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr "Furnizor de servicii"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr "participant"
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr "Organizația"
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr "organizația"
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr "entitate"
 
@@ -665,7 +679,7 @@ msgstr "un %s %s v-a invitat să administrați %s \"%s\". Acesta este un %s."
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""

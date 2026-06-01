@@ -5,17 +5,17 @@
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
 # Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2020,2022-2023
-# Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019,2022,2024-2025
+# Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019,2022,2024-2026
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>, "
-"2016-2019,2022,2024-2025\n"
+"2016-2019,2022,2024-2026\n"
 "Language-Team: Polish (Poland) (http://app.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -528,7 +528,7 @@ msgstr ""
 "Pomyłka, po Twojej stronie? A być może nasz błąd -  trudno powiedzieć! "
 "Najlepiej wróć na <a href='%s'>stronę startową</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Polityka prywatności %s"
@@ -710,13 +710,8 @@ msgstr ""
 "link."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
-msgstr ""
-"System udostępnia instalatory  %s dla wielu instytucji, kliknij tutaj, by "
-"sprawdzić, czy Twoja instytucja jest na liście."
+msgid "Administrator login"
+msgstr "Logowanie administratora"
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

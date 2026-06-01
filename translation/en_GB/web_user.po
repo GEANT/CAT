@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Stefan Paetow, 2023,2025\n"
 "Language-Team: English (United Kingdom) (http://app.transifex.com/"
@@ -496,7 +496,7 @@ msgstr ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Privacy Notice"
@@ -677,13 +677,8 @@ msgstr ""
 "from your IT support. Please talk to the IT department to get this link."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
+msgid "Administrator login"
 msgstr ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

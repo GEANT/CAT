@@ -5,15 +5,15 @@
 # Translators:
 # Håvard Ramberg, 2024
 # ffec5bdd8bc4b91afb3a1750da9849ce_15f9003 <c249bc393dbe3bb0ade43bf3e20b7f8c_224491>, 2015
-# Tom Ivar Myren <tom.myren@sikt.no>, 2024
+# Tom Ivar Myren <tom.myren@sikt.no>, 2024,2026
 # Tom Ivar Myren <tom.myren@sikt.no>, 2013,2015,2018-2019,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
-"Last-Translator: Tom Ivar Myren <tom.myren@sikt.no>, 2024\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@sikt.no>, 2024,2026\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://app.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
@@ -30,11 +30,31 @@ msgstr ""
 "Profilinformasjonen inneholder ikke realmet. Ingen DNS-sjekker for "
 "OpenRoaming kan gjennomføres. "
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:294
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+
+#: core/AbstractProfile.php:304
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr "SRV-målet for en OpenRoaming NAPTR-oppslag er uventet."
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:333
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
@@ -42,7 +62,7 @@ msgstr ""
 "DNS-navnene i SRV-oppslagene peker ikke mot faktiske IP-adresser. "
 "OpenRoaming vill ikke fungere."
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
@@ -50,13 +70,13 @@ msgstr ""
 "Feil ved samtlige oppkoblinger mot de oppdagede OpenRoaming-endepunkteter. "
 "OpenRoaming vil sannsynligvis ikke fungere."
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
 msgstr "Feil ved noen oppkoblinger mot oppdagede OpenRoaming-endepunkter."
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
@@ -64,7 +84,7 @@ msgstr ""
 "Minst ett DNS-svar var IKKE sikret med DNSSEC. OpenRoaming ANP'er kan velge "
 "å avslå oppkobling til endepunktet."
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -264,10 +284,7 @@ msgstr "Armenia"
 msgid "Azerbaijan"
 msgstr "Aserbajdsjan"
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr "Hviterussland"
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr "Ecuador"
@@ -312,10 +329,7 @@ msgstr "Macao"
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr "Russland"
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr "Singapore"
@@ -336,39 +350,39 @@ msgstr "Sør-Afrika"
 msgid "Unnamed Entity"
 msgstr "Navnløs entitet"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr "Profil deaktivering var vellykket"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr "Profil aktivering/modifisering var vellykket"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr "Profil deaktivering feilet"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr "Profil aktivering/modifisering feilet"
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr "på begge RADIUS tjenere: primær og sekundær"
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr "på primær RADIUS tjener"
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr "på sekundær RADIUS tjener"
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr "Problem med RADIUS profil oppdatering fikset"
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr "Problem med RADIUS profil oppdatering"
 
@@ -387,13 +401,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Beklager, dette skal ikke skje - mer informasjon er ikke tilgjengelig"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(Ikke lenger støttet) %s"
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr "%s og %s"
@@ -406,7 +420,7 @@ msgstr "%s og %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -420,6 +434,14 @@ msgid ""
 "\n"
 "    %s"
 msgstr ""
+"Hei,\n"
+"Invitasjonen for den nye %s %s i din %s føderasjon %s er blitt brukt og %s "
+"ble opprettet i %s.\n"
+"\n"
+"Dette til informasjon.\n"
+"\n"
+"Med vennlig hilsen,\n"
+"%s"
 
 #. notify the fed admins...
 #. / arguments are: 1. nomenclature for "institution"
@@ -428,7 +450,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -443,14 +465,24 @@ msgid ""
 "\n"
 "    %s"
 msgstr ""
+"Hei,\n"
+"\n"
+"Selv-registreringen i eduGAIN ble brukt til å opprette %s\n"
+"%s \n"
+"I din %s føderasjon %s i %s.\n"
+"\n"
+"Dette til informasjon.\n"
+"\n"
+"Vennlig hilsen,\n"
+"%s"
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s i din føderasjon ble opprettet"
 
-#: core/IdP.php:415
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -473,7 +505,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:424
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "%s i din føderasjon ble slettet"
@@ -537,7 +569,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%s Invitasjonssystem"
 
-#: core/User.php:270
+#: core/User.php:299
 msgid "Feedback"
 msgstr "Tilbakemeldinger"
 
@@ -572,47 +604,47 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr "Nasjonal roaming operatør"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr "identitetstilbyder"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr "organisasjon"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr "Identitetstilbyder"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi Hotspot"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr "Tjenestetilbyder"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr "deltager"
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr "Organisasjon"
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr "organisasjon"
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr "enhet"
 
@@ -641,7 +673,7 @@ msgstr ""
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""

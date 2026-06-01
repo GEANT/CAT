@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022,2024\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
@@ -32,11 +32,31 @@ msgstr ""
 "Οι πληροφορίες του προφίλ δεν περιέχουν το realm , οπότε δεν μπορούν να "
 "πραγματοποιηθούν έλεγχοι DNS για το OpenRoaming."
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:294
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+
+#: core/AbstractProfile.php:304
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr "Ο SRV στόχος μιας OpenRoaming NAPTR καταγραφής είναι απρόβλεπτη ."
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:333
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr ""
+
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
@@ -44,7 +64,7 @@ msgstr ""
 "Tα DNS hostnames στις καταγραφές SRV δεν μεταφράζονται σε πραγματικές host "
 "IPs.Το OpenRoaming δε θα λειτουργήσει."
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
@@ -52,7 +72,7 @@ msgstr ""
 "Κατα την σύνδεση των OpenRoaming endpoints που βρέθηκαν , όλα είχαν "
 "σφάλματα . Το OpenRoaming  μάλλον δε θα λειτουργήσει."
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
@@ -60,7 +80,7 @@ msgstr ""
 "Κατα την σύνδεση στα OpenRoaming endpoints που βρέθηκαν , μόνο ένα υποσύνολο "
 "των endpoints δεν είχε σφάλματα."
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
@@ -68,7 +88,7 @@ msgstr ""
 "Τουλάχιστον μία DNS απόκριση ΔΕΝ ήταν ασφαλισμένη με DNSSEC. Τα OpenRoaming "
 "ANPs ίσως αρνηθούν την σύνδεση στο endpoint."
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -268,10 +288,7 @@ msgstr "Αρμενία"
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr "Λευκορωσία"
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr "Ισημερινός"
@@ -316,10 +333,7 @@ msgstr "Μακάου"
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr "Ρωσία"
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
@@ -340,39 +354,39 @@ msgstr "Νότια Αφρική"
 msgid "Unnamed Entity"
 msgstr "Ανώνυμη Οντότητα"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr "Η απενεργοποίηση του προφίλ επιτεύχθηκε"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr "Η ενεργοποίηση/αλλαγή του προφίλ επιτεύχθηκε"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr "Η απενεργοποίηση του προφίλ απέτυχε"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr "Η ενεργοποίηση/αλλαγή του προφίλ απέτυχε"
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr "και στους δύο RADIUS servers: πρωτεύον και backup"
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr "στον πρωτεύοντα RADIUS server σας "
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr "στον backup RADIUS server σας"
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr "Το πρόβλημα ανανέωσης του RADIUS προφιλ διορθώθηκε"
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr "Πρόβλημα ανανέωσης προφιλ RADIUS "
 
@@ -393,13 +407,13 @@ msgstr ""
 "πληροφορίες"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(καταργημένος) %s"
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr "%s και %s"
@@ -412,7 +426,7 @@ msgstr "%s και %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -434,7 +448,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -451,12 +465,12 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr "Δημιουργήθηκε ένας %s στην ομοσπονδία σας"
 
-#: core/IdP.php:415
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -479,7 +493,7 @@ msgstr ""
 "\n"
 "    %s"
 
-#: core/IdP.php:424
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "Διαγράφηκε ένας %s στην ομοσπονδία σας"
@@ -546,7 +560,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "Σύστημα Προσκλήσεων %s"
 
-#: core/User.php:270
+#: core/User.php:299
 msgid "Feedback"
 msgstr "Ανατροφοδότηση"
 
@@ -581,47 +595,47 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr "Εθνικός Φορέας Περιαγωγής"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr "πάροχος ταυτότητας "
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr "οργανισμός"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr "Πάροχος Ταυτότητας"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi Hotspot"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr "Πάροχος Υπηρεσίας"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr "συμμετέχων"
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr "Οργανισμός"
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr "οργανισμός"
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr "οντότητα"
 
@@ -650,7 +664,7 @@ msgstr ""
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""

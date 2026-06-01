@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015,2018-2019,2022,2024-2025
+# eduki <ecercos@xtec.cat>, 2013,2015,2018-2019,2022,2024-2026
 # eduki <ecercos@xtec.cat>, 2012
 # Joan Montané, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 11:00+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, "
-"2013,2015,2018-2019,2022,2024-2025\n"
+"2013,2015,2018-2019,2022,2024-2026\n"
 "Language-Team: Catalan (Spain) (http://app.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/AbstractProfile.php:265
+#: core/AbstractProfile.php:285
 msgid ""
 "The profile information does not include the realm, so no DNS checks for "
 "OpenRoaming can be executed."
@@ -30,11 +30,35 @@ msgstr ""
 "La informació del perfil no inclou el domini, així doncs no es poden fer les "
 "comprovacions DNS per a l'OpenRoaming"
 
-#: core/AbstractProfile.php:299
+#: core/AbstractProfile.php:294
+#, php-format
+msgid ""
+"There is no relevant DNS NAPTR record (%s) for this realm. OpenRoaming will "
+"not work."
+msgstr ""
+"No hi ha cap registre DNS NAPTR (%s) per a aquest domini. OpenRoaming no "
+"estarà disponible."
+
+#: core/AbstractProfile.php:304
+#, php-format
+msgid ""
+"The DNS NAPTR record (%s) for this realm is not syntax conform. OpenRoaming "
+"will likely not work."
+msgstr ""
+"El registre DNS NAPTR ( %s) per a aquest domini no té la sintaxi correcte. "
+"És possible que OpenRoaming no funcioni."
+
+#: core/AbstractProfile.php:321
 msgid "The SRV target of an OpenRoaming NAPTR record is unexpected."
 msgstr "El destí SRV d'un registre NAPTR de l'OpenRoaming no és l'esperat"
 
-#: core/AbstractProfile.php:317
+#: core/AbstractProfile.php:333
+#, php-format
+msgid ""
+"The DNS SRV target for NAPTR %s does not resolve. OpenRoaming will not work."
+msgstr "El destí per a NAPTR sl DNS SRV %s no resol. OpenRoaming no funcionarà"
+
+#: core/AbstractProfile.php:339
 msgid ""
 "The DNS hostnames in the SRV records do not resolve to actual host IPs. "
 "OpenRoaming will not work."
@@ -42,7 +66,7 @@ msgstr ""
 "Els servidors DNS en els registres SRV no resolen la IP real del host. "
 "OpenRoaming no funcionarà"
 
-#: core/AbstractProfile.php:344
+#: core/AbstractProfile.php:366
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, they all had "
 "errors. OpenRoaming will likely not work."
@@ -50,7 +74,7 @@ msgstr ""
 "En connectar als punts OpenRoaming trobats s'han trobat errors.Segurament "
 "l'OpenRoaming no funcionarà"
 
-#: core/AbstractProfile.php:350
+#: core/AbstractProfile.php:372
 msgid ""
 "When connecting to the discovered OpenRoaming endpoints, only a subset of "
 "endpoints had no errors."
@@ -58,7 +82,7 @@ msgstr ""
 "En connectar als punts OpenRoaming trobats només un subgrup petit no "
 "contenia errors."
 
-#: core/AbstractProfile.php:360
+#: core/AbstractProfile.php:382
 msgid ""
 "At least one DNS response was NOT secured using DNSSEC. OpenRoaming ANPs may "
 "refuse to connect to the endpoint."
@@ -66,7 +90,7 @@ msgstr ""
 "Al menys una resposta DNS NO estava securitzada amb DNSSEC. Els ANPs "
 "d'OpenRoaming no connectaran a l'extrem final"
 
-#: core/AbstractProfile.php:367
+#: core/AbstractProfile.php:389
 msgid ""
 "Initial diagnostics regarding the DNS part of OpenRoaming (including DNSSEC) "
 "were successful."
@@ -266,10 +290,7 @@ msgstr "Armènia"
 msgid "Azerbaijan"
 msgstr "Azerbaidjan"
 
-#: core/CAT.php:193
-msgid "Belarus"
-msgstr "Bielorússia"
-
+#. 'BY' => ['name'=>_("Belarus")],
 #: core/CAT.php:194
 msgid "Ecuador"
 msgstr "Equador"
@@ -314,10 +335,7 @@ msgstr "Macau"
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:205
-msgid "Russia"
-msgstr "Rússia"
-
+#. 'RU' => ['name'=>_("Russia")],
 #: core/CAT.php:206
 msgid "Singapore"
 msgstr "Singapur"
@@ -338,39 +356,39 @@ msgstr "Sudàfrica"
 msgid "Unnamed Entity"
 msgstr "Entitat sense nom"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr "Perfil desactivat correctament"
 
-#: core/DeploymentManaged.php:670
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr "Activació/modificació del perfil correcte"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr "Ha fallat la desactivació del perfil"
 
-#: core/DeploymentManaged.php:672
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr "Ha fallat l'activació/modificació del perfil"
 
-#: core/DeploymentManaged.php:676
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr "en ambdós servidors RADIUS: primari i backup"
 
-#: core/DeploymentManaged.php:679
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr "al servidor RADIUS primari"
 
-#: core/DeploymentManaged.php:681
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr "al servidor RADIUS de backup"
 
-#: core/DeploymentManaged.php:689
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr "Resolt el problema en l'acualització del perfil RADIUS"
 
-#: core/DeploymentManaged.php:691
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr "Problema en l'actualització del perfil RADIUS"
 
@@ -390,13 +408,13 @@ msgstr ""
 "Disculpeu, això no hauria de passar - no hi ha més informació disponible"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:118
+#: core/Federation.php:117
 #, php-format
 msgid "(discontinued) %s"
 msgstr "(discontinuat) %s"
 
 #. / IdP and SP
-#: core/Federation.php:315 core/common/OutsideComm.php:288
+#: core/Federation.php:346 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr "%s i %s"
@@ -409,7 +427,7 @@ msgstr "%s i %s"
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:330
+#: core/Federation.php:361
 #, php-format
 msgid ""
 "Hi,\n"
@@ -441,7 +459,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:356
+#: core/Federation.php:387
 #, php-format
 msgid ""
 "Hi,\n"
@@ -469,12 +487,12 @@ msgstr ""
 "  %s"
 
 #. / organisation
-#: core/Federation.php:378 core/Federation.php:384
+#: core/Federation.php:409 core/Federation.php:415
 #, php-format
 msgid "%s in your federation was created"
 msgstr "S'ha creat %s a la vostra federació"
 
-#: core/IdP.php:415
+#: core/IdP.php:454
 #, php-format
 msgid ""
 "Hi,\n"
@@ -497,7 +515,7 @@ msgstr ""
 "\n"
 "  %s"
 
-#: core/IdP.php:424
+#: core/IdP.php:463
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "S'ha esborrat %s a la vostra federació"
@@ -559,7 +577,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "Sistema d'invitacions %s"
 
-#: core/User.php:270
+#: core/User.php:299
 msgid "Feedback"
 msgstr "Suggeriments"
 
@@ -594,47 +612,47 @@ msgstr "Contrasenya EAP"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:123
+#: core/common/Entity.php:125
 msgid "National Roaming Operator"
 msgstr "Operador d'intinerància nacional"
 
-#: core/common/Entity.php:124
+#: core/common/Entity.php:126
 msgid "identity provider"
 msgstr "proveïdor d'identitat"
 
-#: core/common/Entity.php:125
+#: core/common/Entity.php:127
 msgid "organisation"
 msgstr "organització"
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:128
 msgid "Identity Provider"
 msgstr "Proveïdor d'Identitat"
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:129
 msgid "Wi-Fi Hotspot"
 msgstr "Wi-Fi Hotspot"
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:130
 msgid "Hotspot"
 msgstr "Hotspot"
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:131
 msgid "Service Provider"
 msgstr "Proveidor de servei (SP)"
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:132
 msgid "participant"
 msgstr "participant"
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:133
 msgid "Organisation"
 msgstr "Organització"
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:134
 msgid "organization"
 msgstr "organització"
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:135
 msgid "entity"
 msgstr "entitat"
 
@@ -661,7 +679,7 @@ msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" . Això és %s."
 #: core/common/OutsideComm.php:301
 #, php-format
 msgid ""
-"You have succesfully invited yourself to manage %s %s.\n"
+"You have successfully invited yourself to manage %s %s.\n"
 " If this mail is not the result of an action taken by you then please report "
 "this to your %s %s administrator.\n"
 msgstr ""

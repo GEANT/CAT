@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>, 2018-2019,2022,2024\n"
 "Language-Team: Greek (Greece) (http://app.transifex.com/eduroam_devel/cat/"
@@ -523,7 +523,7 @@ msgstr ""
 " να σας κοιτάζει. Δικό σας λάθος; Δικό μας σφάλμα; Ποιος ξέρει! Ίσως να "
 "πρέπει να επιστρέψετε στην <a href='%s'>Αρχική Σελίδα</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Δήλωση περί Απορρήτου %s"
@@ -709,13 +709,8 @@ msgstr ""
 "για να λάβετε αυτό το σύνδεσμο."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
+msgid "Administrator login"
 msgstr ""
-"Αυτή η ιστοσελίδα παρέχει πακέτα εγκατάστασης %s για πολλούς οργανισμούς, "
-"πατήστε εδώ για να διαπιστώσετε αν υπάρχει στη λίστα ο δικός σας."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

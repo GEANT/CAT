@@ -5,15 +5,15 @@
 # Translators:
 # Håvard Ramberg, 2022,2024
 # ffec5bdd8bc4b91afb3a1750da9849ce_15f9003 <c249bc393dbe3bb0ade43bf3e20b7f8c_224491>, 2015
-# Tom Ivar Myren <tom.myren@sikt.no>, 2024
+# Tom Ivar Myren <tom.myren@sikt.no>, 2024,2026
 # Tom Ivar Myren <tom.myren@sikt.no>, 2018-2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Tom Ivar Myren <tom.myren@sikt.no>, 2024\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@sikt.no>, 2024,2026\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://app.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -496,7 +496,7 @@ msgstr ""
 "Din feil eller en feil hos oss? Hvem vet! Forsøk å gå tilbake til <a "
 "href='%s'>Startsiden</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Personvern"
@@ -676,13 +676,8 @@ msgstr ""
 "din IT support. Vennligst kontakt IT avdelingen for å få en slik link"
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
+msgid "Administrator login"
 msgstr ""
-"Dette nettstedet tilbyr %s installers for mange organisasjoner, klikk her "
-"for å se om din organisasjon er blant dem."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
@@ -928,7 +923,7 @@ msgstr "Kontoinformasjon ikke funnet"
 msgid ""
 "The invitation link you followed does not map to any invitation we have on "
 "file."
-msgstr ""
+msgstr "Invitasjonslinken du brukte peker ikke til en kjent invitasjon."
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
 #, php-format
@@ -1256,7 +1251,7 @@ msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:139
 msgid "11, 10, 8, 7, Vista"
-msgstr ""
+msgstr "11, 10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:57+0000\n"
 "Last-Translator: Gokhan Eryol <gokhaneryol@gmail.com>, 2024\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/eduroam_devel/cat/"
@@ -644,7 +644,7 @@ msgid "personal certificate file (p12 or pfx)"
 msgstr "kişisel sertifika dosysı (p12 ya da pfx)"
 
 #: devices/linux/DeviceLinux.php:147 devices/linux/DeviceLinuxSh.php:146
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "All files"
 msgstr "Bütün dosyalar"
 
@@ -661,8 +661,8 @@ msgid "Write the file"
 msgstr "Dosyaya yaz"
 
 #: devices/linux/DeviceLinux.php:151 devices/linux/DeviceLinuxSh.php:150
-#: devices/ms/Files/common.inc:1369 devices/ms/Files/common.inc:1389
-#: devices/ms/Files/common.inc:1440
+#: devices/ms/Files/common.inc:1391 devices/ms/Files/common.inc:1411
+#: devices/ms/Files/common.inc:1462
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -694,21 +694,28 @@ msgstr "kişisel sertifika dosyası bulunamadı"
 msgid "Directory {} exists; some of its files may be overwritten"
 msgstr ""
 
-#: devices/linux/DeviceLinux.php:342
+#: devices/linux/DeviceLinux.php:156
+msgid ""
+"Configure eduroam also on the wired Ethernet?\\n\\n Please be aware that "
+"doing so will introduce a connection delay lasting up to 30 sec. when you "
+"connect to an open wired network."
+msgstr ""
+
+#: devices/linux/DeviceLinux.php:363
 msgid "This installer has been prepared for {0}"
 msgstr " Bu yükleyici {0} için hazırlanmıştır."
 
-#: devices/linux/DeviceLinux.php:342 devices/linux/DeviceLinuxSh.php:344
-#: devices/ms/Files/common.inc:493 devices/ms/Files/common.inc:500
+#: devices/linux/DeviceLinux.php:363 devices/linux/DeviceLinuxSh.php:344
+#: devices/ms/Files/common.inc:508 devices/ms/Files/common.inc:515
 msgid "More information and comments:"
 msgstr "Daha fazla bilgi ve yorumlar:"
 
-#: devices/linux/DeviceLinux.php:343 devices/linux/DeviceLinuxSh.php:345
-#: devices/ms/Files/common.inc:551
+#: devices/linux/DeviceLinux.php:364 devices/linux/DeviceLinuxSh.php:345
+#: devices/ms/Files/common.inc:566
 msgid "Installer created with software from the GEANT project."
 msgstr "GEANT projesindem bir yazılımlala oluşturulan yükleyici"
 
-#: devices/linux/DeviceLinux.php:371
+#: devices/linux/DeviceLinux.php:392
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -716,7 +723,7 @@ msgstr ""
 "Bu yükleyici, yalnızca {0} üyesi ve {1} kullanıcı grubu üyesiyseniz düzgün "
 "çalışır."
 
-#: devices/linux/DeviceLinux.php:373
+#: devices/linux/DeviceLinux.php:394
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Bu yükleyici, yalnızca {0} üyesiyseniz düzgün çalışır."
 
@@ -866,36 +873,36 @@ msgstr ""
 "içeren bir zip dosyası ve mevcut tüm özniteliklerin bir dökümünü üretir. "
 "Kurulum, yapılandırılacak %d SSID ile çağrılır."
 
-#: devices/ms/Files/common.inc:148
+#: devices/ms/Files/common.inc:149
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr "%s Yükleyicisine Hoşgeldiniz"
 
-#: devices/ms/Files/common.inc:149
+#: devices/ms/Files/common.inc:150
 msgid "Installation complete"
 msgstr "Kurulum tamamlandı"
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Network profiles have been installed."
 msgstr "Ağ profilleri yüklendi."
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:151
 msgid "Your system is ready."
 msgstr "Sisteminiz hazır."
 
-#: devices/ms/Files/common.inc:151
+#: devices/ms/Files/common.inc:152
 msgid "Network installation had errors."
 msgstr "Ağ kurulumunda hatalar oluştu."
 
-#: devices/ms/Files/common.inc:151 devices/ms/Files/common.inc:1038
+#: devices/ms/Files/common.inc:152 devices/ms/Files/common.inc:1053
 msgid "Please contact ${SUPPORT}."
 msgstr "Lütfen ${SUPPORT} ile irtibata geçin."
 
-#: devices/ms/Files/common.inc:159
+#: devices/ms/Files/common.inc:160
 msgid "Accept"
 msgstr "Kabul Et"
 
-#: devices/ms/Files/common.inc:160
+#: devices/ms/Files/common.inc:161
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
@@ -903,48 +910,48 @@ msgstr ""
 "Eğer şartları kabul ediyorsanız Kabul ü seçin ve devam etmek için Yükle yi "
 "tıklayın."
 
-#: devices/ms/Files/common.inc:172
+#: devices/ms/Files/common.inc:173
 msgid "Finish"
 msgstr "Bitir"
 
-#: devices/ms/Files/common.inc:206
+#: devices/ms/Files/common.inc:207
 msgid "searching for certificate"
 msgstr "sertifika için arama"
 
-#: devices/ms/Files/common.inc:268
+#: devices/ms/Files/common.inc:269
 msgid "installing certificate"
 msgstr "sertifika yükleniyor"
 
-#: devices/ms/Files/common.inc:274
+#: devices/ms/Files/common.inc:275
 msgid "could not install certificate"
 msgstr "sertifika yüklenemiyor"
 
-#: devices/ms/Files/common.inc:481
+#: devices/ms/Files/common.inc:496
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 "TKIP olmayan profiller tercih edildi. Eğer seçeneğiniz varsa her zaman "
 "bunları kullanın."
 
-#: devices/ms/Files/common.inc:483
+#: devices/ms/Files/common.inc:498
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
 "TKIP olmayan profil tercih edildi. Eğer seçeneğiniz varsa her zaman bunu "
 "tercih edin."
 
-#: devices/ms/Files/common.inc:489 devices/ms/Files/common.inc:497
+#: devices/ms/Files/common.inc:504 devices/ms/Files/common.inc:512
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "Bu yükleyici; ${ORGANISATION}  organizasyonu için hazırlanmıştır."
 
-#: devices/ms/Files/common.inc:490
+#: devices/ms/Files/common.inc:505
 msgid "The installer will create the following wireless profiles:"
 msgstr "Yükleyici belirtilen bu kablosuz profili yaratacak:"
 
-#: devices/ms/Files/common.inc:498
+#: devices/ms/Files/common.inc:513
 msgid "The installer will create the wireless profile:"
 msgstr "Yükleyici kablosuz ağ profili oluşturacak:"
 
-#: devices/ms/Files/common.inc:617
+#: devices/ms/Files/common.inc:632
 msgid ""
 "Your Windows 10 has not been updated which means that you are likely to have "
 "problems accessing network. We suggest that you quit this installation, "
@@ -954,7 +961,7 @@ msgstr ""
 "olabilir. Bu nedenle, bu kurulumu sonlandırmanızı, Windows'unuzu "
 "güncellemenizi ve yeniden denemenizi öneriyoruz."
 
-#: devices/ms/Files/common.inc:624
+#: devices/ms/Files/common.inc:639
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
@@ -962,7 +969,7 @@ msgstr ""
 "Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 10 "
 "ve daha yenileri içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
 
-#: devices/ms/Files/common.inc:632 devices/ms/Files/common.inc:639
+#: devices/ms/Files/common.inc:647 devices/ms/Files/common.inc:654
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
@@ -970,7 +977,7 @@ msgstr ""
 "Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 8 ve "
 "8.1 içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
 
-#: devices/ms/Files/common.inc:648
+#: devices/ms/Files/common.inc:663
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
@@ -979,18 +986,18 @@ msgstr ""
 "Vista ve Windows 7 sürümlerinde çalışır. Doğru kurulum programını indirip "
 "tekrar deneyiniz."
 
-#: devices/ms/Files/common.inc:688
+#: devices/ms/Files/common.inc:703
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
 msgstr ""
 "Window kablosuz ağ yapılandırma servisi etkin değil. Yükeyici devam edemiyor."
 
-#: devices/ms/Files/common.inc:693
+#: devices/ms/Files/common.inc:708
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr "Kablosuz arayüzleri bulunamadı. Yükleyici devam edemiyor."
 
-#: devices/ms/Files/common.inc:699
+#: devices/ms/Files/common.inc:714
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
@@ -998,23 +1005,23 @@ msgstr ""
 "Kablosuz arabirim bulunamadı. Kablosuz erişim ayarları yapılmayacaktır. "
 "Kablolu arabirim  ayarlarınızın yapılması için devam etmek ister misiniz?"
 
-#: devices/ms/Files/common.inc:715
+#: devices/ms/Files/common.inc:730
 msgid "Do you want to enable access on wired interfaces?"
 msgstr "Kablolu arabirimler üzerinde erişimi etkinleştirmek ister misiniz?"
 
-#: devices/ms/Files/common.inc:756
+#: devices/ms/Files/common.inc:771
 msgid "Profiles installation"
 msgstr "Profiller kurulumu"
 
-#: devices/ms/Files/common.inc:775
+#: devices/ms/Files/common.inc:790
 msgid "Checking for profile $R8"
 msgstr "Profil $R8 kontrol ediliyor"
 
-#: devices/ms/Files/common.inc:783
+#: devices/ms/Files/common.inc:798
 msgid "found profile $R8"
 msgstr "Profil  $R8 bulundu"
 
-#: devices/ms/Files/common.inc:814
+#: devices/ms/Files/common.inc:829
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -1022,23 +1029,23 @@ msgstr ""
 "Ancak ${ORGANISATION} ve ${USER_GROUP} kullanıcı grubu üyesiyseniz bu "
 "yükleyici düzgün çalışır."
 
-#: devices/ms/Files/common.inc:814 devices/ms/Files/common.inc:817
+#: devices/ms/Files/common.inc:829 devices/ms/Files/common.inc:832
 msgid "Click OK to continue with installation."
 msgstr "Yüklemeye devam etmek için 'Tamam' ı tıklayın."
 
-#: devices/ms/Files/common.inc:817
+#: devices/ms/Files/common.inc:832
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
 msgstr "Ancak ${ORGANISATION} üyesiyseniz bu yükleyici düzgün çalışır."
 
-#: devices/ms/Files/common.inc:825
+#: devices/ms/Files/common.inc:840
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr "Lütfen, şimdi görüntülenecek ${ORGANISATION}'daki ek bilgileri okuyun."
 
-#: devices/ms/Files/common.inc:880
+#: devices/ms/Files/common.inc:895
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -1062,105 +1069,109 @@ msgstr ""
 "profillern kurulumunu yapacaktır. Daha sonra %s 'ye bağlanmak için kendi "
 "kullanıcı kodunuzu ve şifrenizi kullanmak durumundasınız."
 
-#: devices/ms/Files/common.inc:890
+#: devices/ms/Files/common.inc:905
 msgid "Please restart your system after installation finishes."
 msgstr "Kurulum bittiğinde bilgisayarınızı yeniden başlatınız."
 
-#: devices/ms/Files/common.inc:914
+#: devices/ms/Files/common.inc:929
 msgid "installing wired profile"
 msgstr "Kablolu ağ profili yükleniyor"
 
-#: devices/ms/Files/common.inc:955 devices/ms/Files/common.inc:980
+#: devices/ms/Files/common.inc:970 devices/ms/Files/common.inc:995
 msgid "deleting profile $R1"
 msgstr "$R1 profili siliniyor"
 
-#: devices/ms/Files/common.inc:989
+#: devices/ms/Files/common.inc:1004
 msgid "installing profile $R1"
 msgstr "$R1 profili yükleniyor"
 
-#: devices/ms/Files/common.inc:1038
+#: devices/ms/Files/common.inc:1053
 msgid "Profile installation error for $R1."
 msgstr "$R1 için profil kurulum hatası."
 
-#: devices/ms/Files/common.inc:1057
+#: devices/ms/Files/common.inc:1072
 msgid "deleting profile $R6"
 msgstr "Profil $R6 siliniyor."
 
-#: devices/ms/Files/common.inc:1087
+#: devices/ms/Files/common.inc:1102
 msgid "installing credentials for wired"
 msgstr "Kablolu ağ için kimlik bilgileri kuruluyor"
 
-#: devices/ms/Files/common.inc:1094
+#: devices/ms/Files/common.inc:1109
 msgid "installing credentials TLS"
 msgstr "TLS kimlik bilgileri yükleniyor"
 
-#: devices/ms/Files/common.inc:1184
+#: devices/ms/Files/common.inc:1199
 msgid "installing credentials for profile $R1"
 msgstr "$R1 profili için kimlik bilgileri yükleniyor"
 
-#: devices/ms/Files/common.inc:1204 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1219 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Kimlik bilgileri kurulum problemi"
 
-#: devices/ms/Files/common.inc:1213
+#: devices/ms/Files/common.inc:1229
+msgid "import password:"
+msgstr "içe aktarma parolası:"
+
+#: devices/ms/Files/common.inc:1232
+msgid "certificate password:"
+msgstr "sertikifa parolası:"
+
+#: devices/ms/Files/common.inc:1234 devices/ms/Files/common.inc:1512
+msgid "Username:"
+msgstr "Kullanıcı Adı:"
+
+#: devices/ms/Files/common.inc:1241
 #, php-format
 msgid "%s installer for"
 msgstr "%s için yükleyici"
 
-#: devices/ms/Files/common.inc:1213
+#: devices/ms/Files/common.inc:1241
 msgid "Install personal certificate"
 msgstr "Kişisel sertifika yükle"
 
-#: devices/ms/Files/common.inc:1216
+#: devices/ms/Files/common.inc:1244
 msgid "Preparing to install personal certificate."
 msgstr "Kişisel sertifika kurulumu için hazırlanıyor."
 
-#: devices/ms/Files/common.inc:1216
+#: devices/ms/Files/common.inc:1244
 msgid "Click OK to continue"
 msgstr "Devam etmek için 'Tamam' ı tıklayın"
 
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "Certificate files (*.p12)"
 msgstr "Sertifika dosyaları (*.p12)"
 
-#: devices/ms/Files/common.inc:1222
+#: devices/ms/Files/common.inc:1250
 msgid "Certificate files (*pfx)"
 msgstr "Sertifika dosyaları (*.pfx)"
 
-#: devices/ms/Files/common.inc:1225
-msgid "certificate password:"
-msgstr "sertikifa parolası:"
-
-#: devices/ms/Files/common.inc:1227 devices/ms/Files/common.inc:1491
-msgid "Username:"
-msgstr "Kullanıcı Adı:"
-
-#: devices/ms/Files/common.inc:1231
+#: devices/ms/Files/common.inc:1252
 msgid "Selected file: $Cert_file"
 msgstr "Seçilen dosyalar: $Cert_file"
 
-#: devices/ms/Files/common.inc:1233
-msgid "import password:"
-msgstr "içe aktarma parolası:"
+#: devices/ms/Files/common.inc:1280 devices/ms/Files/common.inc:1523
+msgid "Show password"
+msgstr ""
 
-#: devices/ms/Files/common.inc:1268
+#: devices/ms/Files/common.inc:1290
 msgid "No certificate file selected"
 msgstr "Sertifika dosyası seçilmedi"
 
-#: devices/ms/Files/common.inc:1272
+#: devices/ms/Files/common.inc:1294
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr " Yanlış içe aktarma parolası\\$r$\\n yeniden girin"
 
-#: devices/ms/Files/common.inc:1274
+#: devices/ms/Files/common.inc:1296
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Yanlış sertifika parolası\\$r$\\n yeniden girin"
 
-#: devices/ms/Files/common.inc:1349
+#: devices/ms/Files/common.inc:1371
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 "Kullanıcı adında bazı sondaki boşluklar bulunuyordu ve bunlar kaldırıldı."
 
-#: devices/ms/Files/common.inc:1384
+#: devices/ms/Files/common.inc:1406
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -1168,7 +1179,7 @@ msgstr ""
 "Hata: kullanıcı adınız 'xxx@${REALM}' biçiminde olmalı. Lütfen kullanıcı "
 "adını doğru biçimde girin."
 
-#: devices/ms/Files/common.inc:1386
+#: devices/ms/Files/common.inc:1408
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -1176,38 +1187,38 @@ msgstr ""
 "Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '${REALM}' ile "
 "bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
 
-#: devices/ms/Files/common.inc:1487
+#: devices/ms/Files/common.inc:1509
 msgid "User credentials"
 msgstr "Kullanıcı kimlik bilgileri"
 
-#: devices/ms/Files/common.inc:1494
+#: devices/ms/Files/common.inc:1515
 msgid "Password:"
 msgstr "Parola:"
 
-#: devices/ms/Files/common.inc:1497
+#: devices/ms/Files/common.inc:1519
 msgid "Repeat password:"
 msgstr "Parol Tekrarı:"
 
-#: devices/ms/Files/common.inc:1512
+#: devices/ms/Files/common.inc:1539
 msgid "Missing username"
 msgstr "Kullanıcı adı eksik"
 
-#: devices/ms/Files/common.inc:1524
+#: devices/ms/Files/common.inc:1551
 msgid "Missing password"
 msgstr "Eksik parola"
 
-#: devices/ms/Files/common.inc:1530
+#: devices/ms/Files/common.inc:1557
 msgid "Password mismatch"
 msgstr "Parola uyumsuzluğu."
 
-#: devices/ms/Files/common.inc:1623 devices/ms/Files/eap_w8.inc:32
+#: devices/ms/Files/common.inc:1650 devices/ms/Files/eap_w8.inc:32
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Kurulum"
 
-#: devices/ms/Files/common.inc:1623
+#: devices/ms/Files/common.inc:1650
 msgid "Checking for existing wireless profiles"
 msgstr "Varolan kablosuz ağ profilleri kontrol ediliyor."
 

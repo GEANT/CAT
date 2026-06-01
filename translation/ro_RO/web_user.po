@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Gheorghita Butnaru <gbutnaru@tuiasi.ro>, 2025\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/eduroam_devel/"
@@ -524,7 +524,7 @@ msgstr ""
 "Se uită la tine. Greșeala ta? Eroarea ta? Cine știe! Poate ar trebuii să te "
 "duci înapoi la <a href='%s'> Pagina de Start</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Note private %s"
@@ -708,13 +708,8 @@ msgstr ""
 "avea acces la acest link."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
+msgid "Administrator login"
 msgstr ""
-"Acest site vă oferă programele de instalare %s pentru multe organizații, "
-"click aici pentru a vedea dacă organizația dumneavoastră este pe listă."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

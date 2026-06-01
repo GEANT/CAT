@@ -4,7 +4,7 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2018
-# Alberto Martínez Setién, 2019-2020,2022-2025
+# Alberto Martínez Setién, 2019-2020,2022-2026
 # David Moreno, 2022
 # Francisco J. Medina Jimenez <fran@ugr.es>, 2022
 # José Manuel Macías, 2012-2013,2015
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
-"Last-Translator: Alberto Martínez Setién, 2019-2020,2022-2025\n"
+"Last-Translator: Alberto Martínez Setién, 2019-2020,2022-2026\n"
 "Language-Team: Spanish (Spain) (http://app.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -520,7 +520,7 @@ msgstr ""
 "delante tuya. ¿tu error? ¿el nuestro? ¡Quién sabe! Quizá deberías regresar a "
 "la <a href='%s'>Página de Inicio</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Aviso de privacidad de %s"
@@ -705,13 +705,8 @@ msgstr ""
 "TI para obtener este enlace."
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
-msgstr ""
-"Este sitio proporciona instaladores de %s para muchas organizaciones. Haz "
-"clic aquí para ver si la tuya está en la lista."
+msgid "Administrator login"
+msgstr "Inicio de sesión de administrador"
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"

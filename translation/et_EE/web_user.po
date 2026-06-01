@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-04 12:24+0100\n"
+"POT-Creation-Date: 2026-06-01 12:55+0200\n"
 "PO-Revision-Date: 2011-10-27 10:56+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>, 2018-2019,2021-2025\n"
 "Language-Team: Estonian (Estonia) (http://app.transifex.com/eduroam_devel/"
@@ -491,7 +491,7 @@ msgstr ""
 "Sinu aps? Meie viga? Kes teab. Vahest peaksid minema tagasi <a "
 "href='%s'>avalehele</a>."
 
-#: web/tou.php:76 web/skins/modern/Divs.php:348 web/skins/msp/Divs.php:223
+#: web/tou.php:76 web/skins/modern/Divs.php:377 web/skins/msp/Divs.php:223
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s privaatsuspoliitika"
@@ -673,13 +673,8 @@ msgstr ""
 "poole. "
 
 #: web/lib/user/TextTemplates.php:129
-#, php-format
-msgid ""
-"This site provides %s installers for many organisations, click here to see "
-"if yours is on the list."
+msgid "Administrator login"
 msgstr ""
-"See leht pakub paljudele asutustele %si paigaldusprogrammi. Kõpsa siia, et "
-"näha, kas Sinu asutus on nimekirjas."
 
 #: web/lib/user/TextTemplates.php:130
 msgid "Custom built for you"
