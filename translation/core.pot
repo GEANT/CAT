@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-14 12:16+0200\n"
+"POT-Creation-Date: 2026-06-01 10:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,39 +335,39 @@ msgstr ""
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeploymentManaged.php:756
+#: core/DeploymentManaged.php:765
 msgid "Profile deactivation succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:756
+#: core/DeploymentManaged.php:765
 msgid "Profile activation/modification succeeded"
 msgstr ""
 
-#: core/DeploymentManaged.php:758
+#: core/DeploymentManaged.php:767
 msgid "Profile deactivation failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:758
+#: core/DeploymentManaged.php:767
 msgid "Profile activation/modification failed"
 msgstr ""
 
-#: core/DeploymentManaged.php:762
+#: core/DeploymentManaged.php:771
 msgid "on both RADIUS servers: primary and backup"
 msgstr ""
 
-#: core/DeploymentManaged.php:765
+#: core/DeploymentManaged.php:774
 msgid "on primary RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:767
+#: core/DeploymentManaged.php:776
 msgid "on backup RADIUS server"
 msgstr ""
 
-#: core/DeploymentManaged.php:775
+#: core/DeploymentManaged.php:784
 msgid "RADIUS profile update problem fixed"
 msgstr ""
 
-#: core/DeploymentManaged.php:777
+#: core/DeploymentManaged.php:786
 msgid "RADIUS profile update problem"
 msgstr ""
 
@@ -517,7 +517,7 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr ""
 
-#: core/User.php:306
+#: core/User.php:299
 msgid "Feedback"
 msgstr ""
 

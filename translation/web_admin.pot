@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: web/lib/admin/Authentication.php:101 web/lib/admin/UIElements.php:185
+#: web/lib/admin/Authentication.php:91 web/lib/admin/UIElements.php:185
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-14 12:16+0200\n"
+"POT-Creation-Date: 2026-06-01 10:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -440,21 +440,21 @@ msgstr ""
 msgid "%s Properties"
 msgstr ""
 
-#: web/admin/edit_federation.php:82 web/admin/edit_hotspot.php:308
+#: web/admin/edit_federation.php:82 web/admin/edit_hotspot.php:317
 #: web/admin/edit_participant.php:102 web/admin/edit_silverbullet.php:347
 #: web/admin/edit_user.php:45 web/admin/overview_federation.php:89
 #: web/admin/overview_federation.php:169 web/admin/overview_user.php:152
 msgid "Property Type"
 msgstr ""
 
-#: web/admin/edit_federation.php:83 web/admin/edit_hotspot.php:309
+#: web/admin/edit_federation.php:83 web/admin/edit_hotspot.php:318
 #: web/admin/edit_participant.php:103 web/admin/edit_user.php:46
 #: web/admin/overview_federation.php:90 web/admin/overview_federation.php:170
 #: web/admin/overview_user.php:153
 msgid "Language if applicable"
 msgstr ""
 
-#: web/admin/edit_federation.php:84 web/admin/edit_hotspot.php:310
+#: web/admin/edit_federation.php:84 web/admin/edit_hotspot.php:319
 #: web/admin/edit_participant.php:104 web/admin/edit_silverbullet.php:348
 #: web/admin/edit_user.php:47 web/admin/overview_federation.php:91
 #: web/admin/overview_federation.php:171 web/admin/overview_user.php:154
@@ -473,19 +473,19 @@ msgstr ""
 msgid "Add new option"
 msgstr ""
 
-#: web/admin/edit_federation.php:115 web/admin/edit_hotspot.php:377
+#: web/admin/edit_federation.php:115 web/admin/edit_hotspot.php:386
 #: web/admin/edit_participant.php:170 web/admin/edit_profile.php:484
 #: web/admin/edit_user.php:68 web/admin/overview_installers.php:181
 msgid "Save data"
 msgstr ""
 
-#: web/admin/edit_federation.php:116 web/admin/edit_hotspot.php:378
+#: web/admin/edit_federation.php:116 web/admin/edit_hotspot.php:387
 #: web/admin/edit_participant.php:165 web/admin/edit_profile.php:482
 #: web/admin/edit_user.php:71
 msgid "Discard changes"
 msgstr ""
 
-#: web/admin/edit_federation.php:118 web/admin/edit_hotspot.php:380
+#: web/admin/edit_federation.php:118 web/admin/edit_hotspot.php:389
 #: web/admin/edit_participant.php:162 web/admin/edit_profile.php:479
 #: web/admin/overview_sp.php:512
 msgid "Return"
@@ -534,57 +534,57 @@ msgstr ""
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:267
+#: web/admin/edit_hotspot.php:276
 #, php-format
 msgid "%s: Enrollment Wizard (Step 3)"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:283
+#: web/admin/edit_hotspot.php:292
 #, php-format
 msgid "Editing %s deployment"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:298
+#: web/admin/edit_hotspot.php:307
 msgid "Options for this deployment"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:316
+#: web/admin/edit_hotspot.php:325
 msgid "Custom  Hotspot Name:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:327
+#: web/admin/edit_hotspot.php:336
 msgid "Custom Operator-Name:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:338
+#: web/admin/edit_hotspot.php:347
 #, php-format
 msgid "VLAN tag for guests:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:338 web/admin/edit_hotspot.php:354
+#: web/admin/edit_hotspot.php:347 web/admin/edit_hotspot.php:363
 msgid "(unset with '0')"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:354
+#: web/admin/edit_hotspot.php:363
 #, php-format
 msgid "VLAN tag for own users%s:"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:371
+#: web/admin/edit_hotspot.php:380
 msgid "Add new option (a realm for own users)"
 msgstr ""
 
-#: web/admin/edit_hotspot.php:389
+#: web/admin/edit_hotspot.php:398
 msgid "VLAN tag for own users not set, realm setting will be not used."
 msgstr ""
 
-#: web/admin/edit_hotspot.php:390
+#: web/admin/edit_hotspot.php:399
 msgid ""
 "A realm to be considered own users is not set, VLAN tag setting will be not "
 "used."
 msgstr ""
 
-#: web/admin/edit_hotspot.php:391
+#: web/admin/edit_hotspot.php:400
 msgid "Do you want to save this data after all?"
 msgstr ""
 
@@ -2912,7 +2912,7 @@ msgstr ""
 msgid "%s Name (%s)"
 msgstr ""
 
-#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:100
+#: web/admin/inc/manageDBLink.inc.php:119 web/lib/admin/Authentication.php:90
 msgid "Unnamed User"
 msgstr ""
 

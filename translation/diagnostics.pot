@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-14 12:16+0200\n"
+"POT-Creation-Date: 2026-06-01 10:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Connected to %s."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1385 web/diag/radius_tests.php:279
+#: core/diag/RADIUSTests.php:1385 web/diag/radius_tests.php:283
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -468,7 +468,7 @@ msgid "SubjectAltName:"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:231 web/diag/action_realmcheck.php:616
-#: web/diag/action_realmcheck.php:625 web/diag/show_realmcheck.php:134
+#: web/diag/action_realmcheck.php:625 web/diag/show_realmcheck.php:135
 msgid "Overview"
 msgstr ""
 
@@ -565,7 +565,7 @@ msgid "Dynamic discovery test is not configured"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:314 web/diag/action_realmcheck.php:617
-#: web/diag/action_realmcheck.php:799 web/diag/show_realmcheck.php:135
+#: web/diag/action_realmcheck.php:799 web/diag/show_realmcheck.php:136
 msgid "Static connectivity tests"
 msgstr ""
 
@@ -576,7 +576,7 @@ msgid "See the appropriate tab for details."
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:321 web/diag/action_realmcheck.php:618
-#: web/diag/action_realmcheck.php:804 web/diag/show_realmcheck.php:139
+#: web/diag/action_realmcheck.php:804 web/diag/show_realmcheck.php:140
 msgid "Dynamic connectivity tests"
 msgstr ""
 
@@ -632,7 +632,7 @@ msgid "not supported: "
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:450 web/diag/action_realmcheck.php:129
-#: web/diag/show_realmcheck.php:62
+#: web/diag/show_realmcheck.php:63
 msgid "more"
 msgstr ""
 
@@ -697,7 +697,7 @@ msgid "All tests passed, congratulations!"
 msgstr ""
 
 #: core/diag/RADIUSTestsUI.php:586 web/diag/action_realmcheck.php:131
-#: web/diag/action_realmcheck.php:904 web/diag/show_realmcheck.php:60
+#: web/diag/action_realmcheck.php:904 web/diag/show_realmcheck.php:61
 msgid "Show detailed information for all tests"
 msgstr ""
 
@@ -1319,7 +1319,7 @@ msgstr ""
 msgid "Public key length"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:161 web/diag/show_realmcheck.php:61
+#: web/diag/action_realmcheck.php:161 web/diag/show_realmcheck.php:62
 msgid "Hide detailed information for all tests"
 msgstr ""
 
@@ -1331,7 +1331,7 @@ msgstr ""
 msgid "Server certificate details:"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:611 web/diag/show_realmcheck.php:126
+#: web/diag/action_realmcheck.php:611 web/diag/show_realmcheck.php:127
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
@@ -1362,7 +1362,7 @@ msgstr ""
 msgid "At least one SRV with invalid content found!"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:821 web/diag/show_realmcheck.php:151
+#: web/diag/action_realmcheck.php:821 web/diag/show_realmcheck.php:152
 msgid "Repeat static connectivity tests"
 msgstr ""
 
@@ -1376,7 +1376,7 @@ msgstr ""
 msgid "testing..."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:873 web/diag/show_realmcheck.php:162
+#: web/diag/action_realmcheck.php:873 web/diag/show_realmcheck.php:163
 msgid "Repeat dynamic connectivity tests"
 msgstr ""
 
@@ -1610,65 +1610,65 @@ msgstr ""
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
 
-#: web/diag/radius_tests.php:214
+#: web/diag/radius_tests.php:218
 msgid "<strong>Test successful.</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:218
+#: web/diag/radius_tests.php:222
 msgid "<strong>Test partially successful</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:221
+#: web/diag/radius_tests.php:225
 msgid "<strong>Test FAILED</strong>: authentication succeeded."
 msgstr ""
 
-#: web/diag/radius_tests.php:226
+#: web/diag/radius_tests.php:230
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
 
-#: web/diag/radius_tests.php:231
+#: web/diag/radius_tests.php:235
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/diag/radius_tests.php:235
+#: web/diag/radius_tests.php:239
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
 
-#: web/diag/radius_tests.php:241 web/diag/radius_tests.php:290
+#: web/diag/radius_tests.php:245 web/diag/radius_tests.php:294
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
 
-#: web/diag/radius_tests.php:246 web/diag/radius_tests.php:294
+#: web/diag/radius_tests.php:250 web/diag/radius_tests.php:298
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
 
-#: web/diag/radius_tests.php:251
+#: web/diag/radius_tests.php:255
 msgid "<strong>Test not executed</strong>: insufficient data provided!"
 msgstr ""
 
-#: web/diag/radius_tests.php:256
+#: web/diag/radius_tests.php:260
 msgid "<strong>Test FAILED</strong>"
 msgstr ""
 
-#: web/diag/radius_tests.php:277
+#: web/diag/radius_tests.php:281
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
 
-#: web/diag/radius_tests.php:283
+#: web/diag/radius_tests.php:287
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1678,44 +1678,44 @@ msgid ""
 "appears misconfigured or it is unreachable."
 msgstr ""
 
-#: web/diag/radius_tests.php:298
+#: web/diag/radius_tests.php:302
 msgid "unhandled error"
 msgstr ""
 
-#: web/diag/radius_tests.php:323 web/diag/radius_tests.php:391
+#: web/diag/radius_tests.php:327 web/diag/radius_tests.php:395
 msgid "<strong>ERROR</strong>: connectivity problem!"
 msgstr ""
 
-#: web/diag/radius_tests.php:335
+#: web/diag/radius_tests.php:339
 #, php-format
 msgid "elapsed time: %d"
 msgstr ""
 
-#: web/diag/radius_tests.php:337
+#: web/diag/radius_tests.php:341
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
 
-#: web/diag/radius_tests.php:347
+#: web/diag/radius_tests.php:351
 msgid ""
 "<strong>WARNING</strong>: the server name as discovered in the SRV record "
 "does not match any name in the server certificate!"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:130
+#: web/diag/show_realmcheck.php:131
 msgid "Tests timestamp: "
 msgstr ""
 
-#: web/diag/show_realmcheck.php:145
+#: web/diag/show_realmcheck.php:146
 msgid "Repeat connectivity tests"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:174
+#: web/diag/show_realmcheck.php:175
 msgid "Token missing, no data can be presented"
 msgstr ""
 
-#: web/diag/show_realmcheck.php:176
+#: web/diag/show_realmcheck.php:177
 msgid ""
 "The token given in the request does not exists, no data can be presented"
 msgstr ""
