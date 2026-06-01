@@ -7,8 +7,8 @@ $guest_vlan = 0;
 if ( isset($_POST['enc'])  && $_POST['enc'] != '' && ($enc=base64_decode($_POST['enc'], true)) !== false ) {
     $decrypted = openssl_decrypt($enc, "CHACHA20", SERVER_SECRET, 0, SERVER_IV);
     if ($decrypted === false) {
-          echo "FAILURE";
-          exit;	  
+        echo "FAILURE";
+        exit;	  
     } else {
         parse_str($decrypted, $darr);
         if (!isset($darr['token']) || $darr['token'] != SERVER_TOKEN) {
@@ -49,7 +49,7 @@ if (
     } else {
         if (isset($darr['operatorname'])) {
             $opn = trim($darr['operatorname']);
-	}
+        }
         if (isset($darr['vlan']) && isset($darr['realmforvlan']) && is_array($darr['realmforvlan'])) {
             $vlans = $darr['vlan'] . '#' . implode('#', $darr['realmforvlan']);
         }
