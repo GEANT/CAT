@@ -154,7 +154,7 @@ class Authentication extends \core\common\Entity {
             throw new Exception("This database type is never an array!");
         }
         $truncatedUser = substr($user,0,999);      
-        $handle->exec("INSERT INTO admin_logins (user_id, last_login) VALUES ('$truncatedUser', NOW()) ON DUPLICATE KEY UPDATE last_login=NOW()");
+        $handle->exec("INSERT INTO admin_logins (user_id, last_login) VALUES (?, NOW()) ON DUPLICATE KEY UPDATE last_login=NOW()", 's', $truncatedUser);
     }
 
 }
