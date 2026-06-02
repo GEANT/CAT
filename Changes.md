@@ -1,54 +1,45 @@
-Changes in 2.2.1.1-alpha
+Changes in 2.2.2
+=====================
 - [BUGFIX   #1] - fixed the problem with Add/Remove adminstrotors for institution admins
 - [BUGFIX   #2] - introduce better type-safety for admin API (reported by: Nahit (Github: https://github.com/Dogru-Isim))
 - [BUGFIX   #3] - boolean options should not be automatically set in the wizard mode
 
-
 GENERAL
-allow superadmin and support users to download installers of unpublished profiles
-add the concept of single/multivalued configuration option and limit the display of already used ones
-add uniform and sorted display of configuration options
-add the possibility to run automatic connectivity tests unless federations block that
+- [FEATURE  #1]  - allow superadmin and support users to download installers of unpublished profiles
+- [FEATURE  #2]  - add the concept of single/multivalued configuration option and limit the display of already used ones
+- [FEATURE  #3]  - add uniform and sorted display of configuration options
+- [FEATURE  #4]  - add the possibility to run automatic connectivity tests unless federations block that
 
 NRO
-add the possibility to change institution type between IdP, SP and IdPSP
-add the possibility to force a one-level structure of institution admins in a given federation (a reversible decision)
-extend the admin API - add creation of new institutions based on eduroam DB; add implementation of API testing of RADIUS connectivity
-add the connectivity tests status column to the NRO overview screen
-add the missing privacy support warning icon to the NRO overview screen
-add the icons showing wired suport turned on for institutions on the NRO overview screen
-add the count of currently visible institutions on the NRO overview screen
-add the distinguished_name listing in CSR upload
-
+- [FEATURE  #5]  - add the possibility to change institution type between IdP, SP and IdPSP
+- [FEATURE  #6]  - add the possibility to force a one-level structure of institution admins in a given federation (a reversible decision)
+- [FEATURE  #7]  - extend the admin API - add creation of new institutions based on eduroam DB; add implementation of API testing of RADIUS connectivity
+- [FEATURE  #8]  - add the connectivity tests status column to the NRO overview screen
+- [FEATURE  #9]  - add the warning icon about missing privacy support to the NRO overview screen
+- [FEATURE #10]  - add the icons showing wired suport turned on for institutions on the NRO overview screen
+- [FEATURE #11]  - add the count of currently visible institutions on the NRO overview screen
+- [FEATURE #12]  - add the distinguished_name listing in CSR upload
 
 ORGANISATION
-add the display of eduPersonEntitlement values for admin users (in case the NRO supports entitlement-based self-registration)
-add the privileges auto-upgrade possibility for entitled administrators
-add OpenRoaming profile configuration testing from the institution overview screen
-add the connectivity tests status icon for each profile to the institution overview screen
-add the missing privacy support warning icon for each profile to the institution overview screen
-better support for coexistence  of Managed SP and the basic configurator service
-Managed SP - multiple improvements for the presentation of  admin interface
-Managed SP - introduction of port range limits
-Managed SP - add deployment naming option
-Managed SP - add the possibility of new secret generation for existing deployments
-Managed SP - introduce the option to disable UDP support in a given deployment
-Managed SP - making RADIUS logs for a given deployment available to download via administrator panel
-Managed SP - upgrade of RADIUS server components of docker image: debian-13, the latest freeRADIUS and radsecproxy
+- [FEATURE #13]  - add the display of eduPersonEntitlement values for admin users (in case the NRO supports entitlement-based self-registration)
+- [FEATURE #14]  - add the privileges auto-upgrade possibility for entitled administrators
+- [FEATURE #15]  - add OpenRoaming profile configuration testing from the institution overview screen
+- [FEATURE #16]  - add the connectivity tests status icon for each profile to the institution overview screen
+- [FEATURE #17]  - add the missing privacy support warning icon for each profile to the institution overview screen
+- [FEATURE #18]  - better support for coexistence  of Managed SP and the basic configurator service
+- [FEATURE #19]  - Managed SP - multiple improvements for the presentation of  admin interface
+- [FEATURE #20]  - Managed SP - introduction of port range limits
+- [FEATURE #21]  - Managed SP - add deployment naming option
+- [FEATURE #22]  - Managed SP - add the possibility of new secret generation for existing deployments
+- [FEATURE #23]  - Managed SP - introduce the option to disable UDP support in a given deployment
+- [FEATURE #24]  - Managed SP - making RADIUS logs for a given deployment available to download via administrator panel
+- [FEATURE #25]  - Managed SP - upgrade of RADIUS server components of docker image: debian-13, the latest freeRADIUS and radsecproxy
 
 DEVICE
-several additions/improvements to the Linux installer
-add explicit definition of outer identity in Linux installer in case it has not been defined in CAT (by Alba Mendez)
-add support for setting up wired eduroam in Linux installer
-in Windows installer replace the requirement to enter user password twice by show/hide password switch (suggested by ...
-
-
-
-
-
-
-
-
+- [FEATURE #26]  - add explicit definition of outer identity in Linux installer in case it has not been defined in CAT (by Alba Mendez)
+- [FEATURE #27]  - add support for setting up wired eduroam in Linux installer (suggested by Benoit Le Texier)​
+- [MODIFICATION #1]  - several additions/improvements to the Linux installer
+- [MODIFICATION #2]  - in Windows installer replace the requirement to enter user password twice by show/hide password switch (ssuggested by Robert Zagorski)
 
 
 Changes in 2.2.1
