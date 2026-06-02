@@ -27,12 +27,14 @@ add the privileges auto-upgrade possibility for entitled administrators
 add OpenRoaming profile configuration testing from the institution overview screen
 add the connectivity tests status icon for each profile to the institution overview screen
 add the missing privacy support warning icon for each profile to the institution overview screen
-multiple improvements for the presentation of Managed SP admin interface
 better support for coexistence  of Managed SP and the basic configurator service
-introduction of port range limits for ManagedSP
-add deployment naming option
-add the possibility of new secret generation for existing ManagedSP deployments
-introduce the option to disable UDP support in a given deployment
+Managed SP - multiple improvements for the presentation of  admin interface
+Managed SP - introduction of port range limits
+Managed SP - add deployment naming option
+Managed SP - add the possibility of new secret generation for existing deployments
+Managed SP - introduce the option to disable UDP support in a given deployment
+Managed SP - making RADIUS logs for a given deployment available to download via administrator panel
+Managed SP - upgrade of RADIUS server components of docker image: debian-13, the latest freeRADIUS and radsecproxy
 
 DEVICE
 several additions/improvements to the Linux installer
