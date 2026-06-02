@@ -426,21 +426,25 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 // get max profile status
                 $profileClass = '';
                 $maxProfileStatus = $idp_instance->maxProfileStatus();
-                if ($maxProfileStatus === \core\IdP::PROFILES_REDIRECTED) {
-                    $status = \core\IdP::PROFILES_REDIRECTED;
-                    $profileClass = 'profileredirected profileok';
-                } elseif ($maxProfileStatus >= \core\IdP::PROFILES_SHOWTIME) {
-                    $status = \core\IdP::PROFILES_SHOWTIME;
-                    $profileClass = 'profileok';
-                } elseif ($maxProfileStatus >= \core\IdP::PROFILES_CONFIGURED) {
-                    $status = \core\IdP::PROFILES_CONFIGURED;
-                    $profileClass = 'profilewarn';                    
+                if ($idp_instance->type === 'SP') {
+                    $profileIcon = '';
                 } else {
-                    $status = \core\IdP::PROFILES_INCOMPLETE;
-                    $profileClass = 'profilewarn';                                        
+                    if ($maxProfileStatus === \core\IdP::PROFILES_REDIRECTED) {
+                        $status = \core\IdP::PROFILES_REDIRECTED;
+                        $profileClass = 'profileredirected profileok';
+                    } elseif ($maxProfileStatus >= \core\IdP::PROFILES_SHOWTIME) {
+                        $status = \core\IdP::PROFILES_SHOWTIME;
+                        $profileClass = 'profileok';
+                    } elseif ($maxProfileStatus >= \core\IdP::PROFILES_CONFIGURED) {
+                        $status = \core\IdP::PROFILES_CONFIGURED;
+                        $profileClass = 'profilewarn';                    
+                    } else {
+                        $status = \core\IdP::PROFILES_INCOMPLETE;
+                        $profileClass = 'profilewarn';                                        
+                    }
+                    $profileIconData = $uiElements->iconData(\core\IdP::PROFILES_INDEX[$status]);  
+                    $profileIcon = $uiElements->catIcon($profileIconData);
                 }
-                $profileIconData = $uiElements->iconData(\core\IdP::PROFILES_INDEX[$status]);  
-                $profileIcon = $uiElements->catIcon($profileIconData);
                 
                 $hostedSpClass = '';
                 if (\core\CAT::hostedSPEnabled()) {
@@ -465,15 +469,19 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 
                 // verify the certificates status for this IdP
                 $certClass = 'certok';
-                if (isset($idpStatus['cert']) && $idpStatus['cert'] !== null) {
-                    $certIconData = $uiElements->iconData(\core\AbstractProfile::CERT_STATUS_INDEX[$idpStatus['cert']]);
-                    if ($idpStatus['cert'] > 0) {
-                        $certClass = 'certproblem';
-                    }
+                if ($idp_instance->type === 'SP') {
+                    $certIcon = '';
                 } else {
-                    $certIconData = $uiElements->iconData('CERTS_NOT_SHOWN');
+                    if (isset($idpStatus['cert']) && $idpStatus['cert'] !== null) {
+                        $certIconData = $uiElements->iconData(\core\AbstractProfile::CERT_STATUS_INDEX[$idpStatus['cert']]);
+                        if ($idpStatus['cert'] > 0) {
+                            $certClass = 'certproblem';
+                        }
+                    } else {
+                        $certIconData = $uiElements->iconData('CERTS_NOT_SHOWN');
+                    }
+                    $certIcon = $uiElements->catIcon($certIconData);
                 }
-                $certIcon = $uiElements->catIcon($certIconData);
                 
                 $testClass = 'testok';
                 $testIcon = '-';
