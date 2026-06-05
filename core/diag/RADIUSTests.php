@@ -379,9 +379,9 @@ class RADIUSTests extends AbstractTest {
     private function addCrltoCert(&$cert) {
         $crlUrl = [];
         $returnresult = 0;
-        if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
-            return RADIUSTests::CERTPROB_NO_CDP;
-        }
+//        if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
+//            return RADIUSTests::CERTPROB_NO_CDP;
+//        }
         if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             return RADIUSTests::CERTPROB_NO_CDP_HTTP;
         }
