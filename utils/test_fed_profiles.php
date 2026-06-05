@@ -2,6 +2,15 @@
 
 require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 setlocale(LC_CTYPE, "en_US.UTF-8");
+$api_url = getenv('API_URL');
+if ($api_url === false) {
+    print "Missing API_URL environment variable - cannot continue\n";
+    exit;
+}
+if (!preg_match('/^http/', $api_url)) {
+    print "API_URL env variable does not start with http - cannot continue\n";
+    exit;
+}
 $DB_LOCAL = \config\Master::DB['INST'];
 $db = new mysqli($DB_LOCAL['host'], $DB_LOCAL['user'], $DB_LOCAL['pass']);
 $db->select_db($DB_LOCAL['db']);
@@ -22,7 +31,7 @@ $db->query("DELETE from feds_for_testing WHERE federation_id='$fedId'");
 $db->query("UNLOCK TABLES");
 print "Now testing $fedId\n";
 $adminApi = new \web\lib\admin\API();
-$adminApi->catlink = 'https://cat-test.eduroam.org/twoln';
+$adminApi->catlink = $api_url;
 $adminApi->fed = new \core\Federation($fedId);
 $adminApi->outputFormat = 'array';
 
@@ -36,6 +45,7 @@ $codeMapping = [
     1 => \core\AbstractProfile::TEST_STATUS_REMARK,
     2 => \core\AbstractProfile::TEST_STATUS_WARN,
     3 => \core\AbstractProfile::TEST_STATUS_ERROR,
+    4 => \core\AbstractProfile::TEST_STATUS_CONF_ERROR,
     5 => \core\AbstractProfile::TEST_STATUS_UNKNOWN,
 ];
 
@@ -61,9 +71,12 @@ while ($row = $profiles->fetch_row()) {
     foreach ($results as $result) {
         $maxResult = max($maxResult, $result['returncode']);
     }
-    $updates[] = "UPDATE profile SET test_result=".$codeMapping[$maxResult]." WHERE profile_id=$profileId";
+    $final_result = $codeMapping[$maxResult];
+    if (!empty($final_result)) {
+        $updates[] = "UPDATE profile SET test_result=$final_result WHERE profile_id=$profileId";
 //    print "Result:".$maxResult."\n";
 //    print "Mapped Result:".$codeMapping[$maxResult]."\n";
+    }
 }
 
 foreach ($updates as $update) {
