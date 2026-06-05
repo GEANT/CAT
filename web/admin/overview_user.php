@@ -291,12 +291,12 @@ $end = $langInstance->rtl ? "left" : "right";
                             } elseif(in_array($the_inst->identifier, $externalOwned)) { 
                             $helpText = _("You can upgrade your access rights since your mail is listed as this institution administrator in the eduroam database.
                             The extended rights will allow you to invite other administrators to this institution.
-                            <p>Click the button to send the invitation token to your email address.");    
+                            <p>Click the button to upgrade access.");    
                                 ?>
                              <form action='inc/sendinvite.inc.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                     <input type="hidden" name="mailaddr" value="<?php echo $_SESSION['auth_email'];?>"/>
                     <input type="hidden" name="self_registration"/>
-                    <button type='submit' name='submitbutton' class='self-service' id='submintbutton_<?php echo $id; ?>' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo \web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send token<br>to upgrade access"); ?></button><?php print $wizard->displayHelpText($helpText, 'near');?><span style='display: none; font-weight: bold' class='token_confirm' id='token_confirm_<?php echo $id; ?>'><?php echo _("Token sent")?></span>
+                    <button type='submit' name='submitbutton' class='self-service' id='submintbutton_<?php echo $id; ?>' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo \web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Upgrade access"); ?></button><?php print $wizard->displayHelpText($helpText, 'near');?><span style='display: none; font-weight: bold' class='token_confirm' id='token_confirm_<?php echo $id; ?>'><?php echo _("Token sent")?></span>
                              </form>  
                             <?php
                             }
