@@ -198,8 +198,9 @@ if (!$isFedAdmin && $is_admin_with_blessing && !\core\Federation::isFlatAdminStr
                 <?php echo $invite; 
                 if ($lastAuth != null) {
                     echo "<br/>"._("Last seen: ").$lastAuth."</br>";
-                }
-                
+                } else {
+                    echo "<br/>".sprintf(_("Not seen since %s"), \config\ConfAssistant::ADMIN_LOGINS['startday'])."</br>";
+                }                
                 ?>
             </td>
             <td>
