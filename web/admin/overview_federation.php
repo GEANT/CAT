@@ -47,11 +47,11 @@ function limiterCheckbox($fedId, $name) {
         'PROFILE' => ['id' => 'profile', 'text' => _("Only instututions with profile problems")],
         'HOSTED_SP' => ['id' => 'hostedsp', 'text' => _("Only instututions with defined deployments")],
         'WIRED' => ['id' => 'wiredset', 'text' => _("Only instututions with wired support")],
-        'CERT' => ['id' => 'brokencert', 'text' => _("Only institutions with some certificate problems")],
+        'CERT' => ['id' => 'brokencert', 'text' => sprintf(_("Only institutions with certificate problems<ul><li>warning - less than %d days of validity<li>error - less than %d days of validity</ul>"), \config\ConfAssistant::CERT_WARNINGS['expiry_warning'], \config\ConfAssistant::CERT_WARNINGS['expiry_critical'])],
         'TEST' => ['id' => 'test', 'text' => _("Only institutions with test problems requiring special attention")],
         'ANON' => ['id' => 'anon', 'text' => _("Only institutions with no support for anonymous outer identity")],
         'OR' => ['id' => 'or', 'text' => _("Only institutions with OpenRoaming support")],
-        'ADMIN' => ['id' => 'adminproblem', 'text' => _("Only institutions with no admins")],
+        'ADMIN' => ['id' => 'adminproblem', 'text' => _("Only institutions with none or inactive admins")],
         'LINKED' => ['id' => 'unlinked', 'text' => _("Only institutions not linked")],
     ];
     $id = $limiters[$name]['id'];
@@ -556,12 +556,12 @@ var hide_downloads = "<?php echo _("Hide downloads") ?>";
                 $adminIcon = '<span style="padding-left:20px"></span>';
                 if (!$hideWarnings) {
                     if (!isset($thefed->adminLogins[$index])) {
-                        if ($status != \core\IdP::PROFILES_REDIRECTED) {
+                        if ($status !== \core\IdP::PROFILES_REDIRECTED) {
                             $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_MISSING'));
                             $adminClass = 'adminproblem';
                         }
-                    } elseif ($thefed->adminLogins[$index] == 1) {
-                        $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_INACTIVE'));
+                    } elseif ($thefed->adminLogins[$index] === 1) {
+                        $adminIcon = $uiElements->catIcon($uiElements->iconData('ADMINS_INACTIVE', sprintf(_("Some of the admins have not been seen for at least %d days"), $thefed->allowedInactivityDays)));
                         $adminClass = 'adminproblem';
                     }
                 }

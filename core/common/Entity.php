@@ -98,6 +98,16 @@ abstract class Entity
      * @var string
      */
     public static $nomenclature_hotspot;
+    
+    /**
+     * Two certificte validity details derived from \config\ConfAssistant::CERT_WARNINGS
+     * but converted to seconds
+     * 
+     * @var int expiryWarning
+     * @var int expiryCritical
+     */
+    protected $expiryWarning;
+    protected $expiryCritical;
 
     /**
      * the custom displayable variant of the term "participating organisation"
@@ -117,6 +127,8 @@ abstract class Entity
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(4, "--- BEGIN constructing class " . get_class($this) . " .\n");
         $this->languageInstance = new Language();
+        $this->expiryWarning = \config\ConfAssistant::CERT_WARNINGS['expiry_warning'] * 86400;
+        $this->expiryCritical = \config\ConfAssistant::CERT_WARNINGS['expiry_critical'] * 86400;
         Entity::intoThePotatoes("core");
         // some config elements are displayable. We need some dummies to 
         // translate the common values for them. If a deployment chooses a 

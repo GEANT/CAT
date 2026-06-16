@@ -154,6 +154,12 @@ $(document).ready(function() {
     });
 
     inst_td_width();
+    
+    $('[title]').tooltip({
+        content: function() {
+            return $(this).attr('title'); // renders HTML as-is
+        }
+    });
 });
 
 

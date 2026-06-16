@@ -76,6 +76,13 @@ class Federation extends EntityWithDBProperties
 
     public $adminLogins = [];
     
+    /**
+     * 
+     * @var int allowed number of days od admins inactivity
+     */
+    public $allowedInactivityDays;
+    
+    
     private $idpArray = [];
     /**
      * retrieve the statistics from the database in an internal array representation
@@ -555,9 +562,9 @@ class Federation extends EntityWithDBProperties
             // check if we have already seen this cert if not, continue analysis
             if (!isset($certsStatus[$encodedCert])) {
                 $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t'] - time();
-                if ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_critical']) {
+                if ($tm < $this->expiryCritical) {
                     $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_ERROR;
-                } elseif ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_warning']) {
+                } elseif ($tm < $this->expiryWarning) {
                     $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_WARN;
                 } else {
                     $certsStatus[$encodedCert] = \core\AbstractProfile::CERT_STATUS_OK;
@@ -917,8 +924,10 @@ class Federation extends EntityWithDBProperties
         } else {
             if ($inactivityOverride == []) {
                 $inactivityTimestamp = time() - \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'] * 24 * 3600;
+                $this->allowedInactivityDays = \config\ConfAssistant::ADMIN_LOGINS['allowed_inactivity_days'];
             } else {
                 $inactivityTimestamp = time() - $inactivityOverride[0]['value'] * 24 * 3600;
+                $this->allowedInactivityDays = $inactivityOverride[0]['value'];
             }
             // $active shows the time difference between the moment when a login would be considered as inactive
             // and the start of the recording system. If this is negative then we we cannot tell that someone who
@@ -936,10 +945,10 @@ class Federation extends EntityWithDBProperties
                 $this->adminLogins[$idp] = 0;
                 continue;
             }
-            if (isset($this->adminLogins[$idp]) && $this->adminLogins[$idp] == 1) {
+            if (isset($this->adminLogins[$idp]) && $this->adminLogins[$idp] === 1) {
                 continue;
             }
-            if ($adminLoginQuery->last_login == NULL) {
+            if ($adminLoginQuery->last_login === NULL) {
                 $this->adminLogins[$idp] = 1;
                 continue;
             }

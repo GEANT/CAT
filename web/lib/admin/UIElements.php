@@ -401,7 +401,7 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $validator = new \web\lib\common\InputValidation();
         $ref = $validator->databaseReference($cAReference);
-        $caExpiryTrashhold = \config\ConfAssistant::CERT_WARNINGS['expiry_warning'];
+        $caExpiryTrashhold = $this->expiryWarning;
         $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
@@ -436,10 +436,10 @@ class UIElements extends \core\common\Entity {
             return $retval;
         }
         $now = time();
-        if ($now + \config\ConfAssistant::CERT_WARNINGS['expiry_critical'] > $details['full_details']['validTo_time_t']) {
+        if ($now + $this->expiryCritical > $details['full_details']['validTo_time_t']) {
             $leftBorderColor = "red";
             $message = _("Certificate expired!") . "<br>";
-        } elseif($now + \config\ConfAssistant::CERT_WARNINGS['expiry_warning']  > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
+        } elseif($now + $this->expiryWarning > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
@@ -752,12 +752,12 @@ class UIElements extends \core\common\Entity {
      * @param string $index
      * @return array
      */
-    public function iconData($index) {
+    public function iconData($index, $optionalText = '') {
         \core\common\Entity::intoThePotatoes();
         $icons = [
             'CERT_STATUS_OK' => ['img' => 'Tabler/certificate-green.svg', 'text' => _("All certificates are valid long enough")],
-            'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => _("At least one certificate is close to expiry")],
-            'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => _("At least one certificate either has expired or is very close to expiry")],
+            'CERT_STATUS_WARN' => ['img' => 'Tabler/certificate-red.svg', 'text' => sprintf(_("At least one certificate has less than %d days to expiry"), \config\ConfAssistant::CERT_WARNINGS['expiry_warning'])],
+            'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => sprintf(_("At least one certificate either has expired or has less than  %d days to expiry"), \config\ConfAssistant::CERT_WARNINGS['expiry_critical'])],
             'TEST_STATUS_OK' => ['img' => 'Tabler/checks-green.svg', 'text' => _("Connection tests results OK")],
             'TEST_STATUS_UNKNOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Connection tests not possible")],
             'TEST_STATUS_REMARK' => ['img' => 'Tabler/info-square-rounded-blue.svg',  'text'=> _("Some tests show minor warnings")],
@@ -775,7 +775,7 @@ class UIElements extends \core\common\Entity {
             'IDP_LINKED' => ['img' => 'Tabler/database-green.svg', 'text' => _("Linked")],
             'IDP_NOT_LINKED' => ['img' => 'Tabler/database-off-red.svg', 'text' => _("NOT linked")],
             'CERTS_NOT_SHOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Not showing cert info if no profiles are visible")],
-            'ADMINS_INACTIVE' => ['img' => 'Tabler/alert-square-rounded-filled-red-small.svg', 'text' => _("Some of the admins have not been seen for a long time")],
+            'ADMINS_INACTIVE' => ['img' => 'Tabler/alert-square-rounded-filled-red-small.svg', 'text' => _("")],
             'ADMINS_OK' => ['img' => 'Tabler/check-green-small.svg', 'text' => _("All admins are active")],
             'ADMINS_MISSING' => ['img' => 'Tabler/alert-square-rounded-filled-yellow-small.svg', 'text' => _("No admins registered")],
             'DEPLOYMENTS_ACTIVE' => ['img' => 'Tabler/checks-green.svg', 'text' => _("At least one hotspot is active")],
@@ -785,7 +785,10 @@ class UIElements extends \core\common\Entity {
             'ANONYMOUS_NONE_INST' => ['img' => 'Tabler/icon-tabler-lock-off.svg', 'text' => _("There are profiles that do not provide user anonymity")],
             'EAP_OPTIONS_SET' => ['img' => 'Tabler/square-rounded-letter-e-blue.svg', 'text' => _("Options on EAP Method/Device level are in effect.")],
             ];
-            \core\common\Entity::outOfThePotatoes();
+        \core\common\Entity::outOfThePotatoes();
+        if ($optionalText !== '') {
+            return(['img' => $icons[$index]['img'], 'text' => $optionalText]);
+        }
         return($icons[$index]);
     }
     

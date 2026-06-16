@@ -976,9 +976,9 @@ abstract class AbstractProfile extends EntityWithDBProperties
         foreach ($rows as $row) {
             $encodedCert = $row[0];
             $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t']- time();
-            if ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_critical']) {
+            if ($tm < $this->expiryCritical) {
                 $certStatus = self::CERT_STATUS_ERROR;
-            } elseif ($tm < \config\ConfAssistant::CERT_WARNINGS['expiry_warning']) {
+            } elseif ($tm < $this->expiryWarning) {
                 $certStatus = self::CERT_STATUS_WARN;
             } else {
                 $certStatus = self::CERT_STATUS_OK;
