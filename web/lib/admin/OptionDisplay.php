@@ -206,7 +206,10 @@ class OptionDisplay extends \core\common\Entity
                 //normally, we have nothing to hide on that level
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
-                if (\core\CAT::hostedServicesEnabled() && !\core\CAT::radiusProfilesEnabled()) {
+                if (!\core\CAT::hostedServicesEnabled()) {
+                    break;
+                }                  
+                if (!\core\CAT::radiusProfilesEnabled()) {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 if (!\core\CAT::hostedIDPEnabled()) {

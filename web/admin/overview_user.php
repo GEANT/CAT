@@ -96,6 +96,7 @@ $end = $langInstance->rtl ? "left" : "right";
     $instMgmt->listInstitutionsByAdmin();
     $hasInst = $instMgmt->currentInstitutions['existing'];
     $externalOwned = $instMgmt->currentInstitutions['owned_external'];
+    $entitlementEnabled = false;
     if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
         $cat = new \core\CAT;
@@ -104,7 +105,6 @@ $end = $langInstance->rtl ? "left" : "right";
         $myFeds = [];
         $myFedObjects = [];
         $fed_count = 0;
-        $entitlementEnabled = false;
 
         foreach ($hasInst as $inst) {
             $my_inst = new \core\IdP($inst['inst']);
