@@ -240,11 +240,11 @@ class ConfAssistant
     
     /**
      * These are warning thresholds used to analyse certificates in profiles
-     * These default settings are probably much too low.
+     * they use full days as units.
      */
     const CERT_WARNINGS = [
-        'expiry_warning' => 5184000, // 60 days
-        'expiry_critical' => 0, //
+        'expiry_warning' => 365,
+        'expiry_critical' => 30, //
     ];
     
     /**
