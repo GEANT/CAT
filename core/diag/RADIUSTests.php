@@ -164,9 +164,9 @@ class RADIUSTests extends AbstractTest {
             }
         }
 
-        $this->loggerInstance->debug(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . /** @scrutinizer ignore-type */ print_r($supportedEapTypes, true));
-        $this->loggerInstance->debug(4, /** @scrutinizer ignore-type */ print_r($expectedServerNames, true));
-        $this->loggerInstance->debug(4, /** @scrutinizer ignore-type */ print_r($expectedCABundle, true));
+        \core\common\Logging::debug_s(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . /** @scrutinizer ignore-type */ print_r($supportedEapTypes, true));
+        \core\common\Logging::debug_s(4, /** @scrutinizer ignore-type */ print_r($expectedServerNames, true));
+        \core\common\Logging::debug_s(4, /** @scrutinizer ignore-type */ print_r($expectedCABundle, true));
 
         $this->UDP_reachability_result = [];
         $this->errorlist = [];
@@ -308,7 +308,7 @@ class RADIUSTests extends AbstractTest {
             $probValue = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
             $returnarray[] = $probValue;
         }
-        $this->loggerInstance->debug(4, "CERT IS: " . /** @scrutinizer ignore-type */ print_r($intermediateCa, TRUE));
+        \core\common\Logging::debug_s(4, "CERT IS: " . /** @scrutinizer ignore-type */ print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_BASICCONSTRAINTS;
         }
@@ -502,6 +502,7 @@ class RADIUSTests extends AbstractTest {
                     break;
                 case self::LINEPARSE_CHECK_691:
                     if (preg_match("/MSCHAPV2: error 691/", $line) && preg_match("/MSCHAPV2: retry is allowed/", $inputarray[$lineid + 1])) {
+                        \core\common\Logging::debug_s(4, "PEAP_end found\n");
                         return TRUE;
                     }
                     break;
@@ -625,7 +626,7 @@ network={
             $testresults['packetflow_sane'] = FALSE;
         }
 
-        $this->loggerInstance->debug(5, "XYZ: Counting req, acc, rej, chal: $reqs, $accepts, $rejects, $challenges");
+        \core\common\Logging::debug_s(5, "XYZ: Counting req, acc, rej, chal: $reqs, $accepts, $rejects, $challenges");
 
 // calculate the main return values that this test yielded
 
@@ -719,7 +720,7 @@ network={
                     file_put_contents($tmpDir . "/root-ca-allcerts/cat-intermediate" . count($catIntermediates) . ".pem", $decoded['pem']);
                     $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
                     if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
-                        $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                        \core\common\Logging::debug_s(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                         file_put_contents($tmpDir . "/root-ca-allcerts/crl_cat" . count($catIntermediates) . ".pem", $decoded['CRL'][0]);
                     }
                     $catIntermediates[] = $decoded['pem'];
@@ -739,7 +740,7 @@ network={
 
         $checkstring = "";
         if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
-            $this->loggerInstance->debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+            \core\common\Logging::debug_s(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
             $checkstring = "-crl_check_all";
             file_put_contents($tmpDir . "/root-ca-eaponly/crl-server.pem", $servercert['CRL'][0]);
             file_put_contents($tmpDir . "/root-ca-allcerts/crl-server.pem", $servercert['CRL'][0]);
@@ -781,12 +782,12 @@ network={
         if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
             $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem 2>&1";
             exec($cmdString, $verifyResultEaponly);
-            $this->loggerInstance->debug(4, $cmdString."\n");
-            $this->loggerInstance->debug(4, "Chain verify pass 1: " . /** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE) . "\n");
+            \core\common\Logging::debug_s(4, $cmdString."\n");
+            \core\common\Logging::debug_s(4, "Chain verify pass 1: " . /** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE) . "\n");
             $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem 2>&1";
             exec($cmdString, $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, $cmdString."\n");
-            $this->loggerInstance->debug(4, "Chain verify pass 2: " . /** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE) . "\n");
+            \core\common\Logging::debug_s(4, $cmdString."\n");
+            \core\common\Logging::debug_s(4, "Chain verify pass 2: " . /** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
 // now we do certificate verification against the collected parents
@@ -854,9 +855,9 @@ network={
         // we are UNHAPPY if no names match!
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
-            $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . /** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE) . /** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
+            \core\common\Logging::debug_s(4, "Managing expectations for $expectedName: " . /** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE) . /** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
             if (array_search(strtolower($expectedName), array_map('strtolower', $servercert['CN'])) !== FALSE && array_search(strtolower($expectedName), array_map('strtolower', $servercert['sAN_DNS'])) !== FALSE) {
-                $this->loggerInstance->debug(4, "Totally happy!");
+                \core\common\Logging::debug_s(4, "Totally happy!");
                 $happiness = "TOTALLY";
                 break;
             } else {
@@ -900,18 +901,47 @@ network={
         file_put_contents($tmpDir . "/udp_login_test.conf", $theconfigs[0]);
 
         $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
-        $this->loggerInstance->debug(4, "Shallow reachability check cmdline: $cmdline\n");
-        $this->loggerInstance->debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
+        \core\common\Logging::debug_s(4, "Shallow reachability check cmdline: $cmdline\n");
+        \core\common\Logging::debug_s(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
         $time_start = microtime(true);
         $pflow = [];
-        exec($cmdline, $pflow);
-        if ($pflow === NULL) {
-            throw new Exception("The output of an exec() call really can't be NULL!");
+        $process = proc_open('stdbuf -oL '.$cmdline, [1 => ['pipe', 'w']], $pipes);
+        if ($pipes[1] === false) {
+            throw new RuntimeException('Failed to start process');
+        }
+        $line = '';
+        $alreadyClosed = false;
+        while (!feof($pipes[1])) {
+            $prevLine = $line;
+            $line = rtrim(fgets($pipes[1]));
+            if ($line === false) {
+                break;
+            }
+            $pflow[] = $line;
+       
+            if (preg_match("/MSCHAPV2: retry is allowed/", $line) && preg_match("/MSCHAPV2: error 691/", $prevLine)) {
+                \core\common\Logging::debug_s(4, "PEAP 691 found — stop processing\n");
+                // PEAP 691 found — stop processing
+                proc_terminate($process);
+                fclose($pipes[1]);
+                proc_close($process);
+                 $alreadyClosed = true;
+                break;
+            }
+
+        }
+        if ($alreadyClosed === false) {
+            fclose($pipes[1]);
+        }
+        if ($pflow === []) {
+            throw new Exception("Empty eapol_test output");
         }
         $time_stop = microtime(true);
+        exec('cp '.$tmpDir . "/serverchain.pem ".$tmpDir ."/mmm");
         $output = print_r($this->redact($password, $pflow), TRUE);
         file_put_contents($tmpDir . "/eapol_test_output_redacted_$probeindex.txt", $output);
-        $this->loggerInstance->debug(5, "eapol_test output saved to eapol_test_output_redacted_$probeindex.txt\n");
+
+        \core\common\Logging::debug_s(4, "eapol_test output saved to eapol_test_output_redacted_$probeindex.txt\n");
         return [
             "time" => ($time_stop - $time_start) * 1000,
             "output" => $pflow,
@@ -945,7 +975,7 @@ network={
         if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
             array_pop($packetflow);
         }
-        $this->loggerInstance->debug(5, "Packetflow: " . /** @scrutinizer ignore-type */ print_r($packetflow, TRUE));
+        \core\common\Logging::debug_s(4, "Packetflow: " . /** @scrutinizer ignore-type */ print_r($packetflow, TRUE));
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
@@ -985,7 +1015,7 @@ network={
      */
     private function wasModernTlsNegotiated(&$testresults, $packetflow_orig) {
         $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
-        $this->loggerInstance->debug(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
+        \core\common\Logging::debug_s(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
         if ($negotiatedTlsVersion === FALSE) {
             $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
         } elseif ($negotiatedTlsVersion != self::TLS_VERSION_1_2 && $negotiatedTlsVersion != self::TLS_VERSION_1_3) {
@@ -1039,7 +1069,6 @@ network={
          * 4) CDP URL (Windows Phone 8 barks if not present)
          * 5) there should be exactly one server cert in the chain
          */
-
         $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
         $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
@@ -1073,9 +1102,9 @@ network={
                     $servercert[] = $cert;
                     if (count($servercert) == 1) {
                         if (file_put_contents($tmpDir . "/incomingserver.pem", $cert['pem'] . "\n") === FALSE) {
-                            $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
+                            \core\common\Logging::debug_s(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
                         }
-                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . /** @scrutinizer ignore-type */ print_r($servercert[0], true));
+                        \core\common\Logging::debug_s(4, "This is the (first) server certificate, with CRL content if applicable: " . /** @scrutinizer ignore-type */ print_r($servercert[0], true));
                     } elseif (!in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
                     }
@@ -1159,7 +1188,7 @@ network={
         $temporary = \core\common\Entity::createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
-        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
+        \core\common\Logging::debug_s(4, "temp dir: $tmpDir\n");
         file_put_contents($tmpDir . "/client.p12", $clientcert);
         $testresults = ['cert_oddities' => []];
         $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, \core\common\EAP::EAPTYPE_ANY, $outerId, $outerId, "eaplab", FALSE, FALSE);
@@ -1260,7 +1289,7 @@ network={
         $temporary = \core\common\Entity::createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
-        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
+        \core\common\Logging::debug_s(4, "temp dir: $tmpDir\n");
         if ($clientcertdata !== NULL) {
             file_put_contents($tmpDir . "/client.p12", $clientcertdata);
         }
@@ -1272,6 +1301,7 @@ network={
         $testresults['time_millisec'] = $runtime_results['time'];
         $packetflow_orig = $runtime_results['output'];
         $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
+
         // if the RADIUS conversation was immediately rejected, it is trivially
         // true that no EAP type was negotiated, and that TLS didn't negotiate
         // a version. Don't get excited about that then.
@@ -1290,6 +1320,7 @@ network={
                 (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $negotiatedEapType) || $radiusResult == RADIUSTests::RETVAL_OK)
         ) {
             $bundle = $this->extractIncomingCertsfromEAP($testresults, $tmpDir);
+
 // FOR OWN REALMS check:
 // 1) does the incoming chain have a root in one of the configured roots
 //    if not, this is a significant configuration error
@@ -1318,7 +1349,7 @@ network={
 
 // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
-                $this->loggerInstance->debug(4, "Deleting trust chain problem report, if present.");
+                \core\common\Logging::debug_s(4, "Deleting trust chain problem report, if present.");
                 if (($key = array_search(RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
                     unset($testresults['cert_oddities'][$key]);
                 }
