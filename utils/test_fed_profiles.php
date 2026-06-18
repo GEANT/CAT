@@ -2,13 +2,14 @@
 
 require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 setlocale(LC_CTYPE, "en_US.UTF-8");
-$api_url = getenv('API_URL');
-if ($api_url === false) {
-    print "Missing API_URL environment variable - cannot continue\n";
+// CAT_URL needs to be passed in environment and should point to the CAT base URL
+$cat_url = getenv('CAT_URL');
+if ($cat_url === false) {
+    print "Missing CAT_URL environment variable - cannot continue\n";
     exit;
 }
-if (!preg_match('/^http/', $api_url)) {
-    print "API_URL env variable does not start with http - cannot continue\n";
+if (!preg_match('/^http/', $cat_url)) {
+    print "CAT_URL env variable does not start with http - cannot continue\n";
     exit;
 }
 $DB_LOCAL = \config\Master::DB['INST'];
@@ -31,7 +32,7 @@ $db->query("DELETE from feds_for_testing WHERE federation_id='$fedId'");
 $db->query("UNLOCK TABLES");
 print "Now testing $fedId\n";
 $adminApi = new \web\lib\admin\API();
-$adminApi->catlink = $api_url;
+$adminApi->catlink = $cat_url;
 $adminApi->fed = new \core\Federation($fedId);
 $adminApi->outputFormat = 'array';
 
