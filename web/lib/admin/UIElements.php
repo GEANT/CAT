@@ -136,7 +136,7 @@ class UIElements extends \core\common\Entity {
             "fed:logo_file" => [
                 'display' => sprintf(_("%s Logo"), $this->nomenclatureFed),
                 'help' => _("Your federation logo to be shown on CAT download pages and also on Windows installers if"
-               ." the option to include branding in installers is set as well.")],
+                ." the option to include branding in installers is set as well.")],
             "fed:desired_skin" => ['display' => _("Preferred Skin for User Area"), 'help' => "not available"],
             "fed:include_logo_installers" => [
                 'display' => sprintf(_("Include %s branding in installers"), $this->nomenclatureFed),
@@ -272,7 +272,7 @@ class UIElements extends \core\common\Entity {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }
-                        $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td><strong>".($content == "on" ? _("on") : _("off") )."</strong></td></tr>";
+                        $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td><strong>".($content == "on" ? _("on") : _("off"))."</strong></td></tr>";
                         break;
                     default:
                         $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td><strong>$content</strong></td></tr>";
@@ -329,7 +329,7 @@ class UIElements extends \core\common\Entity {
             $retval .= "<div class='infobox'>
             <h2>".$block[1]."</h2>
             <table>" .
-                    $this->infoblock($idpoptions, $block[0], "IdP") .
+                    $this->infoblock($idpoptions, $block[0], "IdP").
                     "</table>
         </div>";
         }
@@ -419,8 +419,8 @@ class UIElements extends \core\common\Entity {
         }
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
-        $certstatus = ( $details['root'] == 1 ? "R" : "I");
-        $certTooltip = ( $details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
+        $certstatus = ($details['root'] == 1 ? "R" : "I");
+        $certTooltip = ($details['root'] == 1 ? _("Root CA") : _("Intermediate CA"));
         $innerbgColor = "#0000ff";
         $leftBorderColor = "#00ff00";
         $message = "";
@@ -439,7 +439,7 @@ class UIElements extends \core\common\Entity {
         if ($now + $this->expiryCritical > $details['full_details']['validTo_time_t']) {
             $leftBorderColor = "red";
             $message = _("Certificate expired!")."<br>";
-        } elseif($now + $this->expiryWarning > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
+        } elseif ($now + $this->expiryWarning > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
@@ -452,15 +452,15 @@ class UIElements extends \core\common\Entity {
             }
             $message .= "<div style='max-width: 25em'><strong>"._("Improper root certificate, required critical CA extension missing, will not reliably install!")."</strong>";
             if (\config\ConfAssistant::CERT_GUIDELINES !== '') {
-                $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>". _("more info")."</a>";
+                $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>"._("more info")."</a>";
             }
             $message .= "</div><br/>";
         }
         if (strlen($details['full_details']['serialNumberHex']) < 8) {
             $serial = $details['full_details']['serialNumberHex']." (0x".$details['full_details']['serialNumberHex'].")";
         } else {
-            $ct = strlen($details['full_details']['serialNumberHex'])/2 - 1;
-            $serial = preg_replace('/(..)/','$1:', $details['full_details']['serialNumberHex'], $ct);
+            $ct = strlen($details['full_details']['serialNumberHex']) / 2 - 1;
+            $serial = preg_replace('/(..)/', '$1:', $details['full_details']['serialNumberHex'], $ct);
         }
         $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>".
             $message.$details['name']."<br>". 
@@ -686,7 +686,7 @@ class UIElements extends \core\common\Entity {
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
         $targetplacementx = (int) ($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize + 1) / 2) / $symbolsize));
-        $targetplacementy = (int) ($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize + 1 ) / 2) / $symbolsize));
+        $targetplacementy = (int) ($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize + 1) / 2) / $symbolsize));
         imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
         ob_start();
@@ -760,8 +760,8 @@ class UIElements extends \core\common\Entity {
             'CERT_STATUS_ERROR' => ['img' => 'Tabler/certificate-off.svg', 'text' => sprintf(_("At least one certificate either has expired or has less than  %d days to expiry"), \config\ConfAssistant::CERT_WARNINGS['expiry_critical'])],
             'TEST_STATUS_OK' => ['img' => 'Tabler/checks-green.svg', 'text' => _("Connection tests results OK")],
             'TEST_STATUS_UNKNOWN' => ['img' => 'Tabler/question-mark-blue.svg', 'text' => _("Connection tests not possible")],
-            'TEST_STATUS_REMARK' => ['img' => 'Tabler/info-square-rounded-blue.svg',  'text'=> _("Some tests show minor warnings")],
-            'TEST_STATUS_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg',  'text'=> _("Some tests show warnings, please verify")],
+            'TEST_STATUS_REMARK' => ['img' => 'Tabler/info-square-rounded-blue.svg', 'text'=> _("Some tests show minor warnings")],
+            'TEST_STATUS_WARN' => ['img' => 'Tabler/info-square-rounded-yellow.svg', 'text'=> _("Some tests show warnings, please verify")],
             'TEST_STATUS_ERROR' => ['img' => 'Tabler/alert-square-rounded-yellow.svg', 'text'=> _("Some tests had errors")],
             'TEST_STATUS_CONF_ERROR' => ['img' => 'Tabler/alert-square-rounded-red.svg', 'text'=> _("Some tests showed serious configuration errors")],
             'OVERALL_OPENROAMING_LEVEL_GOOD' => ['img' => 'Tabler/square-rounded-check-green.svg', 'text' => _("OpenRoaming appears to be configured properly")],
