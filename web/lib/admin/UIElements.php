@@ -83,7 +83,7 @@ class UIElements extends \core\common\Entity {
      */
     public function displayName($in, $fullDisplay = false) {
         if (is_array($in)) {
-            $input=$in[0];
+            $input = $in[0];
         } else {
             $input = $in;
         }
@@ -136,7 +136,7 @@ class UIElements extends \core\common\Entity {
             "fed:logo_file" => [
                 'display' => sprintf(_("%s Logo"), $this->nomenclatureFed),
                 'help' => _("Your federation logo to be shown on CAT download pages and also on Windows installers if"
-                . " the option to include branding in installers is set as well.")],
+               ." the option to include branding in installers is set as well.")],
             "fed:desired_skin" => ['display' => _("Preferred Skin for User Area"), 'help' => "not available"],
             "fed:include_logo_installers" => [
                 'display' => sprintf(_("Include %s branding in installers"), $this->nomenclatureFed),
@@ -155,7 +155,7 @@ class UIElements extends \core\common\Entity {
                 'display' => sprintf(_("Mint %s with CA on creation"), $this->nomenclatureIdP),
                 'help' => _("Set of default CAs to add to new IdPs on signup")],
             "fed:openroaming" => [
-                'display' => sprintf(_("OpenRoaming: Allow %s Opt-In"),$this->nomenclatureParticipant),
+                'display' => sprintf(_("OpenRoaming: Allow %s Opt-In"), $this->nomenclatureParticipant),
                 'help' => _("Allow IdP to set OpenRoaming support for its users.")],
             "fed:openroaming_customtarget" => ['display' => _("OpenRoaming: Custom NAPTR Target"), 'help' => "If you want your IdPs to use your own OpenRoaming → eduroam proxy then you can configure the hostname here; the realm check feature for IdPs will then warn them if the OpenRoaming destination server is not yours. This attribute does not need to be set, and the realm checks default to checking for the OpenRoaming → eduroam proxy operated by eduroam OT."],
             "fed:autoregister-synced" => [
@@ -232,7 +232,7 @@ class UIElements extends \core\common\Entity {
 
         foreach ($optionlist as $option) {
             $type = $optioninfo->optionType($option['name']);
-            if (preg_match('/^' . $class . '/', $option['name']) && $option['level'] == "$level") {
+            if (preg_match('/^'.$class.'/', $option['name']) && $option['level'] == "$level") {
                 // all non-multilang attribs get this assignment ...
                 $language = "";
                 $content = $option['value'];
@@ -250,19 +250,19 @@ class UIElements extends \core\common\Entity {
                         $locationMarkers[] = $coords;
                         break;
                     case "file":
-                        $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td>";
+                        $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td>";
                         switch ($option['name']) {
                             case "general:logo_file":
                             case "fed:logo_file":
-                                $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
+                                $retval .= $this->previewImageinHTML('ROWID-'.$option['level'].'-'.$option['row_id']);
                                 break;
                             case "eap:ca_file":
                             // fall-through intended: display both the same way
                             case "fed:minted_ca_file":
-                                $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
+                                $retval .= $this->previewCAinHTML('ROWID-'.$option['level'].'-'.$option['row_id']);
                                 break;
                             case "support:info_file":
-                                $retval .= $this->previewInfoFileinHTML('ROWID-' . $option['level'] . '-' . $option['row_id']);
+                                $retval .= $this->previewInfoFileinHTML('ROWID-'.$option['level'].'-'.$option['row_id']);
                                 break;
                             default:
                         }
@@ -272,10 +272,10 @@ class UIElements extends \core\common\Entity {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }
-                        $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td><strong>" . ($content == "on" ? _("on") : _("off") ) . "</strong></td></tr>";
+                        $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td><strong>".($content == "on" ? _("on") : _("off") )."</strong></td></tr>";
                         break;
                     default:
-                        $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td><strong>$content</strong></td></tr>";
+                        $retval .= "<tr><td>".$this->displayName($option['name'])."</td><td>$language</td><td><strong>$content</strong></td></tr>";
                 }
             }
         }
@@ -284,11 +284,11 @@ class UIElements extends \core\common\Entity {
             $locationCount = 0;
             foreach ($locationMarkers as $g) {
                 $locationCount++;
-                $marker .= '<marker name="' . $locationCount . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
+                $marker .= '<marker name="'.$locationCount.'" lat="'.$g['lat'].'" lng="'.$g['lon'].'" />';
             }
             $marker .= '<\/markers>'; // some validator says this should be escaped
             $jMarker = json_encode($locationMarkers);
-            $retval .= '<tr><td><script>markers=\'' . $marker . '\'; jmarkers = \'' . $jMarker . '\';</script></td><td></td><td></td></tr>';
+            $retval .= '<tr><td><script>markers=\''.$marker.'\'; jmarkers = \''.$jMarker.'\';</script></td><td></td><td></td></tr>';
         }
         \core\common\Entity::outOfThePotatoes();
         return $retval;
@@ -304,11 +304,11 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . sprintf(_("General %s details"), $this->nomenclatureParticipant) . "</h2>
+        <h2>".sprintf(_("General %s details"), $this->nomenclatureParticipant)."</h2>
         <table>
             <tr>
                 <td>
-                    " . _("Country:") . "
+                    "._("Country:")."
                 </td>
                 <td>
                 </td>
@@ -318,7 +318,7 @@ class UIElements extends \core\common\Entity {
         $retval .= $myFed->name;
         $retval .= "</strong>
                 </td>
-            </tr>" . $this->infoblock($idpoptions, "general", "IdP") . "
+            </tr>".$this->infoblock($idpoptions, "general", "IdP")."
         </table>
     </div>";
         $blocks = [["support", _("Global Helpdesk Details")]];        
@@ -327,7 +327,7 @@ class UIElements extends \core\common\Entity {
         }
         foreach ($blocks as $block) {
             $retval .= "<div class='infobox'>
-            <h2>" . $block[1] . "</h2>
+            <h2>".$block[1]."</h2>
             <table>" .
                     $this->infoblock($idpoptions, $block[0], "IdP") .
                     "</table>
@@ -344,12 +344,12 @@ class UIElements extends \core\common\Entity {
      */
     private function displaySize(int $number) {
         if ($number > 1024 * 1024) {
-            return round($number / 1024 / 1024, 2) . " MiB";
+            return round($number / 1024 / 1024, 2)." MiB";
         }
         if ($number > 1024) {
-            return round($number / 1024, 2) . " KiB";
+            return round($number / 1024, 2)." KiB";
         }
-        return $number . " B";
+        return $number." B";
     }
 
     /**
@@ -404,7 +404,7 @@ class UIElements extends \core\common\Entity {
         $caExpiryTrashhold = $this->expiryWarning;
         $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
-            $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
+            $retval = "<div class='ca-summary'>"._("There was an error while retrieving the certificate from the database!")."</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
@@ -431,26 +431,26 @@ class UIElements extends \core\common\Entity {
                 $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>". _("more info")."</a>";
             }
             $message .= "<br/>";
-            $retval = "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . $message . $details['name'] . "</div>";
+            $retval = "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>".$message.$details['name']."</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
         $now = time();
         if ($now + $this->expiryCritical > $details['full_details']['validTo_time_t']) {
             $leftBorderColor = "red";
-            $message = _("Certificate expired!") . "<br>";
+            $message = _("Certificate expired!")."<br>";
         } elseif($now + $this->expiryWarning > $details['full_details']['validTo_time_t'] - $caExpiryTrashhold) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
-            $message = _("Certificate close to expiry!") . "<br/>";            
+            $message = _("Certificate close to expiry!")."<br/>";            
         }
    
         if ($details['root'] == 1 && $details['basicconstraints_set'] == 0) {
             if ($leftBorderColor == "#00ff00") {
                 $leftBorderColor = "yellow";
             }
-            $message .= "<div style='max-width: 25em'><strong>" . _("Improper root certificate, required critical CA extension missing, will not reliably install!") . "</strong>";
+            $message .= "<div style='max-width: 25em'><strong>"._("Improper root certificate, required critical CA extension missing, will not reliably install!")."</strong>";
             if (\config\ConfAssistant::CERT_GUIDELINES !== '') {
                 $message .= "<br/><a target='_blank' href='".\config\ConfAssistant::CERT_GUIDELINES."'>". _("more info")."</a>";
             }
@@ -462,11 +462,11 @@ class UIElements extends \core\common\Entity {
             $ct = strlen($details['full_details']['serialNumberHex'])/2 - 1;
             $serial = preg_replace('/(..)/','$1:', $details['full_details']['serialNumberHex'], $ct);
         }
-        $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . 
+        $retval =  "<div class='ca-summary' style='border-left-color: $leftBorderColor'><div style='position:absolute; right: -15px; width:20px; height:20px; background-color:$innerbgColor; border-radius:10px; text-align: center;'><div title='$certTooltip' style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>".
             $message.$details['name']."<br>". 
             _("Serial number:")." ".$serial."<br/>".
-            $this->displayName('eap:ca_vaildfrom')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validFrom_time_t']) . " UTC<br/>".    
-            $this->displayName('eap:ca_vailduntil')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t']) . " UTC</div>";
+            $this->displayName('eap:ca_vaildfrom')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validFrom_time_t'])." UTC<br/>".    
+            $this->displayName('eap:ca_vailduntil')." ".gmdate('Y-m-d H:i:s', $details['full_details']['validTo_time_t'])." UTC</div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
@@ -479,7 +479,7 @@ class UIElements extends \core\common\Entity {
      */
     public function previewImageinHTML($imageReference) {
         \core\common\Entity::intoThePotatoes();
-        $retval = "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
+        $retval = "<img style='max-width:150px' src='inc/filepreview.php?id=".$imageReference."' alt='"._("Preview of logo file")."'/>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
@@ -496,13 +496,13 @@ class UIElements extends \core\common\Entity {
         $ref = $validator->databaseReference($fileReference);
         $fileBlob = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($fileBlob)) { // we didn't actually get a file!
-            $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the file from the database!") . "</div>";
+            $retval = "<div class='ca-summary'>"._("There was an error while retrieving the file from the database!")."</div>";
             \core\common\Entity::outOfThePotatoes();
             return $retval;
         }
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
-        $retval = "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+        $retval = "<div class='ca-summary'>"._("File exists")." (".$fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE).", ".$this->displaySize(strlen($decodedFileBlob)).")<br/><a href='inc/filepreview.php?id=$fileReference'>"._("Preview")."</a></div>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
@@ -533,7 +533,7 @@ class UIElements extends \core\common\Entity {
             $retval .= "<tr><td>";
         }
 //        $finalCaption = ($caption !== NULL ? $caption : $uiMessages[$level]['text']);
-//        $retval .= "<img class='icon cat-icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $finalCaption . "' title='" . $finalCaption . "'/>";
+//        $retval .= "<img class='icon cat-icon' src='".$uiMessages[$level]['icon']."' alt='".$finalCaption."' title='".$finalCaption."'/>";
         $iconData = $uiMessages[$level];
         if ($caption !== NULL) {
             $iconData['text'] = $caption;
@@ -659,8 +659,8 @@ class UIElements extends \core\common\Entity {
             return "";
         }
 
-        $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
-        $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
+        $loggerInstance->debug(4, "Consortium logo is at: ".ROOT."/web/resources/images/consortium_logo_large.png");
+        $logogd = imagecreatefrompng(ROOT."/web/resources/images/consortium_logo_large.png");
         if ($logogd === FALSE) { // consortium logo is bogus; don't do anything
             return "";
         }
@@ -736,9 +736,9 @@ class UIElements extends \core\common\Entity {
                 $message = "Your configuration appears to be fine.";
                 break;
             default:
-                throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
+                throw new Exception("The result code level ".$test->test_result['global']." is not defined!");
         }
-        $out .= $this->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+        $out .= $this->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
         foreach ($test->out as $testValue) {
             foreach ($testValue as $o) {
                 $out .= $this->boxFlexible($o['level'], $o['message']);

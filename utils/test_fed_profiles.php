@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . "/config/_config.php";
+require_once dirname(dirname(__FILE__))."/config/_config.php";
 setlocale(LC_CTYPE, "en_US.UTF-8");
 // CAT_URL needs to be passed in environment and should point to the CAT base URL
 $cat_url = getenv('CAT_URL');

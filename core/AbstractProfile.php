@@ -172,7 +172,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         self::OVERALL_OPENROAMING_LEVEL_GOOD => 'OVERALL_OPENROAMING_LEVEL_GOOD',
         self::OVERALL_OPENROAMING_LEVEL_NOTE => 'OVERALL_OPENROAMING_LEVEL_NOTE',
         self::OVERALL_OPENROAMING_LEVEL_WARN => 'OVERALL_OPENROAMING_LEVEL_WARN',
-        self::OVERALL_OPENROAMING_LEVEL_ERROR => 'OVERALL_OPENROAMING_LEVEL_ERROR',      
+        self::OVERALL_OPENROAMING_LEVEL_ERROR => 'OVERALL_OPENROAMING_LEVEL_ERROR',    
     ];
 
     const OPENROAMING_INDEX = [
@@ -354,7 +354,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
                     // for now (no OpenRoaming client certs available) only run server-side tests
                     foreach ($listOfIPs as $oneIP) {
                         $connectionResult = $connectionTests->cApathCheck($oneIP);
-                        if ($connectionResult != \core\diag\AbstractTest::RETVAL_OK || ( isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
+                        if ($connectionResult != \core\diag\AbstractTest::RETVAL_OK || (isset($connectionTests->TLS_CA_checks_result['cert_oddity']) && count($connectionTests->TLS_CA_checks_result['cert_oddity']) > 0)) {
                             $allHostsOkay = FALSE;
                         } else {
                             $oneHostOkay = TRUE;
@@ -497,7 +497,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             // which is different from the outer username we put into installers
             return $this->getAttributes("internal:checkuser_value")[0]['value']."@".$realm;
         }
-        if (count($this->getAttributes("internal:use_anon_outer")) > 0 && $this->getAttributes("internal:anon_local_value")[0]['value'] != NULL ) {
+        if (count($this->getAttributes("internal:use_anon_outer")) > 0 && $this->getAttributes("internal:anon_local_value")[0]['value'] != NULL) {
             // no special check username, but there is an anon outer ID for
             // installers - so let's use that one
             return $this->getAttributes("internal:anon_local_value")[0]['value']."@".$realm;
@@ -653,7 +653,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }
 
         $monthlyList = [];
-        $monthly = $this->frontendHandle->exec("SELECT downloads_user,device_id FROM downloads_history WHERE profile_id=? AND stat_date=DATE_FORMAT(NOW(),'%Y-%m-01')", "i",  $this->identifier);
+        $monthly = $this->frontendHandle->exec("SELECT downloads_user,device_id FROM downloads_history WHERE profile_id=? AND stat_date=DATE_FORMAT(NOW(),'%Y-%m-01')", "i", $this->identifier);
         while ($statsQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $monthly)) {
             $monthlyList[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
@@ -665,7 +665,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         }        
         
         \core\common\Entity::intoThePotatoes();
-        ksort($finalarray, SORT_STRING|SORT_FLAG_CASE);
+        ksort($finalarray, SORT_STRING | SORT_FLAG_CASE);
         \core\common\Entity::outOfThePotatoes();
         return $finalarray;
     }
@@ -975,7 +975,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         $profileStatus = self::CERT_STATUS_NONE;
         foreach ($rows as $row) {
             $encodedCert = $row[0];
-            $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t']- time();
+            $tm = $x509->processCertificate(base64_decode($encodedCert))['full_details']['validTo_time_t'] - time();
             if ($tm < $this->expiryCritical) {
                 $certStatus = self::CERT_STATUS_ERROR;
             } elseif ($tm < $this->expiryWarning) {
