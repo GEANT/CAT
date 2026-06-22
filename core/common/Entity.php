@@ -125,7 +125,7 @@ abstract class Entity
     public function __construct()
     {
         $this->loggerInstance = new Logging();
-        $this->loggerInstance->debug(4, "--- BEGIN constructing class " . get_class($this) . " .\n");
+        $this->loggerInstance->debug(4, "--- BEGIN constructing class ".get_class($this)." .\n");
         $this->languageInstance = new Language();
         $this->expiryWarning = \config\ConfAssistant::CERT_WARNINGS['expiry_warning'] * 86400;
         $this->expiryCritical = \config\ConfAssistant::CERT_WARNINGS['expiry_critical'] * 86400;
@@ -146,13 +146,13 @@ abstract class Entity
         $dummy_organisation2a = _("organization");
         $dummy_organisation3 = _("entity");
         // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_idp1 . $dummy_idp2 . $dummy_idp3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
+        if (strlen($dummy_NRO.$dummy_idp1.$dummy_idp2.$dummy_idp3.$dummy_hotspot1.$dummy_hotspot2.$dummy_hotspot3.$dummy_organisation1.$dummy_organisation2.$dummy_organisation2a.$dummy_organisation3) < 0) {
             throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
-        $xyzVariableFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . "";
-        $xyzVariableIdP = \config\ConfAssistant::CONSORTIUM['nomenclature_idp'] . "";
-        $xyzVariableHotspot = \config\ConfAssistant::CONSORTIUM['nomenclature_hotspot'] . "";
-        $xyzVariableParticipant = \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . "";
+        $xyzVariableFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation']."";
+        $xyzVariableIdP = \config\ConfAssistant::CONSORTIUM['nomenclature_idp']."";
+        $xyzVariableHotspot = \config\ConfAssistant::CONSORTIUM['nomenclature_hotspot']."";
+        $xyzVariableParticipant = \config\ConfAssistant::CONSORTIUM['nomenclature_participant']."";
         Entity::$nomenclature_fed = _($xyzVariableFed);
         Entity::$nomenclature_idp = _($xyzVariableIdP);
         Entity::$nomenclature_hotspot = _($xyzVariableHotspot);
@@ -168,7 +168,7 @@ abstract class Entity
      */
     public function __destruct()
     {
-        (new Logging())->debug(5, "--- KILL Destructing class " . get_class($this) . " .\n");
+        (new Logging())->debug(5, "--- KILL Destructing class ".get_class($this)." .\n");
     }
 
     /**
@@ -201,7 +201,7 @@ abstract class Entity
     public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1)
     {
         $loggerInstance = new Logging();
-        $name = md5(time() . rand());
+        $name = md5(time().rand());
         $path = ROOT;
         switch ($purpose) {
             case 'silverbullet':
@@ -219,7 +219,7 @@ abstract class Entity
             default:
                 throw new Exception("unable to create temporary directory due to unknown purpose: $purpose\n");
         }
-        $tmpDir = $path . '/' . $name;
+        $tmpDir = $path.'/'.$name;
         $loggerInstance->debug(4, "temp dir: $purpose : $tmpDir\n");
         if (!mkdir($tmpDir, 0700, true)) {
             if ($failIsFatal) {
@@ -240,7 +240,7 @@ abstract class Entity
      */
     public static function rrmdir($dir)
     {
-        foreach (glob($dir . '/*') as $file) {
+        foreach (glob($dir.'/*') as $file) {
             if (is_dir($file)) {
                 Entity::rrmdir($file);
             } else {
@@ -266,12 +266,12 @@ abstract class Entity
         }
         // these substr() are guaranteed to yield actual string data, as the
         // base string is an MD5 hash - has sufficient length
-        $uuid = /** @scrutinizer ignore-type */ substr($chars, 0, 8) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 8, 4) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 12, 4) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 16, 4) . '-';
+        $uuid = /** @scrutinizer ignore-type */ substr($chars, 0, 8).'-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 8, 4).'-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 12, 4).'-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 16, 4).'-';
         $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
-        return $prefix . $uuid;
+        return $prefix.$uuid;
     }
 
     /**
@@ -312,7 +312,7 @@ abstract class Entity
         for ($i = count($trace); $i--; $i > 0) {
             if (isset($trace[$i - 1]['class']) && preg_match('/Entity/', $trace[$i - 1]['class'])) {
                 if ($showTrace) {
-                    echo "FOUND caller: " . /** @scrutinizer ignore-type */ print_r($trace[$i], true) . " - class is " . $trace[$i]['class'];
+                    echo "FOUND caller: "./** @scrutinizer ignore-type */ print_r($trace[$i], true)." - class is ".$trace[$i]['class'];
                 }
                 $caller = $trace[$i];
                 break;
@@ -322,8 +322,8 @@ abstract class Entity
         // otherwise, on the filename relative to ROOT
         $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
         if ($showTrace === TRUE) {
-            echo "<pre>" . /** @scrutinizer ignore-type */ print_r($trace, true) . "</pre>";
-            echo "CLASS = " . $myName . "<br/>";
+            echo "<pre>"./** @scrutinizer ignore-type */ print_r($trace, true)."</pre>";
+            echo "CLASS = ".$myName."<br/>";
         }
         if (preg_match("/diag/", $myName) == 1) {
             $ret = "diagnostics";
@@ -357,11 +357,11 @@ abstract class Entity
         if ($catalogue === NULL) {
             $theCatalogue = Entity::determineOwnCatalogue($trace);
             textdomain($theCatalogue);
-            bindtextdomain($theCatalogue, ROOT . "/translation/");
+            bindtextdomain($theCatalogue, ROOT."/translation/");
             bind_textdomain_codeset($theCatalogue, "UTF-8");
         } else {
             textdomain($catalogue);
-            bindtextdomain($catalogue, ROOT . "/translation/");
+            bindtextdomain($catalogue, ROOT."/translation/");
             bind_textdomain_codeset($catalogue, "UTF-8");
         }
     }

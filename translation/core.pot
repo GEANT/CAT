@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 12:55+0200\n"
+"POT-Creation-Date: 2026-06-22 10:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -386,13 +386,13 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:117
+#: core/Federation.php:124
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
 #. / IdP and SP
-#: core/Federation.php:346 core/common/OutsideComm.php:288
+#: core/Federation.php:353 core/common/OutsideComm.php:288
 #, php-format
 msgid "%s and %s"
 msgstr ""
@@ -405,7 +405,7 @@ msgstr ""
 #. /                5. nomenclature for "institution"
 #. /                6. product name (e.g. eduroam CAT);
 #. /                7. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:361
+#: core/Federation.php:368
 #, php-format
 msgid ""
 "Hi,\n"
@@ -427,7 +427,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:387
+#: core/Federation.php:394
 #, php-format
 msgid ""
 "Hi,\n"
@@ -444,7 +444,7 @@ msgid ""
 msgstr ""
 
 #. / organisation
-#: core/Federation.php:409 core/Federation.php:415
+#: core/Federation.php:416 core/Federation.php:422
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
@@ -552,47 +552,47 @@ msgstr ""
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:125
+#: core/common/Entity.php:137
 msgid "National Roaming Operator"
 msgstr ""
 
-#: core/common/Entity.php:126
+#: core/common/Entity.php:138
 msgid "identity provider"
 msgstr ""
 
-#: core/common/Entity.php:127
+#: core/common/Entity.php:139
 msgid "organisation"
 msgstr ""
 
-#: core/common/Entity.php:128
+#: core/common/Entity.php:140
 msgid "Identity Provider"
 msgstr ""
 
-#: core/common/Entity.php:129
+#: core/common/Entity.php:141
 msgid "Wi-Fi Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:130
+#: core/common/Entity.php:142
 msgid "Hotspot"
 msgstr ""
 
-#: core/common/Entity.php:131
+#: core/common/Entity.php:143
 msgid "Service Provider"
 msgstr ""
 
-#: core/common/Entity.php:132
+#: core/common/Entity.php:144
 msgid "participant"
 msgstr ""
 
-#: core/common/Entity.php:133
+#: core/common/Entity.php:145
 msgid "Organisation"
 msgstr ""
 
-#: core/common/Entity.php:134
+#: core/common/Entity.php:146
 msgid "organization"
 msgstr ""
 
-#: core/common/Entity.php:135
+#: core/common/Entity.php:147
 msgid "entity"
 msgstr ""
 

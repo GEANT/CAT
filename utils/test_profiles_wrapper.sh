@@ -22,6 +22,9 @@
 # this script runs PHP tests in loop until it receives return code 1 and then exits
 # a number of these scripts are meant to be run in parallel
 
+# CAT_URL needs to be passed in environment and should point to the CAT base URL
+# it will be used by the scripts called from here
+
 script="$0"
 basename="$(dirname $script)"
 log="/tmp/test_profiles.log"

@@ -164,7 +164,7 @@ class RADIUSTests extends AbstractTest {
             }
         }
 
-        \core\common\Logging::debug_s(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . /** @scrutinizer ignore-type */ print_r($supportedEapTypes, true));
+        \core\common\Logging::debug_s(4, "RADIUSTests is in opMode ".$this->opMode.", parameters were: $realm, $outerUsernameForChecks, "./** @scrutinizer ignore-type */ print_r($supportedEapTypes, true));
         \core\common\Logging::debug_s(4, /** @scrutinizer ignore-type */ print_r($expectedServerNames, true));
         \core\common\Logging::debug_s(4, /** @scrutinizer ignore-type */ print_r($expectedCABundle, true));
 
@@ -279,7 +279,7 @@ class RADIUSTests extends AbstractTest {
                 $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
                 continue; // otherwise we'd ALSO complain that it's not a real hostname
             }
-            /*if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
+            /*if ($onename != "" && filter_var("foo@".idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
                 $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
             }*/
         }
@@ -308,7 +308,7 @@ class RADIUSTests extends AbstractTest {
             $probValue = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
             $returnarray[] = $probValue;
         }
-        \core\common\Logging::debug_s(4, "CERT IS: " . /** @scrutinizer ignore-type */ print_r($intermediateCa, TRUE));
+        \core\common\Logging::debug_s(4, "CERT IS: "./** @scrutinizer ignore-type */ print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_BASICCONSTRAINTS;
         }
@@ -356,7 +356,7 @@ class RADIUSTests extends AbstractTest {
     public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
-        $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
+        $clientcert = file_get_contents(dirname(__FILE__)."/clientcert.p12");
         if ($clientcert === FALSE) {
             throw new Exception("A dummy client cert is part of the source distribution, but could not be loaded!");
         }
@@ -365,7 +365,7 @@ class RADIUSTests extends AbstractTest {
         if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
             return $this->udpLogin($probeindex, $this->supportedEapTypes[0]->getArrayRep(), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
         }
-        return $this->udpLogin($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
+        return $this->udpLogin($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@".$this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -386,7 +386,7 @@ class RADIUSTests extends AbstractTest {
             return RADIUSTests::CERTPROB_NO_CDP_HTTP;
         }
         // first and second sub-match is the full URL... check it
-        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]), \config\Diagnostics::TIMEOUTS['crl_download']);
+        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1].$crlUrl[2]), \config\Diagnostics::TIMEOUTS['crl_download']);
         if ($crlcontent === FALSE) {
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }
@@ -401,7 +401,7 @@ class RADIUSTests extends AbstractTest {
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
 
-        $proc = \config\Master::PATHS['openssl'] . " crl -inform der";
+        $proc = \config\Master::PATHS['openssl']." crl -inform der";
         $descriptorspec = [
             0 => ["pipe", "r"],
             1 => ["pipe", "w"],
@@ -439,7 +439,7 @@ class RADIUSTests extends AbstractTest {
         $origLength = strlen($hex);
         for ($i = 1; $i < $origLength; $i++) {
             if ($i % 2 == 1 && $i != strlen($hex)) {
-                $spaced .= $hex[$i] . " ";
+                $spaced .= $hex[$i]." ";
             } else {
                 $spaced .= $hex[$i];
             }
@@ -565,19 +565,19 @@ class RADIUSTests extends AbstractTest {
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
-  ssid="' . \config\Master::APPEARANCE['productname'] . ' testing"
+  ssid="'.\config\Master::APPEARANCE['productname'].' testing"
   key_mgmt=WPA-EAP
   proto=WPA2
   pairwise=CCMP
   group=CCMP
   ';
 // phase 1
-        $config .= 'eap=' . $eapText['OUTER'] . "\n";
+        $config .= 'eap='.$eapText['OUTER']."\n";
         $logConfig = $config;
 // phase 2 if applicable; all inner methods have passwords
         if (isset($eapText['INNER']) && $eapText['INNER'] != "") {
-            $config .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
-            $logConfig .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
+            $config .= '  phase2="auth='.$eapText['INNER']."\"\n";
+            $logConfig .= '  phase2="auth='.$eapText['INNER']."\"\n";
         }
 // all methods set a password, except EAP-TLS
         if ($eaptype != \core\common\EAP::EAPTYPE_TLS) {
@@ -593,14 +593,14 @@ network={
         }
 
 // inner identity
-        $config .= '  identity="' . $inner . "\"\n";
-        $logConfig .= '  identity="' . $inner . "\"\n";
+        $config .= '  identity="'.$inner."\"\n";
+        $logConfig .= '  identity="'.$inner."\"\n";
 // outer identity, may be equal
         if ($eaptype == \core\common\EAP::EAPTYPE_TLS) {
             $outer = $inner;
         }
-        $config .= '  anonymous_identity="' . $outer . "\"\n";
-        $logConfig .= '  anonymous_identity="' . $outer . "\"\n";
+        $config .= '  anonymous_identity="'.$outer."\"\n";
+        $logConfig .= '  anonymous_identity="'.$outer."\"\n";
 // done
         $config .= "}";
         $logConfig .= "}";
@@ -662,12 +662,12 @@ network={
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
         $cmdline = \config\Diagnostics::PATHS['eapol_test'] .
-                " -a " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
+                " -a ".\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
+                " -s ".\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
-                " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['timeout'] . " ";
+                " -M 22:44:66:CA:20:".sprintf("%02d", $probeindex)." " .
+                " -t ".\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['timeout']." ";
         if ($opName) {
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         }
@@ -696,10 +696,10 @@ network={
      * @throws Exception
      */
     private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
-        if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
+        if (!mkdir($tmpDir."/root-ca-allcerts/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
         }
-        if (!mkdir($tmpDir . "/root-ca-eaponly/", 0700, true)) {
+        if (!mkdir($tmpDir."/root-ca-eaponly/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-eaponly/\n");
         }
 // make a copy of the EAP-received chain and add the configured intermediates, if any
@@ -713,15 +713,15 @@ network={
             }
             if ($decoded['ca'] == 1) {
                 if ($decoded['root'] == 1) { // save CAT roots to the root directory
-                    file_put_contents($tmpDir . "/root-ca-eaponly/configuredroot" . count($catRoots) . ".pem", $decoded['pem']);
-                    file_put_contents($tmpDir . "/root-ca-allcerts/configuredroot" . count($catRoots) . ".pem", $decoded['pem']);
+                    file_put_contents($tmpDir."/root-ca-eaponly/configuredroot".count($catRoots).".pem", $decoded['pem']);
+                    file_put_contents($tmpDir."/root-ca-allcerts/configuredroot".count($catRoots).".pem", $decoded['pem']);
                     $catRoots[] = $decoded['pem'];
                 } else { // save the intermediates to allcerts directory
-                    file_put_contents($tmpDir . "/root-ca-allcerts/cat-intermediate" . count($catIntermediates) . ".pem", $decoded['pem']);
+                    file_put_contents($tmpDir."/root-ca-allcerts/cat-intermediate".count($catIntermediates).".pem", $decoded['pem']);
                     $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
                     if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
                         \core\common\Logging::debug_s(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                        file_put_contents($tmpDir . "/root-ca-allcerts/crl_cat" . count($catIntermediates) . ".pem", $decoded['CRL'][0]);
+                        file_put_contents($tmpDir."/root-ca-allcerts/crl_cat".count($catIntermediates).".pem", $decoded['CRL'][0]);
                     }
                     $catIntermediates[] = $decoded['pem'];
                 }
@@ -730,26 +730,26 @@ network={
         // save all intermediate certificates and CRLs to separate files in 
         // both root-ca directories
         foreach ($eapIntermediates as $index => $onePem) {
-            file_put_contents($tmpDir . "/root-ca-eaponly/intermediate$index.pem", $onePem);
-            file_put_contents($tmpDir . "/root-ca-allcerts/intermediate$index.pem", $onePem);
+            file_put_contents($tmpDir."/root-ca-eaponly/intermediate$index.pem", $onePem);
+            file_put_contents($tmpDir."/root-ca-allcerts/intermediate$index.pem", $onePem);
         }
         foreach ($eapIntermediateCRLs as $index => $onePem) {
-            file_put_contents($tmpDir . "/root-ca-eaponly/intermediateCRL$index.pem", $onePem);
-            file_put_contents($tmpDir . "/root-ca-allcerts/intermediateCRL$index.pem", $onePem);
+            file_put_contents($tmpDir."/root-ca-eaponly/intermediateCRL$index.pem", $onePem);
+            file_put_contents($tmpDir."/root-ca-allcerts/intermediateCRL$index.pem", $onePem);
         }
 
         $checkstring = "";
         if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
             \core\common\Logging::debug_s(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
             $checkstring = "-crl_check_all";
-            file_put_contents($tmpDir . "/root-ca-eaponly/crl-server.pem", $servercert['CRL'][0]);
-            file_put_contents($tmpDir . "/root-ca-allcerts/crl-server.pem", $servercert['CRL'][0]);
+            file_put_contents($tmpDir."/root-ca-eaponly/crl-server.pem", $servercert['CRL'][0]);
+            file_put_contents($tmpDir."/root-ca-allcerts/crl-server.pem", $servercert['CRL'][0]);
         }
 
 
 // now c_rehash the root CA directory ...
-        system(\config\Diagnostics::PATHS['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-        system(\config\Diagnostics::PATHS['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        system(\config\Diagnostics::PATHS['c_rehash']." $tmpDir/root-ca-eaponly/ > /dev/null");
+        system(\config\Diagnostics::PATHS['c_rehash']." $tmpDir/root-ca-allcerts/ > /dev/null");
         return $checkstring;
     }
 
@@ -780,14 +780,14 @@ network={
 // so test if there's something PEMy in the file at all
 // serverchain.pem is the output from eapol_test; incomingserver.pem is written by extractIncomingCertsfromEAP() if there was at least one server cert.
         if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
-            $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem 2>&1";
+            $cmdString = \config\Master::PATHS['openssl']." verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem 2>&1";
             exec($cmdString, $verifyResultEaponly);
             \core\common\Logging::debug_s(4, $cmdString."\n");
-            \core\common\Logging::debug_s(4, "Chain verify pass 1: " . /** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE) . "\n");
-            $cmdString = \config\Master::PATHS['openssl'] . " verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem 2>&1";
+            \core\common\Logging::debug_s(4, "Chain verify pass 1: "./** @scrutinizer ignore-type */ print_r($verifyResultEaponly, TRUE)."\n");
+            $cmdString = \config\Master::PATHS['openssl']." verify $crlCheckString  -no-CAstore -no-CApath -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem 2>&1";
             exec($cmdString, $verifyResultAllcerts);
             \core\common\Logging::debug_s(4, $cmdString."\n");
-            \core\common\Logging::debug_s(4, "Chain verify pass 2: " . /** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE) . "\n");
+            \core\common\Logging::debug_s(4, "Chain verify pass 2: "./** @scrutinizer ignore-type */ print_r($verifyResultAllcerts, TRUE)."\n");
         }
 
 // now we do certificate verification against the collected parents
@@ -855,7 +855,7 @@ network={
         // we are UNHAPPY if no names match!
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
-            \core\common\Logging::debug_s(4, "Managing expectations for $expectedName: " . /** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE) . /** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
+            \core\common\Logging::debug_s(4, "Managing expectations for $expectedName: "./** @scrutinizer ignore-type */ print_r($servercert['CN'], TRUE)./** @scrutinizer ignore-type */ print_r($servercert['sAN_DNS'], TRUE));
             if (array_search(strtolower($expectedName), array_map('strtolower', $servercert['CN'])) !== FALSE && array_search(strtolower($expectedName), array_map('strtolower', $servercert['sAN_DNS'])) !== FALSE) {
                 \core\common\Logging::debug_s(4, "Totally happy!");
                 $happiness = "TOTALLY";
@@ -898,16 +898,16 @@ network={
         $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
         // the config intentionally does not include CA checking. We do this
         // ourselves after getting the chain with -o.
-        file_put_contents($tmpDir . "/udp_login_test.conf", $theconfigs[0]);
+        file_put_contents($tmpDir."/udp_login_test.conf", $theconfigs[0]);
 
         $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
         \core\common\Logging::debug_s(4, "Shallow reachability check cmdline: $cmdline\n");
-        \core\common\Logging::debug_s(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
+        \core\common\Logging::debug_s(4, "Shallow reachability check config: $tmpDir\n".$theconfigs[1]."\n");
         $time_start = microtime(true);
         $pflow = [];
         $process = proc_open('stdbuf -oL '.$cmdline, [1 => ['pipe', 'w']], $pipes);
         if ($pipes[1] === false) {
-            throw new RuntimeException('Failed to start process');
+            throw new Exception('Failed to start process');
         }
         $line = '';
         $alreadyClosed = false;
@@ -925,7 +925,7 @@ network={
                 proc_terminate($process);
                 fclose($pipes[1]);
                 proc_close($process);
-                 $alreadyClosed = true;
+                $alreadyClosed = true;
                 break;
             }
 
@@ -937,9 +937,9 @@ network={
             throw new Exception("Empty eapol_test output");
         }
         $time_stop = microtime(true);
-        exec('cp '.$tmpDir . "/serverchain.pem ".$tmpDir ."/mmm");
+        exec('cp '.$tmpDir."/serverchain.pem ".$tmpDir ."/mmm");
         $output = print_r($this->redact($password, $pflow), TRUE);
-        file_put_contents($tmpDir . "/eapol_test_output_redacted_$probeindex.txt", $output);
+        file_put_contents($tmpDir."/eapol_test_output_redacted_$probeindex.txt", $output);
 
         \core\common\Logging::debug_s(4, "eapol_test output saved to eapol_test_output_redacted_$probeindex.txt\n");
         return [
@@ -975,7 +975,7 @@ network={
         if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
             array_pop($packetflow);
         }
-        \core\common\Logging::debug_s(4, "Packetflow: " . /** @scrutinizer ignore-type */ print_r($packetflow, TRUE));
+        \core\common\Logging::debug_s(4, "Packetflow: "./** @scrutinizer ignore-type */ print_r($packetflow, TRUE));
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
@@ -1015,7 +1015,7 @@ network={
      */
     private function wasModernTlsNegotiated(&$testresults, $packetflow_orig) {
         $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
-        \core\common\Logging::debug_s(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
+        \core\common\Logging::debug_s(4, "TLS version found is: $negotiatedTlsVersion"."\n");
         if ($negotiatedTlsVersion === FALSE) {
             $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
         } elseif ($negotiatedTlsVersion != self::TLS_VERSION_1_2 && $negotiatedTlsVersion != self::TLS_VERSION_1_3) {
@@ -1071,7 +1071,7 @@ network={
          */
         $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
-        $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
+        $incomingData = file_get_contents($tmpDir."/serverchain.pem");
         if ($incomingData !== FALSE && strlen($incomingData) > 0) {
             $eapCertArray = $x509->splitCertificate($incomingData);
         } else {
@@ -1101,10 +1101,10 @@ network={
                 case RADIUSTests::SERVER_CA_SELFSIGNED:
                     $servercert[] = $cert;
                     if (count($servercert) == 1) {
-                        if (file_put_contents($tmpDir . "/incomingserver.pem", $cert['pem'] . "\n") === FALSE) {
+                        if (file_put_contents($tmpDir."/incomingserver.pem", $cert['pem']."\n") === FALSE) {
                             \core\common\Logging::debug_s(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
                         }
-                        \core\common\Logging::debug_s(4, "This is the (first) server certificate, with CRL content if applicable: " . /** @scrutinizer ignore-type */ print_r($servercert[0], true));
+                        \core\common\Logging::debug_s(4, "This is the (first) server certificate, with CRL content if applicable: "./** @scrutinizer ignore-type */ print_r($servercert[0], true));
                     } elseif (!in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
                     }
@@ -1174,7 +1174,7 @@ network={
     public function autodetectCAWithProbe($outerId) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
-        $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
+        $clientcert = file_get_contents(dirname(__FILE__)."/clientcert.p12");
         if ($clientcert === FALSE) {
             throw new Exception("A dummy client cert is part of the source distribution, but could not be loaded!");
         }
@@ -1189,7 +1189,7 @@ network={
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         \core\common\Logging::debug_s(4, "temp dir: $tmpDir\n");
-        file_put_contents($tmpDir . "/client.p12", $clientcert);
+        file_put_contents($tmpDir."/client.p12", $clientcert);
         $testresults = ['cert_oddities' => []];
         $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, \core\common\EAP::EAPTYPE_ANY, $outerId, $outerId, "eaplab", FALSE, FALSE);
         $packetflow_orig = $runtime_results['output'];
@@ -1246,7 +1246,7 @@ network={
         // trust, and custom ones we may have configured
         $ourRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-custom']);
         $mozillaRoots = file_get_contents(\config\ConfAssistant::PATHS['trust-store-mozilla']);
-        $allRoots = $x509->splitCertificate($ourRoots . "\n" . $mozillaRoots);
+        $allRoots = $x509->splitCertificate($ourRoots."\n".$mozillaRoots);
         foreach ($allRoots as $oneRoot) {
             $processedRoot = $x509->processCertificate($oneRoot);
             if ($processedRoot['full_details']['subject'] == $currentHighestKnownIssuer) {
@@ -1291,7 +1291,7 @@ network={
         chdir($tmpDir);
         \core\common\Logging::debug_s(4, "temp dir: $tmpDir\n");
         if ($clientcertdata !== NULL) {
-            file_put_contents($tmpDir . "/client.p12", $clientcertdata);
+            file_put_contents($tmpDir."/client.p12", $clientcertdata);
         }
         $testresults = [];
         // initialise the sub-array for cleaner parsing
@@ -1398,7 +1398,7 @@ network={
                     'issuer' => $this->printDN($certdata['issuer']),
                     'validFrom' => $this->printTm($certdata['validFrom_time_t']),
                     'validTo' => $this->printTm($certdata['validTo_time_t']),
-                    'serialNumber' => $certdata['serialNumber'] . sprintf(" (0x%X)", $certdata['serialNumber']),
+                    'serialNumber' => $certdata['serialNumber'].sprintf(" (0x%X)", $certdata['serialNumber']),
                     'sha1' => $certdata['sha1'],
                     'public_key_length' => $certdata['public_key_length'],
                     'extensions' => $certdata['extensions']
