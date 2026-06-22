@@ -85,6 +85,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             throw new Exception("For request method POST, the Content-Type must be application/ocsp-request.");
         }
         $ocspRequestDer = file_get_contents("php://input");
+        if (strlen($ocspRequestDer) >= 200) {
+            throw new Exception("Too big OCSP request");
+        }
         break;
     default:
         throw new Exception("Request method is not suitable for OCSP, see RFC6960 Appendix A.");
@@ -98,8 +101,8 @@ $output = [];
 $retval = 999;
 $derFilePath = tempnam(realpath(sys_get_temp_dir()), "ocsp_");
 file_put_contents($derFilePath, $ocspRequestDer);
-exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
-
+exec("openssl ocsp -reqin ".escapeshellarg($derFilePath)." -req_text", $output, $retval);
+unlink($derFilePath);
 if ($retval !== 0) {
     throw new Exception("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: " . base64_encode($ocspRequestDer));
 }
@@ -133,7 +136,6 @@ if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0)
 if (strcasecmp($nameHash, OUR_NAME_HASH) != 0 || strcasecmp($keyHash, OUR_KEY_HASH) != 0) {
     throw new Exception("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
 }
-error_log("base64-encoded request: " . base64_encode($ocspRequestDer));
 
 $response = fopen(__DIR__ . "/statements/" . $serialHex . ".der", "r");
 if ($response === FALSE) { // not found
@@ -180,7 +182,6 @@ if ($response === FALSE) { // not found
 
 $responseContent = fread($response, 1000000);
 fclose($response);
-error_log("base64-encoded response: " . base64_encode($responseContent));
 header('Content-Type: application/ocsp-response');
 header('Content-Length: ' . strlen($responseContent));
 echo $responseContent;
