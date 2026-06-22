@@ -4,12 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #: web/lib/admin/Authentication.php:91 web/lib/admin/UIElements.php:185
+#: web/lib/admin/UIElements.php:778
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 12:55+0200\n"
+"POT-Creation-Date: 2026-06-22 10:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1482,7 +1483,10 @@ msgid "Only instututions with wired support"
 msgstr ""
 
 #: web/admin/overview_federation.php:50
-msgid "Only institutions with some certificate problems"
+#, php-format
+msgid ""
+"Only institutions with certificate problems<ul><li>warning - less than %d "
+"days of validity<li>error - less than %d days of validity</ul>"
 msgstr ""
 
 #: web/admin/overview_federation.php:51
@@ -1498,7 +1502,7 @@ msgid "Only institutions with OpenRoaming support"
 msgstr ""
 
 #: web/admin/overview_federation.php:54
-msgid "Only institutions with no admins"
+msgid "Only institutions with none or inactive admins"
 msgstr ""
 
 #: web/admin/overview_federation.php:55
@@ -1762,37 +1766,42 @@ msgstr ""
 msgid "Quick search:"
 msgstr ""
 
-#: web/admin/overview_federation.php:582
+#: web/admin/overview_federation.php:564
+#, php-format
+msgid "Some of the admins have not been seen for at least %d days"
+msgstr ""
+
+#: web/admin/overview_federation.php:590
 msgid "manage"
 msgstr ""
 
-#: web/admin/overview_federation.php:582
+#: web/admin/overview_federation.php:590
 msgid "view"
 msgstr ""
 
-#: web/admin/overview_federation.php:607
+#: web/admin/overview_federation.php:615
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:619 web/admin/overview_user.php:290
+#: web/admin/overview_federation.php:627 web/admin/overview_user.php:290
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:642
+#: web/admin/overview_federation.php:650
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:659
+#: web/admin/overview_federation.php:667
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:660 web/admin/inc/manageAdmins.inc.php:233
+#: web/admin/overview_federation.php:668 web/admin/inc/manageAdmins.inc.php:234
 #, php-format
 msgid "(expires %s)"
 msgstr ""
 
-#: web/admin/overview_federation.php:682
+#: web/admin/overview_federation.php:690
 #, php-format
 msgid "Register a new %s!"
 msgstr ""
@@ -2631,12 +2640,11 @@ msgid ""
 "institution administrator in the eduroam database.\n"
 "                            The extended rights will allow you to invite "
 "other administrators to this institution.\n"
-"                            <p>Click the button to send the invitation token "
-"to your email address."
+"                            <p>Click the button to upgrade access."
 msgstr ""
 
 #: web/admin/overview_user.php:299
-msgid "Send token<br>to upgrade access"
+msgid "Upgrade access"
 msgstr ""
 
 #: web/admin/overview_user.php:299 web/admin/overview_user.php:407
@@ -2851,28 +2859,33 @@ msgstr ""
 msgid "Last seen: "
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:208
+#: web/admin/inc/manageAdmins.inc.php:202
+#, php-format
+msgid "Not seen since %s"
+msgstr ""
+
+#: web/admin/inc/manageAdmins.inc.php:209
 msgid "Delete Administrator"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:230
+#: web/admin/inc/manageAdmins.inc.php:231
 msgid "Pending invitations for this IdP"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:242
+#: web/admin/inc/manageAdmins.inc.php:243
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:242
+#: web/admin/inc/manageAdmins.inc.php:243
 msgid "Invite new administrator"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:257
+#: web/admin/inc/manageAdmins.inc.php:258
 #, php-format
 msgid "Take control of this %s"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:264
+#: web/admin/inc/manageAdmins.inc.php:265
 #: web/admin/inc/manageDBLink.inc.php:206
 #: web/admin/inc/manageNewInst.inc.php:153 web/admin/inc/manageType.inc.php:172
 msgid "Close"
@@ -3308,7 +3321,7 @@ msgstr ""
 msgid "All institutions"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:292
+#: web/lib/admin/OptionDisplay.php:295
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -3325,7 +3338,7 @@ msgid ""
 "while they are not."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:294
+#: web/lib/admin/OptionDisplay.php:297
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -3335,19 +3348,19 @@ msgid ""
 "currently experimental and only has an effect in Apple installers."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:295
+#: web/lib/admin/OptionDisplay.php:298
 #, php-format
 msgid ""
 "If you are also using %s, then your own realm is automatically tagged with "
 "the VLAN you choose, there is no need to add it here manually."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:296
+#: web/lib/admin/OptionDisplay.php:299
 #, php-format
 msgid "By opting in to OpenRoaming, you agree to be bound by the %s."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:298
+#: web/lib/admin/OptionDisplay.php:301
 #, php-format
 msgid ""
 "Note that your requirement to inform users about the OpenRoaming End User "
@@ -3356,37 +3369,37 @@ msgid ""
 "installers needs to present this information via its own channel."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:300
+#: web/lib/admin/OptionDisplay.php:303
 msgid ""
 "You are also aware that for best technical interoperability, you need to add "
 "a DNS entry into the DNS zone of your RADIUS realm."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:302
+#: web/lib/admin/OptionDisplay.php:305
 msgid "Read the instructions in the wiki."
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:375
+#: web/lib/admin/OptionDisplay.php:378
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:376 web/lib/admin/UIElements.php:241
+#: web/lib/admin/OptionDisplay.php:379 web/lib/admin/UIElements.php:241
 msgid "default/other languages"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:451
+#: web/lib/admin/OptionDisplay.php:454
 msgid "(default/other languages)"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:486
+#: web/lib/admin/OptionDisplay.php:489
 msgid "file content"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:502 web/lib/admin/UIElements.php:275
+#: web/lib/admin/OptionDisplay.php:505 web/lib/admin/UIElements.php:275
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:502 web/lib/admin/UIElements.php:275
+#: web/lib/admin/OptionDisplay.php:505 web/lib/admin/UIElements.php:275
 msgid "off"
 msgstr ""
 
@@ -3931,11 +3944,15 @@ msgid "All certificates are valid long enough"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:759
-msgid "At least one certificate is close to expiry"
+#, php-format
+msgid "At least one certificate has less than %d days to expiry"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:760
-msgid "At least one certificate either has expired or is very close to expiry"
+#, php-format
+msgid ""
+"At least one certificate either has expired or has less than  %d days to "
+"expiry"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:761
@@ -3996,10 +4013,6 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:777
 msgid "Not showing cert info if no profiles are visible"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:778
-msgid "Some of the admins have not been seen for a long time"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:779
