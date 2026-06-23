@@ -84,7 +84,7 @@ class CAT extends \core\common\Entity
     
     public $catVersion;
     
-    public $catCopyrifhtAndLicense;
+    public $catCopyrightAndLicense;
 
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
@@ -134,7 +134,7 @@ class CAT extends \core\common\Entity
         $holder = self::COPYRIGHT_HOLDER;
         $consortia = self::COPYRIGHT_CONSORTIA;
         $this->catCopyright = "$product - " . $this->catVersionString . " &copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-        $this->catCopyrifhtAndLicense = "&copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->catCopyrightAndLicense = "&copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
         $this->catVersion = "$product<br>" . $this->catVersionString;
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
@@ -630,7 +630,7 @@ class CAT extends \core\common\Entity
                 'path' => "/",
                 'domain' => $_SERVER['HTTP_HOST'],
                 'secure' => (isset($_SERVER['HTTPS']) ? TRUE : FALSE),
-                'httponly' => false,
+                'httponly' => true,
                 'samesite' => 'strict'
         ]);               
             session_start();

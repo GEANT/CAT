@@ -148,7 +148,6 @@ echo $mapCode->htmlHeadCode();
             <button type='button' class='newoption'><?php echo _("Add new option"); ?></button>
         </fieldset>
         <?php
-    }
     ?>
     <fieldset class="option_container" name="support">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
@@ -158,6 +157,7 @@ echo $mapCode->htmlHeadCode();
         ?>
         <button type='button' class='newoption'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
+    }
     if ($editMode === 'readonly') {
         $discardLabel = _("Return");
     }

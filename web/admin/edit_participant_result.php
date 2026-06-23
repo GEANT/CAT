@@ -125,7 +125,8 @@ switch ($_POST['submitbutton']) {
         }
 
         $uiElements = new web\lib\admin\UIElements();
-        if(\core\CAT::singleService() !== 'CONFASSISTANT_MSP') {
+        if (\core\CAT::hostedIDPEnabled() && preg_match("/IdP/", $myInstReinstantiated->type) && \core\CAT::singleService() !== 'CONFASSISTANT_MSP') {
+//        if(\core\CAT::singleService() !== 'CONFASSISTANT_MSP') {
             echo "<table>";
             if (count($ssids) > 0) {
                 $printedlist = "";
