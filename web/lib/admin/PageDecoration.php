@@ -292,7 +292,7 @@ class PageDecoration extends \core\common\Entity {
             </td>";
 
         if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
-            $retval .= "<td>".$cat->catCopyrifhtAndLicense."<br><span id='privacy_notice_cons'>".\config\ConfAssistant::CONSORTIUM['display_name']."</span> <a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), '')."</a></td>";
+            $retval .= "<td>".$cat->catCopyrightAndLicense."<br><span id='privacy_notice_cons'>".\config\ConfAssistant::CONSORTIUM['display_name']."</span> <a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"), '')."</a></td>";
         }
         $retval .= "<td>";
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
