@@ -146,31 +146,11 @@ if ($response === FALSE) { // not found
     }
     // this might be a very young certificate, just issued, OCSP statement is 
     // not on the server yet. Apply some amount of grace for a while...
-    $graceRaw = file_get_contents("gracelist.serialised");
-    if ($graceRaw !== FALSE) {
-        $grace = unserialize($graceRaw);
-        if (array_key_exists($serialHex, $grace)) {
-            // we applied grace earlier. Check if we are still in the window.
-            $now = new DateTime();
-            $first = $grace[$serialHex]; // this is a DateTime object
-            $diff = $now->diff($first);
-            if ($diff->y == 0 && $diff->m == 0 && $diff->d == 0 && $diff->h == 0) {
-                // this certificate gets a small dose of amazing grace. 
-                error_log("Not sending any reply for serial $serialHex because we've applied grace (subsequently).");
-                exit(1);
-            } else {
-                $response = $unauthResponse;
-            }
-        } else {
-            // this certificate gets a small dose of amazing grace. Do not reply
-            // but remember when this happened.
-            $grace[$serialHex] = new DateTime();
-            file_put_contents("gracelist.serialised", serialize($grace));
-            error_log("Not sending any reply for serial $serialHex because we've applied grace (first time).");
-            exit(1);
-        }
-    }
-    // if we are outside the grace window, send back a negative reply
+    // 
+    // grace period wasn't used on production for years
+    // if needed should be implemented using JSON or a simple DB like redis/sqlite
+    // purging of gracelist have to be implemented
+    
     $response = $unauthResponse;
     error_log("Serving OCSP response for serial number $serialHex! (we ran out of grace)");
 } else {
