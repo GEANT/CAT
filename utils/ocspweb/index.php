@@ -125,7 +125,7 @@ foreach ($output as $oneLine) {
         $serialHex = $matchBuffer[1];
     }
 }
-if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0) {
+if (strlen($nameHash) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0) {
     throw new Exception("Unable to extract all of issuer hash, key hash, serial number from the request.");
 }
 /*
