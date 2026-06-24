@@ -100,7 +100,7 @@ if (isset($_POST['submitbutton'])) {
                                                 <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
                                             </div>
                                             <button type="submit" name="submitbutton" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE_ACCEPTED ?>"><?php echo _("Continue"); ?></button>
-                                            <button class="delete" type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Abort"); ?></button>
+                                            <button class='delete' type='submit' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>'><?php echo _("Abort"); ?></button>
                                         </form>
                                     </div>
                                 </div>
