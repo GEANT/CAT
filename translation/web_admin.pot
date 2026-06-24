@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 10:11+0200\n"
+"POT-Creation-Date: 2026-06-24 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,7 +419,7 @@ msgstr ""
 #. $reloadedProfileNr2->setOpenRoamingReadinessInfo($resultLevel);
 #: web/admin/duplicate_profile_result.php:143
 #: web/admin/edit_federation_result.php:61
-#: web/admin/edit_participant_result.php:174
+#: web/admin/edit_participant_result.php:175
 #: web/admin/edit_profile_result.php:359 web/admin/sort_profiles_result.php:61
 msgid "Continue to dashboard"
 msgstr ""
@@ -468,7 +468,7 @@ msgid "Country:"
 msgstr ""
 
 #: web/admin/edit_federation.php:110 web/admin/edit_participant.php:136
-#: web/admin/edit_participant.php:148 web/admin/edit_participant.php:159
+#: web/admin/edit_participant.php:148 web/admin/edit_participant.php:158
 #: web/admin/edit_profile.php:197 web/admin/edit_profile.php:471
 #: web/admin/edit_user.php:63
 msgid "Add new option"
@@ -621,7 +621,7 @@ msgstr ""
 msgid "Media Properties"
 msgstr ""
 
-#: web/admin/edit_participant.php:154
+#: web/admin/edit_participant.php:153
 msgid "Helpdesk Details for all users"
 msgstr ""
 
@@ -694,36 +694,36 @@ msgstr ""
 msgid "(WPA2/AES)"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:135
+#: web/admin/edit_participant_result.php:136
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:135
+#: web/admin/edit_participant_result.php:136
 msgid "SSIDs configured"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:139
+#: web/admin/edit_participant_result.php:140
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
 
-#: web/admin/edit_participant_result.php:139
+#: web/admin/edit_participant_result.php:140
 msgid "Wired configured"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:142
+#: web/admin/edit_participant_result.php:143
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:162
+#: web/admin/edit_participant_result.php:163
 #, php-format
 msgid "Continue to %s properties"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:165
+#: web/admin/edit_participant_result.php:166
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -731,11 +731,11 @@ msgid ""
 "mail address."
 msgstr ""
 
-#: web/admin/edit_participant_result.php:165
+#: web/admin/edit_participant_result.php:166
 msgid "No support e-mail!"
 msgstr ""
 
-#: web/admin/edit_participant_result.php:170
+#: web/admin/edit_participant_result.php:171
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr ""
 
