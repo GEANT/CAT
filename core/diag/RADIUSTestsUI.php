@@ -88,7 +88,7 @@ class RADIUSTestsUI extends AbstractTest
             \core\common\Entity::L_OK => _("All tests passed."),
             \core\common\Entity::L_WARN => _("There were some warnings."),
             \core\common\Entity::L_ERROR => _("There were some errors."),
-            \core\common\Entity::L_CONF_ERROR => _("There were configuration some errors."),
+            \core\common\Entity::L_CONF_ERROR => _("There were some configuration errors."),
             \core\common\Entity::L_REMARK => _("There were some remarks.")
         ]; 
         $this->stateIcons = [
