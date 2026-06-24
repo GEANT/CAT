@@ -39,7 +39,7 @@
  * 
  * (where serial is arbitrary, and cacert.pem is the CA file of the issuing CA)
  */
-error_reporting(E_ALL);
+error_reporting(E_ALL | E_STRICT);
 
 const OUR_NAME_HASH = "DCEB2C72264239201A4A5DF547C78268A1CB33A2";
 const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
@@ -104,7 +104,7 @@ file_put_contents($derFilePath, $ocspRequestDer);
 exec("openssl ocsp -reqin ".escapeshellarg($derFilePath)." -req_text", $output, $retval);
 unlink($derFilePath);
 if ($retval !== 0) {
-    throw new Exception("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: " . base64_encode($ocspRequestDer));
+    throw new Exception("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: ".base64_encode($ocspRequestDer));
 }
 if ($output === NULL) { // this can't really happen, but makes Scrutinizer happier
     $output = [];
@@ -134,13 +134,13 @@ if (strlen($nameHash) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0) 
  * back (if we have it).
  */
 if (strcasecmp($nameHash, OUR_NAME_HASH) != 0 || strcasecmp($keyHash, OUR_KEY_HASH) != 0) {
-    throw new Exception("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
+    throw new Exception("The request is about a different Issuer name / public key. Expected vs. actual name hash: ".OUR_NAME_HASH." / $nameHash, ".OUR_KEY_HASH." / $keyHash");
 }
 
-$response = fopen(__DIR__ . "/statements/" . $serialHex . ".der", "r");
+$response = fopen(__DIR__."/statements/".$serialHex.".der", "r");
 if ($response === FALSE) { // not found
     // first lets load the unauthorised response, which is the default reply
-    $unauthResponse = fopen(__DIR__ . "/statements/UNAUTHORIZED.der", "r");
+    $unauthResponse = fopen(__DIR__."/statements/UNAUTHORIZED.der", "r");
     if ($unauthResponse === FALSE) {
         throw new Exception("Unable to open our canned UNAUTHORIZED response!");
     }
@@ -152,7 +152,7 @@ if ($response === FALSE) { // not found
     // purging of gracelist have to be implemented
     
     $response = $unauthResponse;
-    error_log("Serving OCSP response for serial number $serialHex! (we ran out of grace)");
+    error_log("Serving unauthorized OCSP response for serial number $serialHex!");
 } else {
     error_log("Serving OCSP response for serial number $serialHex!");
 }
@@ -163,5 +163,5 @@ if ($response === FALSE) { // not found
 $responseContent = fread($response, 1000000);
 fclose($response);
 header('Content-Type: application/ocsp-response');
-header('Content-Length: ' . strlen($responseContent));
+header('Content-Length: '.strlen($responseContent));
 echo $responseContent;
