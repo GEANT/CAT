@@ -182,7 +182,7 @@ class UIElements extends \core\common\Entity {
             ],
             "fed:flat-admin-structure" => [
                 'display' => _("Use flat structure of institution administrators"),
-                'help' => _("")
+                'help' => _("Allow all institution administrators to have full rights, in particular be able to invite more admins; normally only the admins invited directly by the NRO are allowed to do this.")
             ],
             "fed:no-testing" => [
                 'display' => _("Stop periodic RADIUS testing"),
