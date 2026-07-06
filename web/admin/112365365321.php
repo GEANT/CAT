@@ -140,7 +140,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                 $gross_silverbullet = 0;
                 foreach (\devices\Devices::listDevices() as $index => $device_array) {
                     echo "<tr>";
-                    $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user, SUM(downloads_silverbullet) as silverbullet FROM downloads WHERE device_id = '$index'");
+                    $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user, SUM(downloads_silverbullet) as silverbullet FROM downloads WHERE device_id = ?", 's', $index);
                     // SELECT -> mysqli_result, not boolean
                     while ($a = mysqli_fetch_object(/** @scrutinizer ignore-type */ $admin_query)) {
                         echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td><td>" . $a->silverbullet . "</td><td>" . sprintf("%s", $a->user + $a->silverbullet) . "</td>";
