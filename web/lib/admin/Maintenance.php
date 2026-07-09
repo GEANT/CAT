@@ -28,15 +28,23 @@ namespace web\lib\admin;
  */
 class Maintenance {
 
+
+    
+    
     /**
      * delete our various cache and temp dirs if they are not needed any more
+     * @param type $cleanDiags if true also delete the temporary diagnostcs directories
      * @return int the number of deleted temporary directories
      */
-    public static function deleteObsoleteTempDirs() {
+    public static function deleteObsoleteTempDirs($cleanDiags = false) {
         $downloadsDirs = [
             'site_installers' => dirname(dirname(dirname(dirname(__FILE__)))) . "/var/installer_cache",
             'silverbullet' => dirname(dirname(dirname(dirname(__FILE__)))) . "/var/silverbullet"
         ];
+        
+        if ($cleanDiags === true) {
+            $downloadsDirs['diag'] = dirname(dirname(dirname(dirname(__FILE__)))) . "/var/tmp";
+        }
         $tm = time();
         $i = 0;
         $Cache = [];
@@ -70,4 +78,5 @@ class Maintenance {
         }
         return $i;
     }
+    
 }

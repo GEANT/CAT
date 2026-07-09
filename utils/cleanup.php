@@ -26,4 +26,4 @@
  */
 require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
-web\lib\admin\Maintenance::deleteObsoleteTempDirs();
+web\lib\admin\Maintenance::deleteObsoleteTempDirs(true);
