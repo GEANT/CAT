@@ -72,9 +72,9 @@ parser = argparse.ArgumentParser(description='eduroam linux installer.')
 parser.add_argument('--debug', '-d', action='store_true', dest='debug',
     default=False, help='set debug flag')
 parser.add_argument('--username', '-u', action='store', dest='username',
-    help='set username')
+    help='set username; the --password and --silent options should be used together with --username')
 parser.add_argument('--password', '-p', action='store', dest='password',
-    help='set text_mode flag')
+    help='set the password; the --username and --silent options should be used together with --password')
 parser.add_argument('--silent', '-s', action='store_true', dest='silent',
     help='set silent flag')
 parser.add_argument('--pfxfile', action='store', dest='pfx_file',
