@@ -316,7 +316,7 @@ class DeploymentManaged extends AbstractDeployment
         // first, if there is a pool of servers specifically for this federation, prefer it
         // only check the consortium pool group we want to attach to
         $cons = $this->consortium;
-        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat, port_range, max_clients FROM managed_sp_servers WHERE pool = ? AND consortium = ?", "ss", $federation, $cons);
+        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat, port_range, max_clients FROM managed_sp_servers WHERE pool = ? AND consortium = ? ORDER BY server_id DESC", "ss", $federation, $cons);
         $serverCandidates = [];
         $portRange = '';
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
@@ -475,6 +475,7 @@ class DeploymentManaged extends AbstractDeployment
          
         $inst = new IdP($this->institution);
         $ourserverwithports = $this->findGoodServerLocation($ourLocation, $inst->federation, []);
+        error_log("SERVERS ".serialize($ourserverwithports));
         $ourserver = substr($ourserverwithports, 0, strpos($ourserverwithports, "#"));
         $portRange = substr($ourserverwithports, strpos($ourserverwithports, "#") + 1);
         $ports = explode("-", $portRange);
