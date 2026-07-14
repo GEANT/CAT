@@ -249,7 +249,7 @@ class UserManagement extends \core\common\Entity
         $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $user, $idp->identifier);
         // SELECT -> resource, not boolean
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) == 0) {
-            $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'EDB', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
+            $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'EDB', ?)", "iss", $idp->identifier, $user, $_SESSION['auth_email']);
         }
         return TRUE;
     }
