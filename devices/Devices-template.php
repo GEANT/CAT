@@ -137,12 +137,12 @@ class Devices extends \core\common\Entity {
  * 
  *      $skinObject = new \web\lib\user\Skinjob(\config\Master::APPEARANCE['skins'][0]);
         $googleDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/google-play.png")."' alt='Google Play' class='applogos'>";
-        $huaweiDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/appgallery.png")."' alt='Huawei AppGallery' class='applogos'>";
         $amazonDownload = "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/amazon-appstore-badge-english-black..png")."' alt='Amazon Appstore' class='applogos'>";
-*/
+        $fdroidDownload =  "<img src='".$skinObject->findResourceUrl("IMAGES", "vendorlogo/get-it-on-en.png")."' alt='F-Droid' class='applogos'>";
+ */
         $googleDownload = 'Google Play';
-        $huaweiDownload = 'Huawei AppGallery';
         $amazonDownload = 'Amazon Appstore';
+        $fdroidDownmload = 'F-Droid';
         $retArray = [
             'w10' => [
                 'group' => "microsoft",
@@ -423,6 +423,34 @@ class Devices extends \core\common\Entity {
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://network'>chrome://network</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
                 ],
             ],
+            'eap-generic' => [
+                'group' => "android",
+                'display' => _("Android 8 and higher"),
+                'match' => 'Android ([89]|1[0-9])',
+                'directory' => 'eap_config',
+                'module' => 'Generic',
+               'options' => [
+                    'mime' => 'application/eap-config',
+                    'hs20' => 1,
+                    'message_only' => 0,
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "geteduroam",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='https://f-droid.org/pl/packages/app.eduroam.geteduroam/'>F-Droid</a>"),
+                    'geteduroam_text' =>  sprintf(_("Use our app, it will guide you through the setup process:%s.<p>"
+                        . "After installation, open the app, select your home institution and the app will collect required information "
+                        . "(this will require an internet connection)."
+                            . "<p><span style='font-size:90%%'>If you want to save the configuration for later offline deployment, "
+                            . "you can download it by %s.</span>"),
+                        "<p><div>"
+                            . "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>$googleDownload</a> "
+                            . "<a target='_blank' href='https://f-droid.org/pl/packages/app.eduroam.geteduroam/'>$fdroidDownload</a>"
+                            . "</div><p>",
+                        "<a href='user/API.php?action=downloadInstaller&lang=".$lang->getLang()."&profile=".$profile."&device=android_recent&generatedfor=user&openroaming=".$orAlways."'>"._("clicking here")."</a>"),
+                    'device_options' => ['geteduroam',
+                    ],
+                ],
+
+            ],
             'android_recent' => [
                 'group' => "android",
                 'display' => _("Android 8 and higher"),
@@ -448,6 +476,7 @@ class Devices extends \core\common\Entity {
                         "<p><div>"
                             . "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>$googleDownload</a> " 
                             . "<a target='_blank' href='https://appgallery.huawei.com/app/C104231893'>$huaweiDownload</a>"
+                            . "<a target='_blank' href='https://f-droid.org/pl/packages/app.eduroam.geteduroam/'>$fdroidDownload</a>"
                             . "</div><p>",
                         "<a href='geteduroam-stable.apk' target='_blank'>"._("here")."</a>",
                         "<a href='user/API.php?action=downloadInstaller&lang=".$lang->getLang()."&profile=".$profile."&device=android_recent&generatedfor=user&openroaming=".$orAlways."'>"._("clicking here")."</a>"),
@@ -482,7 +511,7 @@ class Devices extends \core\common\Entity {
                     ],
                     'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>,  <a target='_blank' href='https://f-droid.org/pl/packages/uk.ac.swansea.eduroamcat/'>F-Droid</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                     'geteduroam_text' => sprintf(_("Use our app, it will guide you through the setup process:%s"
                             ."(or download it manually %s.)<p>"
                         . "After installation, open the app, select your home institution and the app will collect required information "
@@ -490,8 +519,8 @@ class Devices extends \core\common\Entity {
                             . "<p><span style='font-size:90%%'>If you want to save the configuration for later offline deployment, "
                             . "you can download it by %s.</span>"), 
                         "<p><div>"
-                            . "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>$googleDownload</a> " 
                             . "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>$amazonDownload</a>"
+                            . "<a target='_blank' href='https://f-droid.org/pl/packages/uk.ac.swansea.eduroamcat/'>$fdroidDownload</a> "
                             . "</div><p>",
                         "<a href='eduroamCAT-stable.apk' target='_blank'>"._("here")."</a>",
                         "<a href='user/API.php?action=downloadInstaller&lang=".$lang->getLang()."&profile=".$profile."&device=android_4_7&generatedfor=user&openroaming=0'>"._("clicking here")."</a>"),
@@ -622,18 +651,7 @@ class Devices extends \core\common\Entity {
                     'message' => sprintf(_("This option provides an EAP config XML file, which can be consumed by the eduroamCAT app for Android.")),
                 ],
             ],
-            'eap-generic' => [
-                'group' => "eap-config",
-                'display' => _("EAP generic"),
-                'directory' => 'eap_config',
-                'module' => 'Generic',
-                'options' => [
-                    'mime' => 'application/eap-config',
-                    'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by the GetEduroam applications.")),
-                    'hidden' => 2,
-                    'hs20' => 1,
-                ],
-            ],
+
             'eap-config-full' => [
                 'group' => "eap-config",
                 'display' => _("EAP config"),
