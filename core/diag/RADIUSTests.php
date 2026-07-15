@@ -404,7 +404,7 @@ class RADIUSTests extends AbstractTest {
 
             $proc = \config\Master::PATHS['openssl']." crl -inform der";
             $descriptorspec = [
-               0 => ["pipe", "r"],
+                0 => ["pipe", "r"],
                 1 => ["pipe", "w"],
                 2 => ["pipe", "w"],
             ];
