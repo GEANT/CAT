@@ -245,7 +245,7 @@ class RADIUSTests extends AbstractTest {
         $sANdns = [];
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
-            $returnarray[] = RADIUSTests::CERTPROB_NO_CDP_HTTP;
+            //$returnarray[] = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // Extensions are present...
             if (!isset($servercert['full_details']['extensions']['extendedKeyUsage']) || !preg_match("/TLS Web Server Authentication/", $servercert['full_details']['extensions']['extendedKeyUsage'])) {
                 $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
@@ -382,47 +382,49 @@ class RADIUSTests extends AbstractTest {
 //        if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
 //            return RADIUSTests::CERTPROB_NO_CDP;
 //        }
-        if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
+        if (isset($cert['full_details']['extensions']['crlDistributionPoints']) && !preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             return RADIUSTests::CERTPROB_NO_CDP_HTTP;
         }
         // first and second sub-match is the full URL... check it
-        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1].$crlUrl[2]), \config\Diagnostics::TIMEOUTS['crl_download']);
-        if ($crlcontent === FALSE) {
-            return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
-        }
-        /* CRLs are always in DER form, so need encoding
-         * note that what we ACTUALLY got can be arbitrary junk; we just deposit
-         * it on the filesystem and let openssl figure out if it is usable or not
-         *
-         * Unfortunately, that freaks out Scrutinizer because we write unvetted
-         * data to the filesystem. Let's see if we can make things better.
-         */
+        if (isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
+            $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1].$crlUrl[2]), \config\Diagnostics::TIMEOUTS['crl_download']);
+            if ($crlcontent === FALSE) {
+                return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
+            }
+            /* CRLs are always in DER form, so need encoding
+             * note that what we ACTUALLY got can be arbitrary junk; we just deposit
+             * it on the filesystem and let openssl figure out if it is usable or not
+             *
+             * Unfortunately, that freaks out Scrutinizer because we write unvetted
+             * data to the filesystem. Let's see if we can make things better.
+             */
 
-        // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
-        // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
+            // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
+            // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
 
-        $proc = \config\Master::PATHS['openssl']." crl -inform der";
-        $descriptorspec = [
-            0 => ["pipe", "r"],
-            1 => ["pipe", "w"],
-            2 => ["pipe", "w"],
-        ];
-        $process = proc_open($proc, $descriptorspec, $pipes);
-        if (!is_resource($process)) {
-            throw new Exception("Unable to execute openssl cmdline for CRL conversion!");
+            $proc = \config\Master::PATHS['openssl']." crl -inform der";
+            $descriptorspec = [
+               0 => ["pipe", "r"],
+                1 => ["pipe", "w"],
+                2 => ["pipe", "w"],
+            ];
+            $process = proc_open($proc, $descriptorspec, $pipes);
+            if (!is_resource($process)) {
+                throw new Exception("Unable to execute openssl cmdline for CRL conversion!");
+            }
+            fwrite($pipes[0], $crlcontent);
+            fclose($pipes[0]);
+            $pem = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            $retval = proc_close($process);
+            if ($retval != 0 || !preg_match("/BEGIN X509 CRL/", $pem)) {
+                // this was not a real CRL
+                return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
+            }
+            $cert['CRL'] = [];
+            $cert['CRL'][] = $pem;
         }
-        fwrite($pipes[0], $crlcontent);
-        fclose($pipes[0]);
-        $pem = stream_get_contents($pipes[1]);
-        fclose($pipes[1]);
-        fclose($pipes[2]);
-        $retval = proc_close($process);
-        if ($retval != 0 || !preg_match("/BEGIN X509 CRL/", $pem)) {
-            // this was not a real CRL
-            return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
-        }
-        $cert['CRL'] = [];
-        $cert['CRL'][] = $pem;
         return $returnresult;
     }
 
