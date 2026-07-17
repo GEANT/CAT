@@ -73,7 +73,7 @@ class MsWlanProfile
         $dom = new \DOMDocument('1.0', 'utf-8');
         $root = $dom->createElement($rootname);
         $dom->appendChild($root);
-        $ns = $dom->createAttributeNS( null, 'xmlns' );
+        $ns = $dom->createAttributeNS( 'http://www.w3.org/2000/xmlns/', 'xmlns' );    
         $ns->value = "http://www.microsoft.com/networking/WLAN/profile/v1";
         $root->appendChild($ns);        
         \core\DeviceXMLmain::marshalObject($dom, $root, 'WLANprofile', $this->getWLANprofile(), '', true);

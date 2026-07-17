@@ -213,7 +213,7 @@ class DeviceXMLmain
                 $node->appendChild($childNode);
             }
             if (!empty($namespace)) {
-                $ns = $domElement->createAttributeNS(null,'xmlns');
+                $ns = $domElement->createAttributeNS( 'http://www.w3.org/2000/xmlns/', 'xmlns' );
                 $ns->value = $namespace;
                 $childNode->appendChild($ns);  
             }
@@ -240,7 +240,7 @@ class DeviceXMLmain
                 $nextChild = $domElement->createElement($nameC, $cl);    
                 $childNode->appendChild($nextChild);
                 if (!empty($namespaceC)) {
-                    $ns = $domElement->createAttributeNS(null,'xmlns');
+                    $ns = $domElement->createAttributeNS( 'http://www.w3.org/2000/xmlns/', 'xmlns' );
                     $ns->value = $namespaceC;
                     $nextChild->appendChild($ns);  
                 }
@@ -262,7 +262,7 @@ class DeviceXMLmain
                             $childNode->appendChild($nextChild);
                         }
                         if (!empty($namespaceC)) {
-                            $ns = $domElement->createAttributeNS(null,'xmlns');
+                            $ns = $domElement->createAttributeNS( 'http://www.w3.org/2000/xmlns/', 'xmlns' );
                             $ns->value = $namespaceC;
                             $nextChild->appendChild($ns);  
                         }
