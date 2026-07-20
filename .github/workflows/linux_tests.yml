@@ -10,13 +10,13 @@ jobs:
   python_linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: j178/prek-action@v2
 
   create_test_data_ttls:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - shell: bash
         run: |
           cat << EOF > create_test_data_ttls.txt
@@ -40,7 +40,7 @@ jobs:
         python-version: ["3.7", "3.8", "3.9"]
     needs: [create_test_data_ttls]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -68,7 +68,7 @@ jobs:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     needs: [create_test_data_ttls]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
