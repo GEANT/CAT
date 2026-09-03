@@ -132,7 +132,7 @@ function ask {
   fi
   if [ ! -z "$YAD" ] ; then
      text=$(echo "${1}" | fmt -w60)
-     if "$YAD" --image="dialog-question" --button=gtk-yes:0 --button=gtk-no:1 --width=500 --wrap --text="${text}\n\n${2}" --title="$TITLE" 2>/dev/null ; then
+     if "$YAD" --image="dialog-question" --button=yad-yes:0 --button=yad-no:1 --width=500 --wrap --text="${text}\n\n${2}" --title="$TITLE" 2>/dev/null ; then
        return 0
      else
        return 1

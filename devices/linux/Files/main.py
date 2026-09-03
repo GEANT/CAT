@@ -441,8 +441,8 @@ class InstallerData:
                            '--title=' + Config.title]
             elif self.graphics == 'yad':
                 command = ['yad', '--image="dialog-question"',
-                           '--button=gtk-yes:0',
-                           '--button=gtk-no:1',
+                           '--button=yad-yes:0',
+                           '--button=yad-no:1',
                            '--width=500',
                            '--wrap',
                            '--text=' + question + "\n\n" + prompt,
