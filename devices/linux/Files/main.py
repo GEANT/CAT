@@ -984,7 +984,7 @@ class InstallerData:
         for line in result.stdout.splitlines():
             if re.search(r'\b(lo|wl\w+|docker\d+|virbr\d+|tun\d+|br-\w+|veth\w+)\b', line):
                 continue
-            if re.search(r'\b(eth|en[opsx]|eno|enp|ens)\d', line):
+            if re.search(r'\b(eth|en[opsx]|eno|enp|ens)\d', line, re.IGNORECASE):
                 return True
         return False
 
