@@ -141,7 +141,8 @@ switch ($operationMode) {
         break;
     case OPERATION_MODE_SELF_ADMIN_ADD:
         $idp = $validator->existingIdP($_GET['inst_id']);
-        $allowedIdPs = $_SESSION['ownedExternal'];
+        $allowedIdPs = $_SESSION['resyncedIdPs'];
+        \core\common\Logging::debug_s(4, $allowedIdPs, "Allowed IdPs:\n", "\n");
         if (!in_array($idp->identifier, $allowedIdPs)) {
             throw new Exception("sendinvite: requested IdP token for and IdP identifier which is not within the allowed list for this user");
         }
