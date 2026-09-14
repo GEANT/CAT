@@ -338,7 +338,7 @@ class InstallerData:
         self.silent = silent
         self.pfx_file = pfx_file
         self.install_wired = False
-        self.rehash = True
+        self.rehash = False
         if gui in ('tty', 'tkinter', 'yad', 'zenity', 'kdialog'):
             self.gui = gui
         else:
@@ -377,24 +377,30 @@ class InstallerData:
         """
         Save CA certificate to cat_installer directory
         (create directory if needed)
+        We use separate per certificate files in the ca directory only
+        in the special case handling the NM bug for versions between 1.54.3 and
+        1.58.0. This is controlled by the self.rehash setting which was done
+        during the NM version testing.
         """
-        ca_dir = get_config_path() + '/cat_installer/ca'
-        os.makedirs(ca_dir, 0o700, exist_ok=True)
-        for old in os.listdir(ca_dir):
-            os.remove(os.path.join(ca_dir, old))
-        # one file per certificate under cat_installer/ca/
-        pattern = r'-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----'
-        certs = re.findall(pattern, Config.CA, re.DOTALL)
-        for index, cert_pem in enumerate(certs):
-            with open(os.path.join(ca_dir, f'ca-{index}.pem'), 'w') as f:
-                f.write(cert_pem + "\n")
-        if (index > 0):
-            try:
-                subprocess.run(['openssl', 'rehash', ca_dir], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
-            except (OSError, RuntimeError):
-                pass
-        if not any(entry.is_symlink() for entry in Path(ca_dir).iterdir()):
-            self.rehash = False
+        if self.rehash:
+            ca_dir = get_config_path() + '/cat_installer/ca'
+            os.makedirs(ca_dir, 0o700, exist_ok=True)
+            for old in os.listdir(ca_dir):
+                os.remove(os.path.join(ca_dir, old))
+            # one file per certificate under cat_installer/ca/
+            pattern = r'-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----'
+            certs = re.findall(pattern, Config.CA, re.DOTALL)
+            for index, cert_pem in enumerate(certs):
+                with open(os.path.join(ca_dir, f'ca-{index}.pem'), 'w') as f:
+                    f.write(cert_pem + "\n")
+            if (index > 0):
+                try:
+                    subprocess.run(['openssl', 'rehash', ca_dir], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+                except (OSError, RuntimeError):
+                    pass
+            if not any(entry.is_symlink() for entry in Path(ca_dir).iterdir()):
+                self.rehash = False
+        if not self.rehash:
             certfile = get_config_path() + '/cat_installer/ca.pem'
             debug("saving cert")
             with open(certfile, 'w') as cert:
@@ -1156,8 +1162,9 @@ class CatNMConfigTool:
             return None
         # check NM version
         self.__check_nm_version()
-        debug("NM version: " + self.nm_version)
-        if self.nm_version in ("0.9", "1.0", "1.24"):
+        debug("Actual NM version: " + self.nm_version_real)
+        debug("NM version used: " + self.nm_version)
+        if self.nm_version_float >= 0.9:
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -1206,16 +1213,28 @@ class CatNMConfigTool:
         """
         Get the NetworkManager version
         """
+        self.nm_version_float = 0.0
+        self.nm_version = Messages.unknown_version
+        self.nm_version_real = Messages.unknown_version
         try:
             proxy = self.bus.get_object(
                 self.system_service_name, "/org/freedesktop/NetworkManager")
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
-            version = props.Get("org.freedesktop.NetworkManager", "Version")
-            version_float = float(re.search(r"\d\.\d*", version).group())
+            self.nm_version_real = props.Get("org.freedesktop.NetworkManager", "Version")
+            m = re.search(r"(\d\.\d*).(\d*)", self.nm_version_real)
+            self.nm_version_float = float(m.group(1))
+            subver = int(m.group(2))
         except dbus.exceptions.DBusException:
             version = ""
-            version_float = 0.0
-        if version_float >= 1.24:
+
+        if self.nm_version_float >= 1.58 and subver >= 1:
+            self.nm_version = "1.58.1"
+            return
+        if self.nm_version_float >= 1.54 and subver >= 3:
+            self.nm_version = "1.54.3"
+            self.rehash = True
+            return
+        if self.nm_version_float >= 1.24:
             self.nm_version = "1.24"
             return
         if re.match(r'^1\.', version):
@@ -1227,7 +1246,8 @@ class CatNMConfigTool:
         if re.match(r'^0\.8', version):
             self.nm_version = "0.8"
             return
-        self.nm_version = Messages.unknown_version
+
+
 
 
     def __delete_existing_connection(self, ssid: str) -> None:
@@ -1286,7 +1306,7 @@ class CatNMConfigTool:
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_cn_list = Config.servers_cn
         server_name = Config.server_match
-        if self.nm_version in ("1.24"):
+        if self.nm_version_float >= 1.24:
             match_key = 'domain-match'
             match_value = server_cn_list
         elif self.nm_version in ("0.9", "1.0"):
@@ -1295,6 +1315,7 @@ class CatNMConfigTool:
         else:
             match_key = 'subject-match'
             match_value = server_name
+
         if self.user_data.rehash:
             ca_spec_key = 'ca-path'
             ca_spec_value = self.cacert_location
