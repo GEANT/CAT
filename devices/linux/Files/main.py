@@ -233,6 +233,10 @@ def run_installer() -> None:
         config_tool = CatNMConfigTool()
         if config_tool.connect_to_nm() is None:
             NM_AVAILABLE = False
+        else:
+            # the NM version check decides whether CAs go to a ca-path
+            # directory; save_ca() below needs to know that
+            installer_data.rehash = config_tool.rehash
     if not NM_AVAILABLE and not wpa_conf and not iwd_conf:
         # no dbus so ask if the user will want wpa_supplicant config
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
@@ -1140,6 +1144,7 @@ class CatNMConfigTool:
         self.connection_interface_name = None
         self.system_service_name = "org.freedesktop.NetworkManager"
         self.nm_version = None
+        self.rehash = False
         self.pfx_file = None
         self.settings = None
         self.user_data = None
@@ -1214,6 +1219,7 @@ class CatNMConfigTool:
         Get the NetworkManager version
         """
         self.nm_version_float = 0.0
+        nm_version_tuple = (0, 0, 0)
         self.nm_version = Messages.unknown_version
         self.nm_version_real = Messages.unknown_version
         try:
@@ -1224,13 +1230,14 @@ class CatNMConfigTool:
             m = re.search(r"(\d\.\d*).(\d*)", self.nm_version_real)
             self.nm_version_float = float(m.group(1))
             subver = int(m.group(2))
+            nm_version_tuple = (*(int(x) for x in m.group(1).split('.')), subver)
         except dbus.exceptions.DBusException:
             version = ""
 
-        if self.nm_version_float >= 1.58 and subver >= 1:
+        if nm_version_tuple >= (1, 58, 1):
             self.nm_version = "1.58.1"
             return
-        if self.nm_version_float >= 1.54 and subver >= 3:
+        if nm_version_tuple >= (1, 54, 3):
             self.nm_version = "1.54.3"
             self.rehash = True
             return
