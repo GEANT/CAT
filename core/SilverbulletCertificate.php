@@ -374,6 +374,9 @@ class SilverbulletCertificate extends EntityWithDBProperties
         // and without intermediate, to keep EAP conversation short where possible
         $exportedNoInterm = "";
         openssl_pkcs12_export($cert, $exportedNoInterm, $privateKey, $importPassword, []);
+
+   
+        
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         $pkey_3des = "";
@@ -385,6 +388,41 @@ class SilverbulletCertificate extends EntityWithDBProperties
         openssl_x509_export($cert, $certString);
         $parsedCert = $x509->processCertificate($certString);
         $loggerInstance->debug(5, "CERTINFO: " . /** @scrutinizer ignore-type */ print_r($parsedCert['full_details'], true));
+        $exportedNoIntermLegacy = "";
+        $tempdir = \core\common\Entity::createTemporaryDirectory("silverbullet");
+        $keyFile = file_put_contents($tempdir['dir'].'/key.pem', $pkey_3des);
+        $certFile = file_put_contents($tempdir['dir'].'/cert.pem', $parsedCert['pem']);
+        /* part of code used with the help of Claude BEGIN */
+   // write key.pem, cert.pem, chain.pem into a private temp dir...
+        $cmd = \config\Master::PATHS['openssl'].' pkcs12 -export'
+            . ' -certpbe PBE-SHA1-3DES -keypbe PBE-SHA1-3DES -macalg sha1'
+            . ' -inkey ' . escapeshellarg($tempdir['dir'].'/key.pem')
+            . ' -in ' . escapeshellarg($tempdir['dir'].'/cert.pem')
+            . ' -passout env:P12PASS'
+            . ' -passin env:P12PASS'
+            . ' -out ' . escapeshellarg($tempdir['dir'].'/user.p12');
+        
+   // pass the password via the environment rather than on the command line
+        $proc = proc_open($cmd, [0 => ['pipe', 'r'], 1 => ['pipe','w'], 2 => ['pipe','w']], $pipes, null, ['P12PASS' => $importPassword]);
+        
+        if (!is_resource($proc)) {
+            throw new RuntimeException('Cannot start openssl');
+        }
+
+        fclose($pipes[0]);                         // nothing to send on stdin
+        $stdout = stream_get_contents($pipes[1]);  // reads until the process closes its end
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        $exit = proc_close($proc);                 // blocks until the process has exited
+        if ($exit !== 0) {
+            throw new RuntimeException("openssl failed ($exit): $stderr");
+        }
+        /* part of code used with the help of Claude END */
+
+        $exportedNoIntermLegacy = file_get_contents($tempdir['dir'].'/user.p12');
+        \core\common\Entity::rrmdir($tempdir['dir']);
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB
@@ -404,6 +442,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
             "certdata_nointermediate" => $exportedNoInterm,
+            "certdata_nointermediate_legacy" => $exportedNoIntermLegacy,
             "certdataclear" => $exportedCertClear,
             "cert_PEM" => $parsedCert['pem'],
             "cert_DER" => $parsedCert['der'],
