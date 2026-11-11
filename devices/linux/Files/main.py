@@ -238,8 +238,10 @@ def run_installer() -> None:
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
     installer_data.get_user_cred()
-    installer_data.save_ca()
+    cert_count = installer_data.save_ca()
     if NM_AVAILABLE:
+        if config_tool.potentially_public and cert_count > 1:
+            installer_data.public_profile = True
         config_tool.add_connections(installer_data)
     elif iwd_conf:
         iwd_config = IwdConfiguration()
@@ -338,7 +340,7 @@ class InstallerData:
         self.silent = silent
         self.pfx_file = pfx_file
         self.install_wired = False
-        self.rehash = False
+        self.public_profile = False
         if gui in ('tty', 'tkinter', 'yad', 'zenity', 'kdialog'):
             self.gui = gui
         else:
@@ -373,38 +375,22 @@ class InstallerData:
             os.mkdir(get_config_path() + '/cat_installer/ca', 0o700)
 
 
-    def save_ca(self) -> None:
+    def save_ca(self) -> int:
         """
         Save CA certificate to cat_installer directory
-        (create directory if needed)
-        We use separate per certificate files in the ca directory only
-        in the special case handling the NM bug for versions between 1.54.3 and
-        1.58.0. This is controlled by the self.rehash setting which was done
-        during the NM version testing.
+        Test the number of certificates in the special case handling the NM bug
+        for versions between 1.54.3 and 1.58.0. This is controlled by the self.potentially_public
+        setting which was done during the NM version testing.
         """
-        if self.rehash:
-            ca_dir = get_config_path() + '/cat_installer/ca'
-            os.makedirs(ca_dir, 0o700, exist_ok=True)
-            for old in os.listdir(ca_dir):
-                os.remove(os.path.join(ca_dir, old))
-            # one file per certificate under cat_installer/ca/
-            pattern = r'-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----'
-            certs = re.findall(pattern, Config.CA, re.DOTALL)
-            for index, cert_pem in enumerate(certs):
-                with open(os.path.join(ca_dir, f'ca-{index}.pem'), 'w') as f:
-                    f.write(cert_pem + "\n")
-            if (index > 0):
-                try:
-                    subprocess.run(['openssl', 'rehash', ca_dir], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
-                except (OSError, RuntimeError):
-                    pass
-            if not any(entry.is_symlink() for entry in Path(ca_dir).iterdir()):
-                self.rehash = False
-        if not self.rehash:
-            certfile = get_config_path() + '/cat_installer/ca.pem'
-            debug("saving cert")
-            with open(certfile, 'w') as cert:
-                cert.write(Config.CA + "\n")
+
+        # check the certs count
+        pattern = r'-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----'
+        certs = re.findall(pattern, Config.CA, re.DOTALL)
+        certfile = get_config_path() + '/cat_installer/ca.pem'
+        debug("saving cert")
+        with open(certfile, 'w') as cert:
+            cert.write(Config.CA + "\n")
+        return len(certs)
 
 
     def ask(self, question: str, prompt: str = '', default: Optional[bool] = None) -> int:
@@ -1143,6 +1129,7 @@ class CatNMConfigTool:
         self.pfx_file = None
         self.settings = None
         self.user_data = None
+        self.potentially_public = False
         self.bus = None
 
 
@@ -1164,7 +1151,7 @@ class CatNMConfigTool:
         self.__check_nm_version()
         debug("Actual NM version: " + self.nm_version_real)
         debug("NM version used: " + self.nm_version)
-        if self.nm_version_float >= 0.9:
+        if self.nm_version_tuple >= (0, 9, 0):
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = \
                 "org.freedesktop.NetworkManager.Settings.Connection"
@@ -1197,12 +1184,8 @@ class CatNMConfigTool:
         """
         set certificate files paths and test for existence of the CA cert
         """
-        if self.user_data.rehash:
-            self.cacert_location = get_config_path() + '/cat_installer/ca'
-            has_cert = any(Path(self.cacert_location).glob('*.pem'))
-        else:
-            self.cacert_location = get_config_path() + '/cat_installer/ca.pem'
-            has_cert = os.path.isfile(self.cacert_location)
+        self.cacert_location = get_config_path() + '/cat_installer/ca.pem'
+        has_cert = os.path.isfile(self.cacert_location)
         self.pfx_file = get_config_path() + '/cat_installer/user.p12'
         if not has_cert:
             print(Messages.cert_error)
@@ -1213,7 +1196,7 @@ class CatNMConfigTool:
         """
         Get the NetworkManager version
         """
-        self.nm_version_float = 0.0
+        self.nm_version_tuple = (0, 0, 0)
         self.nm_version = Messages.unknown_version
         self.nm_version_real = Messages.unknown_version
         try:
@@ -1221,33 +1204,34 @@ class CatNMConfigTool:
                 self.system_service_name, "/org/freedesktop/NetworkManager")
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             self.nm_version_real = props.Get("org.freedesktop.NetworkManager", "Version")
-            m = re.search(r"(\d\.\d*).(\d*)", self.nm_version_real)
-            self.nm_version_float = float(m.group(1))
-            subver = int(m.group(2))
+            m = re.match(r"(\d+)\.(\d+)(?:\.(\d+))?", self.nm_version_real)
+            if not m:
+                raise ValueError(f"Unparseable NetworkManager version: {self.nm_version_real!r}")
+            self.nm_version_tuple = tuple(int(x) for x in m.groups(default="0"))
+            
         except dbus.exceptions.DBusException:
-            version = ""
+            self.nm_version_real = ""
 
-        if self.nm_version_float >= 1.58 and subver >= 1:
+
+        if self.nm_version_tuple >= (1, 58, 1):
             self.nm_version = "1.58.1"
             return
-        if self.nm_version_float >= 1.54 and subver >= 3:
+        if self.nm_version_tuple >= (1, 54, 3):
             self.nm_version = "1.54.3"
-            self.rehash = True
+            self.potentially_public = True
             return
-        if self.nm_version_float >= 1.24:
+        if self.nm_version_tuple >= (1, 24, 0):
             self.nm_version = "1.24"
             return
-        if re.match(r'^1\.', version):
+        if re.match(r'^1\.', self.nm_version_real):
             self.nm_version = "1.0"
             return
-        if re.match(r'^0\.9', version):
+        if re.match(r'^0\.9', self.nm_version_real):
             self.nm_version = "0.9"
             return
-        if re.match(r'^0\.8', version):
+        if re.match(r'^0\.8', self.nm_version_real):
             self.nm_version = "0.8"
             return
-
-
 
 
     def __delete_existing_connection(self, ssid: str) -> None:
@@ -1306,7 +1290,7 @@ class CatNMConfigTool:
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_cn_list = Config.servers_cn
         server_name = Config.server_match
-        if self.nm_version_float >= 1.24:
+        if self.nm_version_tuple >= (1, 24, 0):
             match_key = 'domain-match'
             match_value = server_cn_list
         elif self.nm_version in ("0.9", "1.0"):
@@ -1316,12 +1300,8 @@ class CatNMConfigTool:
             match_key = 'subject-match'
             match_value = server_name
 
-        if self.user_data.rehash:
-            ca_spec_key = 'ca-path'
-            ca_spec_value = self.cacert_location
-        else:
-            ca_spec_key = 'ca-cert'
-            ca_spec_value = dbus.ByteArray(f"file://{self.cacert_location}\0".encode())
+        ca_spec_key = 'ca-cert'
+        ca_spec_value = dbus.ByteArray(f"file://{self.cacert_location}\0".encode())
         if Config.anonymous_identity != '':
             outer_identity = Config.anonymous_identity
         else:
@@ -1355,10 +1335,10 @@ class CatNMConfigTool:
             'autoconnect-priority': 100,
             'autoconnect-retries' : 3,
             'uuid': str(uuid.uuid4()),
-            'permissions': ['user:' + os.environ.get('USER')],
             'id': 'wired-eduroam'
         })
-
+        if not self.user_data.public_profile:
+            s_con_eduroam['permissions'] = ['user:' + os.environ.get('USER')]
         s_8021x['optional'] = True
         s_8021x['auth-timeout'] = 10
         con = dbus.Dictionary({
@@ -1377,9 +1357,12 @@ class CatNMConfigTool:
         s_con = dbus.Dictionary({
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
-            'permissions': ['user:' + os.environ.get('USER')],
             'id': ssid
         })
+        if not self.user_data.public_profile:
+            s_con['permissions'] = ['user:' + os.environ.get('USER')]
+        else:
+            debug("Setting the profile tu public!")
         s_wifi = dbus.Dictionary({
             'ssid': dbus.ByteArray(ssid.encode('utf8')),
             'security': '802-11-wireless-security'
