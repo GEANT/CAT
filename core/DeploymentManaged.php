@@ -712,6 +712,15 @@ class DeploymentManaged extends AbstractDeployment
     {
         $hostname = "radius_hostname_$idx";
         $hostip = 'host'.$idx.'_v4';
+        $hostip6 = 'host'.$idx.'_v6';
+        $confighost = $this->$hostip;
+        if (!$this->$hostip6) {
+            $post .= '&noip6=1';
+        }
+        if (!$this->$hostip) {
+            $post .= '&noip4=1';
+            $confighost = "[".$this->$hostip6."]";
+        }
         $p = "server$idx"."_secret";
         $key = $this->$p;
         $p = "server$idx"."_iv";
@@ -722,7 +731,7 @@ class DeploymentManaged extends AbstractDeployment
         if ($encrypted !== false) {
             $post = "enc=".urlencode(base64_encode($encrypted));
         }
-        $ch = curl_init("http://".$this->$hostip.':'.\config\Master::MANAGEDSP['radiusconfigport']);
+        $ch = curl_init("http://".$confighost.':'.\config\Master::MANAGEDSP['radiusconfigport']);
         if ($ch === FALSE) {
             $res = 'FAILURE';
         } else {

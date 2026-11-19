@@ -157,6 +157,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host1_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host1_v4_data_$depId'>".$deploymentObject->host1_v4."</span>");
                             echo copyIcon("host1_v4_icon_$depId");
+                        } else {
+                            echo _("IPv4: not supported").'<br>';
                         }
                         if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
                             echo "<br/>";
@@ -164,6 +166,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host1_v6 !== NULL) {
                             printf(_("IPv6: %s"), "<span id='host1_v6_data_$depId'>".$deploymentObject->host1_v6."</span>");
                             echo copyIcon("host1_v6_icon_$depId");                            
+                        } else {
+                            echo _("IPv6: not supported".'<br>');
                         }
                         echo "<br/>";
                         printf(_("port: %s"), "<span id='port1_data_$depId'>".$deploymentObject->port1."</span>");
@@ -189,6 +193,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host2_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host2_v4_data_$depId'>".$deploymentObject->host2_v4."</span>");
                             echo copyIcon("host2_v4_icon_$depId");
+                        } else {
+                            echo _("IPv4: not supported").'<br>';
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";
@@ -196,6 +202,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host2_v6 !== NULL) {
                             printf(_("IPv6: %s"), "<span id='host2_v6_data_$depId'>".$deploymentObject->host2_v6."</span>");
                             echo copyIcon("host2_v6_icon_$depId");                            
+                        } else {
+                            echo _("IPv6: not supported").'<br>';
                         }
                         echo "<br/>";
                         printf(_("port: %s"), "<span id='port2_data_$depId'>".$deploymentObject->port2."</span>");
@@ -243,6 +251,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host1_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host1_v4_t_data_$depId'>".$deploymentObject->host1_v4."</span>");
                             echo copyIcon("host1_v4_t_icon_$depId");                             
+                        } else {
+                            echo _("IPv4: not supported").'<br>';
                         }
                         if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
                             echo "<br/>";
@@ -250,6 +260,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host1_v6 !== NULL) {
                             printf(_("IPv6: %s"), "<span id='host1_v6_t_data_$depId'>".$deploymentObject->host1_v6."</span>");
                             echo copyIcon("host1_v6_t_icon_$depId");  
+                        } else {
+                            echo _("IPv6: not supported").'<br>';
                         }
                         echo "<br/>";
                         printf(_("port: %s"), "<span id='port1_t_data_$depId'>2083</span>");
@@ -280,6 +292,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host2_v4 !== NULL) {
                             printf(_("IPv4: %s"), "<span id='host2_v4_t_data_$depId'>".$deploymentObject->host2_v4."</span>");
                             echo copyIcon("host2_v4_t_icon_$depId");                            
+                        } else {
+                            echo _("IPv4: not supported").'<br>';
                         }
                         if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
                             echo "<br/>";
@@ -287,6 +301,8 @@ function displayDeploymentPropertyWidget(&$deploymentObject, $errormsg=[], $edit
                         if ($deploymentObject->host2_v6 !== NULL) {
                             printf(_("IPv6: %s"), "<span id='host2_v6_t_data_$depId'>".$deploymentObject->host2_v6."</span>");
                             echo copyIcon("host2_v6_t_icon_$depId");                            
+                        } else {
+                            echo _("IPv6: not supported").'<br>';
                         }
                         echo "<br/>";
                         printf(_("port: %s"), "<span id='port2_t_data_$depId'>2083</span>");
@@ -714,7 +730,20 @@ function displayClassicHotspotPropertyWidget($deploymentObject) {
  * 
  */
 function radius_ready($dsp) {
-    foreach (array($dsp->host1_v4, $dsp->host2_v4) as $host) {
+    $hosts = [];
+    if (!$dsp->host1_v4) {
+        $hosts[] = "[".$dsp->host1_v6."]";
+    } else {
+        $hosts[] = $dsp->host1_v4;
+    }
+    if (!$dsp->host2_v4) {
+        $hosts[] = "[".$dsp->host2_v6."]";
+    } else {
+        $hosts[] = $dsp->host2_v4;
+    }
+    error_log("MGW hosts ".serialize($hosts));
+    foreach ($hosts as $host) {
+        error_log("MGW host ".$host);
         $connection = @fsockopen($host, \config\Master::MANAGEDSP['radiusconfigport']);
         if (is_resource($connection)) {
            fclose($connection);
