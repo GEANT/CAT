@@ -771,14 +771,14 @@ class InstallerData:
                 return True
         debug("using openssl")
         command = ['openssl', 'pkcs12', '-in', pfx_file, '-passin',
-                   'pass:' + self.password, '-nokeys', '-clcerts']
+                   'pass:' + self.password.decode('utf8'), '-nokeys', '-clcerts']
         shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE)
         out, _ = shell_command.communicate()
         if shell_command.returncode != 0:
             debug("first password run failed")
             command1 = ['openssl', 'pkcs12', '-legacy', '-in', pfx_file, '-passin',
-                        'pass:' + self.password, '-nokeys', '-clcerts']
+                        'pass:' + self.password.decode('utf8'), '-nokeys', '-clcerts']
             shell_command1 = subprocess.Popen(command1, stdout=subprocess.PIPE,
                                               stderr=subprocess.PIPE)
             out, _err = shell_command1.communicate()
