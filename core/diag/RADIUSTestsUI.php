@@ -64,6 +64,7 @@ class RADIUSTestsUI extends AbstractTest
     private $testSuite;
     private $areFailed = FALSE;
     private $allCApathFailed = FALSE;
+    private $failedIPs = [];
     private $globalInfo = [];
     private $stateIcons = [];
     private $states;
@@ -451,6 +452,9 @@ class RADIUSTestsUI extends AbstractTest
             } else {
                 $certdesc = '<br>';
             }
+            if (!isset($capath->message) || $capath->message == '') {
+                $this->failedIPs[] = $capath->IP;
+            } 
             $capathtest[] = '<div>'.($capath->message!='' ? $capath->message : _('Test failed')).'</div>'.$more;
             $capathtest[] = '</td>
 </tr>
@@ -472,7 +476,15 @@ class RADIUSTestsUI extends AbstractTest
             $clientstest[] = '<p><strong>'.$this->hostMap[$clients->IP].'</strong></p>';
             $clientstest[] = "<span id='clientresults$hostindex'>";
             $clientstest[] = '<p></p>';
-            if ($this->globalLevelDynamic != \core\common\Entity::L_ERROR) {
+            if (in_array($clients->IP, $this->failedIPs)) {
+                $clientstest[] = '<ul style="list-style-type: none;" class="clientsresult"><li>';
+                $clientstest[] = "<table id='clientsresults$hostindex'  style='width:100%'>
+<tr>
+<td class='icon_td'><img src='";
+                $clientstest[] = $this->stateIcons[\core\common\Entity::L_ERROR]."' id='srcclients".$hostindex."_img'></td>
+<td id='srcclient$hostindex'>";
+                $clientstest[] = _("These tests were skipped because of previous errors.").'</td></tr></table></ul>';
+            } else {
                 if (property_exists($clients, 'ca')) {
                     $clientstest[] = '<ol>';
                     foreach ($clients->ca as $ca) {                     
@@ -542,13 +554,10 @@ class RADIUSTestsUI extends AbstractTest
                         }
                     }
                     
-                } else {
-                    $cliinfo = _('Test failed');
-                    $clientstest[] = "<table><tr><td class='icon_td' id='srcclient".$hostindex."_img'><img src='".
-                                    $this->stateIcons[\core\common\Entity::L_WARN]."'></td>" .
-                                    "<td id='srcclient$hostindex'>$cliinfo</td></tr></table>";
-                }
-            } else {
+                } 
+            }        
+                
+            /*} else {
                 $clientstest[] = '<ul style="list-style-type: none;" class="clientsresult"><li>';
                 $clientstest[] = "<table id='clientsresults$hostindex'  style='width:100%'>
 <tr>
@@ -556,7 +565,7 @@ class RADIUSTestsUI extends AbstractTest
                 $clientstest[] = $this->stateIcons[\core\common\Entity::L_ERROR]."' id='srcclients".$hostindex."_img'></td>
 <td id='srcclient$hostindex'>";
                 $clientstest[] = _("These tests were skipped because of previous errors.").'</td></tr></table></ul>';
-            }
+            }*/
             $clientstest[] = '</ol><p></p>';
         }
         return $clientstest;

@@ -741,9 +741,7 @@ function radius_ready($dsp) {
     } else {
         $hosts[] = $dsp->host2_v4;
     }
-    error_log("MGW hosts ".serialize($hosts));
     foreach ($hosts as $host) {
-        error_log("MGW host ".$host);
         $connection = @fsockopen($host, \config\Master::MANAGEDSP['radiusconfigport']);
         if (is_resource($connection)) {
            fclose($connection);

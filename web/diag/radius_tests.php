@@ -26,7 +26,6 @@ $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
 $jsonDir = dirname(dirname(dirname(__FILE__)))."/var/json_cache";
-
 $additional_message = [
     \core\common\Entity::L_OK => '',
     \core\common\Entity::L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
@@ -100,7 +99,6 @@ $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
     throw new Exception("The requested host index is not numeric!");    
 }
-
 $token = '';
 if (filter_input(INPUT_GET, 'token')) {
     $token = $validator->token(filter_input(INPUT_GET, 'token'));
@@ -116,12 +114,14 @@ if (isset($_REQUEST['ssltest'])) {
 }
 
 $posted_host = $_REQUEST['src'];
-if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
+if (substr($test_type, 0, 3) == 'udp' && is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
     $host = filter_var(\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     $expectedName = "IRRELEVANT-UDP";
+    $timeout = \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
+    $hostindex = $_REQUEST['hostindex'];
     $filteredHost = htmlspecialchars(strip_tags(filter_input(INPUT_GET, 'src') ?? filter_input(INPUT_POST, 'src')));
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
@@ -139,7 +139,6 @@ if (is_null($expectedName)) {
     $expectedName = '';
 }
 $returnarray = [];
-$timeout = \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
 $consortiumName = 'eduroam';
 switch ($test_type) {
     case 'udp_login':

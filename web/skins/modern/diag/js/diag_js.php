@@ -302,7 +302,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         udp_req = null;
 
         var running = <?php echo '"<img style=\'vertical-align:middle\' src='."'../resources/images/icons/loading51.gif' width='24' height='24'/><i>"._('Running connectivity tests for this realm').'...</i>"'; ?>;
-        var testresult = "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
+        var testresult = "<a target='_blank' style='text-decoration: underline; color: green;' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
         if (wherefrom == 'diag') {
             $('#tests_info_area').css('color', 'black');
             $('#tests_info_area').html(running);
