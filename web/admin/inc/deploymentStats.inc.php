@@ -10,6 +10,11 @@
  */
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
+
+function copyIcon($target) {
+    return '<img class="copy_link" id="'.$target.'" src="../resources/images/icons/Tabler/copy.svg" title="'. _("Copy to clipboard").'" >';
+}
+
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 $languageInstance = new \core\common\Language();
@@ -62,7 +67,7 @@ if ($editMode === 'fullaccess' || $editMode === 'readonly') {
     } else {
     ?>
     
-    <h1><?php $tablecaption = _("Deployment Usage Records"); echo $tablecaption; ?></h1>
+    <h1><?php $tablecaption = _("Hotspot Usage Statistics"); echo $tablecaption; ?></h1>
     <p><?php echo _("(AP Identifier is a /-separated tuple of NAS-Identifier/NAS-IP-Address/NAS-IPv6-Address/Called-Station-Id)");
              echo _("Protocol is a protocol used between a client and RADIUS server, for TLS it is a /-separated tuple TLS/TLS-Client-Cert-Serial");
        ?></p>
@@ -78,6 +83,7 @@ if ($editMode === 'fullaccess' || $editMode === 'readonly') {
             <th scope="col"><strong><?php echo _("Protocol");?></strong></th>
         </tr>
         <?php
+        $i = 0;
         foreach ($userAuthData as $oneRecord) {    
             echo "<tr class='".($oneRecord['result'] == "OK" ? "auth-success" : "auth-fail" )."'>"
                     . "<td>".$oneRecord['activity_time']."</td>"
@@ -85,13 +91,21 @@ if ($editMode === 'fullaccess' || $editMode === 'readonly') {
                     . "<td>".$oneRecord['outer_user']."</td>"
                     . "<td>".($oneRecord['result'] == "OK" ? _("Success") : _("Failure"))."</td>"
                     . "<td>".$oneRecord['mac']."</td>"
-                    . "<td>".$oneRecord['cui']."</td>" 
+                    . "<td>".substr($oneRecord['cui'], 0, 18)
+                    . ($oneRecord['cui']=='' ? "" : "... " . copyIcon("cui_icon_".$deployment->identifier."_$i") 
+	            . "<span style='display: none;' id='cui_data_".$deployment->identifier."_$i'>".$oneRecord['cui'].'</span>')."</td>"
                     . "<td>".$oneRecord['ap_id']."</td>"
                     . "<td>".$oneRecord['prot']."</td>"
                     . "</tr>";
+            if ($oneRecord['cui']!='') {
+                $i++;
+            }
         }
         ?>
     </table>
+    <script>
+        $(".copy_link").tooltip();
+    </script>
 <?php
     }
 }

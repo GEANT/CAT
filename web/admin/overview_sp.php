@@ -76,7 +76,7 @@ function sendcsr(obj) {
 $(function() {
     $(".copy_link").tooltip();
     
-    $(".copy_link").on("click", function() {
+    $(document).on("click", ".copy_link", function() {  
         $(".copy_link").tooltip({
             content: "<?php echo _("Copy to clipboard") ?>"
         });
